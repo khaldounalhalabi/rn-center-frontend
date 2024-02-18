@@ -1,10 +1,6 @@
 import React from "react";
-import SearchIcon from "@/components/icons/SearchIcon";
-import LanguageIcon from "@/components/icons/LanguageIcon";
-import NotificationsIcon from "@/components/icons/NotificationsIcon";
-import Image from "next/image";
 import Navbar from "@/components/common/Navbar";
-import Sidebar from "@/components/common/Sidebar";
+import Sidebar from "@/components/common/Sidebar/Sidebar";
 
 const Home = () => {
   return (

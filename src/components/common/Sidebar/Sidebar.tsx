@@ -1,17 +1,25 @@
 import React, { useContext } from "react";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
-import { OpenMenuContext } from "@/components/common/Header";
+import { OpenMenuContext } from "@/hooks/OpenMenu";
 import XMark from "@/components/icons/XMark";
 import "./../../../app/global.css";
+import {OpenSearchContext} from "@/hooks/OpenSearchForm";
 
 const Sidebar = () => {
-  const { openMenu, setOpenMenu } = useContext(OpenMenuContext);
+  const context = useContext(OpenMenuContext);
+  const contextSearch = useContext(OpenSearchContext)
+
+  function handleMenuClick() {
+    if(context){
+      context.open?context.setOpen(false):context.setOpen(true)
+    }
+  }
 
   return (
-    <div
+    <div onClick={()=>contextSearch?.setOpen(false)}
       className={`md:block w-full md:z-0 z-10 bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
-        openMenu ? "absolute slide-menu-bottom" : "hidden"
+          context?.open ? "absolute slide-menu-bottom" : "hidden"
       }`}
     >
       <div className="px-4 py-6">
@@ -34,7 +42,7 @@ const Sidebar = () => {
           </svg>
           <XMark
             className={`h-8 w-8 md:hidden`}
-            onClick={() => setOpenMenu((prevState: boolean) => !prevState)}
+            onClick={handleMenuClick}
           />
         </span>
         <ul className="mt-6 space-y-1">

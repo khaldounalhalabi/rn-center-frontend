@@ -10,7 +10,7 @@ const Layout = ({
     <>
       <Header />
       <main className={`grid grid-cols-4`}>
-        <div className={`col-start-2 col-end-5`}>{children}</div>
+        <div className={`col-start-1 md:col-start-2 col-end-5`}>{children}</div>
       </main>
     </>
   );

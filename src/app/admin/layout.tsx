@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, {useState} from "react";
 import { Header } from "@/components/common/Header";
 
 const Layout = ({
@@ -6,12 +7,14 @@ const Layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  return (
+    return (
     <>
-      <Header />
-      <main className={`grid grid-cols-4`}>
-        <div className={`col-start-1 md:col-start-2 col-end-5`}>{children}</div>
-      </main>
+
+            <Header />
+            <main className={`grid grid-cols-4`} >
+                <div className={`col-start-1 md:col-start-2 col-end-5`}>{children}</div>
+            </main>
+
     </>
   );
 };

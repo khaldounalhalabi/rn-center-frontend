@@ -27,7 +27,7 @@ const Navbar = ({open,setOpen}:{open:any,setOpen:any}) => {
 
 
       <div className={showSearchForm?
-          'w-full h-full   absolute z-30 top-0 left-0  translate-y-0 ease-in-out duration-500'
+          'w-full h-[72px] md:w-[75%] md:right-0 md:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-500'
           :'w-0 h-full  translate-y-[-200px] ease-in-out duration-300'}>
         <SearchForm  show={setShowSerchForm}/>
       </div>

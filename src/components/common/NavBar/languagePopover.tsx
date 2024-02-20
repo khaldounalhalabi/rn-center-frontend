@@ -13,7 +13,7 @@ const LanguagePopover = ()=>{
         <div className=" overflow-y-clip">
              <LanguageIcon className={`h-6 w-6 cursor-pointer`} onClick={handleOpenNot} />
             <div
-                className={open?"absolute end-0 w-[180px] z-10 mt-2  !right-[20%] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 ease-in-out  duration-500 ":'w-0 h-0 opacity-0 ease-in-out duration-500 '}
+                className={open?"absolute end-0 w-[180px] z-10 mt-2 !right-[20%] md:!right-[10%] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 ease-in-out  duration-500 ":'w-0 h-0 opacity-0 ease-in-out duration-500 '}
                 style={{boxShadow:' 0px 5px 5px -3px rgba(145, 158, 171, 0.2)' +
                         ', 0px 8px 10px 1px rgba(145, 158, 171, 0.14)' +
                         ', 0px 3px 14px 2px rgba(145, 158, 171, 0.12)'}}

@@ -2,7 +2,6 @@
 import Sidebar from "@/components/common/Sidebar/Sidebar";
 import Navbar from "@/components/common/NavBar/Navbar";
 import { useState} from "react";
-import {OpenMenuContext} from '@/hooks/OpenMenu'
 
 
 export const Header = () => {

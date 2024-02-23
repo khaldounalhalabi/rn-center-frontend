@@ -1,16 +1,14 @@
 "use client";
 import Sidebar from "@/components/common/Sidebar/Sidebar";
 import Navbar from "@/components/common/NavBar/Navbar";
-import { useState} from "react";
-
+import { useState } from "react";
 
 export const Header = () => {
-
-    const [open, setOpen] = useState<boolean>(false);
+  const [openNavBar, setOpenNavBar] = useState<boolean>(false);
   return (
     <header className={`md:grid md:grid-cols-4 max-h-20`}>
-        <Sidebar open={open} setOpen={setOpen}/>
-        <Navbar open={open} setOpen={setOpen} />
+      <Sidebar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
+      <Navbar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
     </header>
   );
 };

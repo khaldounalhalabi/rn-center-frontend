@@ -1,10 +1,10 @@
 import React from "react";
 import Close from "@/components/icons/Close";
 
-const SearchForm: React.JSXElementConstructor<any> = ({
-  setShowSerchForm,
+const SearchForm = ({
+  setShowSearchForm,
 }: {
-  setShowSerchForm: React.Dispatch<boolean>;
+  setShowSearchForm: React.Dispatch<boolean>;
 }) => {
   return (
     <div className=" w-11/12 h-full flex bg-white justify-between mx-6 items-center">
@@ -12,7 +12,7 @@ const SearchForm: React.JSXElementConstructor<any> = ({
         <Close
           className={`h-6 w-6 cursor-pointer `}
           onClick={() => {
-            setShowSerchForm(false);
+            setShowSearchForm(false);
           }}
         />
         <input

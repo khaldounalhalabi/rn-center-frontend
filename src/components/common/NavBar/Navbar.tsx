@@ -28,7 +28,7 @@ const Navbar = ({
             : "w-full h-0 absolute overflow-clip translate-y-[-200px] ease-in-out duration-300"
         }
       >
-        <SearchForm setShowSerchForm={setShowSerchForm} />
+        <SearchForm setShowSearchForm={setShowSerchForm} />
       </div>
       <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
         <MenuIcon

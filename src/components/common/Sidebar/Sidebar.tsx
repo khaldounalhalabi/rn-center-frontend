@@ -8,8 +8,8 @@ const Sidebar = ({
   openNavBar,
   setOpenNavBar,
 }: {
-  openNavBar: any;
-  setOpenNavBar: any;
+  openNavBar: boolean;
+  setOpenNavBar: React.Dispatch<boolean>;
 }) => {
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
@@ -20,7 +20,7 @@ const Sidebar = ({
       className={`md:block w-full md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
         openNavBar
           ? "absolute  translate-y-0 ease-in-out duration-500"
-          : "absolute h-0 translate-y-[-100vh] ease-in-out duration-700"
+          : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
       }`}
     >
       <div className="px-4 py-6">

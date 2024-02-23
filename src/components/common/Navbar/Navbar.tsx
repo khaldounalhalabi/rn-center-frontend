@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import SearchIcon from "@/components/icons/SearchIcon";
 import MenuIcon from "@/components/icons/MenuIcon";
-import SearchForm from "@/components/common/NavBar/SearchForm";
-import NotificationsPopover from "@/components/common/NavBar/NotificationsPopover";
-import ProfileOptionsPopover from "@/components/common/NavBar/ProfileOptionsPopover";
-import LanguagePopover from "@/components/common/NavBar/languagePopover";
+import SearchForm from "@/components/common/Navbar/SearchForm";
+import NotificationsPopover from "@/components/common/Navbar/NotificationsPopover";
+import ProfileOptionsPopover from "@/components/common/Navbar/ProfileOptionsPopover";
+import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
 
 const Navbar = ({

@@ -1,5 +1,6 @@
 import React from "react";
 import Close from "@/components/icons/Close";
+import XMark from "@/components/icons/XMark";
 
 const SearchForm = ({
   setShowSearchForm,
@@ -9,7 +10,7 @@ const SearchForm = ({
   return (
     <div className=" w-11/12 h-full flex bg-white justify-between mx-6 items-center">
       <div className="flex items-center h-full w-10/12">
-        <Close
+        <XMark
           className={`h-6 w-6 cursor-pointer `}
           onClick={() => {
             setShowSearchForm(false);

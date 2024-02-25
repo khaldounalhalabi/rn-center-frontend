@@ -1,17 +1,20 @@
-import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig } from "axios";
-import {
-  ApiError,
-  ApiErrorType,
-  ApiRequestError,
-  ApiResponseError,
-  ApiResult,
-} from "@/Http/Response";
+import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
+import { ApiResult, CubeApiErrorType, ErrorResponse } from "@/Http/Response";
+import { Simulate } from "react-dom/test-utils";
 
-export class Http<TResponse> {
+export class Http<T> {
   public static baseUrl = "http://localhost/pom-back/public/api";
   public url: string = "/";
+  public static instance: Http<any>;
 
   public constructor() {}
+
+  public static make(): Http<any> {
+    if (!Http.instance) {
+      Http.instance = new Http();
+    }
+    return Http.instance;
+  }
 
   public headers: any;
 
@@ -63,7 +66,7 @@ export class Http<TResponse> {
     url: string,
     headers?: AxiosHeaders,
     params?: object,
-  ): Promise<ApiResult<TResponse>> {
+  ): Promise<ApiResult<T>> {
     return this.performRequest(url, "GET", headers, undefined, params);
   }
 
@@ -72,7 +75,7 @@ export class Http<TResponse> {
     url: string,
     headers?: AxiosHeaders,
     params?: object,
-  ): Promise<ApiResult<TResponse>> {
+  ): Promise<ApiResult<T>> {
     return this.performRequest(url, "POST", headers, data, params);
   }
 
@@ -81,17 +84,16 @@ export class Http<TResponse> {
     url: string,
     headers?: AxiosHeaders,
     params?: object,
-  ): Promise<ApiResult<TResponse>> {
+  ): Promise<ApiResult<T>> {
     return this.performRequest(url, "PUT", headers, data, params);
   }
 
   public delete(
     url: string,
-    data: any,
     headers?: AxiosHeaders,
     params?: object,
-  ): Promise<ApiResult<TResponse>> {
-    return this.performRequest(url, "DELETE", headers, data, params);
+  ): Promise<ApiResult<T>> {
+    return this.performRequest(url, "DELETE", headers, null, params);
   }
 
   private async performRequest(
@@ -100,69 +102,69 @@ export class Http<TResponse> {
     headers?: AxiosHeaders,
     data?: any,
     params?: object,
-  ) {
+  ): Promise<ApiResult<T>> {
     const config = this.setHeaders(headers)
       .setParams(params)
       .setUrl(url)
       .setData(data)
       .getConfig(method);
 
-    try {
-      let response;
-      switch (method) {
-        case "GET":
-          response = await axios.get(this.url, config);
-          break;
-        case "POST":
-          response = await axios.post(this.url, this.data, config);
-          break;
-        case "PUT":
-          response = await axios.post(this.url, this.data, config);
-          break;
-        case "DELETE":
-          response = await axios.post(this.url, this.data, config);
-          break;
-        default:
-          response = await axios.get(this.url, config);
-          break;
-      }
+    let response;
+    switch (method) {
+      case "GET":
+        response = axios.get(this.url, config);
+        break;
+      case "POST":
+        response = axios.post(this.url, this.data, config);
+        break;
+      case "PUT":
+        response = axios.put(this.url, this.data, config);
+        break;
+      case "DELETE":
+        response = axios.delete(this.url, config);
+        break;
+      default:
+        response = axios.get(this.url, config);
+        break;
+    }
 
-      return response.data;
-    } catch (error: any) {
-      return this.handleError(error);
+    try {
+      let data1 = await response;
+      return await data1.data;
+    } catch (error1) {
+      return this.handleError(error1);
     }
   }
 
-  public handleError(error: AxiosError<ApiResponseError>): ApiError {
+  public handleError(error: any) {
     if (error.response) {
       switch (error.response.status) {
         case 404:
           return {
             message: error.response.data.message,
-            errorType: ApiErrorType.NOT_FOUND,
-          } as ApiResponseError;
+            errorType: CubeApiErrorType.NOT_FOUND,
+          } as ErrorResponse;
         case 400:
           return {
             message: error.response.data.message,
-            errorType: ApiErrorType.BadRequestException,
-          } as ApiResponseError;
-        case 403:
-          return {
-            message: error.response.data.message,
-            errorType: ApiErrorType.UNAUTHORIZED,
-          } as ApiResponseError;
+            errorType: CubeApiErrorType.BadRequestException,
+          } as ErrorResponse;
         default:
           return {
             message: error.response.data.message,
-            errorType: ApiErrorType.BadRequestException,
-          } as ApiResponseError;
+            errorType: CubeApiErrorType.BadRequestException,
+          } as ErrorResponse;
       }
     } else if (error.request) {
       return {
-        errorType: ApiErrorType.CONNECTION_ERROR,
-      } as ApiRequestError;
+        errorType: CubeApiErrorType.CONNECTION_ERROR,
+      } as ErrorResponse;
     } else {
-      return { errorType: ApiErrorType.UNKNOWN_ERROR } as ApiRequestError;
+      return { errorType: CubeApiErrorType.UNKNOWN_ERROR } as ErrorResponse;
     }
   }
+}
+
+export function isApiError(response: ApiResult<any>) {
+  return "errorType" in response;
 }

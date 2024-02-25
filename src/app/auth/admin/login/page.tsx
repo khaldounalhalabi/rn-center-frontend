@@ -3,23 +3,35 @@ import React, { useState } from "react";
 import Form from "@/components/common/ui/Form";
 import { InputField } from "@/components/common/ui/Input";
 import { SubmitHandler } from "react-hook-form";
-import { Http } from "@/Http/Http";
 import { navigate } from "@/Actions/navigate";
+import { AuthenticationService } from "@/services/AuthenticationService";
+import { ApiResult } from "@/Http/Response";
+import { AuthUser } from "@/Models/AuthUser";
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmits: SubmitHandler<{ name: string; password: string }> = (
+  const onSubmits: SubmitHandler<{ email: string; password: string }> = (
     data,
   ) => {
-    const response = new Http().post(data, "/admin/login");
+    const response = AuthenticationService.make().login(
+      data.email,
+      data.password,
+    );
     setIsLoading(true);
-    response.then((data) => {
-      localStorage.setItem("token", data.data.token);
-      navigate("/admin").then(() => {
-        setIsLoading(false);
+    response
+      .then((data: ApiResult<AuthUser>) => {
+        if (data?.data?.token) {
+          navigate("/auth/admin/login").then(() => setIsLoading(false));
+        }
+        localStorage.setItem("currentUser", data.data?.token as string);
+        navigate("/admin").then(() => setIsLoading(false));
+      })
+      .catch((error) => {
+        navigate("/auth/admin/login").then(() => {
+          setIsLoading(false);
+        });
       });
-    });
   };
 
   return (

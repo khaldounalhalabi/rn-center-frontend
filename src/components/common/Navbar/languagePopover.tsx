@@ -9,7 +9,7 @@ const LanguagePopover = () => {
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
-  });
+  }, []);
 
   return (
     <div

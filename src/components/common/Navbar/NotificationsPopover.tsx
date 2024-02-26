@@ -11,7 +11,7 @@ const NotificationsPopover = () => {
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopNot);
-  });
+  }, []);
 
   return (
     <div

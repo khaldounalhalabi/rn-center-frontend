@@ -9,7 +9,7 @@ const ProfileOptionsPopover = () => {
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
-  });
+  }, []);
   return (
     <div
       ref={ref}

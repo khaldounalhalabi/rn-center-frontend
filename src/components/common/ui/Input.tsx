@@ -1,32 +1,25 @@
 "use client";
 
-import React, { ComponentPropsWithoutRef, forwardRef, HTMLProps } from "react";
-import FormControl from "@/components/common/ui/FormControl";
-import { useFormContext } from "react-hook-form";
+type prop = {
+  container: string;
+  className: string;
+  id: string;
+  type: string;
+  placeholder: string;
+  register: any;
+  options: any;
+};
 
-const Input = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
-  function Input(props, ref) {
-    return (
-      <input
-        {...props}
-        ref={ref}
-        className={`${props.className} input input-bordered border-background-stroke rounded-md border bg-background-textfield  transition`}
-      />
-    );
-  },
-);
-export default Input;
-
-export const InputField: React.FC<
-  Omit<ComponentPropsWithoutRef<"input">, "onChange" | "value"> & {
-    name: string;
-    label?: string;
-  }
-> = ({ name, label, ...props }) => {
-  const formContext = useFormContext();
+const Input = (props: prop) => {
   return (
-    <FormControl name={name} label={label}>
-      <Input {...formContext.register(name)} {...props} />
-    </FormControl>
+    <input
+      className={props.className}
+      id={props.id}
+      placeholder={props.placeholder}
+      type={props.type}
+      {...props.register(props.id, props.options)}
+    />
   );
 };
+
+export default Input;

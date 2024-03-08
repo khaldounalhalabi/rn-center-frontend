@@ -3,11 +3,15 @@ import React from "react";
 import LogIn from "@/components/common/authCommon/LogIn";
 
 const page = () => {
-  const apiLoginAdmin: string = `${process.env.localApi}admin/login`;
+  const apiLoginAdmin: string = `${process.env.localApi}customer/login`;
   const headersMethod: string = "!sing";
 
   return (
-    <LogIn url={apiLoginAdmin} typeHeaders={headersMethod} pageType={"admin"} />
+    <LogIn
+      url={apiLoginAdmin}
+      typeHeaders={headersMethod}
+      pageType={"customer"}
+    />
   );
 };
 

@@ -41,8 +41,9 @@ const SetNewPassword = ({
   const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
+    const code = window.localStorage.getItem(pageType + "code");
     const dataSend = {
-      reset_password_code: "0000",
+      reset_password_code: code,
       password: dataForm.password,
       password_confirmation: dataForm.password_confirmation,
     };

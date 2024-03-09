@@ -16,10 +16,13 @@ type FormType = {
 
 const VerificationEmailCode = ({
   url,
+  urlResendCode,
   typeHeaders,
+
   pageType,
 }: {
   url: string;
+  urlResendCode: string;
   typeHeaders: string;
   pageType: string;
 }) => {
@@ -30,9 +33,9 @@ const VerificationEmailCode = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
+  const head = HeadersApi(typeHeaders);
 
   const mutation = useMutation((dataForm: FormType) => {
-    const head = HeadersApi(typeHeaders);
     return QueryFetch("POST", url, head, dataForm);
   });
 
@@ -44,6 +47,13 @@ const VerificationEmailCode = ({
   };
   const response: logInType = data;
   console.log(response);
+
+  const handleResendVerCode = () => {
+    const email = {
+      email: window.localStorage.getItem("customer"),
+    };
+    return QueryFetch("POST", urlResendCode, head, email);
+  };
 
   if (isLoading) {
     return (
@@ -91,12 +101,22 @@ const VerificationEmailCode = ({
               {errors.verificationCode?.message}
             </p>
           </InputControl>
-          <button
-            type="submit"
-            className="inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-          >
-            Submit
-          </button>
+          <div className="w-full text-center">
+            <button
+              type="submit"
+              className="w-full md:w-1/2 inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+            >
+              Submit
+            </button>
+          </div>
+          <div className="w-full text-left">
+            <p
+              onClick={handleResendVerCode}
+              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+            >
+              Resend The code ?
+            </p>
+          </div>
         </FormContainer>
       </div>
     </div>

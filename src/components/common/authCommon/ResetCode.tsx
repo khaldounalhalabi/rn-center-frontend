@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
@@ -9,6 +9,7 @@ import QueryFetch from "@/Http/QueryFetch";
 import { logInType } from "@/types/typeResponseLogin";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
+import HandleTimer from "@/hooks/HandleTimer";
 
 type FormType = {
   reset_password_code: string;
@@ -16,10 +17,12 @@ type FormType = {
 
 const ResetCode = ({
   url,
+  urlResendCode,
   typeHeaders,
   pageType,
 }: {
   url: string;
+  urlResendCode: string;
   typeHeaders: string;
   pageType: string;
 }) => {
@@ -30,9 +33,9 @@ const ResetCode = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
+  const head = HeadersApi(typeHeaders);
 
   const mutation = useMutation((dataForm: FormType) => {
-    const head = HeadersApi(typeHeaders);
     return QueryFetch("POST", url, head, dataForm);
   });
 
@@ -43,6 +46,10 @@ const ResetCode = ({
     mutation.mutate(dataForm, {
       onSuccess: (data) => {
         if (data?.code == 200) {
+          window.localStorage.setItem(
+            pageType + "code",
+            dataForm.reset_password_code,
+          );
           history.push(`/auth/${pageType}/setNewPassword`);
         }
       },
@@ -51,6 +58,17 @@ const ResetCode = ({
   const response: logInType = data;
   console.log(response);
 
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
+  HandleTimer(minutes, seconds, setMinutes, setSeconds);
+  const HandleClickResetButton = () => {
+    setMinutes(1);
+    setSeconds(0);
+    const email = {
+      email: window.localStorage.getItem(pageType),
+    };
+    return QueryFetch("POST", urlResendCode, head, email);
+  };
   if (isLoading) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -58,7 +76,6 @@ const ResetCode = ({
       </div>
     );
   }
-
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
@@ -102,12 +119,27 @@ const ResetCode = ({
               {response?.message}
             </p>
           </InputControl>
-          <button
-            type="submit"
-            className="inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-          >
-            Submit
-          </button>
+          <div className="w-1/2 pl-2">
+            <p>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </p>
+          </div>
+          <div className="w-full text-center">
+            <button
+              type="submit"
+              className="w-full md:w-1/2 inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+            >
+              Submit
+            </button>
+          </div>
+          <div className="w-full text-left">
+            <p
+              onClick={HandleClickResetButton}
+              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+            >
+              Resend The code ?
+            </p>
+          </div>
         </FormContainer>
       </div>
     </div>

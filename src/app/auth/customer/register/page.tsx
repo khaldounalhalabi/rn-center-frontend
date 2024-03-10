@@ -5,7 +5,7 @@ import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "react-query";
 import HeadersApi from "@/services/Contracts/Headers";
-import QueryFetch from "@/Http/QueryFetch";
+import queryFetch from "@/Http/QueryFetch";
 import { logInType } from "@/types/typeResponseLogin";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
@@ -48,7 +48,7 @@ const page = () => {
 
   const mutation = useMutation((dataForm: FormType) => {
     const head = HeadersApi(typeHeaders);
-    return QueryFetch("POST", url, head, dataForm);
+    return queryFetch("POST", url, head, dataForm);
   });
   const history = useRouter();
 

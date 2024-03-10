@@ -3,7 +3,7 @@ import React from "react";
 import LogIn from "@/components/common/authCommon/LogIn";
 
 const page = () => {
-  const apiLoginAdmin: string = `${process.env.localApi}admin/login`;
+  const apiLoginAdmin: string = `admin/login`;
   const headersMethod: string = "!sing";
 
   return (

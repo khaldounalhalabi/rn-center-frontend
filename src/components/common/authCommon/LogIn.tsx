@@ -143,7 +143,7 @@ const LogIn = ({
                         Log In
                     </button>
                     <div className="flex justify-center mt-4 opacity-80">
-                        <h4> Forget Password ?</h4>
+                        <h4> Forget Password ? </h4>
                         <Link
                             href={`/auth/${pageType}/resetPassword`}
                             className="text-blue-600"

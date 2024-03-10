@@ -8,7 +8,7 @@ import { logInType } from "@/types/typeResponseLogin";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useMutation } from "react-query";
 import HeadersApi from "@/services/Contracts/Headers";
-import QueryFetch from "@/Http/QueryFetch";
+import queryFetch from "@/Http/QueryFetch";
 
 type FormType = {
   password: string;
@@ -34,7 +34,7 @@ const SetNewPassword = ({
   const { errors } = formState;
   const mutation = useMutation((dataForm: FormType) => {
     const head = HeadersApi(typeHeaders);
-    return QueryFetch("POST", url, head, dataForm);
+    return queryFetch("POST", url, head, dataForm);
   });
 
   const { isLoading, data } = mutation;

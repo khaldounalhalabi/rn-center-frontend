@@ -5,7 +5,7 @@ import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "react-query";
 import HeadersApi from "@/services/Contracts/Headers";
-import QueryFetch from "@/Http/QueryFetch";
+import queryFetch from "@/Http/QueryFetch";
 import { logInType } from "@/types/typeResponseLogin";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
@@ -36,7 +36,7 @@ const ResetCode = ({
   const head = HeadersApi(typeHeaders);
 
   const mutation = useMutation((dataForm: FormType) => {
-    return QueryFetch("POST", url, head, dataForm);
+    return queryFetch("POST", url, head, dataForm);
   });
 
   const { isLoading, data } = mutation;
@@ -67,7 +67,7 @@ const ResetCode = ({
     const email = {
       email: window.localStorage.getItem(pageType),
     };
-    return QueryFetch("POST", urlResendCode, head, email);
+    return queryFetch("POST", urlResendCode, head, email);
   };
   if (isLoading) {
     return (

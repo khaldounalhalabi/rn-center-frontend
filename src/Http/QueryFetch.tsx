@@ -4,31 +4,79 @@ import {
   ApiErrorType,
   ApiRequestError,
   ApiResponseError,
+  ApiResult,
 } from "@/Http/Response";
 
-const QueryFetch = async (
+export const GET = async (
+  url: string,
+  params?: object,
+  headers?: object,
+): Promise<ApiResult<any>> => {
+  return await queryFetch("GET", url, headers, params);
+};
+
+export const POST = async (
+  url: string,
+  data: any,
+  headers?: object,
+): Promise<ApiResult<any>> => {
+  return await queryFetch("POST", url, headers, undefined, data);
+};
+
+export const PUT = async (
+  url: string,
+  data: any,
+  headers?: object,
+): Promise<ApiResult<any>> => {
+  return await queryFetch("PUT", url, headers, undefined, data);
+};
+
+export const DELETE = async (
+  url: string,
+  params?: object,
+  headers?: object,
+): Promise<ApiResult<any>> => {
+  return await queryFetch("DELETE", url, headers, params);
+};
+
+const queryFetch = async (
   method: string,
   url: string,
   headers?: object,
+  params?: object,
   data?: object | undefined,
-) => {
+): Promise<ApiResult<any>> => {
+  const h = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "Accept-Language": "en",
+    Authorization: `Bearer `,
+  };
+
+  const config = {
+    headers: { ...headers, ...h },
+    params: params,
+    baseURL: process.env.localApi,
+    url: url,
+  };
+
   try {
     let response;
     switch (method) {
       case "GET":
-        response = await axios.get(url, headers);
+        response = await axios.get(url, config);
         break;
       case "POST":
-        response = await axios.post(url, data, headers);
+        response = await axios.post(url, data, config);
         break;
       case "PUT":
-        response = await axios.post(url, data, headers);
+        response = await axios.put(url, data, config);
         break;
       case "DELETE":
-        response = await axios.post(url, data, headers);
+        response = await axios.delete(url, config);
         break;
       default:
-        response = await axios.get(url, headers);
+        response = await axios.get(url, config);
         break;
     }
 
@@ -37,8 +85,6 @@ const QueryFetch = async (
     return handleError(error);
   }
 };
-
-export default QueryFetch;
 
 function handleError(error: AxiosError<ApiResponseError>): ApiError {
   if (error.response) {

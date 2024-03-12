@@ -4,12 +4,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "react-query";
-import HeadersApi from "@/services/Contracts/Headers";
-import queryFetch from "@/Http/QueryFetch";
-import { logInType } from "@/types/typeResponseLogin";
+import { POST } from "@/Http/QueryFetch";
+import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
 import HandleTimer from "@/hooks/HandleTimer";
+import { ApiResult } from "@/Http/Response";
+import { User } from "@/Models/User";
 
 type FormType = {
   reset_password_code: string;
@@ -18,12 +19,10 @@ type FormType = {
 const ResetCode = ({
   url,
   urlResendCode,
-  typeHeaders,
   pageType,
 }: {
   url: string;
   urlResendCode: string;
-  typeHeaders: string;
   pageType: string;
 }) => {
   const form = useForm<FormType>({
@@ -33,11 +32,11 @@ const ResetCode = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const head = HeadersApi(typeHeaders);
 
-  const mutation = useMutation((dataForm: FormType) => {
-    return queryFetch("POST", url, head, dataForm);
-  });
+  const mutation = useMutation(
+    async (dataForm: FormType): Promise<ApiResult<User>> =>
+      await POST(url, dataForm),
+  );
 
   const { isLoading, data } = mutation;
   const history = useRouter();
@@ -50,13 +49,13 @@ const ResetCode = ({
             pageType + "code",
             dataForm.reset_password_code,
           );
-          history.push(`/auth/${pageType}/setNewPassword`);
+          history.push(`/auth/${pageType}/set-new-password`);
         }
       },
     });
   };
-  const response: logInType = data;
-  console.log(response);
+
+  const status = data?.status;
 
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
@@ -67,7 +66,7 @@ const ResetCode = ({
     const email = {
       email: window.localStorage.getItem(pageType),
     };
-    return queryFetch("POST", urlResendCode, head, email);
+    return POST(urlResendCode, email);
   };
   if (isLoading) {
     return (
@@ -84,7 +83,7 @@ const ResetCode = ({
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
       }}
     >
-      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2">
+      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2 bg-white rounded-2xl">
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">
             Reset Password Code
@@ -113,10 +112,10 @@ const ResetCode = ({
             placeholder="Enter Reset Code"
           >
             <p
-              className={`w-full pl-3  text-sm   mt-3 ${response?.code == 200 ? "text-green-500" : "text-red-800"}`}
+              className={`w-full pl-3  text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
             >
               {errors.reset_password_code?.message}
-              {response?.message}
+              {handleErrorType(status, data)}
             </p>
           </InputControl>
           <div className="w-1/2 pl-2">

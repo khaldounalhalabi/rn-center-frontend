@@ -3,16 +3,9 @@ import React from "react";
 import LogIn from "@/components/common/authCommon/LogIn";
 
 const page = () => {
-  const apiLoginAdmin: string = `${process.env.localApi}doctor/login`;
-  const headersMethod: string = "!sing";
+  const apiLoginAdmin: string = `doctor/login`;
 
-  return (
-    <LogIn
-      url={apiLoginAdmin}
-      typeHeaders={headersMethod}
-      pageType={"doctor"}
-    />
-  );
+  return <LogIn url={apiLoginAdmin} pageType={"doctor"} />;
 };
 
 export default page;

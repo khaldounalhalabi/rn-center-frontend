@@ -4,11 +4,8 @@ import LogIn from "@/components/common/authCommon/LogIn";
 
 const page = () => {
   const apiLoginAdmin: string = `admin/login`;
-  const headersMethod: string = "!sing";
 
-  return (
-    <LogIn url={apiLoginAdmin} typeHeaders={headersMethod} pageType={"admin"} />
-  );
+  return <LogIn url={apiLoginAdmin} pageType={"admin"} />;
 };
 
 export default page;

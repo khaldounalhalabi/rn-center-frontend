@@ -9,6 +9,9 @@ export enum ApiErrorType {
 
 export type ApiRequestError = {
   errorType: ApiErrorType;
+  status: boolean;
+  code: number;
+  message: string;
 };
 
 export type ApiResult<T> = ApiResponse<T> | ApiError;
@@ -19,11 +22,14 @@ export interface ApiResponse<T> {
   status: boolean;
   code: number;
   paginate?: ApiResponsePagination;
+  message: string;
 }
 
 export interface ApiResponseError {
   errorType: ApiErrorType;
   message: ApiResponseMessage;
+  status: boolean;
+  code: number;
 }
 
 export interface ApiResponseMessage {

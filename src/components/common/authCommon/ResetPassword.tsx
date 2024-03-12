@@ -4,11 +4,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "react-query";
-import HeadersApi from "@/services/Contracts/Headers";
-import queryFetch from "@/Http/QueryFetch";
-import { logInType } from "@/types/typeResponseLogin";
+import { POST } from "@/Http/QueryFetch";
+import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
+import { ApiResult } from "@/Http/Response";
+import { User } from "@/Models/User";
 
 type FormType = {
   email: string;
@@ -16,11 +17,9 @@ type FormType = {
 
 const ResetPassword = ({
   url,
-  typeHeaders,
   typePage,
 }: {
   url: string;
-  typeHeaders: string;
   typePage: string;
 }) => {
   const form = useForm<FormType>({
@@ -31,13 +30,12 @@ const ResetPassword = ({
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
 
-  const mutation = useMutation((dataForm: FormType) => {
-    const head = HeadersApi(typeHeaders);
-    return queryFetch("POST", url, head, dataForm);
-  });
+  const mutation = useMutation(
+    async (dataForm: FormType): Promise<ApiResult<User>> =>
+      await POST(url, dataForm),
+  );
 
   const { isLoading, data } = mutation;
-  const response: logInType = data;
 
   const history = useRouter();
 
@@ -46,11 +44,12 @@ const ResetPassword = ({
       onSuccess: (data) => {
         if (data?.code == 200) {
           window.localStorage.setItem(typePage, dataForm.email);
-          history.push(`/auth/${typePage}/resetPasswordCode`);
+          history.push(`/auth/${typePage}/reset-password-code`);
         }
       },
     });
   };
+  const status = data?.status;
 
   if (isLoading) {
     return (
@@ -67,7 +66,7 @@ const ResetPassword = ({
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
       }}
     >
-      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2">
+      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2 bg-white rounded-2xl">
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
           <h4 className="mt-4 text-gray-500">Enter your Email Address</h4>
@@ -94,10 +93,10 @@ const ResetPassword = ({
             placeholder="Enter Email"
           >
             <p
-              className={`w-full pl-3  text-sm   mt-3 ${response?.code == 200 ? "text-green-500" : "text-red-800"}`}
+              className={`w-full pl-3  text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
             >
               {errors.email?.message}
-              {response?.message}
+              {handleErrorType(status, data)}
             </p>
           </InputControl>
           <button

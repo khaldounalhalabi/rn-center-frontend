@@ -4,11 +4,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useRouter } from "next/navigation";
-import { logInType } from "@/types/typeResponseLogin";
+import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useMutation } from "react-query";
-import HeadersApi from "@/services/Contracts/Headers";
-import queryFetch from "@/Http/QueryFetch";
+import { POST } from "@/Http/QueryFetch";
+import { ApiResult } from "@/Http/Response";
+import { User } from "@/Models/User";
 
 type FormType = {
   password: string;
@@ -17,11 +18,9 @@ type FormType = {
 
 const SetNewPassword = ({
   url,
-  typeHeaders,
   pageType,
 }: {
   url: string;
-  typeHeaders: string;
   pageType: string;
 }) => {
   const form = useForm<FormType>({
@@ -32,10 +31,10 @@ const SetNewPassword = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const mutation = useMutation((dataForm: FormType) => {
-    const head = HeadersApi(typeHeaders);
-    return queryFetch("POST", url, head, dataForm);
-  });
+  const mutation = useMutation(
+    async (dataForm: FormType): Promise<ApiResult<User>> =>
+      await POST(url, dataForm),
+  );
 
   const { isLoading, data } = mutation;
   const history = useRouter();
@@ -47,6 +46,7 @@ const SetNewPassword = ({
       password: dataForm.password,
       password_confirmation: dataForm.password_confirmation,
     };
+
     mutation.mutate(dataSend, {
       onSuccess: (data) => {
         if (data?.code == 200) {
@@ -55,7 +55,8 @@ const SetNewPassword = ({
       },
     });
   };
-  const response: logInType = data;
+
+  const status = data?.status;
 
   if (isLoading) {
     return (
@@ -77,9 +78,9 @@ const SetNewPassword = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
         <p
-          className={`w-full pl-3 h-12 text-sm   mt-3 ${response?.code == 200 ? "text-green-500" : "text-red-800"}`}
+          className={`w-full pl-3 h-12 text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
         >
-          {response?.message}
+          {handleErrorType(status, data)}
         </p>
 
         <FormContainer

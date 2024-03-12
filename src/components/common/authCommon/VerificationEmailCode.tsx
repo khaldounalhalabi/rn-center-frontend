@@ -4,11 +4,12 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "react-query";
-import HeadersApi from "@/services/Contracts/Headers";
-import queryFetch from "@/Http/QueryFetch";
+import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
-import { logInType } from "@/types/typeResponseLogin";
+import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
+import { ApiResult } from "@/Http/Response";
+import { User } from "@/Models/User";
 
 type FormType = {
   verificationCode: string;
@@ -17,13 +18,10 @@ type FormType = {
 const VerificationEmailCode = ({
   url,
   urlResendCode,
-  typeHeaders,
-
   pageType,
 }: {
   url: string;
   urlResendCode: string;
-  typeHeaders: string;
   pageType: string;
 }) => {
   const form = useForm<FormType>({
@@ -33,26 +31,30 @@ const VerificationEmailCode = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const head = HeadersApi(typeHeaders);
 
-  const mutation = useMutation((dataForm: FormType) => {
-    return queryFetch("POST", url, head, dataForm);
-  });
+  const mutation = useMutation(
+    async (dataForm: FormType): Promise<ApiResult<User>> =>
+      await POST(url, dataForm),
+  );
 
   const { isLoading, data } = mutation;
   const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutation.mutate(dataForm);
+    mutation.mutate(dataForm, {
+      onSuccess: (data) => {
+        if (data?.code == 200) {
+          history.push(`/customer`);
+        }
+      },
+    });
   };
-  const response: logInType = data;
-  console.log(response);
-
+  const status = data?.status;
   const handleResendVerCode = () => {
     const email = {
       email: window.localStorage.getItem("customer"),
     };
-    return queryFetch("POST", urlResendCode, head, email);
+    return POST(urlResendCode, email);
   };
 
   if (isLoading) {
@@ -99,6 +101,7 @@ const VerificationEmailCode = ({
           >
             <p className="w-full pl-3   text-red-800  mt-3">
               {errors.verificationCode?.message}
+              {handleErrorType(status, data)}
             </p>
           </InputControl>
           <div className="w-full text-center">

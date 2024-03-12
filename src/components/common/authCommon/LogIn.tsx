@@ -12,20 +12,15 @@ import { POST } from "@/Http/QueryFetch";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
+import { useRouter } from "next/navigation";
+import handleErrorType from "@/hooks/handleErrorType";
 
 type FormType = {
   email: string;
   password: string;
 };
 
-const LogIn = ({
-  url,
-  pageType,
-}: {
-  url: string;
-  typeHeaders: string;
-  pageType: string;
-}) => {
+const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<FormType>({
     defaultValues: {
@@ -41,11 +36,20 @@ const LogIn = ({
       await POST(url, dataForm),
   );
   const { isLoading, data } = mutation;
-  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutation.mutate(dataForm);
-  };
-  const response = data;
+  const history = useRouter();
 
+  const status = data?.status;
+
+  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
+    mutation.mutate(dataForm, {
+      onSuccess: (data: ApiResult<User>) => {
+        if (data.status) {
+          history.push(`/${pageType}`);
+        }
+      },
+    });
+  };
+  console.log(data);
   if (isLoading) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -133,6 +137,10 @@ const LogIn = ({
               {errors.password?.message}
             </p>
           </InputControl>
+
+          <p className="w-full h-8 my-2 p-2 text-red-400">
+            {handleErrorType(status, data)}
+          </p>
 
           <button
             type="submit"

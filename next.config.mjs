@@ -14,6 +14,10 @@ const withPWA = withPWAInit({
         disableDevLogs: true,
     }
 });
-const nextConfig = {};
 
+const nextConfig = {
+    env: {
+        localApi: 'https://planetofmedicine.com/api/',
+    },
+};
 export default withPWA(nextConfig);

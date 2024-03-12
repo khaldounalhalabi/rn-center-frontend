@@ -1,7 +1,13 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 
-const FormContainer: React.FC<any> = ({ children, ...props }) => {
+const FormContainer: React.FC<any> = ({
+  children,
+  ...props
+}: {
+  children: ReactNode;
+  props: React.FormHTMLAttributes<HTMLFormElement>;
+}) => {
   return <form {...props}>{children}</form>;
 };
 

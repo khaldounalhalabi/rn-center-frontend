@@ -1,14 +1,12 @@
 "use client";
 
-type prop = {
+import React from "react";
+
+interface prop extends React.InputHTMLAttributes<HTMLInputElement> {
   container: string;
-  className: string;
-  id: string;
-  type: string;
-  placeholder: string;
   register: any;
   options: any;
-};
+}
 
 const Input = (props: prop) => {
   return (

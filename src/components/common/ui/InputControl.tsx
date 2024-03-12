@@ -1,22 +1,19 @@
 "use client";
-
 import Input from "@/components/common/ui/Input";
-import React from "react";
+import React, { ReactNode } from "react";
 
-type prop = {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   container: string;
-  className: string;
-  id: string;
-  type: string;
-  placeholder: string;
   register: any;
   options: any;
-};
-const InputControl: React.FC<any> = ({ children, ...props }) => {
+  children?: ReactNode | null | undefined;
+}
+
+const InputControl: React.FC<InputProps> = ({ ...props }) => {
   return (
     <div className={props.container}>
       <Input {...props} />
-      {children}
+      {props.children}
     </div>
   );
 };

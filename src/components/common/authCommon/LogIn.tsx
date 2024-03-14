@@ -7,10 +7,14 @@ import InputControl from "@/components/common/ui/InputControl";
 import EyeIcon from "@/components/icons/eye";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import CloseEyeIcon from "@/components/icons/closeEye";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import LoadingSpin from "@/components/icons/loadingSpin";
-import { ApiResult } from "@/Http/Response";
+import {
+  ApiErrorType,
+  ApiResponsePagination,
+  ApiResult,
+} from "@/Http/Response";
 import { User } from "@/Models/User";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
@@ -30,27 +34,17 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-
-  const mutation = useMutation(
-    async (dataForm: FormType): Promise<ApiResult<User>> =>
-      await POST(url, dataForm),
-  );
-  const { isLoading, data } = mutation;
-  const history = useRouter();
-
-  const status = data?.status;
+  const { mutate, isPending, error, data } = useMutation({
+    mutationFn: async (dataForm: FormType) => {
+      await POST(url, dataForm);
+    },
+  });
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutation.mutate(dataForm, {
-      onSuccess: (data: ApiResult<User>) => {
-        if (data.status) {
-          history.push(`/${pageType}`);
-        }
-      },
-    });
+    mutate(dataForm);
   };
-  console.log(data);
-  if (isLoading) {
+
+  if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
         <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
@@ -80,7 +74,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
           noValidate
         >
           <InputControl
-            container="w-full h-20 my-4 "
+            container="w-full h-20 my-6 "
             id="email"
             type="text"
             register={register}
@@ -88,34 +82,24 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
               value: true,
               required: "Email is Required",
             }}
-            className={
-              errors.email?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            label="Email :"
+            error={errors.email?.message}
             placeholder="Enter Email"
-          >
-            <p className="w-full pl-3   text-red-800  mt-3">
-              {errors.email?.message}
-            </p>
-          </InputControl>
+          />
           <InputControl
-            container="w-full h-20 my-4 relative "
+            container="w-full h-20 my-6 relative "
             id="password"
+            label="Password : "
             type={showPassword ? "text" : "password"}
             register={register}
             options={{
               value: true,
               required: "Password is Required",
             }}
-            className={
-              errors.password?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            error={errors.password?.message}
             placeholder="Enter Password"
           >
-            <div className="absolute top-[15%] z-20 right-0 w-10 h-full">
+            <div className="absolute top-[70%] z-20 right-0 w-10 h-full">
               <EyeIcon
                 onClick={() => OpenAndClose(showPassword, setShowPassword)}
                 className={
@@ -133,14 +117,9 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
                 }
               />
             </div>
-            <p className="w-full pl-3  text-red-800  mt-3">
-              {errors.password?.message}
-            </p>
           </InputControl>
 
-          <p className="w-full h-8 my-2 p-2 text-red-400">
-            {handleErrorType(status, data)}
-          </p>
+          <p className="w-full h-8 my-2 p-2 text-red-400"></p>
 
           <button
             type="submit"

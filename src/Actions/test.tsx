@@ -1,0 +1,20 @@
+type FormType = {
+  // name: string;
+  // appointment_cost: string;
+  // max_appointments: string;
+  // hospital_id: string;
+  // status: string;
+  // "user[first_name]": string;
+  // "user[middle_name]": string;
+  // "user[last_name]": string;
+  // "user[email]": string;
+  // "user[password]": string;
+  // "user[password_confirmation]": string;
+  // "user[birth_date]": string;
+  // "user[gender]": string;
+  // "address[name]": string;
+  // "address[city]": string;
+  // "user[image]": any;
+  phone_number: string[];
+  speciality_ids: string[];
+};

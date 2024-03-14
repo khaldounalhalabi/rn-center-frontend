@@ -3,7 +3,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
@@ -85,20 +85,10 @@ const ResetPassword = ({
               value: true,
               required: "Email is Required",
             }}
-            className={
-              errors.email?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            label="Email :"
+            error={errors.email?.message}
             placeholder="Enter Email"
-          >
-            <p
-              className={`w-full pl-3  text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
-            >
-              {errors.email?.message}
-              {handleErrorType(status, data)}
-            </p>
-          </InputControl>
+          ></InputControl>
           <button
             type="submit"
             className="inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"

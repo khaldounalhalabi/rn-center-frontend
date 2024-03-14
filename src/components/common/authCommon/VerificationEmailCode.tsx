@@ -3,7 +3,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
@@ -92,18 +92,10 @@ const VerificationEmailCode = ({
               value: true,
               required: "Verification Code is Required",
             }}
-            className={
-              errors.verificationCode?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            error={errors.verificationCode?.message}
             placeholder="Enter Verification Code"
-          >
-            <p className="w-full pl-3   text-red-800  mt-3">
-              {errors.verificationCode?.message}
-              {handleErrorType(status, data)}
-            </p>
-          </InputControl>
+          />
+
           <div className="w-full text-center">
             <button
               type="submit"

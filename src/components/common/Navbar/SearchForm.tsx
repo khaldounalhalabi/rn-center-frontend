@@ -8,7 +8,7 @@ const SearchForm = ({
   setShowSearchForm: React.Dispatch<boolean>;
 }) => {
   return (
-    <div className=" w-11/12 h-full flex bg-white justify-between mx-6 items-center">
+    <div className=" w-full h-full flex bg-white justify-between px-6 items-center">
       <div className="flex items-center h-full w-10/12">
         <XMark
           className={`h-6 w-6 cursor-pointer `}
@@ -17,7 +17,7 @@ const SearchForm = ({
           }}
         />
         <input
-          className="ml-3 rtl:mr-3 rtl:ml0 w-11/12 h-10/12 pl-4 focus:outline-0"
+          className="ml-3 rtl:mr-3 rtl:ml0 w-11/12 !h-[60%] pl-4 bg-gray-100 rounded-2xl focus:outline-0"
           type="text"
           id="search"
           placeholder="Search..."

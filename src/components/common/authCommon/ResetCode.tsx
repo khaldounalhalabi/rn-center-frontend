@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
@@ -104,20 +104,10 @@ const ResetCode = ({
               value: true,
               required: "Reset Code is Required",
             }}
-            className={
-              errors.reset_password_code?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            label="Code :"
+            error={errors.reset_password_code?.message}
             placeholder="Enter Reset Code"
-          >
-            <p
-              className={`w-full pl-3  text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
-            >
-              {errors.reset_password_code?.message}
-              {handleErrorType(status, data)}
-            </p>
-          </InputControl>
+          ></InputControl>
           <div className="w-1/2 pl-2">
             <p>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}

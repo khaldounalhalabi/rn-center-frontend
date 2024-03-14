@@ -3,13 +3,12 @@ import React from "react";
 import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import LoadingSpin from "@/components/icons/loadingSpin";
 import { useRouter } from "next/navigation";
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
-import handleErrorType from "@/hooks/handleErrorType";
 
 type FormType = {
   first_name: string;
@@ -52,7 +51,7 @@ const page = () => {
 
   const mutation = useMutation(
     async (dataForm: FormType): Promise<ApiResult<User>> =>
-      await POST(url, dataForm)
+      await POST(url, dataForm),
   );
   const history = useRouter();
 
@@ -110,11 +109,7 @@ const page = () => {
                 value: true,
                 required: "First Name is Required",
               }}
-              className={
-                errors.first_name?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.first_name?.message}
               placeholder="Enter Your First Name"
             />
             <InputControl
@@ -126,11 +121,7 @@ const page = () => {
                 value: true,
                 required: "Middle Name is Required",
               }}
-              className={
-                errors.middle_name?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.middle_name?.message}
               placeholder="Enter Your Middle Name"
             />
 
@@ -143,11 +134,7 @@ const page = () => {
                 value: true,
                 required: "Last Name is Required",
               }}
-              className={
-                errors.last_name?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.last_name?.message}
               placeholder="Enter Your Last Name"
             />
             <label className="col-span-6 label">Email :</label>
@@ -160,11 +147,7 @@ const page = () => {
                 value: true,
                 required: "Email is Required",
               }}
-              className={
-                errors.email?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.email?.message}
               placeholder="Enter Your Email"
             />
             <label className="col-span-6 label label-text">Password :</label>
@@ -178,11 +161,7 @@ const page = () => {
                 value: true,
                 required: "Password is Required",
               }}
-              className={
-                errors.password?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.password?.message}
               placeholder="Enter Password"
             />
             <InputControl
@@ -194,11 +173,7 @@ const page = () => {
                 value: true,
                 required: "Password Confirmation is Required",
               }}
-              className={
-                errors.password_confirmation?.message
-                  ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                  : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-              }
+              error={errors.password_confirmation?.message}
               placeholder="Confirm Password"
             />
             <label className="col-span-6 label">Phone Number :</label>

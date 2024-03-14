@@ -6,7 +6,7 @@ import InputControl from "@/components/common/ui/InputControl";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/loadingSpin";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
@@ -97,17 +97,10 @@ const SetNewPassword = ({
               value: true,
               required: "Password is Required",
             }}
-            className={
-              errors.password?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            label="Password :"
+            error={errors.password?.message}
             placeholder="Enter New Password"
-          >
-            <p className="w-full pl-3  text-red-800  mt-3">
-              {errors.password?.message}
-            </p>
-          </InputControl>
+          />
           <InputControl
             container="w-full h-20 my-4 "
             id="password_confirmation"
@@ -117,17 +110,10 @@ const SetNewPassword = ({
               value: true,
               required: "Reset Password is Required",
             }}
-            className={
-              errors.password_confirmation?.message
-                ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"
-                : "w-full  rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:outline-blue-500"
-            }
+            label="Confirmation Password :"
+            error={errors.password_confirmation?.message}
             placeholder="Reset New Password"
-          >
-            <p className="w-full pl-3   text-red-800  mt-3">
-              {errors.password_confirmation?.message}
-            </p>
-          </InputControl>
+          />
 
           <button
             type="submit"

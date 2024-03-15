@@ -10,12 +10,6 @@ import CloseEyeIcon from "@/components/icons/closeEye";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import LoadingSpin from "@/components/icons/loadingSpin";
-import {
-  ApiErrorType,
-  ApiResponsePagination,
-  ApiResult,
-} from "@/Http/Response";
-import { User } from "@/Models/User";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 
@@ -32,18 +26,24 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
       password: "",
     },
   });
+  const history = useRouter();
+
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const { mutate, isPending, error, data } = useMutation({
+  const { mutate, isPending, data, error } = useMutation({
+    mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      await POST(url, dataForm);
+      return await POST(url, dataForm).then((e) => {
+        e.code == 200 ? history.push(`/${pageType}`) : false;
+        return e;
+      });
     },
   });
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm);
   };
-
+  console.log(data);
   if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -73,6 +73,9 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
           className="w-full flex flex-col "
           noValidate
         >
+          <p className="text-red-400 text-sm p-3">
+            {handleErrorType(pageType, data)}
+          </p>
           <InputControl
             container="w-full h-20 my-6 "
             id="email"

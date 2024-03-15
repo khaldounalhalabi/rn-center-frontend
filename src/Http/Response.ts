@@ -5,6 +5,8 @@ export enum ApiErrorType {
   BadRequestException = "BadRequestException",
   UNKNOWN_ERROR = "unknown-error",
   NOT_FOUND = "not-found",
+  ValidationEmail = "error-Emil",
+  ValidationPassword = "error-Password",
 }
 
 export type ApiRequestError = {

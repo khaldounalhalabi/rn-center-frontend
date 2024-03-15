@@ -49,27 +49,26 @@ const page = () => {
     control,
   });
 
-  const mutation = useMutation(
-    async (dataForm: FormType): Promise<ApiResult<User>> =>
-      await POST(url, dataForm),
-  );
+  const { mutate, isPending, data, error } = useMutation({
+    mutationKey: ["customer"],
+    mutationFn: async (dataForm: FormType) => {
+      return await POST(url, dataForm).then((e) => {
+        e.code == 200 ? history.push(`/customer`) : false;
+        return e;
+      });
+    },
+  });
   const history = useRouter();
 
-  const { isLoading, data } = mutation;
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutation.mutate(dataForm, {
-      onSuccess: (data) => {
-        if (data?.code == 200) {
-          window.localStorage.setItem("customer", dataForm.email);
-          history.push(`/auth/customer/verificationEmailCode`);
-        }
+    mutate(dataForm, {
+      onSuccess: () => {
+        window.localStorage.setItem("customer", dataForm.email);
       },
     });
   };
 
-  const status = data?.status;
-
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
         <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />

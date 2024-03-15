@@ -32,24 +32,20 @@ const VerificationEmailCode = ({
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
 
-  const mutation = useMutation(
-    async (dataForm: FormType): Promise<ApiResult<User>> =>
-      await POST(url, dataForm),
-  );
-
-  const { isLoading, data } = mutation;
+  const { mutate, isPending, data, error } = useMutation({
+    mutationKey: [pageType],
+    mutationFn: async (dataForm: FormType) => {
+      return await POST(url, dataForm).then((e) => {
+        e.code == 200 ? history.push(`/customer`) : false;
+        return e;
+      });
+    },
+  });
   const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutation.mutate(dataForm, {
-      onSuccess: (data) => {
-        if (data?.code == 200) {
-          history.push(`/customer`);
-        }
-      },
-    });
+    mutate(dataForm);
   };
-  const status = data?.status;
   const handleResendVerCode = () => {
     const email = {
       email: window.localStorage.getItem("customer"),
@@ -57,7 +53,7 @@ const VerificationEmailCode = ({
     return POST(urlResendCode, email);
   };
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
         <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
@@ -78,6 +74,9 @@ const VerificationEmailCode = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Verification Email</h1>
           <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
         </div>
+        <p className="text-red-400 text-sm p-3">
+          {handleErrorType(pageType, data)}
+        </p>
         <FormContainer
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col "

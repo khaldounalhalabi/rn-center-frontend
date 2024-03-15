@@ -90,31 +90,49 @@ function handleError(error: AxiosError<ApiResponseError>): ApiError {
   if (error.response) {
     switch (error.response.status) {
       case 404:
+        // go to page 404
         return {
           message: error.response.data.message,
           errorType: ApiErrorType.NOT_FOUND,
         } as ApiResponseError;
       case 400:
         return {
+          // go to page 400
           message: error.response.data.message,
           errorType: ApiErrorType.BadRequestException,
         } as ApiResponseError;
       case 403:
         return {
+          // got to log in page
           message: error.response.data.message,
           errorType: ApiErrorType.UNAUTHORIZED,
         } as ApiResponseError;
+      case 405:
+        return {
+          // error Email
+          message: error.response.data.message,
+          errorType: ApiErrorType.ValidationEmail,
+        } as ApiResponseError;
+      case 401:
+        return {
+          // error Password
+          message: error.response.data.message,
+          errorType: ApiErrorType.ValidationPassword,
+        } as ApiResponseError;
       default:
         return {
+          // go to page 400
           message: error.response.data.message,
           errorType: ApiErrorType.BadRequestException,
         } as ApiResponseError;
     }
   } else if (error.request) {
     return {
+      // message no network
       errorType: ApiErrorType.CONNECTION_ERROR,
     } as ApiRequestError;
   } else {
+    // got to page 500
     return { errorType: ApiErrorType.UNKNOWN_ERROR } as ApiRequestError;
   }
 }

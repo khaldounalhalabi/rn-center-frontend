@@ -31,12 +31,17 @@ const SetNewPassword = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const mutation = useMutation(
-    async (dataForm: FormType): Promise<ApiResult<User>> =>
-      await POST(url, dataForm),
-  );
 
-  const { isLoading, data } = mutation;
+  const { mutate, isPending, data, error } = useMutation({
+    mutationKey: [pageType],
+    mutationFn: async (dataForm: FormType) => {
+      return await POST(url, dataForm).then((e) => {
+        e.code == 200 ? history.push(`/auth/${pageType}/login`) : false;
+        return e;
+      });
+    },
+  });
+
   const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
@@ -47,18 +52,12 @@ const SetNewPassword = ({
       password_confirmation: dataForm.password_confirmation,
     };
 
-    mutation.mutate(dataSend, {
-      onSuccess: (data) => {
-        if (data?.code == 200) {
-          history.push(`/auth/${pageType}/login`);
-        }
-      },
-    });
+    mutate(dataSend);
   };
 
   const status = data?.status;
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
         <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
@@ -77,10 +76,8 @@ const SetNewPassword = ({
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
-        <p
-          className={`w-full pl-3 h-12 text-sm   mt-3 ${status ? "text-green-500" : "text-red-800"}`}
-        >
-          {handleErrorType(status, data)}
+        <p className="text-red-400 text-sm p-3">
+          {handleErrorType(pageType, data)}
         </p>
 
         <FormContainer

@@ -17,7 +17,7 @@ const Sidebar = ({
 
   return (
     <div
-      className={`md:block w-full md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
+      className={`md:block w-full  md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
         openNavBar
           ? "absolute  translate-y-0 ease-in-out duration-500"
           : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"

@@ -1,15 +1,46 @@
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
-
+import { ApiErrorType } from "@/Http/Response";
+import { useRouter } from "next/navigation";
 const handleErrorType = (
-  status: boolean | undefined,
+  typePage: string,
   data: ApiResult<User> | undefined,
 ) => {
-  if (!status) {
-    if (typeof data?.message == "string") {
-      return data.message;
+  const history = useRouter();
+
+  // @ts-ignore
+  if (data?.errorType == ApiErrorType.CONNECTION_ERROR) {
+    return data?.message;
+  } else {
+    // @ts-ignore
+    if (data?.errorType == ApiErrorType.UNAUTHORIZED) {
+      return history.push(`/auth/${typePage}/login`);
     } else {
-      return data?.message.text;
+      // @ts-ignore
+      if (data?.errorType == ApiErrorType.BadRequestException) {
+        return history.push("/400");
+      } else {
+        // @ts-ignore
+        if (data?.errorType == ApiErrorType.UNKNOWN_ERROR) {
+          return data?.message;
+        } else {
+          // @ts-ignore
+          if (data?.errorType == ApiErrorType.NOT_FOUND) {
+            return history.push("/404");
+          } else {
+            // @ts-ignore
+            if (data?.errorType == ApiErrorType.ValidationEmail) {
+              // @ts-ignore
+              return data?.message.text;
+            } else {
+              // @ts-ignore
+              if (data?.errorType == ApiErrorType.ValidationPassword) {
+                return data?.message;
+              }
+            }
+          }
+        }
+      }
     }
   }
 };

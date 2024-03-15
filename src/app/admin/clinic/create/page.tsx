@@ -66,19 +66,20 @@ const creatClinic = () => {
   });
   const { formState, control, register, handleSubmit } = form;
   const { errors } = formState;
-
-  const mutation = useMutation(
-    (dataForm: FormType): Promise<ApiResult<User>> => POST(url, dataForm),
-  );
+  const { mutate, isPending, data, error } = useMutation({
+    mutationKey: ["create-clinic"],
+    mutationFn: async (dataForm: FormType) => {
+      return await POST(url, dataForm);
+    },
+  });
   const history = useRouter();
 
-  const { isLoading, data } = mutation;
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     console.log(dataForm);
-    // mutation.mutate(dataForm);
+    // mutate(dataForm);
   };
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
         <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
@@ -86,7 +87,7 @@ const creatClinic = () => {
     );
   }
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full ">
       <h2 className="text-black text-2xl mx-8 my-6">Add Doctor</h2>
       <div className=" w-full h-full flex justify-center mb-8">
         <FormContainer

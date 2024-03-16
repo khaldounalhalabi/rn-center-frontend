@@ -1,4 +1,4 @@
-const CloseEyeIcon = ({ ...props }) => {
+const ClosedEye = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +17,4 @@ const CloseEyeIcon = ({ ...props }) => {
   );
 };
 
-export default CloseEyeIcon;
+export default ClosedEye;

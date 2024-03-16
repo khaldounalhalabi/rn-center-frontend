@@ -1,4 +1,4 @@
-import SetNewPassword from "@/components/common/authCommon/SetNewPassword";
+import SetNewPassword from "@/components/common/Auth/SetNewPassword";
 
 const page = () => {
   const apiSetNewPasswordAdmin: string = `admin/reset-password`;

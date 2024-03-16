@@ -8,8 +8,9 @@ import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
 import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import InputControl from "@/components/common/ui/InputControl";
+import {getCookieClient} from "@/Actions/clientCookies";
 
 type FormType = {
   name: string;
@@ -78,6 +79,7 @@ const creatClinic = () => {
     console.log(dataForm);
     // mutate(dataForm);
   };
+
 
   if (isPending) {
     return (

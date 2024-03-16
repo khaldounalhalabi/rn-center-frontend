@@ -1,5 +1,5 @@
 "use client";
-import ResetCode from "@/components/common/authCommon/ResetCode";
+import ResetCode from "@/components/common/Auth/ResetCode";
 
 const page = () => {
   const apiResetPasswordAdmin: string = `admin/check-reset-password-code`;

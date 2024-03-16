@@ -47,4 +47,7 @@ export interface ApiResponsePagination {
   to: number;
   total: number;
   per_page: number;
+  total_pages: number;
+  isFirst: boolean;
+  isLast: boolean;
 }

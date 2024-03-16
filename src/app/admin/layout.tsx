@@ -1,5 +1,6 @@
 import React from "react";
 import { Header } from "@/components/common/Header";
+import Providers from "@/app/providers";
 
 const Layout = ({
   children,
@@ -9,10 +10,14 @@ const Layout = ({
   return (
     <>
       <Header />
-      <main className={`grid grid-cols-4 `}>
-        <div className={`col-start-1  col-span-4 md:col-start-2 md:col-span-4`}>
-          {children}
-        </div>
+      <main className={`grid grid-cols-4`}>
+        <Providers>
+          <div
+            className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}
+          >
+            {children}
+          </div>
+        </Providers>
       </main>
     </>
   );

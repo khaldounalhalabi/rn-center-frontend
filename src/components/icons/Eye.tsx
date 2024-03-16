@@ -1,7 +1,7 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const EyeIcon: React.FC<IconAttributes> = ({ ...props }) => {
+const Eye: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,4 +25,4 @@ const EyeIcon: React.FC<IconAttributes> = ({ ...props }) => {
   );
 };
 
-export default EyeIcon;
+export default Eye;

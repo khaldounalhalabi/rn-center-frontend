@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ResetPassword from "@/components/common/authCommon/ResetPassword";
+import ResetPassword from "@/components/common/Auth/ResetPassword";
 
 const page = () => {
   const apiResetPasswordAdmin: string = `admin/password-reset-request`;

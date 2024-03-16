@@ -8,10 +8,10 @@ import Eye from "@/components/icons/Eye";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import ClosedEye from "@/components/icons/ClosedEye";
 import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
+import { AuthService } from "@/services/AuthService";
 
 type FormType = {
   email: string;
@@ -33,17 +33,13 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
   const { mutate, isPending, data, error } = useMutation({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200 ? history.push(`/${pageType}`) : false;
-        return e;
-      });
+      return await (new AuthService()).login(url , dataForm , pageType);
     },
   });
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm);
   };
-  console.log(data);
   if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -55,10 +51,6 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
-      style={{
-        background:
-          "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
-      }}
     >
       <div
         className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2

@@ -6,6 +6,7 @@ import {
   ApiResponseError,
   ApiResult,
 } from "@/Http/Response";
+import { getCookie } from "@/Actions/cookies";
 
 export const GET = async (
   url: string,
@@ -50,7 +51,7 @@ const queryFetch = async (
     "Content-Type": "application/json",
     Accept: "application/json",
     "Accept-Language": "en",
-    Authorization: `Bearer `,
+    Authorization: `Bearer ${await getCookie('token')}`,
   };
 
   const config = {

@@ -1,4 +1,6 @@
-const LoadingSpin = ({ ...props }) => {
+import { IconAttributes } from "@/types/IconAttributes";
+
+const LoadingSpin: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

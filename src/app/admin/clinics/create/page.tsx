@@ -8,7 +8,7 @@ import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
 import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import InputControl from "@/components/common/ui/InputControl";
 
 type FormType = {

@@ -5,7 +5,7 @@ import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import { ApiResult } from "@/Http/Response";

@@ -3,14 +3,14 @@ import React, { ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse, ApiResult } from "@/Http/Response";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import ChevronRight from "@/components/icons/ChevronRight";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
 import ChevronDown from "@/components/icons/ChevronDown";
 import ChevronUp from "@/components/icons/ChevronUp";
 
-export interface DataTableSchema {
+export interface DataTableSchema<T> {
   name?: string;
   label: string;
   sortable?: boolean;
@@ -18,12 +18,12 @@ export interface DataTableSchema {
   cellProps?: ThHTMLAttributes<HTMLTableHeaderCellElement> | undefined | null;
   render?: (
     data: any,
-    fullObject?: any,
+    fullObject?: T,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
 export interface DataTableData<T> {
-  schema: DataTableSchema[];
+  schema: DataTableSchema<T>[];
   api: (
     page?: number,
     search?: string,
@@ -64,7 +64,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
                 </div>
         ) : null}
-        <div className={`card`}>
+        <div className={`card bg-base-100`}>
           <div className={`card-body`}>
             <div
                 className={`card-actions w-full flex justify-between items-center`}

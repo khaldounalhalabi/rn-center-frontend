@@ -1,3 +1,6 @@
+import { Phone } from "@/Models/Phone";
+import { Address } from "@/Models/Address";
+
 export interface User {
   id: number;
   first_name: string;
@@ -13,4 +16,6 @@ export interface User {
   fcm_token: null | string;
   is_archived: boolean;
   image: null | string;
+  phones: Phone[];
+  address: Address;
 }

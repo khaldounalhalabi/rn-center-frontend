@@ -1,74 +1,55 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "next/navigation";
-import HandleTimer from "@/hooks/HandleTimer";
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
 
 type FormType = {
-  reset_password_code: string;
+  email: string;
 };
 
-const ResetCode = ({
+const ResetPassword = ({
   url,
-  urlResendCode,
-  pageType,
+  typePage,
 }: {
   url: string;
-  urlResendCode: string;
-  pageType: string;
+  typePage: string;
 }) => {
   const form = useForm<FormType>({
     defaultValues: {
-      reset_password_code: "",
+      email: "",
     },
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
+  const history = useRouter();
 
   const { mutate, isPending, data, error } = useMutation({
-    mutationKey: [pageType],
+    mutationKey: [typePage],
     mutationFn: async (dataForm: FormType) => {
       return await POST(url, dataForm).then((e) => {
         e.code == 200
-          ? history.push(`/auth/${pageType}/set-new-password`)
+          ? history.push(`/auth/${typePage}/reset-password-code`)
           : false;
         return e;
       });
     },
   });
-
-  const history = useRouter();
-  console.log(data);
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm, {
       onSuccess: () => {
-        window.localStorage.setItem(
-          pageType + "code",
-          dataForm.reset_password_code,
-        );
+        window.localStorage.setItem(typePage, dataForm.email);
       },
     });
   };
-
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(0);
-  HandleTimer(minutes, seconds, setMinutes, setSeconds);
-  const HandleClickResetButton = () => {
-    setMinutes(1);
-    setSeconds(0);
-    const email = {
-      email: window.localStorage.getItem(pageType),
-    };
-    return POST(urlResendCode, email);
-  };
+  console.log(data);
   if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -78,7 +59,7 @@ const ResetCode = ({
   }
   return (
     <div
-      className="w-[100wh] h-[100vh] relative "
+      className="w-[100wh] h-[100vh] relative"
       style={{
         background:
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
@@ -86,13 +67,11 @@ const ResetCode = ({
     >
       <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2 bg-white rounded-2xl">
         <div className="w-full mb-4 flex flex-col items-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">
-            Reset Password Code
-          </h1>
-          <h4 className="mt-4 text-gray-500">Enter Reset Password Code</h4>
+          <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
+          <h4 className="mt-4 text-gray-500">Enter your Email Address</h4>
         </div>
         <p className="text-red-400 text-sm p-3">
-          {handleErrorType(pageType, data)}
+          {handleErrorType(typePage, data)}
         </p>
         <FormContainer
           onSubmit={handleSubmit(onSubmit)}
@@ -101,42 +80,27 @@ const ResetCode = ({
         >
           <InputControl
             container="w-full h-20 my-4 "
-            id="reset_password_code"
+            id="email"
             type="text"
             register={register}
             options={{
               value: true,
-              required: "Reset Code is Required",
+              required: "Email is Required",
             }}
-            label="Code :"
-            error={errors.reset_password_code?.message}
-            placeholder="Enter Reset Code"
+            label="Email :"
+            error={errors.email?.message}
+            placeholder="Enter Email"
           ></InputControl>
-          <div className="w-1/2 pl-2">
-            <p>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </p>
-          </div>
-          <div className="w-full text-center">
-            <button
-              type="submit"
-              className="w-full md:w-1/2 inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-            >
-              Submit
-            </button>
-          </div>
-          <div className="w-full text-left">
-            <p
-              onClick={HandleClickResetButton}
-              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
-            >
-              Resend The code ?
-            </p>
-          </div>
+          <button
+            type="submit"
+            className="inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+          >
+            Submit
+          </button>
         </FormContainer>
       </div>
     </div>
   );
 };
 
-export default ResetCode;
+export default ResetPassword;

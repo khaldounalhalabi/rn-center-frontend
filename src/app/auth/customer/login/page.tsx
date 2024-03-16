@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import LogIn from "@/components/common/authCommon/LogIn";
+import LogIn from "@/components/common/Auth/LogIn";
 
 const page = () => {
   const apiLoginAdmin: string = `customer/login`;

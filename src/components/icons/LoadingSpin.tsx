@@ -1,4 +1,5 @@
 import { IconAttributes } from "@/types/IconAttributes";
+import React from "react";
 
 const LoadingSpin: React.FC<IconAttributes> = ({ ...props }) => {
   return (

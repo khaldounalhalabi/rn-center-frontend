@@ -1,4 +1,4 @@
-import VerificationEmailCode from "@/components/common/authCommon/VerificationEmailCode";
+import VerificationEmailCode from "@/components/common/Auth/VerificationEmailCode";
 
 const page = () => {
   const apiVerificationEmailCode: string = `customer/request-verification-code`;

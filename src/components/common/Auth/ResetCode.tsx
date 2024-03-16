@@ -1,21 +1,22 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
-import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import { useRouter } from "next/navigation";
+import HandleTimer from "@/hooks/HandleTimer";
 import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
 
 type FormType = {
-  verificationCode: string;
+  reset_password_code: string;
 };
 
-const VerificationEmailCode = ({
+const ResetCode = ({
   url,
   urlResendCode,
   pageType,
@@ -26,7 +27,7 @@ const VerificationEmailCode = ({
 }) => {
   const form = useForm<FormType>({
     defaultValues: {
-      verificationCode: "",
+      reset_password_code: "",
     },
   });
   const { formState, register, handleSubmit } = form;
@@ -36,23 +37,38 @@ const VerificationEmailCode = ({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
       return await POST(url, dataForm).then((e) => {
-        e.code == 200 ? history.push(`/customer`) : false;
+        e.code == 200
+          ? history.push(`/auth/${pageType}/set-new-password`)
+          : false;
         return e;
       });
     },
   });
-  const history = useRouter();
 
+  const history = useRouter();
+  console.log(data);
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutate(dataForm);
+    mutate(dataForm, {
+      onSuccess: () => {
+        window.localStorage.setItem(
+          pageType + "code",
+          dataForm.reset_password_code,
+        );
+      },
+    });
   };
-  const handleResendVerCode = () => {
+
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
+  HandleTimer(minutes, seconds, setMinutes, setSeconds);
+  const HandleClickResetButton = () => {
+    setMinutes(1);
+    setSeconds(0);
     const email = {
-      email: window.localStorage.getItem("customer"),
+      email: window.localStorage.getItem(pageType),
     };
     return POST(urlResendCode, email);
   };
-
   if (isPending) {
     return (
       <div className="w-[100wh] h-[100vh] flex justify-center items-center">
@@ -60,7 +76,6 @@ const VerificationEmailCode = ({
       </div>
     );
   }
-
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
@@ -69,10 +84,12 @@ const VerificationEmailCode = ({
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
       }}
     >
-      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute bg-white rounded-2xl -translate-x-1/2 top-[20%] left-1/2">
+      <div className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2 bg-white rounded-2xl">
         <div className="w-full mb-4 flex flex-col items-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">Verification Email</h1>
-          <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
+          <h1 className="text-2xl font-bold sm:text-3xl">
+            Reset Password Code
+          </h1>
+          <h4 className="mt-4 text-gray-500">Enter Reset Password Code</h4>
         </div>
         <p className="text-red-400 text-sm p-3">
           {handleErrorType(pageType, data)}
@@ -84,17 +101,22 @@ const VerificationEmailCode = ({
         >
           <InputControl
             container="w-full h-20 my-4 "
-            id="verificationCode"
+            id="reset_password_code"
             type="text"
             register={register}
             options={{
               value: true,
-              required: "Verification Code is Required",
+              required: "Reset Code is Required",
             }}
-            error={errors.verificationCode?.message}
-            placeholder="Enter Verification Code"
-          />
-
+            label="Code :"
+            error={errors.reset_password_code?.message}
+            placeholder="Enter Reset Code"
+          ></InputControl>
+          <div className="w-1/2 pl-2">
+            <p>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </p>
+          </div>
           <div className="w-full text-center">
             <button
               type="submit"
@@ -105,7 +127,7 @@ const VerificationEmailCode = ({
           </div>
           <div className="w-full text-left">
             <p
-              onClick={handleResendVerCode}
+              onClick={HandleClickResetButton}
               className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
             >
               Resend The code ?
@@ -117,4 +139,4 @@ const VerificationEmailCode = ({
   );
 };
 
-export default VerificationEmailCode;
+export default ResetCode;

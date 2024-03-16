@@ -4,12 +4,12 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import EyeIcon from "@/components/icons/eye";
+import Eye from "@/components/icons/Eye";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import CloseEyeIcon from "@/components/icons/closeEye";
+import ClosedEye from "@/components/icons/ClosedEye";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
-import LoadingSpin from "@/components/icons/loadingSpin";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 
@@ -103,7 +103,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
             placeholder="Enter Password"
           >
             <div className="absolute top-[70%] z-20 right-0 w-10 h-full">
-              <EyeIcon
+              <Eye
                 onClick={() => OpenAndClose(showPassword, setShowPassword)}
                 className={
                   showPassword
@@ -111,7 +111,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
                     : "hidden"
                 }
               />
-              <CloseEyeIcon
+              <ClosedEye
                 onClick={() => OpenAndClose(showPassword, setShowPassword)}
                 className={
                   showPassword

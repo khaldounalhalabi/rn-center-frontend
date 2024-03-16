@@ -1,7 +1,7 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const ChevronDown: React.FC<IconAttributes> = ({ className, ...props }) => {
+const ChevronUp: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,16 +9,15 @@ const ChevronDown: React.FC<IconAttributes> = ({ className, ...props }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={className}
       {...props}
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        d="m4.5 15.75 7.5-7.5 7.5 7.5"
       />
     </svg>
   );
 };
 
-export default ChevronDown;
+export default ChevronUp;

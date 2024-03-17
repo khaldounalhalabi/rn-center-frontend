@@ -10,6 +10,7 @@ import Pencil from "@/components/icons/Pencil";
 import Trash from "@/components/icons/Trash";
 
 const dataTableData: DataTableData<Clinic> = {
+  createUrl: "clinics/create",
   schema: [
     {
       name: "user.first_name",
@@ -52,16 +53,16 @@ const dataTableData: DataTableData<Clinic> = {
     },
   ],
   api: async (page, search, sortCol, sortDir) =>
-    await new ClinicService().indexWithPagination(
+    await ClinicService.make().indexWithPagination(
       page,
       search,
       sortCol,
-      sortDir
+      sortDir,
     ),
 };
 
 const Page = () => {
-  return <DataTable schema={dataTableData.schema} api={dataTableData.api} />;
+  return <DataTable {...dataTableData}/>;
 };
 
 export default Page;

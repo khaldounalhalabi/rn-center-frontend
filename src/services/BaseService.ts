@@ -1,8 +1,20 @@
-import { GET } from "@/Http/QueryFetch";
+import { GET, POST } from "@/Http/QueryFetch";
 import { ApiResult } from "@/Http/Response";
 
-export abstract class BaseService<T> {
+export class BaseService<T> {
   public baseUrl = "/";
+
+  public static instance?: BaseService<any> | null | undefined = null;
+
+  constructor() {}
+
+  public static make() {
+    if (!this.instance) {
+      this.instance = new this();
+    }
+
+    return this.instance;
+  }
 
   public async indexWithPagination(
     page: number = 0,
@@ -18,5 +30,9 @@ export abstract class BaseService<T> {
       sort_dir: sortDir,
       ...params,
     });
+  }
+
+  public async store(data: any, headers?: object) {
+    return await POST(this.baseUrl, data, headers);
   }
 }

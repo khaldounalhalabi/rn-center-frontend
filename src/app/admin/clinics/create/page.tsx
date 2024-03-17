@@ -10,7 +10,8 @@ import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import InputControl from "@/components/common/ui/InputControl";
-import {getCookieClient} from "@/Actions/clientCookies";
+import { getCookieClient } from "@/Actions/clientCookies";
+import { ClinicService } from "@/services/ClinicService";
 
 type FormType = {
   name: string;
@@ -70,7 +71,7 @@ const creatClinic = () => {
   const { mutate, isPending, data, error } = useMutation({
     mutationKey: ["create-clinic"],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm);
+      return await ClinicService.make().store(dataForm);
     },
   });
   const history = useRouter();
@@ -79,7 +80,6 @@ const creatClinic = () => {
     console.log(dataForm);
     // mutate(dataForm);
   };
-
 
   if (isPending) {
     return (

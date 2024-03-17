@@ -7,16 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useRouter } from "next/navigation";
 import HandleTimer from "@/hooks/HandleTimer";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import { AuthService } from "@/services/AuthService";
 
 type FormType = {
   reset_password_code: string;
 };
 
-const ResetCode = ({
+const ResetCodeForm = ({
   url,
   urlResendCode,
   pageType,
@@ -33,20 +31,13 @@ const ResetCode = ({
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
 
-  const { mutate, isPending, data, error } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200
-          ? history.push(`/auth/${pageType}/set-new-password`)
-          : false;
-        return e;
-      });
+      return await AuthService.make().submitResetCode(url, dataForm, pageType);
     },
   });
 
-  const history = useRouter();
-  console.log(data);
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm, {
       onSuccess: () => {
@@ -139,4 +130,4 @@ const ResetCode = ({
   );
 };
 
-export default ResetCode;
+export default ResetCodeForm;

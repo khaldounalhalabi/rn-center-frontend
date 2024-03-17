@@ -5,11 +5,9 @@ import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "@tanstack/react-query";
 import { POST } from "@/Http/QueryFetch";
-import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import { AuthService } from "@/services/AuthService";
 
 type FormType = {
   verificationCode: string;
@@ -32,16 +30,12 @@ const VerificationEmailCode = ({
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
 
-  const { mutate, isPending, data, error } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200 ? history.push(`/customer`) : false;
-        return e;
-      });
+      return await AuthService.make().requestVerificationCode(url, dataForm);
     },
   });
-  const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm);

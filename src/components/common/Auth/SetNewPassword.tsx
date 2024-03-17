@@ -3,13 +3,10 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
-import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import { AuthService } from "@/services/AuthService";
 
 type FormType = {
   password: string;
@@ -32,17 +29,12 @@ const SetNewPassword = ({
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
 
-  const { mutate, isPending, data, error } = useMutation({
+  const { mutate, isPending, data} = useMutation({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200 ? history.push(`/auth/${pageType}/login`) : false;
-        return e;
-      });
+      return await AuthService.make().setNewPassword(url, dataForm, pageType);
     },
   });
-
-  const history = useRouter();
 
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     const code = window.localStorage.getItem(pageType + "code");
@@ -54,8 +46,6 @@ const SetNewPassword = ({
 
     mutate(dataSend);
   };
-
-  const status = data?.status;
 
   if (isPending) {
     return (

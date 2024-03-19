@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   container: string;
   register: any;
-  options: any;
+  options?: any;
   error: string | undefined;
   children?: ReactNode | null | undefined;
   label?: any;

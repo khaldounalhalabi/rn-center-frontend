@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import { AuthenticationService } from "@/services/AuthenticationService";
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);

@@ -36,7 +36,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
       return await (new AuthService()).login(url , dataForm , pageType);
     },
   });
-
+  console.log(data)
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
     mutate(dataForm);
   };

@@ -5,7 +5,7 @@ import React from "react";
 interface prop extends React.InputHTMLAttributes<HTMLInputElement> {
   container: string;
   register: any;
-  options: any;
+  options?: any;
 }
 
 const Input = (props: prop) => {

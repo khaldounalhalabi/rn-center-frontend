@@ -10,6 +10,8 @@ export class AuthService {
       if (e.code == 200) {
         // @ts-ignore
         setCookieServer("token", e?.data?.token);
+
+        setCookieServer('locale','en')
         // @ts-ignore
         setCookieServer("refresh_token", e?.data?.refresh_token);
         navigate(`/${pageType}`);

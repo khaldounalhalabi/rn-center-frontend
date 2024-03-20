@@ -9,7 +9,6 @@ import OpenAndClose from "@/hooks/OpenAndClose";
 import ClosedEye from "@/components/icons/ClosedEye";
 import { useMutation } from "@tanstack/react-query";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useRouter } from "next/navigation";
 import handleErrorType from "@/hooks/handleErrorType";
 import { AuthService } from "@/services/AuthService";
 
@@ -26,14 +25,13 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
       password: "",
     },
   });
-  const history = useRouter();
 
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const { mutate, isPending, data, error } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey: [pageType],
     mutationFn: async (dataForm: FormType) => {
-      return await (new AuthService()).login(url , dataForm , pageType);
+      return await AuthService.make().login(url, dataForm, pageType);
     },
   });
   console.log(data)
@@ -49,9 +47,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
   }
 
   return (
-    <div
-      className="w-[100wh] h-[100vh] relative "
-    >
+    <div className="w-[100wh] h-[100vh] relative ">
       <div
         className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2
                      bg-white rounded-2xl"
@@ -71,7 +67,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
           <InputControl
             container="w-full h-20 my-6 "
             id="email"
-            type="text"
+            type="email"
             register={register}
             options={{
               value: true,
@@ -79,7 +75,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
             }}
             label="Email :"
             error={errors.email?.message}
-            placeholder="Enter Email"
+            placeholder="Enter Your Email"
           />
           <InputControl
             container="w-full h-20 my-6 relative "
@@ -92,7 +88,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
               required: "Password is Required",
             }}
             error={errors.password?.message}
-            placeholder="Enter Password"
+            placeholder="Enter Your Password"
           >
             <div className="absolute top-[70%] z-20 right-0 w-10 h-full">
               <Eye
@@ -113,9 +109,6 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
               />
             </div>
           </InputControl>
-
-          <p className="w-full h-8 my-2 p-2 text-red-400"></p>
-
           <button
             type="submit"
             className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
@@ -125,7 +118,7 @@ const LogIn = ({ url, pageType }: { url: string; pageType: string }) => {
           <div className="flex justify-center mt-4 opacity-80">
             <h4> Forget Password ? </h4>
             <Link
-              href={`/auth/${pageType}/resetPassword`}
+              href={`/auth/${pageType}/reset-password`}
               className="text-blue-600"
             >
               Reset Password

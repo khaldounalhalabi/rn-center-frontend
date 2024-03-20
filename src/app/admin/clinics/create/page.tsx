@@ -4,10 +4,14 @@ import React,{useEffect} from "react";
 import FormContainer from "@/components/common/ui/FormContenar";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { ApiResult } from "@/Http/Response";
+import { User } from "@/Models/User";
 import { POST } from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import InputControl from "@/components/common/ui/InputControl";
+import { getCookieClient } from "@/Actions/clientCookies";
+import { ClinicService } from "@/services/ClinicService";
 import SelectControl from "@/components/common/ui/selectControl";
 import FirstForm from "@/components/admin/clinic/FirstForm";
 import SecondForm from "@/components/admin/clinic/SecondForm";
@@ -39,8 +43,8 @@ type FormType = {
     lat: string;
     ing: string;
   };
-
   speciality_ids: string[];
+
 };
 
 const creatClinic = () => {
@@ -70,7 +74,7 @@ const creatClinic = () => {
           lat:'',
           ing:''
       },
-        phone_number: [" "],
+        phone_number: ["+964"],
       speciality_ids: [""],
     },
   });
@@ -79,7 +83,7 @@ const creatClinic = () => {
   const { mutate, isPending, data, error } = useMutation({
     mutationKey: ["create-clinic"],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm);
+      return await ClinicService.make().store(dataForm);
     },
   });
   const history = useRouter();

@@ -2,6 +2,7 @@ import { ApiResult } from "@/Http/Response";
 import { User } from "@/Models/User";
 import { ApiErrorType } from "@/Http/Response";
 import { useRouter } from "next/navigation";
+
 const handleErrorType = (
   typePage: string,
   data: ApiResult<User> | undefined,

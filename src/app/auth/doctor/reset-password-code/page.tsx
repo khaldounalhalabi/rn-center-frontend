@@ -1,12 +1,12 @@
 "use client";
-import ResetCode from "@/components/common/Auth/ResetCode";
+import ResetCodeForm from "@/components/common/Auth/ResetCodeForm";
 
 const page = () => {
   const apiResetPasswordDoctor: string = `doctor/check-reset-password-code`;
   const apiResendCode = `doctor/password-reset-request`;
 
   return (
-    <ResetCode
+    <ResetCodeForm
       url={apiResetPasswordDoctor}
       urlResendCode={apiResendCode}
       pageType={"doctor"}

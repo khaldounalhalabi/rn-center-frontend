@@ -4,18 +4,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import FormContainer from "@/components/common/ui/FormContenar";
 import InputControl from "@/components/common/ui/InputControl";
 import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
 import handleErrorType from "@/hooks/handleErrorType";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useRouter } from "next/navigation";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import { AuthService } from "@/services/AuthService";
 
 type FormType = {
   email: string;
 };
 
-const ResetPassword = ({
+const ResetPasswordRequest = ({
   url,
   typePage,
 }: {
@@ -29,17 +26,15 @@ const ResetPassword = ({
   });
   const { formState, register, handleSubmit } = form;
   const { errors } = formState;
-  const history = useRouter();
 
-  const { mutate, isPending, data, error } = useMutation({
+  const { mutate, isPending, data } = useMutation({
     mutationKey: [typePage],
     mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200
-          ? history.push(`/auth/${typePage}/reset-password-code`)
-          : false;
-        return e;
-      });
+      return await AuthService.make().requestResetPasswordRequest(
+        url,
+        dataForm,
+        typePage,
+      );
     },
   });
   const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
@@ -103,4 +98,4 @@ const ResetPassword = ({
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordRequest;

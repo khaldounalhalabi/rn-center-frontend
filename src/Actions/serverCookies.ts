@@ -1,12 +1,12 @@
-'use server'
-import { getCookies } from 'next-client-cookies/server';
-import {cookies} from "next/headers";
+"use server";
+import { cookies } from "next/headers";
 
-export async function setCookieServer(key:string,valu:string) {
-    await cookies().set(key,valu)
+export async function setServerCookie(key: string, value: string) {
+  cookies().set(key, value);
 }
 
-export async function getCookieServer(key:string) {
-    const coc :string|undefined=await  getCookies().get(key)
-    return coc?coc:''
+export async function getCookieServer(
+  key: string,
+): Promise<string | undefined> {
+  return cookies().get(key)?.value;
 }

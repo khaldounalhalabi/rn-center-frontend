@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import ResetPassword from "@/components/common/Auth/ResetPassword";
+import ResetPasswordRequest from "@/components/common/Auth/ResetPasswordRequest";
 
 const page = () => {
   const apiResetPasswordAdmin: string = `admin/password-reset-request`;
-  return <ResetPassword url={apiResetPasswordAdmin} typePage={"admin"} />;
+  return <ResetPasswordRequest url={apiResetPasswordAdmin} typePage={"admin"} />;
 };
 
 export default page;

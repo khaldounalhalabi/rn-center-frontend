@@ -3,7 +3,7 @@ import React from "react";
 import SelectControl from "@/components/common/ui/selectControl";
 
 
-const FirstForm = ({ register, errors }) => {
+const FirstForm = ({ register, errors,selectValueCity ,setValueCity}:{ register:any, errors:any,selectValueCity:string ,setValueCity:React.Dispatch<string>}) => {
   const city = [
     {
       item: "بغداد",
@@ -59,7 +59,7 @@ const FirstForm = ({ register, errors }) => {
   ];
   return (
     <>
-      <div className="flex flex-col md:flex-row w-full justify-between">
+      <div className="flex pt-12 flex-col md:flex-row w-full justify-between">
         <InputControl
           container="md:w-[49%] w-full h-20 my-6 "
           id="user.first_name"
@@ -69,7 +69,7 @@ const FirstForm = ({ register, errors }) => {
             value: true,
             required: "first name is Required",
           }}
-          label="first name :"
+          label="first name AR:"
           error={errors.user?.first_name?.message}
           placeholder="Enter first name"
         />
@@ -82,7 +82,7 @@ const FirstForm = ({ register, errors }) => {
             value: true,
             required: "middle name is Required",
           }}
-          label="middle name :"
+          label="middle name AR:"
           error={errors.user?.middle_name?.message}
           placeholder="Enter middle name"
         />
@@ -97,7 +97,7 @@ const FirstForm = ({ register, errors }) => {
             value: true,
             required: "last name is Required",
           }}
-          label="last name :"
+          label="last name AR:"
           error={errors.user?.middle_name?.message}
           placeholder="Enter last name"
         />
@@ -110,7 +110,7 @@ const FirstForm = ({ register, errors }) => {
             value: true,
             required: "clinic name is Required",
           }}
-          label="clinic name :"
+          label="clinic name AR:"
           error={errors.name?.message}
           placeholder="Enter clinic name"
         />
@@ -130,16 +130,12 @@ const FirstForm = ({ register, errors }) => {
           placeholder="Enter address"
         />
         <SelectControl
-          container="md:w-[49%] w-full h-20 my-6 "
-          id="address.city"
-          register={register}
-          options={{
-            value: true,
-            required: "city is Required",
-          }}
-          label="city :"
-          error={errors.address?.city?.message}
-          data={city}
+            label='select city :'
+            className='md:w-[48%] w-full h-20 my-6 flex flex-col justify-center'
+            selectValue={selectValueCity}
+            setSelectValue={setValueCity}
+            error={errors.address?.city?.message}
+            data={city}
         />
       </div>
     </>

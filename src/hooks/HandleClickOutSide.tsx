@@ -1,7 +1,7 @@
 import React from "react";
 
 const HandleClickOutSide = (
-  ref: React.RefObject<HTMLDivElement>,
+  ref: React.RefObject<HTMLDivElement> |React.RefObject<HTMLUListElement>,
   setOpenPopProfile: React.Dispatch<boolean>,
 ) => {
   let handleClickOutSide = (e: MouseEvent) => {

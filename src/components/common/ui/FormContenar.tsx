@@ -8,7 +8,7 @@ const FormContainer: React.FC<any> = ({
   children: ReactNode;
   props: React.FormHTMLAttributes<HTMLFormElement>;
 }) => {
-  return <form {...props}>{children}</form>;
+  return <form encType='"multipart/form-data' {...props}>{children}</form>;
 };
 
 export default FormContainer;

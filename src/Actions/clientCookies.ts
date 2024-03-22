@@ -1,11 +1,12 @@
 "use client";
-import { useCookies } from "next-client-cookies";
+import { setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 
 export function setCookieClient(key: string, value: string) {
-  return useCookies().set(key, value);
+  return setCookie(key, value);
 }
 
 export function getCookieClient(key: string) {
-  const coc: string | undefined = useCookies().get(key);
+  const coc: string | undefined = getCookie(key);
   return coc ? coc : "";
 }

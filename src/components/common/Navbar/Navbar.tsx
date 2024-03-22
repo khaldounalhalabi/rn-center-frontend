@@ -19,7 +19,7 @@ const Navbar = ({
 
   return (
     <nav
-      className={`w-full h-16 relative  shadow-md flex justify-between max-h-20 items-center px-10 py-4 col-span-4 md:col-span-3`}
+      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center px-10 py-4 col-span-4 md:col-span-3`}
     >
       <div
         className={
@@ -42,7 +42,7 @@ const Navbar = ({
           }}
         />
       </div>
-      <div className={`flex justify-between items-center gap-2 `}>
+      <div className={`flex justify-between items-center gap-2 `} >
         <LanguagePopover />
         <NotificationsPopover />
         <ProfileOptionsPopover />

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./global.css";
 import React from "react";
 import { CookiesProvider } from 'next-client-cookies/server';
+import {getCookieServer} from "@/Actions/serverCookies";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,13 +17,14 @@ export const viewport: Viewport = {
   themeColor: "#fff",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+    const dir =await getCookieServer('locale')
   return (
-    <html lang="en">
+    <html lang={dir=='ar'?'ar':'en'} dir={dir=='ar'?'rtl':'ltr'}>
 
       <body
         className={inter.className+'min-h-[100vh]'}

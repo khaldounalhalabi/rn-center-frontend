@@ -51,3 +51,4 @@ export interface ApiResponsePagination {
   isFirst: boolean;
   isLast: boolean;
 }
+

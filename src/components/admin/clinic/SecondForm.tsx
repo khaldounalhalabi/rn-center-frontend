@@ -3,63 +3,11 @@ import SelectControl from "@/components/common/ui/selectControl";
 import React from "react";
 
 
-const SecondForm = ({ register, errors }) => {
-  const city = [
-    {
-      item: "بغداد",
-    },
-    {
-      item: "نينوى",
-    },
-    {
-      item: "البصرة",
-    },
-    {
-      item: "صلاح الدين",
-    },
-    {
-      item: "دهوك",
-    },
-    {
-      item: "اربيل",
-    },
-    {
-      item: "السليمانية",
-    },
-    {
-      item: "واسط",
-    },
-    {
-      item: "ميسان",
-    },
-    {
-      item: "ذي قار",
-    },
-    {
-      item: "المثنى",
-    },
-    {
-      item: "بابل",
-    },
-    {
-      item: "كربلاء",
-    },
-    {
-      item: "النجف",
-    },
-    {
-      item: "الانبار",
-    },
-    {
-      item: "القادسية",
-    },
-    {
-      item: "كركوك",
-    },
-  ];
+const SecondForm = ({ register, errors }:{ register:any, errors:any }) => {
+
   return (
     <>
-      <div className="flex flex-col md:flex-row w-full justify-between">
+      <div className="flex pt-12 flex-col md:flex-row w-full justify-between">
         <InputControl
           container="md:w-[49%] w-full h-20 my-6 "
           id="user.first_name"
@@ -69,7 +17,7 @@ const SecondForm = ({ register, errors }) => {
             value: true,
             required: "first name is Required",
           }}
-          label="first name :"
+          label="first name EN:"
           error={errors.user?.first_name?.message}
           placeholder="Enter first name"
         />
@@ -82,7 +30,7 @@ const SecondForm = ({ register, errors }) => {
             value: true,
             required: "middle name is Required",
           }}
-          label="middle name :"
+          label="middle name EN:"
           error={errors.user?.middle_name?.message}
           placeholder="Enter middle name"
         />
@@ -97,7 +45,7 @@ const SecondForm = ({ register, errors }) => {
             value: true,
             required: "last name is Required",
           }}
-          label="last name :"
+          label="last name EN:"
           error={errors.user?.middle_name?.message}
           placeholder="Enter last name"
         />
@@ -110,24 +58,25 @@ const SecondForm = ({ register, errors }) => {
             value: true,
             required: "clinic name is Required",
           }}
-          label="clinic name :"
+          label="clinic name EN:"
           error={errors.name?.message}
           placeholder="Enter clinic name"
         />
       </div>
       <div className="flex flex-col md:flex-row w-full justify-between">
-        <SelectControl
-          container="md:w-[49%] w-full h-20 my-6 "
-          id="address.city"
-          register={register}
-          options={{
-            value: true,
-            required: "city is Required",
-          }}
-          label="city :"
-          error={errors.address?.city?.message}
-          data={city}
-        />
+          <InputControl
+              container=" w-full h-20 my-6 "
+              id="user.email"
+              type="text"
+              register={register}
+              options={{
+                  value: true,
+                  required: "Email is Required",
+              }}
+              label="Email :"
+              error={errors.name?.message}
+              placeholder="Enter Your Email"
+          />
       </div>
     </>
   );

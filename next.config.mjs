@@ -17,7 +17,7 @@ const withPWA = withPWAInit({
 
 const nextConfig = {
     env: {
-        localApi: 'http://localhost/pom-back/public/api/',
+        localApi: 'http://localhost/pom/public/api/',
     },
 };
 export default withPWA(nextConfig);

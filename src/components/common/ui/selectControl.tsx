@@ -4,25 +4,23 @@ import Select from "@/components/common/ui/select";
 
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    container: string;
-    register: any;
-    options: any;
-    error: string | undefined;
+    className:string
     children?: ReactNode | null | undefined;
     label?: any;
+    selectValue:string ,
+    setSelectValue:React.Dispatch<string>,
+    error:String,
     data:any,
 }
 
 const SelectControl: React.FC<InputProps> = ({ ...props }) => {
     return (
-        <div className={props.container}>
-            {props.label ? <label className="label">{props.label}</label> : false}
-            <Select
-
-                {...props}/>
-            <p className="w-full pl-3   text-red-800  mt-3">{props.error}</p>
-            {props.children}
-        </div>
+      <div className={props.className}>
+        {props.label ? <label className="label">{props.label}</label> : false}
+        <Select {...props} />
+        {props.error?<p className="w-full pl-3   text-red-800  mt-3">{props.error}</p>:false}
+        {props.children}
+      </div>
     );
 };
 

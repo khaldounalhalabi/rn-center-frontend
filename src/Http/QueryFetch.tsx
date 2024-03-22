@@ -8,6 +8,7 @@ import {
 } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
 
+
 export const GET = async (
   url: string,
   params?: object,
@@ -128,6 +129,7 @@ function handleError(error: AxiosError<ApiResponseError>): ApiError {
         } as ApiResponseError;
     }
   } else if (error.request) {
+    console.log(error);
     return {
       // message no network
       errorType: ApiErrorType.CONNECTION_ERROR,

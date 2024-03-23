@@ -16,3 +16,4 @@ export interface Clinic {
   specialities?: Speciality[];
   hospital?: Hospital;
 }
+

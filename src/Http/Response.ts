@@ -10,6 +10,8 @@ export enum ApiErrorType {
 }
 
 export type ApiRequestError = {
+  data?: undefined | null
+  paginate?: ApiResponsePagination;
   errorType: ApiErrorType;
   status: boolean;
   code: number;
@@ -20,7 +22,7 @@ export type ApiResult<T> = ApiResponse<T> | ApiError;
 export type ApiError = ApiRequestError | ApiResponseError;
 
 export interface ApiResponse<T> {
-  data: T | undefined | null;
+  data: Array<T> | undefined | null;
   status: boolean;
   code: number;
   paginate?: ApiResponsePagination;
@@ -28,6 +30,8 @@ export interface ApiResponse<T> {
 }
 
 export interface ApiResponseError {
+  data?: undefined | null
+  paginate?: ApiResponsePagination;
   errorType: ApiErrorType;
   message: ApiResponseMessage;
   status: boolean;
@@ -41,7 +45,7 @@ export interface ApiResponseMessage {
   text: string;
 }
 
-export interface ApiResponsePagination {
+export type ApiResponsePagination ={
   currentPage: number;
   from: number;
   to: number;

@@ -1,4 +1,3 @@
-"use client";
 import ResetCodeForm from "@/components/common/Auth/ResetCodeForm";
 
 const page = () => {

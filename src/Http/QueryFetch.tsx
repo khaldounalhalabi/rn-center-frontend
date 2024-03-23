@@ -8,7 +8,6 @@ import {
 } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
 
-
 export const GET = async (
   url: string,
   params?: object,
@@ -52,7 +51,7 @@ const queryFetch = async (
     "Content-Type": "application/json",
     Accept: "application/json",
     "Accept-Language": "en",
-    Authorization: `Bearer ${await getCookieServer('token')}`,
+    Authorization: `Bearer ${await getCookieServer("token")}`,
   };
 
   const config = {
@@ -139,3 +138,22 @@ function handleError(error: AxiosError<ApiResponseError>): ApiError {
     return { errorType: ApiErrorType.UNKNOWN_ERROR } as ApiRequestError;
   }
 }
+
+export const getValidationError = (
+  fieldName: string,
+  response: ApiResult<any> | undefined,
+) => {
+  const responseError: any = response?.message?.errors[fieldName];
+  let error: string | undefined;
+  if (responseError instanceof Array) {
+    error = responseError[0] ?? undefined;
+  } else if (responseError) {
+    error = `${responseError}`;
+  } else error = undefined;
+
+  if (error) {
+    return error.replace(".", " ").replace("_", " ");
+  }
+
+  return error;
+};

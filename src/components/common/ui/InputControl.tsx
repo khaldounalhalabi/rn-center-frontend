@@ -1,5 +1,5 @@
 "use client";
-import Input from "@/components/common/ui/Input";
+import InputMoo from "@/components/common/ui/InputMoo";
 import React, { ReactNode } from "react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -15,7 +15,7 @@ const InputControl: React.FC<InputProps> = ({ ...props }) => {
   return (
     <div className={props.container}>
       {props.label ? <label className="label">{props.label}</label> : false}
-      <Input
+      <InputMoo
         className={
           props.error
             ? "w-full rounded-lg border-2 p-4 pe-12 text-sm shadow-sm !border-red-600 focus:!outline-red-600"

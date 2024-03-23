@@ -1,5 +1,4 @@
 import SetNewPassword from "@/components/common/Auth/SetNewPassword";
-
 const page = () => {
   const apiSetNewPasswordAdmin: string = `admin/reset-password`;
   return <SetNewPassword url={apiSetNewPasswordAdmin} pageType={"admin"} />;

@@ -1,5 +1,6 @@
 import { GET, POST } from "@/Http/QueryFetch";
-import { ApiResult } from "@/Http/Response";
+import { ApiErrorType, ApiResponseError, ApiResult } from "@/Http/Response";
+import { navigate } from "@/Actions/navigate";
 
 export class BaseService<T> {
   public baseUrl = "/";
@@ -23,16 +24,30 @@ export class BaseService<T> {
     sortDir?: string,
     params?: object,
   ): Promise<ApiResult<T>> {
-    return await GET(this.baseUrl, {
+    const res = await GET(this.baseUrl, {
       page: page,
       search: search,
       sort_col: sortCol,
       sort_dir: sortDir,
       ...params,
     });
+
+    return await this.errorHandler(res);
   }
 
   public async store(data: any, headers?: object) {
-    return await POST(this.baseUrl, data, headers);
+    const res = await POST(this.baseUrl, data, headers);
+    return await this.errorHandler(res);
+  }
+
+  protected async errorHandler(res: ApiResult<T> | ApiResponseError) {
+    if (
+      res?.errorType == ApiErrorType.UNAUTHORIZED ||
+      res?.errorType == ApiErrorType.ValidationPassword
+    ) {
+      return await navigate("/auth/admin/login");
+    }
+
+    return res;
   }
 }

@@ -19,8 +19,8 @@ export class AuthService {
   public async login(url: string, dataForm: object, pageType: string) {
     const response = await POST(url, dataForm).then((res: ApiResult<User>) => {
       if (res.code == 200) {
-        setServerCookie("token", res?.data?.token);
-        setServerCookie("refresh_token", res?.data?.refresh_token);
+        setServerCookie("token", res?.data?.token ?? "");
+        setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
         this.successStatus = true;
       }
 

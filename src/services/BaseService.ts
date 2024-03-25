@@ -1,5 +1,11 @@
 import { GET, POST } from "@/Http/QueryFetch";
-import { ApiErrorType, ApiResponseError, ApiResult } from "@/Http/Response";
+import {
+  ApiErrorType,
+  ApiRequestError,
+  ApiResponse,
+  ApiResponseError,
+  ApiResult,
+} from "@/Http/Response";
 import { navigate } from "@/Actions/navigate";
 
 export class BaseService<T> {
@@ -23,7 +29,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     params?: object,
-  ): Promise<ApiResult<T>> {
+  ): Promise<void | ApiResponse<T> | ApiRequestError | ApiResponseError> {
     const res = await GET(this.baseUrl, {
       page: page,
       search: search,
@@ -42,8 +48,8 @@ export class BaseService<T> {
 
   protected async errorHandler(res: ApiResult<T> | ApiResponseError) {
     if (
-      res?.errorType == ApiErrorType.UNAUTHORIZED ||
-      res?.errorType == ApiErrorType.ValidationPassword
+      ("errorType" in res && res?.errorType == ApiErrorType.UNAUTHORIZED) ||
+      ("errorType" in res && res?.errorType == ApiErrorType.ValidationPassword)
     ) {
       return await navigate("/auth/admin/login");
     }

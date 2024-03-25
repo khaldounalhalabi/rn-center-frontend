@@ -1,1 +1,4 @@
-export interface Hospital {}
+export interface Hospital {
+    id:number;
+    name:string;
+}

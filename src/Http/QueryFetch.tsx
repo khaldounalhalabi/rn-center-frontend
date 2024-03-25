@@ -7,6 +7,7 @@ import {
   ApiResult,
 } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
+import ignore from "ignore";
 
 export const GET = async (
   url: string,
@@ -128,7 +129,6 @@ function handleError(error: AxiosError<ApiResponseError>): ApiError {
         } as ApiResponseError;
     }
   } else if (error.request) {
-    console.log(error);
     return {
       // message no network
       errorType: ApiErrorType.CONNECTION_ERROR,
@@ -143,7 +143,15 @@ export const getValidationError = (
   fieldName: string,
   response: ApiResult<any> | undefined,
 ) => {
-  const responseError: any = response?.message?.errors[fieldName];
+  let responseError: any = response?.message;
+
+  if (responseError?.hasOwnProperty("errors")) {
+    responseError = responseError.errors;
+    if (responseError?.hasOwnProperty(`${fieldName}`)) {
+      responseError = responseError[`${fieldName}`];
+    }
+  }
+
   let error: string | undefined;
   if (responseError instanceof Array) {
     error = responseError[0] ?? undefined;

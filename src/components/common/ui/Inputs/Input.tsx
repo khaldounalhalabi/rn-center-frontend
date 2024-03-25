@@ -1,27 +1,27 @@
-import React, { HTMLAttributes, HTMLProps, InputHTMLAttributes } from "react";
-import { useFormContext, UseFormRegisterReturn } from "react-hook-form";
+import React, { HTMLProps } from "react";
+import { useFormContext } from "react-hook-form";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
-  register: UseFormRegisterReturn;
   className?: string | undefined;
+  name: string;
   label?: string;
   error?: string;
 }
 
 const Input: React.FC<InputProps> = ({
-  register,
   className,
   label,
   error,
+  name,
   ...props
 }) => {
-  const formContext = useFormContext();
+  const { register } = useFormContext();
   return (
     <div className={`flex flex-col items-start gap-2 w-full`}>
       {label ? <label>{label}</label> : ""}
       <input
         {...props}
-        {...register}
+        {...register(`${name}`)}
         className={
           className ??
           `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`

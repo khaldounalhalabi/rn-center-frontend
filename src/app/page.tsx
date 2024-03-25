@@ -1,5 +1,7 @@
-import Navbar from "@/components/common/Navbar/Navbar";
+import React from "react";
 
-export default function Home() {
+const Page = () => {
   return <></>;
-}
+};
+
+export default Page;

@@ -1,17 +1,11 @@
 "use client";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import FormContainer from "@/components/common/ui/FormContenar";
-import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
-import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import React, {useState} from "react";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import Input from "@/components/common/ui/Inputs/Input";
+import {getValidationError, POST} from "@/Http/QueryFetch";
 import { AuthService } from "@/services/AuthService";
+import PrimaryButton from "@/components/common/ui/PrimaryButton";
 
-type FormType = {
-  verificationCode: string;
-};
 
 const VerificationEmailCode = ({
   url,
@@ -22,23 +16,14 @@ const VerificationEmailCode = ({
   urlResendCode: string;
   pageType: string;
 }) => {
-  const form = useForm<FormType>({
-    defaultValues: {
-      verificationCode: "",
-    },
-  });
-  const { formState, register, handleSubmit } = form;
-  const { errors } = formState;
 
-  const { mutate, isPending, data } = useMutation({
-    mutationKey: [pageType],
-    mutationFn: async (dataForm: FormType) => {
-      return await AuthService.make().requestVerificationCode(url, dataForm);
-    },
-  });
 
-  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutate(dataForm);
+  const [response, setResponse] = useState<any>(undefined);
+
+  const methods = useForm();
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    const res = await AuthService.make().requestVerificationCode(url, data);
+    if (res) setResponse(res);
   };
   const handleResendVerCode = () => {
     const email = {
@@ -46,15 +31,6 @@ const VerificationEmailCode = ({
     };
     return POST(urlResendCode, email);
   };
-
-  if (isPending) {
-    return (
-      <div className="w-[100wh] h-[100vh] flex justify-center items-center">
-        <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
-      </div>
-    );
-  }
-
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
@@ -68,44 +44,32 @@ const VerificationEmailCode = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Verification Email</h1>
           <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
         </div>
-        <p className="text-red-400 text-sm p-3">
-          {handleErrorType(pageType, data)}
-        </p>
-        <FormContainer
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col "
-          noValidate
+
+      <FormProvider {...methods}>
+        <form
+            onSubmit={methods.handleSubmit(onSubmit)}
         >
-          <InputControl
-            container="w-full h-20 my-4 "
-            id="verificationCode"
-            type="text"
-            register={register}
-            options={{
-              value: true,
-              required: "Verification Code is Required",
-            }}
-            error={errors.verificationCode?.message}
-            placeholder="Enter Verification Code"
+          <Input
+              name="verificationCode"
+              type="text"
+              placeholder="Enter Verification Code"
+              error={getValidationError("verificationCode", response)}
+
           />
 
-          <div className="w-full text-center">
-            <button
-              type="submit"
-              className="w-full md:w-1/2 inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-            >
-              Submit
-            </button>
+          <div className={`flex justify-center items-center mt-3`}>
+            <PrimaryButton type={"submit"}>Submit</PrimaryButton>
           </div>
           <div className="w-full text-left">
             <p
-              onClick={handleResendVerCode}
-              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+                onClick={handleResendVerCode}
+                className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
             >
               Resend The code ?
             </p>
           </div>
-        </FormContainer>
+        </form>
+      </FormProvider>
       </div>
     </div>
   );

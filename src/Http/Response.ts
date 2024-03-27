@@ -5,11 +5,15 @@ export enum ApiErrorType {
   BadRequestException = "BadRequestException",
   UNKNOWN_ERROR = "unknown-error",
   NOT_FOUND = "not-found",
-  ValidationEmail = "error-Emil",
-  ValidationPassword = "error-Password",
+  Validation = "error-validation",
+  NotRegister = "not-register",
+  Admin = 'admin',
+  Customer='customer',
+  Doctor='doctor'
 }
 
 export type ApiRequestError = {
+  data?:any
   errorType: ApiErrorType;
   status: boolean;
   code: number;
@@ -28,6 +32,7 @@ export interface ApiResponse<T> {
 }
 
 export interface ApiResponseError {
+  data?:any
   errorType: ApiErrorType;
   message: ApiResponseMessage;
   status: boolean;

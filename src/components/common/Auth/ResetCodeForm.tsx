@@ -1,18 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import FormContainer from "@/components/common/ui/FormContenar";
-import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
-import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import Input from "@/components/common/ui/Inputs/Input";
+import {getValidationError, POST} from "@/Http/QueryFetch";
 import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
-
-type FormType = {
-  reset_password_code: string;
-};
+import PrimaryButton from "@/components/common/ui/PrimaryButton";
 
 const ResetCodeForm = ({
   url,
@@ -23,31 +16,7 @@ const ResetCodeForm = ({
   urlResendCode: string;
   pageType: string;
 }) => {
-  const form = useForm<FormType>({
-    defaultValues: {
-      reset_password_code: "",
-    },
-  });
-  const { formState, register, handleSubmit } = form;
-  const { errors } = formState;
 
-  const { mutate, isPending, data } = useMutation({
-    mutationKey: [pageType],
-    mutationFn: async (dataForm: FormType) => {
-      return await AuthService.make().submitResetCode(url, dataForm, pageType);
-    },
-  });
-
-  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutate(dataForm, {
-      onSuccess: () => {
-        window.localStorage.setItem(
-          pageType + "code",
-          dataForm.reset_password_code,
-        );
-      },
-    });
-  };
 
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
@@ -60,13 +29,17 @@ const ResetCodeForm = ({
     };
     return POST(urlResendCode, email);
   };
-  if (isPending) {
-    return (
-      <div className="w-[100wh] h-[100vh] flex justify-center items-center">
-        <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
-      </div>
+  const [response, setResponse] = useState<any>(undefined);
+
+  const methods = useForm();
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    const res = await AuthService.make().submitResetCode(url, data, pageType);
+    window.localStorage.setItem(
+        pageType + "code",
+        data.reset_password_code,
     );
-  }
+    if (res) setResponse(res);
+  };
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
@@ -82,49 +55,36 @@ const ResetCodeForm = ({
           </h1>
           <h4 className="mt-4 text-gray-500">Enter Reset Password Code</h4>
         </div>
-        <p className="text-red-400 text-sm p-3">
-          {handleErrorType(pageType, data)}
-        </p>
-        <FormContainer
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col "
-          noValidate
-        >
-          <InputControl
-            container="w-full h-20 my-4 "
-            id="reset_password_code"
-            type="text"
-            register={register}
-            options={{
-              value: true,
-              required: "Reset Code is Required",
-            }}
-            label="Code :"
-            error={errors.reset_password_code?.message}
-            placeholder="Enter Reset Code"
-          ></InputControl>
-          <div className="w-1/2 pl-2">
-            <p>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </p>
-          </div>
-          <div className="w-full text-center">
-            <button
-              type="submit"
-              className="w-full md:w-1/2 inline-block mt-2 rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-            >
-              Submit
-            </button>
-          </div>
-          <div className="w-full text-left">
-            <p
-              onClick={HandleClickResetButton}
-              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
-            >
-              Resend The code ?
-            </p>
-          </div>
-        </FormContainer>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Input
+                name="reset_password_code"
+                type="text"
+                label="Code :"
+                placeholder="Enter Reset Code"
+                error={getValidationError("reset_password_code", response)}
+
+            ></Input>
+            <div className="w-1/2 pl-2">
+              <p>
+                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </p>
+            </div>
+            <div className="w-full text-center">
+              <div className={`flex justify-center items-center mt-3`}>
+                <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+              </div>
+            </div>
+            <div className="w-full text-left">
+              <p
+                  onClick={HandleClickResetButton}
+                  className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+              >
+                Resend The code ?
+              </p>
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );

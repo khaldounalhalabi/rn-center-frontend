@@ -49,11 +49,12 @@ export class BaseService<T> {
   protected async errorHandler(res: ApiResult<T> | ApiResponseError) {
     if (
       ("errorType" in res && res?.errorType == ApiErrorType.UNAUTHORIZED) ||
-      ("errorType" in res && res?.errorType == ApiErrorType.ValidationPassword)
+      ("errorType" in res && res?.errorType == ApiErrorType.NotRegister)
     ) {
       return await navigate("/auth/admin/login");
+    } else if("errorType" in res && res?.errorType == ApiErrorType.BadRequestException){
+      return await navigate("/400");
     }
-
     return res;
   }
 }

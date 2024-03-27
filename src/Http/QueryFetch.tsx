@@ -111,15 +111,33 @@ function handleError(error: AxiosError<ApiResponseError>): ApiError {
         } as ApiResponseError;
       case 405:
         return {
-          // error Email
+          // error Validation
           message: error.response.data.message,
-          errorType: ApiErrorType.ValidationEmail,
+          errorType: ApiErrorType.Validation,
         } as ApiResponseError;
       case 401:
         return {
-          // error Password
+          // error NotRegister
           message: error.response.data.message,
-          errorType: ApiErrorType.ValidationPassword,
+          errorType: ApiErrorType.NotRegister,
+        } as ApiResponseError;
+      case 410:
+        return {
+          // error Admin
+          message: error.response.data.message,
+          errorType: ApiErrorType.Admin,
+        } as ApiResponseError;
+      case 411:
+        return {
+          // error Customer
+          message: error.response.data.message,
+          errorType: ApiErrorType.Customer,
+        } as ApiResponseError;
+      case 412:
+        return {
+          // error Doctor
+          message: error.response.data.message,
+          errorType: ApiErrorType.Doctor,
         } as ApiResponseError;
       default:
         return {

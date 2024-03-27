@@ -1,81 +1,35 @@
 "use client";
-import React from "react";
-import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
-import FormContainer from "@/components/common/ui/FormContenar";
-import InputControl from "@/components/common/ui/InputControl";
-import { useMutation } from "@tanstack/react-query";
-import { POST } from "@/Http/QueryFetch";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import React, {useState} from "react";
+import {SubmitHandler, useForm, useFieldArray, FormProvider} from "react-hook-form";
+import Input from "@/components/common/ui/Inputs/Input";
+import {getValidationError, POST} from "@/Http/QueryFetch";
 import { useRouter } from "next/navigation";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import Grid from "@/components/common/ui/Grid";
+import Trash from "@/components/icons/Trash";
+import PrimaryButton from "@/components/common/ui/PrimaryButton";
 
-type FormType = {
-  first_name: string;
-  middle_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  gender: string;
-  city?: string;
-  mother_full_name: string;
-  img: any;
-  phone_number: string[];
-};
 
 const page = () => {
   const url: string = `${process.env.localApi}customer/register`;
-  const form = useForm<FormType>({
-    defaultValues: {
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
-      gender: "",
-      city: "",
-      mother_full_name: "",
-      img: "",
-      phone_number: [""],
-    },
-  });
-  const { formState, control, register, handleSubmit } = form;
-  const { errors } = formState;
-
-  const { fields, append, remove } = useFieldArray({
-    name: "phone_number",
-    control,
-  });
-
-  const { mutate, isPending, data, error } = useMutation({
-    mutationKey: ["customer"],
-    mutationFn: async (dataForm: FormType) => {
-      return await POST(url, dataForm).then((e) => {
-        e.code == 200 ? history.push(`/customer`) : false;
-        return e;
-      });
-    },
-  });
+  const {
+    register,
+    formState: { errors },
+  } = useForm<any>();
   const history = useRouter();
 
-  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
-    mutate(dataForm, {
-      onSuccess: () => {
-        window.localStorage.setItem("customer", dataForm.email);
-      },
+  const [phonesNum, setPhonesNum] = useState(1);
+
+  const [response, setResponse] = useState<any>(undefined);
+
+  const methods = useForm();
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    const res = await POST(url, data).then((e) => {
+      e.code == 200 ? history.push(`/customer`) : false;
+      return e;
     });
+    window.localStorage.setItem("customer", data.email);
+    if (res) setResponse(res);
   };
-
-  if (isPending) {
-    return (
-      <div className="w-[100wh] h-[100vh] flex justify-center items-center">
-        <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
-      </div>
-    );
-  }
-
   return (
     <div
       className="flex justify-center w-full h-full items-center p-32"
@@ -92,161 +46,148 @@ const page = () => {
           <h2 className="card-title mb-4">
             Fill The Following Information To Create A New Account
           </h2>
+         <FormProvider {...methods}>
 
-          <FormContainer
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            className="grid grid-cols-6 gap-3"
-          >
-            <label className="col-span-6 label">Full Name : </label>
-            <InputControl
-              container="col-span-2"
-              id="first_name"
-              type="text"
-              register={register}
-              options={{
-                value: true,
-                required: "First Name is Required",
-              }}
-              error={errors.first_name?.message}
-              placeholder="Enter Your First Name"
-            />
-            <InputControl
-              container="col-span-2"
-              id="middle_name"
-              type="text"
-              register={register}
-              options={{
-                value: true,
-                required: "Middle Name is Required",
-              }}
-              error={errors.middle_name?.message}
-              placeholder="Enter Your Middle Name"
-            />
+           <form
+               onSubmit={methods.handleSubmit(onSubmit)}
+           >
+             <label className="col-span-6 label">Full Name : </label>
+             <Input
+                 name="first_name"
+                 type="text"
+                 error={getValidationError("first_name", response)}
+                 placeholder="Enter Your First Name"
+             />
+             <Input
+                 name="middle_name"
+                 type="text"
+                 error={getValidationError("middle_name", response)}
+                 placeholder="Enter Your Middle Name"
+             />
 
-            <InputControl
-              container="col-span-2"
-              id="last_name"
-              type="text"
-              register={register}
-              options={{
-                value: true,
-                required: "Last Name is Required",
-              }}
-              error={errors.last_name?.message}
-              placeholder="Enter Your Last Name"
-            />
-            <label className="col-span-6 label">Email :</label>
-            <InputControl
-              container="col-span-6"
-              id="email"
-              type="email"
-              register={register}
-              options={{
-                value: true,
-                required: "Email is Required",
-              }}
-              error={errors.email?.message}
-              placeholder="Enter Your Email"
-            />
-            <label className="col-span-6 label label-text">Password :</label>
-            <InputControl
-              container="col-span-3"
-              name="password"
-              id="password"
-              type="text"
-              register={register}
-              options={{
-                value: true,
-                required: "Password is Required",
-              }}
-              error={errors.password?.message}
-              placeholder="Enter Password"
-            />
-            <InputControl
-              container="col-span-3"
-              id="password_confirmation"
-              type="text"
-              register={register}
-              options={{
-                value: true,
-                required: "Password Confirmation is Required",
-              }}
-              error={errors.password_confirmation?.message}
-              placeholder="Confirm Password"
-            />
-            <label className="col-span-6 label">Phone Number :</label>
-            <div className="col-span-3">
-              <input
-                id="phone_number"
-                type="text"
-                {...register(`phone_number.0` as const)}
-                className={
-                  errors.phone_number?.message
-                    ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                    : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-                }
-                placeholder="Enter Your Phone Number"
-              />
-            </div>
+             <Input
+                 name="last_name"
+                 type="text"
+                 error={getValidationError("last_name", response)}
+                 placeholder="Enter Your Last Name"
+             />
+             <label className="col-span-6 label">Email :</label>
+             <Input
+                 name="email"
+                 type="email"
+                 error={getValidationError("email", response)}
+                 placeholder="Enter Your Email"
+             />
+             <label className="col-span-6 label label-text">Password :</label>
+             <Input
+                 name="password"
+                 type="text"
+                 error={getValidationError("password", response)}
+                 placeholder="Enter Password"
+             />
+             <Input
+                 name="password_confirmation"
+                 type="text"
+                 error={getValidationError("password_confirmation", response)}
+                 placeholder="Confirm Password"
+             />
+             <label className="col-span-6 label">Phone Number :</label>
+             <Grid md={2} gap={2}>
+               {[...Array(phonesNum)].map((field, index) => {
+                 return (
+                     <div
+                         className={`flex justify-between items-center w-full gap-2`}
+                         key={index}
+                     >
+                       <Input
+                           key={`a-${index}`}
+                           name={`phone_numbers[${index}]`}
+                           type={"tel"}
+                           placeholder={`Enter Your Phone Number (${index + 1})`}
+                           error={getValidationError(
+                               `phone_numbers.${index}`,
+                               response,
+                           )}
+                       />
+                       <button
+                           type={"button"}
+                           className={"btn btn-square btn-sm"}
+                           onClick={() =>
+                               setPhonesNum((prevState) =>
+                                   prevState == 1 ? prevState : prevState - 1,
+                               )
+                           }
+                       >
+                         <Trash className={"h-6 w-6 text-error"} />
+                       </button>
+                     </div>
+                 );
+               })}
+             </Grid>
+             <div className={`flex items-center m-3`}>
+               <button
+                   className={`btn btn-sm btn-neutral`}
+                   onClick={() => setPhonesNum((prevState) => prevState + 1)}
+               >
+                 Add New Phone
+               </button>
+             </div>
 
-            <div className="col-span-3">
-              <select
-                id="gender"
-                {...register("gender")}
-                className={
-                  errors.gender?.message
-                    ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                    : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-                }
-              >
-                <option value="">Please select your Gender</option>
-                <option value="male">male</option>
-                <option value="female">female</option>
-              </select>
-            </div>
+             <div className="col-span-3">
+               <select
+                   id="gender"
+                   {...register("gender")}
+                   className={
+                     errors.gender?.message
+                         ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
+                         : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
+                   }
+               >
+                 <option value="">Please select your Gender</option>
+                 <option value="male">male</option>
+                 <option value="female">female</option>
+               </select>
+             </div>
 
-            <label className="col-span-6 label">City :</label>
-            <div className="col-span-3">
-              <select
-                id="city"
-                {...register("city")}
-                className={
-                  errors.city?.message
-                    ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
-                    : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
-                }
-              >
-                <option value="">Please select your city</option>
-                <option value="بغداد">بغداد</option>
-                <option value="نينوى">نينوى</option>
-                <option value="البصرة">البصرة</option>
-                <option value="صلاح الدين">صلاح الدين</option>
-                <option value="دهوك">دهوك</option>
-                <option value="اربيل">اربيل</option>
-                <option value="السليمانية">السليمانية</option>
-                <option value="ديالى">ديالى</option>
-                <option value="واسط">واسط</option>
-                <option value="ميسان">ميسان</option>
-                <option value="ذي قار">ذي قار</option>
-                <option value="المثنى">المثنى</option>
-                <option value="بابل">بابل</option>
-                <option value="كربلاء">كربلاء</option>
-                <option value="النجف">النجف</option>
-                <option value="الانبار">الانبار</option>
-                <option value="القادسية">القادسية</option>
-                <option value="كركوك">كركوك</option>
-              </select>
-            </div>
-            <div className="col-span-6 flex justify-center">
-              <button
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-              >
-                Register
-              </button>
-            </div>
-          </FormContainer>
+             <label className="col-span-6 label">City :</label>
+             <div className="col-span-3">
+               <select
+                   id="city"
+                   {...register("city")}
+                   className={
+                     errors.city?.message
+                         ? "w-full rounded-lg border-2 p-4 pe-12 text-sm !border-red-600 focus:!outline-red-600"
+                         : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
+                   }
+               >
+                 <option value="">Please select your city</option>
+                 <option value="بغداد">بغداد</option>
+                 <option value="نينوى">نينوى</option>
+                 <option value="البصرة">البصرة</option>
+                 <option value="صلاح الدين">صلاح الدين</option>
+                 <option value="دهوك">دهوك</option>
+                 <option value="اربيل">اربيل</option>
+                 <option value="السليمانية">السليمانية</option>
+                 <option value="ديالى">ديالى</option>
+                 <option value="واسط">واسط</option>
+                 <option value="ميسان">ميسان</option>
+                 <option value="ذي قار">ذي قار</option>
+                 <option value="المثنى">المثنى</option>
+                 <option value="بابل">بابل</option>
+                 <option value="كربلاء">كربلاء</option>
+                 <option value="النجف">النجف</option>
+                 <option value="الانبار">الانبار</option>
+                 <option value="القادسية">القادسية</option>
+                 <option value="كركوك">كركوك</option>
+               </select>
+             </div>
+             <div className="col-span-6 flex justify-center">
+               <div className={`flex justify-center items-center`}>
+                 <PrimaryButton type={"submit"}>Register</PrimaryButton>
+               </div>
+             </div>
+           </form>
+         </FormProvider>
         </div>
       </div>
     </div>

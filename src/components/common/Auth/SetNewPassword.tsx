@@ -1,17 +1,11 @@
 "use client";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import FormContainer from "@/components/common/ui/FormContenar";
-import InputControl from "@/components/common/ui/InputControl";
-import handleErrorType from "@/hooks/handleErrorType";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useMutation } from "@tanstack/react-query";
+import React, {useState} from "react";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
+import {getValidationError} from "@/Http/QueryFetch";
+import PrimaryButton from "@/components/common/ui/PrimaryButton";
 
-type FormType = {
-  password: string;
-  password_confirmation: string;
-};
 
 const SetNewPassword = ({
   url,
@@ -20,40 +14,20 @@ const SetNewPassword = ({
   url: string;
   pageType: string;
 }) => {
-  const form = useForm<FormType>({
-    defaultValues: {
-      password_confirmation: "",
-      password: "",
-    },
-  });
-  const { formState, register, handleSubmit } = form;
-  const { errors } = formState;
+  const [response, setResponse] = useState<any>(undefined);
 
-  const { mutate, isPending, data} = useMutation({
-    mutationKey: [pageType],
-    mutationFn: async (dataForm: FormType) => {
-      return await AuthService.make().setNewPassword(url, dataForm, pageType);
-    },
-  });
-
-  const onSubmit: SubmitHandler<FormType> = (dataForm: FormType) => {
+  const methods = useForm();
+  const onSubmit: SubmitHandler<any> = async (data) => {
     const code = window.localStorage.getItem(pageType + "code");
     const dataSend = {
       reset_password_code: code,
-      password: dataForm.password,
-      password_confirmation: dataForm.password_confirmation,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
     };
-
-    mutate(dataSend);
+    const res = await AuthService.make().setNewPassword(url, dataSend, pageType);
+    console.log(res)
+    if (res) setResponse(res);
   };
-
-  if (isPending) {
-    return (
-      <div className="w-[100wh] h-[100vh] flex justify-center items-center">
-        <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
-      </div>
-    );
-  }
   return (
     <div
       className="w-[100wh] h-[100vh] relative "
@@ -66,49 +40,32 @@ const SetNewPassword = ({
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
-        <p className="text-red-400 text-sm p-3">
-          {handleErrorType(pageType, data)}
-        </p>
-
-        <FormContainer
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col "
-          noValidate
-        >
-          <InputControl
-            container="w-full h-20 my-4 relative "
-            id="password"
-            type={"text"}
-            register={register}
-            options={{
-              value: true,
-              required: "Password is Required",
-            }}
-            label="Password :"
-            error={errors.password?.message}
-            placeholder="Enter New Password"
-          />
-          <InputControl
-            container="w-full h-20 my-4 "
-            id="password_confirmation"
-            type="text"
-            register={register}
-            options={{
-              value: true,
-              required: "Reset Password is Required",
-            }}
-            label="Confirmation Password :"
-            error={errors.password_confirmation?.message}
-            placeholder="Reset New Password"
-          />
-
-          <button
-            type="submit"
-            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+        <FormProvider {...methods}>
+          <form
+              onSubmit={methods.handleSubmit(onSubmit)}
           >
-            Save
-          </button>
-        </FormContainer>
+            <Input
+                name="password"
+                type={"text"}
+
+                label="Password :"
+                error={getValidationError("name", response)}
+                placeholder="Enter New Password"
+            />
+            <Input
+                name="password_confirmation"
+                type="text"
+
+                label="Confirmation Password :"
+                error={getValidationError("name", response)}
+                placeholder="Reset New Password"
+            />
+
+            <div className={`flex justify-center items-center mt-3`}>
+              <PrimaryButton type={"submit"}>Save</PrimaryButton>
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );

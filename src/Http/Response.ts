@@ -7,20 +7,20 @@ export enum ApiErrorType {
   NOT_FOUND = "not-found",
   Validation = "error-validation",
   NotRegister = "not-register",
-  Admin = 'admin',
-  Customer='customer',
-  Doctor='doctor'
+  Admin = "admin",
+  Customer = "customer",
+  Doctor = "doctor",
 }
 
 export type ApiRequestError = {
-  data?:any
+  data?: any;
   errorType: ApiErrorType;
   status: boolean;
   code: number;
   message: string;
 };
 
-export type ApiResult<T> = ApiResponse<T> | ApiError;
+export type ApiResult<T> = ApiResponse<T> | ApiError | void;
 export type ApiError = ApiRequestError | ApiResponseError;
 
 export interface ApiResponse<T> {
@@ -32,7 +32,7 @@ export interface ApiResponse<T> {
 }
 
 export interface ApiResponseError {
-  data?:any
+  data?: any;
   errorType: ApiErrorType;
   message: ApiResponseMessage;
   status: boolean;
@@ -56,4 +56,3 @@ export interface ApiResponsePagination {
   isFirst: boolean;
   isLast: boolean;
 }
-

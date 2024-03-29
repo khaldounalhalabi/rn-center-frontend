@@ -27,6 +27,7 @@ const Page = () => {
 
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
+    console.log(data);
     const res = await ClinicService.make().store(data);
     if (res) setResponse(res);
   };
@@ -35,7 +36,7 @@ const Page = () => {
     <PageCard>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Grid md={3} gap={2}>
+          <Grid md={4} gap={2}>
             <TranslatableInput
               locales={["en", "ar"]}
               type={"text"}
@@ -200,8 +201,8 @@ const Page = () => {
             <div className={"my-3 flex flex-col gap-2"}>
               <label>Hospital</label>
               <ReactSelect
-                api={async (page) =>
-                  await HospitalService.make().indexWithPagination(page)
+                api={async (page, search) =>
+                  await HospitalService.make().indexWithPagination(page, search)
                 }
                 label={"name"}
                 value={"id"}
@@ -212,8 +213,11 @@ const Page = () => {
             <div className={"my-3 flex flex-col gap-2"}>
               <label>Specialities</label>
               <ReactSelect
-                api={async (page) =>
-                  await SpecialityService.make().indexWithPagination(page)
+                api={async (page, search) =>
+                  await SpecialityService.make().indexWithPagination(
+                    page,
+                    search,
+                  )
                 }
                 isMultiple={true}
                 label={"name"}

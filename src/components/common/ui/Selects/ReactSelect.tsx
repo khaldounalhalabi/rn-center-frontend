@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { ApiResponsePagination, ApiResult } from "@/Http/Response";
+import React, { useId } from "react";
+import { ApiResult } from "@/Http/Response";
 import { useFormContext } from "react-hook-form";
 import "./select.css";
-import dynamic from "next/dynamic";
+import { AsyncPaginate } from "react-select-async-paginate";
 
 interface SelectProps<T> {
   name: string;
@@ -11,6 +11,7 @@ interface SelectProps<T> {
   label: string;
   value: string;
   isMultiple?: boolean;
+  selected?: any[];
 }
 
 const ReactSelect: React.FC<SelectProps<any>> = ({
@@ -19,66 +20,69 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
   value,
   name,
   isMultiple = false,
+  selected = [],
 }) => {
-  const Select = dynamic(() => import("react-select"), { ssr: false });
-
   const { setValue, register } = useFormContext();
 
-  const [page, setPage] = useState(1);
-
-  const [data, setData] = useState([]);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [paginate, setPaginate] = useState<ApiResponsePagination>();
-
-  useEffect(() => {
-    setIsLoading(true);
-    api(page).then((res: ApiResult<any[]>) => {
-      // @ts-ignore
-      const newData = (res ?? { data: [] })?.data ?? [];
-      // @ts-ignore
-      if (!newData.some((d: any) => data.includes(d))) {
-        // @ts-ignore
-        setData((prevState) => [...prevState, ...newData]);
-        setPaginate(res?.paginate ?? {});
-        setIsLoading(false);
-      }
-    });
-  }, [page]);
-
+  if (selected.length > 0) {
+    if (isMultiple) {
+      setValue(name, selected);
+    } else setValue(name, selected[0]);
+  }
+  const loadedOptions = async (
+    search: string,
+    _loadedOptions: ApiResult<any>,
+    { page }: { page: number },
+  ) => {
+    const response = await api(page, search);
+    return {
+      options:
+        response && response.hasOwnProperty("data")
+          ? response.data
+          : [{ label: "There is no data", value: undefined }],
+      hasMore:
+        response && response.hasOwnProperty("paginate")
+          ? // @ts-ignore
+            !response?.paginate.isLast
+          : false,
+      additional: {
+        page: page + 1,
+      },
+    };
+  };
   return (
     <>
       <input {...register(name)} className={"hidden"} hidden={true} />
-      <Select
-        id={Date.now().toString()}
+      <AsyncPaginate
+        cacheOptions
+        instanceId={useId()}
+        // @ts-ignore
+        loadOptions={loadedOptions}
         isMulti={isMultiple}
-        isLoading={isLoading}
-        options={data}
         // @ts-ignore
         getOptionValue={(option) => `${option[`${value}`]}`}
         // @ts-ignore
         getOptionLabel={(option) => option[`${label}`]}
-        onMenuScrollToBottom={() =>
-          setPage(() => {
-            if (paginate?.isLast) {
-              return paginate.currentPage;
-            } else return (paginate?.currentPage ?? 0) + 1;
-          })
-        }
+        additional={{
+          page: 1,
+        }}
         isSearchable={true}
         isClearable={true}
         onChange={(newValue) => {
           if (!isMultiple) {
             // @ts-ignore
-            return setValue(name, newValue[`${value}`] ?? undefined);
+            return setValue(name, newValue[`${value ?? ""}`] ?? undefined);
           } else
             return setValue(
               name,
               // @ts-ignore
-              newValue?.map((op) => op[`${value}`]),
+              newValue?.map((op) => op[`${value ?? ""}`]),
             );
         }}
+        isOptionSelected={(option) =>
+          // @ts-ignore
+          selected.includes(option[`${value ?? ""}`])
+        }
       />
     </>
   );

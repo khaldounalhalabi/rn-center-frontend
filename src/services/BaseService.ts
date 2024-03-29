@@ -29,7 +29,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     params?: object,
-  ): Promise<void | ApiResponse<T> | ApiRequestError | ApiResponseError> {
+  ): Promise<ApiResult<T>> {
     const res = await GET(this.baseUrl, {
       page: page,
       search: search,
@@ -52,8 +52,6 @@ export class BaseService<T> {
       ("errorType" in res && res?.errorType == ApiErrorType.NotRegister)
     ) {
       return await navigate("/auth/admin/login");
-    } else if("errorType" in res && res?.errorType == ApiErrorType.BadRequestException){
-      return await navigate("/400");
     }
     return res;
   }

@@ -14,14 +14,6 @@ export enum ApiErrorType {
   Doctor = "doctor",
 }
 
-export interface ApiResult<T> {
-  data: T | undefined | null;
-  status: boolean;
-  code: number;
-  message?: string | ValidationError;
-  paginate?: ApiResponsePagination;
-}
-
 export interface ValidationError {
   errors: {
     [k: string]: string;
@@ -76,11 +68,11 @@ export class ApiResponse<T> {
       validationErrors.forEach(([key, value]) => {
         useFormMethods.setError(`${key}`, {
           type: "backend-validation-error",
-          message: `${value
+          message: `${value.replace("_ids", " ").replace("_id", " ")}`
             .replace(".", " ")
             .replace("_", " ")
-            .replace("ids", " ")
-            .replace("id", " ")}`,
+            .replace(" id ", " ")
+            .replace(" ids ", " "),
         });
       });
     }

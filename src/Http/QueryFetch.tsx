@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { ApiErrorType, ApiResponse, ApiResult } from "@/Http/Response";
+import { ApiErrorType, ApiResponse } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
 
 export const GET = async (
@@ -106,30 +106,3 @@ function handleError(error: AxiosError<ApiResponse<any>>): ApiResponse<any> {
     return new ApiResponse<any>(null, false, 400, ApiErrorType.UNKNOWN_ERROR);
   }
 }
-
-export const getValidationError = (
-  fieldName: string,
-  response: ApiResult<any> | undefined,
-) => {
-  let responseError: any = response?.message;
-
-  if (responseError?.hasOwnProperty("errors")) {
-    responseError = responseError.errors;
-    if (responseError?.hasOwnProperty(`${fieldName}`)) {
-      responseError = responseError[`${fieldName}`];
-    }
-  }
-
-  let error: string | undefined;
-  if (responseError instanceof Array) {
-    error = responseError[0] ?? undefined;
-  } else if (responseError) {
-    error = `${responseError}`;
-  } else error = undefined;
-
-  if (error) {
-    return error.replace(".", " ").replace("_", " ");
-  }
-
-  return error;
-};

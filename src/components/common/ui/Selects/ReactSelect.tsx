@@ -1,6 +1,6 @@
 "use client";
 import React, { useId } from "react";
-import { ApiResponse, ApiResult } from "@/Http/Response";
+import { ApiResponse } from "@/Http/Response";
 import { useFormContext } from "react-hook-form";
 import "./select.css";
 import { AsyncPaginate } from "react-select-async-paginate";
@@ -37,7 +37,7 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
   }
   const loadedOptions = async (
     search: string,
-    _loadedOptions: ApiResult<any>,
+    _loadedOptions: ApiResponse<any>,
     { page }: { page: number },
   ) => {
     const response = await api(page, search);
@@ -48,8 +48,7 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
           : [{ label: "There is no data", value: undefined }],
       hasMore:
         response && response.hasOwnProperty("paginate")
-          ? // @ts-ignore
-            !response?.paginate.isLast
+          ? !response?.paginate?.isLast
           : false,
       additional: {
         page: page + 1,

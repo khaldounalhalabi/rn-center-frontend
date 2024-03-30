@@ -7,28 +7,33 @@ import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
-import Trash from "@/components/icons/Trash";
+import ArchiveIcon from "@/components/icons/ArchiveIcon";
+import { swal } from "@/Helpers/UIHelpers";
 
 const dataTableData: DataTableData<Clinic> = {
+  //TODO::add total appointments when it is done
+
   createUrl: "clinics/create",
   schema: [
     {
       name: "user.first_name",
       sortable: true,
       label: "Doctor",
-      render: (first_name, clinic) => (
-        <div className={`flex flex-col items-start`}>
-          <p>
-            {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
-            {clinic?.user?.last_name}
-          </p>
-          <p>{clinic?.name}</p>
-        </div>
-      ),
+      render: (first_name, clinic) => {
+        return (
+          <div className={`flex flex-col items-start`}>
+            <p>
+              {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
+              {clinic?.user?.last_name}
+            </p>
+            <p>{clinic?.name}</p>
+          </div>
+        );
+      },
     },
     {
       name: "user.address.city.name",
-      sortable: false,
+      sortable: true,
       label: "City",
     },
     {
@@ -37,7 +42,7 @@ const dataTableData: DataTableData<Clinic> = {
     },
     {
       label: "Actions",
-      render: (undefined, clinic) => (
+      render: (undefined, clinic, setHidden) => (
         <div className={`flex justify-between items-center`}>
           <button className="btn btn-square btn-sm">
             <Eye className="h-6 w-6 text-primary" />
@@ -46,7 +51,47 @@ const dataTableData: DataTableData<Clinic> = {
             <Pencil className="h-6 w-6 text-success" />
           </button>
           <button className="btn btn-square btn-sm">
-            <Trash className="h-6 w-6 text-error" />
+            <ArchiveIcon
+              className="h-6 w-6 text-error"
+              onClick={() => {
+                swal
+                  .fire({
+                    title: "Do you want to archive this clinic ?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: `No`,
+                    confirmButtonColor: "#007BFF",
+                  })
+                  .then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                      if (clinic?.id) {
+                        ClinicService.make()
+                          .delete(clinic.id)
+                          .then((res) => {
+                            swal.fire({
+                              title: "Archived!",
+                              confirmButtonColor: "#007BFF",
+                              icon: "success",
+                            });
+                            if (setHidden) {
+                              setHidden((prevState) => [
+                                clinic.id,
+                                ...prevState,
+                              ]);
+                            }
+                          })
+                          .catch((err) =>
+                            swal.fire("There Is Been An Error", "", "error"),
+                          );
+                      }
+                    } else if (result.isDenied) {
+                      swal.fire("Didn't Archive", "", "info");
+                    }
+                  });
+              }}
+            />
           </button>
         </div>
       ),
@@ -59,6 +104,7 @@ const dataTableData: DataTableData<Clinic> = {
       sortCol,
       sortDir,
     ),
+  title: "Clinics :",
 };
 
 const Page = () => {

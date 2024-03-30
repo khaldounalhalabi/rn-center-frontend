@@ -1,4 +1,4 @@
-import { GET, POST } from "@/Http/QueryFetch";
+import { DELETE, GET, POST } from "@/Http/QueryFetch";
 import { ApiResponse } from "@/Http/Response";
 import { navigate } from "@/Actions/navigate";
 
@@ -37,6 +37,11 @@ export class BaseService<T> {
 
   public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
     const res = await POST(this.baseUrl, data, headers);
+    return await this.errorHandler(res);
+  }
+
+  public async delete(id: number) {
+    const res = await DELETE(this.baseUrl + "/" + id);
     return await this.errorHandler(res);
   }
 

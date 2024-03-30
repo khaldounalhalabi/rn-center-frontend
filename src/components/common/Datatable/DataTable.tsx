@@ -1,16 +1,14 @@
 "use client";
 import React, { ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse } from "@/Http/Response";
-import ChevronLeft from "@/components/icons/ChevronLeft";
-import ChevronRight from "@/components/icons/ChevronRight";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
-import ChevronDown from "@/components/icons/ChevronDown";
-import ChevronUp from "@/components/icons/ChevronUp";
 import Link from "next/link";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import TableHead from "@/components/common/Datatable/TableHead";
+import TableBody from "@/components/common/Datatable/TableBody";
+import TablePaginator from "@/components/common/Datatable/TablePaginator";
 
 export interface DataTableSchema<T> {
   name?: string;
@@ -18,13 +16,16 @@ export interface DataTableSchema<T> {
   sortable?: boolean;
   headerProps?: ThHTMLAttributes<HTMLTableHeaderCellElement> | undefined | null;
   cellProps?: ThHTMLAttributes<HTMLTableHeaderCellElement> | undefined | null;
+  hidden?: number[];
   render?: (
     data: any,
     fullObject?: T,
+    setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
 export interface DataTableData<T> {
+  title?: string;
   createUrl?: string;
   schema: DataTableSchema<T>[];
   api: (
@@ -36,194 +37,10 @@ export interface DataTableData<T> {
   ) => Promise<ApiResponse<T>>;
 }
 
-function TableHead({
-  schema,
-  sortDir,
-  setSortDir,
-  sortCol,
-  setSortCol,
-}: {
-  schema: DataTableSchema<any>[];
-  sortDir: string;
-  setSortDir: (value: ((prevState: string) => string) | string) => void;
-  sortCol: string;
-  setSortCol: (value: ((prevState: string) => string) | string) => void;
-}) {
-  return (
-    <thead className="ltr:text-left rtl:text-right">
-      <tr>
-        {schema.map((header) => (
-          <th
-            key={header.label}
-            onClick={() => {
-              if (header.name && header.sortable) {
-                setSortDir((prevState) => {
-                  if (prevState == "asc") {
-                    return "desc";
-                  } else return "asc";
-                });
-
-                setSortCol(header.name);
-              }
-            }}
-            className={
-              header.headerProps?.className ??
-              `whitespace-nowrap px-4 py-2 font-medium text-gray-900 ${header.sortable ? "cursor-pointer" : ""}`
-            }
-            {...header.headerProps}
-          >
-            <div className={`flex justify-between items-center`}>
-              {header.label}
-
-              {header.sortable ? (
-                <div className={`flex flex-col`}>
-                  <ChevronUp
-                    className={`h-3 w-3 ${sortDir == "asc" && sortCol == header.name ? "fill-info" : ""}`}
-                  />
-                  <ChevronDown
-                    className={`h-3 w-3 ${sortDir == "desc" && sortCol == header.name ? "fill-info" : ""}`}
-                  />
-                </div>
-              ) : null}
-            </div>
-          </th>
-        ))}
-      </tr>
-    </thead>
-  );
-}
-
-function TableBody({
-  tableData,
-  data,
-}: {
-  tableData: DataTableData<any>;
-  data: ApiResponse<any> | undefined;
-}) {
-  return (
-    <tbody className="divide-y divide-gray-200">
-      {data?.data?.map((item: any, index: any) => (
-        <tr key={`${index}-${item.label}`}>
-          {tableData.schema.map((schema, index) => {
-            if (!schema.render && schema.name) {
-              return (
-                <td
-                  key={`${schema.label} - ${index}`}
-                  className={
-                    schema.cellProps?.className ??
-                    "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
-                  }
-                  {...schema.cellProps}
-                >
-                  {getNestedPropertyValue(item, schema.name)}
-                </td>
-              );
-            } else if (schema.render && schema.name) {
-              return (
-                <td
-                  key={`${schema.label} - ${index}`}
-                  className={
-                    schema.cellProps?.className ??
-                    "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
-                  }
-                  {...schema.cellProps}
-                >
-                  {schema.render(
-                    getNestedPropertyValue(item, schema.name) ?? "N Data",
-                    item,
-                  )}
-                </td>
-              );
-            } else if (schema.render) {
-              return (
-                <td
-                  key={`${schema.label} - ${index}`}
-                  className={
-                    schema.cellProps?.className ??
-                    "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
-                  }
-                  {...schema.cellProps}
-                >
-                  {schema.render(undefined, item)}
-                </td>
-              );
-            } else
-              return (
-                <td
-                  key={index}
-                  className={
-                    schema.cellProps?.className ??
-                    "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
-                  }
-                  {...schema.cellProps}
-                >
-                  NO DATA
-                </td>
-              );
-          })}
-        </tr>
-      ))}
-    </tbody>
-  );
-}
-
-function Paginator({
-  data,
-  placeholderData,
-  page,
-  setPage,
-}: {
-  data: ApiResponse<any> | undefined;
-  placeholderData: boolean;
-  page: number;
-  setPage: (value: ((prevState: number) => number) | number) => void;
-}) {
-  return (
-    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
-      <ol className="flex justify-end gap-1 text-xs font-medium">
-        <li>
-          <button
-            onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={page === 0}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 cursor-pointer"
-          >
-            <span className="sr-only">Prev Page</span>
-            <ChevronLeft />
-          </button>
-        </li>
-
-        {[...Array(data?.paginate?.total_pages ?? 0)].map((_e, index) => (
-          <li key={`page-${index + 1}`}>
-            <button
-              onClick={() => setPage(index + 1)}
-              className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
-            >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-        <li>
-          <button
-            onClick={() => {
-              if (!placeholderData && !data?.paginate?.isLast) {
-                setPage((old) => old + 1);
-              }
-            }}
-            disabled={placeholderData && data?.paginate?.isLast}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 cursor-pointer"
-          >
-            <span className="sr-only">Next Page</span>
-            <ChevronRight />
-          </button>
-        </li>
-      </ol>
-    </div>
-  );
-}
-
 const DataTable = (tableData: DataTableData<any>) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [hideCols, setHideCols] = useState<number[]>([]);
   const [sortDir, setSortDir]: [
     string,
     (value: ((prevState: string) => string) | string) => void,
@@ -233,10 +50,14 @@ const DataTable = (tableData: DataTableData<any>) => {
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
     queryKey: ["tableData", page, search, sortDir, sortCol],
     queryFn: async () => {
-      return await tableData.api(page, search, sortCol, sortDir);
+      let s = !search || search == "" ? undefined : search;
+      let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
+      let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
+      return await tableData.api(page, s, sortC, sortD);
     },
     placeholderData: keepPreviousData,
   });
+
   return (
     <div className={`relative`}>
       {isPending || isFetching ? (
@@ -244,8 +65,13 @@ const DataTable = (tableData: DataTableData<any>) => {
           <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
         </div>
       ) : null}
-      <div className={`card bg-base-100`}>
+      <div className={`card bg-base-100 shadow-xl m-3`}>
         <div className={`card-body`}>
+          {tableData.title ? (
+            <h1 className={"card-title"}>{tableData.title}</h1>
+          ) : (
+            ""
+          )}
           <div
             className={`card-actions w-full flex justify-between items-center`}
           >
@@ -264,6 +90,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
+                  setPage(1);
                 }}
               />
               <SearchIcon className={`w-4 h-4 opacity-70`} />
@@ -280,11 +107,16 @@ const DataTable = (tableData: DataTableData<any>) => {
                   sortCol={sortCol}
                 />
 
-                <TableBody data={data} tableData={tableData} />
+                <TableBody
+                  data={data}
+                  tableData={tableData}
+                  hidden={hideCols}
+                  setHidden={setHideCols}
+                />
               </table>
             </div>
 
-            <Paginator
+            <TablePaginator
               key={"next-page"}
               data={data}
               setPage={setPage}

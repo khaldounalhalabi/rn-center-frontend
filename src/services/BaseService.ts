@@ -1,11 +1,5 @@
 import { GET, POST } from "@/Http/QueryFetch";
-import {
-  ApiErrorType,
-  ApiRequestError,
-  ApiResponse,
-  ApiResponseError,
-  ApiResult,
-} from "@/Http/Response";
+import { ApiResponse } from "@/Http/Response";
 import { navigate } from "@/Actions/navigate";
 
 export class BaseService<T> {
@@ -29,7 +23,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     params?: object,
-  ): Promise<ApiResult<T>> {
+  ): Promise<ApiResponse<T>> {
     const res = await GET(this.baseUrl, {
       page: page,
       search: search,
@@ -41,17 +35,14 @@ export class BaseService<T> {
     return await this.errorHandler(res);
   }
 
-  public async store(data: any, headers?: object) {
+  public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
     const res = await POST(this.baseUrl, data, headers);
     return await this.errorHandler(res);
   }
 
-  protected async errorHandler(res: ApiResult<T> | ApiResponseError) {
-    if (
-      ("errorType" in res && res?.errorType == ApiErrorType.UNAUTHORIZED) ||
-      ("errorType" in res && res?.errorType == ApiErrorType.NotRegister)
-    ) {
-      return await navigate("/auth/admin/login");
+  protected async errorHandler(res: ApiResponse<T>) {
+    if (res.code == 401 || res.code == 403) {
+      await navigate("/auth/admin/login");
     }
     return res;
   }

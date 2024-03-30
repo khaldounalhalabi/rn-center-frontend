@@ -1,10 +1,10 @@
 import React from "react";
-import LogIn from "@/components/common/Auth/LogIn";
+import Login from "@/components/common/Auth/Login";
 
 const page = () => {
   const apiLoginAdmin: string = `admin/login`;
 
-  return <LogIn url={apiLoginAdmin} pageType={"admin"} />;
+  return <Login url={apiLoginAdmin} pageType={"admin"} />;
 };
 
 export default page;

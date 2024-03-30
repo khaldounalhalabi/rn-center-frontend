@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./global.css";
 import React from "react";
-import { CookiesProvider } from 'next-client-cookies/server';
-import {getCookieServer} from "@/Actions/serverCookies";
-
+import { CookiesProvider } from "next-client-cookies/server";
+import { getCookieServer } from "@/Actions/serverCookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,20 +21,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-    const dir =await getCookieServer('locale')
+  const dir = await getCookieServer("locale");
   return (
-    <html lang={dir=='ar'?'ar':'en'} dir={dir=='ar'?'rtl':'ltr'}>
-
+    <html lang={dir == "ar" ? "ar" : "en"} dir={dir == "ar" ? "rtl" : "ltr"}>
       <body
-        className={inter.className+'min-h-[100vh]'}
-        style={{
-            background:
-                "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
-        }}
+        className={inter.className}
+
       >
-      <CookiesProvider>
-        {children}
-      </CookiesProvider>
+        <CookiesProvider>{children}</CookiesProvider>
       </body>
     </html>
   );

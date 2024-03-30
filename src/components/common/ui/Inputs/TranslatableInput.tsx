@@ -1,32 +1,37 @@
 "use client";
 import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
   name: string;
   label?: string;
   locales?: string[];
-  error?: string;
 }
 
 const TranslatableInput: React.FC<TranslatableInputProps> = ({
   className,
   label,
   locales = ["en", "ar"],
-  error,
   name,
   ...props
 }) => {
   const [selectedLocale, setSelectedLocale] = useState("en");
   const [tValue, setTValue] = useState<object>({});
-  const { register, setValue } = useFormContext();
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
   const handleInputChange = (locale: string, v: string) => {
     // @ts-ignore
     tValue[`${locale}`] = v;
     setTValue(tValue);
     setValue(name, JSON.stringify(tValue));
   };
+
+  const error = getNestedPropertyValue(errors, `${name}.message`);
 
   return (
     <div className={`flex flex-col items-start justify-between gap-2 w-full`}>

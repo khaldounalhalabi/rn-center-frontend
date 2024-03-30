@@ -1,19 +1,12 @@
-import axios, { AxiosError } from "axios";
-import {
-  ApiError,
-  ApiErrorType,
-  ApiRequestError,
-  ApiResponseError,
-  ApiResult,
-} from "@/Http/Response";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { ApiErrorType, ApiResponse, ApiResult } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
-import ignore from "ignore";
 
 export const GET = async (
   url: string,
   params?: object,
   headers?: object,
-): Promise<ApiResult<any>> => {
+): Promise<ApiResponse<any>> => {
   return await queryFetch("GET", url, headers, params);
 };
 
@@ -21,7 +14,7 @@ export const POST = async (
   url: string,
   data: any,
   headers?: object,
-): Promise<ApiResult<any>> => {
+): Promise<ApiResponse<any>> => {
   return await queryFetch("POST", url, headers, undefined, data);
 };
 
@@ -29,7 +22,7 @@ export const PUT = async (
   url: string,
   data: any,
   headers?: object,
-): Promise<ApiResult<any>> => {
+): Promise<ApiResponse<any>> => {
   return await queryFetch("PUT", url, headers, undefined, data);
 };
 
@@ -37,7 +30,7 @@ export const DELETE = async (
   url: string,
   params?: object,
   headers?: object,
-): Promise<ApiResult<any>> => {
+): Promise<ApiResponse<any>> => {
   return await queryFetch("DELETE", url, headers, params);
 };
 
@@ -47,7 +40,7 @@ const queryFetch = async (
   headers?: object,
   params?: object,
   data?: object | undefined,
-): Promise<ApiResult<any>> => {
+): Promise<ApiResponse<any>> => {
   const h = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -63,7 +56,7 @@ const queryFetch = async (
   };
 
   try {
-    let response;
+    let response: AxiosResponse;
     switch (method) {
       case "GET":
         response = await axios.get(url, config);
@@ -81,79 +74,36 @@ const queryFetch = async (
         response = await axios.get(url, config);
         break;
     }
-
-    return response.data;
+    return new ApiResponse(
+      response.data.data ?? null,
+      response.data.status ?? null,
+      response.data.code ?? 500,
+      response.data.message ?? null,
+      response.data.paginate ?? null,
+    );
   } catch (error: any) {
     return handleError(error);
   }
 };
 
-function handleError(error: AxiosError<ApiResponseError>): ApiError {
-  if (error.response) {
-    switch (error.response.status) {
-      case 404:
-        // go to page 404
-        return {
-          message: error.response.data.message,
-          errorType: ApiErrorType.NOT_FOUND,
-        } as ApiResponseError;
-      case 400:
-        return {
-          // go to page 400
-          message: error.response.data.message,
-          errorType: ApiErrorType.BadRequestException,
-        } as ApiResponseError;
-      case 403:
-        return {
-          // got to log in page
-          message: error.response.data.message,
-          errorType: ApiErrorType.UNAUTHORIZED,
-        } as ApiResponseError;
-      case 405:
-        return {
-          // error Validation
-          message: error.response.data.message,
-          errorType: ApiErrorType.Validation,
-        } as ApiResponseError;
-      case 401:
-        return {
-          // error NotRegister
-          message: error.response.data.message,
-          errorType: ApiErrorType.NotRegister,
-        } as ApiResponseError;
-      case 410:
-        return {
-          // error Admin
-          message: error.response.data.message,
-          errorType: ApiErrorType.Admin,
-        } as ApiResponseError;
-      case 411:
-        return {
-          // error Customer
-          message: error.response.data.message,
-          errorType: ApiErrorType.Customer,
-        } as ApiResponseError;
-      case 412:
-        return {
-          // error Doctor
-          message: error.response.data.message,
-          errorType: ApiErrorType.Doctor,
-        } as ApiResponseError;
-      default:
-        return {
-          // go to page 400
-          message: error.response.data.message,
-          errorType: ApiErrorType.BadRequestException,
-        } as ApiResponseError;
+function handleError(error: AxiosError<ApiResponse<any>>): ApiResponse<any> {
+  if (error.request) {
+    if (error.response?.status == 405 && error.response?.data.code == 405) {
+      return new ApiResponse<any>(
+        null,
+        false,
+        405,
+        error.response.data.message,
+      );
     }
-  } else if (error.request) {
-    return {
-      // message no network
-      errorType: ApiErrorType.CONNECTION_ERROR,
-    } as ApiRequestError;
+    return new ApiResponse<any>(
+      null,
+      false,
+      error.response?.data.code ?? error.response?.status ?? 400,
+      ApiErrorType.CONNECTION_ERROR,
+    );
   } else {
-    // got to page 500
-    return { errorType: ApiErrorType.UNKNOWN_ERROR } as ApiRequestError;
+    return new ApiResponse<any>(null, false, 400, ApiErrorType.UNKNOWN_ERROR);
   }
 }
 

@@ -27,9 +27,9 @@ const dataTableData: DataTableData<Clinic> = {
       ),
     },
     {
+      name: "user.address.city.name",
       sortable: false,
       label: "City",
-      render: (undefined, clinic) => clinic?.user?.address?.city,
     },
     {
       label: "Phone",
@@ -62,7 +62,7 @@ const dataTableData: DataTableData<Clinic> = {
 };
 
 const Page = () => {
-  return <DataTable {...dataTableData}/>;
+  return <DataTable {...dataTableData} />;
 };
 
 export default Page;

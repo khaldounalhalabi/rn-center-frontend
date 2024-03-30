@@ -1,11 +1,9 @@
 "use client";
-import React, {useState} from "react";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
-import {getValidationError} from "@/Http/QueryFetch";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-
 
 const SetNewPassword = ({
   url,
@@ -14,8 +12,6 @@ const SetNewPassword = ({
   url: string;
   pageType: string;
 }) => {
-  const [response, setResponse] = useState<any>(undefined);
-
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
     const code = window.localStorage.getItem(pageType + "code");
@@ -24,9 +20,9 @@ const SetNewPassword = ({
       password: data.password,
       password_confirmation: data.password_confirmation,
     };
-    const res = await AuthService.make().setNewPassword(url, dataSend, pageType);
-    console.log(res)
-    if (res) setResponse(res);
+    AuthService.make()
+      .setNewPassword(url, dataSend, pageType)
+      .then((res) => res.fillValidationErrors(methods));
   };
   return (
     <div
@@ -41,26 +37,21 @@ const SetNewPassword = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
         <FormProvider {...methods}>
-          <form
-              onSubmit={methods.handleSubmit(onSubmit)}
-          >
-            <Input
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <div className={"flex flex-col gap-5"}>
+              <Input
                 name="password"
                 type={"text"}
-
                 label="Password :"
-                error={getValidationError("name", response)}
                 placeholder="Enter New Password"
-            />
-            <Input
+              />
+              <Input
                 name="password_confirmation"
                 type="text"
-
                 label="Confirmation Password :"
-                error={getValidationError("name", response)}
                 placeholder="Reset New Password"
-            />
-
+              />
+            </div>
             <div className={`flex justify-center items-center mt-3`}>
               <PrimaryButton type={"submit"}>Save</PrimaryButton>
             </div>

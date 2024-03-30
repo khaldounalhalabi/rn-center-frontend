@@ -1,29 +1,24 @@
 "use client";
-import React, {useState} from "react";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
-import {getValidationError, POST} from "@/Http/QueryFetch";
+import { POST } from "@/Http/QueryFetch";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-
 
 const VerificationEmailCode = ({
   url,
   urlResendCode,
-  pageType,
 }: {
   url: string;
   urlResendCode: string;
   pageType: string;
 }) => {
-
-
-  const [response, setResponse] = useState<any>(undefined);
-
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
-    const res = await AuthService.make().requestVerificationCode(url, data);
-    if (res) setResponse(res);
+    AuthService.make()
+      .requestVerificationCode(url, data)
+      .then((res) => res.fillValidationErrors(methods));
   };
   const handleResendVerCode = () => {
     const email = {
@@ -45,31 +40,27 @@ const VerificationEmailCode = ({
           <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
         </div>
 
-      <FormProvider {...methods}>
-        <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-        >
-          <Input
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Input
               name="verificationCode"
               type="text"
               placeholder="Enter Verification Code"
-              error={getValidationError("verificationCode", response)}
+            />
 
-          />
-
-          <div className={`flex justify-center items-center mt-3`}>
-            <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-          </div>
-          <div className="w-full text-left">
-            <p
+            <div className={`flex justify-center items-center mt-3`}>
+              <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+            </div>
+            <div className="w-full text-left">
+              <p
                 onClick={handleResendVerCode}
                 className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
-            >
-              Resend The code ?
-            </p>
-          </div>
-        </form>
-      </FormProvider>
+              >
+                Resend The code ?
+              </p>
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );

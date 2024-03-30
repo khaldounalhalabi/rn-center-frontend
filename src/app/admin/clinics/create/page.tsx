@@ -6,51 +6,40 @@ import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Trash from "@/components/icons/Trash";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import Grid from "@/components/common/ui/Grid";
 import { ClinicService } from "@/services/ClinicService";
-import { getValidationError } from "@/Http/QueryFetch";
 import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import ReactSelect from "@/components/common/ui/Selects/ReactSelect";
-import SelectCity from "@/components/common/ui/Selects/SelectCity";
+import { CityService } from "@/services/CityService";
 
 const Page = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<any>();
-
   const [phonesNum, setPhonesNum] = useState(1);
-
-  const [response, setResponse] = useState<any>(undefined);
 
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
-    console.log(data);
-    const res = await ClinicService.make().store(data);
-    if (res) setResponse(res);
+    ClinicService.make()
+      .store(data)
+      .then((res) => res.fillValidationErrors(methods));
   };
 
   return (
     <PageCard>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Grid md={4} gap={2}>
+          <div className={"grid grid-cols-1 md:grid-cols-3 gap-2"}>
             <TranslatableInput
               locales={["en", "ar"]}
               type={"text"}
               placeholder={"John"}
               label={"Doctor First Name"}
               name={"user.first_name"}
-              error={getValidationError("user.first_name", response)}
             />
             <TranslatableInput
               type={"text"}
               placeholder={`Mark`}
               locales={["en", "ar"]}
               label={"Doctor Middle Name"}
-              error={getValidationError("user.middle_name", response)}
               name={"user.middle_name"}
             />
 
@@ -60,32 +49,28 @@ const Page = () => {
               locales={["en", "ar"]}
               label={"Doctor Last Name"}
               name={"user.last_name"}
-              error={getValidationError("user.last_name", response)}
             />
-          </Grid>
+          </div>
 
-          <Grid md={2}>
+          <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
             <TranslatableInput
               locales={["en", "ar"]}
               type={"text"}
               placeholder={`Clinic Name`}
               label={"Clinic Name"}
               name={"name"}
-              error={getValidationError("name", response)}
             />
             <Input
               name={"user.email"}
               type={"email"}
               placeholder={"Enter The Doctor Email"}
               label={"Doctor Email"}
-              error={getValidationError("user.email", response)}
             />
             <Input
               name={"user.password"}
               type={"password"}
               placeholder={"Password"}
               label={"Password"}
-              error={getValidationError("user.password", response)}
             />
             <Input
               name={"user.password_confirmation"}
@@ -99,7 +84,7 @@ const Page = () => {
               type={"date"}
               placeholder={"Enter Doctor Birth Date"}
               label={"Doctor BirthDate"}
-              error={getValidationError("user.birth_date", response)}
+              defaultValue={"1970-12-31"}
             />
             <Input
               name={"appointment_cost"}
@@ -107,7 +92,6 @@ const Page = () => {
               step={"any"}
               placeholder={"Appointment Cost i.e : 5"}
               label="Appointment Cost"
-              error={getValidationError("appointment_cost", response)}
             />
 
             <Input
@@ -116,13 +100,12 @@ const Page = () => {
               step={"any"}
               placeholder={"Doctor Max Appointments Per Day Are ?"}
               label="Max Appoiintments Per Day"
-              error={getValidationError("user.max_appointments", response)}
             />
-          </Grid>
+          </div>
           <label>Phone Numbers :</label>
 
-          <Grid md={2} gap={2}>
-            {[...Array(phonesNum)].map((field, index) => {
+          <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
+            {[...Array(phonesNum)].map((_field, index) => {
               return (
                 <div
                   className={`flex justify-between items-center w-full gap-2`}
@@ -133,10 +116,6 @@ const Page = () => {
                     name={`phone_numbers[${index}]`}
                     type={"tel"}
                     placeholder={`Enter Your Phone Number (${index + 1})`}
-                    error={getValidationError(
-                      `phone_numbers.${index}`,
-                      response,
-                    )}
                   />
                   <button
                     type={"button"}
@@ -152,7 +131,7 @@ const Page = () => {
                 </div>
               );
             })}
-          </Grid>
+          </div>
 
           <div className={`flex items-center m-3`}>
             <button
@@ -163,38 +142,47 @@ const Page = () => {
             </button>
           </div>
 
-          <Grid md={2} gap={10} className={`w-full my-5`}>
-            <div className={`flex gap-5 p-2`}>
-              <label>Active</label>
-              <input
+          <div className={`w-full my-5 grid grid-cols-1 md:grid-cols-2 gap-2`}>
+            <div className={`flex gap-5 p-2 items-center`}>
+              <label className={`bg-pom p-2 rounded-md text-white`}>
+                Status:
+              </label>
+              <Input
+                name={"status"}
+                label={"Active"}
                 type="radio"
                 className="radio radio-info"
                 value={"active"}
-                {...register("status", { value: true })}
+                defaultChecked={true}
               />
-              <label>In-Active</label>
-              <input
+              <Input
+                name={"status"}
+                label={"In-Active"}
                 type="radio"
                 className="radio radio-info"
                 value={"in-active"}
-                {...register("status", { value: false })}
               />
             </div>
 
-            <div className={`flex gap-5 p-2`}>
-              <label>Male</label>
-              <input
+            <div className={`flex gap-5 p-2 items-center`}>
+              <label className={`bg-pom p-2 rounded-md text-white`}>
+                Gender:
+              </label>
+              <Input
+                name={"user.gender"}
+                label={"Male"}
                 type="radio"
                 className="radio radio-info"
                 value={"male"}
-                {...register("user.gender", { value: true })}
+                defaultChecked={true}
               />
-              <label>Female</label>
-              <input
+
+              <Input
+                name={"user.gender"}
+                label={"Female"}
                 type="radio"
                 className="radio radio-info"
                 value={"female"}
-                {...register("user.gender", { value: false })}
                 multiple={true}
               />
             </div>
@@ -222,21 +210,41 @@ const Page = () => {
                 isMultiple={true}
                 label={"name"}
                 value={"id"}
-                name={"specialities"}
+                name={"speciality_ids"}
               />
             </div>
 
             <div className={"flex flex-col gap-2"}>
               <label>City</label>
-              <SelectCity name={"address.city"} />
+              <ReactSelect
+                api={async (page, search) =>
+                  await CityService.make().indexWithPagination(page, search)
+                }
+                label={"name"}
+                value={"id"}
+                name={"address.city_id"}
+              />
             </div>
             <TranslatableInput
               name={"address.name"}
               type={"text"}
               label={"Clinic Address"}
-              error={getValidationError("address.name", response)}
             />
-          </Grid>
+
+            <Input
+              name={"address.lat"}
+              type={"number"}
+              step={"any"}
+              label={"Latitude"}
+            />
+
+            <Input
+              name={"address.lng"}
+              type={"number"}
+              step={"any"}
+              label={"Longitude"}
+            />
+          </div>
 
           <ImageUploader name={"user.image"} />
 
@@ -248,5 +256,4 @@ const Page = () => {
     </PageCard>
   );
 };
-
 export default Page;

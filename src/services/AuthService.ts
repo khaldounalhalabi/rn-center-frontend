@@ -1,7 +1,7 @@
 import { navigate } from "@/Actions/navigate";
 import { POST } from "@/Http/QueryFetch";
-import { ApiResult } from "@/Http/Response";
-import { User } from "@/Models/User";
+import { ApiResponse } from "@/Http/Response";
+import { AuthResponse } from "@/Models/User";
 import { setServerCookie } from "@/Actions/serverCookies";
 
 export class AuthService {
@@ -17,15 +17,17 @@ export class AuthService {
   }
 
   public async login(url: string, dataForm: object, pageType: string) {
-    const response = await POST(url, dataForm).then((res: ApiResult<User>) => {
-      if (res.code == 200) {
-        setServerCookie("token", res?.data?.token ?? "");
-        setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
-        this.successStatus = true;
-      }
+    const response = await POST(url, dataForm).then(
+      (res: ApiResponse<AuthResponse>) => {
+        if (res.code == 200) {
+          setServerCookie("token", res?.data?.token ?? "");
+          setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
+          this.successStatus = true;
+        }
 
-      return res;
-    });
+        return res;
+      },
+    );
 
     if (this.successStatus) await navigate(`/${pageType}`);
 
@@ -69,6 +71,7 @@ export class AuthService {
       this.successStatus = e.code == 200;
       return e;
     });
+
     if (this.successStatus) await navigate(`/auth/${pageType}/login`);
     return response;
   }

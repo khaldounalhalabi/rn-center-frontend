@@ -1,13 +1,14 @@
 "use client";
 import React, { useId } from "react";
-import { ApiResult } from "@/Http/Response";
+import { ApiResponse, ApiResult } from "@/Http/Response";
 import { useFormContext } from "react-hook-form";
 import "./select.css";
 import { AsyncPaginate } from "react-select-async-paginate";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 interface SelectProps<T> {
   name: string;
-  api: (page: number, search?: string) => Promise<ApiResult<T>>;
+  api: (page: number, search?: string) => Promise<ApiResponse<T>>;
   label: string;
   value: string;
   isMultiple?: boolean;
@@ -22,7 +23,12 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
   isMultiple = false,
   selected = [],
 }) => {
-  const { setValue, register } = useFormContext();
+  const {
+    setValue,
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const error = getNestedPropertyValue(errors, `${name}.message`);
 
   if (selected.length > 0) {
     if (isMultiple) {
@@ -51,7 +57,7 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
     };
   };
   return (
-    <>
+    <div className={"flex flex-col"}>
       <input {...register(name)} className={"hidden"} hidden={true} />
       <AsyncPaginate
         cacheOptions
@@ -84,7 +90,8 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
           selected.includes(option[`${value ?? ""}`])
         }
       />
-    </>
+      {error ? <p className={`text-error`}>{error}</p> : ""}
+    </div>
   );
 };
 

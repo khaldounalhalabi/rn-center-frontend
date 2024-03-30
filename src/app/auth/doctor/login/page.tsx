@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import LogIn from "@/components/common/Auth/LogIn";
+import Login from "@/components/common/Auth/Login";
 
 const page = () => {
   const apiLoginAdmin: string = `doctor/login`;
 
-  return <LogIn url={apiLoginAdmin} pageType={"doctor"} />;
+  return <Login url={apiLoginAdmin} pageType={"doctor"} />;
 };
 
 export default page;

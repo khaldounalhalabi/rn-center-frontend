@@ -18,14 +18,14 @@ const Grid: React.FC<GridProps> = ({
   children,
   ...props
 }) => {
-  const small: string = `grid-cols-${sm}`;
+  const small: string = `grid-cols-[auto_${sm}fr]`;
   const gp: string = `gap-${gap}`;
-  const medium: string = `md:grid-cols-${md}`;
+  const medium: string = `md:grid-cols-[auto_${md}fr]`;
   const large: string = `lg:grid-cols-${lg}`;
 
   return (
     <div
-      className={`grid ${gp} ${small} ${medium} ${large} ${className ?? ""} my-3`}
+      className={`grid ${gp} ${small} ${medium} ${large} w-full ${className ?? ""} my-3`}
       {...props}
     >
       {children}

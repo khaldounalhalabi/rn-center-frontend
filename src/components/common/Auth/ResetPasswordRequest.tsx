@@ -1,12 +1,9 @@
 "use client";
-import React, {useState} from "react";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
-import {getValidationError} from "@/Http/QueryFetch";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-
-
 
 const ResetPasswordRequest = ({
   url,
@@ -15,19 +12,12 @@ const ResetPasswordRequest = ({
   url: string;
   typePage: string;
 }) => {
-
-  const [response, setResponse] = useState<any>(undefined);
-
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
-    const res = await AuthService.make().requestResetPasswordRequest(
-        url,
-        data,
-        typePage,
-    );
+    AuthService.make()
+      .requestResetPasswordRequest(url, data, typePage)
+      .then((res) => res.fillValidationErrors(methods));
     window.localStorage.setItem(typePage, data.email);
-    console.log(res)
-    if (res) setResponse(res);
   };
   return (
     <div
@@ -42,23 +32,19 @@ const ResetPasswordRequest = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
           <h4 className="mt-4 text-gray-500">Enter your Email Address</h4>
         </div>
-       <FormProvider {...methods}>
-         <form
-             onSubmit={methods.handleSubmit(onSubmit)}
-         >
-           <Input
-               name="email"
-               type="text"
-               label="Email :"
-               placeholder="Enter Email"
-               error={getValidationError("email", response)}
-
-           ></Input>
-           <div className={`flex justify-center items-center mt-3`}>
-             <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-           </div>
-         </form>
-       </FormProvider>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Input
+              name="email"
+              type="text"
+              label="Email :"
+              placeholder="Enter Email"
+            />
+            <div className={`flex justify-center items-center mt-3`}>
+              <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );

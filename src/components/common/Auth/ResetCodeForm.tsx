@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
-import {getValidationError, POST} from "@/Http/QueryFetch";
+import { POST } from "@/Http/QueryFetch";
 import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -16,8 +16,6 @@ const ResetCodeForm = ({
   urlResendCode: string;
   pageType: string;
 }) => {
-
-
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
   HandleTimer(minutes, seconds, setMinutes, setSeconds);
@@ -29,16 +27,13 @@ const ResetCodeForm = ({
     };
     return POST(urlResendCode, email);
   };
-  const [response, setResponse] = useState<any>(undefined);
 
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
-    const res = await AuthService.make().submitResetCode(url, data, pageType);
-    window.localStorage.setItem(
-        pageType + "code",
-        data.reset_password_code,
-    );
-    if (res) setResponse(res);
+    AuthService.make()
+      .submitResetCode(url, data, pageType)
+      .then((res) => res.fillValidationErrors(methods));
+    window.localStorage.setItem(pageType + "code", data.reset_password_code);
   };
   return (
     <div
@@ -58,12 +53,10 @@ const ResetCodeForm = ({
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <Input
-                name="reset_password_code"
-                type="text"
-                label="Code :"
-                placeholder="Enter Reset Code"
-                error={getValidationError("reset_password_code", response)}
-
+              name="reset_password_code"
+              type="text"
+              label="Code :"
+              placeholder="Enter Reset Code"
             ></Input>
             <div className="w-1/2 pl-2">
               <p>
@@ -77,8 +70,8 @@ const ResetCodeForm = ({
             </div>
             <div className="w-full text-left">
               <p
-                  onClick={HandleClickResetButton}
-                  className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+                onClick={HandleClickResetButton}
+                className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
               >
                 Resend The code ?
               </p>

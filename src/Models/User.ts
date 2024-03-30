@@ -1,5 +1,6 @@
 import { Phone } from "@/Models/Phone";
 import { Address } from "@/Models/Address";
+import { City } from "@/Models/City";
 
 export interface User {
   id: number;
@@ -18,4 +19,10 @@ export interface User {
   image: null | string;
   phones: Phone[];
   address: Address;
+}
+
+export interface AuthResponse {
+  user: User;
+  token?: string;
+  refresh_token?: string;
 }

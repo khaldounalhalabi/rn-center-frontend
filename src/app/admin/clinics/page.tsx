@@ -19,7 +19,7 @@ const dataTableData: DataTableData<Clinic> = {
       name: "user.first_name",
       sortable: true,
       label: "Doctor",
-      render: (first_name, clinic) => {
+      render: (_first_name, clinic) => {
         return (
           <div className={`flex flex-col items-start`}>
             <p>
@@ -38,11 +38,11 @@ const dataTableData: DataTableData<Clinic> = {
     },
     {
       label: "Phone",
-      render: (undefined, clinic) => clinic?.user?.phones[0]?.phone ?? "",
+      render: (_undefined, clinic) => clinic?.user?.phones[0]?.phone ?? "",
     },
     {
       label: "Actions",
-      render: (undefined, clinic, setHidden) => (
+      render: (_undefined, clinic, setHidden) => (
         <div className={`flex justify-between items-center`}>
           <button className="btn btn-square btn-sm">
             <Eye className="h-6 w-6 text-primary" />
@@ -69,7 +69,7 @@ const dataTableData: DataTableData<Clinic> = {
                       if (clinic?.id) {
                         ClinicService.make()
                           .delete(clinic.id)
-                          .then((res) => {
+                          .then(() => {
                             swal.fire({
                               title: "Archived!",
                               confirmButtonColor: "#007BFF",
@@ -82,7 +82,7 @@ const dataTableData: DataTableData<Clinic> = {
                               ]);
                             }
                           })
-                          .catch((err) =>
+                          .catch(() =>
                             swal.fire("There Is Been An Error", "", "error"),
                           );
                       }

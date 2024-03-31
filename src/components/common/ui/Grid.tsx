@@ -18,9 +18,9 @@ const Grid: React.FC<GridProps> = ({
   children,
   ...props
 }) => {
-  const small: string = `grid-cols-[auto_${sm}fr]`;
+  const small: string = `grid-cols-${sm}`;
   const gp: string = `gap-${gap}`;
-  const medium: string = `md:grid-cols-[auto_${md}fr]`;
+  const medium: string = `md:grid-cols-${md}`;
   const large: string = `lg:grid-cols-${lg}`;
 
   return (

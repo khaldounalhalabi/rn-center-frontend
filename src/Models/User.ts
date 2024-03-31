@@ -1,6 +1,7 @@
 import { Phone } from "@/Models/Phone";
 import { Address } from "@/Models/Address";
 import { City } from "@/Models/City";
+import { Media } from "@/Models/Media";
 
 export interface User {
   id: number;
@@ -8,15 +9,15 @@ export interface User {
   middle_name: string;
   last_name: string;
   email: string;
-  phone_number: string;
   birth_date: string;
+  age: number;
   gender: string;
   blood_group: string;
   is_blocked: boolean;
   tags: string;
-  fcm_token: null | string;
+  fcm_token?: null | string;
   is_archived: boolean;
-  image: null | string;
+  image?: Media[];
   phones: Phone[];
   address: Address;
 }

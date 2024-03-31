@@ -9,6 +9,7 @@ import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
+import Link from "next/link";
 
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
@@ -44,9 +45,9 @@ const dataTableData: DataTableData<Clinic> = {
       label: "Actions",
       render: (_undefined, clinic, setHidden) => (
         <div className={`flex justify-between items-center`}>
-          <button className="btn btn-square btn-sm">
+          <Link href={`clinics/${clinic?.id}`} className="btn btn-square btn-sm">
             <Eye className="h-6 w-6 text-primary" />
-          </button>
+          </Link>
           <button className="btn btn-square btn-sm">
             <Pencil className="h-6 w-6 text-success" />
           </button>

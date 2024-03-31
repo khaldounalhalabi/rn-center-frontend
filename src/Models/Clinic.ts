@@ -8,6 +8,7 @@ export interface Clinic {
   appointment_cost: number;
   user_id: number;
   working_start_year: string;
+  experience_years: number;
   max_appointments: number;
   appointment_day_range: number;
   about_us?: string;
@@ -15,4 +16,6 @@ export interface Clinic {
   user?: User;
   specialities?: Speciality[];
   hospital?: Hospital;
+  created_at: string;
+  updated_at: string;
 }

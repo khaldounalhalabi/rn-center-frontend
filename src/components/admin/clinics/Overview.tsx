@@ -1,5 +1,6 @@
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
+import { translate } from "@/Helpers/ObjectHelpers";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
   return (
@@ -11,7 +12,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
             {clinic?.specialities?.map((spec) => {
               return (
                 <div key={spec.id} className={"badge badge-info"}>
-                  {spec.name}
+                  {translate(spec.name)}
                 </div>
               );
             })}
@@ -24,6 +25,10 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>Gender : </label>
           <p className={"badge badge-success"}>{clinic?.user?.gender}</p>
+        </div>
+        <div className={"w-full"}>
+          <label className={"label"}>Gender : </label>
+          <p className={"badge badge-warning"}>{clinic?.status}</p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>Date Of Birth : </label>
@@ -40,9 +45,9 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>Address :</label>
           <div className={"flex flex-col"}>
-            <p>{clinic?.user?.address.name}</p>
-            <p>{clinic?.user?.address.city.name}</p>
-            <p>{clinic?.user?.address.country}</p>
+            <p>{translate(clinic?.user?.address?.name)}</p>
+            <p>{translate(clinic?.user?.address?.city?.name)}</p>
+            <p>{translate(clinic?.user?.address?.country)}</p>
           </div>
         </div>
 
@@ -65,7 +70,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>Hospital :</label>
           <p className={"badge badge-error"}>
-            {clinic?.hospital?.name ?? "No Hospital"}
+            {translate(clinic?.hospital?.name ?? "No Hospital")}
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 import { User } from "@/Models/User";
 import { Speciality } from "@/Models/Speciality";
 import { Hospital } from "@/Models/Hospital";
+import { Translatable } from "@/Models/Translatable";
 
 export interface Clinic {
   id: number;
@@ -11,11 +12,40 @@ export interface Clinic {
   experience_years: number;
   max_appointments: number;
   appointment_day_range: number;
+  status?: string;
   about_us?: string;
   experience?: string;
-  user?: User;
+  user: User;
   specialities?: Speciality[];
+  hospital_id?: number;
   hospital?: Hospital;
   created_at: string;
   updated_at: string;
+}
+
+export interface AddOrUpdateClinicForm {
+  name?: string | Translatable;
+  appointment_cost?: number;
+  max_appointments?: number;
+  user?: {
+    first_name?: string | Translatable;
+    middle_name?: string | Translatable;
+    last_name?: string | Translatable;
+    email?: string;
+    password?: string;
+    password_confirmation?: string;
+    birth_date?: string | Date;
+    gender?: string;
+    image?: File | any;
+  };
+  phone_numbers?: string[];
+  status?: string;
+  hospital_id?: number;
+  speciality_ids?: number[];
+  address?: {
+    city_id?: number;
+    name?: string | Translatable;
+    lat?: string | number;
+    lng?: string | number;
+  };
 }

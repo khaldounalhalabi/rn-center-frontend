@@ -7,6 +7,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
+import React from "react";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 const ImageUploader = ({ name }: { name: string }) => {
   registerPlugin(
@@ -15,19 +17,24 @@ const ImageUploader = ({ name }: { name: string }) => {
     FilePondPluginFileValidateType,
   );
 
-  const { setValue } = useFormContext();
-
+  const {
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+  const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
-    <div className={`flex justify-center items-center`}>
+    <div className={`flex justify-center items-center flex-col my-3`}>
       <div className={`w-full`}>
         <FilePond
           onupdatefiles={(fileItems) => {
-            fileItems.map((file) => setValue(name, file));
+            fileItems.map((file) => setValue(name, file.file));
           }}
           acceptedFileTypes={["image/*"]}
           labelIdle={"Add The Doctor Image Here"}
+          storeAsFile={true}
         />
       </div>
+      {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
     </div>
   );
 };

@@ -45,12 +45,18 @@ const dataTableData: DataTableData<Clinic> = {
       label: "Actions",
       render: (_undefined, clinic, setHidden) => (
         <div className={`flex justify-between items-center`}>
-          <Link href={`clinics/${clinic?.id}`} className="btn btn-square btn-sm">
+          <Link
+            href={`clinics/${clinic?.id}`}
+            className="btn btn-square btn-sm"
+          >
             <Eye className="h-6 w-6 text-primary" />
           </Link>
-          <button className="btn btn-square btn-sm">
+          <Link
+            href={`clinics/${clinic?.id}/edit`}
+            className="btn btn-square btn-sm"
+          >
             <Pencil className="h-6 w-6 text-success" />
-          </button>
+          </Link>
           <button className="btn btn-square btn-sm">
             <ArchiveIcon
               className="h-6 w-6 text-error"
@@ -98,12 +104,13 @@ const dataTableData: DataTableData<Clinic> = {
       ),
     },
   ],
-  api: async (page, search, sortCol, sortDir) =>
+  api: async (page, search, sortCol, sortDir, perPage) =>
     await ClinicService.make().indexWithPagination(
       page,
       search,
       sortCol,
       sortDir,
+      perPage,
     ),
   title: "Clinics :",
 };

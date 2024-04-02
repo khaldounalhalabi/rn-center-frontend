@@ -1,36 +1,80 @@
-import React, { HTMLProps } from "react";
+"use client";
+import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import ClosedEye from "@/components/icons/ClosedEye";
+import Eye from "@/components/icons/Eye";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
   name: string;
   label?: string;
+  type: string;
 }
 
-const Input: React.FC<InputProps> = ({ className, label, name, ...props }) => {
+const Input: React.FC<InputProps> = ({
+  className,
+  label,
+  name,
+  type,
+  ...props
+}) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const error = getNestedPropertyValue(errors, `${name}.message`);
-  return (
-    <div
-      className={`flex ${props.type == `radio` ? `` : "flex-col"} items-start gap-2 w-full`}
-    >
-      {label ? <label>{label}</label> : ""}
-      <input
-        {...props}
-        {...register(`${name}`)}
-        className={
-          className ??
-          `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
-        }
-      />
 
-      {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
-    </div>
-  );
+  const [hidden, setHidden] = useState(true);
+
+  const error = getNestedPropertyValue(errors, `${name}.message`);
+  if (type == "password") {
+    return (
+      <div className={`flex flex-col items-start w-full`}>
+        {label ? <label className={"label"}>{label}</label> : ""}
+        <div className={"relative w-full"}>
+          <input
+            {...props}
+            {...register(`${name}`)}
+            className={
+              className ??
+              `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+            }
+            type={!hidden ? "text" : "password"}
+          />
+          {!hidden ? (
+            <ClosedEye
+              className={"absolute w-6 h-6 right-1 top-3 cursor-pointer"}
+              onClick={() => setHidden((prevState) => !prevState)}
+            />
+          ) : (
+            <Eye
+              className={"absolute w-6 h-6 right-1 top-3 cursor-pointer"}
+              onClick={() => setHidden((prevState) => !prevState)}
+            />
+          )}
+        </div>
+
+        {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+      </div>
+    );
+  } else
+    return (
+      <div
+        className={`flex ${type == `radio` ? `` : "flex-col"} items-start w-full`}
+      >
+        {label ? <label className={"label"}>{label}</label> : ""}
+        <input
+          {...props}
+          {...register(`${name}`)}
+          className={
+            className ??
+            `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+          }
+          type={type == "password" && hidden ? "password" : type}
+        />
+        {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+      </div>
+    );
 };
 
 export default Input;

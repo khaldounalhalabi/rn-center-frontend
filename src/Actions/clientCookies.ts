@@ -1,6 +1,5 @@
 "use client";
-import { setCookie } from 'cookies-next';
-import { getCookie } from 'cookies-next';
+import { setCookie, getCookie } from "cookies-next";
 
 export function setCookieClient(key: string, value: string) {
   return setCookie(key, value);

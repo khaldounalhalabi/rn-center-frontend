@@ -1,6 +1,5 @@
 import { Phone } from "@/Models/Phone";
 import { Address } from "@/Models/Address";
-import { City } from "@/Models/City";
 import { Media } from "@/Models/Media";
 
 export interface User {

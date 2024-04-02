@@ -13,9 +13,15 @@ const RoundedImage = ({
   return (
     <div className={`rounded-full ${className}`}>
       <img
-        className={`size-fit w-full rounded-full cursor-pointer`}
+        className={`size-fit w-full cursor-pointer`}
         src={src}
         alt={alt ?? "no-alt"}
+        style={{
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          borderRadius: "50%",
+        }}
       />
     </div>
   );

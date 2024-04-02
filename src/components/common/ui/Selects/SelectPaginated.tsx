@@ -2,12 +2,13 @@
 import React, { useId } from "react";
 import { ApiResponse } from "@/Http/Response";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import AsyncSelect from "react-select/async";
+import "./select.css";
+import { AsyncPaginate } from "react-select-async-paginate";
+import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
 
 interface SelectProps<T> {
   name: string;
-  api: () => Promise<ApiResponse<T>>;
+  api: (page: number, search?: string) => Promise<ApiResponse<T>>;
   label: string;
   value: string;
   isMultiple?: boolean;
@@ -15,7 +16,7 @@ interface SelectProps<T> {
   inputLabel?: string;
 }
 
-const ReactSelect: React.FC<SelectProps<any>> = ({
+const SelectPaginated: React.FC<SelectProps<any>> = ({
   api,
   label,
   value,
@@ -24,6 +25,10 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
   inputLabel = undefined,
   selected = [],
 }) => {
+  if (!selected) {
+    selected = [];
+  }
+
   const {
     setValue,
     register,
@@ -31,20 +36,31 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}.message`);
 
-  if (selected.length > 0) {
-    if (isMultiple) {
-      setValue(name, selected);
-    } else setValue(name, selected[0]);
-  }
-  const loadedOptions = api().then((data) => {
-    console.log(data);
-    return data.data;
-  });
+  const loadedOptions = async (
+    search: string,
+    _loadedOptions: ApiResponse<any>,
+    { page }: { page: number },
+  ) => {
+    const response = await api(page, search);
+    return {
+      options:
+        response && response.hasOwnProperty("data")
+          ? response.data
+          : [{ label: "There is no data", value: undefined }],
+      hasMore:
+        response && response.hasOwnProperty("paginate")
+          ? !response?.paginate?.isLast
+          : false,
+      additional: {
+        page: page + 1,
+      },
+    };
+  };
   return (
     <div className={"flex flex-col w-full"}>
       {inputLabel ? <label className={"label"}>{inputLabel}</label> : ""}
       <input {...register(name)} className={"hidden"} hidden={true} />
-      <AsyncSelect
+      <AsyncPaginate
         cacheOptions
         instanceId={useId()}
         // @ts-ignore
@@ -53,7 +69,10 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
         // @ts-ignore
         getOptionValue={(option) => `${option[`${value}`]}`}
         // @ts-ignore
-        getOptionLabel={(option) => option[`${label}`]}
+        getOptionLabel={(option) => translate(option[`${label}`])}
+        additional={{
+          page: 1,
+        }}
         isSearchable={true}
         isClearable={true}
         onChange={(newValue) => {
@@ -67,15 +86,14 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
               newValue?.map((op) => op[`${value ?? ""}`]),
             );
         }}
-        defaultOptions={[
-          { value: "chocolate", label: "Chocolate" },
-          { value: "strawberry", label: "Strawberry" },
-          { value: "vanilla", label: "Vanilla" },
-        ]}
+        isOptionSelected={(option) =>
+          // @ts-ignore
+          selected.includes(option[`${value ?? ""}`])
+        }
       />
       {error ? <p className={`text-error`}>{error}</p> : ""}
     </div>
   );
 };
 
-export default ReactSelect;
+export default SelectPaginated;

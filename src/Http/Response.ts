@@ -1,4 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
+import { sanitizeString } from "@/Helpers/ObjectHelpers";
 
 export enum ApiErrorType {
   CONNECTION_ERROR = "connection-error",
@@ -68,13 +69,11 @@ export class ApiResponse<T> {
       validationErrors.forEach(([key, value]) => {
         useFormMethods.setError(`${key}`, {
           type: "backend-validation-error",
-          message: `${value.replace("_ids", " ").replace("_id", " ")}`
-            .replace(".", " ")
-            .replace("_", " ")
-            .replace(" id ", " ")
-            .replace(" ids ", " "),
+          message: sanitizeString(value),
         });
       });
+      return true;
     }
+    return false;
   }
 }

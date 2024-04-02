@@ -10,3 +10,45 @@ export function getNestedPropertyValue(object: any, path: string): any {
   }
   return value;
 }
+
+export const sanitizeString = (str: string): string => {
+  return str
+    .replace("_ids", " ")
+    .replace("_id", " ")
+    .replace(".", " ")
+    .replace("_", " ")
+    .replace(" id ", " ")
+    .replace(" ids ", " ");
+};
+
+export const translate = (
+  val: string | undefined | null,
+  object: boolean = false,
+): string | { en?: string | undefined; ar?: string | undefined } => {
+  try {
+    if (!val && object) {
+      return {
+        en: "",
+        ar: "",
+      };
+    } else if (!val && !object) {
+      return "";
+    }
+    const tr = JSON.parse(val ?? "{}");
+    if (object) {
+      return tr;
+    }
+    const locale = "en";
+    if (locale == "en") {
+      return tr.en ?? "";
+    } else return tr.ar ?? "";
+  } catch (e) {
+    if (object) {
+      return {
+        en: val ?? "",
+        ar: val ?? "",
+      };
+    }
+    return val ?? "";
+  }
+};

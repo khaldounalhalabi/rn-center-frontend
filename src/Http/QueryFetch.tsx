@@ -42,7 +42,7 @@ const queryFetch = async (
   data?: object | undefined,
 ): Promise<ApiResponse<any>> => {
   const h = {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     Accept: "application/json",
     "Accept-Language": "en",
     Authorization: `Bearer ${await getCookieServer("token")}`,
@@ -65,7 +65,7 @@ const queryFetch = async (
         response = await axios.post(url, data, config);
         break;
       case "PUT":
-        response = await axios.put(url, data, config);
+        response = await axios.post(url, { _method: "PUT", ...data }, config);
         break;
       case "DELETE":
         response = await axios.delete(url, config);
@@ -100,7 +100,7 @@ function handleError(error: AxiosError<ApiResponse<any>>): ApiResponse<any> {
       null,
       false,
       error.response?.data.code ?? error.response?.status ?? 400,
-      ApiErrorType.CONNECTION_ERROR,
+      error.response?.data?.message,
     );
   } else {
     return new ApiResponse<any>(null, false, 400, ApiErrorType.UNKNOWN_ERROR);

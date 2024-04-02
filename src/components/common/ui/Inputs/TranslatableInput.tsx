@@ -17,25 +17,31 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   name,
   ...props
 }) => {
-  const [selectedLocale, setSelectedLocale] = useState("en");
-  const [tValue, setTValue] = useState<object>({});
   const {
     register,
     setValue,
-    formState: { errors },
+    formState: { errors, defaultValues },
   } = useFormContext();
+
+  const defaultValue = getNestedPropertyValue(defaultValues, `${name}`);
+  const [selectedLocale, setSelectedLocale] = useState("en");
+  const [tValue, setTValue] = useState<object>(defaultValue ?? {});
+
+  setValue(name, JSON.stringify(tValue));
+
   const handleInputChange = (locale: string, v: string) => {
     // @ts-ignore
-    tValue[`${locale}`] = v;
+    tValue[`${locale}`] = v ?? defaultValue[`${locale}`];
     setTValue(tValue);
+    console.log(tValue);
     setValue(name, JSON.stringify(tValue));
   };
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
 
   return (
-    <div className={`flex flex-col items-start justify-between gap-2 w-full`}>
-      {label ? <label>{label}</label> : ""}
+    <div className={`flex flex-col items-start justify-between w-full`}>
+      {label ? <label className={"label"}>{label}</label> : ""}
       <div className="flex items-center w-full">
         <input
           type={"text"}
@@ -67,6 +73,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
               `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom ${selectedLocale != l ? "hidden" : ""}`
             }
             onChange={(e) => handleInputChange(l, e.target.value)}
+            defaultValue={defaultValue ? defaultValue[l] ?? "" : ""}
           />
         ))}
       </div>

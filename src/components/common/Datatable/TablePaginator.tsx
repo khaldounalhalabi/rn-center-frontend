@@ -14,9 +14,13 @@ const TablePaginator = ({
   page: number;
   setPage: (value: ((prevState: number) => number) | number) => void;
 }) => {
+  const paginationArray = [...Array(data?.paginate?.total_pages ?? 0)];
   return (
-    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
-      <ol className="flex justify-end gap-1 text-xs font-medium">
+    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2 flex justify-between">
+      <div className={"justify-start"}>
+        Total Pages : {data?.paginate?.total}
+      </div>
+      <ol className="flex justify-end items-center gap-1 text-xs font-medium">
         <li>
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
@@ -28,16 +32,25 @@ const TablePaginator = ({
           </button>
         </li>
 
-        {[...Array(data?.paginate?.total_pages ?? 0)].map((_e, index) => (
-          <li key={`page-${index + 1}`}>
-            <button
-              onClick={() => setPage(index + 1)}
-              className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
-            >
-              {index + 1}
-            </button>
-          </li>
-        ))}
+        {paginationArray.map((_e, index) => {
+          if (index < 3 || index >= paginationArray.length - 1) {
+            return (
+              <li key={`page-${index + 1}`}>
+                <button
+                  onClick={() => setPage(index + 1)}
+                  className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            );
+          } else
+            return (
+              <li key={`page-${index + 1}`}>
+                <span>.</span>
+              </li>
+            );
+        })}
         <li>
           <button
             onClick={() => {
@@ -56,6 +69,5 @@ const TablePaginator = ({
     </div>
   );
 };
-
 
 export default TablePaginator;

@@ -9,7 +9,7 @@ export interface Media {
   collection: string;
 }
 
-export function getMedia(media?: Media) {
+export function getMedia(media?: Media | undefined | null) {
   if (!media) {
     return "/no-image.png";
   }

@@ -8,6 +8,8 @@ import { Clinic } from "@/Models/Clinic";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
+import { translate } from "@/Helpers/ObjectHelpers";
+import Link from "next/link";
 
 const Page = async ({
   params: { clinicId },
@@ -21,7 +23,9 @@ const Page = async ({
       <div className={"flex justify-between items-center"}>
         <h1 className={"card-title "}>Doctor Details</h1>
         <div className={"flex"}>
-          <PrimaryButton>Edit</PrimaryButton>
+          <Link href={`${clinicId}/edit`}>
+            <PrimaryButton>Edit</PrimaryButton>
+          </Link>
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
@@ -29,12 +33,14 @@ const Page = async ({
           <RoundedImage
             src={getMedia(clinic?.user?.image[0] ?? undefined)}
             alt={"doctor-profile"}
+            className={"w-24 h-24"}
           />
           <div className={"flex flex-col"}>
-            <h2 className={"font-bold text-lg"}>{clinic?.name}</h2>
+            <h2 className={"font-bold text-lg"}>{translate(clinic?.name)}</h2>
             <h3>
-              {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
-              {clinic?.user?.last_name}
+              {translate(clinic?.user?.first_name)}{" "}
+              {translate(clinic?.user?.middle_name)}{" "}
+              {translate(clinic?.user?.last_name)}
             </h3>
             <p>{clinic?.user?.email}</p>
             <div className={"flex gap-1"}>

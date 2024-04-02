@@ -33,6 +33,7 @@ export interface DataTableData<T> {
     search?: string,
     sortCol?: string,
     sortDir?: string,
+    perPage?: number,
     params?: object,
   ) => Promise<ApiResponse<T>>;
 }
@@ -41,6 +42,7 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [hideCols, setHideCols] = useState<number[]>([]);
+  const [perPage, setPerPage] = useState(10);
   const [sortDir, setSortDir]: [
     string,
     (value: ((prevState: string) => string) | string) => void,
@@ -48,12 +50,12 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [sortCol, setSortCol] = useState("");
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
-    queryKey: ["tableData", page, search, sortDir, sortCol],
+    queryKey: ["tableData", page, search, sortDir, sortCol, perPage],
     queryFn: async () => {
       let s = !search || search == "" ? undefined : search;
       let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
       let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
-      return await tableData.api(page, s, sortC, sortD);
+      return await tableData.api(page, s, sortC, sortD, perPage);
     },
     placeholderData: keepPreviousData,
   });
@@ -82,19 +84,32 @@ const DataTable = (tableData: DataTableData<any>) => {
                 </button>
               </Link>
             </div>
-            <label className="input input-sm input-bordered flex items-center gap-2">
-              <input
-                type="text"
-                className="grow"
-                placeholder="Search"
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  setPage(1);
-                }}
-              />
-              <SearchIcon className={`w-4 h-4 opacity-70`} />
-            </label>
+            <div className={"flex gap-2"}>
+              <select
+                className="select select-bordered select-sm w-full max-w-xs"
+                onChange={(e) => setPerPage(parseInt(e.target.value))}
+                value={perPage}
+              >
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={data?.paginate?.total}>All</option>
+              </select>
+              <label className="input input-sm input-bordered flex items-center gap-2">
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Search"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setPage(1);
+                  }}
+                />
+                <SearchIcon className={`w-4 h-4 opacity-70`} />
+              </label>
+            </div>
           </div>
           <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">

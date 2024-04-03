@@ -49,3 +49,4 @@ export interface AddOrUpdateClinicForm {
     lng?: string | number;
   };
 }
+

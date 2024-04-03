@@ -18,6 +18,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
     env: {
         localApi: 'http://localhost/pom/public/api/',
+        // localApi: 'http://planetofmedicine.com/',
     },
 };
 export default withPWA(nextConfig);

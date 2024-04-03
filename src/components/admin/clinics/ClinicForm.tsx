@@ -31,7 +31,6 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      console.log(data);
       return await ClinicService.make().update(id, data);
     };
   }

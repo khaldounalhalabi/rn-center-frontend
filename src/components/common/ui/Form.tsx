@@ -17,7 +17,6 @@ const Form = ({
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
   const onSubmit = async (data: any) => {
-    console.log(data);
     const res = await handleSubmit(data);
     if (!res.fillValidationErrors(methods) && res?.data?.id) {
       onSuccess(res);

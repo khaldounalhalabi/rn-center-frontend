@@ -13,6 +13,7 @@ const Page = async ({
 }) => {
   const data: ApiResponse<Clinic> = await ClinicService.make().show(clinicId);
   const clinic = data.data;
+
   const defaultValues: AddOrUpdateClinicForm = {
     name: translate(clinic?.name, true),
     user: {
@@ -20,6 +21,7 @@ const Page = async ({
       first_name: translate(clinic?.user?.first_name, true),
       middle_name: translate(clinic?.user?.middle_name, true),
       last_name: translate(clinic?.user?.last_name, true),
+      image: null,
     },
     phone_numbers: clinic?.user?.phones.map((ph) => ph.phone),
     address: {

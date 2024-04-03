@@ -2,7 +2,11 @@
 import React, { useState } from "react";
 import Input, { InputProps } from "@/components/common/ui/Inputs/Input";
 import Trash from "@/components/icons/Trash";
-import { sanitizeString } from "@/Helpers/ObjectHelpers";
+import {
+  getNestedPropertyValue,
+  sanitizeString,
+} from "@/Helpers/ObjectHelpers";
+import { useFormContext } from "react-hook-form";
 
 interface MultiInputProps extends InputProps {
   defaultValue: any[];
@@ -16,6 +20,10 @@ const MultiInput: React.FC<MultiInputProps> = ({
   defaultValue = [],
   ...props
 }) => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const error = getNestedPropertyValue(errors, `${name}`);
   const [inputNum, setInputNum] = useState(defaultValue?.length ?? 1);
   return (
     <>
@@ -23,28 +31,38 @@ const MultiInput: React.FC<MultiInputProps> = ({
       <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
         {[...Array(inputNum)].map((_field, index) => {
           return (
-            <div
-              className={`flex justify-between items-center w-full gap-2`}
-              key={index}
-            >
-              <Input
-                key={`a-${index}`}
-                name={`${name}[${index}]`}
-                type={type}
-                {...props}
-                defaultValue={defaultValue[index] ?? ""}
-              />
-              <button
-                type={"button"}
-                className={"btn btn-square btn-sm"}
-                onClick={() =>
-                  setInputNum((prevState: number) =>
-                    prevState == 1 ? prevState : prevState - 1,
-                  )
-                }
+            <div className={"flex flex-col items-start"}>
+              <div
+                className={`flex justify-between items-center w-full gap-2`}
+                key={index}
               >
-                <Trash className={"h-6 w-6 text-error"} />
-              </button>
+                <Input
+                  key={`a-${index}`}
+                  name={`${name}[${index}]`}
+                  type={type}
+                  {...props}
+                  defaultValue={defaultValue[index] ?? ""}
+                />
+                <button
+                  type={"button"}
+                  className={"btn btn-square btn-sm"}
+                  onClick={() =>
+                    setInputNum((prevState: number) =>
+                      prevState == 1 ? prevState : prevState - 1,
+                    )
+                  }
+                >
+                  <Trash className={"h-6 w-6 text-error"} />
+                </button>
+              </div>
+              {error &&
+              Array.isArray(error) &&
+              error?.length > 0 &&
+              error[index] ? (
+                <p className={"text-error"}>{error[index].message}</p>
+              ) : (
+                ""
+              )}
             </div>
           );
         })}

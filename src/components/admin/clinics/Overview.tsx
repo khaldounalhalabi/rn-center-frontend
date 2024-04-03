@@ -27,7 +27,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           <p className={"badge badge-success"}>{clinic?.user?.gender}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Gender : </label>
+          <label className={"label"}>Status : </label>
           <p className={"badge badge-warning"}>{clinic?.status}</p>
         </div>
         <div className={"w-full"}>

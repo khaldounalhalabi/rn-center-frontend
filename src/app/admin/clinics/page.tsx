@@ -41,6 +41,7 @@ const dataTableData: DataTableData<Clinic> = {
       label: "Phone",
       render: (_undefined, clinic) => clinic?.user?.phones[0]?.phone ?? "",
     },
+    { label: "Status", name: "status", sortable: true },
     {
       label: "Actions",
       render: (_undefined, clinic, setHidden) => (

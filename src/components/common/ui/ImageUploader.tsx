@@ -9,6 +9,8 @@ import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
 import React from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { Media } from "@/Models/Media";
+import { GET } from "@/Http/QueryFetch";
 
 const ImageUploader = ({ name }: { name: string }) => {
   registerPlugin(
@@ -19,8 +21,9 @@ const ImageUploader = ({ name }: { name: string }) => {
 
   const {
     setValue,
-    formState: { errors },
+    formState: { errors, defaultValues },
   } = useFormContext();
+
   const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
     <div className={`flex justify-center items-center flex-col my-3`}>

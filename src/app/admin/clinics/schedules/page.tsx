@@ -4,48 +4,44 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import { Clinic } from "@/Models/Clinic";
-import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import { ClinicService } from "@/services/ClinicService";
 
-const dataTableData: DataTableData<Clinic> = {
-  //TODO::add total appointments when it is done
-
-  createUrl: "clinics/create",
+const dataTableSchema: DataTableData<Clinic> = {
   schema: [
     {
       name: "user.first_name",
-      sortable: true,
       label: "Doctor",
-      render: (_first_name, clinic) => {
+      sortable: true,
+      render: (data, clinic, setHidden) => {
         return (
           <div className={`flex flex-col items-start`}>
-            <p>{clinic?.name}</p>
             <p>
               {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
               {clinic?.user?.last_name}
             </p>
+            <p>{clinic?.name}</p>
           </div>
         );
       },
     },
     {
-      name: "user.address.city.name",
+      name: "approximate_appointment_time",
+      label: "Approximate Appointment Time (min)",
       sortable: true,
-      label: "City",
+      render: (minutes) => (
+        <span className={`badge badge-primary`}>{minutes} minutes</span>
+      ),
     },
-    {
-      label: "Phone",
-      render: (_undefined, clinic) => clinic?.user?.phones[0]?.phone ?? "",
-    },
-    { label: "Status", name: "status", sortable: true },
     {
       label: "Actions",
       render: (_undefined, clinic, setHidden) => (
         <ActionsButtons
           id={clinic?.id}
-          buttons={["edit", "archive", "show"]}
-          baseUrl={"/admin/clinics"}
+          buttons={["edit", "delete", "show"]}
+          baseUrl={"/admin/clinics/schedules"}
           setHidden={setHidden}
+          deleteUrl={`/admin/clinics/${clinic?.id}`}
         />
       ),
     },
@@ -58,11 +54,12 @@ const dataTableData: DataTableData<Clinic> = {
       sortDir,
       perPage,
     ),
-  title: "Clinics :",
+  createUrl: "/admin/clinics/schedules/create",
+  title: "Clinic Schedules",
 };
 
 const Page = () => {
-  return <DataTable {...dataTableData} />;
+  return <DataTable {...dataTableSchema} />;
 };
 
 export default Page;

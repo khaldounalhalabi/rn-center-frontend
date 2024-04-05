@@ -45,7 +45,12 @@ const Sidebar = ({
         </span>
         <ul className="mt-6 space-y-1 text-black">
           <SidebarItem link={`/admin`}>Dashboard</SidebarItem>
-          <SidebarItem link="/admin/clinics">Clinics</SidebarItem>
+          <SidebarCompactItem title={"Clinics Management"}>
+            <SidebarItem link="/admin/clinics">Clinics</SidebarItem>
+            <SidebarItem link={"/admin/clinics/schedules"}>
+              Clinics Schedules
+            </SidebarItem>
+          </SidebarCompactItem>
           <SidebarCompactItem title={"Test"}>
             <SidebarItem>Banned Users</SidebarItem>
             <SidebarItem>Billing</SidebarItem>

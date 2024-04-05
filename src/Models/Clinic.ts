@@ -21,6 +21,7 @@ export interface Clinic {
   hospital?: Hospital;
   created_at: string;
   updated_at: string;
+  approximate_appointment_time?: number;
 }
 
 export interface AddOrUpdateClinicForm {
@@ -49,4 +50,3 @@ export interface AddOrUpdateClinicForm {
     lng?: string | number;
   };
 }
-

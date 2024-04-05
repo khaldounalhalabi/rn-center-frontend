@@ -17,6 +17,11 @@ export class BaseService<T> {
     return this.instance;
   }
 
+  public setBaseUrl(url: string) {
+    this.baseUrl = url;
+    return this;
+  }
+
   public async all() {
     const res = await GET(this.baseUrl + "/all");
     return await this.errorHandler(res);
@@ -47,8 +52,11 @@ export class BaseService<T> {
     return await this.errorHandler(res);
   }
 
-  public async delete(id: number) {
-    const res = await DELETE(this.baseUrl + "/" + id);
+  public async delete(id?: number) {
+    let res;
+    if (id) {
+      res = await DELETE(this.baseUrl + "/" + id);
+    } else res = await DELETE(this.baseUrl);
     return await this.errorHandler(res);
   }
 

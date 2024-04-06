@@ -90,6 +90,10 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
           // @ts-ignore
           selected.includes(option[`${value ?? ""}`])
         }
+        defaultOptions={(option) =>
+          // @ts-ignore
+          selected.includes(option[`${value ?? ""}`])
+        }
       />
       {error ? <p className={`text-error`}>{error}</p> : ""}
     </div>

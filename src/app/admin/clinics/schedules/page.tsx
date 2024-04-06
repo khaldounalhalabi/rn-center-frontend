@@ -38,10 +38,11 @@ const dataTableSchema: DataTableData<Clinic> = {
       render: (_undefined, clinic, setHidden) => (
         <ActionsButtons
           id={clinic?.id}
-          buttons={["edit", "delete", "show"]}
+          buttons={["edit", "delete"]}
           baseUrl={"/admin/clinics/schedules"}
           setHidden={setHidden}
           deleteUrl={`/admin/clinics/${clinic?.id}`}
+          editUrl={`/admin/clinics/schedules/${clinic.id}`}
         />
       ),
     },

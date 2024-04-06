@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
+import ScheduleForm from "@/components/admin/schedule/ScheduleForm";
 
 const Page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return <ScheduleForm />;
 };
 
 export default Page;

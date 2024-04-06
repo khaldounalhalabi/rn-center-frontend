@@ -6,7 +6,7 @@ const RoundedImage = ({
   src,
   alt = undefined,
 }: {
-  className?: React.FC<ClassName> | undefined | null;
+  className?: string|undefined|null;
   src: string;
   alt: string | undefined | null;
 }) => {

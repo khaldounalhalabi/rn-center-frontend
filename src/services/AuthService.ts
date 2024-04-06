@@ -86,4 +86,8 @@ export class AuthService {
 
     return response;
   }
+
+  public static getCurrentActor() {
+    return "admin";
+  }
 }

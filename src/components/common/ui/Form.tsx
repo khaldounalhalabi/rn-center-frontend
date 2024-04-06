@@ -18,7 +18,7 @@ const Form = ({
   const methods = useForm({ defaultValues: defaultValues });
   const onSubmit = async (data: any) => {
     const res = await handleSubmit(data);
-    if (!res.fillValidationErrors(methods) && res?.data?.id) {
+    if (!res.fillValidationErrors(methods)) {
       onSuccess(res);
     }
     return res;

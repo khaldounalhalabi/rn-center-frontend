@@ -59,6 +59,24 @@ const dataTableData: DataTableData<Clinic> = {
       perPage,
     ),
   title: "Clinics :",
+  filter: (params, setParams) => {
+    return (
+      <div className={"w-full grid grid-cols-1 md:grid-cols-2"}>
+        <label className={"label"}>
+          Archived :
+          <input
+            type="checkbox"
+            className={"checkbox"}
+            defaultChecked={params.is_archived}
+            onChange={(event) => {
+              const { checked } = event.target;
+              setParams({ ...params, is_archived: checked });
+            }}
+          />
+        </label>
+      </div>
+    );
+  },
 };
 
 const Page = () => {

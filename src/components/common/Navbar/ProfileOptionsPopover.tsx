@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import { POST } from "@/Http/QueryFetch";
+import {POST} from "@/Http/Http";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);

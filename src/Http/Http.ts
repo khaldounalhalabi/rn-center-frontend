@@ -7,7 +7,7 @@ export const GET = async (
   params?: object,
   headers?: object,
 ): Promise<ApiResponse<any>> => {
-  return await queryFetch("GET", url, headers, params);
+  return await http("GET", url, headers, params);
 };
 
 export const POST = async (
@@ -15,7 +15,7 @@ export const POST = async (
   data: any,
   headers?: object,
 ): Promise<ApiResponse<any>> => {
-  return await queryFetch("POST", url, headers, undefined, data);
+  return await http("POST", url, headers, undefined, data);
 };
 
 export const PUT = async (
@@ -23,7 +23,7 @@ export const PUT = async (
   data: any,
   headers?: object,
 ): Promise<ApiResponse<any>> => {
-  return await queryFetch("PUT", url, headers, undefined, data);
+  return await http("PUT", url, headers, undefined, data);
 };
 
 export const DELETE = async (
@@ -31,10 +31,10 @@ export const DELETE = async (
   params?: object,
   headers?: object,
 ): Promise<ApiResponse<any>> => {
-  return await queryFetch("DELETE", url, headers, params);
+  return await http("DELETE", url, headers, params);
 };
 
-const queryFetch = async (
+const http = async (
   method: string,
   url: string,
   headers?: object,

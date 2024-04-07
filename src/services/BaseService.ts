@@ -1,9 +1,9 @@
-import { DELETE, GET, POST, PUT } from "@/Http/QueryFetch";
+import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { navigate } from "@/Actions/navigate";
 import { AuthService } from "@/services/AuthService";
 
-export class BaseService<T> implements IBaseServiceInterface<T> {
+export class BaseService<T> {
   public baseUrl = "/";
   public actor = "clinic";
 
@@ -18,7 +18,13 @@ export class BaseService<T> implements IBaseServiceInterface<T> {
 
     this.instance.actor = AuthService.getCurrentActor();
 
+    this.instance.baseUrl = this.instance.getBaseUrl();
+
     return this.instance;
+  }
+
+  public getBaseUrl() {
+    return "/";
   }
 
   public setBaseUrl(url: string) {
@@ -83,37 +89,12 @@ export class BaseService<T> implements IBaseServiceInterface<T> {
     return await this.errorHandler(res);
   }
 
-  public async errorHandler(res: ApiResponse<T> | ApiResponse<T[]>) {
+  public async errorHandler(
+    res: ApiResponse<T>,
+  ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
       await navigate("/auth/admin/login");
     }
     return res;
   }
-}
-
-export interface IBaseServiceInterface<T> {
-  all: () => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-
-  delete: (id?: number) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-  errorHandler: (
-    res: ApiResponse<T> | ApiResponse<T[]>,
-  ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-  indexWithPagination: (
-    page: number,
-    search?: string,
-    sortCol?: string,
-    sortDir?: string,
-    per_page?: number,
-    params?: object,
-  ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-  show: (id: number) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-  store: (
-    data: any,
-    headers?: object,
-  ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
-  update: (
-    id: number,
-    data: any,
-    headers?: object,
-  ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
 }

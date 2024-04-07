@@ -1,5 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 
 export class HospitalService extends BaseService<any> {
-    public baseUrl: string = "admin/hospitals";
+    public getBaseUrl(): string {
+        return `${this.actor}/hospitals`;
+    }
 }

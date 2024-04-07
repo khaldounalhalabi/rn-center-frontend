@@ -6,6 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
+import Link from "next/link";
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -13,15 +14,18 @@ const dataTableSchema: DataTableData<Clinic> = {
       name: "user.first_name",
       label: "Doctor",
       sortable: true,
-      render: (data, clinic, setHidden) => {
+      render: (_data, clinic, setHidden) => {
         return (
-          <div className={`flex flex-col items-start`}>
+          <Link
+            href={`/admin/clinics/${clinic?.id}`}
+            className={`flex flex-col items-start btn btn-ghost p-1`}
+          >
             <p>
               {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
               {clinic?.user?.last_name}
             </p>
             <p>{clinic?.name}</p>
-          </div>
+          </Link>
         );
       },
     },

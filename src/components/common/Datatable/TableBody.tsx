@@ -47,7 +47,7 @@ const TableBody = ({
                       {schema.render(
                         getNestedPropertyValue(item, schema.name) ?? "No Data",
                         item,
-                        setHidden,
+
                       )}
                     </td>
                   );
@@ -61,7 +61,7 @@ const TableBody = ({
                       }
                       {...schema.cellProps}
                     >
-                      {schema.render(undefined, item, setHidden)}
+                      {schema.render(undefined, item)}
                     </td>
                   );
                 } else

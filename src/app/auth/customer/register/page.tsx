@@ -7,7 +7,7 @@ import {
   FormProvider,
 } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
-import { POST } from "@/Http/QueryFetch";
+import { POST } from "@/Http/Http";
 import { useRouter } from "next/navigation";
 import Grid from "@/components/common/ui/Grid";
 import Trash from "@/components/icons/Trash";

@@ -34,7 +34,7 @@ export interface ApiResponsePagination {
 }
 
 export class ApiResponse<T> {
-  public data: T | undefined | null;
+  public data: T | T[] | undefined | null;
   public status: boolean | undefined | null;
   public code: number;
   public message: string | ValidationError | undefined | null;

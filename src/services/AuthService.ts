@@ -1,8 +1,8 @@
 import { navigate } from "@/Actions/navigate";
-import { POST } from "@/Http/QueryFetch";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { setServerCookie } from "@/Actions/serverCookies";
+import {POST} from "@/Http/Http";
 
 export class AuthService {
   public static instance?: AuthService | undefined | null;

@@ -1,10 +1,12 @@
 import { BaseService } from "@/services/BaseService";
-import { GET } from "@/Http/QueryFetch";
 import { ApiResponse } from "@/Http/Response";
 import { Schedule, SchedulesCollection } from "@/Models/Schedule";
 import { AuthService } from "@/services/AuthService";
+import { GET } from "@/Http/Http";
 
-export class ScheduleService extends BaseService<Schedule> {
+export class ScheduleService extends BaseService<
+  Schedule | SchedulesCollection
+> {
   public static make(): ScheduleService {
     if (!this.instance) {
       this.instance = new this();

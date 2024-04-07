@@ -10,7 +10,7 @@ import { useFormContext } from "react-hook-form";
 import React from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Media } from "@/Models/Media";
-import { GET } from "@/Http/QueryFetch";
+import { GET } from "@/Http/Http";
 
 const ImageUploader = ({ name }: { name: string }) => {
   registerPlugin(

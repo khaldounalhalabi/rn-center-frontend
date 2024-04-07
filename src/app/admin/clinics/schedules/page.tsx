@@ -14,7 +14,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       name: "user.first_name",
       label: "Doctor",
       sortable: true,
-      render: (_data, clinic, setHidden) => {
+      render: (_data, clinic) => {
         return (
           <Link
             href={`/admin/clinics/${clinic?.id}`}
@@ -46,7 +46,7 @@ const dataTableSchema: DataTableData<Clinic> = {
           baseUrl={"/admin/clinics/schedules"}
           setHidden={setHidden}
           deleteUrl={`/admin/clinics/${clinic?.id}`}
-          editUrl={`/admin/clinics/schedules/${clinic.id}`}
+          editUrl={`/admin/clinics/schedules/${clinic?.id}`}
         />
       ),
     },

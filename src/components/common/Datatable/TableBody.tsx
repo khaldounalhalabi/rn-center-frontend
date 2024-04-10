@@ -7,11 +7,13 @@ const TableBody = ({
   tableData,
   data,
   setHidden,
+  revalidate,
   hidden = [],
 }: {
   tableData: DataTableData<any>;
   data: ApiResponse<any> | undefined;
   setHidden: (value: ((prevState: number[]) => number[]) | number[]) => void;
+  revalidate?: () => void;
   hidden: number[];
 }) => {
   return (
@@ -53,6 +55,8 @@ const TableBody = ({
                           : getNestedPropertyValue(item, schema.name) ??
                               "No Data",
                         item,
+                        setHidden,
+                        revalidate,
                       )}
                     </td>
                   );
@@ -66,7 +70,7 @@ const TableBody = ({
                       }
                       {...schema.cellProps}
                     >
-                      {schema.render(undefined, item)}
+                      {schema.render(undefined, item, setHidden, revalidate)}
                     </td>
                   );
                 } else

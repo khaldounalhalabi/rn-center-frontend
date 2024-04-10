@@ -7,6 +7,10 @@ import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { translate } from "@/Helpers/ObjectHelpers";
+import ArchiveIcon from "@/components/icons/ArchiveIcon";
+import { swal } from "@/Helpers/UIHelpers";
+import { BaseService } from "@/services/BaseService";
+import { UserService } from "@/services/UserService";
 
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
@@ -64,13 +68,54 @@ const dataTableData: DataTableData<Clinic> = {
     },
     {
       label: "Actions",
-      render: (_undefined, clinic, setHidden) => (
+      render: (_undefined, clinic, setHidden, revalidate) => (
         <ActionsButtons
           id={clinic?.id}
-          buttons={["edit", "archive", "show"]}
+          buttons={["edit", "show"]}
           baseUrl={"/admin/clinics"}
-          setHidden={setHidden}
-        />
+        >
+          <button className="btn btn-square btn-sm">
+            <ArchiveIcon
+              className="h-6 w-6 text-warning"
+              onClick={() => {
+                swal
+                  .fire({
+                    title: clinic?.user?.is_archived
+                      ? "Do You Want To Un-Archive This Doctor ?"
+                      : "Do you want to archive this item ?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: `No`,
+                    confirmButtonColor: "#007BFF",
+                  })
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      if (clinic?.user) {
+                        UserService.make()
+                          .toggleArchive(clinic?.user_id)
+                          .then((res) => {
+                            swal.fire({
+                              title:
+                                res.data == "archived"
+                                  ? "Archived!"
+                                  : "Un-Archived !",
+                              confirmButtonColor: "#007BFF",
+                              icon: "success",
+                            });
+                            if (revalidate) revalidate();
+                          })
+                          .catch((e) => {
+                            console.log(e);
+                            swal.fire("There Is Been An Error", "", "error");
+                          });
+                      }
+                    }
+                  });
+              }}
+            />
+          </button>
+        </ActionsButtons>
       ),
     },
   ],

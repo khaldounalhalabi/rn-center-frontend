@@ -2,7 +2,11 @@
 import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
 import Link from "next/link";
@@ -28,6 +32,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
+    revalidate?: () => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -61,9 +66,14 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
+  const [refetch, setRefetch] = useState(false);
+
+  const revalidate = () => {
+    setRefetch((prevState) => !prevState);
+  };
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
-    queryKey: ["tableData", page, search, sortDir, sortCol, perPage, params],
+    queryKey: ["tableData", page, search, sortDir, sortCol, perPage, params , refetch],
     queryFn: async () => {
       let s = !search || search == "" ? undefined : search;
       let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
@@ -227,6 +237,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                     tableData={tableData}
                     hidden={hideCols}
                     setHidden={setHideCols}
+                    revalidate={revalidate}
                   />
                 </table>
               </div>

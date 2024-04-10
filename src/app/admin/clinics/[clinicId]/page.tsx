@@ -16,7 +16,7 @@ const Page = async ({
 }: {
   params: { clinicId: number };
 }) => {
-  const data: ApiResponse<Clinic> = await ClinicService.make().show(clinicId);
+  const data: ApiResponse<Clinic[]> = await ClinicService.make().show(clinicId);
   const clinic = data.data;
   return (
     <PageCard>

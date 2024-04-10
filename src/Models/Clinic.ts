@@ -3,7 +3,7 @@ import { Speciality } from "@/Models/Speciality";
 import { Hospital } from "@/Models/Hospital";
 import { Translatable } from "@/Models/Translatable";
 
-export interface Clinic {
+export type Clinic =  {
   id: number;
   name: string;
   appointment_cost: number;

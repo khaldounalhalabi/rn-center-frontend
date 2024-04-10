@@ -41,10 +41,11 @@ const http = async (
   params?: object,
   data?: object | undefined,
 ): Promise<ApiResponse<any>> => {
+  let lang = await getCookieServer('locale')
   const h = {
     "Content-Type": "multipart/form-data",
     Accept: "application/json",
-    "Accept-Language": "en",
+    "Accept-Language": `${lang?lang:'en'}`,
     Authorization: `Bearer ${await getCookieServer("token")}`,
   };
 

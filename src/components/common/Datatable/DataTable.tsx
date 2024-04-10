@@ -20,6 +20,7 @@ export interface DataTableSchema<T> {
   name?: string;
   label: string;
   sortable?: boolean;
+  translatable?: boolean;
   headerProps?: ThHTMLAttributes<HTMLTableHeaderCellElement> | undefined | null;
   cellProps?: ThHTMLAttributes<HTMLTableHeaderCellElement> | undefined | null;
   hidden?: number[];
@@ -56,20 +57,13 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [hideCols, setHideCols] = useState<number[]>([]);
   const [perPage, setPerPage] = useState(10);
   const [params, setParams] = useState({});
+  const [tempParams, setTempParams] = useState({});
   const [openFilter, setOpenFilter] = useState(false);
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
-    queryKey: [
-      "tableData",
-      page,
-      search,
-      sortDir,
-      sortCol,
-      perPage,
-      params,
-    ],
+    queryKey: ["tableData", page, search, sortDir, sortCol, perPage, params],
     queryFn: async () => {
       let s = !search || search == "" ? undefined : search;
       let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
@@ -119,16 +113,31 @@ const DataTable = (tableData: DataTableData<any>) => {
                       Filters
                     </Dialog.Title>
                     <div className="mt-2">
-                      {tableData.filter(params, setParams)}
+                      {tableData.filter(tempParams, setTempParams)}
                     </div>
 
-                    <div className="mt-4">
+                    <div className="mt-4 flex justify-between items-center">
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => setOpenFilter(false)}
+                        onClick={() => {
+                          setParams(tempParams);
+                          setOpenFilter(false);
+                        }}
                       >
-                        Ok
+                        Apply
+                      </button>
+
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                        onClick={() => {
+                          setTempParams({});
+                          setParams({});
+                          setOpenFilter(false);
+                        }}
+                      >
+                        Reset Filters
                       </button>
                     </div>
                   </Dialog.Panel>

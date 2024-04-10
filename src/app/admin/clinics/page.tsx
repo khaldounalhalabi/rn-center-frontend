@@ -6,6 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import { translate } from "@/Helpers/ObjectHelpers";
 
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
@@ -19,10 +20,11 @@ const dataTableData: DataTableData<Clinic> = {
       render: (_first_name, clinic) => {
         return (
           <div className={`flex flex-col items-start`}>
-            <p>{clinic?.name}</p>
+            <p>{translate(clinic?.name)}</p>
             <p>
-              {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
-              {clinic?.user?.last_name}
+              {translate(clinic?.user?.first_name)}{" "}
+              {translate(clinic?.user?.middle_name)}{" "}
+              {translate(clinic?.user?.last_name)}
             </p>
           </div>
         );
@@ -32,12 +34,34 @@ const dataTableData: DataTableData<Clinic> = {
       name: "user.address.city.name",
       sortable: true,
       label: "City",
+      translatable: true,
     },
     {
       label: "Phone",
       render: (_undefined, clinic) => clinic?.user?.phones[0]?.phone ?? "",
     },
-    { label: "Status", name: "status", sortable: true },
+    {
+      label: "Status",
+      name: "status",
+      sortable: true,
+      render: (data) =>
+        data == "active" ? (
+          <span className={`badge badge-success`}>Active</span>
+        ) : (
+          <span className={`badge badge-error`}>In-active</span>
+        ),
+    },
+    {
+      label: "Archived ?",
+      name: "user.is_archived",
+      sortable: true,
+      render: (data) =>
+        data ? (
+          <span className={`badge badge-error`}>Archived</span>
+        ) : (
+          <span className={`badge badge-success`}>Not Archived</span>
+        ),
+    },
     {
       label: "Actions",
       render: (_undefined, clinic, setHidden) => (
@@ -50,18 +74,19 @@ const dataTableData: DataTableData<Clinic> = {
       ),
     },
   ],
-  api: async (page, search, sortCol, sortDir, perPage) =>
+  api: async (page, search, sortCol, sortDir, perPage, params) =>
     await ClinicService.make().indexWithPagination(
       page,
       search,
       sortCol,
       sortDir,
       perPage,
+      params,
     ),
   title: "Clinics :",
   filter: (params, setParams) => {
     return (
-      <div className={"w-full grid grid-cols-1 md:grid-cols-2"}>
+      <div className={"w-full grid grid-cols-1"}>
         <label className={"label"}>
           Archived :
           <input
@@ -70,7 +95,19 @@ const dataTableData: DataTableData<Clinic> = {
             defaultChecked={params.is_archived}
             onChange={(event) => {
               const { checked } = event.target;
-              setParams({ ...params, is_archived: checked });
+              setParams({ ...params, is_archived: checked ? 1 : 0 });
+            }}
+          />
+        </label>
+        <label className={`label`}>
+          City :
+          <input
+            type={"text"}
+            className={"input input-bordered input-sm"}
+            value={params.city}
+            defaultValue={params.city_name}
+            onChange={(event) => {
+              setParams({ ...params, city_name: event.target.value });
             }}
           />
         </label>

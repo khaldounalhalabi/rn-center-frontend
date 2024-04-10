@@ -1,3 +1,5 @@
+import { Translatable } from "@/Models/Translatable";
+
 export function getNestedPropertyValue(object: any, path: string): any {
   const properties = path.split("."); // Split the path string by dot to get individual property names
   let value = object;
@@ -21,10 +23,20 @@ export const sanitizeString = (str: string): string => {
     .replace(" ids ", " ");
 };
 
-export const translate = (
+export function translate(
   val: string | undefined | null,
-  object: boolean = false,
-): string | { en?: string | undefined; ar?: string | undefined } => {
+  object?: boolean,
+): string;
+
+export function translate(
+  val: string | undefined | null,
+  object: true,
+): Translatable;
+
+export function translate(
+  val: string | undefined | null,
+  object = false,
+): string | Translatable {
   try {
     if (!val && object) {
       return {
@@ -51,4 +63,4 @@ export const translate = (
     }
     return val ?? "";
   }
-};
+}

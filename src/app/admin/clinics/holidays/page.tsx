@@ -12,15 +12,16 @@ const tableData: DataTableData<ClinicHoliday> = {
   schema: [
     {
       name: "clinic.name",
-      label: "Doctor",
+      label: "Clinic",
       sortable: true,
-      render: (_data, holiday) => {
+      translatable: true,
+      render: (data, holiday) => {
         return (
           <Link
             href={`/admin/clinics/${holiday?.clinic?.id}`}
             className={`btn btn-ghost p-1 w-full`}
           >
-            {holiday?.clinic?.name}
+            {data}
           </Link>
         );
       },
@@ -29,28 +30,57 @@ const tableData: DataTableData<ClinicHoliday> = {
       name: "start_date",
       label: "Start At",
       sortable: true,
-      render: (data) => data.replace(" 00:00:00", ""),
     },
     {
       name: "end_date",
       label: "End At",
       sortable: true,
-      render: (data) => data.replace(" 00:00:00", ""),
     },
     {
       name: "reason",
       label: "Reason",
+      translatable: true,
       render: (data) => <p className={`overflow-ellipsis`}>{data}</p>,
     },
   ],
-  api: async (page, search, sortCol, sortDir, perPage) =>
+  api: async (page, search, sortCol, sortDir, perPage, params) =>
     await ClinicHolidayService.make().indexWithPagination(
       page,
       search,
       sortCol,
       sortDir,
       perPage,
+      params,
     ),
+
+  filter: (params, setParams) => {
+    return (
+      <div className={"w-full grid grid-cols-1"}>
+        <label className={"label"}>
+          Start Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.start_date}
+            onChange={(event) => {
+              setParams({ ...params, start_date: event.target.value });
+            }}
+          />
+        </label>
+        <label className={`label`}>
+          End Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.end_date}
+            onChange={(event) => {
+              setParams({ ...params, end_date: event.target.value });
+            }}
+          />
+        </label>
+      </div>
+    );
+  },
 };
 const Page = () => {
   return <DataTable {...tableData} />;

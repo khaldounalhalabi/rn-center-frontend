@@ -11,7 +11,6 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
 import { Schedule, StoreScheduleRequest } from "@/Models/Schedule";
-import { number } from "prop-types";
 
 const weeKDays = [
   "saturday",
@@ -73,7 +72,7 @@ const ScheduleForm = ({
                 <Input
                   name={"clinic_id"}
                   type={"number"}
-                  defaultValue={defaultValues.clinic_id}
+                  defaultValue={defaultValues?.clinic_id}
                   className={"hidden"}
                 />
               )}

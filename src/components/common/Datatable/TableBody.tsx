@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/Http/Response";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
 
@@ -31,7 +31,10 @@ const TableBody = ({
                       }
                       {...schema.cellProps}
                     >
-                      {getNestedPropertyValue(item, schema.name) ?? "No Data"}
+                      {schema?.translatable
+                        ? translate(getNestedPropertyValue(item, schema.name))
+                        : getNestedPropertyValue(item, schema.name) ??
+                          "No Data"}
                     </td>
                   );
                 } else if (schema.render && schema.name) {
@@ -45,9 +48,11 @@ const TableBody = ({
                       {...schema.cellProps}
                     >
                       {schema.render(
-                        getNestedPropertyValue(item, schema.name) ?? "No Data",
+                        schema?.translatable
+                          ? translate(getNestedPropertyValue(item, schema.name))
+                          : getNestedPropertyValue(item, schema.name) ??
+                              "No Data",
                         item,
-
                       )}
                     </td>
                   );

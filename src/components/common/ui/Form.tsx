@@ -21,6 +21,7 @@ const Form = ({
     if (!res.fillValidationErrors(methods)) {
       onSuccess(res);
     }
+    console.log(res)
     return res;
   };
   return (

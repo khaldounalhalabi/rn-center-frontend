@@ -14,6 +14,7 @@ interface SelectProps<T> {
   isMultiple?: boolean;
   selected?: any[];
   inputLabel?: string;
+  defaultValue?:string
 }
 
 const SelectPaginated: React.FC<SelectProps<any>> = ({
@@ -21,6 +22,7 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
   label,
   value,
   name,
+                                                       defaultValue,
   isMultiple = false,
   inputLabel = undefined,
   selected = [],
@@ -61,8 +63,11 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
       {inputLabel ? <label className={"label"}>{inputLabel}</label> : ""}
       <input {...register(name)} className={"hidden"} hidden={true} />
       <AsyncPaginate
+
         cacheOptions
+        defaultInputValue={defaultValue?defaultValue:''}
         instanceId={useId()}
+
         // @ts-ignore
         loadOptions={loadedOptions}
         isMulti={isMultiple}
@@ -90,8 +95,8 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
           // @ts-ignore
           selected.includes(option[`${value ?? ""}`])
         }
-        defaultOptions={(option) =>
           // @ts-ignore
+        defaultOptions={(option) =>
           selected.includes(option[`${value ?? ""}`])
         }
       />

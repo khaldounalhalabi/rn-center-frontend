@@ -9,9 +9,11 @@ interface TranslatableTextAreaProps extends HTMLProps<HTMLInputElement> {
   name: string;
   label?: string;
   locales?: string[];
+  defaultV?:any
 }
 
 const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
+    defaultV,
   className,
   label,
   locales = ["en", "ar"],
@@ -40,6 +42,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
             <TextArea
                 key={index}
                 dir={showText=="ar"?'rtl':'ltr'}
+                defaultValue={defaultV?defaultV[e]:''}
               label={label +" : "+ e.toUpperCase()}
               name={`${name}.${e}`}
               className={e == showText ? "!block w-full ltr:pl-3 rtl:pr-3" : "!hidden"}

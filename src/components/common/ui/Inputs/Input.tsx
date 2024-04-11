@@ -10,6 +10,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   name: string;
   label?: string;
   type: string;
+
 }
 
 const Input: React.FC<InputProps> = ({

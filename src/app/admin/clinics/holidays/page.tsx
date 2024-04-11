@@ -6,8 +6,10 @@ import DataTable, {
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import Link from "next/link";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 
 const tableData: DataTableData<ClinicHoliday> = {
+  createUrl:'/admin/clinics/holidays/add-holidays',
   title: "Clinics Holidays",
   schema: [
     {
@@ -41,6 +43,19 @@ const tableData: DataTableData<ClinicHoliday> = {
       name: "reason",
       label: "Reason",
       render: (data) => <p className={`overflow-ellipsis`}>{data}</p>,
+    },
+    {
+      label: "Actions",
+      render: (_undefined, data, setHidden) => (
+          <ActionsButtons
+              id={data?.id}
+              buttons={["edit", "delete", "show"]}
+              baseUrl={"/admin/clinic-holidays"}
+              editUrl={`/admin/clinics/holidays/edit/${data?.id}`}
+              showUrl={`/admin/clinics/holidays/show/${data?.id}`}
+              setHidden={setHidden}
+          />
+      ),
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage) =>

@@ -119,7 +119,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                   if (result.isConfirmed) {
                     if (dataId) {
                       BaseService.make()
-                        .setBaseUrl(aUrl)
+                        .setBaseUrl(dUrl)
                         .delete()
                         .then(() => {
                           swal.fire({

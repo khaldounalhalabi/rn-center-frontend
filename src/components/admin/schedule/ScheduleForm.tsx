@@ -10,7 +10,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
-import { Schedule, StoreScheduleRequest } from "@/Models/Schedule";
+import {Schedule, StoreScheduleRequest, weekDay} from "@/Models/Schedule";
 import { number } from "prop-types";
 
 const weeKDays = [
@@ -39,6 +39,7 @@ const ScheduleForm = ({
     console.log(data);
     return await ScheduleService.make().store(data);
   };
+
 
   return (
     <PageCard>
@@ -73,13 +74,13 @@ const ScheduleForm = ({
                 <Input
                   name={"clinic_id"}
                   type={"number"}
-                  defaultValue={defaultValues.clinic_id}
+                  defaultValue={defaultValues?.clinic_id}
                   className={"hidden"}
                 />
               )}
             </div>
-            {weeKDays.map((day) => (
-              <div className={"border-b"} key={day}>
+            {weeKDays.map((day: string | weekDay, index: number) => (
+              <div className={"border-b"} key={index}>
                 <TimeRange
                   day={day}
                   defaultValue={

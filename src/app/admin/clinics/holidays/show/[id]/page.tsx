@@ -38,14 +38,24 @@ const page = ({ params: { id } }: { params: { id: number } }) => {
                 </h2>
               </div>
               <div className="my-5">
-                <h2 className="text-xl">
-                  Start Holiday in :{" "}
-                  <span className="text-lg badge badge-neutral">{res?.start_date}</span>
-                </h2>
-                <h2 className="text-xl my-3">
-                  End Holiday in :
-                  <span className="text-lg badge badge-neutral">{res?.end_date}</span>
-                </h2>
+                <div className='flex w-full'>
+                    <h2 className="text-lg md:text-xl w-4/12">
+                        Start Holiday in :{" "}
+
+                    </h2>
+                    <div className='w-8/12 flex items-center'>
+                        <span className="text-lg badge badge-neutral">{res?.start_date}</span>
+                    </div>
+                </div>
+                <div className='flex w-full'>
+                    <h2 className="text-lg md:text-xl my-3 w-4/12">
+                        End Holiday in :
+
+                    </h2>
+                    <div className='w-8/12 flex items-center'>
+                        <span className="text-lg badge badge-neutral">{res?.end_date}</span>
+                    </div>
+                </div>
               </div>
               <div className="my-5">
                 <div className="text-xl">

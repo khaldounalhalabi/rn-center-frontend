@@ -5,16 +5,23 @@ const LoadingSpin: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      width="1em"
+      height="1em"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
       {...props}
     >
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-      />
+        fill="currentColor"
+        d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
+      >
+        <animateTransform
+          attributeName="transform"
+          dur="0.75s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="0 12 12;360 12 12"
+        ></animateTransform>
+      </path>
     </svg>
   );
 };

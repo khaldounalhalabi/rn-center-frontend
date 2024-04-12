@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -7,6 +7,8 @@ import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
 import Link from "next/link";
+import { translate } from "@/Helpers/ObjectHelpers";
+import WeekDaySelect from "@/components/common/WeekDaySelect";
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -21,10 +23,11 @@ const dataTableSchema: DataTableData<Clinic> = {
             className={`flex flex-col items-start btn btn-ghost p-1`}
           >
             <p>
-              {clinic?.user?.first_name} {clinic?.user?.middle_name}{" "}
-              {clinic?.user?.last_name}
+              {translate(clinic?.user?.first_name)}{" "}
+              {translate(clinic?.user?.middle_name)}{" "}
+              {translate(clinic?.user?.last_name)}
             </p>
-            <p>{clinic?.name}</p>
+            <p>{translate(clinic?.name)}</p>
           </Link>
         );
       },
@@ -51,16 +54,55 @@ const dataTableSchema: DataTableData<Clinic> = {
       ),
     },
   ],
-  api: async (page, search, sortCol, sortDir, perPage) =>
+  api: async (page, search, sortCol, sortDir, perPage, params) =>
     await ClinicService.make().indexWithPagination(
       page,
       search,
       sortCol,
       sortDir,
       perPage,
+      params,
     ),
   createUrl: "/admin/clinics/schedules/create",
   title: "Clinic Schedules",
+  filter: (params, setParams) => {
+    return (
+      <div className={"w-full grid grid-cols-1"}>
+        <label className={"label"}>
+          Start Time :
+          <input
+            type="time"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.start_time}
+            onChange={(event) => {
+              setParams({ ...params, start_time: event.target.value });
+            }}
+          />
+        </label>
+        <label className={`label`}>
+          End Time :
+          <input
+            type="time"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.end_time}
+            onChange={(event) => {
+              setParams({ ...params, end_time: event.target.value });
+            }}
+          />
+        </label>
+        <label className={"label"}>
+          Day :
+          <WeekDaySelect
+            className="select select-bordered select-sm w-full max-w-xs"
+            defaultValue={params.day_of_week}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+              setParams({ ...params, day_of_week: event.target.value });
+            }}
+          />
+        </label>
+      </div>
+    );
+  },
 };
 
 const Page = () => {

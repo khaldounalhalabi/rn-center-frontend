@@ -33,7 +33,6 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
     // @ts-ignore
     tValue[`${locale}`] = v ?? defaultValue[`${locale}`];
     setTValue(tValue);
-    console.log(tValue);
     setValue(name, JSON.stringify(tValue));
   };
 

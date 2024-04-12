@@ -11,7 +11,6 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
 import {Schedule, StoreScheduleRequest, weekDay} from "@/Models/Schedule";
-import { number } from "prop-types";
 
 const weeKDays = [
   "saturday",
@@ -39,7 +38,6 @@ const ScheduleForm = ({
     console.log(data);
     return await ScheduleService.make().store(data);
   };
-
 
   return (
     <PageCard>
@@ -74,13 +72,13 @@ const ScheduleForm = ({
                 <Input
                   name={"clinic_id"}
                   type={"number"}
-                  defaultValue={defaultValues?.clinic_id}
+                  defaultValue={defaultValues.clinic_id}
                   className={"hidden"}
                 />
               )}
             </div>
-            {weeKDays.map((day: string | weekDay, index: number) => (
-              <div className={"border-b"} key={index}>
+            {weeKDays.map((day) => (
+              <div className={"border-b"} key={day}>
                 <TimeRange
                   day={day}
                   defaultValue={

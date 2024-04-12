@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/Http/Response";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
 
@@ -7,11 +7,13 @@ const TableBody = ({
   tableData,
   data,
   setHidden,
+  revalidate,
   hidden = [],
 }: {
   tableData: DataTableData<any>;
   data: ApiResponse<any> | undefined;
   setHidden: (value: ((prevState: number[]) => number[]) | number[]) => void;
+  revalidate?: () => void;
   hidden: number[];
 }) => {
   return (
@@ -31,7 +33,10 @@ const TableBody = ({
                       }
                       {...schema.cellProps}
                     >
-                      {getNestedPropertyValue(item, schema.name) ?? "No Data"}
+                      {schema?.translatable
+                        ? translate(getNestedPropertyValue(item, schema.name))
+                        : getNestedPropertyValue(item, schema.name) ??
+                          "No Data"}
                     </td>
                   );
                 } else if (schema.render && schema.name) {
@@ -45,9 +50,13 @@ const TableBody = ({
                       {...schema.cellProps}
                     >
                       {schema.render(
-                        getNestedPropertyValue(item, schema.name) ?? "No Data",
+                        schema?.translatable
+                          ? translate(getNestedPropertyValue(item, schema.name))
+                          : getNestedPropertyValue(item, schema.name) ??
+                              "No Data",
                         item,
-
+                        setHidden,
+                        revalidate,
                       )}
                     </td>
                   );
@@ -61,7 +70,7 @@ const TableBody = ({
                       }
                       {...schema.cellProps}
                     >
-                      {schema.render(undefined, item)}
+                      {schema.render(undefined, item, setHidden, revalidate)}
                     </td>
                   );
                 } else

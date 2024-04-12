@@ -9,7 +9,7 @@ import Link from "next/link";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 
 const tableData: DataTableData<ClinicHoliday> = {
-  createUrl:'/admin/clinics/holidays/add-holidays',
+  createUrl:'/admin/clinics/holidays/create',
   title: "Clinics Holidays",
   schema: [
     {

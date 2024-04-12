@@ -9,7 +9,7 @@ import Link from "next/link";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 
 const tableData: DataTableData<ClinicHoliday> = {
-  createUrl:'/admin/clinics/holidays/create',
+  createUrl: "/admin/clinics/holidays/create",
   title: "Clinics Holidays",
   schema: [
     {
@@ -47,14 +47,14 @@ const tableData: DataTableData<ClinicHoliday> = {
     {
       label: "Actions",
       render: (_undefined, data, setHidden) => (
-          <ActionsButtons
-              id={data?.id}
-              buttons={["edit", "delete", "show"]}
-              baseUrl={"/admin/clinic-holidays"}
-              editUrl={`/admin/clinics/holidays/edit/${data?.id}`}
-              showUrl={`/admin/clinics/holidays/show/${data?.id}`}
-              setHidden={setHidden}
-          />
+        <ActionsButtons
+          id={data?.id}
+          buttons={["edit", "delete", "show"]}
+          baseUrl={"/admin/clinic-holidays"}
+          editUrl={`/admin/clinics/holidays/${data?.id}/edit`}
+          showUrl={`/admin/clinics/holidays/${data?.id}`}
+          setHidden={setHidden}
+        />
       ),
     },
   ],

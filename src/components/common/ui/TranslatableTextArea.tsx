@@ -2,13 +2,13 @@
 import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
-import { Translatable } from "@/Models/Translatable";
+import { Locales, Translatable } from "@/Models/Translatable";
 
 interface TranslatableTextAreaProps extends HTMLProps<HTMLTextAreaElement> {
   className?: string | undefined;
   name: string;
   label?: string;
-  locales?: string[];
+  locales?: Locales[];
   defaultValue?: string;
 }
 
@@ -20,20 +20,18 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   name,
   ...props
 }) => {
-  const [selectedLocale, setSelectedLocale] = useState("en");
+  const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
   const [trVal, setTrVal] = useState<Translatable>(
     defaultValue ? translate(defaultValue, true) : { en: "", ar: "" },
   );
-
   const {
-    register,
     setValue,
     formState: { errors },
   } = useFormContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = event.target.value;
-    setTrVal((prevTrVal) => {
+    setTrVal((prevTrVal: Translatable) => {
       prevTrVal[selectedLocale] = val;
       return prevTrVal;
     });
@@ -45,8 +43,8 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   return (
     <div className="flex items-center">
       <select
-        onChange={(e) => setSelectedLocale(e.target.value)}
-        className="ltr:select select-bordered rtl:w-[75px] rtl:h-[48px] rtl:text-center cursor-pointer focus:border-blue-500 focus:border-2 rounded-xl"
+        onChange={(e) => setSelectedLocale(e.target.value as Locales)}
+        className="select select-bordered"
       >
         {locales.map((e: string, index: number) => {
           return (
@@ -57,7 +55,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
         })}
       </select>
 
-      {locales.map((locale: string, index: number) => {
+      {locales.map((locale: Locales, index: number) => {
         return (
           <div
             className={
@@ -76,12 +74,11 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
             )}
             <textarea
               {...props}
-              {...register(`${name}`)}
               rows={4}
-              className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+              className="textarea textarea-bordered w-full"
               placeholder="Write your thoughts here..."
               dir={selectedLocale == "ar" ? "rtl" : "ltr"}
-              defaultValue={defaultValue ? defaultValue[locale] : ""}
+              defaultValue={trVal[locale] ?? ""}
               name={`${name}.${locale}`}
               onChange={(e) => handleChange(e)}
             />

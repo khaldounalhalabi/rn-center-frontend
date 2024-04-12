@@ -5,4 +5,4 @@ const page = () => {
   return <SetNewPassword url={apiSetNewPasswordDoctor} pageType={"doctor"} />;
 };
 
-export default page();
+export default page;

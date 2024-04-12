@@ -8,10 +8,9 @@ import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/TranslatableTextArea";
 import { AddHolidayes } from "@/services/AddHolidayes";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { navigate } from "@/Actions/navigate";
-import { ApiResponse } from "@/Http/Response";
+import Grid from "@/components/common/ui/Grid";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -38,32 +37,8 @@ const HolidayForm = ({
       onSuccess={onSuccess}
       defaultValues={defaultValues}
     >
-      <div className=" w-1/2 my-3">
-        {type == "update" ? (
-          defaultValues?.clinic.name ? (
-            <SelectPaginated
-              api={async (page, search) =>
-                await ClinicService.make().indexWithPagination(
-                  page,
-                  search,
-                  undefined,
-                  undefined,
-                  50,
-                )
-              }
-              label={"name"}
-              defaultValue={defaultValues?.clinic.name}
-              value={"id"}
-              name={"clinic_id"}
-              inputLabel={"Clinic name :"}
-              selected={
-                defaultValues?.clinic_id ? [defaultValues?.clinic_id] : []
-              }
-            />
-          ) : (
-            <LoadingSpin className="w-8 h-8 animate-spin stroke-blue-500" />
-          )
-        ) : (
+      {type == "store" ? (
+        <div className="w-full md:w-1/2 my-2">
           <SelectPaginated
             api={async (page, search) =>
               await ClinicService.make().indexWithPagination(
@@ -78,30 +53,24 @@ const HolidayForm = ({
             value={"id"}
             name={"clinic_id"}
             inputLabel={"Clinic name :"}
-            selected={
-              defaultValues?.clinic_id ? [defaultValues?.clinic_id] : []
-            }
           />
-        )}
-      </div>
-      <div className="w-full flex justify-between	my-3">
+        </div>
+      ) : (
         <Input
-          name={"start_date"}
-          type={"date"}
-          placeholder={"Enter Doctor Birth Date"}
-          label={"Start Holiday"}
+          name={"clinic_id"}
+          type={"number"}
+          hidden={true}
+          className={"hidden"}
+          value={defaultValues?.clinic_id}
         />
-        <div className="w-1/12"></div>
-        <Input
-          name={"end_date"}
-          type={"date"}
-          placeholder={"Enter Doctor Birth Date"}
-          label={"End Holiday"}
-        />
-      </div>
+      )}
+      <Grid md={2}>
+        <Input name={"start_date"} type={"date"} label={"Start Holiday"} />
+        <Input name={"end_date"} type={"date"} label={"End Holiday"} />
+      </Grid>
       <div className="my-3">
         <TranslatableTextArea
-          defaultValue={res?.reason ? reason : ""}
+          defaultValue={defaultValues?.reason}
           label={"Reason"}
           name={"reason"}
           locales={["en", "ar"]}

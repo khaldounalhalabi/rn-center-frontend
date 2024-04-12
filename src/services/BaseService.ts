@@ -32,8 +32,8 @@ export class BaseService<T> {
     return this;
   }
 
-  public async all() {
-    const res = await GET(this.baseUrl + "/all");
+  public async all(): Promise<ApiResponse<T[]>> {
+    const res: ApiResponse<T[]> = await GET(this.baseUrl + "/all");
     return await this.errorHandler(res);
   }
 
@@ -44,8 +44,8 @@ export class BaseService<T> {
     sortDir?: string,
     per_page?: number,
     params?: object,
-  ): Promise<ApiResponse<T> | ApiResponse<T[]>> {
-    const res = await GET(this.baseUrl, {
+  ): Promise<ApiResponse<T[]>> {
+    const res: ApiResponse<T[]> = await GET(this.baseUrl, {
       page: page,
       search: search,
       sort_col: sortCol,
@@ -57,15 +57,12 @@ export class BaseService<T> {
     return await this.errorHandler(res);
   }
 
-  public async store(
-    data: any,
-    headers?: object,
-  ): Promise<ApiResponse<T> | ApiResponse<T[]>> {
+  public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
     const res = await POST(this.baseUrl, data, headers);
     return await this.errorHandler(res);
   }
 
-  public async delete(id?: number) {
+  public async delete(id?: number): Promise<ApiResponse<T>> {
     let res;
     if (id) {
       res = await DELETE(this.baseUrl + "/" + id);
@@ -73,7 +70,7 @@ export class BaseService<T> {
     return await this.errorHandler(res);
   }
 
-  public async show(id: number): Promise<ApiResponse<T> | ApiResponse<T[]>> {
+  public async show(id: number): Promise<ApiResponse<T>> {
     const res = await GET(this.baseUrl + "/" + id);
     if (res.code == 404) {
       await navigate("/404");
@@ -91,6 +88,14 @@ export class BaseService<T> {
 
   public async errorHandler(
     res: ApiResponse<T>,
+  ): Promise<Promise<ApiResponse<T>>>;
+
+  public async errorHandler(
+    res: ApiResponse<T[]>,
+  ): Promise<Promise<ApiResponse<T[]>>>;
+
+  public async errorHandler(
+    res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
       await navigate("/auth/admin/login");

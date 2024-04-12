@@ -10,9 +10,14 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
-import {Schedule, StoreScheduleRequest, weekDay} from "@/Models/Schedule";
+import {
+  Schedule,
+  ScheduleResponse,
+  SchedulesGroupedByDay,
+  StoreScheduleRequest,
+} from "@/Models/Schedule";
 
-const weeKDays = [
+const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
   "sunday",
   "monday",
@@ -26,16 +31,17 @@ const ScheduleForm = ({
   defaultValues,
   method = "store",
 }: {
-  defaultValues?: StoreScheduleRequest;
+  defaultValues?: ScheduleResponse;
   method: "store" | "update";
 }) => {
   const onSubmit = async (data: StoreScheduleRequest) => {
-    let schedules: any[] = [];
-    Object.values(data.schedules).map((v: Schedule[]) => {
-      schedules = [...v, ...schedules];
-    });
+    let schedules: Schedule[] = [];
+    Object.values(data.schedules as SchedulesGroupedByDay).map(
+      (v: Schedule[]) => {
+        schedules = [...v, ...schedules];
+      },
+    );
     data.schedules = schedules;
-    console.log(data);
     return await ScheduleService.make().store(data);
   };
 
@@ -48,7 +54,7 @@ const ScheduleForm = ({
           </h1>
           <Form
             handleSubmit={onSubmit}
-            onSuccess={(res) => navigate(`/admin/clinics/schedules`)}
+            onSuccess={() => navigate(`/admin/clinics/schedules`)}
           >
             <div className={"w-full md:w-1/2 mb-5"}>
               {method == "store" ? (
@@ -72,13 +78,13 @@ const ScheduleForm = ({
                 <Input
                   name={"clinic_id"}
                   type={"number"}
-                  defaultValue={defaultValues.clinic_id}
+                  defaultValue={defaultValues?.clinic_id}
                   className={"hidden"}
                 />
               )}
             </div>
-            {weeKDays.map((day) => (
-              <div className={"border-b"} key={day}>
+            {weeKDays.map((day: keyof SchedulesGroupedByDay, index) => (
+              <div className={"border-b"} key={index}>
                 <TimeRange
                   day={day}
                   defaultValue={
@@ -117,7 +123,7 @@ const TimeRange = ({
           <span className={"badge badge-primary text-bold"}>{day}</span>
         </div>
         <div className={"flex flex-col gap-1"}>
-          {inputArray.map((item, index) => {
+          {inputArray.map((_item, index) => {
             return (
               <div
                 className={"flex flex-col md:flex-row items-center gap-1"}

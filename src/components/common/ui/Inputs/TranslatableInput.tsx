@@ -1,13 +1,14 @@
 "use client";
 import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
+import { Locales, Translatable } from "@/Models/Translatable";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
   name: string;
   label?: string;
-  locales?: string[];
+  locales?: Locales[];
 }
 
 const TranslatableInput: React.FC<TranslatableInputProps> = ({
@@ -24,14 +25,15 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   } = useFormContext();
 
   const defaultValue = getNestedPropertyValue(defaultValues, `${name}`);
-  const [selectedLocale, setSelectedLocale] = useState("en");
-  const [tValue, setTValue] = useState<object>(defaultValue ?? {});
+  const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
+  const [tValue, setTValue] = useState<Translatable>(
+    translate(defaultValue, true),
+  );
 
   setValue(name, JSON.stringify(tValue));
 
-  const handleInputChange = (locale: string, v: string) => {
-    // @ts-ignore
-    tValue[`${locale}`] = v ?? defaultValue[`${locale}`];
+  const handleInputChange = (locale: Locales, v: string) => {
+    tValue[locale] = v ?? defaultValue[`${locale}`];
     setTValue(tValue);
     setValue(name, JSON.stringify(tValue));
   };
@@ -52,10 +54,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
           name="HeadlineAct"
           id="HeadlineAct"
           className="select select-bordered"
-          onInput={(e) => {
-            // @ts-ignore
-            setSelectedLocale(e.target.value);
-          }}
+          onChange={(e) => setSelectedLocale(e.target.value as Locales)}
         >
           {locales.map((l) => (
             <option value={l} key={l}>
@@ -63,9 +62,9 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
             </option>
           ))}
         </select>
-        {locales.map((l) => (
+        {locales.map((l: Locales, index) => (
           <input
-            key={l}
+            key={index}
             {...props}
             className={
               className ??

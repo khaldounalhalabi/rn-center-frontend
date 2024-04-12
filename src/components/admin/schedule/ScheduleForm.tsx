@@ -35,7 +35,6 @@ const ScheduleForm = ({
       schedules = [...v, ...schedules];
     });
     data.schedules = schedules;
-    console.log(data);
     return await ScheduleService.make().store(data);
   };
 

@@ -53,6 +53,12 @@ const Sidebar = ({
             <SidebarItem link={"/admin/clinics/holidays"}>
               Clinics Holidays
             </SidebarItem>
+            <SidebarItem link={"/admin/clinics/speciality"}>
+              Clinics Speciality
+            </SidebarItem>
+            <SidebarItem link={"/admin/clinics/hospitals"}>
+              Clinics Hospitals
+            </SidebarItem>
           </SidebarCompactItem>
           <SidebarCompactItem title={"Test"}>
             <SidebarItem>Banned Users</SidebarItem>

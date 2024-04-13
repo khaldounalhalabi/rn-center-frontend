@@ -7,39 +7,49 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, {useState} from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import { Media } from "@/Models/Media";
-import { GET } from "@/Http/Http";
 
-const ImageUploader = ({ name }: { name: string }) => {
-  registerPlugin(
-    FilePondPluginImageExifOrientation,
-    FilePondPluginImagePreview,
-    FilePondPluginFileValidateType,
-  );
 
-  const {
-    setValue,
-    formState: { errors, defaultValues },
-  } = useFormContext();
+const ImageUploader = ({ name , isMulti }: { name: string , isMulti:boolean }) => {
+    registerPlugin(
+        FilePondPluginImageExifOrientation,
+        FilePondPluginImagePreview,
+        FilePondPluginFileValidateType,
+    );
 
-  const error = getNestedPropertyValue(errors, `${name}.message`);
-  return (
-    <div className={`flex justify-center items-center flex-col my-3`}>
-      <div className={`w-full`}>
-        <FilePond
-          onupdatefiles={(fileItems) => {
-            fileItems.map((file) => setValue(name, file.file));
-          }}
-          acceptedFileTypes={["image/*"]}
-          labelIdle={"Add The Doctor Image Here"}
-          storeAsFile={true}
-        />
-      </div>
-      {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
-    </div>
-  );
+    const {
+        setValue,
+        formState: { errors, defaultValues },
+    } = useFormContext();
+
+
+        const [selectedValue , setSelectedValue] = useState([]);
+      console.log(selectedValue)
+
+    const error = getNestedPropertyValue(errors, `${name}.message`);
+    return (
+        <div className={`flex justify-center items-center flex-col my-3`}>
+            <div className={`w-full`}>
+                <FilePond
+                    onupdatefiles={(fileItems) => {
+                        if (isMulti) {
+                            fileItems.map((file) => setSelectedValue((prevState) => ([file.file , ...prevState])));
+                           return  setValue(name, selectedValue)
+                        } else {
+                            fileItems.map((file) => setValue(name, file.file));
+                        }
+                    }}
+
+                    acceptedFileTypes={["image/*"]}
+                    labelIdle={"Add The Doctor Image Here"}
+                    storeAsFile={true}
+                    allowMultiple={isMulti}
+                />
+            </div>
+            {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+        </div>
+    );
 };
 
 export default ImageUploader;

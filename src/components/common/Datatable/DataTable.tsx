@@ -82,7 +82,7 @@ const DataTable = (tableData: DataTableData<any>) => {
     },
     placeholderData: keepPreviousData,
   });
-
+  console.log(data)
   return (
     <>
       {tableData.filter ? (

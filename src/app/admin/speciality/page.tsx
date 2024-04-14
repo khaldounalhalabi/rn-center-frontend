@@ -4,13 +4,11 @@ import DataTable, {
     DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import Link from "next/link";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import {SpecialityService} from "@/services/SpecialityService";
 
 const tableData: DataTableData<ClinicHoliday> = {
-    createUrl: "/admin/clinics/speciality/create",
+    createUrl: "/admin/speciality/create",
     title: "Clinics Speciality",
     schema: [
         {
@@ -26,8 +24,8 @@ const tableData: DataTableData<ClinicHoliday> = {
                     id={data?.id}
                     buttons={["edit", "delete", "show"]}
                     baseUrl={"/admin/speciality"}
-                    editUrl={`/admin/clinics/speciality/${data?.id}/edit`}
-                    showUrl={`/admin/clinics/speciality/${data?.id}`}
+                    editUrl={`/admin/speciality/${data?.id}/edit`}
+                    showUrl={`/admin/speciality/${data?.id}`}
                     setHidden={setHidden}
                 />
             ),

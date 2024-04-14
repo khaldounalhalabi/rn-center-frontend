@@ -1,8 +1,7 @@
 
 
-export interface Description{
+export interface Department {
     id:number,
     name:string,
     description:string,
-    hospital_id:number
 }

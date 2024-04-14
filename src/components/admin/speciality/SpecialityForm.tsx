@@ -7,6 +7,7 @@ import TextArea from "@/components/common/ui/TextArea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import {navigate} from "@/Actions/navigate";
 import {SpecialityService} from "@/services/SpecialityService";
+import InputTags from "@/components/common/ui/InputTags";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -24,7 +25,7 @@ const SpecialityForm = ({
   const onSuccess = () => {
     navigate(`/admin/clinics/speciality`);
   };
-
+  const array = defaultValues?.tags.split(',')
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -41,10 +42,10 @@ const SpecialityForm = ({
           />
         </div>
       <div className='my-3'>
-        <TextArea name={'tags'} label={'Tags : '}/>
+        <InputTags name={'tags'} label={'Tags : '} />
       </div>
       <div className='my-3'>
-        <TextArea name={'description'} label={'Description : '}/>
+        <TextArea name={'description'} label={'Description : '} defaultValue={array?array:[]}/>
       </div>
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>

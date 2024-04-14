@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'baguettebox.js/dist/baguetteBox.min.css';
 
 
 .slide-menu-bottom {

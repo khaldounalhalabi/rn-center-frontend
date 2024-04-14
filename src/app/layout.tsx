@@ -1,10 +1,10 @@
+
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./global.css";
 import React from "react";
 import { CookiesProvider } from "next-client-cookies/server";
 import { getCookieServer } from "@/Actions/serverCookies";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

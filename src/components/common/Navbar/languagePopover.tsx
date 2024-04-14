@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState, useTransition} from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import {setCookieClient} from "@/Actions/clientCookies";
-
+import {useTranslation} from 'react-i18next'
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -12,7 +12,7 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-
+  const {t,i18n} = useTranslation()
   const setCoc=(value:string)=>{
     setCookieClient('locale',value)
     window.location.reload()
@@ -42,7 +42,10 @@ const LanguagePopover = () => {
         role="menu"
       >
         <div>
-          <div onClick={()=>{setCoc('en')}}
+          <div onClick={()=>{
+            i18n.changeLanguage('en')
+            setCoc('en')
+          }}
               className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
             <img
               className="w-7 h-7 mr-4"
@@ -51,7 +54,9 @@ const LanguagePopover = () => {
             />
             <h3>English</h3>
           </div>
-          <div onClick={()=>{setCoc('ar')}}
+          <div onClick={()=>{
+            i18n.changeLanguage('ar')
+            setCoc('ar')}}
               className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
             <img
               className="w-7 h-7 mr-4"

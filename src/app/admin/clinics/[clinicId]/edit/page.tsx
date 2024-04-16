@@ -4,7 +4,7 @@ import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";
-import { translate } from "@/Helpers/ObjectHelpers";
+import { translate } from "@/Helpers/Translations";
 
 const Page = async ({
   params: { clinicId },

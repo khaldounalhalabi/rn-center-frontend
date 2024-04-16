@@ -2,8 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
-import { translate } from "@/Helpers/ObjectHelpers";
-import { SpecialityService } from "@/services/SpecialityService";
+import {translate} from "@/Helpers/Translations";import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
 
 const page = async ({

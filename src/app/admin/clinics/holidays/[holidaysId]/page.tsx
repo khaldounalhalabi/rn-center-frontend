@@ -2,16 +2,15 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { translate } from "@/Helpers/ObjectHelpers";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import {translate} from "@/Helpers/Translations";import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
 
 const page = async ({
-                        params: { holidayId },
+                        params: { holidaysId },
                     }: {
-    params: { holidayId: number };
+    params: { holidaysId: number };
 }) => {
-    const data = await ClinicHolidayService.make().show(holidayId);
+    const data = await ClinicHolidayService.make().show(holidaysId);
     const res: ClinicHoliday = data?.data;
 
     return (

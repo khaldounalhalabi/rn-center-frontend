@@ -20,7 +20,6 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues);
 
   const handleSubmit = async (data: any) => {
     console.log(data);
@@ -83,7 +82,7 @@ const HospitalsForm = ({
         />
       </div>
       <div>
-        <ImageUploader isMulti={true} name={"images"} />
+        <ImageUploader name={"images"} />
       </div>
 
       <div className="flex justify-center my-3">

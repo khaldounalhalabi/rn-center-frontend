@@ -4,10 +4,8 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
 import { HospitalService } from "@/services/HospitalService";
 import { AddHospital } from "@/Models/Hospital";
-import { translate } from "@/Helpers/ObjectHelpers";
-import {DepartmentsService} from "@/services/DepartmentsService";
+import {translate} from "@/Helpers/Translations";import {DepartmentsService} from "@/services/DepartmentsService";
 import {Department} from "@/Models/Departments";
-import ShowImge from "@/components/common/ui/ShowImge";
 
 const page = async ({
                         params: { hospitalsId },
@@ -16,10 +14,6 @@ const page = async ({
 }) => {
     const data = await HospitalService.make().show(hospitalsId);
     const res: AddHospital = data?.data;
-    console.log(res);
-    const test = ['10545405','5847840564','5465456456']
-    const test2 = [{name:'dfdsg'},{name:'dfdsg'},{name:'dfdsg'}]
-    const test3 = ['https://images.unsplash.com/photo-1554088559-b9c59b87915a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://images.unsplash.com/photo-1554091780-bb3e99c4b02a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D']
     return (
         <PageCard>
             <div className="w-full h-24 flex justify-between items-center">

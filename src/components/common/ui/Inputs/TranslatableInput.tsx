@@ -1,8 +1,9 @@
 "use client";
 import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
+import { translate } from "@/Helpers/Translations";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;

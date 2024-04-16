@@ -4,7 +4,6 @@ import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import {setCookieClient} from "@/Actions/clientCookies";
-import {useTranslation} from 'react-i18next'
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -12,7 +11,6 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-  const {t,i18n} = useTranslation()
   const setCoc=(value:string)=>{
     setCookieClient('locale',value)
     window.location.reload()
@@ -42,9 +40,7 @@ const LanguagePopover = () => {
         role="menu"
       >
         <div>
-          <div onClick={()=>{
-            i18n.changeLanguage('en')
-            setCoc('en')
+          <div onClick={()=>{ setCoc('en')
           }}
               className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
             <img
@@ -55,7 +51,6 @@ const LanguagePopover = () => {
             <h3>English</h3>
           </div>
           <div onClick={()=>{
-            i18n.changeLanguage('ar')
             setCoc('ar')}}
               className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
             <img

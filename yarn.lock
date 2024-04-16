@@ -931,7 +931,7 @@
   resolved "https://registry.npmjs.org/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
-"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.23.9"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.9.tgz"
   integrity sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==
@@ -2076,11 +2076,6 @@ babel-plugin-polyfill-regenerator@^0.5.5:
   integrity sha512-OJGYZlhLqBh2DDHeqAxWB1XIvr49CxiJ2gIt61/PU55CQK4Z58OzMqjDe1zwQdQk+rBYsRc+1rJmdajM3gimHg==
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.5.0"
-
-baguettebox.js@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.npmjs.org/baguettebox.js/-/baguettebox.js-1.11.1.tgz"
-  integrity sha512-0HnUVs+xaqwQOVbfi0kwZnZ1fJNWE5vJLCoCAtgQBtPmOJa1fhN8gubaBFOBGDkQy/vz6PWSr7B3WilhQKjyeQ==
 
 balanced-match@^1.0.0:
   version "1.0.2"
@@ -3283,20 +3278,6 @@ hoist-non-react-statics@^3.3.1:
   dependencies:
     react-is "^16.7.0"
 
-html-parse-stringify@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/html-parse-stringify/-/html-parse-stringify-3.0.1.tgz"
-  integrity sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==
-  dependencies:
-    void-elements "3.1.0"
-
-i18next@^23.11.2, "i18next@>= 23.2.3":
-  version "23.11.2"
-  resolved "https://registry.npmjs.org/i18next/-/i18next-23.11.2.tgz"
-  integrity sha512-qMBm7+qT8jdpmmDw/kQD16VpmkL9BdL+XNAK5MNbNFaf1iQQq35ZbPrSlqmnNPOSUY4m342+c0t0evinF5l7sA==
-  dependencies:
-    "@babel/runtime" "^7.23.2"
-
 idb@^7.0.1:
   version "7.1.1"
   resolved "https://registry.npmjs.org/idb/-/idb-7.1.1.tgz"
@@ -4373,14 +4354,6 @@ react-hook-form@^7.0.0, react-hook-form@^7.50.1:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.50.1.tgz"
   integrity sha512-3PCY82oE0WgeOgUtIr3nYNNtNvqtJ7BZjsbxh6TnYNbXButaD5WpjOmTjdxZfheuHKR68qfeFnEDVYoSSFPMTQ==
 
-react-i18next@^14.1.0:
-  version "14.1.0"
-  resolved "https://registry.npmjs.org/react-i18next/-/react-i18next-14.1.0.tgz"
-  integrity sha512-3KwX6LHpbvGQ+sBEntjV4sYW3Zovjjl3fpoHbUwSgFHf0uRBcbeCBLR5al6ikncI5+W0EFb71QXZmfop+J6NrQ==
-  dependencies:
-    "@babel/runtime" "^7.23.9"
-    html-parse-stringify "^3.0.1"
-
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -5253,11 +5226,6 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
-
-void-elements@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
-  integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
 watchpack@^2.4.0:
   version "2.4.0"

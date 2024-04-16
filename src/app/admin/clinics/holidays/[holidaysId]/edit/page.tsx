@@ -4,11 +4,11 @@ import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 
 const page = async ({
-                        params: { holidayId },
+                        params: { holidaysId },
                     }: {
-    params: { holidayId: number };
+    params: { holidaysId: number };
 }) => {
-    const holiday = (await ClinicHolidayService.make().show(holidayId)).data;
+    const holiday = (await ClinicHolidayService.make().show(holidaysId)).data;
     return (
         <div>
             <div className="w-full h-24 flex justify-start items-center">

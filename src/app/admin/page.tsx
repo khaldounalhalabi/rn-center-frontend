@@ -1,6 +1,9 @@
-import React from "react";
 
+import { HandleTranslate } from "@/Helpers/Translations";
+import React from "react";
 const Home = () => {
+
+
     return (
        <></>
     );

@@ -5,6 +5,7 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { translate } from "@/Helpers/ObjectHelpers";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
+import { getCookieServer } from "@/Actions/serverCookies";
 
 const page = async ({
   params: { holidayId },
@@ -13,12 +14,12 @@ const page = async ({
 }) => {
   const data = await ClinicHolidayService.make().show(holidayId);
   const res: ClinicHoliday = data?.data;
-
+  const locale = await getCookieServer('locale')
   return (
     <PageCard>
       <div className="w-full h-24 flex justify-between items-center">
         <h2 className="card-title">Holiday Details</h2>
-        <Link href={`/admin/clinics/holidays/${res.id}/edit`}>
+        <Link href={`/${locale}/admin/clinics/holidays/${res.id}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

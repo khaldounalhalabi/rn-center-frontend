@@ -15,6 +15,7 @@ import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
 import { navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
+import { useTranslations } from "next-intl";
 
 const ClinicForm = ({
   type = "store",
@@ -34,6 +35,8 @@ const ClinicForm = ({
       return await ClinicService.make().update(id, data);
     };
   }
+  const t = useTranslations('clinic.create-edit');
+
   return (
     <Form
       handleSubmit={onSubmit}
@@ -47,14 +50,14 @@ const ClinicForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={"Doctor First Name"}
+          label={t("first-Name")}
           name={"user.first_name"}
         />
         <TranslatableInput
           type={"text"}
           placeholder={`Mark`}
           locales={["en", "ar"]}
-          label={"Doctor Middle Name"}
+          label={t("middle-name")}
           name={"user.middle_name"}
         />
 
@@ -62,7 +65,7 @@ const ClinicForm = ({
           type={"text"}
           placeholder={`Deep`}
           locales={["en", "ar"]}
-          label={"Doctor Last Name"}
+          label={t("last-name")}
           name={"user.last_name"}
         />
       </Grid>
@@ -72,33 +75,33 @@ const ClinicForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={`Clinic Name`}
-          label={"Clinic Name"}
+          label={t("clinic-name")}
           name={"name"}
         />
         <Input
           name={"user.email"}
           type={"text"}
           placeholder={"Enter The Doctor Email"}
-          label={"Doctor Email"}
+          label={t("email")}
         />
         <Input
           name={"user.password"}
           type={"password"}
           placeholder={"Password"}
-          label={"Password"}
+          label={t("password")}
         />
         <Input
           name={"user.password_confirmation"}
           type={"password"}
           placeholder={"Confirm Password"}
-          label={"Password Confirmation"}
+          label={t("confirm-password")}
         />
 
         <Input
           name={"user.birth_date"}
           type={"date"}
           placeholder={"Enter Doctor Birth Date"}
-          label={"Doctor BirthDate"}
+          label={t("birth-date")}
           defaultValue={"1970-12-31"}
         />
         <Input
@@ -106,7 +109,7 @@ const ClinicForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Appointment Cost i.e : 5"}
-          label="Appointment Cost"
+          label={t("cost")}
         />
 
         <Input
@@ -114,7 +117,7 @@ const ClinicForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Doctor Max Appointments Per Day Are ?"}
-          label="Max Appoiintments Per Day"
+          label={t("max-appoiintments")}
         />
       </Grid>
 
@@ -122,7 +125,7 @@ const ClinicForm = ({
         type={"tel"}
         name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
-        label={"Clinic Phones"}
+        label={t("phones")}
         defaultValue={defaultValues?.phone_numbers ?? []}
       />
 
@@ -131,7 +134,7 @@ const ClinicForm = ({
           <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
           <Input
             name={"status"}
-            label={"Active"}
+            label={t("active")}
             type="radio"
             className="radio radio-info"
             value={"active"}
@@ -141,7 +144,7 @@ const ClinicForm = ({
           />
           <Input
             name={"status"}
-            label={"In-Active"}
+            label={t("in-active")}
             type="radio"
             className="radio radio-info"
             value={"in-active"}
@@ -153,7 +156,7 @@ const ClinicForm = ({
           <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
           <Input
             name={"user.gender"}
-            label={"Male"}
+            label={t("male")}
             type="radio"
             className="radio radio-info"
             value={"male"}
@@ -166,7 +169,7 @@ const ClinicForm = ({
 
           <Input
             name={"user.gender"}
-            label={"Female"}
+            label={t("female")}
             type="radio"
             className="radio radio-info"
             value={"female"}
@@ -186,7 +189,7 @@ const ClinicForm = ({
           label={"name"}
           value={"id"}
           name={"hospital_id"}
-          inputLabel={"Hospital"}
+          inputLabel={t("hospital")}
           selected={[defaultValues?.hospital_id]}
         />
 
@@ -204,7 +207,7 @@ const ClinicForm = ({
           label={"name"}
           value={"id"}
           name={"speciality_ids"}
-          inputLabel={"Specialities"}
+          inputLabel={t("specialities")}
           selected={
             defaultValues?.speciality_ids ? defaultValues?.speciality_ids : []
           }
@@ -223,35 +226,35 @@ const ClinicForm = ({
           label={"name"}
           value={"id"}
           name={"address.city_id"}
-          inputLabel={"City"}
+          inputLabel={t("city")}
           selected={[defaultValues?.address?.city_id]}
         />
 
         <TranslatableInput
           name={"address.name"}
           type={"text"}
-          label={"Clinic Address"}
+          label={t("address")}
         />
 
         <Input
           name={"address.lat"}
           type={"number"}
           step={"any"}
-          label={"Latitude"}
+          label={t("latitude")}
         />
 
         <Input
           name={"address.lng"}
           type={"number"}
           step={"any"}
-          label={"Longitude"}
+          label={t("longitude")}
         />
       </Grid>
 
       <ImageUploader name={"user.image"} />
 
       <div className={`flex justify-center items-center`}>
-        <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+        <PrimaryButton type={"submit"}>{t("btn")}</PrimaryButton>
       </div>
     </Form>
   );

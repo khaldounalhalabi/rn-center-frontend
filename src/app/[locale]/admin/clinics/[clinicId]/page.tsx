@@ -10,6 +10,8 @@ import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { translate } from "@/Helpers/ObjectHelpers";
 import Link from "next/link";
+import {getTranslations} from 'next-intl/server';
+import { getCookieServer } from "@/Actions/serverCookies";
 
 const Page = async ({
   params: { clinicId },
@@ -18,12 +20,14 @@ const Page = async ({
 }) => {
   const data: ApiResponse<Clinic> = await ClinicService.make().show(clinicId);
   const clinic = data.data;
+   const t =await getTranslations('clinic.show')
+  const locale = await getCookieServer('locale')
   return <PageCard>
     <div className={"flex justify-between items-center"}>
-      <h1 className={"card-title "}>Doctor Details</h1>
+      <h1 className={"card-title "}>{t("name")}</h1>
       <div className={"flex"}>
-        <Link href={`${clinicId}/edit`}>
-          <PrimaryButton>Edit</PrimaryButton>
+        <Link href={`${locale}/${clinicId}/edit`}>
+          <PrimaryButton>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
     </div>
@@ -59,7 +63,7 @@ const Page = async ({
         >
           {/*TODO::configure it when appointments is done Appointments*/}
           <h1>5</h1>
-          <h2 className={""}>Total Appointments</h2>
+          <h2 className={""}>{t("total-appointments")}</h2>
         </div>
         <div
           className={
@@ -67,7 +71,7 @@ const Page = async ({
           }
         >
           <h1>5</h1>
-          <h2 className={""}>Today Appointments</h2>
+          <h2 className={""}>{t("today-appointments")}</h2>
         </div>
         <div
           className={
@@ -75,7 +79,7 @@ const Page = async ({
           }
         >
           <h1>5</h1>
-          <h2 className={""}>Upcoming Appointments</h2>
+          <h2 className={""}>{t("upcoming-appointments")}</h2>
         </div>
       </div>
     </div>

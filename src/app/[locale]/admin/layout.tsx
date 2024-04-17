@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "@/components/common/Header";
-import Providers from "@/app/providers";
+import Providers from "@/app/[locale]/providers";
 
 const Layout = ({
   children,

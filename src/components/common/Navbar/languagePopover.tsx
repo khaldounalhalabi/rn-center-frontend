@@ -1,9 +1,12 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useTransition } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import {setCookieClient} from "@/Actions/clientCookies";
+import {getCookieClient, setCookieClient} from "@/Actions/clientCookies";
+import { useRouter, usePathname } from 'next/navigation';
+
+
 
 
 const LanguagePopover = () => {
@@ -12,10 +15,20 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-
+  const router = useRouter();
+  const pathname = usePathname();
   const setCoc=(value:string)=>{
-    setCookieClient('locale',value)
-    window.location.reload()
+    const coc = getCookieClient('locale')
+    if(coc == 'en'){
+      router.replace(pathname.replace('/en/','/ar/'))
+      setCookieClient('locale',value)
+    
+    }else if(coc == 'ar'){
+      router.replace(pathname.replace('/ar/','/en/'))
+      setCookieClient('locale',value)
+    
+    }
+    // window.location.reload()
   }
 
   return (

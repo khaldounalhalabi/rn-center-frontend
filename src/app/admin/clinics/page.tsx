@@ -6,8 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { translate } from "@/Helpers/ObjectHelpers";
-import ArchiveIcon from "@/components/icons/ArchiveIcon";
+import {translate} from "@/Helpers/Translations";import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import { UserService } from "@/services/UserService";

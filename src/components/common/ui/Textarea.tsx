@@ -10,7 +10,7 @@ interface textAreaType {
   dir?: string;
   defaultValue?: any;
 }
-const TextArea: React.FC<textAreaType> = ({
+const Textarea: React.FC<textAreaType> = ({
   className,
   label,
   name,
@@ -32,7 +32,7 @@ const TextArea: React.FC<textAreaType> = ({
         id="message"
         rows={4}
         dir={dir}
-        className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+        className="text-sm textarea textarea-bordered w-full"
         placeholder="Write your thoughts here..."
         defaultValue={defaultValue ? defaultValue : ""}
       />
@@ -41,4 +41,4 @@ const TextArea: React.FC<textAreaType> = ({
   );
 };
 
-export default TextArea;
+export default Textarea;

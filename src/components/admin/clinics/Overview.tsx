@@ -1,6 +1,6 @@
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
-import { translate } from "@/Helpers/ObjectHelpers";
+import { translate } from "@/Helpers/Translations";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
   return (

@@ -4,7 +4,7 @@ import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";
-import { translate } from "@/Helpers/ObjectHelpers";
+import { translate } from "@/Helpers/Translations";
 
 const Page = async ({
   params: { clinicId },
@@ -15,17 +15,14 @@ const Page = async ({
   const clinic = data.data;
 
   const defaultValues: AddOrUpdateClinicForm = {
-    name: translate(clinic?.name, true),
+    ...clinic,
     user: {
       ...clinic?.user,
-      first_name: translate(clinic?.user?.first_name, true),
-      middle_name: translate(clinic?.user?.middle_name, true),
-      last_name: translate(clinic?.user?.last_name, true),
       image: null,
     },
     phone_numbers: clinic?.user?.phones.map((ph) => ph.phone),
     address: {
-      name: translate(clinic?.user?.address?.name, true),
+      ...clinic?.user?.address,
       city_id: clinic?.user?.address?.city_id,
       lat: clinic?.user?.address?.lat,
       lng: clinic?.user?.address?.lng,

@@ -7,21 +7,26 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import { Media } from "@/Models/Media";
-import { GET } from "@/Http/Http";
+import { ActualFileObject } from "filepond";
 
-const ImageUploader = ({ name }: { name: string }) => {
+const ImageUploader = ({
+  name,
+  isMultiple = false,
+}: {
+  name: string;
+  isMultiple: boolean;
+}) => {
   registerPlugin(
     FilePondPluginImageExifOrientation,
     FilePondPluginImagePreview,
-    FilePondPluginFileValidateType,
+    FilePondPluginFileValidateType
   );
 
   const {
     setValue,
-    formState: { errors, defaultValues },
+    formState: { errors },
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
@@ -30,11 +35,19 @@ const ImageUploader = ({ name }: { name: string }) => {
       <div className={`w-full`}>
         <FilePond
           onupdatefiles={(fileItems) => {
-            fileItems.map((file) => setValue(name, file.file));
+            if (isMultiple) {
+              setValue(
+                name,
+                fileItems.map((file) => file.file)
+              );
+            } else {
+              fileItems.map((file) => setValue(name, file.file));
+            }
           }}
           acceptedFileTypes={["image/*"]}
-          labelIdle={"Add The Doctor Image Here"}
+          labelIdle={"Drag Or Click To Add Image"}
           storeAsFile={true}
+          allowMultiple={true}
         />
       </div>
       {error ? <p className={`text-error text-sm`}>{error}</p> : ""}

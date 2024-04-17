@@ -15,6 +15,10 @@ import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
 import { navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
+import { Hospital } from "@/Models/Hospital";
+import { Speciality } from "@/Models/Speciality";
+import { City } from "@/Models/City";
+import { translate } from "@/Helpers/Translations";
 
 const ClinicForm = ({
   type = "store",
@@ -31,6 +35,8 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
+      console.log(data);
+
       return await ClinicService.make().update(id, data);
     };
   }
@@ -83,13 +89,13 @@ const ClinicForm = ({
         />
         <Input
           name={"user.password"}
-          type={"password"}
+          type={"text"}
           placeholder={"Password"}
           label={"Password"}
         />
         <Input
           name={"user.password_confirmation"}
-          type={"password"}
+          type={"text"}
           placeholder={"Confirm Password"}
           label={"Password Confirmation"}
         />
@@ -174,34 +180,34 @@ const ClinicForm = ({
           />
         </div>
         <SelectPaginated
-          api={async (page, search) =>
+          api={async (page, search): Promise<ApiResponse<Hospital[]>> =>
             await HospitalService.make().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
-          label={"name"}
-          value={"id"}
+          getLabel={(option: Hospital) => translate(option.name)}
+          value="id"
           name={"hospital_id"}
           inputLabel={"Hospital"}
           selected={[defaultValues?.hospital_id]}
         />
 
         <SelectPaginated
-          api={async (page, search) =>
+          api={async (page, search): Promise<ApiResponse<Speciality[]>> =>
             await SpecialityService.make().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
           isMultiple={true}
-          label={"name"}
+          getLabel={(option: Speciality) => translate(option.name)}
           value={"id"}
           name={"speciality_ids"}
           inputLabel={"Specialities"}
@@ -211,16 +217,16 @@ const ClinicForm = ({
         />
 
         <SelectPaginated
-          api={async (page, search) =>
+          api={async (page, search): Promise<ApiResponse<City[]>> =>
             await CityService.make().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
-          label={"name"}
+          getLabel={(option: City) => translate(option.name)}
           value={"id"}
           name={"address.city_id"}
           inputLabel={"City"}

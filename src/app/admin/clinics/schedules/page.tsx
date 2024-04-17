@@ -7,8 +7,7 @@ import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
 import Link from "next/link";
-import { translate } from "@/Helpers/ObjectHelpers";
-import WeekDaySelect from "@/components/common/WeekDaySelect";
+import {translate} from "@/Helpers/Translations";import WeekDaySelect from "@/components/common/WeekDaySelect";
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [

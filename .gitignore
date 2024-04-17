@@ -38,9 +38,6 @@ next-env.d.ts
 .idea
 /.idea
 
-/public/sw.js.map
-/public/swe-worker-development.js
-/public/workbox-7144475a.js
-/public/workbox-7144475a.js.map
+/public
 
 certificates

@@ -4,29 +4,31 @@ import { ApiResponse } from "@/Http/Response";
 import { useFormContext } from "react-hook-form";
 import "./select.css";
 import { AsyncPaginate } from "react-select-async-paginate";
-import { getNestedPropertyValue, translate } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 interface SelectProps<T> {
   name: string;
-  api: (page: number, search?: string) => Promise<ApiResponse<T>>;
-  label: string;
-  value: string;
+  api: (page: number, search?: string) => Promise<ApiResponse<T[]>>;
+  label?: keyof T;
+  value?: keyof T;
   isMultiple?: boolean;
   selected?: any[];
   inputLabel?: string;
-  defaultValue?: string;
+  getLabel?: (option: T) => any;
+  getValue?: (option: T) => any;
 }
 
-const SelectPaginated: React.FC<SelectProps<any>> = ({
+function SelectPaginated<T>({
   api,
   label,
   value,
   name,
-  defaultValue,
   isMultiple = false,
   inputLabel = undefined,
   selected = [],
-}) => {
+  getLabel = undefined,
+  getValue = undefined,
+}: SelectProps<T>) {
   if (!selected) {
     selected = [];
   }
@@ -40,19 +42,15 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
 
   const loadedOptions = async (
     search: string,
-    _loadedOptions: ApiResponse<any>,
-    { page }: { page: number },
+    _loadedOptions: ApiResponse<T>,
+    { page }: { page: number }
   ) => {
     const response = await api(page, search);
     return {
-      options:
-        response && response.hasOwnProperty("data")
-          ? response.data
-          : [{ label: "There is no data", value: undefined }],
-      hasMore:
-        response && response.hasOwnProperty("paginate")
-          ? !response?.paginate?.isLast
-          : false,
+      options: response.data ?? [
+        { label: "There is no data", value: undefined },
+      ],
+      hasMore: !response?.paginate?.isLast ?? false,
       additional: {
         page: page + 1,
       },
@@ -64,15 +62,16 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
       <input {...register(name)} className={"hidden"} hidden={true} />
       <AsyncPaginate
         cacheOptions
-        defaultInputValue={defaultValue ? defaultValue : ""}
         instanceId={useId()}
         // @ts-ignore
         loadOptions={loadedOptions}
         isMulti={isMultiple}
-        // @ts-ignore
-        getOptionValue={(option) => `${option[`${value}`]}`}
-        // @ts-ignore
-        getOptionLabel={(option) => translate(option[`${label}`])}
+        getOptionValue={(option: T) =>
+          getValue ? getValue(option) : value && `${option[value]}`
+        }
+        getOptionLabel={(option: T) =>
+          getLabel ? getLabel(option) : label && `${option[label]}`
+        }
         additional={{
           page: 1,
         }}
@@ -80,25 +79,32 @@ const SelectPaginated: React.FC<SelectProps<any>> = ({
         isClearable={true}
         onChange={(newValue) => {
           if (!isMultiple) {
-            // @ts-ignore
-            return setValue(name, newValue[`${value ?? ""}`] ?? undefined);
+            return setValue(
+              name,
+              value
+                ? // @ts-ignore
+                  newValue[`${value}`]
+                : getValue
+                  ? // @ts-ignore
+                    getValue(newValue)
+                  : undefined
+            );
           } else
             return setValue(
               name,
               // @ts-ignore
-              newValue?.map((op) => op[`${value ?? ""}`]),
+              newValue?.map((op) => op[`${value ?? ""}`])
             );
         }}
-        isOptionSelected={(option) =>
-          // @ts-ignore
-          selected.includes(option[`${value ?? ""}`])
+        isOptionSelected={(option: T) =>
+          selected.includes(
+            value ? option[value] : getValue ? getValue(option) : undefined
+          )
         }
-        // @ts-ignore
-        defaultOptions={(option) => selected.includes(option[`${value ?? ""}`])}
       />
       {error ? <p className={`text-error`}>{error}</p> : ""}
     </div>
   );
-};
+}
 
 export default SelectPaginated;

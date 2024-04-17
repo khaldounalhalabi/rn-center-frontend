@@ -8,8 +8,8 @@ import { Clinic } from "@/Models/Clinic";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
-import { translate } from "@/Helpers/ObjectHelpers";
 import Link from "next/link";
+import {translate} from "@/Helpers/Translations";
 
 const Page = async ({
   params: { clinicId },

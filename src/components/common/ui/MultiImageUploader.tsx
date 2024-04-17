@@ -7,12 +7,13 @@ import {
   sanitizeString,
 } from "@/Helpers/ObjectHelpers";
 import { useFormContext } from "react-hook-form";
+import ImageUploader from "@/components/common/ui/ImageUploader";
 
 interface MultiInputProps extends InputProps {
   defaultValue: any[];
 }
 
-const MultiInput: React.FC<MultiInputProps> = ({
+const MultiImageUploader: React.FC<MultiInputProps> = ({
   className,
   label,
   name,
@@ -32,17 +33,8 @@ const MultiInput: React.FC<MultiInputProps> = ({
         {[...Array(inputNum)].map((_field, index) => {
           return (
             <div className={"flex flex-col items-start"} key={index}>
-              <div
-                className={`flex justify-between items-center w-full gap-2`}
-
-              >
-                <Input
-                  key={`a-${index}`}
-                  name={`${name}[${index}]`}
-                  type={type}
-                  {...props}
-                  defaultValue={defaultValue[index] ?? ""}
-                />
+              <div className={`flex justify-between items-center w-full gap-2`}>
+                  <ImageUploader name={`${name}[${index}]`}/>
                 <button
                   type={"button"}
                   className={"btn btn-square btn-sm"}
@@ -81,4 +73,4 @@ const MultiInput: React.FC<MultiInputProps> = ({
   );
 };
 
-export default MultiInput;
+export default MultiImageUploader;

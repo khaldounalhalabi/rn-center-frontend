@@ -9,7 +9,7 @@ import { HospitalService } from "@/services/HospitalService";
 
 const tableData: DataTableData<ClinicHoliday> = {
   createUrl: "/admin/hospitals/create",
-  title: "Clinics Hospitals",
+  title: "Hospitals",
   schema: [
     {
       name: "name",

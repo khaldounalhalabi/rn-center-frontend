@@ -23,7 +23,6 @@ const Form = ({
     if (!res.fillValidationErrors(methods)) {
       if (onSuccess) onSuccess(res);
     }
-    console.log(res)
     return res;
   };
 
@@ -34,8 +33,8 @@ const Form = ({
         encType="multipart/form-data"
       >
         {methods.formState.isSubmitting && (
-          <div className="absolute inset-0 flex items-center justify-center bg-transparent/5 rounded-md">
-            <LoadingSpin className="w-8 h-8 " />
+          <div className="absolute inset-0 flex justify-center items-center bg-transparent/5 rounded-md">
+            <LoadingSpin className="w-8 h-8" />
           </div>
         )}
         {children}

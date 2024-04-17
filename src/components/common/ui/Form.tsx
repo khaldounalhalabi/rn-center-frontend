@@ -33,7 +33,7 @@ const Form = ({
         encType="multipart/form-data"
       >
         {methods.formState.isSubmitting && (
-          <div className="absolute inset-0 flex justify-center items-center bg-transparent/5 rounded-md">
+          <div className="z-50 absolute inset-0 flex justify-center items-center bg-transparent/5 rounded-md">
             <LoadingSpin className="w-8 h-8" />
           </div>
         )}

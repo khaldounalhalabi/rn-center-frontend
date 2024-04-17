@@ -23,7 +23,7 @@ const tableData: DataTableData<ClinicHoliday> = {
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={"/admin/speciality"}
+          baseUrl={"/admin/specialities"}
           editUrl={`/admin/speciality/${data?.id}/edit`}
           showUrl={`/admin/speciality/${data?.id}`}
           setHidden={setHidden}

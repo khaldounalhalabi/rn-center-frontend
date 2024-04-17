@@ -6,7 +6,7 @@ import SpecialityForm from "@/components/admin/speciality/SpecialityForm";
 const page = () => {
   return (
     <PageCard>
-      <h2 className="card-title">{"Add Speciality"}</h2>
+      <h2 className="card-title">Add Speciality</h2>
       <SpecialityForm />
     </PageCard>
   );

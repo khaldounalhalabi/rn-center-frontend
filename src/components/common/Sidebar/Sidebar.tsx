@@ -53,22 +53,10 @@ const Sidebar = ({
             <SidebarItem link={"/admin/clinics/holidays"}>
               Clinics Holidays
             </SidebarItem>
+          </SidebarCompactItem>
+          <SidebarItem link={"/admin/speciality"}>Speciality</SidebarItem>
+          <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
 
-          </SidebarCompactItem>
-          <SidebarCompactItem title={"Test"}>
-            <SidebarItem>Banned Users</SidebarItem>
-            <SidebarItem>Billing</SidebarItem>
-          </SidebarCompactItem>
-          <SidebarItem link={"/admin/speciality"}>
-            Speciality
-          </SidebarItem>
-          <SidebarItem link={"/admin/hospitals"}>
-            Hospitals
-          </SidebarItem>
-          <SidebarCompactItem title={"compact"}>
-            <SidebarItem>Page 3</SidebarItem>
-            <SidebarItem>Page 4</SidebarItem>
-          </SidebarCompactItem>
         </ul>
       </div>
     </div>

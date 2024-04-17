@@ -24,7 +24,7 @@ const Navbar = ({
       <div
         className={
           showSearchForm
-            ? "w-full h-16 md:w-full md:right-0 md:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-500"
+            ? "w-full h-16 md:w-full md:right-0 md:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-200"
             : "w-full h-0 absolute overflow-clip translate-y-[-200px] ease-in-out duration-300"
         }
       >

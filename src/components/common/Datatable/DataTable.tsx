@@ -2,11 +2,7 @@
 import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {
-  keepPreviousData,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
 import Link from "next/link";
@@ -32,7 +28,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -46,13 +42,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -73,7 +69,16 @@ const DataTable = (tableData: DataTableData<any>) => {
   };
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
-    queryKey: ["tableData", page, search, sortDir, sortCol, perPage, params , refetch],
+    queryKey: [
+      "tableData",
+      page,
+      search,
+      sortDir,
+      sortCol,
+      perPage,
+      params,
+      refetch,
+    ],
     queryFn: async () => {
       let s = !search || search == "" ? undefined : search;
       let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
@@ -82,7 +87,7 @@ const DataTable = (tableData: DataTableData<any>) => {
     },
     placeholderData: keepPreviousData,
   });
-  console.log(data)
+
   return (
     <>
       {tableData.filter ? (
@@ -105,7 +110,7 @@ const DataTable = (tableData: DataTableData<any>) => {
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <div className="flex justify-center items-center p-4 min-h-full text-center">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -115,10 +120,10 @@ const DataTable = (tableData: DataTableData<any>) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="font-medium text-gray-900 text-lg leading-6"
                     >
                       Filters
                     </Dialog.Title>
@@ -126,10 +131,10 @@ const DataTable = (tableData: DataTableData<any>) => {
                       {tableData.filter(tempParams, setTempParams)}
                     </div>
 
-                    <div className="mt-4 flex justify-between items-center">
+                    <div className="flex justify-between items-center mt-4">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setParams(tempParams);
                           setOpenFilter(false);
@@ -140,7 +145,7 @@ const DataTable = (tableData: DataTableData<any>) => {
 
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center bg-error hover:bg-red-600 px-4 py-2 border border-transparent rounded-md font-medium text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setTempParams({});
                           setParams({});
@@ -161,7 +166,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       )}
       <div className={`relative`}>
         {isPending || isFetching ? (
-          <div className="absolute w-full h-full flex justify-center items-center opacity-70 z-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 m-auto text-center bg-transparent/5">
+          <div className="top-1/2 left-1/2 z-40 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
             <LoadingSpin className="w-8 h-8" />
           </div>
         ) : null}
@@ -177,14 +182,14 @@ const DataTable = (tableData: DataTableData<any>) => {
             >
               <div className={"flex gap-1"}>
                 <Link href={tableData.createUrl ?? "#"}>
-                  <button className="btn btn-square btn-sm btn-info">
+                  <button className="btn btn-info btn-sm btn-square">
                     <DocumentPlus className={`h-6 w-6`} />
                   </button>
                 </Link>
                 {tableData?.filter ? (
                   <div>
                     <button
-                      className="btn btn-square btn-sm btn-info"
+                      className="btn btn-info btn-sm btn-square"
                       onClick={() => setOpenFilter((prevState) => !prevState)}
                     >
                       <FilterIcon />
@@ -196,7 +201,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               </div>
               <div className={"flex gap-2"}>
                 <select
-                  className="select select-bordered select-sm w-full max-w-xs"
+                  className="w-full max-w-xs select-bordered select-sm select"
                   onChange={(e) => setPerPage(parseInt(e.target.value))}
                   value={perPage}
                 >
@@ -206,7 +211,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   <option value={75}>75</option>
                   <option value={data?.paginate?.total}>All</option>
                 </select>
-                <label className="input input-sm input-bordered flex items-center gap-2">
+                <label className="flex items-center gap-2 input-bordered input input-sm">
                   <input
                     type="text"
                     className="grow"
@@ -221,9 +226,9 @@ const DataTable = (tableData: DataTableData<any>) => {
                 </label>
               </div>
             </div>
-            <div className="rounded-lg border border-gray-200">
-              <div className="overflow-x-auto rounded-t-lg">
-                <table className="relative min-w-full divide-y-2 divide-gray-200 bg-white text-sm overflow-y-hidden scroll-my-0">
+            <div className="border-gray-200 border rounded-lg">
+              <div className="rounded-t-lg overflow-x-auto">
+                <table className="relative bg-white scroll-my-0 divide-y-2 divide-gray-200 min-w-full text-sm overflow-y-hidden">
                   <TableHead
                     schema={tableData.schema}
                     setSortDir={setSortDir}

@@ -4,21 +4,17 @@ import SpecialityForm from "@/components/admin/speciality/SpecialityForm";
 import { SpecialityService } from "@/services/SpecialityService";
 
 const page = async ({
-                        params: { specialityId },
-                    }: {
-    params: { specialityId: number };
+  params: { specialityId },
+}: {
+  params: { specialityId: number };
 }) => {
-    const speciality = (await SpecialityService.make().show(specialityId)).data;
-    return (
-        <div>
-            <div className="w-full h-24 flex justify-start items-center">
-                <h2 className="ml-5 text-2xl font-medium">Edit Speciality</h2>
-            </div>
-            <PageCard>
-                <SpecialityForm type={"update"} defaultValues={speciality} />
-            </PageCard>
-        </div>
-    );
+  const speciality = (await SpecialityService.make().show(specialityId)).data;
+  return (
+    <PageCard>
+      <h2 className="card-title">Speciality Details</h2>
+      <SpecialityForm type={"update"} defaultValues={speciality} />
+    </PageCard>
+  );
 };
 
 export default page;

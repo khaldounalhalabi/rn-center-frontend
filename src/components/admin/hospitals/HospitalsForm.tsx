@@ -10,6 +10,10 @@ import { DepartmentsService } from "@/services/DepartmentsService";
 import { HospitalService } from "@/services/HospitalService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { navigate } from "@/Actions/navigate";
+import Grid from "@/components/common/ui/Grid";
+import { translate } from "@/Helpers/Translations";
+import { ApiResponse } from "@/Http/Response";
+import { Department } from "@/Models/Departments";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -23,14 +27,17 @@ const HospitalsForm = ({
 
   const handleSubmit = async (data: any) => {
     console.log(data);
-    if (type === "update" && defaultValues?.id) {
-      return HospitalService.make().update(defaultValues.id, data);
+    if (
+      type === "update" &&
+      (defaultValues?.id != undefined || id != undefined)
+    ) {
+      return HospitalService.make().update(defaultValues?.id ?? id, data);
     } else {
       return await HospitalService.make().store(data);
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/clinics/hospitals`);
+    navigate(`/admin/hospitals`);
   };
 
   return (
@@ -39,7 +46,7 @@ const HospitalsForm = ({
       onSuccess={onSuccess}
       defaultValues={defaultValues}
     >
-      <div>
+      <Grid md={"2"}>
         <TranslatableInput
           locales={["en", "ar"]}
           type={"text"}
@@ -47,30 +54,19 @@ const HospitalsForm = ({
           label={"Hospital Name"}
           name={"name"}
         />
-      </div>
-      <div className="my-3">
-        <MultiInput
-          type={"tel"}
-          name={"phone_numbers"}
-          placeholder={"Enter Hospital Phone Number"}
-          label={"Hospital Phones"}
-          defaultValue={defaultValues?.phone_numbers ?? []}
-        />
-      </div>
 
-      <div className="my-3">
         <SelectPaginated
-          api={async (page, search) =>
+          api={async (page, search): Promise<ApiResponse<Department[]>> =>
             await DepartmentsService.make().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
           isMultiple={true}
-          label={"name"}
+          getLabel={(option) => translate(option.name)}
           value={"id"}
           name={"available_departments"}
           inputLabel={"Available Departments"}
@@ -80,10 +76,17 @@ const HospitalsForm = ({
               : []
           }
         />
-      </div>
-      <div>
-        <ImageUploader name={"images"} />
-      </div>
+      </Grid>
+
+      <MultiInput
+        type={"tel"}
+        name={"phone_numbers"}
+        placeholder={"Enter Hospital Phone Number"}
+        label={"Hospital Phones"}
+        defaultValue={defaultValues?.phone_numbers ?? []}
+      />
+
+      <ImageUploader name={"images"} isMultiple={true} />
 
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>

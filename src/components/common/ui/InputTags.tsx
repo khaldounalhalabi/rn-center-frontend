@@ -1,39 +1,50 @@
-
 import React, { useState } from "react";
 import { TagsInput } from "react-tag-input-component";
-import {useFormContext} from "react-hook-form";
-
-
-
+import { useFormContext } from "react-hook-form";
+import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 const InputTags = ({
-    name,
-                       label,
-                       defaultValue
-                   }:{
-    name:string
-    label?:string
-    defaultValue?:string[]
-})=>{
-    const [selected, setSelected] = useState<string[]>(defaultValue?defaultValue:[]);
+  name,
+  label,
+  defaultValue,
+}: {
+  name: string;
+  label?: string;
+  defaultValue?: string[];
+}) => {
+  const {
+    setValue,
+    formState: { errors, defaultValues },
+  } = useFormContext();
 
-    const {
-        setValue,
-        formState: { errors },
-    } = useFormContext();
-    setValue(name,selected)
-    return (
-        <div>
-            {label? <label className='label'>{label}</label>:false}
-            <TagsInput
-                value={selected}
-                onChange={setSelected}
-                name="fruits"
-                placeHolder="enter fruits"
+  let df: string[] = [];
+  if (defaultValue) {
+    df = defaultValue;
+  } else {
+    const middleDf = getNestedPropertyValue(defaultValues, name) as string;
+    df = middleDf?.split(",") ?? [];
+  }
 
-            />
-        </div>
-    )
-}
+  const [tags, setTags] = useState<string[]>(df);
 
-export default InputTags
+  const error = getNestedPropertyValue(errors, `${name}.message`);
+
+  return (
+    <div>
+      {label ? <label className="label">{label}</label> : false}
+      <TagsInput
+        isEditOnRemove={true}
+        value={tags}
+        onChange={(values) => {
+          setValue(name, values.toString());
+          setTags(values);
+        }}
+        name="fruits"
+        placeHolder="Press Enter After Every Tag To Add It"
+      />
+      {error ? <p className="text-error text-sm">{error}</p> : ""}
+    </div>
+  );
+};
+
+export default InputTags;

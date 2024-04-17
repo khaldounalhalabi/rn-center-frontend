@@ -28,10 +28,10 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   const defaultValue = getNestedPropertyValue(defaultValues, `${name}`);
   const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
   const [tValue, setTValue] = useState<Translatable>(
-    translate(defaultValue, true),
+    typeof defaultValue == "string"
+      ? translate(defaultValue, true)
+      : defaultValue ?? { en: "", ar: "" }
   );
-
-  setValue(name, JSON.stringify(tValue));
 
   const handleInputChange = (locale: Locales, v: string) => {
     tValue[locale] = v ?? defaultValue[`${locale}`];
@@ -54,7 +54,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
         <select
           name="HeadlineAct"
           id="HeadlineAct"
-          className="select select-bordered"
+          className="select-bordered select"
           onChange={(e) => setSelectedLocale(e.target.value as Locales)}
         >
           {locales.map((l) => (
@@ -72,7 +72,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
               `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom ${selectedLocale != l ? "hidden" : ""}`
             }
             onChange={(e) => handleInputChange(l, e.target.value)}
-            defaultValue={defaultValue ? defaultValue[l] ?? "" : ""}
+            defaultValue={tValue ? tValue[l] ?? "" : ""}
           />
         ))}
       </div>

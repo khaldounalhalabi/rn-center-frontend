@@ -10,7 +10,7 @@ interface textAreaType {
   dir?: string;
   defaultValue?: any;
 }
-const TextArea: React.FC<textAreaType> = ({
+const Textarea: React.FC<textAreaType> = ({
   className,
   label,
   name,
@@ -41,4 +41,4 @@ const TextArea: React.FC<textAreaType> = ({
   );
 };
 
-export default TextArea;
+export default Textarea;

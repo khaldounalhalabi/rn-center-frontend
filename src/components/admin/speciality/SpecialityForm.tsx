@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { navigate } from "@/Actions/navigate";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -18,6 +19,7 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const locale = getCookieClient('locale')
   const handleSubmit = async (data: any) => {
     if (
       type == "update" &&
@@ -32,7 +34,7 @@ const SpecialityForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/speciality`);
+    navigate(`${locale}/admin/speciality`);
   };
   const array = defaultValues?.tags.split(",");
   return (

@@ -2,45 +2,45 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { ApiErrorType, ApiResponse } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
 
-export const GET = async (
+export const GET = async <T>(
   url: string,
   params?: object,
   headers?: object
-): Promise<ApiResponse<any>> => {
+): Promise<ApiResponse<T>> => {
   return await http("GET", url, headers, params);
 };
 
-export const POST = async (
+export const POST = async <T>(
   url: string,
   data: any,
   headers?: object
-): Promise<ApiResponse<any>> => {
+): Promise<ApiResponse<T>> => {
   return await http("POST", url, headers, undefined, data);
 };
 
-export const PUT = async (
+export const PUT = async <T>(
   url: string,
   data: any,
   headers?: object
-): Promise<ApiResponse<any>> => {
+): Promise<ApiResponse<T>> => {
   return await http("PUT", url, headers, undefined, data);
 };
 
-export const DELETE = async (
+export const DELETE = async <T>(
   url: string,
   params?: object,
   headers?: object
-): Promise<ApiResponse<any>> => {
+): Promise<ApiResponse<T>> => {
   return await http("DELETE", url, headers, params);
 };
 
-const http = async (
+const http = async <T>(
   method: string,
   url: string,
   headers?: object,
   params?: object,
   data?: object | undefined
-): Promise<ApiResponse<any>> => {
+): Promise<ApiResponse<T>> => {
   let lang = await getCookieServer("locale");
   const h = {
     "Content-Type": "multipart/form-data",
@@ -88,23 +88,23 @@ const http = async (
   }
 };
 
-function handleError(error: AxiosError<ApiResponse<any>>): ApiResponse<any> {
+function handleError<T>(error: AxiosError<ApiResponse<T>>): ApiResponse<T> {
   if (error.request) {
     if (error.response?.status == 405 && error.response?.data.code == 405) {
-      return new ApiResponse<any>(
+      return new ApiResponse<T>(
         null,
         false,
         405,
         error.response.data.message
       );
     }
-    return new ApiResponse<any>(
+    return new ApiResponse<T>(
       null,
       false,
       error.response?.data.code ?? error.response?.status ?? 400,
       error.response?.data?.message
     );
   } else {
-    return new ApiResponse<any>(null, false, 400, ApiErrorType.UNKNOWN_ERROR);
+    return new ApiResponse<T>(null, false, 400, ApiErrorType.UNKNOWN_ERROR);
   }
 }

@@ -9,6 +9,7 @@ import { Department } from "@/Models/Departments";
 import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
 import Gallery from "@/components/common/ui/Gallery";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const page = async ({
   params: { hospitalsId },
@@ -17,12 +18,12 @@ const page = async ({
 }) => {
   const data = await HospitalService.make().show(hospitalsId);
   const res: Hospital = data?.data;
-
+  const locale = getCookieClient('locale')
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Hospital Details</h2>
-        <Link href={`/admin/hospitals/${hospitalsId}/edit`}>
+        <Link href={`${locale}/admin/hospitals/${hospitalsId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

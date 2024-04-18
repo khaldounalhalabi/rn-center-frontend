@@ -14,6 +14,7 @@ import Grid from "@/components/common/ui/Grid";
 import { translate } from "@/Helpers/Translations";
 import { ApiResponse } from "@/Http/Response";
 import { Department } from "@/Models/Departments";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -24,7 +25,7 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-
+  const locale = getCookieClient('locale')
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -37,7 +38,7 @@ const HospitalsForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/hospitals`);
+    navigate(`${locale}/admin/hospitals`);
   };
 
   return (

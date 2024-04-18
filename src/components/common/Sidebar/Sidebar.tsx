@@ -3,7 +3,6 @@ import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
-import { useRouter } from 'next/navigation';
 import { getCookieClient } from "@/Actions/clientCookies";
 
 const Sidebar = ({
@@ -56,8 +55,8 @@ const Sidebar = ({
               Clinics Holidays
             </SidebarItem>
           </SidebarCompactItem>
-          <SidebarItem link={"/admin/speciality"}>Speciality</SidebarItem>
-          <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
+          <SidebarItem link={`/${router}/admin/speciality`}>Speciality</SidebarItem>
+          <SidebarItem link={`/${router}/admin/hospitals`}>Hospitals</SidebarItem>
 
         </ul>
       </div>

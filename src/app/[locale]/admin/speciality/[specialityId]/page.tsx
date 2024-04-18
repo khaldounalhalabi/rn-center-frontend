@@ -5,6 +5,7 @@ import Link from "next/link";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const page = async ({
   params: { specialityId },
@@ -14,11 +15,12 @@ const page = async ({
   const data = await SpecialityService.make().show(specialityId);
   const res: AddSpeciality = data?.data;
   const tagsArray = res?.tags.split(",");
+  const locale = getCookieClient('locale')
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Speciality Details</h2>
-        <Link href={`/admin/speciality/${res.id}/edit`}>
+        <Link href={`${locale}/admin/speciality/${res.id}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

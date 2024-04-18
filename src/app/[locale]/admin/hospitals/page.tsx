@@ -5,15 +5,16 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { SpecialityService } from "@/services/SpecialityService";
-
+import { HospitalService } from "@/services/HospitalService";
+import { getCookieClient } from "@/Actions/clientCookies";
+const locale = getCookieClient('locale')
 const tableData: DataTableData<ClinicHoliday> = {
-  createUrl: "/admin/speciality/create",
-  title: "Specialities",
+  createUrl: `${locale}/admin/hospitals/create`,
+  title: "Hospitals",
   schema: [
     {
       name: "name",
-      label: "Speciality",
+      label: "Hospitals",
       sortable: true,
       translatable: true,
     },
@@ -23,16 +24,16 @@ const tableData: DataTableData<ClinicHoliday> = {
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={"/admin/specialities"}
-          editUrl={`/admin/speciality/${data?.id}/edit`}
-          showUrl={`/admin/speciality/${data?.id}`}
+          baseUrl={`${locale}/admin/hospitals`}
+          editUrl={`${locale}/admin/hospitals/${data?.id}/edit`}
+          showUrl={`${locale}/admin/hospitals/${data?.id}`}
           setHidden={setHidden}
         />
       ),
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await SpecialityService.make().indexWithPagination(
+    await HospitalService.make().indexWithPagination(
       page,
       search,
       sortCol,

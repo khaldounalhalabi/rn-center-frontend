@@ -7,9 +7,10 @@ import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
 import Link from "next/link";
-import { translate } from "@/Helpers/ObjectHelpers";
+
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { getCookieClient } from "@/Actions/clientCookies";
+import { translate } from "@/Helpers/Translations";
 const locale = getCookieClient('locale')
 
 const dataTableSchema: DataTableData<Clinic> = {

@@ -2,10 +2,10 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { translate } from "@/Helpers/ObjectHelpers";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
 import { getCookieServer } from "@/Actions/serverCookies";
+import {translate} from "@/Helpers/Translations";
 
 const page = async ({
   params: { holidayId },

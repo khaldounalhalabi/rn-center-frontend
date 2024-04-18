@@ -10,14 +10,10 @@ const page = async ({
 }) => {
   const holiday = (await ClinicHolidayService.make().show(holidayId)).data;
   return (
-    <div>
-      <div className="w-full h-24 flex justify-start items-center">
-        <h2 className="ml-5 text-2xl font-medium">Edit Holidays</h2>
-      </div>
-      <PageCard>
-        <HolidayForm type={"update"} defaultValues={holiday} />
-      </PageCard>
-    </div>
+    <PageCard>
+      <h2 className="card-title">Edit Holidays</h2>
+      <HolidayForm type={"update"} defaultValues={holiday} />
+    </PageCard>
   );
 };
 

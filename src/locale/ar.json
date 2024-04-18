@@ -1,3 +1,39 @@
 {
-  "dark":"lord"
-}
+    "title": "شرح",
+    "Welcome to React": "مرحيا",
+    "Clinics Holidays":"عطلة الطبيب",
+    "Doctor First Name":"الاسم الأول للدكتور",
+    "clinic":{
+      "show":{
+        "name":"اسم الكتور",
+        "editBtn":"تعديل",
+        "total-appointments":"إجمالي المواعيد",
+        "today-appointments":"مواعيد اليوم",
+        "upcoming-appointments":"المواعيد القادمة"
+      },
+      "create-edit":{
+        "first-Name":"اسم الدكتور الأول",
+        "middle-name":"اسم الدكتور الأوسط",
+        "last-name":"اسم الدكتور الاخير",
+        "clinic-name":"اسم العيادة",
+        "email":"ايميل الدكتور",
+        "password":"كلمة السر",
+        "confirm-password":"تأكيد كلمة السر",
+        "birth-date":"تاريخ ميلاد الدكتور",
+        "cost":"تكلفة التعيين",
+        "max-appoiintments":"الحد الأقصى للمواعيد في اليوم الواحد",
+        "phones":"رقم العيادة",
+        "active":"نشط",
+        "in-active":"خامل",
+        "male":"رجل",
+        "female":"مرأة",
+        "hospital":"اسم المستشفى",
+        "specialities":"التخصصات",
+        "city":"المدينة",
+        "address":"موقع العيادة",
+        "latitude":"خط العرض",
+        "longitude":"خط الطول",
+        "btn":"حفظ"
+      }
+    }
+  }

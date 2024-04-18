@@ -1,6 +1,6 @@
 "use client";
 import { Inter } from "next/font/google";
-import "@/app/global.css";
+import "@/app/[locale]/global.css";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

@@ -2,7 +2,9 @@ import React from "react";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
-import "./../../../app/global.css";
+import "@/app/[locale]/global.css";
+import { useRouter } from 'next/navigation';
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const Sidebar = ({
   openNavBar,
@@ -14,7 +16,7 @@ const Sidebar = ({
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
-
+  const router = getCookieClient('locale')
   return (
     <div
       className={`md:block w-full  md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
@@ -44,13 +46,13 @@ const Sidebar = ({
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
         <ul className="mt-6 space-y-1 text-black">
-          <SidebarItem link={`/admin`}>Dashboard</SidebarItem>
+          <SidebarItem link={`/${router}/admin`}>Dashboard</SidebarItem>
           <SidebarCompactItem title={"Clinics Management"}>
-            <SidebarItem link="/admin/clinics">Clinics</SidebarItem>
-            <SidebarItem link={"/admin/clinics/schedules"}>
+            <SidebarItem link={`/${router}/admin/clinics`}>Clinics</SidebarItem>
+            <SidebarItem link={`/${router}/admin/clinics/schedules`}>
               Clinics Schedules
             </SidebarItem>
-            <SidebarItem link={"/admin/clinics/holidays"}>
+            <SidebarItem link={`/${router}/admin/clinics/holidays`}>
               Clinics Holidays
             </SidebarItem>
           </SidebarCompactItem>

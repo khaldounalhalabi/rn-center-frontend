@@ -1,13 +1,18 @@
 import { navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
-import { setServerCookie } from "@/Actions/serverCookies";
+import { getCookieServer, setServerCookie } from "@/Actions/serverCookies";
 import {POST} from "@/Http/Http";
 
-export class AuthService {
+
+export  class  AuthService {
+
+  async locale() {
+    return await getCookieServer("locale")
+  }
+
   public static instance?: AuthService | undefined | null;
   public successStatus: boolean = false;
-
   public static make() {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService();
@@ -29,7 +34,7 @@ export class AuthService {
       },
     );
 
-    if (this.successStatus) await navigate(`/${pageType}`);
+    if (this.successStatus) await navigate(`/${this.locale()}/${pageType}`);
 
     return response;
   }
@@ -45,7 +50,7 @@ export class AuthService {
     });
 
     if (this.successStatus)
-      await navigate(`/auth/${pageType}/set-new-password`);
+      await navigate(`/${this.locale()}/auth/${pageType}/set-new-password`);
 
     return response;
   }
@@ -61,7 +66,7 @@ export class AuthService {
     });
 
     if (this.successStatus)
-      await navigate(`/auth/${typePage}/reset-password-code`);
+      await navigate(`/${this.locale()}/auth/${typePage}/reset-password-code`);
 
     return response;
   }
@@ -72,7 +77,7 @@ export class AuthService {
       return e;
     });
 
-    if (this.successStatus) await navigate(`/auth/${pageType}/login`);
+    if (this.successStatus) await navigate(`/${this.locale()}/auth/${pageType}/login`);
     return response;
   }
 
@@ -82,7 +87,7 @@ export class AuthService {
       return e;
     });
 
-    if (this.successStatus) await navigate(`/customer`);
+    if (this.successStatus) await navigate(`/${this.locale()}/customer`);
 
     return response;
   }

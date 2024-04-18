@@ -7,7 +7,10 @@ import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
 import Link from "next/link";
-import {translate} from "@/Helpers/Translations";import WeekDaySelect from "@/components/common/WeekDaySelect";
+import { translate } from "@/Helpers/ObjectHelpers";
+import WeekDaySelect from "@/components/common/WeekDaySelect";
+import { getCookieClient } from "@/Actions/clientCookies";
+const locale = getCookieClient('locale')
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -18,7 +21,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       render: (_data, clinic) => {
         return (
           <Link
-            href={`/admin/clinics/${clinic?.id}`}
+            href={`/${locale}/admin/clinics/${clinic?.id}`}
             className={`flex flex-col items-start btn btn-ghost p-1`}
           >
             <p>
@@ -45,10 +48,10 @@ const dataTableSchema: DataTableData<Clinic> = {
         <ActionsButtons
           id={clinic?.id}
           buttons={["edit", "delete"]}
-          baseUrl={"/admin/clinics/schedules"}
+          baseUrl={`/${locale}/admin/clinics/schedules`}
           setHidden={setHidden}
-          deleteUrl={`/admin/clinics/${clinic?.id}`}
-          editUrl={`/admin/clinics/schedules/${clinic?.id}`}
+          deleteUrl={`/${locale}/admin/clinics/${clinic?.id}`}
+          editUrl={`/${locale}/admin/clinics/schedules/${clinic?.id}`}
         />
       ),
     },
@@ -62,7 +65,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       perPage,
       params,
     ),
-  createUrl: "/admin/clinics/schedules/create",
+  createUrl: `/${locale}/admin/clinics/schedules/create`,
   title: "Clinic Schedules",
   filter: (params, setParams) => {
     return (

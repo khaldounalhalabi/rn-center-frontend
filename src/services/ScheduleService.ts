@@ -11,7 +11,9 @@ export class ScheduleService extends BaseService<
     if (!this.instance) {
       this.instance = new this();
     }
-    this.instance.actor = AuthService.getCurrentActor();
+    AuthService.getCurrentActor().then((actor) => {
+      this.instance.actor = actor;
+    });
 
     this.instance.setBaseUrl(`${this.instance.actor}/schedules`);
 

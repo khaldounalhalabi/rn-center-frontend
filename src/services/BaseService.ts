@@ -16,7 +16,9 @@ export class BaseService<T> {
       this.instance = new this();
     }
 
-    this.instance.actor = AuthService.getCurrentActor();
+    AuthService.getCurrentActor().then((actor) => {
+      this.instance.actor = actor;
+    });
 
     this.instance.baseUrl = this.instance.getBaseUrl();
 
@@ -43,7 +45,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
       page: page,
@@ -81,7 +83,7 @@ export class BaseService<T> {
   public async update(
     id: number,
     data: any,
-    headers?: object,
+    headers?: object
   ): Promise<ApiResponse<T>> {
     const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
     if (res.code == 404) {
@@ -91,15 +93,15 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>,
+    res: ApiResponse<ResType>
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>,
+    res: ApiResponse<ResType[]>
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType> | ApiResponse<ResType[]>,
+    res: ApiResponse<ResType> | ApiResponse<ResType[]>
   ): Promise<Promise<ApiResponse<ResType>> | Promise<ApiResponse<ResType[]>>> {
     if (res.code == 401 || res.code == 403) {
       await navigate("/auth/admin/login");

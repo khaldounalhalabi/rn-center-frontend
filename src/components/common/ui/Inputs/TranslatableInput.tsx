@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
 import { translate } from "@/Helpers/Translations";
+import SelectedLocale from "../Selects/SelectLocale";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
@@ -44,25 +45,14 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   return (
     <div className={`flex flex-col items-start justify-between w-full`}>
       {label ? <label className={"label"}>{label}</label> : ""}
-      <div className="flex items-center w-full">
+      <div className="flex items-center w-full relative">
         <input
           type={"text"}
           className={"hidden"}
           hidden={true}
           {...register(`${name}`)}
         />
-        <select
-          name="HeadlineAct"
-          id="HeadlineAct"
-          className="select-bordered select"
-          onChange={(e) => setSelectedLocale(e.target.value as Locales)}
-        >
-          {locales.map((l) => (
-            <option value={l} key={l}>
-              {l.toUpperCase()}
-            </option>
-          ))}
-        </select>
+        <SelectedLocale locales={locales} className={'absolute ltr:right-1 rtl:left-1 '} setSelectedLocale={setSelectedLocale}/>
         {locales.map((l: Locales, index) => (
           <input
             key={index}

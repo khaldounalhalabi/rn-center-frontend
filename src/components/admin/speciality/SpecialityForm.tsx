@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import React from "react";
 import { AddSpeciality } from "@/Models/Speciality";
-import Textarea from "@/components/common/ui/Textarea";
+import Textarea from "@/components/common/ui/textArea/Textarea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { navigate } from "@/Actions/navigate";
 import { SpecialityService } from "@/services/SpecialityService";

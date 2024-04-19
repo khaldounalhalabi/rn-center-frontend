@@ -11,7 +11,7 @@ export function translate(
 ): Translatable;
 
 export function translate(
-  val: string | undefined | null,
+  val: string | undefined | null ,
   object = false,
 ): string | Translatable {
   try {

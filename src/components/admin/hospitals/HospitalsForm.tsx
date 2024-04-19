@@ -15,6 +15,10 @@ import { translate } from "@/Helpers/Translations";
 import { ApiResponse } from "@/Http/Response";
 import { Department } from "@/Models/Departments";
 import { getCookieClient } from "@/Actions/clientCookies";
+import { CityService } from "@/services/CityService";
+import { City } from "@/Models/City";
+import Textarea from "@/components/common/ui/textArea/Textarea";
+import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -31,7 +35,10 @@ const HospitalsForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return HospitalService.make<HospitalService>().update(defaultValues?.id ?? id, data);
+      return HospitalService.make<HospitalService>().update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
       return await HospitalService.make<HospitalService>().store(data);
     }
@@ -39,7 +46,6 @@ const HospitalsForm = ({
   const onSuccess = () => {
     navigate(`${locale}/admin/hospitals`);
   };
-
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -62,7 +68,7 @@ const HospitalsForm = ({
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
           isMultiple={true}
@@ -86,8 +92,33 @@ const HospitalsForm = ({
         defaultValue={defaultValues?.phone_numbers ?? []}
       />
 
+      <Grid md={"2"}>
+        <SelectPaginated
+          api={async (page, search): Promise<ApiResponse<City[]>> =>
+            await CityService.make<CityService>().indexWithPagination(
+              page,
+              search,
+              undefined,
+              undefined,
+              50
+            )
+          }
+          getLabel={(option: City) => translate(option.name)}
+          value={"id"}
+          name={"address.city_id"}
+          inputLabel={"city"}
+          selected={[defaultValues?.address?.city_id]}
+        />
+        <TranslatableInput
+          name={"address.name"}
+          type={"text"}
+          label={"Address"}
+        />
+      </Grid>
+      <Grid md={"1"}>
+        <TextAreaMap name="address.lat" label={"Map iframe"} defaultValue={defaultValues?.address?.map_iframe ?? []}/>
+      </Grid>
       <ImageUploader name={"images"} isMultiple={true} />
-
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>
       </div>

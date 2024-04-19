@@ -11,7 +11,7 @@ import {navigate} from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import {ApiResponse} from "@/Http/Response";
 import {Clinic} from "@/Models/Clinic";
-import TranslatableTextArea from "@/components/common/ui/TranslatableTextarea";
+import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 
 const HolidayForm = ({
                          defaultValues = undefined,

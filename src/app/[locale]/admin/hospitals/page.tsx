@@ -10,7 +10,7 @@ import {Hospital} from "@/Models/Hospital";
 
 const locale = getCookieClient("locale");
 const tableData: DataTableData<Hospital> = {
-  createUrl: `${locale}/admin/hospitals/create`,
+  createUrl: `/${locale}/admin/hospitals/create`,
   title: "Hospitals",
   schema: [
     {
@@ -25,9 +25,9 @@ const tableData: DataTableData<Hospital> = {
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={`${locale}/admin/hospitals`}
-          editUrl={`${locale}/admin/hospitals/${data?.id}/edit`}
-          showUrl={`${locale}/admin/hospitals/${data?.id}`}
+          baseUrl={`/${locale}/admin/hospitals`}
+          editUrl={`/${locale}/admin/hospitals/${data?.id}/edit`}
+          showUrl={`/${locale}/admin/hospitals/${data?.id}`}
           setHidden={setHidden}
         />
       ),

@@ -1,7 +1,7 @@
 import React from "react";
 import XMark from "@/components/icons/XMark";
 
-const SearchForm = ({
+const Searchbar = ({
   setShowSearchForm,
 }: {
   setShowSearchForm: React.Dispatch<boolean>;
@@ -32,4 +32,4 @@ const SearchForm = ({
   );
 };
 
-export default SearchForm;
+export default Searchbar;

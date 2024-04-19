@@ -107,7 +107,6 @@ const dataTableData: DataTableData<Clinic> = {
                             if (revalidate) revalidate();
                           })
                           .catch((e) => {
-                            console.log(e);
                             swal.fire("There Is Been An Error", "", "error");
                           });
                       }

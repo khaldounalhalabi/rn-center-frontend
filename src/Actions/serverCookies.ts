@@ -8,6 +8,5 @@ export async function setServerCookie(key: string, value: string) {
 export async function getCookieServer(
   key: string,
 ): Promise<string | undefined> {
-  key != "token" ? console.log(key, cookies().get(key)?.value) : "";
   return cookies().get(key)?.value;
 }

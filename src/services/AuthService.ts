@@ -102,7 +102,6 @@ export class AuthService {
 
   public static async getCurrentActor() {
     const res = await GET<string>("/check-role");
-    console.log(res);
     return res.data;
   }
 }

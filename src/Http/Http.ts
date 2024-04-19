@@ -56,7 +56,6 @@ const http = async <T>(
     baseURL: process.env.localApi,
     url: url,
   };
-
   try {
     let response: AxiosResponse;
     switch (method) {
@@ -89,6 +88,7 @@ const http = async <T>(
 };
 
 function handleError<T>(error: AxiosError<ApiResponse<T>>): ApiResponse<T> {
+  console.log(error);
   if (error.request) {
     if (error.response?.status == 405 && error.response?.data.code == 405) {
       return new ApiResponse<T>(null, false, 405, error.response.data.message);

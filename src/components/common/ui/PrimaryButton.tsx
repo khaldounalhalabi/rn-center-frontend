@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 interface ButtonAttr extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;

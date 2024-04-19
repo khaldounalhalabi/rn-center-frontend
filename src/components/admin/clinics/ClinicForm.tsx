@@ -31,15 +31,15 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
-    return await ClinicService.make().store(data);
+    return await ClinicService.make<ClinicService>().store(data);
   };
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      return await ClinicService.make().update(id, data);
+      return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
-  const t = useTranslations('clinic.create-edit');
+  const t = useTranslations("clinic.create-edit");
 
   return (
     <Form
@@ -121,7 +121,7 @@ const ClinicForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Doctor Max Appointments Per Day Are ?"}
-          label={t("max-appoiintments")}
+          label={t("max-appointments")}
         />
       </Grid>
 
@@ -182,12 +182,12 @@ const ClinicForm = ({
         </div>
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<Hospital[]>> =>
-            await HospitalService.make().indexWithPagination(
+            await HospitalService.make<HospitalService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           getLabel={(option: Hospital) => translate(option.name)}
@@ -199,12 +199,12 @@ const ClinicForm = ({
 
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<Speciality[]>> =>
-            await SpecialityService.make().indexWithPagination(
+            await SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           isMultiple={true}
@@ -219,12 +219,12 @@ const ClinicForm = ({
 
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<City[]>> =>
-            await CityService.make().indexWithPagination(
+            await CityService.make<CityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           getLabel={(option: City) => translate(option.name)}

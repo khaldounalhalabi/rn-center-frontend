@@ -1,5 +1,4 @@
 import React from "react";
-import { ClassName } from "postcss-selector-parser";
 
 const RoundedImage = ({
   className,

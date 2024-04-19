@@ -1,4 +1,3 @@
-import { getCookieServer } from "@/Actions/serverCookies";
 import { Translatable } from "@/Models/Translatable";
 
 export function translate(
@@ -41,13 +40,4 @@ export function translate(
     }
     return val ?? "";
   }
-}
-
-
-
-export const HandleTranslate =async (id:string)=>{
-   const locale = await getCookieServer('locale')
-   console.log(locale)
-   const res =await fetch(`locale/${locale}.json`)
-   return res.json()
 }

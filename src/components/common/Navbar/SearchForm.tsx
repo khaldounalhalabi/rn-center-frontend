@@ -1,5 +1,4 @@
 import React from "react";
-import Close from "@/components/icons/Close";
 import XMark from "@/components/icons/XMark";
 
 const SearchForm = ({

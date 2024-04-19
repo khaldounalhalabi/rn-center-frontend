@@ -9,8 +9,7 @@ import Link from "next/link";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { getCookieClient } from "@/Actions/clientCookies";
 
-
-const locale = getCookieClient('locale')
+const locale = getCookieClient("locale");
 const tableData: DataTableData<ClinicHoliday> = {
   createUrl: `/${locale}/admin/clinics/holidays/create`,
   title: "Clinics Holidays",
@@ -62,7 +61,7 @@ const tableData: DataTableData<ClinicHoliday> = {
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicHolidayService.make().indexWithPagination(
+    await ClinicHolidayService.make<ClinicHolidayService>().indexWithPagination(
       page,
       search,
       sortCol,
@@ -71,37 +70,37 @@ const tableData: DataTableData<ClinicHoliday> = {
       params,
     ),
 
-    filter: (params, setParams) => {
-        return (
-            <div className={"w-full grid grid-cols-1"}>
-                <label className={"label"}>
-                    Start Date :
-                    <input
-                        type="date"
-                        className={"input input-bordered input-sm"}
-                        defaultChecked={params.start_date}
-                        onChange={(event) => {
-                            setParams({ ...params, start_date: event.target.value });
-                        }}
-                    />
-                </label>
-                <label className={`label`}>
-                    End Date :
-                    <input
-                        type="date"
-                        className={"input input-bordered input-sm"}
-                        defaultChecked={params.end_date}
-                        onChange={(event) => {
-                            setParams({ ...params, end_date: event.target.value });
-                        }}
-                    />
-                </label>
-            </div>
-        );
-    },
+  filter: (params, setParams) => {
+    return (
+      <div className={"w-full grid grid-cols-1"}>
+        <label className={"label"}>
+          Start Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.start_date}
+            onChange={(event) => {
+              setParams({ ...params, start_date: event.target.value });
+            }}
+          />
+        </label>
+        <label className={`label`}>
+          End Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.end_date}
+            onChange={(event) => {
+              setParams({ ...params, end_date: event.target.value });
+            }}
+          />
+        </label>
+      </div>
+    );
+  },
 };
 const Page = () => {
-    return <DataTable {...tableData} />;
+  return <DataTable {...tableData} />;
 };
 
 export default Page;

@@ -6,20 +6,8 @@ import { GET } from "@/Http/Http";
 export class ScheduleService extends BaseService<
   Schedule | SchedulesCollection
 > {
-  public static make() {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-
-    this.init();
-
-    this.instance.setBaseUrl(`${this.instance.actor}/schedules`);
-
-    return this.instance;
-  }
-
   public async getClinicSchedules(
-    clinicId: number
+    clinicId: number,
   ): Promise<ApiResponse<SchedulesCollection>> {
     const res = await GET(`${this.actor}/clinics/${clinicId}/schedules`);
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;

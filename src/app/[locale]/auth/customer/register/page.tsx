@@ -22,7 +22,7 @@ const page = () => {
 
   const [phonesNum, setPhonesNum] = useState(1);
 
-  const [response, setResponse] = useState<any>(undefined);
+  const [, setResponse] = useState<any>(undefined);
 
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {

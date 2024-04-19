@@ -5,22 +5,22 @@ import { Actors } from "@/types";
 
 export class BaseService<T> {
   public baseUrl = "/";
-  public actor?: string = undefined;
+  public actor: string = "customer";
+  protected static instance?: BaseService<any>;
 
-  public static instance?: BaseService<any> | undefined = undefined;
+  protected constructor() {}
 
-  constructor() {}
-
-  public static make<TService>(actor: Actors = "admin"): BaseService<TService> {
+  public static make<Service extends BaseService<any>>(
+    actor: Actors = "admin",
+  ): Service {
     if (!this.instance) {
       this.instance = new this();
     }
-
     this.instance.actor = actor;
 
     this.instance.baseUrl = this.instance.getBaseUrl();
 
-    return this.instance;
+    return this.instance as Service;
   }
 
   public getBaseUrl() {
@@ -43,7 +43,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
       page: page,
@@ -63,6 +63,9 @@ export class BaseService<T> {
   }
 
   public async delete(id?: number): Promise<ApiResponse<boolean>> {
+    if (!id) {
+      await navigate("/404");
+    }
     let res: ApiResponse<boolean>;
     if (id) {
       res = await DELETE<boolean>(this.baseUrl + "/" + id);
@@ -70,7 +73,10 @@ export class BaseService<T> {
     return await this.errorHandler(res);
   }
 
-  public async show(id: number): Promise<ApiResponse<T>> {
+  public async show(id?: number): Promise<ApiResponse<T>> {
+    if (!id) {
+      await navigate("/404");
+    }
     const res = await GET<T>(this.baseUrl + "/" + id);
     if (res.code == 404) {
       await navigate("/404");
@@ -79,10 +85,13 @@ export class BaseService<T> {
   }
 
   public async update(
-    id: number,
-    data: any,
-    headers?: object
+    id?: number,
+    data?: any,
+    headers?: object,
   ): Promise<ApiResponse<T>> {
+    if (!id) {
+      await navigate("/404");
+    }
     const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
     if (res.code == 404) {
       await navigate("/404");
@@ -91,16 +100,16 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>
+    res: ApiResponse<ResType>,
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>
+    res: ApiResponse<ResType[]>,
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
-  public async errorHandler<ResType>(
-    res: ApiResponse<ResType> | ApiResponse<ResType[]>
-  ): Promise<Promise<ApiResponse<ResType>> | Promise<ApiResponse<ResType[]>>> {
+  public async errorHandler(
+    res: ApiResponse<T> | ApiResponse<T[]>,
+  ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
       await navigate("/auth/admin/login");
     }

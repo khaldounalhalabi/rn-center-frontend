@@ -42,7 +42,7 @@ const ScheduleForm = ({
       },
     );
     data.schedules = schedules;
-    return await ScheduleService.make().store(data);
+    return await ScheduleService.make<ScheduleService>().store(data);
   };
 
   return (
@@ -61,7 +61,7 @@ const ScheduleForm = ({
                 <SelectPaginated
                   name={"clinic_id"}
                   api={async (page, search) =>
-                    await ClinicService.make().indexWithPagination(
+                    await ClinicService.make<ClinicService>().indexWithPagination(
                       page,
                       search,
                       undefined,

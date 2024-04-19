@@ -3,12 +3,13 @@ import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { HospitalService } from "@/services/HospitalService";
 import { getCookieClient } from "@/Actions/clientCookies";
-const locale = getCookieClient('locale')
-const tableData: DataTableData<ClinicHoliday> = {
+import {Hospital} from "@/Models/Hospital";
+
+const locale = getCookieClient("locale");
+const tableData: DataTableData<Hospital> = {
   createUrl: `${locale}/admin/hospitals/create`,
   title: "Hospitals",
   schema: [
@@ -33,13 +34,13 @@ const tableData: DataTableData<ClinicHoliday> = {
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await HospitalService.make().indexWithPagination(
+    await HospitalService.make<HospitalService>().indexWithPagination(
       page,
       search,
       sortCol,
       sortDir,
       perPage,
-      params
+      params,
     ),
 };
 const Page = () => {

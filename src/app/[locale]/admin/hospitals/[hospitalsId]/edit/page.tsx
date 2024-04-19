@@ -9,7 +9,9 @@ const page = async ({
 }: {
   params: { hospitalsId: number };
 }) => {
-  const hospital = (await HospitalService.make().show(hospitalsId)).data;
+  const hospital = (
+    await HospitalService.make<HospitalService>().show(hospitalsId)
+  ).data;
   return (
     <PageCard>
       <h2 className="card-title">Edit Hospital</h2>
@@ -17,7 +19,8 @@ const page = async ({
         type={"update"}
         defaultValues={{
           ...hospital,
-          phone_numbers: hospital?.phones?.map((phone: Phone) => phone.phone),
+          phone_numbers:
+            hospital?.phones?.map((phone: Phone) => phone.phone) ?? [],
         }}
         id={hospital.id}
       />

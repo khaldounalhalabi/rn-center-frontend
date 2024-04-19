@@ -34,14 +34,14 @@ export interface ApiResponsePagination {
 }
 
 export class ApiResponse<T> {
-  public data: T  | undefined | null;
+  public data: T;
   public status: boolean | undefined | null;
   public code: number;
   public message: string | ValidationError | undefined | null;
   public paginate: ApiResponsePagination | undefined | null;
 
   constructor(
-    data: T | undefined | null = null,
+    data: T,
     status: boolean = true,
     code: number = 500,
     message: string | ValidationError | undefined | null = null,

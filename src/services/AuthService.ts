@@ -18,7 +18,9 @@ export class AuthService {
     AuthService.instance.successStatus = false;
 
     getCookieServer("locale").then((value) => {
-      AuthService.instance.locale = value ?? "en";
+      if (AuthService.instance) {
+        AuthService.instance.locale = value ?? "en";
+      }
     });
 
     return AuthService.instance;
@@ -34,9 +36,12 @@ export class AuthService {
         }
 
         return res;
-      }
+      },
     );
     if (this.successStatus) await navigate(`/${this.locale}/${pageType}`);
+
+    const userType = await AuthService.getCurrentActor();
+    setServerCookie("user-type", userType);
 
     return response;
   }
@@ -44,7 +49,7 @@ export class AuthService {
   public async submitResetCode(
     url: string,
     dataForm: object,
-    pageType: string
+    pageType: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -60,7 +65,7 @@ export class AuthService {
   public async requestResetPasswordRequest(
     url: string,
     dataForm: object,
-    typePage: string
+    typePage: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -97,6 +102,7 @@ export class AuthService {
 
   public static async getCurrentActor() {
     const res = await GET<string>("/check-role");
+    console.log(res);
     return res.data;
   }
 }

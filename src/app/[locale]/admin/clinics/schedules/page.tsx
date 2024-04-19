@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -11,7 +11,8 @@ import Link from "next/link";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { translate } from "@/Helpers/Translations";
-const locale = getCookieClient('locale')
+
+const locale = getCookieClient("locale");
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -58,7 +59,7 @@ const dataTableSchema: DataTableData<Clinic> = {
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicService.make().indexWithPagination(
+    await ClinicService.make<ClinicService>().indexWithPagination(
       page,
       search,
       sortCol,

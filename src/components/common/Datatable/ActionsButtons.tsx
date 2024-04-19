@@ -71,7 +71,6 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                   confirmButtonColor: "#007BFF",
                 })
                 .then((result) => {
-                  /* Read more about isConfirmed, isDenied below */
                   if (result.isConfirmed) {
                     if (dataId) {
                       BaseService.make()

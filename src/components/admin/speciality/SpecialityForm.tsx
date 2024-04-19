@@ -25,12 +25,12 @@ const SpecialityForm = ({
       type == "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return await SpecialityService.make().update(
+      return await SpecialityService.make<SpecialityService>().update(
         defaultValues?.id ?? id,
         data
       );
     } else {
-      return await SpecialityService.make().store(data);
+      return await SpecialityService.make<SpecialityService>().store(data);
     }
   };
   const onSuccess = () => {

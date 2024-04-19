@@ -1,6 +1,5 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { AuthService } from "@/services/AuthService";
 import { getCookieServer } from "./Actions/serverCookies";
 
 const translationMiddleware = createMiddleware({
@@ -12,7 +11,6 @@ const translationMiddleware = createMiddleware({
 });
 
 export const config = {
-  // Match only internationalized pathnames
   matcher: ["/", "/(ar|en)/:path*"],
 };
 
@@ -20,51 +18,51 @@ async function authenticationMiddleware(req: NextRequest) {
   const locale = await getCookieServer("locale");
   const path = `${req.nextUrl.pathname}`;
 
-  const accsess = await AuthService.getCurrentActor();
+  const access = await getCookieServer("user-type");
 
-  if (!accsess && path.includes(`/${locale}/admin`)) {
+  if (!access && path.includes(`/${locale}/admin`)) {
     const absolutURL = new URL(
       `/${locale}/auth/admin/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!accsess && path.includes(`/${locale}/customer`)) {
+  if (!access && path.includes(`/${locale}/customer`)) {
     const absolutURL = new URL(
       `/${locale}/auth/customer/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!accsess && path.includes(`/${locale}/doctor`)) {
+  if (!access && path.includes(`/${locale}/doctor`)) {
     const absolutURL = new URL(
       `/${locale}/auth/doctor/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
   if (
-    accsess == "admin" &&
+    access == "admin" &&
     (path.includes(`/${locale}/customer`) || path.includes(`/${locale}/doctor`))
   ) {
     const absolutURL = new URL(`/${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   if (
-    accsess == "customer" &&
+    access == "customer" &&
     (path.includes(`/${locale}/admin`) || path.includes(`/${locale}/doctor`))
   ) {
     const absolutURL = new URL(`/${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   if (
-    accsess == "doctor" &&
+    access == "doctor" &&
     (path.includes(`/${locale}/customer`) || path.includes(`/${locale}/admin`))
   ) {
     const absolutURL = new URL(`/${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
-  return await translationMiddleware(req);
+  return translationMiddleware(req);
 }
 
 export default async function middleware(req: NextRequest) {

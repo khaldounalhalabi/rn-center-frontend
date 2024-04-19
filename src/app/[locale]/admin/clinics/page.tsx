@@ -6,11 +6,13 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import {translate} from "@/Helpers/Translations";import ArchiveIcon from "@/components/icons/ArchiveIcon";
+import { translate } from "@/Helpers/Translations";
+import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
 import { getCookieClient } from "@/Actions/clientCookies";
-const locale = getCookieClient('locale')
+
+const locale = getCookieClient("locale");
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
 
@@ -91,7 +93,7 @@ const dataTableData: DataTableData<Clinic> = {
                   .then((result) => {
                     if (result.isConfirmed) {
                       if (clinic?.user) {
-                        UserService.make()
+                        UserService.make<UserService>()
                           .toggleArchive(clinic?.user_id)
                           .then((res) => {
                             swal.fire({
@@ -119,7 +121,7 @@ const dataTableData: DataTableData<Clinic> = {
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicService.make().indexWithPagination(
+    await ClinicService.make<ClinicService>().indexWithPagination(
       page,
       search,
       sortCol,

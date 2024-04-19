@@ -1,85 +1,87 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
-import { ClinicService } from "@/services/ClinicService";
+import {ClinicService} from "@/services/ClinicService";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
-import TranslatableTextArea from "@/components/common/ui/TranslatableTextArea";
-import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { navigate } from "@/Actions/navigate";
+import {ClinicHolidayService} from "@/services/ClinicHolidayService";
+import {ClinicHoliday} from "@/Models/ClinicHoliday";
+import {navigate} from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
+import {ApiResponse} from "@/Http/Response";
+import {Clinic} from "@/Models/Clinic";
+import TranslatableTextArea from "@/components/common/ui/TranslatableTextarea";
 
 const HolidayForm = ({
-  defaultValues = undefined,
-  type = "store",
-}: {
-  defaultValues?: ClinicHoliday;
-  id?: number;
-  type?: "store" | "update";
+                         defaultValues = undefined,
+                         type = "store",
+                     }: {
+    defaultValues?: ClinicHoliday;
+    id?: number;
+    type?: "store" | "update";
 }) => {
-  const handleSubmit = async (data: any) => {
-    if (type === "update" && defaultValues?.id) {
-      return ClinicHolidayService.make().update(defaultValues.id, data);
-    } else {
-      return await ClinicHolidayService.make().store(data);
-    }
-  };
+    const handleSubmit = async (data: any) => {
+        if (type === "update" && defaultValues?.id) {
+            return ClinicHolidayService.make<ClinicHolidayService>().update(defaultValues.id, data);
+        } else {
+            return await ClinicHolidayService.make<ClinicHolidayService>().store(data);
+        }
+    };
 
-  const onSuccess = () => {
-    navigate(`/admin/clinics/holidays`);
-  };
-  return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
-      defaultValues={defaultValues}
-    >
-      {type == "store" ? (
-        <div className="my-2 w-full md:w-1/2">
-          <SelectPaginated
-            api={async (page, search) =>
-              await ClinicService.make().indexWithPagination(
-                page,
-                search,
-                undefined,
-                undefined,
-                50
-              )
-            }
-            label={"name"}
-            value={"id"}
-            name={"clinic_id"}
-            inputLabel={"Clinic name :"}
-          />
-        </div>
-      ) : (
-        <Input
-          name={"clinic_id"}
-          type={"number"}
-          hidden={true}
-          className={"hidden"}
-          value={defaultValues?.clinic_id}
-        />
-      )}
-      <Grid md={2}>
-        <Input name={"start_date"} type={"date"} label={"Start Holiday"} />
-        <Input name={"end_date"} type={"date"} label={"End Holiday"} />
-      </Grid>
-      <div className="my-3">
-        <TranslatableTextArea
-          defaultValue={defaultValues?.reason}
-          label={"Reason"}
-          name={"reason"}
-          locales={["en", "ar"]}
-        />
-      </div>
-      <div className="flex justify-center">
-        <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-      </div>
-    </Form>
-  );
+    const onSuccess = () => {
+        navigate(`/admin/clinics/holidays`);
+    };
+    return (
+        <Form
+            handleSubmit={handleSubmit}
+            onSuccess={onSuccess}
+            defaultValues={defaultValues}
+        >
+            {type == "store" ? (
+                <div className="my-2 w-full md:w-1/2">
+                    <SelectPaginated
+                        api={async (page, search): Promise<ApiResponse<Clinic[]>> =>
+                            await ClinicService.make<ClinicService>().indexWithPagination(
+                                page,
+                                search,
+                                undefined,
+                                undefined,
+                                50
+                            )
+                        }
+                        label={"name"}
+                        value={"id"}
+                        name={"clinic_id"}
+                        inputLabel={"Clinic name :"}
+                    />
+                </div>
+            ) : (
+                <Input
+                    name={"clinic_id"}
+                    type={"number"}
+                    hidden={true}
+                    className={"hidden"}
+                    value={defaultValues?.clinic_id}
+                />
+            )}
+            <Grid md={2}>
+                <Input name={"start_date"} type={"date"} label={"Start Holiday"}/>
+                <Input name={"end_date"} type={"date"} label={"End Holiday"}/>
+            </Grid>
+            <div className="my-3">
+                <TranslatableTextArea
+                    defaultValue={defaultValues?.reason}
+                    label={"Reason"}
+                    name={"reason"}
+                    locales={["en", "ar"]}
+                />
+            </div>
+            <div className="flex justify-center">
+                <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+            </div>
+        </Form>
+    );
 };
 
 export default HolidayForm;

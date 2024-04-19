@@ -17,7 +17,7 @@ const InputTags = ({
     formState: { errors, defaultValues },
   } = useFormContext();
 
-  let df: string[] = [];
+  let df: string[];
   if (defaultValue) {
     df = defaultValue;
   } else {

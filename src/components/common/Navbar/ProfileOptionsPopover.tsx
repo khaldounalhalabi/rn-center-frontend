@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import {POST} from "@/Http/Http";
+import { POST } from "@/Http/Http";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -12,9 +12,7 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
 
-  const handleLogout = async () => {
-    const res = await POST('/admin/logout' , {});
-  }
+  const handleLogout = async () => await POST("/admin/logout", {});
   return (
     <div
       ref={ref}
@@ -61,7 +59,10 @@ const ProfileOptionsPopover = () => {
           </div>
         </div>
         <hr className="my-2"></hr>
-        <div className="py-3 px-4 text-red-600 cursor-pointer hover:bg-red-200 hover:text-white" onClick={handleLogout}>
+        <div
+          className="py-3 px-4 text-red-600 cursor-pointer hover:bg-red-200 hover:text-white"
+          onClick={handleLogout}
+        >
           <h3>Logout</h3>
         </div>
       </div>

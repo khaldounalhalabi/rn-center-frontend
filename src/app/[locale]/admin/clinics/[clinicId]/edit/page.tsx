@@ -4,14 +4,14 @@ import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";
-import { translate } from "@/Helpers/Translations";
 
 const Page = async ({
   params: { clinicId },
 }: {
   params: { clinicId: number };
 }) => {
-  const data: ApiResponse<Clinic> = await ClinicService.make().show(clinicId);
+  const data: ApiResponse<Clinic> =
+    await ClinicService.make<ClinicService>().show(clinicId);
   const clinic = data.data;
 
   const defaultValues: AddOrUpdateClinicForm = {

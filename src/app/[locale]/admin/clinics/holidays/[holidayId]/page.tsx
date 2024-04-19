@@ -5,16 +5,17 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Link from "next/link";
 import { getCookieServer } from "@/Actions/serverCookies";
-import {translate} from "@/Helpers/Translations";
+import { translate } from "@/Helpers/Translations";
 
 const page = async ({
   params: { holidayId },
 }: {
   params: { holidayId: number };
 }) => {
-  const data = await ClinicHolidayService.make().show(holidayId);
+  const data =
+    await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId);
   const res: ClinicHoliday = data?.data;
-  const locale = await getCookieServer('locale')
+  const locale = await getCookieServer("locale");
   return (
     <PageCard>
       <div className="w-full h-24 flex justify-between items-center">

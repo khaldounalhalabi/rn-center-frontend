@@ -25,16 +25,15 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const locale = getCookieClient('locale')
+  const locale = getCookieClient("locale");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return HospitalService.make().update(defaultValues?.id ?? id, data);
+      return HospitalService.make<HospitalService>().update(defaultValues?.id ?? id, data);
     } else {
-      return await HospitalService.make().store(data);
+      return await HospitalService.make<HospitalService>().store(data);
     }
   };
   const onSuccess = () => {
@@ -58,12 +57,12 @@ const HospitalsForm = ({
 
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<Department[]>> =>
-            await DepartmentsService.make().indexWithPagination(
+            await DepartmentsService.make<DepartmentsService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           isMultiple={true}

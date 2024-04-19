@@ -6,7 +6,6 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/TranslatableTextArea";
-import { AddHolidayes } from "@/services/AddHolidayes";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { navigate } from "@/Actions/navigate";
@@ -24,7 +23,7 @@ const HolidayForm = ({
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make().update(defaultValues.id, data);
     } else {
-      return await AddHolidayes.make().store(data);
+      return await ClinicHolidayService.make().store(data);
     }
   };
 
@@ -38,7 +37,7 @@ const HolidayForm = ({
       defaultValues={defaultValues}
     >
       {type == "store" ? (
-        <div className="w-full md:w-1/2 my-2">
+        <div className="my-2 w-full md:w-1/2">
           <SelectPaginated
             api={async (page, search) =>
               await ClinicService.make().indexWithPagination(
@@ -46,7 +45,7 @@ const HolidayForm = ({
                 search,
                 undefined,
                 undefined,
-                50,
+                50
               )
             }
             label={"name"}

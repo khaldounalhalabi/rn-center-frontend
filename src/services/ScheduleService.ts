@@ -1,7 +1,6 @@
 import { BaseService } from "@/services/BaseService";
 import { ApiResponse } from "@/Http/Response";
 import { Schedule, SchedulesCollection } from "@/Models/Schedule";
-import { AuthService } from "@/services/AuthService";
 import { GET } from "@/Http/Http";
 
 export class ScheduleService extends BaseService<
@@ -11,9 +10,8 @@ export class ScheduleService extends BaseService<
     if (!this.instance) {
       this.instance = new this();
     }
-    AuthService.getCurrentActor().then((actor) => {
-      this.instance.actor = actor;
-    });
+
+    this.init();
 
     this.instance.setBaseUrl(`${this.instance.actor}/schedules`);
 

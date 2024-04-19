@@ -1,6 +1,5 @@
 import { BaseService } from "@/services/BaseService";
 import { User } from "@/Models/User";
-import { AuthService } from "@/services/AuthService";
 import { DELETE } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 
@@ -9,12 +8,8 @@ export class UserService extends BaseService<User | string> {
     if (!this.instance) {
       this.instance = new this();
     }
-    AuthService.getCurrentActor().then((actor) => {
-      this.instance.actor = actor;
-    });
-
+    this.init();
     this.instance.setBaseUrl(`${this.instance.actor}/users`);
-
     return this.instance;
   }
 

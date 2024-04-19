@@ -36,7 +36,6 @@ export class AuthService {
         return res;
       }
     );
-    const locale = await getCookieServer("locale");
     if (this.successStatus) await navigate(`/${this.locale}/${pageType}`);
 
     return response;

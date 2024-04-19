@@ -91,12 +91,7 @@ const http = async <T>(
 function handleError<T>(error: AxiosError<ApiResponse<T>>): ApiResponse<T> {
   if (error.request) {
     if (error.response?.status == 405 && error.response?.data.code == 405) {
-      return new ApiResponse<T>(
-        null,
-        false,
-        405,
-        error.response.data.message
-      );
+      return new ApiResponse<T>(null, false, 405, error.response.data.message);
     }
     return new ApiResponse<T>(
       null,

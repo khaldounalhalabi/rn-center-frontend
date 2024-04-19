@@ -1,24 +1,22 @@
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { navigate } from "@/Actions/navigate";
-import { AuthService } from "@/services/AuthService";
+import { Actors } from "@/types";
 
 export class BaseService<T> {
   public baseUrl = "/";
-  public actor = "clinic";
+  public actor?: string = undefined;
 
-  public static instance?: any | null | undefined = null;
+  public static instance?: BaseService<any> | undefined = undefined;
 
   constructor() {}
 
-  public static make<TService>(): BaseService<TService> {
+  public static make<TService>(actor: Actors = "admin"): BaseService<TService> {
     if (!this.instance) {
       this.instance = new this();
     }
 
-    AuthService.getCurrentActor().then((actor) => {
-      this.instance.actor = actor;
-    });
+    this.instance.actor = actor;
 
     this.instance.baseUrl = this.instance.getBaseUrl();
 

@@ -8,7 +8,6 @@ import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import {translate} from "@/Helpers/Translations";import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
-import { BaseService } from "@/services/BaseService";
 import { UserService } from "@/services/UserService";
 import { getCookieClient } from "@/Actions/clientCookies";
 const locale = getCookieClient('locale')
@@ -74,9 +73,9 @@ const dataTableData: DataTableData<Clinic> = {
           buttons={["edit", "show"]}
           baseUrl={`/${locale}/admin/clinics`}
         >
-          <button className="btn btn-square btn-sm">
+          <button className="btn btn-sm btn-square">
             <ArchiveIcon
-              className="h-6 w-6 text-warning"
+              className="w-6 h-6 text-warning"
               onClick={() => {
                 swal
                   .fire({

@@ -10,12 +10,13 @@ interface textAreaType {
   dir?: string;
   defaultValue?: any;
 }
+
 const TextAreaMap: React.FC<textAreaType> = ({
   className,
   label,
   name,
   dir,
-                                            defaultValue,
+  defaultValue,
   ...props
 }) => {
   const {
@@ -24,12 +25,12 @@ const TextAreaMap: React.FC<textAreaType> = ({
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}.message`);
 
-  const [area,setArea] = useState('')
-  const handleRemoveStyle = (e)=>{
-    setArea(e.target.value)
+  const [area, setArea] = useState("");
+  const handleRemoveStyle = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setArea(e.target.value);
     area.replace(/style="border:0;"/, "");
-    setValue(name,area)
-  }
+    setValue(name, area);
+  };
   return (
     <div className={className}>
       {label ? <label className={"label"}>{label}</label> : ""}

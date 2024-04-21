@@ -12,7 +12,7 @@ import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { translate } from "@/Helpers/Translations";
 
-const locale = getCookieClient("locale");
+const locale = getCookieClient('NEXT_LOCALE');
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [

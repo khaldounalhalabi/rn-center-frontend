@@ -22,6 +22,7 @@ import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import ImagePreview from "@/components/common/ui/ImagePreview";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const ClinicForm = ({
   type = "store",
@@ -38,19 +39,23 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      return await ClinicService.make<ClinicService>().update(id, data);
+      return await ClinicService.make<ClinicService>()
+        .update(id, data)
+        .then((res) => {
+          console.log(data);
+          console.log(res);
+          return res;
+        });
     };
   }
   const t = useTranslations("clinic.create-edit");
+  const locale = getCookieClient("locale");
+  console.log(defaultValues);
 
   return (
-    <Form
-      handleSubmit={onSubmit}
-      defaultValues={defaultValues}
-      onSuccess={(res: ApiResponse<Clinic>) =>
-        navigate(`/admin/clinics/${res?.data?.id}`)
-      }
-    >
+    <Form handleSubmit={onSubmit} defaultValues={defaultValues} onSuccess={() => {
+        navigate(`/${locale}/admin/clinics`)
+    }}>
       <Grid md={3}>
         <TranslatableInput
           locales={["en", "ar"]}
@@ -255,19 +260,23 @@ const ClinicForm = ({
           step={"any"}
           label={t("longitude")}
         />
-      </Grid>
-      <Grid md={"1"} >
-
-        {defaultValues?.user?.image?
-            <div className='h-32'>
-              <ImagePreview src={defaultValues?.user?.image ? defaultValues?.user?.image :''} className='h-full w-full object-cover rounded-md cursor-pointer'/>
-            </div>
-            :
-            <div className='flex items-center justify-between'>
-              <label className='label'> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
-            </div>
-        }
+        {defaultValues?.user?.image.length > 0 ? (
+          <div className="col-span-2">
+            <ImagePreview
+              src={
+                defaultValues?.user?.image
+                  ? defaultValues?.user?.image[0].full_url
+                  : ""
+              }
+              className="h-full w-full object-cover rounded-md cursor-pointer"
+            />
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <label className="label"> Image : </label>
+            <span className="text-lg badge badge-neutral">No Image</span>
+          </div>
+        )}
       </Grid>
       <ImageUploader name={"user.image"} />
 

@@ -1,5 +1,3 @@
-import {ClinicService} from "@/services/ClinicService";
-
 export function getNestedPropertyValue(object: any, path: string): any {
   const properties = path.split("."); // Split the path string by dot to get individual property names
   let value = object;

@@ -2,8 +2,9 @@ import { User } from "@/Models/User";
 import { Speciality } from "@/Models/Speciality";
 import { Hospital } from "@/Models/Hospital";
 import { Translatable } from "@/Models/Translatable";
+import { Media } from "@/Models/Media";
 
-export type Clinic =  {
+export type Clinic = {
   id: number;
   name: string;
   appointment_cost: number;
@@ -22,7 +23,7 @@ export type Clinic =  {
   created_at: string;
   updated_at: string;
   approximate_appointment_time?: number;
-}
+};
 
 export interface AddOrUpdateClinicForm {
   name?: string | Translatable;
@@ -37,7 +38,7 @@ export interface AddOrUpdateClinicForm {
     password_confirmation?: string;
     birth_date?: string | Date;
     gender?: string;
-    image?: File | any;
+    image?: File | any | Media[];
   };
   phone_numbers?: string[];
   status?: string;

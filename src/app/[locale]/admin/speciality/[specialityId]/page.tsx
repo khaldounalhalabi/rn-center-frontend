@@ -16,7 +16,7 @@ const page = async ({
     await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: AddSpeciality = data?.data;
   const tagsArray = res?.tags.split(",");
-  const locale = getCookieClient("locale");
+  const locale = getCookieClient('NEXT_LOCALE');
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

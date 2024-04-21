@@ -15,7 +15,7 @@ const page = async ({
   const data =
     await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId);
   const res: ClinicHoliday = data?.data;
-  const locale = await getCookieServer("locale");
+  const locale = await getCookieServer("NEXT_LOCALE");
   return (
     <PageCard>
       <div className="w-full h-24 flex justify-between items-center">

@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SpecialityService } from "@/services/SpecialityService";
 import { getCookieClient } from "@/Actions/clientCookies";
 import {Speciality} from "@/Models/Speciality";
-const locale = getCookieClient('locale')
+const locale = getCookieClient('NEXT_LOCALE')
 const tableData: DataTableData<Speciality> = {
   createUrl: `/${locale}/admin/speciality/create`,
   title: "Specialities",

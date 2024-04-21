@@ -15,7 +15,7 @@ const Sidebar = ({
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
-  const router = getCookieClient('locale')
+  const router = getCookieClient('NEXT_LOCALE')
   return (
     <div
       className={`md:block w-full  md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${

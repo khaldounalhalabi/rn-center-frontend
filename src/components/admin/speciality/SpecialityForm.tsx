@@ -19,7 +19,7 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const locale = getCookieClient('locale')
+  const locale = getCookieClient('NEXT_LOCALE')
   const handleSubmit = async (data: any) => {
     if (
       type == "update" &&

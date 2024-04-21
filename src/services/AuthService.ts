@@ -17,7 +17,7 @@ export class AuthService {
 
     AuthService.instance.successStatus = false;
 
-    getCookieServer("locale").then((value) => {
+    getCookieServer("NEXT_LOCALE").then((value) => {
       if (AuthService.instance) {
         AuthService.instance.locale = value ?? "en";
       }
@@ -55,7 +55,7 @@ export class AuthService {
       this.successStatus = e.code == 200;
       return e;
     });
-    const locale = await getCookieServer("locale");
+    const locale = await getCookieServer("NEXT_LOCALE");
     if (this.successStatus)
       await navigate(`/${locale}/auth/${pageType}/set-new-password`);
 
@@ -71,7 +71,7 @@ export class AuthService {
       this.successStatus = e.code == 200;
       return e;
     });
-    const locale = await getCookieServer("locale");
+    const locale = await getCookieServer("NEXT_LOCALE");
     if (this.successStatus)
       await navigate(`/${locale}/auth/${typePage}/reset-password-code`);
 
@@ -83,7 +83,7 @@ export class AuthService {
       this.successStatus = e.code == 200;
       return e;
     });
-    const locale = await getCookieServer("locale");
+    const locale = await getCookieServer("NEXT_LOCALE");
     if (this.successStatus) await navigate(`/${locale}/auth/${pageType}/login`);
     return response;
   }
@@ -93,7 +93,7 @@ export class AuthService {
       this.successStatus = e.code == 200;
       return e;
     });
-    const locale = await getCookieServer("locale");
+    const locale = await getCookieServer("NEXT_LOCALE");
 
     if (this.successStatus) await navigate(`/${locale}/customer`);
 

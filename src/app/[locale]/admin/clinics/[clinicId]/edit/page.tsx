@@ -18,7 +18,6 @@ const Page = async ({
     ...clinic,
     user: {
       ...clinic?.user,
-      image: null,
     },
     phone_numbers: clinic?.user?.phones.map((ph) => ph.phone),
     address: {

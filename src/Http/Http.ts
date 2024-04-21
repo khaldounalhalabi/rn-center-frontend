@@ -41,7 +41,7 @@ const http = async <T>(
   params?: object,
   data?: object | undefined,
 ): Promise<ApiResponse<T>> => {
-  let lang = await getCookieServer("locale");
+  let lang = await getCookieServer("NEXT_LOCALE");
   const h = {
     "Content-Type": "multipart/form-data",
     Accept: "application/json",

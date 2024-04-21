@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { getCookieServer } from "./Actions/serverCookies";
+import { getCookieServer, setServerCookie } from "./Actions/serverCookies";
+import { setCookieClient } from "@/Actions/clientCookies";
 
 const translationMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -15,7 +16,8 @@ export const config = {
 };
 
 async function authenticationMiddleware(req: NextRequest) {
-  const locale = await getCookieServer("locale");
+  let locale = await getCookieServer("NEXT_LOCALE");
+
   const path = `${req.nextUrl.pathname}`;
 
   const access = await getCookieServer("user-type");

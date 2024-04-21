@@ -22,7 +22,7 @@ const Page = async ({
     await ClinicService.make<ClinicService>().show(clinicId);
   const clinic = data.data;
   const t = await getTranslations("clinic.show");
-  const locale = await getCookieServer("locale");
+  const locale = await getCookieServer("NEXT_LOCALE");
   return (
     <PageCard>
       <div className={"flex justify-between items-center"}>

@@ -12,7 +12,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
 import { getCookieClient } from "@/Actions/clientCookies";
 
-const locale = getCookieClient("locale");
+const locale = getCookieClient('NEXT_LOCALE');
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
 

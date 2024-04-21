@@ -9,7 +9,7 @@ import Link from "next/link";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { getCookieClient } from "@/Actions/clientCookies";
 
-const locale = getCookieClient("locale");
+const locale = getCookieClient('NEXT_LOCALE');
 const tableData: DataTableData<ClinicHoliday> = {
   createUrl: `/${locale}/admin/clinics/holidays/create`,
   title: "Clinics Holidays",

@@ -26,13 +26,10 @@
     "react": "^18",
     "react-dom": "^18",
     "react-filepond": "^7.1.2",
-    "react-gradient-timepicker": "^0.0.3",
     "react-hook-form": "^7.50.1",
     "react-select": "^5.8.0",
     "react-select-async-paginate": "^0.7.3",
     "react-tag-input-component": "^2.0.2",
-    "react-timekeeper": "^1.1.0",
-    "save": "^2.9.0",
     "sweetalert2": "^11.10.7",
     "sweetalert2-react-content": "^5.0.7"
   },

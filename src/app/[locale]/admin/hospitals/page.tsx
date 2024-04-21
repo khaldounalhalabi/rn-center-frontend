@@ -8,7 +8,7 @@ import { HospitalService } from "@/services/HospitalService";
 import { getCookieClient } from "@/Actions/clientCookies";
 import {Hospital} from "@/Models/Hospital";
 
-const locale = getCookieClient("locale");
+const locale = getCookieClient('NEXT_LOCALE');
 const tableData: DataTableData<Hospital> = {
   createUrl: `/${locale}/admin/hospitals/create`,
   title: "Hospitals",

@@ -49,7 +49,7 @@ const page = async ({
               </span>
             ))
           ) : (
-            <span className="badge badge-neutral">No Phones</span>
+            <span className="text-lg badge badge-neutral">No Phones</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
@@ -66,6 +66,7 @@ const page = async ({
             <span className="text-lg badge badge-neutral">No Departments</span>
           )}
         </label>
+
         <label className="flex flex-wrap items-center gap-2 w-full label">
           Address :
           {res?.address?.name ? (
@@ -88,11 +89,22 @@ const page = async ({
             <span className="text-lg badge badge-neutral">No Data</span>
           )}
         </label>
-        <div>
+        <div className='flex justify-between'>
           <label className="label">Map : </label>
-          <div>{res.address?.map_iframe ?res.address?.map_iframe : <span className="text-lg badge badge-neutral">No Data</span> }</div>
+          <div>{res?.address?.map_iframe ?res?.address?.map_iframe : <span className="text-lg badge badge-neutral">No Data</span> }</div>
         </div>
          </Grid>
+      <Grid md={"1"} >
+
+        {res?.images?.length !=0?
+            <Gallery media={res?.images ? res?.images :['']}/>
+            :
+            <div className='flex items-center justify-between'>
+              <label className='label'> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
+        }
+      </Grid>
       <Gallery media={res?.images ?? []} />
     </PageCard>
   );

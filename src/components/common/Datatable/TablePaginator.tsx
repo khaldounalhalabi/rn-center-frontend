@@ -24,7 +24,7 @@ const TablePaginator = ({
         <li>
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={page === 0}
+            disabled={page === 1}
             className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 cursor-pointer"
           >
             <span className="sr-only">Prev Page</span>

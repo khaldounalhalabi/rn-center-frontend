@@ -20,6 +20,8 @@ import { Speciality } from "@/Models/Speciality";
 import { City } from "@/Models/City";
 import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
+import Gallery from "@/components/common/ui/Gallery";
+import ImagePreview from "@/components/common/ui/ImagePreview";
 
 const ClinicForm = ({
   type = "store",
@@ -254,7 +256,19 @@ const ClinicForm = ({
           label={t("longitude")}
         />
       </Grid>
+      <Grid md={"1"} >
 
+        {defaultValues?.user?.image?
+            <div className='h-32'>
+              <ImagePreview src={defaultValues?.user?.image ? defaultValues?.user?.image :''} className='h-full w-full object-cover rounded-md cursor-pointer'/>
+            </div>
+            :
+            <div className='flex items-center justify-between'>
+              <label className='label'> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
+        }
+      </Grid>
       <ImageUploader name={"user.image"} />
 
       <div className={`flex justify-center items-center`}>

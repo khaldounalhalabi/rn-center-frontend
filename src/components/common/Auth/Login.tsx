@@ -1,15 +1,14 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import Form from "@/components/common/ui/Form";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
-  const onSubmit = async (data: { email: string; password: string }) => {
-    return await AuthService.make().login(url, data, pageType);
+  const onSubmit = (data: { email: string; password: string }) => {
+    return AuthService.make().login(url, data, pageType);
   };
 
   return (

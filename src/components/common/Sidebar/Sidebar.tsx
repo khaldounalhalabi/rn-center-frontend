@@ -1,10 +1,9 @@
 import React from "react";
-import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
-import {getCookieClient} from "@/Actions/clientCookies";
-import {Link} from "@/i18Router";
+import { Link } from "@/i18Router";
+import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 
 const Sidebar = ({
   openNavBar,
@@ -16,7 +15,6 @@ const Sidebar = ({
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
-  const router = getCookieClient('NEXT_LOCALE')
   return (
     <div
       className={`md:block w-full  md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
@@ -46,17 +44,25 @@ const Sidebar = ({
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
         <ul className="mt-6 space-y-1 text-black">
-          <Link href={'/admin'} className='hover:bg-gray-100 block text-sm h-14 pl-5 pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Dashboard</Link>
+          <SidebarItem link={"/admin"}> Dashboard</SidebarItem>
           <SidebarCompactItem title={"Clinics Management"}>
-            <div className='flex flex-col'>
-              <Link href={'/admin/clinics'} className='hover:bg-gray-100 h-14 pl-5 text-sm pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Clinics</Link>
-              <Link href={'/admin/clinics/schedules'} className='hover:bg-gray-100 text-sm h-14 pl-5 pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Clinics Schedules</Link>
-              <Link href={'/admin/clinics/holidays'} className='hover:bg-gray-100 text-sm h-14 pl-5 pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Clinics Holidays</Link>
+            <div className="flex flex-col">
+              <SidebarItem link={"/admin/clinics"}> Clinics</SidebarItem>
+              <SidebarItem link={"/admin/clinics/schedules"}>
+                Clinics Schedules
+              </SidebarItem>
+              <SidebarItem link={"/admin/clinics/holidays"}>
+                Clinics Holidays
+              </SidebarItem>
             </div>
           </SidebarCompactItem>
-          <div className='flex flex-col'>
-            <Link href={'/admin/speciality'}  className='hover:bg-gray-100 text-sm h-14 pl-5 pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Clinics Schedules</Link>
-            <Link href={'/admin/hospitals'}  className='hover:bg-gray-100 text-sm h-14 pl-5 pt-3.5 hover:text-black text-gray-500 my-1 rounded-xl'>  Clinics Hospitals</Link>
+          <div className="flex flex-col">
+            <SidebarItem link={"/admin/speciality"}>
+              Clinics Schedules
+            </SidebarItem>
+            <SidebarItem link={"/admin/hospitals"}>
+              Clinics Hospitals
+            </SidebarItem>
           </div>
         </ul>
       </div>

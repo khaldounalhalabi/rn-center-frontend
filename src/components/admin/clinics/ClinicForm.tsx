@@ -12,8 +12,7 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ClinicService } from "@/services/ClinicService";
 import Form from "@/components/common/ui/Form";
-import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
-import { navigate } from "@/Actions/navigate";
+import { AddOrUpdateClinicForm } from "@/Models/Clinic";
 import { ApiResponse } from "@/Http/Response";
 import { Hospital } from "@/Models/Hospital";
 import { Speciality } from "@/Models/Speciality";
@@ -21,10 +20,8 @@ import { City } from "@/Models/City";
 import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
-import ImagePreview from "@/components/common/ui/ImagePreview";
-import { getCookieClient } from "@/Actions/clientCookies";
-import {redirect} from "@/i18Router";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
+import {navigate} from "@/Actions/navigate";
 
 const ClinicForm = ({
   type = "store",
@@ -36,25 +33,23 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
-    return await ClinicService.make<ClinicService>().store(data).then((res)=>console.log(res))
+    return await ClinicService.make<ClinicService>().store(data);
   };
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      return await ClinicService.make<ClinicService>()
-        .update(id, data)
-        .then((res) => {
-          console.log(data);
-          console.log(res);
-          return res;
-        });
+      return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
   const t = useTranslations("clinic.create-edit");
   return (
-    <Form handleSubmit={onSubmit}   defaultValues={defaultValues} onSuccess={() => {
-      redirect(`/admin/clinics`)
-    }}>
+    <Form
+      handleSubmit={onSubmit}
+      defaultValues={defaultValues}
+      onSuccess={() => {
+        navigate(`/admin/clinics`);
+      }}
+    >
       <Grid md={3}>
         <TranslatableInput
           locales={["en", "ar"]}
@@ -247,22 +242,25 @@ const ClinicForm = ({
         />
 
         <TextAreaMap
-            className={"col-span-2"}
-            name="address.map_iframe"
-            label={"Map iframe"}
-            defaultValue={defaultValues?.address?.map_iframe ?? []}
+          className={"col-span-2"}
+          name="address.map_iframe"
+          label={"Map iframe"}
+          defaultValue={defaultValues?.address?.map_iframe ?? []}
         />
-        {type == 'update' ?
-            defaultValues?.user?.image.length > 0 ?
-                <Gallery
-                    media={defaultValues?.user?.image ? defaultValues?.user?.image : [""]}
-                />
-             :
-                <div className="flex items-center justify-between">
-                  <label className="label"> Image : </label>
-                  <span className="text-lg badge badge-neutral">No Image</span>
-                </div>
-            :false}
+        {type == "update" ? (
+          defaultValues?.user?.image.length > 0 ? (
+            <Gallery
+              media={
+                defaultValues?.user?.image ? defaultValues?.user?.image : [""]
+              }
+            />
+          ) : (
+            <div className="flex items-center justify-between">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Image</span>
+            </div>
+          )
+        ) : ""}
       </Grid>
       <ImageUploader name={"user.image"} />
 

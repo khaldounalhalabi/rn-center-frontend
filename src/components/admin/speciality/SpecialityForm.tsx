@@ -5,11 +5,10 @@ import React from "react";
 import { AddSpeciality } from "@/Models/Speciality";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { navigate } from "@/Actions/navigate";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
-import { getCookieClient } from "@/Actions/clientCookies";
-import {redirect} from "@/i18Router";
+import { redirect } from "@/i18Router";
+import { navigate } from "@/Actions/navigate";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -27,14 +26,14 @@ const SpecialityForm = ({
     ) {
       return await SpecialityService.make<SpecialityService>().update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await SpecialityService.make<SpecialityService>().store(data);
     }
   };
   const onSuccess = () => {
-    redirect(`/admin/speciality`);
+    navigate(`/admin/speciality`);
   };
   const array = defaultValues?.tags.split(",");
   return (
@@ -59,7 +58,7 @@ const SpecialityForm = ({
         <Textarea
           name={"description"}
           label={"Description : "}
-          defaultValue={array ? array : []}
+          defaultValue={array ?? []}
         />
       </div>
       <div className="flex justify-center my-3">

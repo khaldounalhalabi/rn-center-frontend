@@ -13,5 +13,5 @@ export interface Address {
   addressable_type?: string;
   addressable?: User | Hospital;
   city: City;
-  map_iframe?:string|TrustedHTML
+  map_iframe?: string;
 }

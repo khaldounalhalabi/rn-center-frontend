@@ -5,7 +5,9 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { HospitalService } from "@/services/HospitalService";
-import {Hospital} from "@/Models/Hospital";
+import { Hospital } from "@/Models/Hospital";
+import ImagePreview from "@/components/common/ui/ImagePreview";
+import { Media } from "@/Models/Media";
 
 const tableData: DataTableData<Hospital> = {
   createUrl: `/admin/hospitals/create`,
@@ -18,13 +20,19 @@ const tableData: DataTableData<Hospital> = {
       translatable: true,
     },
     {
-      name: "address.city",
+      name: "address.city.name",
       label: "City",
       sortable: true,
+      translatable: true,
     },
     {
-      name: "images[1]",
+      name: "images",
       label: "Images",
+      render: (images: Media[]) => (
+        <div className="max-w-[75px]">
+          <ImagePreview src={images.length > 0 ? images[0].file_url : ""} />
+        </div>
+      ),
     },
     {
       label: "Actions",
@@ -47,7 +55,7 @@ const tableData: DataTableData<Hospital> = {
       sortCol,
       sortDir,
       perPage,
-      params,
+      params
     ),
 };
 const Page = () => {

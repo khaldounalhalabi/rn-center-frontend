@@ -28,25 +28,27 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  console.log(defaultValues);
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return HospitalService.make<HospitalService>().update(
-        defaultValues?.id ?? id,
-        data,
-      )
+      console.log(data);
+      return HospitalService.make<HospitalService>()
+        .update(defaultValues?.id ?? id, data)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
     } else {
-      return await HospitalService.make<HospitalService>().store(data)
+      return await HospitalService.make<HospitalService>().store(data);
     }
   };
-  console.log(defaultValues)
-  console.log(type)
   const onSuccess = () => {
     navigate(`/admin/hospitals`);
   };
+
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -116,28 +118,30 @@ const HospitalsForm = ({
           label={"Address"}
         />
 
-        {type == 'update' ?
-            <div className={"col-span-2"}>
-              {defaultValues?.images?.length != 0 ? (
-                  <Gallery
-                      media={defaultValues?.images ? defaultValues?.images : [""]}
-                  />
-              ) : (
-                  <div className="flex items-center">
-                    <label className="label"> Image : </label>
-                    <span className="text-lg badge badge-neutral">no data</span>
-                  </div>
-              )}
-            </div>:false
-        }
+        {type == "update" ? (
+          <div className={"col-span-2"}>
+            {defaultValues?.photos?.length != 0 ? (
+              <Gallery
+                media={defaultValues?.photos ? defaultValues?.photos : [""]}
+              />
+            ) : (
+              <div className="flex items-center">
+                <label className="label"> Image : </label>
+                <span className="text-lg badge badge-neutral">no data</span>
+              </div>
+            )}
+          </div>
+        ) : (
+          false
+        )}
       </Grid>
 
       <ImageUploader name={"images"} isMultiple={true} />
       <TextAreaMap
-          className={"col-span-2"}
-          name="address[map_iframe]"
-          label={"Map iframe"}
-          defaultValue={defaultValues?.address?.map_iframe ?? []}
+        className={"col-span-2"}
+        name="address.map_iframe"
+        label={"Map iframe"}
+        defaultValue={defaultValues?.address?.map_iframe}
       />
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>

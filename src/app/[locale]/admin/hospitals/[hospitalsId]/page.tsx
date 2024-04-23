@@ -9,6 +9,7 @@ import { Department } from "@/Models/Departments";
 import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
 import Gallery from "@/components/common/ui/Gallery";
+import MapIFrame from "@/components/common/ui/MapIFrame";
 
 const page = async ({
   params: { hospitalsId },
@@ -40,7 +41,7 @@ const page = async ({
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           Phones :
-          {res?.phones?.length != 0  ? (
+          {res?.phones?.length != 0 ? (
             res?.phones?.map((phone: Phone, index: number) => (
               <span key={index} className="badge badge-neutral">
                 {phone.phone}
@@ -68,10 +69,9 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           Address :
           {res?.address?.name ? (
-                <span  className="badge badge-accent">
-                  {translate(res?.address?.name)}
-                </span>
-
+            <span className="badge badge-accent">
+              {translate(res?.address?.name)}
+            </span>
           ) : (
             <span className="text-lg badge badge-neutral">No Data</span>
           )}
@@ -79,30 +79,27 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           City :
           {res?.address?.city ? (
-                <span  className="badge badge-accent">
-                  {`${res?.address?.city}`}
-                </span>
-
+            <span className="badge badge-accent">
+              {`${translate(res?.address?.city.name)}`}
+            </span>
           ) : (
             <span className="text-lg badge badge-neutral">No Data</span>
           )}
         </label>
-        <div className='flex justify-between'>
-          <label className="label">Map : </label>
-          <div>{res?.address?.map_iframe ?<div  dangerouslySetInnerHTML={{ __html: res?.address?.map_iframe  }}></div> : <span className="text-lg badge badge-neutral">No Data</span> }</div>
-        </div>
-         </Grid>
-      <Grid md={"1"} >
-
-        {res?.images?.length !=0?
-            <Gallery media={res?.images ? res?.images :['']}/>
-            :
-            <div className='flex items-center justify-between'>
-              <label className='label'> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
-            </div>
-        }
       </Grid>
+      <div className={"w-full"}>
+        {res?.images?.length != 0 ? (
+          <Gallery media={res?.images ? res?.images : [""]} />
+        ) : (
+          <div className="flex items-center justify-between">
+            <label className="label"> Image : </label>
+            <span className="text-lg badge badge-neutral">No Data</span>
+          </div>
+        )}
+      </div>
+      <div className={"w-full"}>
+        <MapIFrame iframe={res?.address?.map_iframe} />
+      </div>
     </PageCard>
   );
 };

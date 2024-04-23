@@ -38,7 +38,6 @@ const ScheduleForm = ({
   method: "store" | "update";
 }) => {
   const onSubmit = async (data: StoreScheduleRequest) => {
-    // console.log(data)
     let schedules: Schedule[] = [];
     Object.values(data.schedules as SchedulesGroupedByDay).map(
       (v: Schedule[]) => {
@@ -58,7 +57,7 @@ const ScheduleForm = ({
           </h1>
           <Form
             handleSubmit={onSubmit}
-            onSuccess={() => redirect(`/admin/clinics/schedules`)}
+            onSuccess={() => navigate(`/admin/clinics/schedules`)}
           >
             <div className={"w-full md:w-1/2 mb-5"}>
               {method == "store" ? (
@@ -113,18 +112,13 @@ export default ScheduleForm;
 
 const TimeRange = ({
   day,
-
   defaultValue,
 }: {
   day: string;
-
   defaultValue?: Schedule[];
 }) => {
   const [inputs, setInputs] = useState(defaultValue?.length ?? 0);
   const inputArray = [...Array(inputs)];
-
-
-
   return (
     <div className={"flex items-center justify-between my-2"}>
       <div className={"flex gap-2 items-center"}>

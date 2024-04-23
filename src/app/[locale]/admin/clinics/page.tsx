@@ -12,6 +12,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
 
 const dataTableData: DataTableData<Clinic> = {
+  //TODO::add total appointments when it is done
 
   createUrl: `/admin/clinics/create`,
   schema: [

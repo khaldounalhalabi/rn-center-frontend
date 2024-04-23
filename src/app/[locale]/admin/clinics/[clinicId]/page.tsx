@@ -26,7 +26,7 @@ const Page = async ({
       <div className={"flex justify-between items-center"}>
         <h1 className={"card-title "}>{t("name")}</h1>
         <div className={"flex"}>
-          <Link href={`/${clinicId}/edit`}>
+          <Link href={`${clinicId}/edit`}>
             <PrimaryButton>{t("editBtn")}</PrimaryButton>
           </Link>
         </div>

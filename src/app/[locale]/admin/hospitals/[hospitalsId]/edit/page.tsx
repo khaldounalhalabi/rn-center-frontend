@@ -21,6 +21,12 @@ const page = async ({
           ...hospital,
           phone_numbers:
             hospital?.phones?.map((phone: Phone) => phone.phone) ?? [],
+          available_departments: hospital.available_departments?.map(
+            (dep) => dep.id,
+          ),
+          photos: hospital?.images,
+          address: hospital?.address,
+          images: [],
         }}
         id={hospital.id}
       />

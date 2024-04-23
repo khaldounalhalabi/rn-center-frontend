@@ -8,7 +8,7 @@ const ImagePreview = ({
   className,
 }: {
   src: string;
-  className: string;
+  className?: string;
 }) => {
   let [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +22,11 @@ const ImagePreview = ({
 
   return (
     <>
-      <img src={src} onClick={openModal} className={className} />
+      <img
+        src={src}
+        onClick={openModal}
+        className={className ?? "" + "cursor-pointer"}
+      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

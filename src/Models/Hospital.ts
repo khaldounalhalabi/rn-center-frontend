@@ -2,7 +2,6 @@ import { Address } from "./Address";
 import { Department } from "./Departments";
 import { Media } from "./Media";
 import { Phone } from "./Phone";
-import { Translatable } from "./Translatable";
 
 export interface Hospital {
   id: number;
@@ -10,7 +9,7 @@ export interface Hospital {
   phones?: Phone[];
   available_departments?: Department[];
   images?: Media[];
-  address?: Address
+  address?: Address;
 }
 
 export interface AddHospital {
@@ -18,6 +17,7 @@ export interface AddHospital {
   name: string;
   phone_numbers: string[];
   available_departments?: Department[] | number[];
-  images?: Media[] | string[];
-  address?: Address
+  photos?: Media[] | string[];
+  address?: Address;
+  images?: Media[];
 }

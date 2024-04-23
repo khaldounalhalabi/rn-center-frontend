@@ -1,8 +1,11 @@
 import ImagePreview from "./ImagePreview";
 import { Media, getMedia } from "@/Models/Media";
 
-const Gallery = ({ media }: { media: Media[]|string[] }) => {
-  const cols = parseInt(`${media.length / 2 } `) != 1 ? parseInt(`${media.length / 2 } `) :2;
+const Gallery = ({ media }: { media: Media[] | string[] }) => {
+  const cols =
+    parseInt(`${media.length / 2} `) != 1
+      ? parseInt(`${media.length / 2} `)
+      : 2;
 
   return (
     <div
@@ -11,8 +14,7 @@ const Gallery = ({ media }: { media: Media[]|string[] }) => {
       {media.map((img, index) => (
         <div key={index} className="h-32">
           <ImagePreview
-              // @ts-ignore
-            src={getMedia(img)}
+            src={typeof img == "string" ? img : getMedia(img)}
             className={"h-full w-full object-cover rounded-md cursor-pointer"}
           />
         </div>

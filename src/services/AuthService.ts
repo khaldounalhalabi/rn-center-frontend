@@ -41,7 +41,7 @@ export class AuthService {
     if (this.successStatus) await navigate(`/${this.locale}/${pageType}`);
 
     const userType = await AuthService.getCurrentActor();
-    setServerCookie("user-type", userType);
+    await setServerCookie("user-type", userType);
 
     return response;
   }

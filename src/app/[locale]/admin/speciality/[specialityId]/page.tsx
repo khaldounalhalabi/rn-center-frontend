@@ -1,11 +1,10 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
-import { getCookieClient } from "@/Actions/clientCookies";
 
 const page = async ({
   params: { specialityId },
@@ -16,12 +15,11 @@ const page = async ({
     await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: AddSpeciality = data?.data;
   const tagsArray = res?.tags.split(",");
-  const locale = getCookieClient('NEXT_LOCALE');
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Speciality Details</h2>
-        <Link href={`${locale}/admin/speciality/${res.id}/edit`}>
+        <Link href={`/admin/speciality/${res.id}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

@@ -14,12 +14,9 @@ import Grid from "@/components/common/ui/Grid";
 import { translate } from "@/Helpers/Translations";
 import { ApiResponse } from "@/Http/Response";
 import { Department } from "@/Models/Departments";
-import { getCookieClient } from "@/Actions/clientCookies";
 import { CityService } from "@/services/CityService";
 import { City } from "@/Models/City";
-import Textarea from "@/components/common/ui/textArea/Textarea";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
-import TimePicker from "@/components/common/ui/TimePicker";
 import Gallery from "@/components/common/ui/Gallery";
 
 const HospitalsForm = ({
@@ -31,7 +28,6 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const locale = getCookieClient('NEXT_LOCALE');
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -41,13 +37,15 @@ const HospitalsForm = ({
       return HospitalService.make<HospitalService>().update(
         defaultValues?.id ?? id,
         data,
-      );
+      )
     } else {
-      return await HospitalService.make<HospitalService>().store(data);
+      return await HospitalService.make<HospitalService>().store(data)
     }
   };
+  console.log(defaultValues)
+  console.log(type)
   const onSuccess = () => {
-    navigate(`${locale}/admin/hospitals`);
+    navigate(`/admin/hospitals`);
   };
   return (
     <Form
@@ -117,27 +115,30 @@ const HospitalsForm = ({
           type={"text"}
           label={"Address"}
         />
-        <TextAreaMap
-          className={"col-span-2"}
-          name="address.lat"
-          label={"Map iframe"}
-          defaultValue={defaultValues?.address?.map_iframe ?? []}
-        />
-        <div className={"col-span-2"}>
-          {defaultValues?.images?.length != 0 ? (
-              <Gallery
-                  media={defaultValues?.images ? defaultValues?.images : [""]}
-              />
-          ) : (
-              <div className="flex items-center">
-                <label className="label"> Image : </label>
-                <span className="text-lg badge badge-neutral">no data</span>
-              </div>
-          )}
-        </div>
+
+        {type == 'update' ?
+            <div className={"col-span-2"}>
+              {defaultValues?.images?.length != 0 ? (
+                  <Gallery
+                      media={defaultValues?.images ? defaultValues?.images : [""]}
+                  />
+              ) : (
+                  <div className="flex items-center">
+                    <label className="label"> Image : </label>
+                    <span className="text-lg badge badge-neutral">no data</span>
+                  </div>
+              )}
+            </div>:false
+        }
       </Grid>
 
       <ImageUploader name={"images"} isMultiple={true} />
+      <TextAreaMap
+          className={"col-span-2"}
+          name="address[map_iframe]"
+          label={"Map iframe"}
+          defaultValue={defaultValues?.address?.map_iframe ?? []}
+      />
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>
       </div>

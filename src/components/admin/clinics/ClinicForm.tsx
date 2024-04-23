@@ -23,6 +23,8 @@ import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import ImagePreview from "@/components/common/ui/ImagePreview";
 import { getCookieClient } from "@/Actions/clientCookies";
+import {redirect} from "@/i18Router";
+import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 
 const ClinicForm = ({
   type = "store",
@@ -34,7 +36,7 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
-    return await ClinicService.make<ClinicService>().store(data);
+    return await ClinicService.make<ClinicService>().store(data).then((res)=>console.log(res))
   };
 
   if (type == "update" && id) {
@@ -49,12 +51,9 @@ const ClinicForm = ({
     };
   }
   const t = useTranslations("clinic.create-edit");
-  const locale = getCookieClient("locale");
-  console.log(defaultValues);
-
   return (
-    <Form handleSubmit={onSubmit} defaultValues={defaultValues} onSuccess={() => {
-        navigate(`/${locale}/admin/clinics`)
+    <Form handleSubmit={onSubmit}   defaultValues={defaultValues} onSuccess={() => {
+      redirect(`/admin/clinics`)
     }}>
       <Grid md={3}>
         <TranslatableInput
@@ -247,36 +246,23 @@ const ClinicForm = ({
           label={t("address")}
         />
 
-        <Input
-          name={"address.lat"}
-          type={"number"}
-          step={"any"}
-          label={t("latitude")}
+        <TextAreaMap
+            className={"col-span-2"}
+            name="address.map_iframe"
+            label={"Map iframe"}
+            defaultValue={defaultValues?.address?.map_iframe ?? []}
         />
-
-        <Input
-          name={"address.lng"}
-          type={"number"}
-          step={"any"}
-          label={t("longitude")}
-        />
-        {defaultValues?.user?.image.length > 0 ? (
-          <div className="col-span-2">
-            <ImagePreview
-              src={
-                defaultValues?.user?.image
-                  ? defaultValues?.user?.image[0].full_url
-                  : ""
-              }
-              className="h-full w-full object-cover rounded-md cursor-pointer"
-            />
-          </div>
-        ) : (
-          <div className="flex items-center justify-between">
-            <label className="label"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Image</span>
-          </div>
-        )}
+        {type == 'update' ?
+            defaultValues?.user?.image.length > 0 ?
+                <Gallery
+                    media={defaultValues?.user?.image ? defaultValues?.user?.image : [""]}
+                />
+             :
+                <div className="flex items-center justify-between">
+                  <label className="label"> Image : </label>
+                  <span className="text-lg badge badge-neutral">No Image</span>
+                </div>
+            :false}
       </Grid>
       <ImageUploader name={"user.image"} />
 

@@ -2,7 +2,7 @@ import ImagePreview from "./ImagePreview";
 import { Media, getMedia } from "@/Models/Media";
 
 const Gallery = ({ media }: { media: Media[]|string[] }) => {
-  const cols = parseInt(`${media.length / 2}`);
+  const cols = parseInt(`${media.length / 2 } `) != 1 ? parseInt(`${media.length / 2 } `) :2;
 
   return (
     <div

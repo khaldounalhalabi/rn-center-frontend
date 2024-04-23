@@ -23,5 +23,6 @@ const nextConfig = {
         localApi: 'http://localhost/pom/public/api/',
         // localApi: 'http://planetofmedicine.com/',
     },
+
 };
 export default withNextIntl(withPWA(nextConfig));

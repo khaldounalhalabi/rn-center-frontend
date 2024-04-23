@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";

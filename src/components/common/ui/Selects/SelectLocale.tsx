@@ -26,7 +26,8 @@ export default function SelectedLocale({locales = ["en", "ar"],className,setSele
                 <Menu.Item key={index}>
                   {({ active }) => (
                     <button
-                    onClick={()=>{
+                    onClick={(s)=>{
+                      s.preventDefault()
                       setSelectedLocale(e)
                       setSelected(e)
                     }}

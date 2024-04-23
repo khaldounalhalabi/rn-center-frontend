@@ -23,8 +23,7 @@ const Page = async ({
     address: {
       ...clinic?.user?.address,
       city_id: clinic?.user?.address?.city_id,
-      lat: clinic?.user?.address?.lat,
-      lng: clinic?.user?.address?.lng,
+      map_iframe:clinic.user.address.map_iframe
     },
     speciality_ids: clinic?.specialities?.map((spec) => spec.id),
     hospital_id: clinic?.hospital_id,

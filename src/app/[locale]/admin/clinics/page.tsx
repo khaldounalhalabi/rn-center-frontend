@@ -10,13 +10,10 @@ import { translate } from "@/Helpers/Translations";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
-import { getCookieClient } from "@/Actions/clientCookies";
 
-const locale = getCookieClient('NEXT_LOCALE');
 const dataTableData: DataTableData<Clinic> = {
-  //TODO::add total appointments when it is done
 
-  createUrl: `/${locale}/admin/clinics/create`,
+  createUrl: `/admin/clinics/create`,
   schema: [
     {
       name: "user.first_name",
@@ -73,7 +70,7 @@ const dataTableData: DataTableData<Clinic> = {
         <ActionsButtons
           id={clinic?.id}
           buttons={["edit", "show"]}
-          baseUrl={`/${locale}/admin/clinics`}
+          baseUrl={`/admin/clinics`}
         >
           <button className="btn btn-sm btn-square">
             <ArchiveIcon

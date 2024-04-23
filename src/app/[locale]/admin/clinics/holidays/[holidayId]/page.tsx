@@ -3,8 +3,7 @@ import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import Link from "next/link";
-import { getCookieServer } from "@/Actions/serverCookies";
+import { Link } from "@/i18Router";
 import { translate } from "@/Helpers/Translations";
 
 const page = async ({
@@ -15,12 +14,11 @@ const page = async ({
   const data =
     await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId);
   const res: ClinicHoliday = data?.data;
-  const locale = await getCookieServer("NEXT_LOCALE");
   return (
     <PageCard>
       <div className="w-full h-24 flex justify-between items-center">
         <h2 className="card-title">Holiday Details</h2>
-        <Link href={`/${locale}/admin/clinics/holidays/${res.id}/edit`}>
+        <Link href={`/admin/clinics/holidays/${res.id}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

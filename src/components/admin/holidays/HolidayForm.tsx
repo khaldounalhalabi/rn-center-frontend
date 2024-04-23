@@ -12,6 +12,7 @@ import Grid from "@/components/common/ui/Grid";
 import {ApiResponse} from "@/Http/Response";
 import {Clinic} from "@/Models/Clinic";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
+import {redirect} from "@/i18Router";
 
 const HolidayForm = ({
                          defaultValues = undefined,
@@ -30,7 +31,7 @@ const HolidayForm = ({
     };
 
     const onSuccess = () => {
-        navigate(`/admin/clinics/holidays`);
+        redirect(`/admin/clinics/holidays`);
     };
     return (
         <Form

@@ -8,10 +8,9 @@ import { Clinic } from "@/Models/Clinic";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import { translate } from "@/Helpers/Translations";
 import { getTranslations } from "next-intl/server";
-import { getCookieServer } from "@/Actions/serverCookies";
 
 const Page = async ({
   params: { clinicId },
@@ -22,13 +21,12 @@ const Page = async ({
     await ClinicService.make<ClinicService>().show(clinicId);
   const clinic = data.data;
   const t = await getTranslations("clinic.show");
-  const locale = await getCookieServer("NEXT_LOCALE");
   return (
     <PageCard>
       <div className={"flex justify-between items-center"}>
         <h1 className={"card-title "}>{t("name")}</h1>
         <div className={"flex"}>
-          <Link href={`${locale}/${clinicId}/edit`}>
+          <Link href={`/${clinicId}/edit`}>
             <PrimaryButton>{t("editBtn")}</PrimaryButton>
           </Link>
         </div>

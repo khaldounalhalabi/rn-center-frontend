@@ -52,7 +52,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
           hidden={true}
           {...register(`${name}`)}
         />
-        <SelectedLocale locales={locales} className={'absolute ltr:right-1 rtl:left-1 '} setSelectedLocale={setSelectedLocale}/>
+        <SelectedLocale locales={locales} className={'absolute z-10 ltr:right-1 rtl:left-1 '} setSelectedLocale={setSelectedLocale}/>
         {locales.map((l: Locales, index) => (
           <input
             key={index}

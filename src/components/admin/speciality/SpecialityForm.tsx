@@ -9,6 +9,7 @@ import { navigate } from "@/Actions/navigate";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
 import { getCookieClient } from "@/Actions/clientCookies";
+import {redirect} from "@/i18Router";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -19,7 +20,6 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const locale = getCookieClient('NEXT_LOCALE')
   const handleSubmit = async (data: any) => {
     if (
       type == "update" &&
@@ -34,7 +34,7 @@ const SpecialityForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`${locale}/admin/speciality`);
+    redirect(`/admin/speciality`);
   };
   const array = defaultValues?.tags.split(",");
   return (

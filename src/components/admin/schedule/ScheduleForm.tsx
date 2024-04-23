@@ -18,6 +18,7 @@ import {
 } from "@/Models/Schedule";
 import TimePicker from "@/components/common/ui/TimePicker";
 import Copy from "@/components/icons/Copy";
+import {redirect} from "@/i18Router";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -57,7 +58,7 @@ const ScheduleForm = ({
           </h1>
           <Form
             handleSubmit={onSubmit}
-            onSuccess={() => navigate(`/admin/clinics/schedules`)}
+            onSuccess={() => redirect(`/admin/clinics/schedules`)}
           >
             <div className={"w-full md:w-1/2 mb-5"}>
               {method == "store" ? (

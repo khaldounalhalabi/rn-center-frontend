@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import { HospitalService } from "@/services/HospitalService";
 import { Hospital } from "@/Models/Hospital";
 import { translate } from "@/Helpers/Translations";
@@ -9,7 +9,6 @@ import { Department } from "@/Models/Departments";
 import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
 import Gallery from "@/components/common/ui/Gallery";
-import { getCookieServer } from "@/Actions/serverCookies";
 
 const page = async ({
   params: { hospitalsId },
@@ -18,12 +17,11 @@ const page = async ({
 }) => {
   const data = await HospitalService.make<HospitalService>().show(hospitalsId);
   const res: Hospital = data?.data;
-  const locale =await getCookieServer("NEXT_LOCALE");
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Hospital Details</h2>
-        <Link href={`${locale}/admin/hospitals/${hospitalsId}/edit`}>
+        <Link href={`/admin/hospitals/${hospitalsId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>
@@ -105,7 +103,6 @@ const page = async ({
             </div>
         }
       </Grid>
-      <Gallery media={res?.images ?? []} />
     </PageCard>
   );
 };

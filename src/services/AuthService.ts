@@ -28,15 +28,15 @@ export class AuthService {
 
   public async login(url: string, dataForm: object, pageType: string) {
     const response = await POST<AuthResponse>(url, dataForm).then(
-      (res: ApiResponse<AuthResponse>) => {
-        if (res.code == 200) {
-          setServerCookie("token", res?.data?.token ?? "");
-          setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
-          this.successStatus = true;
-        }
+        (res: ApiResponse<AuthResponse>) => {
+          if (res.code == 200) {
+            setServerCookie("token", res?.data?.token ?? "");
+            setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
+            this.successStatus = true;
+          }
 
-        return res;
-      },
+          return res;
+        },
     );
     if (this.successStatus) await navigate(`/${this.locale}/${pageType}`);
 
@@ -47,9 +47,9 @@ export class AuthService {
   }
 
   public async submitResetCode(
-    url: string,
-    dataForm: object,
-    pageType: string,
+      url: string,
+      dataForm: object,
+      pageType: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -63,9 +63,9 @@ export class AuthService {
   }
 
   public async requestResetPasswordRequest(
-    url: string,
-    dataForm: object,
-    typePage: string,
+      url: string,
+      dataForm: object,
+      typePage: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;

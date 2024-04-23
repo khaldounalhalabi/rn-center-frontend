@@ -5,13 +5,11 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { getCookieClient } from "@/Actions/clientCookies";
 
-const locale = getCookieClient('NEXT_LOCALE');
 const tableData: DataTableData<ClinicHoliday> = {
-  createUrl: `/${locale}/admin/clinics/holidays/create`,
+  createUrl: `/admin/clinics/holidays/create`,
   title: "Clinics Holidays",
   schema: [
     {
@@ -22,7 +20,7 @@ const tableData: DataTableData<ClinicHoliday> = {
       render: (data, holiday) => {
         return (
           <Link
-            href={`/${locale}/admin/clinics/${holiday?.clinic?.id}`}
+            href={`/admin/clinics/${holiday?.clinic?.id}`}
             className={`btn btn-ghost p-1 w-full`}
           >
             {data}
@@ -52,9 +50,9 @@ const tableData: DataTableData<ClinicHoliday> = {
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={`/${locale}/admin/clinic-holidays`}
-          editUrl={`/${locale}/admin/clinics/holidays/${data?.id}/edit`}
-          showUrl={`/${locale}/admin/clinics/holidays/${data?.id}`}
+          baseUrl={`/admin/clinic-holidays`}
+          editUrl={`/admin/clinics/holidays/${data?.id}/edit`}
+          showUrl={`/admin/clinics/holidays/${data?.id}`}
           setHidden={setHidden}
         />
       ),

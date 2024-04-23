@@ -5,12 +5,10 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { HospitalService } from "@/services/HospitalService";
-import { getCookieClient } from "@/Actions/clientCookies";
 import {Hospital} from "@/Models/Hospital";
 
-const locale = getCookieClient('NEXT_LOCALE');
 const tableData: DataTableData<Hospital> = {
-  createUrl: `/${locale}/admin/hospitals/create`,
+  createUrl: `/admin/hospitals/create`,
   title: "Hospitals",
   schema: [
     {
@@ -20,14 +18,23 @@ const tableData: DataTableData<Hospital> = {
       translatable: true,
     },
     {
+      name: "address.city",
+      label: "City",
+      sortable: true,
+    },
+    {
+      name: "images[1]",
+      label: "Images",
+    },
+    {
       label: "Actions",
       render: (_undefined, data, setHidden) => (
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={`/${locale}/admin/hospitals`}
-          editUrl={`/${locale}/admin/hospitals/${data?.id}/edit`}
-          showUrl={`/${locale}/admin/hospitals/${data?.id}`}
+          baseUrl={`/admin/hospitals`}
+          editUrl={`/admin/hospitals/${data?.id}/edit`}
+          showUrl={`/admin/hospitals/${data?.id}`}
           setHidden={setHidden}
         />
       ),

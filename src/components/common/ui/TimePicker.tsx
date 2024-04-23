@@ -34,13 +34,13 @@ const TimePicker = ({
     setValue(name, dateNew);
     setShowAllDate(false);
   };
-
+   const defaultTime = defaultValue? defaultValue.split(':'):''
   return (
     <div>
       <Input
         name="test"
         type="text"
-        value={
+        defaultValue={
           hour == "00" && minute == "00"
             ? defaultValue
               ? defaultValue
@@ -55,22 +55,26 @@ const TimePicker = ({
         ref={ref}
         className={`h-86 w-56 shadow-lg z-10 absolute shadow-gray-500 ${showAllDate ? "block" : "hidden"}`}
       >
-        <div className="h-16 w-full flex justify-center items-center bg-white">
-          <h2 className="text-2xl ml-11">
-            <span
-              className={`cursor-pointer font-bold ${showMt ? "text-blue-300" : "text-gray-600"}`}
+        <div className="h-16  w-56  flex justify-center items-center bg-white">
+          <h2 className="text-2xl w-full ml-11 flex">
+            <input
+              className={`cursor-pointer text-end focus:outline-0 w-16 font-bold ${showMt ? "text-blue-300" : "text-gray-600"}`}
               onClick={() => setShowMt(true)}
-            >
-              {hour}
-            </span>
+              onChange={(e)=>setHour(e.target.value)}
+
+              defaultValue={defaultTime?defaultTime[0]:hour}
+            />
+
             :
-            <span
-              className={`cursor-pointer font-bold ${showMt ? "text-gray-600" : "text-blue-300"} mr-2`}
+            <input
+              className={`cursor-pointer  w-16 focus:outline-0 font-bold ${showMt ? "text-gray-600" : "text-blue-300"} mr-2`}
               onClick={() => setShowMt(false)}
-            >
-              {minute}
-            </span>
-            <span className={` font-bold  text-lg`}>{date}</span>
+              onChange={(e)=>setMinute(e.target.value)}
+              defaultValue={defaultTime?defaultTime[1]:minute}
+
+            />
+
+            <span className={` font-bold  w-16  text-lg`}>{date}</span>
           </h2>
         </div>
         <div className="bg-gray-200 h-56 flex justify-center items-end">

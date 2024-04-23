@@ -99,6 +99,11 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           defaultValue={clinic?.about_us}
         ></textarea>
       </div>
+      <div className={"w-full"}>
+        <label className={"label"}>Map :</label>
+        <div>{clinic?.user?.address?.map_iframe ?<div  dangerouslySetInnerHTML={{ __html: clinic?.user?.address?.map_iframe  }}></div> : <span className="text-lg badge badge-neutral">No Data</span> }</div>
+
+      </div>
     </div>
   );
 };

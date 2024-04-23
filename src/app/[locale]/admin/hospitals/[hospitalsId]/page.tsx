@@ -89,7 +89,7 @@ const page = async ({
         </label>
         <div className='flex justify-between'>
           <label className="label">Map : </label>
-          <div>{res?.address?.map_iframe ?res?.address?.map_iframe : <span className="text-lg badge badge-neutral">No Data</span> }</div>
+          <div>{res?.address?.map_iframe ?<div  dangerouslySetInnerHTML={{ __html: res?.address?.map_iframe  }}></div> : <span className="text-lg badge badge-neutral">No Data</span> }</div>
         </div>
          </Grid>
       <Grid md={"1"} >

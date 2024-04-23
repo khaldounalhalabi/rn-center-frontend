@@ -47,6 +47,6 @@ export interface AddOrUpdateClinicForm {
   address?: {
     city_id?: number;
     name?: string | Translatable;
-    map_iframe?:string |number
+    map_iframe?:string |TrustedHTML
   };
 }

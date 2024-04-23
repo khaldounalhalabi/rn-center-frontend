@@ -1,19 +1,21 @@
+import { getCookieClient } from "@/Actions/clientCookies";
 import { getCookieServer } from "@/Actions/serverCookies";
 import { Translatable } from "@/Models/Translatable";
+import { useLocale } from "next-intl";
 
 export function translate(
   val: string | undefined | null,
-  object?: boolean,
+  object?: boolean
 ): string;
 
 export function translate(
   val: string | undefined | null,
-  object: true,
+  object: true
 ): Translatable;
 
 export function translate(
   val: string | undefined | null,
-  object = false,
+  object = false
 ): string | Translatable {
   try {
     if (!val && object) {
@@ -28,7 +30,8 @@ export function translate(
     if (object) {
       return tr;
     }
-    const locale = "en";
+    let locale = getCookieClient("NEXT_LOCALE") ?? "en";
+
     if (locale == "en") {
       return tr.en ?? "";
     } else return tr.ar ?? "";
@@ -41,13 +44,4 @@ export function translate(
     }
     return val ?? "";
   }
-}
-
-
-
-export const HandleTranslate =async (id:string)=>{
-   const locale = await getCookieServer('locale')
-   console.log(locale)
-   const res =await fetch(`locale/${locale}.json`)
-   return res.json()
 }

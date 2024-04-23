@@ -7,7 +7,7 @@ import Eye from "@/components/icons/Eye";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
-  name: string;
+  name?: string;
   label?: string;
   type: string;
 

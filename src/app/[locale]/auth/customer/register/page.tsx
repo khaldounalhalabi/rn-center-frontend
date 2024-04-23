@@ -22,7 +22,7 @@ const page = () => {
 
   const [phonesNum, setPhonesNum] = useState(1);
 
-  const [response, setResponse] = useState<any>(undefined);
+  const [, setResponse] = useState<any>(undefined);
 
   const methods = useForm();
   const onSubmit: SubmitHandler<any> = async (data) => {
@@ -142,6 +142,7 @@ const page = () => {
                       : "w-full rounded-lg border-gray-200 shadow-md p-4 pe-12 text-sm  focus:outline-blue-500"
                   }
                 >
+                  //TODO::remember to use the select city compnent
                   <option value="">Please select your city</option>
                   <option value="بغداد">بغداد</option>
                   <option value="نينوى">نينوى</option>

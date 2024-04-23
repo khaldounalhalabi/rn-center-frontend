@@ -1,19 +1,11 @@
 import { BaseService } from "@/services/BaseService";
 import { User } from "@/Models/User";
-import { AuthService } from "@/services/AuthService";
 import { DELETE } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 
 export class UserService extends BaseService<User | string> {
-  public static make(): UserService {
-    if (!this.instance) {
-      this.instance = new this();
-    }
-    this.instance.actor = AuthService.getCurrentActor();
-
-    this.instance.setBaseUrl(`${this.instance.actor}/users`);
-
-    return this.instance;
+  getBaseUrl(): string {
+    return `${this.actor}/users`;
   }
 
   public toggleArchive = async (userId: number | undefined) => {

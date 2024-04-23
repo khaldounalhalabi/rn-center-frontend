@@ -12,14 +12,16 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ClinicService } from "@/services/ClinicService";
 import Form from "@/components/common/ui/Form";
-import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
-import { navigate } from "@/Actions/navigate";
+import { AddOrUpdateClinicForm } from "@/Models/Clinic";
 import { ApiResponse } from "@/Http/Response";
 import { Hospital } from "@/Models/Hospital";
 import { Speciality } from "@/Models/Speciality";
 import { City } from "@/Models/City";
 import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
+import Gallery from "@/components/common/ui/Gallery";
+import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
+import {navigate} from "@/Actions/navigate";
 
 const ClinicForm = ({
   type = "store",
@@ -31,23 +33,22 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
-    return await ClinicService.make().store(data);
+    return await ClinicService.make<ClinicService>().store(data);
   };
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      return await ClinicService.make().update(id, data);
+      return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
-  const t = useTranslations('clinic.create-edit');
-
+  const t = useTranslations("clinic.create-edit");
   return (
     <Form
       handleSubmit={onSubmit}
       defaultValues={defaultValues}
-      onSuccess={(res: ApiResponse<Clinic>) =>
-        navigate(`/admin/clinics/${res?.data?.id}`)
-      }
+      onSuccess={() => {
+        navigate(`/admin/clinics`);
+      }}
     >
       <Grid md={3}>
         <TranslatableInput
@@ -121,7 +122,7 @@ const ClinicForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Doctor Max Appointments Per Day Are ?"}
-          label={t("max-appoiintments")}
+          label={t("max-appointments")}
         />
       </Grid>
 
@@ -182,12 +183,12 @@ const ClinicForm = ({
         </div>
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<Hospital[]>> =>
-            await HospitalService.make().indexWithPagination(
+            await HospitalService.make<HospitalService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           getLabel={(option: Hospital) => translate(option.name)}
@@ -199,12 +200,12 @@ const ClinicForm = ({
 
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<Speciality[]>> =>
-            await SpecialityService.make().indexWithPagination(
+            await SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           isMultiple={true}
@@ -219,12 +220,12 @@ const ClinicForm = ({
 
         <SelectPaginated
           api={async (page, search): Promise<ApiResponse<City[]>> =>
-            await CityService.make().indexWithPagination(
+            await CityService.make<CityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50
+              50,
             )
           }
           getLabel={(option: City) => translate(option.name)}
@@ -240,21 +241,27 @@ const ClinicForm = ({
           label={t("address")}
         />
 
-        <Input
-          name={"address.lat"}
-          type={"number"}
-          step={"any"}
-          label={t("latitude")}
+        <TextAreaMap
+          className={"col-span-2"}
+          name="address.map_iframe"
+          label={"Map iframe"}
+          defaultValue={defaultValues?.address?.map_iframe ?? []}
         />
-
-        <Input
-          name={"address.lng"}
-          type={"number"}
-          step={"any"}
-          label={t("longitude")}
-        />
+        {type == "update" ? (
+          defaultValues?.user?.image.length > 0 ? (
+            <Gallery
+              media={
+                defaultValues?.user?.image ? defaultValues?.user?.image : [""]
+              }
+            />
+          ) : (
+            <div className="flex items-center justify-between">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Image</span>
+            </div>
+          )
+        ) : ""}
       </Grid>
-
       <ImageUploader name={"user.image"} />
 
       <div className={`flex justify-center items-center`}>

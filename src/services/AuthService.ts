@@ -2,97 +2,106 @@ import { navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { getCookieServer, setServerCookie } from "@/Actions/serverCookies";
-import {POST} from "@/Http/Http";
+import { GET, POST } from "@/Http/Http";
 
-
-export  class  AuthService {
-
-  async locale() {
-    return await getCookieServer("locale")
-  }
+export class AuthService {
+  private locale: string = "en";
 
   public static instance?: AuthService | undefined | null;
   public successStatus: boolean = false;
+
   public static make() {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService();
     }
+
     AuthService.instance.successStatus = false;
+
+    getCookieServer("NEXT_LOCALE").then((value) => {
+      if (AuthService.instance) {
+        AuthService.instance.locale = value ?? "en";
+      }
+    });
+
     return AuthService.instance;
   }
 
   public async login(url: string, dataForm: object, pageType: string) {
-    const response = await POST(url, dataForm).then(
-      (res: ApiResponse<AuthResponse>) => {
-        if (res.code == 200) {
-          setServerCookie("token", res?.data?.token ?? "");
-          setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
-          this.successStatus = true;
-        }
+    const response = await POST<AuthResponse>(url, dataForm).then(
+        (res: ApiResponse<AuthResponse>) => {
+          if (res.code == 200) {
+            setServerCookie("token", res?.data?.token ?? "");
+            setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
+            this.successStatus = true;
+          }
 
-        return res;
-      },
+          return res;
+        },
     );
+    if (this.successStatus) await navigate(`/${this.locale}/${pageType}`);
 
-    if (this.successStatus) await navigate(`/${this.locale()}/${pageType}`);
+    const userType = await AuthService.getCurrentActor();
+    await setServerCookie("user-type", userType);
 
     return response;
   }
 
   public async submitResetCode(
-    url: string,
-    dataForm: object,
-    pageType: string,
+      url: string,
+      dataForm: object,
+      pageType: string,
   ) {
-    const response = await POST(url, dataForm).then((e) => {
+    const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
       return e;
     });
-
+    const locale = await getCookieServer("NEXT_LOCALE");
     if (this.successStatus)
-      await navigate(`/${this.locale()}/auth/${pageType}/set-new-password`);
+      await navigate(`/${locale}/auth/${pageType}/set-new-password`);
 
     return response;
   }
 
   public async requestResetPasswordRequest(
-    url: string,
-    dataForm: object,
-    typePage: string,
+      url: string,
+      dataForm: object,
+      typePage: string,
   ) {
-    const response = await POST(url, dataForm).then((e) => {
+    const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
       return e;
     });
-
+    const locale = await getCookieServer("NEXT_LOCALE");
     if (this.successStatus)
-      await navigate(`/${this.locale()}/auth/${typePage}/reset-password-code`);
+      await navigate(`/${locale}/auth/${typePage}/reset-password-code`);
 
     return response;
   }
 
   public async setNewPassword(url: string, dataForm: object, pageType: string) {
-    const response = await POST(url, dataForm).then((e) => {
+    const response = await POST<boolean>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
       return e;
     });
-
-    if (this.successStatus) await navigate(`/${this.locale()}/auth/${pageType}/login`);
+    const locale = await getCookieServer("NEXT_LOCALE");
+    if (this.successStatus) await navigate(`/${locale}/auth/${pageType}/login`);
     return response;
   }
 
   public async requestVerificationCode(url: string, dataForm: object) {
-    const response = await POST(url, dataForm).then((e) => {
+    const response = await POST<boolean>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
       return e;
     });
+    const locale = await getCookieServer("NEXT_LOCALE");
 
-    if (this.successStatus) await navigate(`/${this.locale()}/customer`);
+    if (this.successStatus) await navigate(`/${locale}/customer`);
 
     return response;
   }
 
-  public static getCurrentActor() {
-    return "admin";
+  public static async getCurrentActor() {
+    const res = await GET<string>("/check-role");
+    return res.data;
   }
 }

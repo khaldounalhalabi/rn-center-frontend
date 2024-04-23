@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
@@ -71,7 +71,6 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                   confirmButtonColor: "#007BFF",
                 })
                 .then((result) => {
-                  /* Read more about isConfirmed, isDenied below */
                   if (result.isConfirmed) {
                     if (dataId) {
                       BaseService.make()

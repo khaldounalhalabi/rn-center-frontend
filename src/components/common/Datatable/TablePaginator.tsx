@@ -16,16 +16,16 @@ const TablePaginator = ({
 }) => {
   const paginationArray = [...Array(data?.paginate?.total_pages ?? 0)];
   return (
-    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2 flex justify-between">
+    <div className="flex justify-between border-gray-200 px-4 py-2 border-t rounded-b-lg">
       <div className={"justify-start"}>
         Total Pages : {data?.paginate?.total}
       </div>
-      <ol className="flex justify-end items-center gap-1 text-xs font-medium">
+      <ol className="flex justify-end items-center gap-1 font-medium text-xs">
         <li>
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={page === 0}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 cursor-pointer"
+            disabled={page === 1}
+            className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 cursor-pointer size-8 rtl:rotate-180"
           >
             <span className="sr-only">Prev Page</span>
             <ChevronLeft />
@@ -44,12 +44,28 @@ const TablePaginator = ({
                 </button>
               </li>
             );
-          } else
+          } else if (
+            (index === 3 && page > 5) ||
+            (index === paginationArray.length - 2 &&
+              page < paginationArray.length - 4)
+          ) {
             return (
               <li key={`page-${index + 1}`}>
-                <span>.</span>
+                <span>...</span>
               </li>
             );
+          } else if (index >= page - 2 && index <= page + 1) {
+            return (
+              <li key={`page-${index + 1}`}>
+                <button
+                  onClick={() => setPage(index + 1)}
+                  className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            );
+          } else return null;
         })}
         <li>
           <button
@@ -59,7 +75,7 @@ const TablePaginator = ({
               }
             }}
             disabled={placeholderData && data?.paginate?.isLast}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 cursor-pointer"
+            className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 cursor-pointer size-8 rtl:rotate-180"
           >
             <span className="sr-only">Next Page</span>
             <ChevronRight />

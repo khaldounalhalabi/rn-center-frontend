@@ -8,7 +8,9 @@ const page = async ({
 }: {
   params: { specialityId: number };
 }) => {
-  const speciality = (await SpecialityService.make().show(specialityId)).data;
+  const speciality = (
+    await SpecialityService.make<SpecialityService>().show(specialityId)
+  ).data;
   return (
     <PageCard>
       <h2 className="card-title">Edit Speciality</h2>

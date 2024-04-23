@@ -6,16 +6,15 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import {translate} from "@/Helpers/Translations";import ArchiveIcon from "@/components/icons/ArchiveIcon";
+import { translate } from "@/Helpers/Translations";
+import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
-import { BaseService } from "@/services/BaseService";
 import { UserService } from "@/services/UserService";
-import { getCookieClient } from "@/Actions/clientCookies";
-const locale = getCookieClient('locale')
+
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
 
-  createUrl: `/${locale}/admin/clinics/create`,
+  createUrl: `/admin/clinics/create`,
   schema: [
     {
       name: "user.first_name",
@@ -72,11 +71,11 @@ const dataTableData: DataTableData<Clinic> = {
         <ActionsButtons
           id={clinic?.id}
           buttons={["edit", "show"]}
-          baseUrl={`/${locale}/admin/clinics`}
+          baseUrl={`/admin/clinics`}
         >
-          <button className="btn btn-square btn-sm">
+          <button className="btn btn-sm btn-square">
             <ArchiveIcon
-              className="h-6 w-6 text-warning"
+              className="w-6 h-6 text-warning"
               onClick={() => {
                 swal
                   .fire({
@@ -92,7 +91,7 @@ const dataTableData: DataTableData<Clinic> = {
                   .then((result) => {
                     if (result.isConfirmed) {
                       if (clinic?.user) {
-                        UserService.make()
+                        UserService.make<UserService>()
                           .toggleArchive(clinic?.user_id)
                           .then((res) => {
                             swal.fire({
@@ -106,7 +105,6 @@ const dataTableData: DataTableData<Clinic> = {
                             if (revalidate) revalidate();
                           })
                           .catch((e) => {
-                            console.log(e);
                             swal.fire("There Is Been An Error", "", "error");
                           });
                       }
@@ -120,7 +118,7 @@ const dataTableData: DataTableData<Clinic> = {
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicService.make().indexWithPagination(
+    await ClinicService.make<ClinicService>().indexWithPagination(
       page,
       search,
       sortCol,

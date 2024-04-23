@@ -10,7 +10,7 @@ const Page = async ({
   params: { clinicId: number };
 }) => {
   const schedules: ApiResponse<any> =
-    await ScheduleService.make().getClinicSchedules(clinicId);
+    await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
 
   const defaultValues: ScheduleResponse = {
     clinic_id: clinicId,

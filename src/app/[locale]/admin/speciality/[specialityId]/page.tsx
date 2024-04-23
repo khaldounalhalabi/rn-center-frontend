@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
@@ -11,7 +11,8 @@ const page = async ({
 }: {
   params: { specialityId: number };
 }) => {
-  const data = await SpecialityService.make().show(specialityId);
+  const data =
+    await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: AddSpeciality = data?.data;
   const tagsArray = res?.tags.split(",");
   return (

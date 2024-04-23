@@ -16,6 +16,9 @@ import {
   SchedulesGroupedByDay,
   StoreScheduleRequest,
 } from "@/Models/Schedule";
+import TimePicker from "@/components/common/ui/TimePicker";
+import Copy from "@/components/icons/Copy";
+import {redirect} from "@/i18Router";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -42,7 +45,7 @@ const ScheduleForm = ({
       },
     );
     data.schedules = schedules;
-    return await ScheduleService.make().store(data);
+    return await ScheduleService.make<ScheduleService>().store(data);
   };
 
   return (
@@ -61,7 +64,7 @@ const ScheduleForm = ({
                 <SelectPaginated
                   name={"clinic_id"}
                   api={async (page, search) =>
-                    await ClinicService.make().indexWithPagination(
+                    await ClinicService.make<ClinicService>().indexWithPagination(
                       page,
                       search,
                       undefined,
@@ -129,24 +132,19 @@ const TimeRange = ({
                 className={"flex flex-col md:flex-row items-center gap-1"}
                 key={index}
               >
-                <Input
-                  name={`schedules[${day}][${index}][start_time]`}
-                  type={"time"}
-                  defaultValue={
-                    defaultValue && defaultValue.length > index
-                      ? defaultValue[index]?.start_time
-                      : undefined
-                  }
-                />
-                <Input
-                  name={`schedules[${day}][${index}][end_time]`}
-                  type={"time"}
-                  defaultValue={
-                    defaultValue && defaultValue.length > index
-                      ? defaultValue[index]?.end_time
-                      : undefined
-                  }
-                />
+                <TimePicker  name={`schedules[${day}][${index}][start_time]`}
+                             defaultValue={
+                               defaultValue && defaultValue.length > index
+                                   ? defaultValue[index]?.start_time
+                                   : undefined
+                             }/>
+               <TimePicker name={`schedules[${day}][${index}][end_time]`}
+                           defaultValue={
+                             defaultValue && defaultValue.length > index
+                                 ? defaultValue[index]?.end_time
+                                 : undefined
+                           }/>
+
                 <button
                   type={"button"}
                   className={"text-error"}
@@ -154,6 +152,7 @@ const TimeRange = ({
                 >
                   <Trash className={"h-6 w-6"} />
                 </button>
+
                 <Input
                   name={`schedules[${day}][${index}][day_of_week]`}
                   type={"text"}
@@ -166,14 +165,26 @@ const TimeRange = ({
           })}
         </div>
       </div>
-      <div className={"flex gap-2 p-1 border rounded-md border-pom"}>
-        <button
-          type={"button"}
-          className={"text-pom"}
-          onClick={() => setInputs((prevState) => prevState + 1)}
-        >
-          <PlusIcon />
-        </button>
+      <div className={'flex'}>
+        <div className={"flex gap-2 p-1 border rounded-md border-pom mr-2"}>
+          <button
+              type={"button"}
+              className={"text-pom"}
+              onClick={() => setInputs((prevState) => prevState + 1)}
+          >
+            <PlusIcon />
+          </button>
+
+        </div>
+        <div className={"flex gap-2 p-1 border rounded-md border-pom"}>
+          <button
+              type={"button"}
+              className={"text-pom"}
+
+          >
+            <Copy className={"h-6 w-6 fill-[#409cff]"}/>
+          </button>
+        </div>
       </div>
     </div>
   );

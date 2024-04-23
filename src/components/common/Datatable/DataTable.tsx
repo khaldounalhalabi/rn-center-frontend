@@ -5,7 +5,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import TableHead from "@/components/common/Datatable/TableHead";
 import TableBody from "@/components/common/Datatable/TableBody";
 import TablePaginator from "@/components/common/Datatable/TablePaginator";

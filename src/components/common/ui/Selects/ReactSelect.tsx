@@ -37,7 +37,6 @@ const ReactSelect: React.FC<SelectProps<any>> = ({
     } else setValue(name, selected[0]);
   }
   const loadedOptions = api().then((data) => {
-    console.log(data);
     return data.data;
   });
   return (

@@ -1,3 +1,4 @@
+import { Address } from "./Address";
 import { Department } from "./Departments";
 import { Media } from "./Media";
 import { Phone } from "./Phone";
@@ -8,12 +9,15 @@ export interface Hospital {
   phones?: Phone[];
   available_departments?: Department[];
   images?: Media[];
+  address?: Address;
 }
 
 export interface AddHospital {
   id?: number;
   name: string;
   phone_numbers: string[];
-  available_departments: any;
-  images?: any;
+  available_departments?: Department[] | number[];
+  photos?: Media[] | string[];
+  address?: Address;
+  images?: Media[];
 }

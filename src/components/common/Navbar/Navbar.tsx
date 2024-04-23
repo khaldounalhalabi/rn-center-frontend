@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import SearchIcon from "@/components/icons/SearchIcon";
 import MenuIcon from "@/components/icons/MenuIcon";
-import SearchForm from "@/components/common/Navbar/SearchForm";
+import Searchbar from "@/components/common/Navbar/Searchbar";
 import NotificationsPopover from "@/components/common/Navbar/NotificationsPopover";
 import ProfileOptionsPopover from "@/components/common/Navbar/ProfileOptionsPopover";
 import LanguagePopover from "@/components/common/Navbar/languagePopover";
@@ -15,7 +15,7 @@ const Navbar = ({
   openNavBar: boolean;
   setOpenNavBar: React.Dispatch<boolean>;
 }) => {
-  const [showSearchForm, setShowSerchForm] = useState<boolean>(false);
+  const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
 
   return (
     <nav
@@ -28,7 +28,7 @@ const Navbar = ({
             : "w-full h-0 absolute overflow-clip translate-y-[-200px] ease-in-out duration-300"
         }
       >
-        <SearchForm setShowSearchForm={setShowSerchForm} />
+        <Searchbar setShowSearchForm={setShowSearchForm} />
       </div>
       <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
         <MenuIcon
@@ -38,7 +38,7 @@ const Navbar = ({
         <SearchIcon
           className={`h-6 w-6 cursor-pointer`}
           onClick={() => {
-            OpenAndClose(showSearchForm, setShowSerchForm);
+            OpenAndClose(showSearchForm, setShowSearchForm);
           }}
         />
       </div>

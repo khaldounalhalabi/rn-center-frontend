@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {Link} from "@/i18Router";
 
 const SidebarItem = ({
   link = "#",
@@ -11,7 +11,7 @@ const SidebarItem = ({
   children: ReactNode;
 }) => {
   const pathname = usePathname();
-  let active: string = "";
+  let active: string;
   if (pathname == link) {
     active = "bg-blue-100 text-blue-500 hover:text-blue-600 hover:bg-blue-200";
   } else {

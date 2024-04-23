@@ -1,14 +1,20 @@
 import ImagePreview from "./ImagePreview";
 import { Media, getMedia } from "@/Models/Media";
 
-const Gallery = ({ media }: { media: Media[] }) => {
-  const colse = parseInt(media.length /2);
+const Gallery = ({ media }: { media: Media[] | string[] }) => {
+  const cols =
+    parseInt(`${media.length / 2} `) != 1
+      ? parseInt(`${media.length / 2} `)
+      : 2;
+
   return (
-    <div className={`gap-5 grid grid-cols-${parseInt(colse /2)} md:grid-cols-${colse} w-full`}>
+    <div
+      className={`gap-5 grid grid-cols-${parseInt(`${cols / 2}`)} md:grid-cols-${cols} w-full`}
+    >
       {media.map((img, index) => (
         <div key={index} className="h-32">
           <ImagePreview
-            src={getMedia(img)}
+            src={typeof img == "string" ? img : getMedia(img)}
             className={"h-full w-full object-cover rounded-md cursor-pointer"}
           />
         </div>

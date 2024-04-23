@@ -8,7 +8,9 @@ const page = async ({
 }: {
   params: { holidayId: number };
 }) => {
-  const holiday = (await ClinicHolidayService.make().show(holidayId)).data;
+  const holiday = (
+    await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId)
+  ).data;
   return (
     <PageCard>
       <h2 className="card-title">Edit Holidays</h2>

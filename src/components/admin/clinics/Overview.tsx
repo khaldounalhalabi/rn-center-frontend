@@ -1,6 +1,7 @@
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
 import { translate } from "@/Helpers/Translations";
+import MapIFrame from "@/components/common/ui/MapIFrame";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
   return (
@@ -97,8 +98,9 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}
           defaultValue={clinic?.about_us}
-        ></textarea>
+        />
       </div>
+      <MapIFrame iframe={clinic?.user?.address?.map_iframe} />
     </div>
   );
 };

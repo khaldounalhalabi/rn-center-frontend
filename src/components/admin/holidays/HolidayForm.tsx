@@ -5,12 +5,13 @@ import { ClinicService } from "@/services/ClinicService";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
-import TranslatableTextArea from "@/components/common/ui/TranslatableTextArea";
-import { AddHolidayes } from "@/services/AddHolidayes";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
+import { ApiResponse } from "@/Http/Response";
+import { Clinic } from "@/Models/Clinic";
+import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -22,9 +23,14 @@ const HolidayForm = ({
 }) => {
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return ClinicHolidayService.make().update(defaultValues.id, data);
+      return ClinicHolidayService.make<ClinicHolidayService>().update(
+        defaultValues.id,
+        data,
+      );
     } else {
-      return await AddHolidayes.make().store(data);
+      return await ClinicHolidayService.make<ClinicHolidayService>().store(
+        data,
+      );
     }
   };
 
@@ -38,10 +44,10 @@ const HolidayForm = ({
       defaultValues={defaultValues}
     >
       {type == "store" ? (
-        <div className="w-full md:w-1/2 my-2">
+        <div className="my-2 w-full md:w-1/2">
           <SelectPaginated
-            api={async (page, search) =>
-              await ClinicService.make().indexWithPagination(
+            api={async (page, search): Promise<ApiResponse<Clinic[]>> =>
+              await ClinicService.make<ClinicService>().indexWithPagination(
                 page,
                 search,
                 undefined,

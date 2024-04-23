@@ -1,39 +1,39 @@
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
-import { navigate } from "@/Actions/navigate";
-import { AuthService } from "@/services/AuthService";
+import { redirect } from "@/i18Router";
+import { Actors } from "@/types";
 
 export class BaseService<T> {
   public baseUrl = "/";
-  public actor = "clinic";
+  public actor: string = "customer";
+  protected static instance?: BaseService<any>;
 
-  public static instance?: any | null | undefined = null;
+  protected constructor() {}
 
-  constructor() {}
-
-  public static make(): BaseService<any> {
+  public static make<Service extends BaseService<any>>(
+    actor: Actors = "admin",
+  ): Service {
     if (!this.instance) {
       this.instance = new this();
     }
-
-    this.instance.actor = AuthService.getCurrentActor();
+    this.instance.actor = actor;
 
     this.instance.baseUrl = this.instance.getBaseUrl();
 
-    return this.instance;
+    return this.instance as Service;
   }
 
   public getBaseUrl() {
     return "/";
   }
 
-  public setBaseUrl(url: string) {
+  public setBaseUrl(url: string): BaseService<T> {
     this.baseUrl = url;
     return this;
   }
 
   public async all(): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET(this.baseUrl + "/all");
+    const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl + "/all");
     return await this.errorHandler(res);
   }
 
@@ -45,7 +45,7 @@ export class BaseService<T> {
     per_page?: number,
     params?: object,
   ): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET(this.baseUrl, {
+    const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
       page: page,
       search: search,
       sort_col: sortCol,
@@ -58,47 +58,60 @@ export class BaseService<T> {
   }
 
   public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
-    const res = await POST(this.baseUrl, data, headers);
+    const res: ApiResponse<T> = await POST<T>(this.baseUrl, data, headers);
     return await this.errorHandler(res);
   }
 
-  public async delete(id?: number): Promise<ApiResponse<T>> {
-    let res;
+  public async delete(id?: number): Promise<ApiResponse<boolean>> {
+    if (!id) {
+      await redirect("/404");
+    }
+    let res: ApiResponse<boolean>;
     if (id) {
-      res = await DELETE(this.baseUrl + "/" + id);
-    } else res = await DELETE(this.baseUrl);
+      res = await DELETE<boolean>(this.baseUrl + "/" + id);
+    } else res = await DELETE<boolean>(this.baseUrl);
     return await this.errorHandler(res);
   }
 
-  public async show(id: number): Promise<ApiResponse<T>> {
-    const res = await GET(this.baseUrl + "/" + id);
+  public async show(id?: number): Promise<ApiResponse<T>> {
+    if (!id) {
+      await redirect("/404");
+    }
+    const res = await GET<T>(this.baseUrl + "/" + id);
     if (res.code == 404) {
-      await navigate("/404");
+      await redirect("/404");
     }
     return await this.errorHandler(res);
   }
 
-  public async update(id: number, data: any, headers?: object) {
-    const res = await PUT(this.baseUrl + "/" + id, data, headers);
+  public async update(
+    id?: number,
+    data?: any,
+    headers?: object,
+  ): Promise<ApiResponse<T>> {
+    if (!id) {
+      await redirect("/404");
+    }
+    const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
     if (res.code == 404) {
-      await navigate("/404");
+      await redirect("/404");
     }
     return await this.errorHandler(res);
   }
 
-  public async errorHandler(
-    res: ApiResponse<T>,
-  ): Promise<Promise<ApiResponse<T>>>;
+  public async errorHandler<ResType>(
+    res: ApiResponse<ResType>,
+  ): Promise<Promise<ApiResponse<ResType>>>;
 
-  public async errorHandler(
-    res: ApiResponse<T[]>,
-  ): Promise<Promise<ApiResponse<T[]>>>;
+  public async errorHandler<ResType>(
+    res: ApiResponse<ResType[]>,
+  ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler(
     res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
-      await navigate("/auth/admin/login");
+      await redirect("/auth/admin/login");
     }
     return res;
   }

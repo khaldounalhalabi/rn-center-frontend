@@ -5,14 +5,11 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import Link from "next/link";
+import { Link } from "@/i18Router";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { getCookieClient } from "@/Actions/clientCookies";
 
-
-const locale = getCookieClient('locale')
 const tableData: DataTableData<ClinicHoliday> = {
-  createUrl: `/${locale}/admin/clinics/holidays/create`,
+  createUrl: `/admin/clinics/holidays/create`,
   title: "Clinics Holidays",
   schema: [
     {
@@ -23,7 +20,7 @@ const tableData: DataTableData<ClinicHoliday> = {
       render: (data, holiday) => {
         return (
           <Link
-            href={`/${locale}/admin/clinics/${holiday?.clinic?.id}`}
+            href={`/admin/clinics/${holiday?.clinic?.id}`}
             className={`btn btn-ghost p-1 w-full`}
           >
             {data}
@@ -53,16 +50,16 @@ const tableData: DataTableData<ClinicHoliday> = {
         <ActionsButtons
           id={data?.id}
           buttons={["edit", "delete", "show"]}
-          baseUrl={`/${locale}/admin/clinic-holidays`}
-          editUrl={`/${locale}/admin/clinics/holidays/${data?.id}/edit`}
-          showUrl={`/${locale}/admin/clinics/holidays/${data?.id}`}
+          baseUrl={`/admin/clinic-holidays`}
+          editUrl={`/admin/clinics/holidays/${data?.id}/edit`}
+          showUrl={`/admin/clinics/holidays/${data?.id}`}
           setHidden={setHidden}
         />
       ),
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicHolidayService.make().indexWithPagination(
+    await ClinicHolidayService.make<ClinicHolidayService>().indexWithPagination(
       page,
       search,
       sortCol,
@@ -71,37 +68,37 @@ const tableData: DataTableData<ClinicHoliday> = {
       params,
     ),
 
-    filter: (params, setParams) => {
-        return (
-            <div className={"w-full grid grid-cols-1"}>
-                <label className={"label"}>
-                    Start Date :
-                    <input
-                        type="date"
-                        className={"input input-bordered input-sm"}
-                        defaultChecked={params.start_date}
-                        onChange={(event) => {
-                            setParams({ ...params, start_date: event.target.value });
-                        }}
-                    />
-                </label>
-                <label className={`label`}>
-                    End Date :
-                    <input
-                        type="date"
-                        className={"input input-bordered input-sm"}
-                        defaultChecked={params.end_date}
-                        onChange={(event) => {
-                            setParams({ ...params, end_date: event.target.value });
-                        }}
-                    />
-                </label>
-            </div>
-        );
-    },
+  filter: (params, setParams) => {
+    return (
+      <div className={"w-full grid grid-cols-1"}>
+        <label className={"label"}>
+          Start Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.start_date}
+            onChange={(event) => {
+              setParams({ ...params, start_date: event.target.value });
+            }}
+          />
+        </label>
+        <label className={`label`}>
+          End Date :
+          <input
+            type="date"
+            className={"input input-bordered input-sm"}
+            defaultChecked={params.end_date}
+            onChange={(event) => {
+              setParams({ ...params, end_date: event.target.value });
+            }}
+          />
+        </label>
+      </div>
+    );
+  },
 };
 const Page = () => {
-    return <DataTable {...tableData} />;
+  return <DataTable {...tableData} />;
 };
 
 export default Page;

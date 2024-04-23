@@ -1,10 +1,9 @@
 import React from "react";
-import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
-import { useRouter } from 'next/navigation';
-import { getCookieClient } from "@/Actions/clientCookies";
+import { Link } from "@/i18Router";
+import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 
 const Sidebar = ({
   openNavBar,
@@ -16,7 +15,6 @@ const Sidebar = ({
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
-  const router = getCookieClient('locale')
   return (
     <div
       className={`md:block w-full  md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e md:bg-white ${
@@ -46,19 +44,26 @@ const Sidebar = ({
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
         <ul className="mt-6 space-y-1 text-black">
-          <SidebarItem link={`/${router}/admin`}>Dashboard</SidebarItem>
+          <SidebarItem link={"/admin"}> Dashboard</SidebarItem>
           <SidebarCompactItem title={"Clinics Management"}>
-            <SidebarItem link={`/${router}/admin/clinics`}>Clinics</SidebarItem>
-            <SidebarItem link={`/${router}/admin/clinics/schedules`}>
+            <div className="flex flex-col">
+              <SidebarItem link={"/admin/clinics"}> Clinics</SidebarItem>
+              <SidebarItem link={"/admin/clinics/schedules"}>
+                Clinics Schedules
+              </SidebarItem>
+              <SidebarItem link={"/admin/clinics/holidays"}>
+                Clinics Holidays
+              </SidebarItem>
+            </div>
+          </SidebarCompactItem>
+          <div className="flex flex-col">
+            <SidebarItem link={"/admin/speciality"}>
               Clinics Schedules
             </SidebarItem>
-            <SidebarItem link={`/${router}/admin/clinics/holidays`}>
-              Clinics Holidays
+            <SidebarItem link={"/admin/hospitals"}>
+              Clinics Hospitals
             </SidebarItem>
-          </SidebarCompactItem>
-          <SidebarItem link={"/admin/speciality"}>Speciality</SidebarItem>
-          <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
-
+          </div>
         </ul>
       </div>
     </div>

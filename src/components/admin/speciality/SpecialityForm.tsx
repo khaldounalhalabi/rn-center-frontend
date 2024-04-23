@@ -3,11 +3,12 @@ import Form from "@/components/common/ui/Form";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import React from "react";
 import { AddSpeciality } from "@/Models/Speciality";
-import Textarea from "@/components/common/ui/Textarea";
+import Textarea from "@/components/common/ui/textArea/Textarea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { navigate } from "@/Actions/navigate";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
+import { redirect } from "@/i18Router";
+import { navigate } from "@/Actions/navigate";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -23,12 +24,12 @@ const SpecialityForm = ({
       type == "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return await SpecialityService.make().update(
+      return await SpecialityService.make<SpecialityService>().update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
-      return await SpecialityService.make().store(data);
+      return await SpecialityService.make<SpecialityService>().store(data);
     }
   };
   const onSuccess = () => {
@@ -57,7 +58,7 @@ const SpecialityForm = ({
         <Textarea
           name={"description"}
           label={"Description : "}
-          defaultValue={array ? array : []}
+          defaultValue={array ?? []}
         />
       </div>
       <div className="flex justify-center my-3">

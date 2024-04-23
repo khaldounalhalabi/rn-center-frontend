@@ -2,7 +2,7 @@ import { ApiResponse } from "@/Http/Response";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
-import {translate} from "@/Helpers/Translations";
+import { translate } from "@/Helpers/Translations";
 
 const TableBody = ({
   tableData,
@@ -57,7 +57,7 @@ const TableBody = ({
                               "No Data",
                         item,
                         setHidden,
-                        revalidate,
+                        revalidate
                       )}
                     </td>
                   );

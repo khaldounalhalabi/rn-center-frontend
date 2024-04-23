@@ -1,16 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
-import Link from "next/link";
-import { translate } from "@/Helpers/ObjectHelpers";
+import { Link } from "@/i18Router";
+
 import WeekDaySelect from "@/components/common/WeekDaySelect";
-import { getCookieClient } from "@/Actions/clientCookies";
-const locale = getCookieClient('locale')
+import { translate } from "@/Helpers/Translations";
+
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -21,7 +21,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       render: (_data, clinic) => {
         return (
           <Link
-            href={`/${locale}/admin/clinics/${clinic?.id}`}
+            href={`/admin/clinics/${clinic?.id}`}
             className={`flex flex-col items-start btn btn-ghost p-1`}
           >
             <p>
@@ -48,16 +48,16 @@ const dataTableSchema: DataTableData<Clinic> = {
         <ActionsButtons
           id={clinic?.id}
           buttons={["edit", "delete"]}
-          baseUrl={`/${locale}/admin/clinics/schedules`}
+          baseUrl={`/admin/clinics/schedules`}
           setHidden={setHidden}
-          deleteUrl={`/${locale}/admin/clinics/${clinic?.id}`}
-          editUrl={`/${locale}/admin/clinics/schedules/${clinic?.id}`}
+          deleteUrl={`/admin/clinics/${clinic?.id}`}
+          editUrl={`/admin/clinics/schedules/${clinic?.id}`}
         />
       ),
     },
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await ClinicService.make().indexWithPagination(
+    await ClinicService.make<ClinicService>().indexWithPagination(
       page,
       search,
       sortCol,
@@ -65,7 +65,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       perPage,
       params,
     ),
-  createUrl: `/${locale}/admin/clinics/schedules/create`,
+  createUrl: `/admin/clinics/schedules/create`,
   title: "Clinic Schedules",
   filter: (params, setParams) => {
     return (

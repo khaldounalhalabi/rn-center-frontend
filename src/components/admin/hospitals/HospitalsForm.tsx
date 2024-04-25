@@ -84,6 +84,7 @@ const HospitalsForm = ({
           }
           label="Available Departments"
           name="available_departments"
+          closeOnSelect={false}
         />
       </Grid>
 

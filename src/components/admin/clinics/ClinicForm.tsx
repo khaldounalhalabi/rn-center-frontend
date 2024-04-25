@@ -216,6 +216,7 @@ const ClinicForm = ({
           optionValue={"id"}
           defaultValues={defaultValues?.specialities ?? []}
           isMultiple={true}
+          closeOnSelect={false}
         />
 
         <ApiSelect

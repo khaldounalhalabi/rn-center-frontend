@@ -21,7 +21,7 @@ import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
-import {navigate} from "@/Actions/navigate";
+import { navigate } from "@/Actions/navigate";
 
 const ClinicForm = ({
   type = "store",
@@ -245,7 +245,6 @@ const ClinicForm = ({
           className={"col-span-2"}
           name="address.map_iframe"
           label={"Map iframe"}
-          defaultValue={defaultValues?.address?.map_iframe ?? []}
         />
         {type == "update" ? (
           defaultValues?.user?.image.length > 0 ? (
@@ -260,7 +259,9 @@ const ClinicForm = ({
               <span className="text-lg badge badge-neutral">No Image</span>
             </div>
           )
-        ) : ""}
+        ) : (
+          ""
+        )}
       </Grid>
       <ImageUploader name={"user.image"} />
 

@@ -8,7 +8,6 @@ interface textAreaType {
   name: string;
   props?: any[];
   dir?: string;
-  defaultValue?: string;
 }
 
 const TextAreaMap: React.FC<textAreaType> = ({
@@ -16,7 +15,7 @@ const TextAreaMap: React.FC<textAreaType> = ({
   label,
   name,
   dir,
-  defaultValue,
+
   ...props
 }) => {
   const {

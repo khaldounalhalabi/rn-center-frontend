@@ -58,10 +58,16 @@ const Sidebar = ({
           </SidebarCompactItem>
           <div className="flex flex-col">
             <SidebarItem link={"/admin/speciality"}>
-              Clinics Schedules
+              Clinics Specialty
             </SidebarItem>
             <SidebarItem link={"/admin/hospitals"}>
               Clinics Hospitals
+            </SidebarItem>
+            <SidebarItem link={"/admin/category"}>
+              Services Category
+            </SidebarItem>
+            <SidebarItem link={"/admin/service"}>
+              Services Service
             </SidebarItem>
           </div>
         </ul>

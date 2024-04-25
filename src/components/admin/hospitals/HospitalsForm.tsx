@@ -141,7 +141,6 @@ const HospitalsForm = ({
         className={"col-span-2"}
         name="address.map_iframe"
         label={"Map iframe"}
-        defaultValue={defaultValues?.address?.map_iframe}
       />
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>

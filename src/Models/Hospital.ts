@@ -16,7 +16,7 @@ export interface AddHospital {
   id?: number;
   name: string;
   phone_numbers: string[];
-  available_departments?: Department[] | number[];
+  available_departments?: Department[];
   photos?: Media[] | string[];
   address?: Address;
   images?: Media[];

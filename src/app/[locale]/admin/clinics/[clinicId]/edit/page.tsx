@@ -18,15 +18,18 @@ const Page = async ({
     ...clinic,
     user: {
       ...clinic?.user,
+      photo: clinic?.user?.image,
+      image: [],
     },
     phone_numbers: clinic?.user?.phones.map((ph) => ph.phone),
     address: {
       ...clinic?.user?.address,
       city_id: clinic?.user?.address?.city_id,
-      map_iframe:clinic.user.address.map_iframe
+      map_iframe: clinic.user.address.map_iframe,
     },
     speciality_ids: clinic?.specialities?.map((spec) => spec.id),
     hospital_id: clinic?.hospital_id,
+    specialities: clinic?.specialities,
   };
   return (
     <PageCard>

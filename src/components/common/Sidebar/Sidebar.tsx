@@ -24,7 +24,7 @@ const Sidebar = ({
       }`}
     >
       <div className="px-4 py-6">
-        <span className="flex items-center justify-between h-10 place-content-center rounded-lg text-xs ">
+        <span className="flex justify-between items-center place-content-center rounded-lg h-10 text-xs">
           {/*Logo*/}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ const Sidebar = ({
           </svg>
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
-        <ul className="mt-6 space-y-1 text-black">
+        <ul className="space-y-1 mt-6 text-black">
           <SidebarItem link={"/admin"}> Dashboard</SidebarItem>
           <SidebarCompactItem title={"Clinics Management"}>
             <div className="flex flex-col">
@@ -57,12 +57,8 @@ const Sidebar = ({
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>
-              Clinics Schedules
-            </SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>
-              Clinics Hospitals
-            </SidebarItem>
+            <SidebarItem link={"/admin/speciality"}>Specialities</SidebarItem>
+            <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
           </div>
         </ul>
       </div>

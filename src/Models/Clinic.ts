@@ -3,6 +3,7 @@ import { Speciality } from "@/Models/Speciality";
 import { Hospital } from "@/Models/Hospital";
 import { Translatable } from "@/Models/Translatable";
 import { Media } from "@/Models/Media";
+import { City } from "./City";
 
 export type Clinic = {
   id: number;
@@ -39,6 +40,7 @@ export interface AddOrUpdateClinicForm {
     birth_date?: string | Date;
     gender?: string;
     image?: File | any | Media[];
+    photo?: Media[];
   };
   phone_numbers?: string[];
   status?: string;
@@ -47,6 +49,9 @@ export interface AddOrUpdateClinicForm {
   address?: {
     city_id?: number;
     name?: string | Translatable;
-    map_iframe?:string |TrustedHTML
+    map_iframe?: string;
+    city?: City;
   };
+  hospital?: Hospital;
+  specialities?: Speciality[];
 }

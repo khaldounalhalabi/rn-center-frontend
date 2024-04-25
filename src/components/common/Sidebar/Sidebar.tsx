@@ -2,7 +2,6 @@ import React from "react";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
-import { Link } from "@/i18Router";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 
 const Sidebar = ({
@@ -57,21 +56,13 @@ const Sidebar = ({
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>
-              Clinics Specialty
-            </SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>
-              Clinics Hospitals
-            </SidebarItem>
+            <SidebarItem link={"/admin/speciality"}>Specialties</SidebarItem>
+            <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
             <SidebarItem link={"/admin/category"}>
-              Services Category
+              Service Categories
             </SidebarItem>
-            <SidebarItem link={"/admin/service"}>
-              Services Service
-            </SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
-              Appointment Service
-            </SidebarItem>
+            <SidebarItem link={"/admin/service"}>Services</SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>Appointment</SidebarItem>
           </div>
         </ul>
       </div>

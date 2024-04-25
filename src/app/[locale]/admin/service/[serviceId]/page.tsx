@@ -6,7 +6,6 @@ import { translate } from "@/Helpers/Translations";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
-import { useLocale } from "next-intl";
 
 const page = async ({
   params: { serviceId },
@@ -83,14 +82,14 @@ const page = async ({
             <span className="text-lg badge badge-neutral">No Data</span>
           )}
         </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label"></label>
-
+      </Grid>
+      <Grid md={1}>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           Description EN :
           {res?.status ? (
             <textarea
               rows={4}
-              value={translate(res?.description,true).en}
+              value={translate(res?.description, true).en}
               className="textarea-bordered w-full text-lg textarea"
               readOnly={true}
             />
@@ -103,7 +102,7 @@ const page = async ({
           {res?.status ? (
             <textarea
               rows={4}
-              value={translate(res?.description,true).ar}
+              value={translate(res?.description, true).ar}
               className="textarea-bordered w-full text-lg textarea"
               readOnly={true}
             />

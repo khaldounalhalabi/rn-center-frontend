@@ -8,7 +8,7 @@ import Grid from "@/components/common/ui/Grid";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
-import { Category } from "@/Models/Category";
+import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
 import { translate } from "@/Helpers/Translations";
@@ -103,7 +103,7 @@ const ServiceForm = ({
           />
         </div>
         <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<Category[]>> =>
+          api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().indexWithPagination(
               page,
               search,
@@ -112,7 +112,7 @@ const ServiceForm = ({
               50
             )
           }
-          getLabel={(option: Category) => translate(option.name)}
+          getLabel={(option: ServiceCategory) => translate(option.name)}
           value={"id"}
           name={"service_category_id"}
           inputLabel={"Category"}

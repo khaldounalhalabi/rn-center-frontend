@@ -7,6 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { translate } from "@/Helpers/Translations";
+
 const tableData: DataTableData<Appointment> = {
   createUrl: `/admin/appointment/create`,
   title: "Appointment",
@@ -48,19 +49,16 @@ const tableData: DataTableData<Appointment> = {
       name: "date",
       label: "Date",
       sortable: true,
-
     },
     {
       name: "from",
       label: "From",
       sortable: true,
-
     },
     {
       name: "to",
       label: "To",
       sortable: true,
-
     },
     {
       name: "status",
@@ -77,6 +75,7 @@ const tableData: DataTableData<Appointment> = {
         ) : (
           <span className={`badge badge-error`}>Blocked</span>
         ),
+      sortable: true,
     },
     {
       name: "type",
@@ -87,6 +86,7 @@ const tableData: DataTableData<Appointment> = {
         ) : (
           <span className={`badge badge-neutral`}>Manual</span>
         ),
+      sortable: true,
     },
 
     {
@@ -105,7 +105,7 @@ const tableData: DataTableData<Appointment> = {
   ],
   api: async (page, search, sortCol, sortDir, perPage, params) =>
     await AppointmentService.make<AppointmentService>(
-      "admin"
+      "admin",
     ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
 };
 const Page = () => {

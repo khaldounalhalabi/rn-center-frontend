@@ -1,7 +1,15 @@
 import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 
-export default function SelectedLocale({locales = ["en", "ar"],className,setSelectedLocale}:{locales :string[],className:string,setSelectedLocale?:any}) {
+export default function SelectedLocale({
+  locales = ["en", "ar"],
+  className,
+  setSelectedLocale,
+}: {
+  locales: string[];
+  className: string;
+  setSelectedLocale?: any;
+}) {
   const [selectedLocale, setSelected] = useState<string>("en");
   return (
     <div className={className}>
@@ -26,11 +34,11 @@ export default function SelectedLocale({locales = ["en", "ar"],className,setSele
                 <Menu.Item key={index}>
                   {({ active }) => (
                     <button
-                    onClick={(s)=>{
-                      s.preventDefault()
-                      setSelectedLocale(e)
-                      setSelected(e)
-                    }}
+                      type={"button"}
+                      onClick={(s) => {
+                        setSelectedLocale(e);
+                        setSelected(e);
+                      }}
                       className={`${
                         active ? " bg-blue-500  text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-4 py-2 text-sm`}

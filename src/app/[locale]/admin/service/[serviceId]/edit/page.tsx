@@ -13,7 +13,7 @@ const page = async ({
     ).data;
     return (
       <PageCard>
-        <h2 className="card-title">Edit Category</h2>
+        <h2 className="card-title">Edit Service</h2>
         <ServiceForm
           type={"update"}
           defaultValues={{

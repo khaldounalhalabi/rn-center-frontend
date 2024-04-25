@@ -1,8 +1,5 @@
 import { Clinic } from "./Clinic"
-
-
-
-
+import {ServiceCategory} from "@/Models/ServiceCategory";
 export interface Service {
     id:number,
     name:string,
@@ -14,9 +11,4 @@ export interface Service {
     clinic_id:number,
     serviceCategory:ServiceCategory,
     clinic:Clinic
-}
-
-export interface ServiceCategory {
-    id:number,
-    name:string
 }

@@ -41,7 +41,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
 
   return (
-    <div className={`flex justify-between items-center`}>
+    <div className={`flex justify-between items-center gap-2`}>
       {buttons.includes("show") ? (
         <Link href={sUrl} className="btn btn-square btn-sm">
           <Eye className="h-6 w-6 text-primary" />

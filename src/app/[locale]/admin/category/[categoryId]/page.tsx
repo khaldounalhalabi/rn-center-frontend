@@ -5,7 +5,7 @@ import { Link } from "@/i18Router";
 import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
-import { Category } from "@/Models/Category";
+import { ServiceCategory } from "@/Models/ServiceCategory";
 
 const page = async ({
   params: { categoryId },
@@ -13,7 +13,7 @@ const page = async ({
   params: { categoryId: number };
 }) => {
   const data = await CategoryService.make<CategoryService>().show(categoryId);
-  const res: Category = data?.data;
+  const res: ServiceCategory = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -27,6 +27,12 @@ const page = async ({
           Hospital Name En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.en}
+          </span>
+        </label>
+        <label className="label">
+          Hospital Name Ar:{" "}
+          <span className="bg-base-200 px-2 rounded-xl text-lg">
+            {translate(res?.name, true)?.ar}
           </span>
         </label>
       </Grid>

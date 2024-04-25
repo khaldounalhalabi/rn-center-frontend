@@ -6,14 +6,14 @@ import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
-import { Category } from "@/Models/Category";
+import { ServiceCategory } from "@/Models/ServiceCategory";
 
 const CategoryForm = ({
   defaultValues = undefined,
   id,
   type = "store",
 }: {
-  defaultValues?: Category;
+  defaultValues?: ServiceCategory;
   id?: number;
   type?: "store" | "update";
 }) => {
@@ -47,7 +47,7 @@ const CategoryForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={"Category Name"}
+          label={"ServiceCategory Name"}
           name={"name"}
         />
       </Grid>

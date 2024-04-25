@@ -30,14 +30,14 @@ async function authenticationMiddleware(req: NextRequest) {
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!access && path.includes(`/customer`)) {
+  if (!access && path.includes(`${locale}/customer`)) {
     const absolutURL = new URL(
       `${locale}/auth/customer/login`,
       req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!access && path.includes(`/doctor`)) {
+  if (!access && path.includes(`${locale}/doctor`)) {
     const absolutURL = new URL(
       `${locale}/auth/doctor/login`,
       req.nextUrl.origin,
@@ -46,23 +46,23 @@ async function authenticationMiddleware(req: NextRequest) {
   }
   if (
     access == "admin" &&
-    (path.includes(`/customer`) || path.includes(`/doctor`))
+    (path.includes(`${locale}/customer`) || path.includes(`${locale}/doctor`))
   ) {
-    const absolutURL = new URL(`/404`, req.nextUrl.origin);
+    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   if (
     access == "customer" &&
-    (path.includes(`/admin`) || path.includes(`/doctor`))
+    (path.includes(`${locale}/admin`) || path.includes(`${locale}/doctor`))
   ) {
-    const absolutURL = new URL(`/404`, req.nextUrl.origin);
+    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   if (
     access == "doctor" &&
-    (path.includes(`/customer`) || path.includes(`/admin`))
+    (path.includes(`${locale}/customer`) || path.includes(`${locale}/admin`))
   ) {
-    const absolutURL = new URL(`/404`, req.nextUrl.origin);
+    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   return translationMiddleware(req);

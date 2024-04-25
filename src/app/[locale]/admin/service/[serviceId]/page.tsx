@@ -6,6 +6,7 @@ import { translate } from "@/Helpers/Translations";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
+import { useLocale } from "next-intl";
 
 const page = async ({
   params: { serviceId },
@@ -14,7 +15,6 @@ const page = async ({
 }) => {
   const data = await ServiceService.make<ServiceService>().show(serviceId);
   const res: Service = data?.data;
-  console.log(res)
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

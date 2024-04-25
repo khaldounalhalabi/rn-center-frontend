@@ -69,6 +69,9 @@ const Sidebar = ({
             <SidebarItem link={"/admin/service"}>
               Services Service
             </SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>
+              Appointment Service
+            </SidebarItem>
           </div>
         </ul>
       </div>

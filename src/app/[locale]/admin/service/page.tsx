@@ -4,16 +4,15 @@ import DataTable, {
     DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import {Category} from "@/Models/Category";
 import {Service} from "@/Models/Service";
 import {ServiceService} from "@/services/ServiceService";
 const tableData: DataTableData<Service> = {
     createUrl: `/admin/service/create`,
-    title: "Category",
+    title: "Service",
     schema: [
         {
             name: "name",
-            label: "Category",
+            label: "Service",
             sortable: true,
             translatable: true,
         },
@@ -29,7 +28,7 @@ const tableData: DataTableData<Service> = {
             label: "Approximate Duration",
             sortable: true,
             render : (data)=>(
-                <div className='text-center'><p className='badge-success badge'>{data}</p></div>
+               <p className='badge-success badge text-center'><span>{data}</span></p>
             )
         },
         {

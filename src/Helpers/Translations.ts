@@ -30,7 +30,7 @@ export function translate(
     if (object) {
       return tr;
     }
-    let locale = getCookieClient("NEXT_LOCALE") ?? "en";
+    let locale = useLocale() ?useLocale():getCookieClient("NEXT_LOCALE")?getCookieClient("NEXT_LOCALE"): "en";
 
     if (locale == "en") {
       return tr.en ?? "";

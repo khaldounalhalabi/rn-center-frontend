@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import Form from "../ui/Form";
 
 const SetNewPassword = ({
   url,
@@ -12,17 +13,14 @@ const SetNewPassword = ({
   url: string;
   pageType: string;
 }) => {
-  const methods = useForm();
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const handleSubmit=  (data:{reset_password_code:string,password:string,password_confirmation:string}) => {
     const code = window.localStorage.getItem(pageType + "code");
     const dataSend = {
       reset_password_code: code,
       password: data.password,
       password_confirmation: data.password_confirmation,
     };
-    AuthService.make()
-      .setNewPassword(url, dataSend, pageType)
-      .then((res) => res.fillValidationErrors(methods));
+    return AuthService.make().setNewPassword(url, dataSend, pageType)
   };
   return (
     <div
@@ -36,8 +34,8 @@ const SetNewPassword = ({
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Form        handleSubmit={handleSubmit}
+>
             <div className={"flex flex-col gap-5"}>
               <Input
                 name="password"
@@ -55,8 +53,7 @@ const SetNewPassword = ({
             <div className={`flex justify-center items-center mt-3`}>
               <PrimaryButton type={"submit"}>Save</PrimaryButton>
             </div>
-          </form>
-        </FormProvider>
+        </Form>
       </div>
     </div>
   );

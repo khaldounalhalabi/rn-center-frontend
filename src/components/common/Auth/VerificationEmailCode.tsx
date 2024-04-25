@@ -5,6 +5,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { POST } from "@/Http/Http";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import Form from "../ui/Form";
 
 const VerificationEmailCode = ({
   url,
@@ -14,11 +15,8 @@ const VerificationEmailCode = ({
   urlResendCode: string;
   pageType: string;
 }) => {
-  const methods = useForm();
-  const onSubmit: SubmitHandler<any> = async (data) => {
-    AuthService.make()
-      .requestVerificationCode(url, data)
-      .then((res) => res.fillValidationErrors(methods));
+  const handleSubmit =  (data:{verificationCode:string}) => {
+    return AuthService.make().requestVerificationCode(url, data)
   };
   const handleResendVerCode = () => {
     const email = {
@@ -40,8 +38,8 @@ const VerificationEmailCode = ({
           <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
         </div>
 
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Form       handleSubmit={handleSubmit}
+>
             <Input
               name="verificationCode"
               type="text"
@@ -59,8 +57,7 @@ const VerificationEmailCode = ({
                 Resend The code ?
               </p>
             </div>
-          </form>
-        </FormProvider>
+        </Form>
       </div>
     </div>
   );

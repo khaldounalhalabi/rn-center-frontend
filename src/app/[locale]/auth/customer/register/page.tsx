@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import Grid from "@/components/common/ui/Grid";
 import Trash from "@/components/icons/Trash";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import Form from "@/components/common/ui/Form";
 
 const page = () => {
   const url: string = `${process.env.localApi}customer/register`;
@@ -24,14 +25,13 @@ const page = () => {
 
   const [, setResponse] = useState<any>(undefined);
 
-  const methods = useForm();
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const handleSubmit = async (data:any) => {
     const res = await POST(url, data).then((e) => {
       e.code == 200 ? history.push(`/customer`) : false;
       return e;
     });
     window.localStorage.setItem("customer", data.email);
-    if (res) setResponse(res);
+    if (res) return setResponse(res);
   };
   return (
     <div
@@ -49,8 +49,8 @@ const page = () => {
           <h2 className="card-title mb-4">
             Fill The Following Information To Create A New Account
           </h2>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <Form       handleSubmit={handleSubmit}
+>
               <label className="col-span-6 label">Full Name : </label>
               <Input
                 name="first_name"
@@ -169,8 +169,7 @@ const page = () => {
                   <PrimaryButton type={"submit"}>Register</PrimaryButton>
                 </div>
               </div>
-            </form>
-          </FormProvider>
+          </Form>
         </div>
       </div>
     </div>

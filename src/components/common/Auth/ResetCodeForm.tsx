@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { POST } from "@/Http/Http";
 import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import Form from "../ui/Form";
 
 const ResetCodeForm = ({
   url,
@@ -28,12 +28,10 @@ const ResetCodeForm = ({
     return POST(urlResendCode, email);
   };
 
-  const methods = useForm();
-  const onSubmit: SubmitHandler<any> = async (data) => {
-    AuthService.make()
-      .submitResetCode(url, data, pageType)
-      .then((res) => res.fillValidationErrors(methods));
-    window.localStorage.setItem(pageType + "code", data.reset_password_code);
+  const handleSubmit= (data:{reset_password_code:string}) => {
+    window.localStorage.setItem(pageType + "code", data.reset_password_code)
+    return AuthService.make().submitResetCode(url, data, pageType)
+    
   };
   return (
     <div
@@ -50,8 +48,10 @@ const ResetCodeForm = ({
           </h1>
           <h4 className="mt-4 text-gray-500">Enter Reset Password Code</h4>
         </div>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Form 
+        handleSubmit={handleSubmit}
+
+        >
             <Input
               name="reset_password_code"
               type="text"
@@ -76,8 +76,7 @@ const ResetCodeForm = ({
                 Resend The code ?
               </p>
             </div>
-          </form>
-        </FormProvider>
+        </Form>
       </div>
     </div>
   );

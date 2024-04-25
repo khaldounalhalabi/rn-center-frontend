@@ -5,7 +5,6 @@ import React from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { AddHospital } from "@/Models/Hospital";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
-import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { DepartmentsService } from "@/services/DepartmentsService";
 import { HospitalService } from "@/services/HospitalService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
@@ -18,6 +17,7 @@ import { CityService } from "@/services/CityService";
 import { City } from "@/Models/City";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -28,17 +28,14 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues);
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return HospitalService.make<HospitalService>()
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
-          console.log(res);
           return res;
         });
     } else {
@@ -64,26 +61,27 @@ const HospitalsForm = ({
           name={"name"}
         />
 
-        <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<Department[]>> =>
-            await DepartmentsService.make<DepartmentsService>().indexWithPagination(
+        <ApiSelect
+          api={(page, search): Promise<ApiResponse<Department[]>> =>
+            DepartmentsService.make<DepartmentsService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
           isMultiple={true}
-          getLabel={(option) => translate(option.name)}
-          value={"id"}
-          name={"available_departments"}
-          inputLabel={"Available Departments"}
-          selected={
+          optionValue={"id"}
+          getOptionLabel={(data) => translate(data.name)}
+          defaultValues={
             defaultValues?.available_departments
-              ? defaultValues?.available_departments
+              ? defaultValues.available_departments
               : []
           }
+          label="Available Departments"
+          name="available_departments"
+          closeOnSelect={false}
         />
       </Grid>
 
@@ -96,21 +94,26 @@ const HospitalsForm = ({
       />
 
       <Grid md={"2"}>
-        <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<City[]>> =>
-            await CityService.make<CityService>().indexWithPagination(
+        <ApiSelect
+          api={(page, search): Promise<ApiResponse<City[]>> =>
+            CityService.make<CityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
-          getLabel={(option: City) => translate(option.name)}
-          value={"id"}
-          name={"address.city_id"}
-          inputLabel={"city"}
-          selected={[defaultValues?.address?.city_id]}
+          defaultValues={
+            defaultValues?.address?.city ? [defaultValues?.address?.city] : []
+          }
+          getDataArray={(data) => data.data}
+          getIsLast={(data) => data.paginate?.isLast ?? true}
+          getTotalPages={(data) => data.paginate?.total_pages ?? 1}
+          name="city_id"
+          label="City"
+          optionValue="id"
+          getOptionLabel={(data) => translate(data.name)}
         />
         <TranslatableInput
           name={"address.name"}

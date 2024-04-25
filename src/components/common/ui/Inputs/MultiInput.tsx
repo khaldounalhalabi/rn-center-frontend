@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import Input, { InputProps } from "@/components/common/ui/Inputs/Input";
+import React, { useRef, useState } from "react";
+import { InputProps } from "@/components/common/ui/Inputs/Input";
 import Trash from "@/components/icons/Trash";
 import {
   getNestedPropertyValue,
@@ -9,7 +9,7 @@ import {
 import { useFormContext } from "react-hook-form";
 
 interface MultiInputProps extends InputProps {
-  defaultValue: any[];
+  name: string;
 }
 
 const MultiInput: React.FC<MultiInputProps> = ({
@@ -17,40 +17,80 @@ const MultiInput: React.FC<MultiInputProps> = ({
   label,
   name,
   type,
-  defaultValue = [],
   ...props
 }) => {
   const {
-    formState: { errors },
+    setValue,
+    formState: { errors, defaultValues },
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}`);
-  const [inputNum, setInputNum] = useState(defaultValue?.length ?? 1);
+  let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [""];
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [inputs, setInputs] = useState<any[]>(defaultValue);
+
+  const handleInputChange = (index: number, value: any) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
+  };
+
+  const addInput = () => {
+    setInputs([...inputs, undefined]);
+  };
+
+  const removeInput = (value: any) => {
+    const index = inputs.indexOf(value);
+    const temp = inputs;
+    if (index > -1) {
+      temp.splice(index, 1);
+    }
+    setInputs([...temp]);
+  };
+
+  const changeEvent = () => {
+    inputRef?.current?.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+
   return (
     <>
       {label ? <label className={"label"}>{label}</label> : ""}
+      <input
+        ref={inputRef}
+        className={"hidden"}
+        type={"text"}
+        hidden={true}
+        value={`[${inputs}]`}
+        onInput={(e) => {
+          setValue(name, inputs);
+        }}
+      />
       <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
-        {[...Array(inputNum)].map((_field, index) => {
+        {inputs.map((field: any, index: number) => {
           return (
             <div className={"flex flex-col items-start"} key={index}>
-              <div
-                className={`flex justify-between items-center w-full gap-2`}
-
-              >
-                <Input
+              <div className={`flex justify-between items-center w-full gap-2`}>
+                <input
                   key={`a-${index}`}
-                  name={`${name}[${index}]`}
                   type={type}
+                  className={
+                    className ??
+                    `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+                  }
                   {...props}
-                  defaultValue={defaultValue[index] ?? ""}
+                  defaultValue={field ?? ""}
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleInputChange(index, e.target.value);
+                    changeEvent();
+                  }}
                 />
                 <button
                   type={"button"}
                   className={"btn btn-square btn-sm"}
-                  onClick={() =>
-                    setInputNum((prevState: number) =>
-                      prevState == 1 ? prevState : prevState - 1,
-                    )
-                  }
+                  onClick={() => {
+                    removeInput(field);
+                    changeEvent();
+                  }}
                 >
                   <Trash className={"h-6 w-6 text-error"} />
                 </button>
@@ -72,9 +112,9 @@ const MultiInput: React.FC<MultiInputProps> = ({
         <button
           type={"button"}
           className={`btn btn-sm btn-neutral`}
-          onClick={() => setInputNum((prevState) => prevState + 1)}
+          onClick={() => addInput()}
         >
-          Add New {label ?? sanitizeString(name)}
+          Add New {label ?? sanitizeString(name ?? "")}
         </button>
       </div>
     </>

@@ -6,7 +6,8 @@ const MapIFrame = ({ iframe }: { iframe?: string }) => {
       <label className={"label"}>Map :</label>
       <div className={"w-full flex justify-between"}>
         {iframe ? (
-          <div className={"w-full"}
+          <div
+            className={"w-full"}
             dangerouslySetInnerHTML={{
               __html: iframe
                 .replace('width="(d+)"', 'width="100%"')

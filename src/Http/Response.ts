@@ -45,7 +45,7 @@ export class ApiResponse<T> {
     status: boolean = true,
     code: number = 500,
     message: string | ValidationError | undefined | null = null,
-    paginate: ApiResponsePagination | undefined | null = null,
+    paginate: ApiResponsePagination | undefined | null = null
   ) {
     this.data = data;
     this.status = status;
@@ -72,8 +72,12 @@ export class ApiResponse<T> {
           message: sanitizeString(value),
         });
       });
-      return true;
     }
-    return false;
+  }
+
+  public hasValidationErrors() {
+    if (this.getValidationError()) {
+      return true;
+    } else return false;
   }
 }

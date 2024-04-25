@@ -8,7 +8,6 @@ import { navigate } from "@/Actions/navigate";
 import Trash from "@/components/icons/Trash";
 import PlusIcon from "@/components/icons/PlusIcon";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
 import {
   Schedule,
@@ -18,7 +17,10 @@ import {
 } from "@/Models/Schedule";
 import TimePicker from "@/components/common/ui/TimePicker";
 import Copy from "@/components/icons/Copy";
-import {redirect} from "@/i18Router";
+import { redirect } from "@/i18Router";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import { translate } from "@/Helpers/Translations";
+import { Clinic } from "@/Models/Clinic";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -42,7 +44,7 @@ const ScheduleForm = ({
     Object.values(data.schedules as SchedulesGroupedByDay).map(
       (v: Schedule[]) => {
         schedules = [...v, ...schedules];
-      },
+      }
     );
     data.schedules = schedules;
     return await ScheduleService.make<ScheduleService>().store(data);
@@ -61,21 +63,17 @@ const ScheduleForm = ({
           >
             <div className={"w-full md:w-1/2 mb-5"}>
               {method == "store" ? (
-                <SelectPaginated
+                <ApiSelect
                   name={"clinic_id"}
-                  api={async (page, search) =>
-                    await ClinicService.make<ClinicService>().indexWithPagination(
+                  api={(page, search) =>
+                    ClinicService.make<ClinicService>().indexWithPagination(
                       page,
-                      search,
-                      undefined,
-                      undefined,
-                      50,
+                      search
                     )
                   }
-                  label={"name"}
-                  value={"id"}
-                  inputLabel={"Clinic Name"}
-                  selected={[defaultValues?.clinic_id]}
+                  label={"Clinic Name"}
+                  optionValue={"id"}
+                  getOptionLabel={(data: Clinic) => translate(data.name)}
                 />
               ) : (
                 <Input
@@ -132,18 +130,22 @@ const TimeRange = ({
                 className={"flex flex-col md:flex-row items-center gap-1"}
                 key={index}
               >
-                <TimePicker  name={`schedules[${day}][${index}][start_time]`}
-                             defaultValue={
-                               defaultValue && defaultValue.length > index
-                                   ? defaultValue[index]?.start_time
-                                   : undefined
-                             }/>
-               <TimePicker name={`schedules[${day}][${index}][end_time]`}
-                           defaultValue={
-                             defaultValue && defaultValue.length > index
-                                 ? defaultValue[index]?.end_time
-                                 : undefined
-                           }/>
+                <TimePicker
+                  name={`schedules[${day}][${index}][start_time]`}
+                  defaultValue={
+                    defaultValue && defaultValue.length > index
+                      ? defaultValue[index]?.start_time
+                      : undefined
+                  }
+                />
+                <TimePicker
+                  name={`schedules[${day}][${index}][end_time]`}
+                  defaultValue={
+                    defaultValue && defaultValue.length > index
+                      ? defaultValue[index]?.end_time
+                      : undefined
+                  }
+                />
 
                 <button
                   type={"button"}
@@ -165,24 +167,19 @@ const TimeRange = ({
           })}
         </div>
       </div>
-      <div className={'flex'}>
+      <div className={"flex"}>
         <div className={"flex gap-2 p-1 border rounded-md border-pom mr-2"}>
           <button
-              type={"button"}
-              className={"text-pom"}
-              onClick={() => setInputs((prevState) => prevState + 1)}
+            type={"button"}
+            className={"text-pom"}
+            onClick={() => setInputs((prevState) => prevState + 1)}
           >
             <PlusIcon />
           </button>
-
         </div>
         <div className={"flex gap-2 p-1 border rounded-md border-pom"}>
-          <button
-              type={"button"}
-              className={"text-pom"}
-
-          >
-            <Copy className={"h-6 w-6 fill-[#409cff]"}/>
+          <button type={"button"} className={"text-pom"}>
+            <Copy className={"h-6 w-6 fill-[#409cff]"} />
           </button>
         </div>
       </div>

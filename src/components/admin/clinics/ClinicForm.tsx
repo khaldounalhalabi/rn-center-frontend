@@ -4,7 +4,6 @@ import Grid from "@/components/common/ui/Grid";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Input from "@/components/common/ui/Inputs/Input";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
-import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import { CityService } from "@/services/CityService";
@@ -13,15 +12,15 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ClinicService } from "@/services/ClinicService";
 import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm } from "@/Models/Clinic";
-import { ApiResponse } from "@/Http/Response";
-import { Hospital } from "@/Models/Hospital";
-import { Speciality } from "@/Models/Speciality";
-import { City } from "@/Models/City";
 import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import { navigate } from "@/Actions/navigate";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import { ApiResponse } from "@/Http/Response";
+import { Hospital } from "@/Models/Hospital";
+import Datepicker from "@/components/common/ui/Datepicker";
 
 const ClinicForm = ({
   type = "store",
@@ -38,6 +37,7 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
+      console.log(data);
       return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
@@ -101,14 +101,7 @@ const ClinicForm = ({
           placeholder={"Confirm Password"}
           label={t("confirm-password")}
         />
-
-        <Input
-          name={"user.birth_date"}
-          type={"date"}
-          placeholder={"Enter Doctor Birth Date"}
-          label={t("birth-date")}
-          defaultValue={"1970-12-31"}
-        />
+        <Datepicker name={"user.birth_date"} label={t("birth-date")} />
         <Input
           name={"appointment_cost"}
           type={"number"}
@@ -131,7 +124,6 @@ const ClinicForm = ({
         name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
         label={t("phones")}
-        defaultValue={defaultValues?.phone_numbers ?? []}
       />
 
       <Grid>
@@ -181,58 +173,58 @@ const ClinicForm = ({
             defaultChecked={defaultValues?.user?.gender == "female"}
           />
         </div>
-        <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<Hospital[]>> =>
-            await HospitalService.make<HospitalService>().indexWithPagination(
+        <ApiSelect
+          label={t("hospital")}
+          name="hsopital_id"
+          api={(page, search): Promise<ApiResponse<Hospital[]>> =>
+            HospitalService.make<HospitalService>().indexWithPagination(
               page,
-              search,
-              undefined,
-              undefined,
-              50,
+              search
             )
           }
-          getLabel={(option: Hospital) => translate(option.name)}
-          value="id"
-          name={"hospital_id"}
-          inputLabel={t("hospital")}
-          selected={[defaultValues?.hospital_id]}
+          getOptionLabel={(item) => translate(item.name)}
+          optionValue={"id"}
+          defaultValues={
+            defaultValues?.hospital ? [defaultValues?.hospital] : []
+          }
         />
 
-        <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<Speciality[]>> =>
-            await SpecialityService.make<SpecialityService>().indexWithPagination(
-              page,
-              search,
-              undefined,
-              undefined,
-              50,
-            )
-          }
-          isMultiple={true}
-          getLabel={(option: Speciality) => translate(option.name)}
-          value={"id"}
+        <ApiSelect
           name={"speciality_ids"}
-          inputLabel={t("specialities")}
-          selected={
-            defaultValues?.speciality_ids ? defaultValues?.speciality_ids : []
-          }
-        />
-
-        <SelectPaginated
-          api={async (page, search): Promise<ApiResponse<City[]>> =>
-            await CityService.make<CityService>().indexWithPagination(
+          label={t("specialities")}
+          api={(page?: number | undefined, search?: string | undefined) =>
+            SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
               search,
               undefined,
               undefined,
-              50,
+              50
             )
           }
-          getLabel={(option: City) => translate(option.name)}
-          value={"id"}
+          getOptionLabel={(item) => translate(item.name)}
+          optionValue={"id"}
+          defaultValues={defaultValues?.specialities ?? []}
+          isMultiple={true}
+          closeOnSelect={false}
+        />
+
+        <ApiSelect
           name={"address.city_id"}
-          inputLabel={t("city")}
-          selected={[defaultValues?.address?.city_id]}
+          label={t("city")}
+          api={(page?: number | undefined, search?: string | undefined) =>
+            CityService.make<CityService>().indexWithPagination(
+              page,
+              search,
+              undefined,
+              undefined,
+              50
+            )
+          }
+          getOptionLabel={(item) => translate(item.name)}
+          optionValue={"id"}
+          defaultValues={
+            defaultValues?.address?.city ? [defaultValues?.address?.city] : []
+          }
         />
 
         <TranslatableInput
@@ -247,14 +239,15 @@ const ClinicForm = ({
           label={"Map iframe"}
         />
         {type == "update" ? (
-          defaultValues?.user?.image.length > 0 ? (
+          defaultValues?.user?.photo &&
+          defaultValues?.user?.photo?.length > 0 ? (
             <Gallery
               media={
-                defaultValues?.user?.image ? defaultValues?.user?.image : [""]
+                defaultValues?.user?.photo ? defaultValues?.user?.photo : [""]
               }
             />
           ) : (
-            <div className="flex items-center justify-between">
+            <div className="flex justify-between items-center">
               <label className="label"> Image : </label>
               <span className="text-lg badge badge-neutral">No Image</span>
             </div>

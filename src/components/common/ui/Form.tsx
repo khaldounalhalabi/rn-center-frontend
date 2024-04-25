@@ -3,6 +3,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import { navigate } from "@/Actions/navigate";
 
 const Form = ({
   children,
@@ -20,10 +21,12 @@ const Form = ({
 
   const onSubmit = async (data: any) => {
     const res = await handleSubmit(data);
-    if (!res.fillValidationErrors(methods)) {
+    if (!res.hasValidationErrors()) {
       if (onSuccess) onSuccess(res);
     }
-    return res;
+    return navigate("").then(() => {
+      res.fillValidationErrors(methods);
+    });
   };
 
   return (

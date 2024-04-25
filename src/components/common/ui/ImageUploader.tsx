@@ -20,7 +20,7 @@ const ImageUploader = ({
   registerPlugin(
     FilePondPluginImageExifOrientation,
     FilePondPluginImagePreview,
-    FilePondPluginFileValidateType,
+    FilePondPluginFileValidateType
   );
 
   const {
@@ -37,16 +37,18 @@ const ImageUploader = ({
             if (isMultiple) {
               setValue(
                 name,
-                fileItems.map((file) => file.file),
+                fileItems.length > 0 ? fileItems.map((file) => file.file) : null
               );
             } else {
-              fileItems.map((file) => setValue(name, file.file));
+              fileItems.length > 0
+                ? fileItems.map((file) => setValue(name, file.file))
+                : "";
             }
           }}
           acceptedFileTypes={["image/*"]}
           labelIdle={"Drag Or Click To Add Image"}
           storeAsFile={true}
-          allowMultiple={true}
+          allowMultiple={isMultiple}
         />
       </div>
       {error ? <p className={`text-error text-sm`}>{error}</p> : ""}

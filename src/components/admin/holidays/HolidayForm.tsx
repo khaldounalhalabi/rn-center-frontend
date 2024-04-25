@@ -1,6 +1,5 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ClinicService } from "@/services/ClinicService";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -12,6 +11,8 @@ import Grid from "@/components/common/ui/Grid";
 import { ApiResponse } from "@/Http/Response";
 import { Clinic } from "@/Models/Clinic";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import { translate } from "@/Helpers/Translations";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -25,11 +26,11 @@ const HolidayForm = ({
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>().update(
         defaultValues.id,
-        data,
+        data
       );
     } else {
       return await ClinicHolidayService.make<ClinicHolidayService>().store(
-        data,
+        data
       );
     }
   };
@@ -45,20 +46,21 @@ const HolidayForm = ({
     >
       {type == "store" ? (
         <div className="my-2 w-full md:w-1/2">
-          <SelectPaginated
-            api={async (page, search): Promise<ApiResponse<Clinic[]>> =>
-              await ClinicService.make<ClinicService>().indexWithPagination(
+          <ApiSelect
+            api={(page, search): Promise<ApiResponse<Clinic[]>> =>
+              ClinicService.make<ClinicService>().indexWithPagination(
                 page,
                 search,
                 undefined,
                 undefined,
-                50,
+                50
               )
             }
-            label={"name"}
-            value={"id"}
+            label="Clinic Name :"
+            getOptionLabel={(item) => translate(item.name)}
+            optionValue={"id"}
             name={"clinic_id"}
-            inputLabel={"Clinic name :"}
+            defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
           />
         </div>
       ) : (

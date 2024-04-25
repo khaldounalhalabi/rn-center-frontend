@@ -8,7 +8,6 @@ import { getMessages } from "next-intl/server";
 import { locales } from "@/i18m.config";
 
 const inter = Inter({ subsets: ["latin"] });
-import { unstable_setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",

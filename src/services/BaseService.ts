@@ -1,3 +1,4 @@
+import { navigate } from "@/Actions/navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { redirect } from "@/i18Router";
@@ -11,7 +12,7 @@ export class BaseService<T> {
   protected constructor() {}
 
   public static make<Service extends BaseService<any>>(
-    actor: Actors = "admin",
+    actor: Actors = "admin"
   ): Service {
     if (!this.instance) {
       this.instance = new this();
@@ -43,7 +44,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
       page: page,
@@ -87,7 +88,7 @@ export class BaseService<T> {
   public async update(
     id?: number,
     data?: any,
-    headers?: object,
+    headers?: object
   ): Promise<ApiResponse<T>> {
     if (!id) {
       await redirect("/404");
@@ -100,18 +101,18 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>,
+    res: ApiResponse<ResType>
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>,
+    res: ApiResponse<ResType[]>
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler(
-    res: ApiResponse<T> | ApiResponse<T[]>,
+    res: ApiResponse<T> | ApiResponse<T[]>
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
-      await redirect("/auth/admin/login");
+      await navigate("/auth/admin/login");
     }
     return res;
   }

@@ -20,6 +20,7 @@ import { navigate } from "@/Actions/navigate";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import { Hospital } from "@/Models/Hospital";
+import Datepicker from "@/components/common/ui/Datepicker";
 
 const ClinicForm = ({
   type = "store",
@@ -36,6 +37,7 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
+      console.log(data);
       return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
@@ -99,14 +101,7 @@ const ClinicForm = ({
           placeholder={"Confirm Password"}
           label={t("confirm-password")}
         />
-
-        <Input
-          name={"user.birth_date"}
-          type={"date"}
-          placeholder={"Enter Doctor Birth Date"}
-          label={t("birth-date")}
-          defaultValue={"1970-12-31"}
-        />
+        <Datepicker name={"user.birth_date"} label={t("birth-date")} />
         <Input
           name={"appointment_cost"}
           type={"number"}
@@ -187,9 +182,6 @@ const ClinicForm = ({
               search
             )
           }
-          getDataArray={(data) => data.data}
-          getIsLast={(data) => data?.paginate?.isLast ?? false}
-          getTotalPages={(data) => data?.paginate?.total_pages ?? 1}
           getOptionLabel={(item) => translate(item.name)}
           optionValue={"id"}
           defaultValues={
@@ -209,9 +201,6 @@ const ClinicForm = ({
               50
             )
           }
-          getDataArray={(data) => data.data}
-          getIsLast={(data) => data?.paginate?.isLast ?? false}
-          getTotalPages={(data) => data?.paginate?.total_pages ?? 1}
           getOptionLabel={(item) => translate(item.name)}
           optionValue={"id"}
           defaultValues={defaultValues?.specialities ?? []}
@@ -231,9 +220,6 @@ const ClinicForm = ({
               50
             )
           }
-          getDataArray={(data) => data.data}
-          getIsLast={(data) => data?.paginate?.isLast ?? false}
-          getTotalPages={(data) => data?.paginate?.total_pages ?? 1}
           getOptionLabel={(item) => translate(item.name)}
           optionValue={"id"}
           defaultValues={

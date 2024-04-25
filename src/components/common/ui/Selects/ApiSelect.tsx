@@ -6,11 +6,10 @@ import XMark from "@/components/icons/XMark";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import ChevronDown from "@/components/icons/ChevronDown";
 import { useFormContext } from "react-hook-form";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 function ApiSelect<TResponse, TData>({
   api,
-  getIsLast,
-  getTotalPages,
   getDataArray,
   label,
   clearable = true,
@@ -26,15 +25,13 @@ function ApiSelect<TResponse, TData>({
   placeHolder = "Select An Item",
   defaultValues = undefined,
   onChange = undefined,
-  revalidateOnOpen = false,
   inputProps = {},
-  getNextPage = undefined,
 }: IApiSelectProps<TResponse, TData>) {
   const {
     setValue,
     formState: { errors },
   } = useFormContext();
-  const error = getNestedPropertyValue(errors, `${name}.message`);
+  const validationError = getNestedPropertyValue(errors, `${name}.message`);
 
   const getOption = (item: TData): Option => ({
     label: getOptionLabel
@@ -58,25 +55,24 @@ function ApiSelect<TResponse, TData>({
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<{ label: any; value: any }[]>(df);
   const [search, setSearch] = useState<string | undefined>(undefined);
-  const [items, setItems] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const [isLast, setIsLast] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
   const inputRef = useRef<HTMLInputElement>(null);
   const fullContainer = useRef<HTMLDivElement>(null);
 
-  const getData = async () => {
-    if (!isLoading) {
-      setIsLoading(true);
-      await api(page, search, isLast, totalPages).then((data: TResponse) => {
-        setItems((prev) => [...(getDataArray(data) ?? []), ...prev]);
-        setIsLoading(false);
-        setIsLast(getIsLast(data) ?? true);
-        setTotalPages(getTotalPages(data) ?? 1);
-      });
-    }
-  };
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ["tableData", search],
+    queryFn: async ({ pageParam }) => {
+      let s = !search || search == "" ? undefined : search;
+      return await api(pageParam, s, false, 1);
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return !lastPage.paginate?.isLast
+        ? lastPage.paginate?.currentPage
+          ? lastPage.paginate?.currentPage + 1
+          : null
+        : null;
+    },
+  });
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -119,12 +115,6 @@ function ApiSelect<TResponse, TData>({
   const handleOpen = () => {
     setIsOpen((prev) => !prev);
     if (!isOpen) {
-      if (revalidateOnOpen) {
-        setItems([]);
-        setPage(1);
-        setIsLast(false);
-        setTotalPages(1);
-      }
       if (search) {
         setSearch(undefined);
       }
@@ -132,11 +122,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(1);
-    setIsLast(false);
-    setTotalPages(1);
     setSearch(e.target.value);
-    setItems([]);
   };
 
   const handleClickingOnSearchInput = (
@@ -156,32 +142,20 @@ function ApiSelect<TResponse, TData>({
 
   const handleDataScrolling = (e: any) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target;
-    if (scrollHeight - scrollTop === clientHeight) {
-      if (getNextPage) {
-        setPage((oldPage) => getNextPage(oldPage, isLast, totalPages));
-      }
-      if (!isLast && page <= totalPages) {
-        setPage((oldPage) => oldPage + 1);
-      }
+    if (scrollHeight - scrollTop === clientHeight && hasNextPage) {
+      fetchNextPage();
     }
   };
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      if (revalidateOnOpen) {
-        getData();
-      }
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    getData();
-  }, [page, search]);
-
-  useEffect(() => {
     inputRef?.current?.dispatchEvent(new Event("input", { bubbles: true }));
   }, [selected]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+  }, [isOpen]);
 
   const getInputValue = () => {
     if (isMultiple) {
@@ -236,7 +210,7 @@ function ApiSelect<TResponse, TData>({
             <p>{placeHolder}</p>
           )}
           <div className="flex items-center gap-2">
-            {isLoading && (
+            {isFetching && (
               <div className="">
                 {styles?.loadingIcon ? (
                   styles.loadingIcon()
@@ -284,30 +258,35 @@ function ApiSelect<TResponse, TData>({
             />
           </div>
 
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className={`
-                            ${
-                              include(getOption(item), selected)
-                                ? `${styles?.selectedDropDownItemClasses ?? "bg-pom border-pom"}`
-                                : ""
-                            }
-                            ${styles?.dropDownItemClasses ?? "cursor-pointer hover:border-pom hover:bg-pom my-1 p-2 rounded-md w-full text-black"}`}
-              onClick={(e) => handleChoseItem(e, item)}
-            >
-              {getOption(item).label ?? ""}
-            </div>
-          ))}
+          {data?.pages.map((res) => {
+            const items = getDataArray
+              ? getDataArray(res)
+              : (res.data as TData[]);
+            return items.map((item, index) => (
+              <div
+                key={index}
+                className={`
+                              ${
+                                include(getOption(item), selected)
+                                  ? `${styles?.selectedDropDownItemClasses ?? "bg-pom border-pom"}`
+                                  : ""
+                              }
+                              ${styles?.dropDownItemClasses ?? "cursor-pointer hover:border-pom hover:bg-pom my-1 p-2 rounded-md w-full text-black"}`}
+                onClick={(e) => handleChoseItem(e, item)}
+              >
+                {getOption(item).label ?? ""}
+              </div>
+            ));
+          })}
 
-          {isLoading && (
+          {isFetching && (
             <div className="flex justify-center items-center my-2 w-full">
               Loading ...
             </div>
           )}
         </div>
       </div>
-      {error ? <p className="text-error">{error}</p> : ""}
+      {validationError ? <p className="text-error">{validationError}</p> : ""}
     </div>
   );
 }

@@ -20,6 +20,7 @@ import Copy from "@/components/icons/Copy";
 import { redirect } from "@/i18Router";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { translate } from "@/Helpers/Translations";
+import { Clinic } from "@/Models/Clinic";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -67,18 +68,12 @@ const ScheduleForm = ({
                   api={(page, search) =>
                     ClinicService.make<ClinicService>().indexWithPagination(
                       page,
-                      search,
-                      undefined,
-                      undefined,
-                      50
+                      search
                     )
                   }
                   label={"Clinic Name"}
-                  getDataArray={(data) => data.data}
-                  getIsLast={(data) => data.paginate?.isLast ?? true}
-                  getTotalPages={(data) => data.paginate?.total_pages ?? 1}
                   optionValue={"id"}
-                  getOptionLabel={(data) => translate(data.name)}
+                  getOptionLabel={(data: Clinic) => translate(data.name)}
                 />
               ) : (
                 <Input

@@ -57,9 +57,6 @@ const HolidayForm = ({
               )
             }
             label="Clinic Name :"
-            getDataArray={(data) => data.data}
-            getIsLast={(data) => data?.paginate?.isLast ?? false}
-            getTotalPages={(data) => data?.paginate?.total_pages ?? 1}
             getOptionLabel={(item) => translate(item.name)}
             optionValue={"id"}
             name={"clinic_id"}

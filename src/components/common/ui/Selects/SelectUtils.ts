@@ -1,3 +1,4 @@
+import { ApiResponse } from "@/Http/Response";
 import React, { HTMLProps, ReactNode } from "react";
 
 export interface Option {
@@ -17,15 +18,13 @@ export interface IApiSelectProps<TResponse, TData> {
     search?: string,
     isLast?: boolean,
     totalPages?: number
-  ) => Promise<TResponse>;
+  ) => Promise<ApiResponse<TResponse>>;
   isMultiple?: boolean;
   optionLabel?: keyof TData;
   optionValue?: keyof TData;
-  getDataArray: (response: TResponse) => TData[];
+  getDataArray?: (response: ApiResponse<TResponse>) => TData[];
   getOptionLabel?: (item: TData) => TData | any;
   getOptionValue?: (item: TData) => TData | any;
-  getIsLast: (data: TResponse) => boolean;
-  getTotalPages: (data: TResponse) => number;
   onSelect?: (
     selectedItem?: TData,
     selected?: Option[],

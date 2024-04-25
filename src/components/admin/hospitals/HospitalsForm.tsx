@@ -72,9 +72,6 @@ const HospitalsForm = ({
             )
           }
           isMultiple={true}
-          getDataArray={(data) => data.data}
-          getIsLast={(data) => data?.paginate?.isLast ?? false}
-          getTotalPages={(data) => data?.paginate?.total_pages ?? 1}
           optionValue={"id"}
           getOptionLabel={(data) => translate(data.name)}
           defaultValues={

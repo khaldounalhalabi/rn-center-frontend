@@ -21,14 +21,15 @@ const Form = ({
 
   const onSubmit = async (data: any) => {
     const res = await handleSubmit(data);
+
     if (!res.hasValidationErrors()) {
       if (onSuccess) onSuccess(res);
     }
-    return navigate("").then(() => {
+
+    await navigate("").then(() => {
+      console.log(res);
       res.fillValidationErrors(methods);
-      if (onFail) {
-        onFail(res);
-      }
+      return res;
     });
   };
 

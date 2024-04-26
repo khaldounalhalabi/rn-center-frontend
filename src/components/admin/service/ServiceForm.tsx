@@ -7,7 +7,6 @@ import { navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
-import SelectPaginated from "@/components/common/ui/Selects/SelectPaginated";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
@@ -17,6 +16,7 @@ import { ClinicService } from "@/services/ClinicService";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import { Clinic } from "@/Models/Clinic";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 
 const ServiceForm = ({
   defaultValues = undefined,
@@ -62,7 +62,7 @@ const ServiceForm = ({
           label={"Service Name"}
           name={"name"}
         />
-        <SelectPaginated
+        <ApiSelect
           name={"clinic_id"}
           api={async (page, search) =>
             await ClinicService.make<ClinicService>().indexWithPagination(
@@ -73,11 +73,12 @@ const ServiceForm = ({
               50
             )
           }
-          getLabel={(option: Clinic) => translate(option.name)}
-          label={"name"}
-          value={"id"}
-          inputLabel={"Clinic Name"}
-          selected={[defaultValues?.clinic_id]}
+          getOptionLabel={(option: Clinic) => translate(option.name)}
+          label={"Clinic Name"}
+          optionValue={"id"}
+          defaultValues={
+            defaultValues?.clinic_id ? [defaultValues?.clinic] : []
+          }
         />
       </Grid>
       <Grid md={"2"}>
@@ -102,7 +103,7 @@ const ServiceForm = ({
             defaultChecked={defaultValues?.status == "in-active"}
           />
         </div>
-        <SelectPaginated
+        <ApiSelect
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().indexWithPagination(
               page,
@@ -112,11 +113,15 @@ const ServiceForm = ({
               50
             )
           }
-          getLabel={(option: ServiceCategory) => translate(option.name)}
-          value={"id"}
+          getOptionLabel={(option: ServiceCategory) => translate(option.name)}
+          optionValue={"id"}
           name={"service_category_id"}
-          inputLabel={"Category"}
-          selected={[defaultValues?.service_category_id]}
+          label={"Category"}
+          defaultValues={
+            defaultValues?.service_category_id
+              ? [defaultValues?.serviceCategory]
+              : []
+          }
         />
       </Grid>
       <Grid md={"2"}>
@@ -135,7 +140,10 @@ const ServiceForm = ({
           label={t("price")}
         />
       </Grid>
-      <TranslatableTextArea name={"description"} defaultValue={defaultValues?.description??''}/>
+      <TranslatableTextArea
+        name={"description"}
+        defaultValue={defaultValues?.description ?? ""}
+      />
       <div className="flex justify-center my-3">
         <PrimaryButton type={"submit"}>Submit</PrimaryButton>
       </div>

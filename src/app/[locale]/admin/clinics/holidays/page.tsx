@@ -7,6 +7,8 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { Link } from "@/i18Router";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const tableData: DataTableData<ClinicHoliday> = {
   createUrl: `/admin/clinics/holidays/create`,
@@ -65,7 +67,7 @@ const tableData: DataTableData<ClinicHoliday> = {
       sortCol,
       sortDir,
       perPage,
-      params,
+      params
     ),
 
   filter: (params, setParams) => {
@@ -73,24 +75,20 @@ const tableData: DataTableData<ClinicHoliday> = {
       <div className={"w-full grid grid-cols-1"}>
         <label className={"label"}>
           Start Date :
-          <input
-            type="date"
-            className={"input input-bordered input-sm"}
-            defaultChecked={params.start_date}
-            onChange={(event) => {
-              setParams({ ...params, start_date: event.target.value });
+          <DatePicker
+            onChange={(event): void => {
+              setParams({ ...params, start_date: event?.format("YYYY-MM-DD") });
             }}
+            defaultValue={dayjs(params.start_date ?? null)}
           />
         </label>
         <label className={`label`}>
           End Date :
-          <input
-            type="date"
-            className={"input input-bordered input-sm"}
-            defaultChecked={params.end_date}
-            onChange={(event) => {
-              setParams({ ...params, end_date: event.target.value });
+          <DatePicker
+            onChange={(event): void => {
+              setParams({ ...params, end_date: event?.format("YYYY-MM-DD") });
             }}
+            defaultValue={dayjs(params.end_date ?? null)}
           />
         </label>
       </div>

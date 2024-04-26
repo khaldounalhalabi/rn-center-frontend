@@ -1,8 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { Link } from "@/i18Router";
-import { HospitalService } from "@/services/HospitalService";
+import { Link } from "@/navigation";import { HospitalService } from "@/services/HospitalService";
 import { Hospital } from "@/Models/Hospital";
 import { translate } from "@/Helpers/Translations";
 import { Department } from "@/Models/Departments";
@@ -91,7 +90,7 @@ const page = async ({
         {res?.images?.length != 0 ? (
           <Gallery media={res?.images ? res?.images : [""]} />
         ) : (
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between items-center">
             <label className="label"> Image : </label>
             <span className="text-lg badge badge-neutral">No Data</span>
           </div>

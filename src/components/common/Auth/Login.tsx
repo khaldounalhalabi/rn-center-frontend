@@ -3,8 +3,7 @@ import React from "react";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
-import { Link } from "@/i18Router";
-import { swal } from "@/Helpers/UIHelpers";
+import { Link } from "@/navigation";import { swal } from "@/Helpers/UIHelpers";
 import { FormProvider, useForm } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 

@@ -27,7 +27,6 @@ const Form = ({
     }
 
     await navigate("").then(() => {
-      console.log(res);
       res.fillValidationErrors(methods);
       return res;
     });

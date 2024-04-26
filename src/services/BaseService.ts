@@ -1,7 +1,6 @@
 import { navigate } from "@/Actions/navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
-import { redirect } from "@/i18Router";
 import { Actors } from "@/types";
 
 export class BaseService<T> {
@@ -65,7 +64,7 @@ export class BaseService<T> {
 
   public async delete(id?: number): Promise<ApiResponse<boolean>> {
     if (!id) {
-      await redirect("/404");
+      await navigate("/404");
     }
     let res: ApiResponse<boolean>;
     if (id) {
@@ -76,11 +75,11 @@ export class BaseService<T> {
 
   public async show(id?: number): Promise<ApiResponse<T>> {
     if (!id) {
-      await redirect("/404");
+      await navigate("/404");
     }
     const res = await GET<T>(this.baseUrl + "/" + id);
     if (res.code == 404) {
-      await redirect("/404");
+      await navigate("/404");
     }
     return await this.errorHandler(res);
   }
@@ -91,11 +90,11 @@ export class BaseService<T> {
     headers?: object
   ): Promise<ApiResponse<T>> {
     if (!id) {
-      await redirect("/404");
+      await navigate("/404");
     }
     const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
     if (res.code == 404) {
-      await redirect("/404");
+      await navigate("/404");
     }
     return await this.errorHandler(res);
   }

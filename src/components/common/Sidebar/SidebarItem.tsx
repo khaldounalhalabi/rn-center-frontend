@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import {Link} from "@/i18Router";
+import { Link } from "@/navigation";
 
 const SidebarItem = ({
   link = "#",

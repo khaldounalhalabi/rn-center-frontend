@@ -27,7 +27,7 @@
     "filepond-plugin-image-preview": "^4.6.12",
     "next": "14.1.0",
     "next-client-cookies": "^1.1.0",
-    "next-intl": "^3.11.3",
+    "next-intl": "^3.12.0",
     "react": "^18",
     "react-dom": "^18",
     "react-filepond": "^7.1.2",

@@ -6,8 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
-import { Link } from "@/i18Router";
-
+import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
 
@@ -95,7 +94,7 @@ const dataTableSchema: DataTableData<Clinic> = {
         <label className={"label"}>
           Day :
           <WeekDaySelect
-            className="select select-bordered select-sm w-full max-w-xs"
+            className="w-full max-w-xs select-bordered select-sm select"
             defaultValue={params.day_of_week}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
               setParams({ ...params, day_of_week: event.target.value });

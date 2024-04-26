@@ -1,16 +1,12 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { getCookieServer } from "./Actions/serverCookies";
-import { defaultLocale, locales } from "@/i18m.config";
-import { localePrefix, pathnames } from "@/i18Router";
-import { getCookieClient } from "@/Actions/clientCookies";
+import { locales } from "./navigation";
 
 const translationMiddleware = createMiddleware({
-  locales,
-  defaultLocale,
+  locales: locales,
+  defaultLocale: "en",
   localeDetection: true,
-  localePrefix,
-  pathnames,
 });
 
 export const config = {
@@ -26,21 +22,21 @@ async function authenticationMiddleware(req: NextRequest) {
   if (!access && path.includes(`${locale}/admin`)) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,
-      req.nextUrl.origin,
+      req.nextUrl.origin
     );
     return NextResponse.redirect(absolutURL.toString());
   }
   if (!access && path.includes(`${locale}/customer`)) {
     const absolutURL = new URL(
       `${locale}/auth/customer/login`,
-      req.nextUrl.origin,
+      req.nextUrl.origin
     );
     return NextResponse.redirect(absolutURL.toString());
   }
   if (!access && path.includes(`${locale}/doctor`)) {
     const absolutURL = new URL(
       `${locale}/auth/doctor/login`,
-      req.nextUrl.origin,
+      req.nextUrl.origin
     );
     return NextResponse.redirect(absolutURL.toString());
   }

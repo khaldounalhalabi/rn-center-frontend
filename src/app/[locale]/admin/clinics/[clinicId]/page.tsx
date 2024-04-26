@@ -8,8 +8,7 @@ import { Clinic } from "@/Models/Clinic";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
-import { Link } from "@/i18Router";
-import { translate } from "@/Helpers/Translations";
+import { Link } from "@/navigation";import { translate } from "@/Helpers/Translations";
 import { getTranslations } from "next-intl/server";
 
 const Page = async ({
@@ -86,7 +85,7 @@ const Page = async ({
         </div>
       </div>
 
-      <div className="w-full px-2 py-16 sm:px-0">
+      <div className="px-2 sm:px-0 py-16 w-full">
         <ClinicOverview clinic={clinic} />
       </div>
     </PageCard>

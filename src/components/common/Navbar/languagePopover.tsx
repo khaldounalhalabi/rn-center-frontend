@@ -3,8 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import {getCookieClient, setCookieClient} from "@/Actions/clientCookies";
-import { useRouter, usePathname } from 'next/navigation';
+import { getCookieClient, setCookieClient } from "@/Actions/clientCookies";
+import { useRouter, usePathname } from "next/navigation";
+import { Link } from "@/navigation";
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -12,20 +13,18 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-  const router = useRouter();
-  const pathname = usePathname();
-  const setCoc=(value:string)=>{
-    const coc = getCookieClient('NEXT_LOCALE')
-    if(coc == 'en'){
-      router.replace(pathname.replace('/en/','/ar/'))
-      setCookieClient('locale',value)
-    
-    }else if(coc == 'ar'){
-      router.replace(pathname.replace('/ar/','/en/'))
-      setCookieClient('locale',value)
-    
-    }
-  }
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const setCoc = (value: string) => {
+  //   const coc = getCookieClient("NEXT_LOCALE");
+  //   if (coc == "en") {
+  //     router.replace(pathname.replace("/en/", "/ar/"));
+  //     setCookieClient("locale", value);
+  //   } else if (coc == "ar") {
+  //     router.replace(pathname.replace("/ar/", "/en/"));
+  //     setCookieClient("locale", value);
+  //   }
+  // };
 
   return (
     <div
@@ -51,24 +50,30 @@ const LanguagePopover = () => {
         role="menu"
       >
         <div>
-          <div onClick={()=>{setCoc('en')}}
-              className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
+          <Link
+            href={""}
+            locale="en"
+            className="flex hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+          >
             <img
-              className="w-7 h-7 mr-4"
+              className="mr-4 w-7 h-7"
               src="https://img.icons8.com/color/48/usa.png"
               alt="usa"
             />
             <h3>English</h3>
-          </div>
-          <div onClick={()=>{setCoc('ar')}}
-              className="flex px-4 py-2 rounded-xl  cursor-pointer hover:bg-blue-200">
+          </Link>
+          <Link
+            href={""}
+            locale="ar"
+            className="flex hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+          >
             <img
-              className="w-7 h-7 mr-4"
+              className="mr-4 w-7 h-7"
               src="https://img.icons8.com/fluency/48/saudi-arabia.png"
               alt="saudi-arabia"
             />
             <h3>Arabic</h3>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

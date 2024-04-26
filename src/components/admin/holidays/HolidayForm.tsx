@@ -50,10 +50,7 @@ const HolidayForm = ({
             api={(page, search): Promise<ApiResponse<Clinic[]>> =>
               ClinicService.make<ClinicService>().indexWithPagination(
                 page,
-                search,
-                undefined,
-                undefined,
-                50
+                search
               )
             }
             label="Clinic Name :"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import PageCard from "@/components/common/ui/PageCard";
 import Input from "@/components/common/ui/Inputs/Input";
 import Form from "@/components/common/ui/Form";
@@ -15,12 +15,12 @@ import {
   SchedulesGroupedByDay,
   StoreScheduleRequest,
 } from "@/Models/Schedule";
-import TimePicker from "@/components/common/ui/TimePicker";
 import Copy from "@/components/icons/Copy";
-import { redirect } from "@/i18Router";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { translate } from "@/Helpers/Translations";
 import { Clinic } from "@/Models/Clinic";
+import Timepicker from "@/components/common/ui/TimePicker";
+import { Menu, Popover, Transition } from "@headlessui/react";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -85,15 +85,59 @@ const ScheduleForm = ({
               )}
             </div>
             {weeKDays.map((day: keyof SchedulesGroupedByDay, index) => (
-              <div className={"border-b"} key={index}>
-                <TimeRange
-                  day={day}
-                  defaultValue={
-                    defaultValues?.schedules?.hasOwnProperty(day)
-                      ? defaultValues.schedules[day]
-                      : undefined
-                  }
-                />
+              <div className={"border-b flex items-center"} key={index}>
+                <div className="w-full">
+                  <TimeRange
+                    day={day}
+                    defaultValue={
+                      defaultValues?.schedules?.hasOwnProperty(day)
+                        ? defaultValues.schedules[day]
+                        : undefined
+                    }
+                  />
+                </div>
+                {/* <Popover className="relative">
+                  {({ open }) => (
+                    <>
+                      <Popover.Button
+                        className={"focus:outline-0 focus:border-0"}
+                      >
+                        <Copy className="w-6 h-6 text-pom" />
+                      </Popover.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <Popover.Panel className="z-10 absolute bg-white max-w-32 transform -translate-x-1/2">
+                          <div className="shadow-lg rounded-lg overflow-hidden ring-1 ring-black/5">
+                            <div className="flex flex-col">
+                              {weeKDays.map((day, index) => (
+                                <div
+                                  className="flex justify-between items-center p-2"
+                                  key={index}
+                                >
+                                  {day}
+                                  <input
+                                    type="checkbox"
+                                    className="checkbox"
+                                    onClick={() => {
+
+                                    }}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </Popover.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Popover> */}
               </div>
             ))}
             <div className={"flex justify-center items-center my-2"}>
@@ -118,7 +162,7 @@ const TimeRange = ({
   const [inputs, setInputs] = useState(defaultValue?.length ?? 0);
   const inputArray = [...Array(inputs)];
   return (
-    <div className={"flex items-center justify-between my-2"}>
+    <div className={"flex items-center justify-between my-2 w-full"}>
       <div className={"flex gap-2 items-center"}>
         <div className={" w-[150px]"}>
           <span className={"badge badge-primary text-bold"}>{day}</span>
@@ -130,22 +174,8 @@ const TimeRange = ({
                 className={"flex flex-col md:flex-row items-center gap-1"}
                 key={index}
               >
-                <TimePicker
-                  name={`schedules[${day}][${index}][start_time]`}
-                  defaultValue={
-                    defaultValue && defaultValue.length > index
-                      ? defaultValue[index]?.start_time
-                      : undefined
-                  }
-                />
-                <TimePicker
-                  name={`schedules[${day}][${index}][end_time]`}
-                  defaultValue={
-                    defaultValue && defaultValue.length > index
-                      ? defaultValue[index]?.end_time
-                      : undefined
-                  }
-                />
+                <Timepicker name={`schedules[${day}][${index}][start_time]`} />
+                <Timepicker name={`schedules[${day}][${index}][end_time]`} />
 
                 <button
                   type={"button"}
@@ -175,11 +205,6 @@ const TimeRange = ({
             onClick={() => setInputs((prevState) => prevState + 1)}
           >
             <PlusIcon />
-          </button>
-        </div>
-        <div className={"flex gap-2 p-1 border rounded-md border-pom"}>
-          <button type={"button"} className={"text-pom"}>
-            <Copy className={"h-6 w-6 fill-[#409cff]"} />
           </button>
         </div>
       </div>

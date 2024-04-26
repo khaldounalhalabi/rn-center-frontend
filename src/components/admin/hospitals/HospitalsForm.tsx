@@ -65,10 +65,7 @@ const HospitalsForm = ({
           api={(page, search): Promise<ApiResponse<Department[]>> =>
             DepartmentsService.make<DepartmentsService>().indexWithPagination(
               page,
-              search,
-              undefined,
-              undefined,
-              50
+              search
             )
           }
           isMultiple={true}
@@ -96,20 +93,11 @@ const HospitalsForm = ({
       <Grid md={"2"}>
         <ApiSelect
           api={(page, search): Promise<ApiResponse<City[]>> =>
-            CityService.make<CityService>().indexWithPagination(
-              page,
-              search,
-              undefined,
-              undefined,
-              50
-            )
+            CityService.make<CityService>().indexWithPagination(page, search)
           }
           defaultValues={
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []
           }
-          getDataArray={(data) => data.data}
-          getIsLast={(data) => data.paginate?.isLast ?? true}
-          getTotalPages={(data) => data.paginate?.total_pages ?? 1}
           name="city_id"
           label="City"
           optionValue="id"

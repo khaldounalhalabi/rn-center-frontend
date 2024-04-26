@@ -260,9 +260,9 @@ function ApiSelect<TResponse, TData>({
 
           {data?.pages.map((res) => {
             const items = getDataArray
-              ? getDataArray(res)
+              ? getDataArray(res) ?? []
               : (res.data as TData[]);
-            return items.map((item, index) => (
+            return items?.map((item, index) => (
               <div
                 key={index}
                 className={`

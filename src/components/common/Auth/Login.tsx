@@ -5,20 +5,29 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import Form from "@/components/common/ui/Form";
 import { Link } from "@/i18Router";
+import { swal } from "@/Helpers/UIHelpers";
+import { ApiResponse } from "@/Http/Response";
+import { AuthResponse } from "@/Models/User";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
-  const onSubmit = (data: { email: string; password: string }) => {
-    return AuthService.make().login(url, data, pageType);
+  const onSubmit = async (data: {
+    email: string;
+    password: string;
+  }): Promise<ApiResponse<AuthResponse>> => {
+    return await AuthService.make().login(url, data, pageType);
   };
 
+  swal.fire({
+    title: "Wrong Credentials",
+    text: "Your Credentials Didn't Match Our Records",
+    icon: "error",
+  });
+
   return (
-    <div className="w-[100wh] h-[100vh] relative ">
-      <div
-        className="w-full md:w-6/12 max-w-[455px] p-8 absolute -translate-x-1/2 top-[20%] left-1/2
-                     bg-white rounded-2xl"
-      >
-        <div className="w-full mb-4 flex flex-col items-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">Sing In</h1>
+    <div className="relative w-[100wh] h-[100vh]">
+      <div className="top-[20%] left-1/2 absolute bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] -translate-x-1/2">
+        <div className="flex flex-col items-center mb-4 w-full">
+          <h1 className="font-bold text-2xl sm:text-3xl">Sing In</h1>
           <h4 className="mt-4 text-gray-500">Welcome Back !</h4>
         </div>
         <Form handleSubmit={onSubmit}>
@@ -39,7 +48,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
           <div className={`flex justify-center items-center mt-5`}>
             <PrimaryButton type={"submit"}>Log In</PrimaryButton>
           </div>
-          <div className="flex justify-center mt-4 opacity-80">
+          <div className="flex justify-center opacity-80 mt-4">
             <h4> Forget Password ? </h4>
             <Link
               href={`/auth/${pageType}/reset-password`}

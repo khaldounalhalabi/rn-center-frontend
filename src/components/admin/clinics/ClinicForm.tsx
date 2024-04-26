@@ -194,10 +194,7 @@ const ClinicForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
-              search,
-              undefined,
-              undefined,
-              50
+              search
             )
           }
           getOptionLabel={(item) => translate(item.name)}
@@ -211,13 +208,7 @@ const ClinicForm = ({
           name={"address.city_id"}
           label={t("city")}
           api={(page?: number | undefined, search?: string | undefined) =>
-            CityService.make<CityService>().indexWithPagination(
-              page,
-              search,
-              undefined,
-              undefined,
-              50
-            )
+            CityService.make<CityService>().indexWithPagination(page, search)
           }
           getOptionLabel={(item) => translate(item.name)}
           optionValue={"id"}

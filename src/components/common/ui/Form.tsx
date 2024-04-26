@@ -26,6 +26,9 @@ const Form = ({
     }
     return navigate("").then(() => {
       res.fillValidationErrors(methods);
+      if (onFail) {
+        onFail(res);
+      }
     });
   };
 

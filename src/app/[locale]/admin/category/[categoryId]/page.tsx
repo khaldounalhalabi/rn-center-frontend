@@ -1,7 +1,8 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { Link } from "@/navigation";import { translate } from "@/Helpers/Translations";
+import { Link } from "@/navigation";
+import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";

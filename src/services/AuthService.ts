@@ -1,14 +1,13 @@
 import { navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
-import { getCookieServer, setServerCookie } from "@/Actions/serverCookies";
+import { setServerCookie } from "@/Actions/serverCookies";
 import { GET, POST } from "@/Http/Http";
 
 export class AuthService {
-  private locale: string = "en";
-
   public static instance?: AuthService | undefined | null;
   public successStatus: boolean = false;
+  private locale: string = "en";
 
   public static make() {
     if (!AuthService.instance) {
@@ -18,6 +17,11 @@ export class AuthService {
     AuthService.instance.successStatus = false;
 
     return AuthService.instance;
+  }
+
+  public static async getCurrentActor() {
+    const res = await GET<string>("/check-role");
+    return res.data;
   }
 
   public async login(url: string, dataForm: object, pageType: string) {
@@ -30,7 +34,7 @@ export class AuthService {
         }
 
         return res;
-      }
+      },
     );
     if (this.successStatus) await navigate(`/${pageType}`);
 
@@ -43,7 +47,7 @@ export class AuthService {
   public async submitResetCode(
     url: string,
     dataForm: object,
-    pageType: string
+    pageType: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -59,7 +63,7 @@ export class AuthService {
   public async requestResetPasswordRequest(
     url: string,
     dataForm: object,
-    typePage: string
+    typePage: string,
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -91,10 +95,5 @@ export class AuthService {
     if (this.successStatus) await navigate(`/customer`);
 
     return response;
-  }
-
-  public static async getCurrentActor() {
-    const res = await GET<string>("/check-role");
-    return res.data;
   }
 }

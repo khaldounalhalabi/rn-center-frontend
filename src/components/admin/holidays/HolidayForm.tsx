@@ -26,11 +26,11 @@ const HolidayForm = ({
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>().update(
         defaultValues.id,
-        data
+        data,
       );
     } else {
       return await ClinicHolidayService.make<ClinicHolidayService>().store(
-        data
+        data,
       );
     }
   };
@@ -50,7 +50,7 @@ const HolidayForm = ({
             api={(page, search): Promise<ApiResponse<Clinic[]>> =>
               ClinicService.make<ClinicService>().indexWithPagination(
                 page,
-                search
+                search,
               )
             }
             label="Clinic Name :"

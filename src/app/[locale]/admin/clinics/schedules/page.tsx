@@ -10,7 +10,6 @@ import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
 
-
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
     {

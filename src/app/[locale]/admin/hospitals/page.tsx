@@ -55,7 +55,7 @@ const tableData: DataTableData<Hospital> = {
       sortCol,
       sortDir,
       perPage,
-      params
+      params,
     ),
 };
 const Page = () => {

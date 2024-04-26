@@ -67,7 +67,7 @@ const ServiceForm = ({
           api={async (page, search) =>
             await ClinicService.make<ClinicService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           getOptionLabel={(option: Clinic) => translate(option.name)}
@@ -104,7 +104,7 @@ const ServiceForm = ({
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           getOptionLabel={(option: ServiceCategory) => translate(option.name)}

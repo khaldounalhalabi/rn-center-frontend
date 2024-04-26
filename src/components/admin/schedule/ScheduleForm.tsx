@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import PageCard from "@/components/common/ui/PageCard";
 import Input from "@/components/common/ui/Inputs/Input";
 import Form from "@/components/common/ui/Form";
@@ -15,12 +15,10 @@ import {
   SchedulesGroupedByDay,
   StoreScheduleRequest,
 } from "@/Models/Schedule";
-import Copy from "@/components/icons/Copy";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { translate } from "@/Helpers/Translations";
 import { Clinic } from "@/Models/Clinic";
 import Timepicker from "@/components/common/ui/TimePicker";
-import { Menu, Popover, Transition } from "@headlessui/react";
 
 const weeKDays: (keyof SchedulesGroupedByDay)[] = [
   "saturday",
@@ -44,7 +42,7 @@ const ScheduleForm = ({
     Object.values(data.schedules as SchedulesGroupedByDay).map(
       (v: Schedule[]) => {
         schedules = [...v, ...schedules];
-      }
+      },
     );
     data.schedules = schedules;
     return await ScheduleService.make<ScheduleService>().store(data);
@@ -68,7 +66,7 @@ const ScheduleForm = ({
                   api={(page, search) =>
                     ClinicService.make<ClinicService>().indexWithPagination(
                       page,
-                      search
+                      search,
                     )
                   }
                   label={"Clinic Name"}

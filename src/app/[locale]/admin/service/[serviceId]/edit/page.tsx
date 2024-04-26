@@ -4,24 +4,24 @@ import { ServiceService } from "@/services/ServiceService";
 import ServiceForm from "@/components/admin/service/ServiceForm";
 
 const page = async ({
-                        params: { serviceId },
-                    }: {
-    params: { serviceId: number };
+  params: { serviceId },
+}: {
+  params: { serviceId: number };
 }) => {
-    const service = (
-        await ServiceService.make<ServiceService>("admin").show(serviceId)
-    ).data;
-    return (
-      <PageCard>
-        <h2 className="card-title">Edit Service</h2>
-        <ServiceForm
-          type={"update"}
-          defaultValues={{
-            ...service,
-          }}
-        />
-      </PageCard>
-    );
+  const service = (
+    await ServiceService.make<ServiceService>("admin").show(serviceId)
+  ).data;
+  return (
+    <PageCard>
+      <h2 className="card-title">Edit Service</h2>
+      <ServiceForm
+        type={"update"}
+        defaultValues={{
+          ...service,
+        }}
+      />
+    </PageCard>
+  );
 };
 
 export default page;

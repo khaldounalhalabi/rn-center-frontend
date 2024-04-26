@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import { getCookieClient, setCookieClient } from "@/Actions/clientCookies";
-import { useRouter, usePathname } from "next/navigation";
 import { Link } from "@/navigation";
 
 const LanguagePopover = () => {

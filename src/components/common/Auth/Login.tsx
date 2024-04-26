@@ -3,7 +3,8 @@ import React from "react";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
-import { Link } from "@/navigation";import { swal } from "@/Helpers/UIHelpers";
+import { Link } from "@/navigation";
+import { swal } from "@/Helpers/UIHelpers";
 import { FormProvider, useForm } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
@@ -17,7 +18,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
       swal.fire(
         "Wrong Credentials",
         "The Provided Credentials Didn't Match Our Records",
-        "error"
+        "error",
       );
     }
   };

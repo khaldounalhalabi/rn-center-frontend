@@ -28,10 +28,9 @@ const ResetCodeForm = ({
     return POST(urlResendCode, email);
   };
 
-  const handleSubmit= (data:{reset_password_code:string}) => {
-    window.localStorage.setItem(pageType + "code", data.reset_password_code)
-    return AuthService.make().submitResetCode(url, data, pageType)
-    
+  const handleSubmit = (data: { reset_password_code: string }) => {
+    window.localStorage.setItem(pageType + "code", data.reset_password_code);
+    return AuthService.make().submitResetCode(url, data, pageType);
   };
   return (
     <div
@@ -48,34 +47,31 @@ const ResetCodeForm = ({
           </h1>
           <h4 className="mt-4 text-gray-500">Enter Reset Password Code</h4>
         </div>
-        <Form 
-        handleSubmit={handleSubmit}
-
-        >
-            <Input
-              name="reset_password_code"
-              type="text"
-              label="Code :"
-              placeholder="Enter Reset Code"
-            ></Input>
-            <div className="w-1/2 pl-2">
-              <p>
-                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-              </p>
+        <Form handleSubmit={handleSubmit}>
+          <Input
+            name="reset_password_code"
+            type="text"
+            label="Code :"
+            placeholder="Enter Reset Code"
+          ></Input>
+          <div className="w-1/2 pl-2">
+            <p>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </p>
+          </div>
+          <div className="w-full text-center">
+            <div className={`flex justify-center items-center mt-3`}>
+              <PrimaryButton type={"submit"}>Submit</PrimaryButton>
             </div>
-            <div className="w-full text-center">
-              <div className={`flex justify-center items-center mt-3`}>
-                <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-              </div>
-            </div>
-            <div className="w-full text-left">
-              <p
-                onClick={HandleClickResetButton}
-                className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
-              >
-                Resend The code ?
-              </p>
-            </div>
+          </div>
+          <div className="w-full text-left">
+            <p
+              onClick={HandleClickResetButton}
+              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+            >
+              Resend The code ?
+            </p>
+          </div>
         </Form>
       </div>
     </div>

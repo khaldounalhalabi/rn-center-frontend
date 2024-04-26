@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { POST } from "@/Http/Http";
 import { AuthService } from "@/services/AuthService";
@@ -15,8 +14,8 @@ const VerificationEmailCode = ({
   urlResendCode: string;
   pageType: string;
 }) => {
-  const handleSubmit =  (data:{verificationCode:string}) => {
-    return AuthService.make().requestVerificationCode(url, data)
+  const handleSubmit = (data: { verificationCode: string }) => {
+    return AuthService.make().requestVerificationCode(url, data);
   };
   const handleResendVerCode = () => {
     const email = {
@@ -38,25 +37,24 @@ const VerificationEmailCode = ({
           <h4 className="mt-4 text-gray-500">Enter Verification Code</h4>
         </div>
 
-        <Form       handleSubmit={handleSubmit}
->
-            <Input
-              name="verificationCode"
-              type="text"
-              placeholder="Enter Verification Code"
-            />
+        <Form handleSubmit={handleSubmit}>
+          <Input
+            name="verificationCode"
+            type="text"
+            placeholder="Enter Verification Code"
+          />
 
-            <div className={`flex justify-center items-center mt-3`}>
-              <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-            </div>
-            <div className="w-full text-left">
-              <p
-                onClick={handleResendVerCode}
-                className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
-              >
-                Resend The code ?
-              </p>
-            </div>
+          <div className={`flex justify-center items-center mt-3`}>
+            <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+          </div>
+          <div className="w-full text-left">
+            <p
+              onClick={handleResendVerCode}
+              className="pl-2 mt-3 cursor-pointer text-sm text-blue-600"
+            >
+              Resend The code ?
+            </p>
+          </div>
         </Form>
       </div>
     </div>

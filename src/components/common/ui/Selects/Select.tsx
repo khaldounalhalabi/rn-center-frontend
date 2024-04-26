@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ISelectProps,
-  Option,
   include,
+  ISelectProps,
   isEqual,
   isOption,
+  Option,
 } from "./SelectUtils";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import ChevronDown from "@/components/icons/ChevronDown";
@@ -64,7 +64,7 @@ function ApiSelect<TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
     if (onSelect) {
@@ -103,7 +103,7 @@ function ApiSelect<TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -111,7 +111,7 @@ function ApiSelect<TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -225,7 +225,7 @@ function ApiSelect<TData>({
             } else {
               const escapedQuery = search.replace(
                 /[.*+?^${}()|[\]\\]/g,
-                "\\$&"
+                "\\$&",
               );
               const regex = new RegExp(escapedQuery, "i");
               if (regex.test(getOption(item).label ?? "")) {

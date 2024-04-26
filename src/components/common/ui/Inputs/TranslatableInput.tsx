@@ -31,7 +31,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   const [tValue, setTValue] = useState<Translatable>(
     typeof defaultValue == "string"
       ? translate(defaultValue, true)
-      : defaultValue ?? { en: "", ar: "" }
+      : defaultValue ?? { en: "", ar: "" },
   );
 
   const handleInputChange = (locale: Locales, v: string) => {
@@ -52,7 +52,11 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
           hidden={true}
           {...register(`${name}`)}
         />
-        <SelectedLocale locales={locales} className={'absolute z-10 ltr:right-1 rtl:left-1 '} setSelectedLocale={setSelectedLocale}/>
+        <SelectedLocale
+          locales={locales}
+          className={"absolute z-10 ltr:right-1 rtl:left-1 "}
+          setSelectedLocale={setSelectedLocale}
+        />
         {locales.map((l: Locales, index) => (
           <input
             key={index}

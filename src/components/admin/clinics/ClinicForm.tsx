@@ -178,7 +178,7 @@ const ClinicForm = ({
           api={(page, search): Promise<ApiResponse<Hospital[]>> =>
             HospitalService.make<HospitalService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           getOptionLabel={(item) => translate(item.name)}
@@ -194,7 +194,7 @@ const ClinicForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           getOptionLabel={(item) => translate(item.name)}

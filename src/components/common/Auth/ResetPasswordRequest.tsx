@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -13,11 +12,10 @@ const ResetPasswordRequest = ({
   url: string;
   typePage: string;
 }) => {
-  const handleSubmit=  (data:{email:string}) => {
+  const handleSubmit = (data: { email: string }) => {
     window.localStorage.setItem(typePage, data.email);
-  
-      return AuthService.make().requestResetPasswordRequest(url, data, typePage)
-  
+
+    return AuthService.make().requestResetPasswordRequest(url, data, typePage);
   };
   return (
     <div
@@ -32,18 +30,16 @@ const ResetPasswordRequest = ({
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
           <h4 className="mt-4 text-gray-500">Enter your Email Address</h4>
         </div>
-        <Form       handleSubmit={handleSubmit}
->
-            <Input
-              name="email"
-              type="text"
-              label="Email :"
-              placeholder="Enter Email"
-            />
-            <div className={`flex justify-center items-center mt-3`}>
-              <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-            </div>
-      
+        <Form handleSubmit={handleSubmit}>
+          <Input
+            name="email"
+            type="text"
+            label="Email :"
+            placeholder="Enter Email"
+          />
+          <div className={`flex justify-center items-center mt-3`}>
+            <PrimaryButton type={"submit"}>Submit</PrimaryButton>
+          </div>
         </Form>
       </div>
     </div>

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -13,14 +12,18 @@ const SetNewPassword = ({
   url: string;
   pageType: string;
 }) => {
-  const handleSubmit=  (data:{reset_password_code:string,password:string,password_confirmation:string}) => {
+  const handleSubmit = (data: {
+    reset_password_code: string;
+    password: string;
+    password_confirmation: string;
+  }) => {
     const code = window.localStorage.getItem(pageType + "code");
     const dataSend = {
       reset_password_code: code,
       password: data.password,
       password_confirmation: data.password_confirmation,
     };
-    return AuthService.make().setNewPassword(url, dataSend, pageType)
+    return AuthService.make().setNewPassword(url, dataSend, pageType);
   };
   return (
     <div
@@ -34,25 +37,24 @@ const SetNewPassword = ({
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>
         </div>
-        <Form        handleSubmit={handleSubmit}
->
-            <div className={"flex flex-col gap-5"}>
-              <Input
-                name="password"
-                type={"text"}
-                label="Password :"
-                placeholder="Enter New Password"
-              />
-              <Input
-                name="password_confirmation"
-                type="text"
-                label="Confirmation Password :"
-                placeholder="Reset New Password"
-              />
-            </div>
-            <div className={`flex justify-center items-center mt-3`}>
-              <PrimaryButton type={"submit"}>Save</PrimaryButton>
-            </div>
+        <Form handleSubmit={handleSubmit}>
+          <div className={"flex flex-col gap-5"}>
+            <Input
+              name="password"
+              type={"text"}
+              label="Password :"
+              placeholder="Enter New Password"
+            />
+            <Input
+              name="password_confirmation"
+              type="text"
+              label="Confirmation Password :"
+              placeholder="Reset New Password"
+            />
+          </div>
+          <div className={`flex justify-center items-center mt-3`}>
+            <PrimaryButton type={"submit"}>Save</PrimaryButton>
+          </div>
         </Form>
       </div>
     </div>

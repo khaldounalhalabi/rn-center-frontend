@@ -1,14 +1,15 @@
-import { Clinic } from "./Clinic"
-import {ServiceCategory} from "@/Models/ServiceCategory";
+import { Clinic } from "./Clinic";
+import { ServiceCategory } from "@/Models/ServiceCategory";
+
 export interface Service {
-    id:number,
-    name:string,
-    approximate_duration:number,
-    service_category_id:number,
-    price:number,
-    status:string,
-    description:string,
-    clinic_id:number,
-    serviceCategory:ServiceCategory,
-    clinic:Clinic
+  id: number;
+  name: string;
+  approximate_duration: number;
+  service_category_id: number;
+  price: number;
+  status: string;
+  description: string;
+  clinic_id: number;
+  serviceCategory: ServiceCategory;
+  clinic: Clinic;
 }

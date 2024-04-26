@@ -43,7 +43,7 @@ function SelectPaginated<T>({
   const loadedOptions = async (
     search: string,
     _loadedOptions: ApiResponse<T>,
-    { page }: { page: number }
+    { page }: { page: number },
   ) => {
     const response = await api(page, search);
     return {
@@ -87,18 +87,18 @@ function SelectPaginated<T>({
                 : getValue
                   ? // @ts-ignore
                     getValue(newValue)
-                  : undefined
+                  : undefined,
             );
           } else
             return setValue(
               name,
               // @ts-ignore
-              newValue?.map((op) => op[`${value ?? ""}`])
+              newValue?.map((op) => op[`${value ?? ""}`]),
             );
         }}
         isOptionSelected={(option: T) =>
           selected.includes(
-            value ? option[value] : getValue ? getValue(option) : undefined
+            value ? option[value] : getValue ? getValue(option) : undefined,
           )
         }
       />

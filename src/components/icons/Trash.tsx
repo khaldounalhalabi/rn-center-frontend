@@ -20,5 +20,4 @@ const Trash: React.FC<IconAttributes> = ({ ...props }) => {
   );
 };
 
-
 export default Trash;

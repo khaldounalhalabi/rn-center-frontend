@@ -20,5 +20,4 @@ const Pencil: React.FC<IconAttributes> = ({ ...props }) => {
   );
 };
 
-
 export default Pencil;

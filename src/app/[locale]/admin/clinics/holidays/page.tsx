@@ -5,7 +5,8 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
-import { Link } from "@/navigation";import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import { Link } from "@/navigation";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
@@ -66,7 +67,7 @@ const tableData: DataTableData<ClinicHoliday> = {
       sortCol,
       sortDir,
       perPage,
-      params
+      params,
     ),
 
   filter: (params, setParams) => {

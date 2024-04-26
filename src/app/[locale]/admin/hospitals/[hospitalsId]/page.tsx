@@ -1,7 +1,8 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { Link } from "@/navigation";import { HospitalService } from "@/services/HospitalService";
+import { Link } from "@/navigation";
+import { HospitalService } from "@/services/HospitalService";
 import { Hospital } from "@/Models/Hospital";
 import { translate } from "@/Helpers/Translations";
 import { Department } from "@/Models/Departments";

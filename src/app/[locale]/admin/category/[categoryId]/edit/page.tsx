@@ -1,27 +1,27 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import {CategoryService} from "@/services/CategoryService";
+import { CategoryService } from "@/services/CategoryService";
 import CategoryForm from "@/components/admin/category/CategoryForm";
 
 const page = async ({
-                        params: { categoryId },
-                    }: {
-    params: { categoryId: number };
+  params: { categoryId },
+}: {
+  params: { categoryId: number };
 }) => {
-    const category = (
-        await CategoryService.make<CategoryService>("admin").show(categoryId)
-    ).data;
-    return (
-      <PageCard>
-        <h2 className="card-title">Edit Category</h2>
-        <CategoryForm
-          type={"update"}
-          defaultValues={{
-            ...category,
-          }}
-        />
-      </PageCard>
-    );
+  const category = (
+    await CategoryService.make<CategoryService>("admin").show(categoryId)
+  ).data;
+  return (
+    <PageCard>
+      <h2 className="card-title">Edit Category</h2>
+      <CategoryForm
+        type={"update"}
+        defaultValues={{
+          ...category,
+        }}
+      />
+    </PageCard>
+  );
 };
 
 export default page;

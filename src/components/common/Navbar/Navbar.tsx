@@ -42,7 +42,7 @@ const Navbar = ({
           }}
         />
       </div>
-      <div className={`flex justify-between items-center gap-2 `} >
+      <div className={`flex justify-between items-center gap-2 `}>
         <LanguagePopover />
         <NotificationsPopover />
         <ProfileOptionsPopover />

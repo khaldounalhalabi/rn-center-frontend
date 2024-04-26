@@ -1,5 +1,5 @@
 import ImagePreview from "./ImagePreview";
-import { Media, getMedia } from "@/Models/Media";
+import { getMedia, Media } from "@/Models/Media";
 
 const Gallery = ({ media }: { media: Media[] | string[] }) => {
   const cols =

@@ -5,7 +5,8 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SpecialityService } from "@/services/SpecialityService";
-import {Speciality} from "@/Models/Speciality";
+import { Speciality } from "@/Models/Speciality";
+
 const tableData: DataTableData<Speciality> = {
   createUrl: `/admin/speciality/create`,
   title: "Specialities",
@@ -37,7 +38,7 @@ const tableData: DataTableData<Speciality> = {
       sortCol,
       sortDir,
       perPage,
-      params
+      params,
     ),
 };
 const Page = () => {

@@ -3,7 +3,8 @@ import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { Link } from "@/navigation";import { translate } from "@/Helpers/Translations";
+import { Link } from "@/navigation";
+import { translate } from "@/Helpers/Translations";
 
 const page = async ({
   params: { holidayId },

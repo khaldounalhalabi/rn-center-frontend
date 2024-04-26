@@ -22,21 +22,21 @@ async function authenticationMiddleware(req: NextRequest) {
   if (!access && path.includes(`${locale}/admin`)) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
   if (!access && path.includes(`${locale}/customer`)) {
     const absolutURL = new URL(
       `${locale}/auth/customer/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
   if (!access && path.includes(`${locale}/doctor`)) {
     const absolutURL = new URL(
       `${locale}/auth/doctor/login`,
-      req.nextUrl.origin
+      req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }

@@ -10,12 +10,13 @@ interface textAreaType {
   dir?: string;
   defaultValue?: any;
 }
+
 const Textarea: React.FC<textAreaType> = ({
   className,
   label,
   name,
   dir,
-                                            defaultValue,
+  defaultValue,
   ...props
 }) => {
   const {

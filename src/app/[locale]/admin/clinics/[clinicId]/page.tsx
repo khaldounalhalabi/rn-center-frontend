@@ -8,7 +8,8 @@ import { Clinic } from "@/Models/Clinic";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
-import { Link } from "@/navigation";import { translate } from "@/Helpers/Translations";
+import { Link } from "@/navigation";
+import { translate } from "@/Helpers/Translations";
 import { getTranslations } from "next-intl/server";
 
 const Page = async ({

@@ -4,14 +4,14 @@ import { ApiResponse } from "@/Http/Response";
 import { Actors } from "@/types";
 
 export class BaseService<T> {
+  protected static instance?: BaseService<any>;
   public baseUrl = "/";
   public actor: string = "customer";
-  protected static instance?: BaseService<any>;
 
   protected constructor() {}
 
   public static make<Service extends BaseService<any>>(
-    actor: Actors = "admin"
+    actor: Actors = "admin",
   ): Service {
     if (!this.instance) {
       this.instance = new this();
@@ -43,7 +43,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
       page: page,
@@ -87,7 +87,7 @@ export class BaseService<T> {
   public async update(
     id?: number,
     data?: any,
-    headers?: object
+    headers?: object,
   ): Promise<ApiResponse<T>> {
     if (!id) {
       await navigate("/404");
@@ -100,15 +100,15 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>
+    res: ApiResponse<ResType>,
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>
+    res: ApiResponse<ResType[]>,
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler(
-    res: ApiResponse<T> | ApiResponse<T[]>
+    res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
       await navigate("/auth/admin/login");

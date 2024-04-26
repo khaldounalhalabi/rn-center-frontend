@@ -7,7 +7,6 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
-import { redirect } from "@/i18Router";
 import { navigate } from "@/Actions/navigate";
 
 const SpecialityForm = ({

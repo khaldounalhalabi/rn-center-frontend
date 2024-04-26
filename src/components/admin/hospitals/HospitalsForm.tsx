@@ -65,7 +65,7 @@ const HospitalsForm = ({
           api={(page, search): Promise<ApiResponse<Department[]>> =>
             DepartmentsService.make<DepartmentsService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           isMultiple={true}

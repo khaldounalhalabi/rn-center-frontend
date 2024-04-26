@@ -3,7 +3,6 @@ import { FilePond, registerPlugin } from "react-filepond";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
@@ -20,7 +19,7 @@ const ImageUploader = ({
   registerPlugin(
     FilePondPluginImageExifOrientation,
     FilePondPluginImagePreview,
-    FilePondPluginFileValidateType
+    FilePondPluginFileValidateType,
   );
 
   const {
@@ -37,7 +36,9 @@ const ImageUploader = ({
             if (isMultiple) {
               setValue(
                 name,
-                fileItems.length > 0 ? fileItems.map((file) => file.file) : null
+                fileItems.length > 0
+                  ? fileItems.map((file) => file.file)
+                  : null,
               );
             } else {
               fileItems.length > 0

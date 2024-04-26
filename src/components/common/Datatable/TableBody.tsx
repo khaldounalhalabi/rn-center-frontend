@@ -57,7 +57,7 @@ const TableBody = ({
                               "No Data",
                         item,
                         setHidden,
-                        revalidate
+                        revalidate,
                       )}
                     </td>
                   );

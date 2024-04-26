@@ -17,7 +17,7 @@ export interface IApiSelectProps<TResponse, TData> {
     page?: number,
     search?: string,
     isLast?: boolean,
-    totalPages?: number
+    totalPages?: number,
   ) => Promise<ApiResponse<TResponse>>;
   isMultiple?: boolean;
   optionLabel?: keyof TData;
@@ -29,7 +29,7 @@ export interface IApiSelectProps<TResponse, TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;
@@ -54,7 +54,7 @@ export interface IApiSelectProps<TResponse, TData> {
   getNextPage?: (
     prevPage: number,
     isLast: boolean,
-    totalPages: number
+    totalPages: number,
   ) => number;
 }
 
@@ -69,7 +69,7 @@ export interface ISelectProps<TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;

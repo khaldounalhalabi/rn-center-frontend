@@ -29,7 +29,7 @@ const CategoryForm = ({
           return res;
         });
     } else {
-      return await CategoryService.make<CategoryService>("admin").store(data)
+      return await CategoryService.make<CategoryService>("admin").store(data);
     }
   };
   const onSuccess = () => {

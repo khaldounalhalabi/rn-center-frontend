@@ -156,8 +156,9 @@ const dataTableData: DataTableData<Clinic> = {
               setParams({ ...params, city_name: e.target.value });
             }}
           >
-            {cities.map((city) => (
+            {cities.map((city, index) => (
               <option
+                key={index}
                 value={city.name}
                 selected={params.city_name == city.name}
               >

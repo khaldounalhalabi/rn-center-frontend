@@ -1,19 +1,20 @@
 import { getCookieClient } from "@/Actions/clientCookies";
 import { Translatable } from "@/Models/Translatable";
+import { useLocale } from "next-intl";
 
 export function translate(
   val: string | undefined | null,
-  object?: boolean,
+  object?: boolean
 ): string;
 
 export function translate(
   val: string | undefined | null,
-  object: true,
+  object: true
 ): Translatable;
 
 export function translate(
   val: string | undefined | null,
-  object = false,
+  object = false
 ): string | Translatable {
   try {
     if (!val && object) {
@@ -28,7 +29,13 @@ export function translate(
     if (object) {
       return tr;
     }
-    let locale = getCookieClient("NEXT_LOCALE") ?? "en";
+    let locale = "en";
+
+    if (typeof window == "undefined") {
+      locale = useLocale() ?? "en";
+    } else {
+      locale = getCookieClient("NEXT_LOCALE") ?? "en";
+    }
 
     if (locale == "en") {
       return tr.en ?? "";

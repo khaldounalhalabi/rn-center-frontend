@@ -1,3 +1,4 @@
+"use client";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   include,
@@ -9,6 +10,7 @@ import {
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import ChevronDown from "@/components/icons/ChevronDown";
 import XMark from "@/components/icons/XMark";
+import { useFormContext } from "react-hook-form";
 
 function Select<TData>({
   label,
@@ -28,6 +30,12 @@ function Select<TData>({
   onChange = undefined,
   inputProps = {},
 }: ISelectProps<TData>) {
+  const {
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+  const validationError = getNestedPropertyValue(errors, `${name}.message`);
+
   const getOption = (item: TData): Option => ({
     label: getOptionLabel
       ? getOptionLabel(item)
@@ -64,7 +72,7 @@ function Select<TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
 
@@ -103,7 +111,7 @@ function Select<TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -111,7 +119,7 @@ function Select<TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -126,8 +134,14 @@ function Select<TData>({
 
   const getInputValue = () => {
     if (isMultiple) {
+      if (name) {
+        setValue(name, `[${selected.map((option) => option.value)}]`);
+      }
       return `[${selected.map((option) => option.value)}]`;
     } else {
+      if (name) {
+        setValue(name, selected?.[0]?.value ?? "");
+      }
       return selected?.[0]?.value ?? "";
     }
   };
@@ -146,6 +160,9 @@ function Select<TData>({
           onInput={(e: ChangeEvent<HTMLInputElement>) => {
             if (onChange) {
               onChange(e);
+              if (name) {
+                setValue(name, getInputValue());
+              }
             }
           }}
           {...inputProps}
@@ -225,7 +242,7 @@ function Select<TData>({
             } else {
               const escapedQuery = search.replace(
                 /[.*+?^${}()|[\]\\]/g,
-                "\\$&"
+                "\\$&",
               );
               const regex = new RegExp(escapedQuery, "i");
               if (regex.test(getOption(item).label ?? "")) {
@@ -245,6 +262,7 @@ function Select<TData>({
           })}
         </div>
       </div>
+      {validationError ? <p className="text-error">{validationError}</p> : ""}
     </div>
   );
 }

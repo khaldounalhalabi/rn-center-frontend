@@ -2,11 +2,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import {useState} from "react";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient();
+    const [client] = useState(new QueryClient())
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={client}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         {children}
       </LocalizationProvider>

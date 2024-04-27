@@ -46,6 +46,11 @@ const tableData: DataTableData<Appointment> = {
       },
     },
     {
+      name: "appointment_sequence",
+      label: "Sequence",
+      sortable: true,
+    },
+    {
       name: "date",
       label: "Date",
       sortable: true,

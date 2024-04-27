@@ -10,11 +10,7 @@ import { translate } from "@/Helpers/Translations";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { ApiResponse } from "@/Http/Response";
-import { CityService } from "@/services/CityService";
 import { City } from "@/Models/City";
-import Select from "@/components/common/ui/Selects/Select";
 import { cities } from "@/constants/Cities";
 
 const dataTableData: DataTableData<Clinic> = {
@@ -130,7 +126,7 @@ const dataTableData: DataTableData<Clinic> = {
       sortCol,
       sortDir,
       perPage,
-      params
+      params,
     ),
   title: "Clinics :",
   filter: (params, setParams) => {

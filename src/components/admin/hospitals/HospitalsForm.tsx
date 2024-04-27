@@ -133,9 +133,6 @@ const HospitalsForm = ({
         name="address.map_iframe"
         label={"Map iframe"}
       />
-      <div className="flex justify-center my-3">
-        <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-      </div>
     </Form>
   );
 };

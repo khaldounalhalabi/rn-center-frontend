@@ -247,10 +247,6 @@ const ClinicForm = ({
         )}
       </Grid>
       <ImageUploader name={"user.image"} />
-
-      <div className={`flex justify-center items-center`}>
-        <PrimaryButton type={"submit"}>{t("btn")}</PrimaryButton>
-      </div>
     </Form>
   );
 };

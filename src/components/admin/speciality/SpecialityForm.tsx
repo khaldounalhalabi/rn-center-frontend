@@ -60,9 +60,7 @@ const SpecialityForm = ({
           defaultValue={array ?? []}
         />
       </div>
-      <div className="flex justify-center my-3">
-        <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-      </div>
+      
     </Form>
   );
 };

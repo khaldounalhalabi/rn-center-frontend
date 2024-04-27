@@ -125,3 +125,20 @@ iframe {
     outline-color: #007BFF !important;
     border-color: #007BFF !important;
 }
+
+
+::-webkit-scrollbar {
+    @apply w-[5px]
+}
+
+::-webkit-scrollbar-track {
+    @apply shadow-md
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-md
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-pom
+}

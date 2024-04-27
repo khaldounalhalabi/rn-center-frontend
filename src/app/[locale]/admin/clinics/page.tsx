@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -10,6 +10,12 @@ import { translate } from "@/Helpers/Translations";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import { ApiResponse } from "@/Http/Response";
+import { CityService } from "@/services/CityService";
+import { City } from "@/Models/City";
+import Select from "@/components/common/ui/Selects/Select";
+import { cities } from "@/constants/Cities";
 
 const dataTableData: DataTableData<Clinic> = {
   //TODO::add total appointments when it is done
@@ -124,7 +130,7 @@ const dataTableData: DataTableData<Clinic> = {
       sortCol,
       sortDir,
       perPage,
-      params,
+      params
     ),
   title: "Clinics :",
   filter: (params, setParams) => {
@@ -142,17 +148,23 @@ const dataTableData: DataTableData<Clinic> = {
             }}
           />
         </label>
-        <label className={`label`}>
+        <label className="label">
           City :
-          <input
-            type={"text"}
-            className={"input input-bordered input-sm"}
-            value={params.city}
-            defaultValue={params.city_name}
-            onChange={(event) => {
-              setParams({ ...params, city_name: event.target.value });
+          <select
+            className="select-bordered select"
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              setParams({ ...params, city_name: e.target.value });
             }}
-          />
+          >
+            {cities.map((city) => (
+              <option
+                value={city.name}
+                selected={params.city_name == city.name}
+              >
+                {translate(city.name)}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
     );

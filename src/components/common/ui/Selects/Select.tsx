@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   include,
   ISelectProps,
@@ -10,7 +10,7 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import ChevronDown from "@/components/icons/ChevronDown";
 import XMark from "@/components/icons/XMark";
 
-function ApiSelect<TData>({
+function Select<TData>({
   label,
   data = [],
   clearable = true,
@@ -64,25 +64,25 @@ function ApiSelect<TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
-    if (onSelect) {
-      onSelect(item, selected, setSelected, e);
-    } else {
-      const option = getOption(item);
-      if (isMultiple) {
-        if (include(option, selected)) {
-          setSelected((prev) => prev.filter((sel) => !isEqual(sel, option)));
-        } else {
-          setSelected((prev) => [option, ...prev]);
-        }
+
+    const option = getOption(item);
+    if (isMultiple) {
+      if (onSelect) {
+        onSelect(item, selected, setSelected, e);
+      }
+      if (include(option, selected)) {
+        setSelected((prev) => prev.filter((sel) => !isEqual(sel, option)));
       } else {
-        if (include(option, selected)) {
-          setSelected([]);
-        } else {
-          setSelected([option]);
-        }
+        setSelected((prev) => [option, ...prev]);
+      }
+    } else {
+      if (include(option, selected)) {
+        setSelected([]);
+      } else {
+        setSelected([option]);
       }
     }
 
@@ -103,7 +103,7 @@ function ApiSelect<TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -111,7 +111,7 @@ function ApiSelect<TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -143,7 +143,7 @@ function ApiSelect<TData>({
           name={name ?? ""}
           value={getInputValue()}
           className={`hidden`}
-          onInput={(e) => {
+          onInput={(e: ChangeEvent<HTMLInputElement>) => {
             if (onChange) {
               onChange(e);
             }
@@ -225,7 +225,7 @@ function ApiSelect<TData>({
             } else {
               const escapedQuery = search.replace(
                 /[.*+?^${}()|[\]\\]/g,
-                "\\$&",
+                "\\$&"
               );
               const regex = new RegExp(escapedQuery, "i");
               if (regex.test(getOption(item).label ?? "")) {
@@ -249,4 +249,4 @@ function ApiSelect<TData>({
   );
 }
 
-export default ApiSelect;
+export default Select;

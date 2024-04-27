@@ -88,7 +88,7 @@ export interface ISelectProps<TData> {
     dropDownItemsContainer?: string;
     dropDownContainerMaxHeight?: number;
   };
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   inputProps?: SelectInputProps;
 }
 

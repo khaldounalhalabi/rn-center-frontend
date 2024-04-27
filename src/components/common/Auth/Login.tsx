@@ -18,7 +18,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
       swal.fire(
         "Wrong Credentials",
         "The Provided Credentials Didn't Match Our Records",
-        "error",
+        "error"
       );
     }
   };
@@ -47,7 +47,10 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
               />
             </div>
             <div className={`flex justify-center items-center mt-5`}>
-              <PrimaryButton type={"submit"}>
+              <PrimaryButton
+                disabled={methods.formState.isSubmitting}
+                type={"submit"}
+              >
                 Log In
                 {methods.formState.isSubmitting ? (
                   <span className="mx-1">

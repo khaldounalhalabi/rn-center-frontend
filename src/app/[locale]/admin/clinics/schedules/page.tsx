@@ -9,6 +9,8 @@ import { ClinicService } from "@/services/ClinicService";
 import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
+import { TimePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const dataTableSchema: DataTableData<Clinic> = {
   schema: [
@@ -61,7 +63,7 @@ const dataTableSchema: DataTableData<Clinic> = {
       sortCol,
       sortDir,
       perPage,
-      params,
+      params
     ),
   createUrl: `/admin/clinics/schedules/create`,
   title: "Clinic Schedules",
@@ -70,23 +72,19 @@ const dataTableSchema: DataTableData<Clinic> = {
       <div className={"w-full grid grid-cols-1"}>
         <label className={"label"}>
           Start Time :
-          <input
-            type="time"
-            className={"input input-bordered input-sm"}
-            defaultChecked={params.start_time}
-            onChange={(event) => {
-              setParams({ ...params, start_time: event.target.value });
+          <TimePicker
+            defaultValue={dayjs(params.start_time, "HH:MM")}
+            onChange={(v): void => {
+              setParams({ ...params, start_time: v?.format("HH:MM") });
             }}
           />
         </label>
         <label className={`label`}>
           End Time :
-          <input
-            type="time"
-            className={"input input-bordered input-sm"}
-            defaultChecked={params.end_time}
-            onChange={(event) => {
-              setParams({ ...params, end_time: event.target.value });
+          <TimePicker
+            defaultValue={dayjs(params.end_time, "HH:MM")}
+            onChange={(v): void => {
+              setParams({ ...params, end_time: v?.format("HH:MM") });
             }}
           />
         </label>

@@ -81,9 +81,6 @@ const HolidayForm = ({
           locales={["en", "ar"]}
         />
       </div>
-      <div className="flex justify-center">
-        <PrimaryButton type={"submit"}>Submit</PrimaryButton>
-      </div>
     </Form>
   );
 };

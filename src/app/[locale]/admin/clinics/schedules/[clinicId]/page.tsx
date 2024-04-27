@@ -12,12 +12,13 @@ const Page = async ({
   const schedules: ApiResponse<any> =
     await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
 
-  const defaultValues: ScheduleResponse = {
-    clinic_id: clinicId,
-    schedules: { ...schedules.data },
-  };
-
-  return <ScheduleForm defaultValues={defaultValues} method={"update"} />;
+  return (
+    <ScheduleForm
+      defaultValues={schedules.data}
+      method={"update"}
+      clinic_id={clinicId}
+    />
+  );
 };
 
 export default Page;

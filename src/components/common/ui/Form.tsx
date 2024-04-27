@@ -4,17 +4,20 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { navigate } from "@/Actions/navigate";
+import PrimaryButton from "./PrimaryButton";
 
 const Form = ({
   children,
   handleSubmit,
   onSuccess,
   defaultValues = {},
+  buttonText = "Submit",
 }: {
   children: React.ReactNode;
   handleSubmit: (data: any) => Promise<ApiResponse<any>>;
   defaultValues?: object | undefined | null;
   onSuccess?: (res: ApiResponse<any>) => void;
+  buttonText?: string;
 }) => {
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
@@ -38,12 +41,22 @@ const Form = ({
         onSubmit={methods.handleSubmit(onSubmit)}
         encType="multipart/form-data"
       >
-        {methods.formState.isSubmitting && (
-          <div className="z-50 absolute inset-0 flex justify-center items-center bg-transparent/5 rounded-md">
-            <LoadingSpin className="w-8 h-8" />
-          </div>
-        )}
         {children}
+        <div className="flex justify-center items-center my-5">
+          <PrimaryButton
+            type="submit"
+            disabled={methods.formState.isSubmitting}
+          >
+            {buttonText}{" "}
+            {methods.formState.isSubmitting ? (
+              <span className="mx-1">
+                <LoadingSpin className="w-6 h-6 text-white" />
+              </span>
+            ) : (
+              ""
+            )}
+          </PrimaryButton>
+        </div>
       </form>
     </FormProvider>
   );

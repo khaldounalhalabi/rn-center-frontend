@@ -31,18 +31,18 @@ const page = () => {
   };
   return (
     <div
-      className="flex justify-center w-full h-full items-center p-32"
+      className="flex justify-center items-center p-32 w-full h-full"
       style={{
         background:
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
       }}
     >
-      <div className="card w-full bg-base-100 shadow-xl">
+      <div className="bg-base-100 shadow-xl w-full card">
         <div className="card-body">
           <div className="flex justify-center">
-            <h1 className="text-xl font-bold">Registration Form</h1>
+            <h1 className="font-bold text-xl">Registration Form</h1>
           </div>
-          <h2 className="card-title mb-4">
+          <h2 className="mb-4 card-title">
             Fill The Following Information To Create A New Account
           </h2>
           <Form handleSubmit={handleSubmit}>
@@ -158,11 +158,6 @@ const page = () => {
                 <option value="القادسية">القادسية</option>
                 <option value="كركوك">كركوك</option>
               </select>
-            </div>
-            <div className="col-span-6 flex justify-center">
-              <div className={`flex justify-center items-center`}>
-                <PrimaryButton type={"submit"}>Register</PrimaryButton>
-              </div>
             </div>
           </Form>
         </div>

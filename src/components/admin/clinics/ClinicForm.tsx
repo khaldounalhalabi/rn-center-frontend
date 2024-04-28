@@ -40,7 +40,7 @@ const ClinicForm = ({
       return await ClinicService.make<ClinicService>().update(id, data);
     };
   }
-  const t = useTranslations("clinic.create-edit");
+  const t = useTranslations("admin.clinic.create-edit");
   return (
     <Form
       handleSubmit={onSubmit}
@@ -79,7 +79,7 @@ const ClinicForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={`Clinic Name`}
-          label={t("clinic-name")}
+          label={t("clinicName")}
           name={"name"}
         />
         <Input
@@ -226,7 +226,7 @@ const ClinicForm = ({
         <TextAreaMap
           className={"col-span-2"}
           name="address.map_iframe"
-          label={"Map iframe"}
+          label={t("mapIframe")}
         />
         {type == "update" ? (
           defaultValues?.user?.photo &&
@@ -238,8 +238,8 @@ const ClinicForm = ({
             />
           ) : (
             <div className="flex justify-between items-center">
-              <label className="label"> Image : </label>
-              <span className="text-lg badge badge-neutral">No Image</span>
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{t("noImage")}</span>
             </div>
           )
         ) : (

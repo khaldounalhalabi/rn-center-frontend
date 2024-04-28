@@ -6,31 +6,33 @@ import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { categoryId },
 }: {
   params: { categoryId: number };
 }) => {
+  const t = await getTranslations('admin.category.show')
   const data = await CategoryService.make<CategoryService>().show(categoryId);
   const res: ServiceCategory = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Hospital Details</h2>
+        <h2 className="card-title">{t("categoryDetails")}</h2>
         <Link href={`/admin/category/${categoryId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          Hospital Name En:{" "}
+          {t("hospitalName")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.en}
           </span>
         </label>
         <label className="label">
-          Hospital Name Ar:{" "}
+          {t("hospitalName")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.ar}
           </span>

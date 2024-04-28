@@ -10,37 +10,39 @@ import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
 import Gallery from "@/components/common/ui/Gallery";
 import MapIFrame from "@/components/common/ui/MapIFrame";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { hospitalsId },
 }: {
   params: { hospitalsId: number };
 }) => {
+  const t = await getTranslations('admin.hospitals.show')
   const data = await HospitalService.make<HospitalService>().show(hospitalsId);
   const res: Hospital = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Hospital Details</h2>
+        <h2 className="card-title">{t('hospitalDetails')}</h2>
         <Link href={`/admin/hospitals/${hospitalsId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t('editBtn')}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          Hospital Name EN:{" "}
+          {t('hospitalName')} EN:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.en}
           </span>
         </label>
         <label className="label">
-          Hospital Name AR:{" "}
+          {t('hospitalName')} AR:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          Phones :
+          {t('phones')} :
           {res?.phones?.length != 0 ? (
             res?.phones?.map((phone: Phone, index: number) => (
               <span key={index} className="badge badge-neutral">
@@ -52,7 +54,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          Departments :
+          {t('departments')} :
           {res?.available_departments?.length != 0 ? (
             res?.available_departments?.map((e: Department, index: number) => {
               return (
@@ -62,28 +64,28 @@ const page = async ({
               );
             })
           ) : (
-            <span className="text-lg badge badge-neutral">No Departments</span>
+            <span className="text-lg badge badge-neutral">{t("noDepartments")}</span>
           )}
         </label>
 
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          Address :
+          {t("address")} :
           {res?.address?.name ? (
             <span className="badge badge-accent">
               {translate(res?.address?.name)}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <span className="text-lg badge badge-neutral">{t('noData')}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          City :
+          {t("city")} :
           {res?.address?.city ? (
             <span className="badge badge-accent">
               {`${translate(res?.address?.city.name)}`}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <span className="text-lg badge badge-neutral">{t('noData')}</span>
           )}
         </label>
       </Grid>
@@ -92,8 +94,8 @@ const page = async ({
           <Gallery media={res?.images ? res?.images : [""]} />
         ) : (
           <div className="flex justify-between items-center">
-            <label className="label"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <label className="label"> {t("image")} : </label>
+            <span className="text-lg badge badge-neutral">{t('noData')}</span>
           </div>
         )}
       </div>

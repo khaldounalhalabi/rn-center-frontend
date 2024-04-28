@@ -1,14 +1,18 @@
+'use client'
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
 import { translate } from "@/Helpers/Translations";
 import MapIFrame from "@/components/common/ui/MapIFrame";
+import {useTranslations} from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
+  const t = useTranslations('admin.clinic.show')
+
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
       <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
         <div className={"w-full"}>
-          <label className={"label"}>Specializations :</label>
+          <label className={"label"}>{t("specializations")} :</label>
           <div className={"flex flex-wrap w-full gap-3"}>
             {clinic?.specialities?.map((spec) => {
               return (
@@ -20,31 +24,31 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           </div>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Blood Group : </label>
+          <label className={"label"}>{t('blood')} : </label>
           <div className={"badge badge-error"}>{clinic?.user?.blood_group}</div>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Gender : </label>
+          <label className={"label"}>{t("gender")} : </label>
           <p className={"badge badge-success"}>{clinic?.user?.gender}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Status : </label>
+          <label className={"label"}>{t('status')} : </label>
           <p className={"badge badge-warning"}>{clinic?.status}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Date Of Birth : </label>
+          <label className={"label"}>{t('birth')} : </label>
           <div className={"badge badge-neutral"}>
             {clinic?.user?.birth_date}
           </div>
-          <label className={"label"}>Age : </label>
+          <label className={"label"}>{t("age")} : </label>
           <div className={"badge badge-neutral"}>{clinic?.user?.age}</div>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Experience Years : </label>
+          <label className={"label"}>{t("experienceY")} : </label>
           <p className={"badge badge-accent"}>{clinic?.experience_years}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Address :</label>
+          <label className={"label"}>{t("address")} :</label>
           <div className={"flex flex-col"}>
             <p>{translate(clinic?.user?.address?.name)}</p>
             <p>{translate(clinic?.user?.address?.city?.name)}</p>
@@ -53,39 +57,39 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
 
         <div className={"w-full"}>
-          <label className={"label"}>Appointment Cost :</label>
+          <label className={"label"}>{t("cost")} :</label>
           <p className={"badge badge-primary"}>{clinic?.appointment_cost}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Max Appointments Per Day :</label>
+          <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
           <p className={"badge badge-warning"}>{clinic?.max_appointments}</p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>
-            Maximum Days To Schedule An Appointment :
+            {t( "maximumDaysToScheduleAnAppointment")} :
           </label>
           <p className={"badge badge-neutral"}>
             {clinic?.appointment_day_range}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Hospital :</label>
+          <label className={"label"}>{t('hospital')} :</label>
           <p className={"badge badge-error"}>
             {translate(clinic?.hospital?.name ?? "No Hospital")}
           </p>
         </div>
 
         <div className={"w-full"}>
-          <label className={"label"}>Registered On :</label>
+          <label className={"label"}>{t('registeredOn')} :</label>
           <p className={"badge badge-secondary"}>{clinic?.created_at}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Last Updated At :</label>
+          <label className={"label"}>{t("lastUpdatedAt")} :</label>
           <p className={"badge badge-primary"}>{clinic?.updated_at}</p>
         </div>
       </div>
       <div className={"w-full"}>
-        <label className={"label"}>Experience :</label>
+        <label className={"label"}>{t('experience')} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}
@@ -93,7 +97,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         ></textarea>
       </div>
       <div className={"w-full"}>
-        <label className={"label"}>About :</label>
+        <label className={"label"}>{t("about")} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}

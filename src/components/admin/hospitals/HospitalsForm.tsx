@@ -18,6 +18,7 @@ import { City } from "@/Models/City";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import {useTranslations} from "next-intl";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -28,6 +29,7 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('admin.hospitals.create-edit')
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -57,7 +59,7 @@ const HospitalsForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={"Hospital Name"}
+          label={t("hospitalName")}
           name={"name"}
         />
 
@@ -76,7 +78,7 @@ const HospitalsForm = ({
               ? defaultValues.available_departments
               : []
           }
-          label="Available Departments"
+          label={t("availableDepartments")}
           name="available_departments"
           closeOnSelect={false}
         />
@@ -86,7 +88,7 @@ const HospitalsForm = ({
         type={"tel"}
         name={"phone_numbers"}
         placeholder={"Enter Hospital Phone Number"}
-        label={"Hospital Phones"}
+        label={t("hospitalPhones")}
         defaultValue={defaultValues?.phone_numbers ?? []}
       />
 
@@ -99,14 +101,14 @@ const HospitalsForm = ({
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []
           }
           name="city_id"
-          label="City"
+          label={t("city")}
           optionValue="id"
           getOptionLabel={(data) => translate(data.name)}
         />
         <TranslatableInput
           name={"address.name"}
           type={"text"}
-          label={"Address"}
+          label={t("address")}
         />
 
         {type == "update" ? (
@@ -117,21 +119,20 @@ const HospitalsForm = ({
               />
             ) : (
               <div className="flex items-center">
-                <label className="label"> Image : </label>
-                <span className="text-lg badge badge-neutral">no data</span>
+                <label className="label"> {t('image')} : </label>
+                <span className="text-lg badge badge-neutral">{t('noData')}</span>
               </div>
             )}
           </div>
-        ) : (
-          false
-        )}
+        ) : false
+        }
       </Grid>
 
       <ImageUploader name={"images"} isMultiple={true} />
       <TextAreaMap
         className={"col-span-2"}
         name="address.map_iframe"
-        label={"Map iframe"}
+        label={t("mapIframe")}
       />
     </Form>
   );

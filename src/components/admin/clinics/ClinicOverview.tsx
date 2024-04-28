@@ -3,12 +3,14 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
+import {useTranslations} from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
+  const t = useTranslations('admin.clinic.show')
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -24,7 +26,7 @@ const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
               )
             }
           >
-            Overview
+            {t("overview")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -37,7 +39,7 @@ const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
               )
             }
           >
-            Appointments
+            {t("appointments")}
             {/*TODO::configure it when appointments is done Appointments*/}
           </Tab>
         </Tab.List>
@@ -45,7 +47,7 @@ const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
           <Tab.Panel className={"w-full"}>
             <Overview clinic={clinic} />
           </Tab.Panel>
-          <Tab.Panel>appointments</Tab.Panel>
+          <Tab.Panel>{t("appointments")}</Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

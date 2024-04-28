@@ -5,12 +5,14 @@ import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { specialityId },
 }: {
   params: { specialityId: number };
 }) => {
+  const t = await getTranslations('admin.speciality.show')
   const data =
     await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: AddSpeciality = data?.data;
@@ -18,28 +20,28 @@ const page = async ({
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Speciality Details</h2>
+        <h2 className="card-title">{t('specialityDetails')}</h2>
         <Link href={`/admin/speciality/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t('editBtn')}</PrimaryButton>
         </Link>
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between items-center my-2">
           <h2 className="text-xl">
-            Speciality Name En:{" "}
+            {t("specialityName")} En:{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {translate(res?.name, true).en}
             </span>
           </h2>
           <h2 className="text-xl">
-            Speciality Name Ar:{" "}
+            {t("specialityName")} Ar:{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {translate(res?.name, true).ar}
             </span>
           </h2>
         </div>
         <div className="my-5">
-          <span className="my-3 w-4/12 text-lg md:text-xl">tags : </span>
+          <span className="my-3 w-4/12 text-lg md:text-xl">{t("tags")} : </span>
           {tagsArray ? (
             tagsArray.map((e, index) => (
               <span
@@ -50,11 +52,11 @@ const page = async ({
               </span>
             ))
           ) : (
-            <span className="text-lg badge badge-neutral">no data</span>
+            <span className="text-lg badge badge-neutral">{t("noData")}</span>
           )}
         </div>
         <div className="my-5">
-          <h2 className="my-3 text-lg md:text-xl">Description : </h2>
+          <h2 className="my-3 text-lg md:text-xl">{t("description")} : </h2>
           <textarea
             rows={4}
             value={res?.description}

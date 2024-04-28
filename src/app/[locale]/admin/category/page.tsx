@@ -6,42 +6,45 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { CategoryService } from "@/services/CategoryService";
+import {useTranslations} from "next-intl";
 
-const tableData: DataTableData<ServiceCategory> = {
-  createUrl: `/admin/category/create`,
-  title: "Category",
-  schema: [
-    {
-      name: "name",
-      label: "Category",
-      sortable: true,
-      translatable: true,
-    },
-    {
-      label: "Actions",
-      render: (_undefined, data, setHidden) => (
-        <ActionsButtons
-          id={data?.id}
-          buttons={["edit", "delete", "show"]}
-          baseUrl={`/admin/category`}
-          editUrl={`/admin/category/${data?.id}/edit`}
-          showUrl={`/admin/category/${data?.id}`}
-          setHidden={setHidden}
-        />
-      ),
-    },
-  ],
-  api: async (page, search, sortCol, sortDir, perPage, params) =>
-    await CategoryService.make<CategoryService>("admin").indexWithPagination(
-      page,
-      search,
-      sortCol,
-      sortDir,
-      perPage,
-      params,
-    ),
-};
+
 const Page = () => {
+  const t = useTranslations('admin.category.table')
+  const tableData: DataTableData<ServiceCategory> = {
+    createUrl: `/admin/category/create`,
+    title: `${t("category")}`,
+    schema: [
+      {
+        name: "name",
+        label: `${t("category")}`,
+        sortable: true,
+        translatable: true,
+      },
+      {
+        label: `${t("actions")}`,
+        render: (_undefined, data, setHidden) => (
+            <ActionsButtons
+                id={data?.id}
+                buttons={["edit", "delete", "show"]}
+                baseUrl={`/admin/category`}
+                editUrl={`/admin/category/${data?.id}/edit`}
+                showUrl={`/admin/category/${data?.id}`}
+                setHidden={setHidden}
+            />
+        ),
+      },
+    ],
+    api: async (page, search, sortCol, sortDir, perPage, params) =>
+        await CategoryService.make<CategoryService>("admin").indexWithPagination(
+            page,
+            search,
+            sortCol,
+            sortDir,
+            perPage,
+            params,
+        ),
+  };
   return <DataTable {...tableData} />;
 };
 

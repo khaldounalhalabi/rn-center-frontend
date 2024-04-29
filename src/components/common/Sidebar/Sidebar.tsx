@@ -3,7 +3,7 @@ import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Sidebar = ({
   openNavBar,
@@ -12,7 +12,7 @@ const Sidebar = ({
   openNavBar: boolean;
   setOpenNavBar: React.Dispatch<boolean>;
 }) => {
-  const t = useTranslations('sideBar')
+  const t = useTranslations("sideBar");
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
@@ -24,8 +24,8 @@ const Sidebar = ({
           : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
       }`}
     >
-      <div className="px-4 py-6">
-        <span className="flex justify-between items-center place-content-center rounded-lg h-10 text-xs">
+      <div>
+        <span className="flex justify-between items-center place-content-center px-4 pt-6 pb-3 rounded-lg h-10 text-xs">
           {/*Logo*/}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,11 +44,11 @@ const Sidebar = ({
           </svg>
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
-        <ul className="space-y-1 mt-6 text-black">
-          <SidebarItem link={"/admin"}> {t('dashboard')}</SidebarItem>
+        <ul className="space-y-1 mt-6 px-4 pt-3 pb-6 max-h-[90vh] text-black overflow-scroll">
+          <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
           <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">
-              <SidebarItem link={"/admin/clinics"}> {t('clinics')}</SidebarItem>
+              <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
               <SidebarItem link={"/admin/clinics/schedules"}>
                 {t("clinicsSchedules")}
               </SidebarItem>
@@ -58,13 +58,25 @@ const Sidebar = ({
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>{t("specialties")}</SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>{t("hospitals")}</SidebarItem>
+            <SidebarItem link={"/admin/speciality"}>
+              {t("specialties")}
+            </SidebarItem>
+            <SidebarItem link={"/admin/hospitals"}>
+              {t("hospitals")}
+            </SidebarItem>
             <SidebarItem link={"/admin/category"}>
               {t("serviceCategories")}
             </SidebarItem>
             <SidebarItem link={"/admin/service"}>{t("services")}</SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>{t("appointment")}</SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>
+              {t("appointment")}
+            </SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>
+              {t("appointment")}
+            </SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>
+              {t("appointment")}
+            </SidebarItem>
           </div>
         </ul>
       </div>

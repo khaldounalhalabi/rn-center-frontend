@@ -15,7 +15,7 @@ import Timepicker from "@/components/common/ui/TimePicker";
 import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
-import {navigate} from "@/Actions/navigate";
+import { navigate } from "@/Actions/navigate";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -26,12 +26,12 @@ const AppointmentForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues);
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
+      console.log(data);
       return AppointmentService.make<AppointmentService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
@@ -39,7 +39,7 @@ const AppointmentForm = ({
         });
     } else {
       return await AppointmentService.make<AppointmentService>("admin").store(
-        data,
+        data
       );
     }
   };
@@ -59,7 +59,7 @@ const AppointmentForm = ({
           api={(page, search) =>
             ClinicService.make<ClinicService>().indexWithPagination(
               page,
-              search,
+              search
             )
           }
           label={"Clinic Name"}
@@ -68,14 +68,13 @@ const AppointmentForm = ({
         />
         {/*//TODO::add the customer_id select*/}
         <div></div>
-      </Grid>
-      <Grid md={"2"}>
+
         <ApiSelect
           name={"service_id"}
           api={(page, search) =>
             ServiceService.make<ServiceService>().indexWithPagination(
               page,
-              search,
+              search
             )
           }
           label={"Service Name"}
@@ -119,17 +118,15 @@ const AppointmentForm = ({
           placeholder={"Total Cost : 5"}
           label={"Cost"}
         />
-      </Grid>
-      <Grid md={"2"}>
+
         <Select
-          name={"status"}
+          label={"Appointment Status"}
           data={statusData}
-          getOptionLabel={(item) => item}
-          getOptionValue={(item) => item}
+          selected={"Pending"}
+          name={"status"}
         />
         <Datepicker name={"date"} label={"Date"} />
-      </Grid>
-      <Grid md={"2"}>
+
         <Timepicker label="From" name={"from"} />
         <Timepicker label="To" name={"to"} />
       </Grid>

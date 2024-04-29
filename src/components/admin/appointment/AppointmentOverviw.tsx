@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 

@@ -14,6 +14,8 @@ import Datepicker from "@/components/common/ui/Datepicker";
 import Timepicker from "@/components/common/ui/TimePicker";
 import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
+import { AppointmentService } from "@/services/AppointmentService";
+import {navigate} from "@/Actions/navigate";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -26,25 +28,23 @@ const AppointmentForm = ({
 }) => {
   console.log(defaultValues);
   const handleSubmit = async (data: any) => {
-    console.log(data);
-
-    // if (
-    //   type === "update" &&
-    //   (defaultValues?.id != undefined || id != undefined)
-    // ) {
-    //   return AppointmentService.make<AppointmentService>("admin")
-    //     .update(defaultValues?.id ?? id, data)
-    //     .then((res) => {
-    //       return res;
-    //     });
-    // } else {
-    //   return await AppointmentService.make<AppointmentService>("admin").store(
-    //     data,
-    //   );
-    // }
+    if (
+      type === "update" &&
+      (defaultValues?.id != undefined || id != undefined)
+    ) {
+      return AppointmentService.make<AppointmentService>("admin")
+        .update(defaultValues?.id ?? id, data)
+        .then((res) => {
+          return res;
+        });
+    } else {
+      return await AppointmentService.make<AppointmentService>("admin").store(
+        data,
+      );
+    }
   };
   const onSuccess = () => {
-    // navigate(`/admin/appointment`);
+    navigate(`/admin/appointment`);
   };
   const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
   return (

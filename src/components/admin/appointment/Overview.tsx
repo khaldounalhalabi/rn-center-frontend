@@ -1,5 +1,6 @@
 import React from "react";
 import { Appointment } from "@/Models/Appointment";
+import Grid from "@/components/common/ui/Grid";
 
 const Overview = ({
   appointment,
@@ -8,7 +9,7 @@ const Overview = ({
 }) => {
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
-      <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+      <Grid md={2} gap={5}>
         <div className={"w-full"}>
           <label className={"label"}>Status : </label>
           <p className={"badge badge-warning"}>{appointment?.status}</p>
@@ -37,14 +38,14 @@ const Overview = ({
             {appointment?.to ?? "No Date"}
           </p>
         </div>
-      </div>
+      </Grid>
       <div className={"w-full"}>
         <label className={"label"}>Note :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}
           defaultValue={appointment?.note}
-        ></textarea>
+        />
       </div>
     </div>
   );

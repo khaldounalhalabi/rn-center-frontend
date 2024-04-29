@@ -71,12 +71,6 @@ const Sidebar = ({
             <SidebarItem link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
-              {t("appointment")}
-            </SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
-              {t("appointment")}
-            </SidebarItem>
           </div>
         </ul>
       </div>

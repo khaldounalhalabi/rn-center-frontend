@@ -16,7 +16,7 @@ import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import { Hospital } from "@/Models/Hospital";
@@ -46,7 +46,7 @@ const ClinicForm = ({
       handleSubmit={onSubmit}
       defaultValues={defaultValues}
       onSuccess={() => {
-        navigate(`/admin/clinics`);
+        Navigate(`/admin/clinics`);
       }}
     >
       <Grid md={3}>

@@ -8,7 +8,7 @@ import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { DepartmentsService } from "@/services/DepartmentsService";
 import { HospitalService } from "@/services/HospitalService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { translate } from "@/Helpers/Translations";
 import { ApiResponse } from "@/Http/Response";
@@ -45,7 +45,7 @@ const HospitalsForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/hospitals`);
+    Navigate(`/admin/hospitals`);
   };
 
   return (

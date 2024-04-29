@@ -15,7 +15,7 @@ import Timepicker from "@/components/common/ui/TimePicker";
 import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -44,7 +44,7 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/appointment`);
+    Navigate(`/admin/appointment`);
   };
   const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
   return (

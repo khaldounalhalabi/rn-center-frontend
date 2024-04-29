@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
@@ -34,7 +34,7 @@ const CategoryForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/category`);
+    Navigate(`/admin/category`);
   };
   const t = useTranslations('admin.category.create-edit')
   return (

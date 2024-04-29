@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
@@ -45,7 +45,7 @@ const ServiceForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/category`);
+    Navigate(`/admin/category`);
   };
 
   return (

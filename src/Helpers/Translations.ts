@@ -1,4 +1,5 @@
 import { getCookieClient } from "@/Actions/clientCookies";
+import { getCookieServer } from "@/Actions/serverCookies";
 import { Translatable } from "@/Models/Translatable";
 import { useLocale } from "next-intl";
 
@@ -32,7 +33,9 @@ export function translate(
     let locale = "en";
 
     if (typeof window == "undefined") {
-      locale = useLocale() ?? "en";
+      getCookieServer("NEXT_LOCALE").then((lang) => {
+        locale = lang ?? "en";
+      });
     } else {
       locale = getCookieClient("NEXT_LOCALE") ?? "en";
     }

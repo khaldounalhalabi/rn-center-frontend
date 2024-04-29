@@ -7,7 +7,7 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import {useTranslations} from "next-intl";
 
 const SpecialityForm = ({
@@ -34,7 +34,7 @@ const SpecialityForm = ({
     }
   };
   const onSuccess = () => {
-    navigate(`/admin/speciality`);
+    Navigate(`/admin/speciality`);
   };
   const array = defaultValues?.tags.split(",");
   return (

@@ -16,7 +16,7 @@ import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ScheduleService } from "@/services/ScheduleService";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import {useTranslations} from "next-intl";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
@@ -121,7 +121,7 @@ const ClinicScheduleForm = ({
       <Form
         handleSubmit={onSubmit}
         onSuccess={(res) => {
-          navigate(`/admin/clinics/schedules`);
+          Navigate(`/admin/clinics/schedules`);
         }}
       >
         <div className={"w-full md:w-1/2 mb-5"}>

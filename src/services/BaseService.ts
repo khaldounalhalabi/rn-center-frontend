@@ -1,4 +1,4 @@
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { Actors } from "@/types";
@@ -64,7 +64,7 @@ export class BaseService<T> {
 
   public async delete(id?: number): Promise<ApiResponse<boolean>> {
     if (!id) {
-      await navigate("/404");
+      await Navigate("/404");
     }
     let res: ApiResponse<boolean>;
     if (id) {
@@ -75,11 +75,11 @@ export class BaseService<T> {
 
   public async show(id?: number): Promise<ApiResponse<T>> {
     if (!id) {
-      await navigate("/404");
+      await Navigate("/404");
     }
     const res = await GET<T>(this.baseUrl + "/" + id);
     if (res.code == 404) {
-      await navigate("/404");
+      await Navigate("/404");
     }
     return await this.errorHandler(res);
   }
@@ -90,11 +90,11 @@ export class BaseService<T> {
     headers?: object,
   ): Promise<ApiResponse<T>> {
     if (!id) {
-      await navigate("/404");
+      await Navigate("/404");
     }
     const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
     if (res.code == 404) {
-      await navigate("/404");
+      await Navigate("/404");
     }
     return await this.errorHandler(res);
   }
@@ -111,7 +111,7 @@ export class BaseService<T> {
     res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
-      await navigate("/auth/admin/login");
+      await Navigate("/auth/admin/login");
     }
     return res;
   }

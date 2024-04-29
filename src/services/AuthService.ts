@@ -1,4 +1,4 @@
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { setServerCookie } from "@/Actions/serverCookies";
@@ -36,7 +36,7 @@ export class AuthService {
         return res;
       },
     );
-    if (this.successStatus) await navigate(`/${pageType}`);
+    if (this.successStatus) await Navigate(`/${pageType}`);
 
     const userType = await AuthService.getCurrentActor();
     await setServerCookie("user-type", userType);
@@ -55,7 +55,7 @@ export class AuthService {
     });
 
     if (this.successStatus)
-      await navigate(`/auth/${pageType}/set-new-password`);
+      await Navigate(`/auth/${pageType}/set-new-password`);
 
     return response;
   }
@@ -71,7 +71,7 @@ export class AuthService {
     });
 
     if (this.successStatus)
-      await navigate(`/auth/${typePage}/reset-password-code`);
+      await Navigate(`/auth/${typePage}/reset-password-code`);
 
     return response;
   }
@@ -82,7 +82,7 @@ export class AuthService {
       return e;
     });
 
-    if (this.successStatus) await navigate(`/auth/${pageType}/login`);
+    if (this.successStatus) await Navigate(`/auth/${pageType}/login`);
     return response;
   }
 
@@ -92,7 +92,7 @@ export class AuthService {
       return e;
     });
 
-    if (this.successStatus) await navigate(`/customer`);
+    if (this.successStatus) await Navigate(`/customer`);
 
     return response;
   }

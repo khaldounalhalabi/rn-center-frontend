@@ -6,7 +6,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { navigate } from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { ApiResponse } from "@/Http/Response";
 import { Clinic } from "@/Models/Clinic";
@@ -38,7 +38,7 @@ const HolidayForm = ({
   };
 
   const onSuccess = () => {
-    navigate(`/admin/clinics/holidays`);
+    Navigate(`/admin/clinics/holidays`);
   };
   return (
     <Form

@@ -17,6 +17,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ScheduleService } from "@/services/ScheduleService";
 import { navigate } from "@/Actions/navigate";
+import {useTranslations} from "next-intl";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
   "saturday",
@@ -111,7 +112,7 @@ const ClinicScheduleForm = ({
 
     return await ScheduleService.make<ScheduleService>().store(data);
   };
-
+  const t = useTranslations('admin.schedules.create')
   return (
     <PageCard>
       <div className="card-title">
@@ -133,7 +134,7 @@ const ClinicScheduleForm = ({
                   search
                 )
               }
-              label={"Clinic Name"}
+              label={t('clinicName')}
               optionValue={"id"}
               getOptionLabel={(data: Clinic) => translate(data.name)}
             />

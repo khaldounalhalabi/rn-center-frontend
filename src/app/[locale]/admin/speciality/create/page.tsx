@@ -1,12 +1,14 @@
-"use client";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import SpecialityForm from "@/components/admin/speciality/SpecialityForm";
+import {getTranslations} from "next-intl/server";
 
-const page = () => {
-  return (
+const page =async () => {
+    const t = await getTranslations('admin.speciality.create-edit')
+
+    return (
     <PageCard>
-      <h2 className="card-title">Add Speciality</h2>
+      <h2 className="card-title">{t("addSpeciality")}</h2>
       <SpecialityForm />
     </PageCard>
   );

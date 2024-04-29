@@ -3,6 +3,7 @@ import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
+import {useTranslations} from "next-intl";
 
 const Sidebar = ({
   openNavBar,
@@ -11,6 +12,7 @@ const Sidebar = ({
   openNavBar: boolean;
   setOpenNavBar: React.Dispatch<boolean>;
 }) => {
+  const t = useTranslations('sideBar')
   const handleShowMenu = () => {
     openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
   };
@@ -43,26 +45,26 @@ const Sidebar = ({
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
         <ul className="space-y-1 mt-6 text-black">
-          <SidebarItem link={"/admin"}> Dashboard</SidebarItem>
-          <SidebarCompactItem title={"Clinics Management"}>
+          <SidebarItem link={"/admin"}> {t('dashboard')}</SidebarItem>
+          <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">
-              <SidebarItem link={"/admin/clinics"}> Clinics</SidebarItem>
+              <SidebarItem link={"/admin/clinics"}> {t('clinics')}</SidebarItem>
               <SidebarItem link={"/admin/clinics/schedules"}>
-                Clinics Schedules
+                {t("clinicsSchedules")}
               </SidebarItem>
               <SidebarItem link={"/admin/clinics/holidays"}>
-                Clinics Holidays
+                {t("clinicsHolidays")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>Specialties</SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>Hospitals</SidebarItem>
+            <SidebarItem link={"/admin/speciality"}>{t("specialties")}</SidebarItem>
+            <SidebarItem link={"/admin/hospitals"}>{t("hospitals")}</SidebarItem>
             <SidebarItem link={"/admin/category"}>
-              Service Categories
+              {t("serviceCategories")}
             </SidebarItem>
-            <SidebarItem link={"/admin/service"}>Services</SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>Appointment</SidebarItem>
+            <SidebarItem link={"/admin/service"}>{t("services")}</SidebarItem>
+            <SidebarItem link={"/admin/appointment"}>{t("appointment")}</SidebarItem>
           </div>
         </ul>
       </div>

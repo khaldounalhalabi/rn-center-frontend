@@ -13,6 +13,7 @@ import { Clinic } from "@/Models/Clinic";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { translate } from "@/Helpers/Translations";
+import {useTranslations} from "next-intl";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -22,6 +23,7 @@ const HolidayForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('admin.holidays.create-edit')
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>().update(
@@ -53,7 +55,7 @@ const HolidayForm = ({
                 search,
               )
             }
-            label="Clinic Name :"
+            label={`${t('clinicName')} :`}
             getOptionLabel={(item) => translate(item.name)}
             optionValue={"id"}
             name={"clinic_id"}
@@ -70,13 +72,13 @@ const HolidayForm = ({
         />
       )}
       <Grid md={2}>
-        <Input name={"start_date"} type={"date"} label={"Start Holiday"} />
-        <Input name={"end_date"} type={"date"} label={"End Holiday"} />
+        <Input name={"start_date"} type={"date"} label={t('startHoliday')} />
+        <Input name={"end_date"} type={"date"} label={t('endHoliday')} />
       </Grid>
       <div className="my-3">
         <TranslatableTextArea
           defaultValue={defaultValues?.reason}
-          label={"Reason"}
+          label={t('reason')}
           name={"reason"}
           locales={["en", "ar"]}
         />

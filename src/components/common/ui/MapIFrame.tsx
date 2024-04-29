@@ -1,9 +1,11 @@
 import React from "react";
+import {useTranslations} from "next-intl";
 
 const MapIFrame = ({ iframe }: { iframe?: string }) => {
+    const t = useTranslations('admin.clinic.show')
   return (
     <div className={"w-full"}>
-      <label className={"label"}>Map :</label>
+      <label className={"label"}>{t('map')} :</label>
       <div className={"w-full flex justify-between"}>
         {iframe ? (
           <div

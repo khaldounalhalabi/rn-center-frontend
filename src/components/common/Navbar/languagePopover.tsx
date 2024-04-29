@@ -4,6 +4,8 @@ import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { Link } from "@/navigation";
+import {getCookieClient} from "@/Actions/clientCookies";
+import {usePathname, useRouter} from "next/navigation";
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -11,18 +13,13 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-  // const router = useRouter();
-  // const pathname = usePathname();
-  // const setCoc = (value: string) => {
-  //   const coc = getCookieClient("NEXT_LOCALE");
-  //   if (coc == "en") {
-  //     router.replace(pathname.replace("/en/", "/ar/"));
-  //     setCookieClient("locale", value);
-  //   } else if (coc == "ar") {
-  //     router.replace(pathname.replace("/ar/", "/en/"));
-  //     setCookieClient("locale", value);
-  //   }
-  // };
+  const router = useRouter();
+  const pathname = usePathname();
+  const setCoc = (locale:string) => {
+    if (pathname.includes(`/${locale=='en'?"ar":"en"}/`)) {
+      return  router.replace(pathname.replace(`/${locale=='en'?"ar":"en"}/`, `/${locale}/`));
+    }
+  };
 
   return (
     <div
@@ -48,10 +45,9 @@ const LanguagePopover = () => {
         role="menu"
       >
         <div>
-          <Link
-            href={""}
-            locale="en"
-            className="flex hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+          <button
+              onClick={()=>setCoc('en')}
+            className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
             <img
               className="mr-4 w-7 h-7"
@@ -59,11 +55,10 @@ const LanguagePopover = () => {
               alt="usa"
             />
             <h3>English</h3>
-          </Link>
-          <Link
-            href={""}
-            locale="ar"
-            className="flex hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+          </button>
+          <button
+              onClick={()=>setCoc('ar')}
+            className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
             <img
               className="mr-4 w-7 h-7"
@@ -71,7 +66,7 @@ const LanguagePopover = () => {
               alt="saudi-arabia"
             />
             <h3>Arabic</h3>
-          </Link>
+          </button>
         </div>
       </div>
     </div>

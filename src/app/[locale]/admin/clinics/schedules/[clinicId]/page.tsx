@@ -1,6 +1,5 @@
 import React from "react";
 import { ScheduleService } from "@/services/ScheduleService";
-import { ScheduleResponse } from "@/Models/Schedule";
 import { ApiResponse } from "@/Http/Response";
 import ScheduleForm from "@/components/admin/schedule/ScheduleForm";
 

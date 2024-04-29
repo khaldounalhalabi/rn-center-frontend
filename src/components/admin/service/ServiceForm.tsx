@@ -27,6 +27,7 @@ const ServiceForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.service.create-edit")
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -46,7 +47,6 @@ const ServiceForm = ({
   const onSuccess = () => {
     navigate(`/admin/category`);
   };
-  const t = useTranslations("clinic.create-edit");
 
   return (
     <Form
@@ -59,7 +59,7 @@ const ServiceForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={"Service Name"}
+          label={t("serviceName")}
           name={"name"}
         />
         <ApiSelect
@@ -71,7 +71,7 @@ const ServiceForm = ({
             )
           }
           getOptionLabel={(option: Clinic) => translate(option.name)}
-          label={"Clinic Name"}
+          label={t("clinicName")}
           optionValue={"id"}
           defaultValues={
             defaultValues?.clinic_id ? [defaultValues?.clinic] : []
@@ -80,7 +80,7 @@ const ServiceForm = ({
       </Grid>
       <Grid md={"2"}>
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>{t("status")}</label>
           <Input
             name={"status"}
             label={t("active")}
@@ -93,7 +93,7 @@ const ServiceForm = ({
           />
           <Input
             name={"status"}
-            label={t("in-active")}
+            label={t("inActive")}
             type="radio"
             className="radio radio-info"
             value={"in-active"}
@@ -110,7 +110,7 @@ const ServiceForm = ({
           getOptionLabel={(option: ServiceCategory) => translate(option.name)}
           optionValue={"id"}
           name={"service_category_id"}
-          label={"Category"}
+          label={t("category")}
           defaultValues={
             defaultValues?.service_category_id
               ? [defaultValues?.serviceCategory]
@@ -123,8 +123,8 @@ const ServiceForm = ({
           name={"approximate_duration"}
           type={"number"}
           step={"any"}
-          placeholder={"Approximate Duration :"}
-          label={t("Duration")}
+          placeholder={`${t("approximateDuration")} :`}
+          label={t("approximateDuration")}
         />
         <Input
           name={"price"}

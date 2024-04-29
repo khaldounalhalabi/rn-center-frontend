@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
 import { navigate } from "@/Actions/navigate";
+import {useTranslations} from "next-intl";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -18,6 +19,7 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.speciality.create-edit")
   const handleSubmit = async (data: any) => {
     if (
       type == "update" &&
@@ -46,17 +48,17 @@ const SpecialityForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={"Speciality Name"}
+          label={t("specialityName")}
           name={"name"}
         />
       </div>
       <div className="my-3">
-        <InputTags name={"tags"} label={"Tags : "} />
+        <InputTags name={"tags"} label={`${t("tags")} :`} />
       </div>
       <div className="my-3">
         <Textarea
           name={"description"}
-          label={"Description : "}
+          label={`${t("description")} :`}
           defaultValue={array ?? []}
         />
       </div>

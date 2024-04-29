@@ -5,27 +5,29 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { holidayId },
 }: {
   params: { holidayId: number };
 }) => {
+  const t = await getTranslations('admin.holidays.show')
   const data =
     await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId);
   const res: ClinicHoliday = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Holiday Details</h2>
+        <h2 className="card-title">{t('holidayDetails')}</h2>
         <Link href={`/admin/clinics/holidays/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t('editBtn')}</PrimaryButton>
         </Link>
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between items-center my-2">
           <h2 className="text-xl">
-            Clinic Name :{" "}
+            {t('clinicName')} :{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {translate(res?.clinic?.name)}
             </span>
@@ -33,7 +35,7 @@ const page = async ({
         </div>
         <div className="my-5">
           <div className="flex w-full">
-            <h2 className="w-4/12 text-lg md:text-xl">Start Holiday in : </h2>
+            <h2 className="w-4/12 text-lg md:text-xl">{t('startHoliday')} : </h2>
             <div className="flex items-center w-8/12">
               <span className="text-lg badge badge-neutral">
                 {res?.start_date}
@@ -41,7 +43,7 @@ const page = async ({
             </div>
           </div>
           <div className="flex w-full">
-            <h2 className="my-3 w-4/12 text-lg md:text-xl">End Holiday in :</h2>
+            <h2 className="my-3 w-4/12 text-lg md:text-xl">{t('endHoliday')} :</h2>
             <div className="flex items-center w-8/12">
               <span className="text-lg badge badge-neutral">
                 {res?.end_date}
@@ -51,7 +53,7 @@ const page = async ({
         </div>
         <div className="my-5">
           <div className="text-xl">
-            Reason En : <br />
+            {t('reason')} En : <br />
             <textarea
               rows={4}
               dir="ltr"
@@ -61,7 +63,7 @@ const page = async ({
             />
           </div>
           <div className="mt-3 text-xl">
-            Reason Ar : <br />
+            {t('reason')} Ar : <br />
             <textarea
               rows={4}
               value={translate(res?.reason, true).ar}

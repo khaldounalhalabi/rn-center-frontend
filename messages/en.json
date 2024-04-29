@@ -1,39 +1,245 @@
 {
-  "title": "Title",
-  "Welcome to React": "Welcome to React and react-i18next",
-  "Clinics Holidays": "Clinics Holidays",
-  "Doctor First Name": "Doctor First Name",
-  "clinic": {
-    "show": {
-      "name": "Doctor Details",
-      "editBtn": "Edit",
-      "total-appointments": "Total Appointments",
-      "today-appointments": "Today Appointments",
-      "upcoming-appointments": "Upcoming Appointments"
+  "sideBar": {
+    "dashboard": "Dashboard",
+    "clinicsManagement": "Clinics Management",
+    "clinics": "Clinics",
+    "clinicsSchedules": "Clinics Schedules",
+    "clinicsHolidays": "Clinics Holidays",
+    "specialties": "Specialties",
+    "hospitals": "Hospitals",
+    "serviceCategories": "Service Categories",
+    "services": "Services",
+    "appointment": "Appointment"
+  },
+  "admin": {
+    "clinic": {
+      "show": {
+        "name": "Doctor Details",
+        "editBtn": "Edit",
+        "total-appointments": "Total Appointments",
+        "today-appointments": "Today Appointments",
+        "upcoming-appointments": "Upcoming Appointments",
+        "overview": "Overview",
+        "appointments": "Appointments",
+        "specializations": "Specializations",
+        "blood": "Blood Group",
+        "gender": "Gender",
+        "status": "Status",
+        "birth": "Date Of Birth",
+        "age": "Age",
+        "experienceY": "Experience Years",
+        "address": "Address",
+        "cost": "Appointment Cost",
+        "maxAppointmentsPerDay": "Max Appointments Per Day",
+        "maximumDaysToScheduleAnAppointment": "Maximum Days To Schedule An Appointment",
+        "hospital": "Hospital",
+        "registeredOn": "Registered On",
+        "lastUpdatedAt": "Last Updated At",
+        "experience": "Experience",
+        "about": "About",
+        "map": "Map"
+      },
+      "create-edit": {
+        "first-Name": "Doctor First Name",
+        "middle-name": "Doctor Middle Name",
+        "last-name": "Doctor Last Name",
+        "clinicName": "Clinic Name",
+        "email": "Doctor Email",
+        "password": "Password",
+        "confirm-password": "Confirm Password",
+        "birth-date": "Doctor BirthDate",
+        "cost": "Appointment Cost",
+        "max-appointments": "Max Appointments Per Day",
+        "phones": "Clinic Phones",
+        "active": "Active",
+        "in-active": "In-Active",
+        "male": "Male",
+        "female": "Female",
+        "hospital": "Hospital",
+        "specialities": "Specialities",
+        "city": "City",
+        "address": "Clinic Address",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "mapIframe": "Map iframe",
+        "image": "Image",
+        "noImage": "No Image",
+        "btn": "Submit"
+      },
+      "table": {
+        "clinics": "Clinics",
+        "doctor": "Doctor",
+        "city": "City",
+        "status": "Status",
+        "phone": "Phone",
+        "active": "Active",
+        "inActive": "In-active",
+        "notArchived": "Not Archived",
+        "archived?": "Archived ?",
+        "actions": "Actions",
+        "archived": "Archived"
+      }
     },
-    "create-edit": {
-      "first-Name": "Doctor First Name",
-      "middle-name": "Doctor Middle Name",
-      "last-name": "Doctor Last Name",
-      "clinic-name": "Clinic Name",
-      "email": "Doctor Email",
-      "password": "Password",
-      "confirm-password": "Confirm Password",
-      "birth-date": "Doctor BirthDate",
-      "cost": "Appointment Cost",
-      "max-appointments": "Max Appointments Per Day",
-      "phones": "Clinic Phones",
-      "active": "Active",
-      "in-active": "In-Active",
-      "male": "Male",
-      "female": "Female",
-      "hospital": "Hospital",
-      "specialities": "Specialities",
-      "city": "City",
-      "address": "Clinic Address",
-      "latitude": "Latitude",
-      "longitude": "Longitude",
-      "btn": "Submit"
+    "holidays": {
+      "table": {
+        "clinicsHolidays": "Clinics Holidays",
+        "clinic": "Clinic",
+        "start": "Start At",
+        "end": "End At",
+        "reason": "Reason",
+        "actions": "Actions",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "show": {
+        "holidayDetails": "Holiday Details",
+        "editBtn": "Edit",
+        "clinicName": "Clinic Name",
+        "startHoliday": "Start Holiday in",
+        "endHoliday": "End Holiday in",
+        "reason": "Reason"
+      },
+      "create-edit": {
+        "editHolidays": "Edit Holidays",
+        "clinicName": "Clinic Name",
+        "startHoliday": "Start Holiday in",
+        "endHoliday": "End Holiday in",
+        "reason": "Reason",
+        "addHolidays": "Add Holidays"
+      }
+    },
+    "schedules": {
+      "table": {
+        "doctor": "Doctor",
+        "approximateAppointmentTime": "Approximate Appointment Time (min)",
+        "clinicSchedules": "Clinic Schedules",
+        "actions": "Actions",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "day": "Day"
+      },
+      "show": {
+        "holidayDetails": "Holiday Details",
+        "editBtn": "Edit",
+        "clinicName": "Clinic Name",
+        "startHoliday": "Start Holiday in",
+        "endHoliday": "End Holiday in",
+        "reason": "Reason"
+      },
+      "create": {
+        "clinicName": "Clinic Name"
+      }
+    },
+    "category": {
+      "table": {
+        "category": "Category",
+        "actions": "Actions"
+      },
+      "show": {
+        "categoryDetails": "Category Details",
+        "editBtn": "Edit",
+        "hospitalName": "Hospital Name"
+      },
+      "create-edit": {
+        "editCategory": "Edit Category",
+        "addCategory": "Add Category",
+        "serviceCategoryName": "ServiceCategory Name"
+      }
+    },
+    "hospitals": {
+      "table": {
+        "hospitals": "Hospitals",
+        "city": "City",
+        "images": "Images",
+        "actions": "Actions"
+      },
+      "show": {
+        "hospitalDetails": "Hospital Details",
+        "editBtn": "Edit",
+        "hospitalName": "Hospital Name",
+        "phones": "Phones",
+        "departments": "Departments",
+        "noDepartments": "No Departments",
+        "address": "Address",
+        "city": "City",
+        "image": "Image",
+        "noData": "No Data"
+
+      },
+      "create-edit": {
+        "addHospital": "Add Hospital",
+        "editHospital": "Edit Hospital",
+        "hospitalName": "Hospital Name",
+        "availableDepartments": "Available Departments",
+        "hospitalPhones": "Hospital Phones",
+        "city": "City",
+        "address": "Address",
+        "image": "Image",
+        "noData": "No Data",
+        "mapIframe": "Map iframe"
+
+      }
+    },
+    "service": {
+      "table": {
+        "service": "Service",
+        "clinic": "Clinic",
+        "approximateDuration": "Approximate Duration",
+        "category": "Category",
+        "price": "Price",
+        "status": "Status",
+        "active": "Active",
+        "inActive": "In-active",
+        "actions": "Actions"
+      },
+      "show": {
+        "serviceDetails": "Service Details",
+        "serviceName": "Service Name",
+        "category": "Category",
+        "clinicName": "Clinic Names",
+        "approximateDuration": "Approximate Duration",
+        "price": "Price",
+        "status": "Status",
+        "description": "Description",
+        "noData": "No Data",
+        "editBtn": "Edit"
+      },
+      "create-edit": {
+        "addService":"Add Service",
+        "editService": "Edit Service",
+        "serviceName": "Service Name",
+        "clinicName": "Clinic Name",
+        "active": "Active",
+        "inActive": "In-active",
+        "status": "Status",
+        "category": "Category",
+        "approximateDuration": "Approximate Duration",
+        "price": "Price"
+
+      }
+    },
+    "speciality": {
+      "table": {
+        "specialities": "Specialities",
+        "speciality": "Speciality",
+        "actions": "Actions"
+      },
+      "show": {
+        "specialityDetails": "Speciality Details",
+        "specialityName": "Speciality Name",
+        "tags": "Tags",
+        "noData": "No Data",
+        "editBtn": "Edit",
+        "description": "Description"
+
+      },
+      "create-edit": {
+        "addSpeciality": "Add Speciality",
+       "editSpeciality": "Edit Speciality",
+        "specialityName": "Speciality Name",
+        "tags": "Tags",
+        "description": "Description"
+      }
     }
   }
 }

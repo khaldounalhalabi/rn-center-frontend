@@ -20,7 +20,7 @@ const Page = async ({
   const data: ApiResponse<Clinic> =
     await ClinicService.make<ClinicService>().show(clinicId);
   const clinic = data.data;
-  const t = await getTranslations("clinic.show");
+  const t = await getTranslations("admin.clinic.show");
   return (
     <PageCard>
       <div className={"flex justify-between items-center"}>

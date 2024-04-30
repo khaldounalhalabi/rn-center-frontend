@@ -3,11 +3,11 @@ const { parse } = require("url");
 
 const next = require("next");
 
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV === "production";
 
 const hostname = "localhost";
 
-const port = 3000;
+const port = process.env.port || 3000;
 
 // when using middleware `hostname` and `port` must be provided below
 
@@ -18,6 +18,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   createServer(async (req, res) => {
     try {
+      console.log(process.env.NODE_ENV);
       // Be sure to pass `true` as the second argument to `url.parse`.
 
       // This tells it to parse the query portion of the URL.

@@ -11,16 +11,18 @@ const withPWA = withPWAInit({
     aggressiveFrontEndNavCaching: true,
     reloadOnOnline: true,
     swcMinify: true,
-    disable: false,
     workboxOptions: {
         disableDevLogs: true,
-    }
+    },
+    disable: process.env.NODE_ENV === "development",
+    cacheStartUrl: true,
 });
 
 const nextConfig = {
     env: {
         // localApi: 'http://localhost/pom/public/api/',
         localApi: 'https://api.planetofmedicine.com/api/',
+        NODE_ENV: "production",
     },
 };
 export default withNextIntl(withPWA(nextConfig));

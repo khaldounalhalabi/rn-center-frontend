@@ -16,6 +16,9 @@ import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Navigate } from "@/Actions/navigate";
+import {CustomerService} from "@/services/CustomerService";
+import {Customer} from "@/Models/Customer";
+import Swal from "sweetalert2";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -34,16 +37,23 @@ const AppointmentForm = ({
       return AppointmentService.make<AppointmentService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
-          return res;
+          if(res.code == 425){
+            Swal.fire("The time you selected is already booked!");
+            return res
+          }else return res
         });
     } else {
-      return await AppointmentService.make<AppointmentService>("admin").store(
-        data
-      );
+      return await AppointmentService.make<AppointmentService>("admin").store(data)
+          .then(res=>{
+            if(res.code == 425){
+              Swal.fire("The time you selected is already booked!");
+              return res
+            }else return res
+      })
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/appointment`);
+    // Navigate(`/admin/appointment`);
   };
   const [status,setStatus] = useState('')
   const statusData = ["checkin", "blocked", "cancelled", "pending"];
@@ -59,22 +69,40 @@ const AppointmentForm = ({
           api={(page, search) =>
             ClinicService.make<ClinicService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           label={"Clinic Name"}
           optionValue={"id"}
           getOptionLabel={(data: Clinic) => translate(data.name)}
         />
-        {/*//TODO::add the customer_id select*/}
-        <div></div>
+        <ApiSelect
+          name={"customer_id"}
+          api={(page, search) =>
+            CustomerService.make<CustomerService>().indexWithPagination(
+              page,
+              search,
+            )
+          }
+          label={"Clinic Name"}
+          optionValue={"id"}
+          getOptionLabel={(data: Customer) => {
+            return (
+              <>
+                <p>{translate(data.user.first_name)}</p>
+                <p>{translate(data.user.middle_name)}</p>
+                <p>{translate(data.user.last_name)}</p>
+              </>
+            );
+          }}
+        />
 
         <ApiSelect
           name={"service_id"}
           api={(page, search) =>
             ServiceService.make<ServiceService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           label={"Service Name"}
@@ -88,7 +116,7 @@ const AppointmentForm = ({
             label={"manual"}
             type="radio"
             className="radio radio-info"
-            value={"Manual"}
+            value={"manual"}
             defaultChecked={
               defaultValues ? defaultValues?.status == "manual" : true
             }
@@ -98,7 +126,7 @@ const AppointmentForm = ({
             label={"online"}
             type="radio"
             className="radio radio-info"
-            value={"Online"}
+            value={"online"}
             defaultChecked={defaultValues?.status == "online"}
           />
         </div>
@@ -132,9 +160,12 @@ const AppointmentForm = ({
         <Timepicker label="From" name={"from"} />
         <Timepicker label="To" name={"to"} />
       </Grid>
-      <Textarea name={"note"}  defaultValue={defaultValues?.note ?? ""} />
-      {status =="cancelled"? (<Textarea label={'Reason'} name={'cancellation_reason'}/>):false}
-
+      <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
+      {status == "cancelled" ? (
+        <Textarea label={"Reason"} name={"cancellation_reason"} />
+      ) : (
+        false
+      )}
     </Form>
   );
 };

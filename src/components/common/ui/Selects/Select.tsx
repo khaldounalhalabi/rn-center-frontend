@@ -37,7 +37,7 @@ const Select = ({
     if (data.includes(defaultValues?.status)) {
       const index = data.indexOf(defaultValues?.status);
       data.splice(index, 1);
-      data.unshift(defaultValues?.status);    
+      data.unshift(defaultValues?.status);
     }
 
     return (

@@ -1,5 +1,5 @@
 "use client";
-import React, {ChangeEvent} from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -7,12 +7,12 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { translate } from "@/Helpers/Translations";
-import {cities} from "@/constants/Cities";
 import Select from "@/components/common/ui/Selects/Select";
 import Datepicker from "@/components/common/ui/Datepicker";
 import Timepicker from "@/components/common/ui/TimePicker";
+
 const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
-const typeData = ["Online","Manual"]
+const typeData = ["Online", "Manual"];
 const tableData: DataTableData<Appointment> = {
   createUrl: `/admin/appointment/create`,
   title: "Appointment",
@@ -119,50 +119,53 @@ const tableData: DataTableData<Appointment> = {
     ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   filter: (params, setParams) => {
     return (
-        <div className={"w-full grid grid-cols-1"}>
-          <label className={"label"}>
-            Status :
-            <Select
-                data={statusData}
-                selected={"Pending"}
-                onChange={(event:any) => {
-                  setParams({ ...params, status: event.target.value})
-                }}
-            />
-          </label>
-          <label className="label">
-            Type :
-            <Select
-                data={typeData}
-                selected={"Pending"}
-                onChange={(event:any) => {
-                  setParams({ ...params, type: event.target.value})
-
-                }}
-            />
-          </label>
-          <label className="label">
-            Date :
-            <Datepicker  onChange={(time:any)=>{
-              console.log(time?.format("YYYY-MM-DD"))
-              setParams({ ...params, date: time?.format("YYYY-MM-DD")})
-            }} />
-          </label>
-          <label className="label">
-            From :
-            <Timepicker  onChange={(time:any)=>{
-              setParams({ ...params, from: time?.format("HH:mm")})
-            }}/>
-
-          </label>
-          <label className="label">
-            To :
-            <Timepicker  onChange={(time:any)=>{
-              setParams({ ...params, to: time?.format("HH:mm")})
-            }}/>
-
-          </label>
-        </div>
+      <div className={"w-full grid grid-cols-1"}>
+        <label className={"label"}>
+          Status :
+          <Select
+            data={statusData}
+            selected={"Pending"}
+            onChange={(event: any) => {
+              setParams({ ...params, status: event.target.value });
+            }}
+          />
+        </label>
+        <label className="label">
+          Type :
+          <Select
+            data={typeData}
+            selected={"Pending"}
+            onChange={(event: any) => {
+              setParams({ ...params, type: event.target.value });
+            }}
+          />
+        </label>
+        <label className="label">
+          Date :
+          <Datepicker
+            onChange={(time: any) => {
+              console.log(time?.format("YYYY-MM-DD"));
+              setParams({ ...params, date: time?.format("YYYY-MM-DD") });
+            }}
+          />
+        </label>
+        <label className="label">
+          From :
+          <Timepicker
+            onChange={(time: any) => {
+              setParams({ ...params, from: time?.format("HH:mm") });
+            }}
+          />
+        </label>
+        <label className="label">
+          To :
+          <Timepicker
+            onChange={(time: any) => {
+              setParams({ ...params, to: time?.format("HH:mm") });
+            }}
+          />
+        </label>
+      </div>
     );
   },
 };

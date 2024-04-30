@@ -18,11 +18,11 @@ export default Providers;
 
 export function MyCustomNextIntlClientProvider({
   locale,
-                                                   messages,
+  messages,
   children,
 }: {
   locale: string;
-    messages:any
+  messages: any;
   children: any;
 }) {
   return (

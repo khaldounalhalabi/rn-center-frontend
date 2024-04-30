@@ -11,10 +11,10 @@ import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('admin.schedules.table')
+  const t = useTranslations("admin.schedules.table");
   const dataTableSchema: DataTableData<Clinic> = {
     schema: [
       {
@@ -23,17 +23,17 @@ const Page = () => {
         sortable: true,
         render: (_data, clinic) => {
           return (
-              <Link
-                  href={`/admin/clinics/${clinic?.id}`}
-                  className={`flex flex-col items-start btn btn-ghost p-1`}
-              >
-                <p>
-                  {translate(clinic?.user?.first_name)}{" "}
-                  {translate(clinic?.user?.middle_name)}{" "}
-                  {translate(clinic?.user?.last_name)}
-                </p>
-                <p>{translate(clinic?.name)}</p>
-              </Link>
+            <Link
+              href={`/admin/clinics/${clinic?.id}`}
+              className={`flex flex-col items-start btn btn-ghost p-1`}
+            >
+              <p>
+                {translate(clinic?.user?.first_name)}{" "}
+                {translate(clinic?.user?.middle_name)}{" "}
+                {translate(clinic?.user?.last_name)}
+              </p>
+              <p>{translate(clinic?.name)}</p>
+            </Link>
           );
         },
       },
@@ -42,66 +42,66 @@ const Page = () => {
         label: `${t("approximateAppointmentTime")}`,
         sortable: true,
         render: (minutes) => (
-            <span className={`badge badge-primary`}>{minutes} minutes</span>
+          <span className={`badge badge-primary`}>{minutes} minutes</span>
         ),
       },
       {
         label: `${t("actions")}`,
         render: (_undefined, clinic, setHidden) => (
-            <ActionsButtons
-                id={clinic?.id}
-                buttons={["edit", "delete"]}
-                baseUrl={`/admin/clinics/schedules`}
-                setHidden={setHidden}
-                deleteUrl={`/admin/clinics/${clinic?.id}`}
-                editUrl={`/admin/clinics/schedules/${clinic?.id}`}
-            />
+          <ActionsButtons
+            id={clinic?.id}
+            buttons={["edit", "delete"]}
+            baseUrl={`/admin/clinics/schedules`}
+            setHidden={setHidden}
+            deleteUrl={`/admin/clinics/${clinic?.id}`}
+            editUrl={`/admin/clinics/schedules/${clinic?.id}`}
+          />
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-        await ClinicService.make<ClinicService>().indexWithPagination(
-            page,
-            search,
-            sortCol,
-            sortDir,
-            perPage,
-            params
-        ),
+      await ClinicService.make<ClinicService>().indexWithPagination(
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
     createUrl: `/admin/clinics/schedules/create`,
     title: `${t("clinicSchedules")}`,
     filter: (params, setParams) => {
       return (
-          <div className={"w-full grid grid-cols-1"}>
-            <label className={"label"}>
-              {t("startTime")} :
-              <TimePicker
-                  defaultValue={dayjs(params.start_time, "HH:MM")}
-                  onChange={(v): void => {
-                    setParams({ ...params, start_time: v?.format("HH:MM") });
-                  }}
-              />
-            </label>
-            <label className={`label`}>
-              {t('endTime')} :
-              <TimePicker
-                  defaultValue={dayjs(params.end_time, "HH:MM")}
-                  onChange={(v): void => {
-                    setParams({ ...params, end_time: v?.format("HH:MM") });
-                  }}
-              />
-            </label>
-            <label className={"label"}>
-              {t('day')} :
-              <WeekDaySelect
-                  className="w-full max-w-xs select-bordered select-sm select"
-                  defaultValue={params.day_of_week}
-                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                    setParams({ ...params, day_of_week: event.target.value });
-                  }}
-              />
-            </label>
-          </div>
+        <div className={"w-full grid grid-cols-1"}>
+          <label className={"label"}>
+            {t("startTime")} :
+            <TimePicker
+              defaultValue={dayjs(params.start_time, "HH:MM")}
+              onChange={(v): void => {
+                setParams({ ...params, start_time: v?.format("HH:MM") });
+              }}
+            />
+          </label>
+          <label className={`label`}>
+            {t("endTime")} :
+            <TimePicker
+              defaultValue={dayjs(params.end_time, "HH:MM")}
+              onChange={(v): void => {
+                setParams({ ...params, end_time: v?.format("HH:MM") });
+              }}
+            />
+          </label>
+          <label className={"label"}>
+            {t("day")} :
+            <WeekDaySelect
+              className="w-full max-w-xs select-bordered select-sm select"
+              defaultValue={params.day_of_week}
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                setParams({ ...params, day_of_week: event.target.value });
+              }}
+            />
+          </label>
+        </div>
       );
     },
   };

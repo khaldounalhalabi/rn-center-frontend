@@ -6,14 +6,14 @@ import { translate } from "@/Helpers/Translations";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { serviceId },
 }: {
   params: { serviceId: number };
 }) => {
-  const t = await getTranslations('admin.service.show')
+  const t = await getTranslations("admin.service.show");
   const data = await ServiceService.make<ServiceService>().show(serviceId);
   const res: Service = data?.data;
   return (
@@ -26,19 +26,19 @@ const page = async ({
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          {t('serviceName')} En:{" "}
+          {t("serviceName")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.en}
           </span>
         </label>
         <label className="label">
-          {t('serviceName')} Ar:{" "}
+          {t("serviceName")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t('category')} :
+          {t("category")} :
           {res?.serviceCategory.name ? (
             <span className="badge badge-error">
               {translate(res?.serviceCategory.name)}
@@ -48,7 +48,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t('clinicName')} :
+          {t("clinicName")} :
           {res?.clinic.name ? (
             <span className="badge badge-primary">
               {`${translate(res?.clinic.name)}`}
@@ -69,7 +69,7 @@ const page = async ({
         </label>
 
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t('price')} :
+          {t("price")} :
           {res?.price ? (
             <span className="badge badge-accent">{res?.price}</span>
           ) : (

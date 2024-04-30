@@ -2,16 +2,16 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { ServiceService } from "@/services/ServiceService";
 import ServiceForm from "@/components/admin/service/ServiceForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { serviceId },
 }: {
   params: { serviceId: number };
 }) => {
-    const t= await getTranslations('admin.service.create-edit')
+  const t = await getTranslations("admin.service.create-edit");
 
-    const service = (
+  const service = (
     await ServiceService.make<ServiceService>("admin").show(serviceId)
   ).data;
   return (

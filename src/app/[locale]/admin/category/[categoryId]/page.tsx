@@ -6,14 +6,14 @@ import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { categoryId },
 }: {
   params: { categoryId: number };
 }) => {
-  const t = await getTranslations('admin.category.show')
+  const t = await getTranslations("admin.category.show");
   const data = await CategoryService.make<CategoryService>().show(categoryId);
   const res: ServiceCategory = data?.data;
   return (

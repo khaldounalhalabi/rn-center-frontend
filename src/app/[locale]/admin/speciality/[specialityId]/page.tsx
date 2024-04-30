@@ -5,14 +5,14 @@ import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { AddSpeciality } from "@/Models/Speciality";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { specialityId },
 }: {
   params: { specialityId: number };
 }) => {
-  const t = await getTranslations('admin.speciality.show')
+  const t = await getTranslations("admin.speciality.show");
   const data =
     await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: AddSpeciality = data?.data;
@@ -20,9 +20,9 @@ const page = async ({
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">{t('specialityDetails')}</h2>
+        <h2 className="card-title">{t("specialityDetails")}</h2>
         <Link href={`/admin/speciality/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>{t('editBtn')}</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <div className="flex flex-col">

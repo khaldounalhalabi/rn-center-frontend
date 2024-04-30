@@ -3,12 +3,12 @@ import React from "react";
 import AppointmentForm from "@/components/admin/appointment/AppointmentForm";
 
 const page = async () => {
-    return (
-        <PageCard>
-            <h2 className="card-title">Add Appointment</h2>
-            <AppointmentForm />
-        </PageCard>
-    );
+  return (
+    <PageCard>
+      <h2 className="card-title">Add Appointment</h2>
+      <AppointmentForm />
+    </PageCard>
+  );
 };
 
 export default page;

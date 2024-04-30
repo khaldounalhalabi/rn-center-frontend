@@ -100,7 +100,7 @@ const HospitalsForm = ({
           defaultValues={
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []
           }
-          name="city_id"
+          name="address.city_id"
           label={t("city")}
           optionValue="id"
           getOptionLabel={(data) => translate(data.name)}

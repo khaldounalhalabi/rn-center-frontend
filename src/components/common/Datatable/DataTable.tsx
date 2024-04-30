@@ -181,11 +181,11 @@ const DataTable = (tableData: DataTableData<any>) => {
               className={`card-actions w-full flex justify-between items-center`}
             >
               <div className={"flex gap-1"}>
-                <Link href={tableData.createUrl ?? "#"}>
+                {tableData.createUrl?<Link href={tableData.createUrl ?? "#"}>
                   <button className="btn btn-info btn-sm btn-square">
                     <DocumentPlus className={`h-6 w-6`} />
                   </button>
-                </Link>
+                </Link> :false}
                 {tableData?.filter ? (
                   <div>
                     <button

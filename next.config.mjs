@@ -20,6 +20,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
     env: {
         // localApi: 'http://localhost/pom/public/api/',
+        // localApi: 'http://api.planetofmedicine.com/api/',
         localApi: 'https://api.planetofmedicine.com/api/',
     },
 };

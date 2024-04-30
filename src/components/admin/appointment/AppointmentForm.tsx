@@ -53,7 +53,7 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    // Navigate(`/admin/appointment`);
+    Navigate(`/admin/appointment`);
   };
   const [status,setStatus] = useState('')
   const statusData = ["checkin", "blocked", "cancelled", "pending"];
@@ -84,15 +84,15 @@ const AppointmentForm = ({
               search,
             )
           }
-          label={"Clinic Name"}
+          label={"Customer Name"}
           optionValue={"id"}
           getOptionLabel={(data: Customer) => {
             return (
-              <>
-                <p>{translate(data.user.first_name)}</p>
-                <p>{translate(data.user.middle_name)}</p>
-                <p>{translate(data.user.last_name)}</p>
-              </>
+              <p >
+                {translate(data.user.first_name)}{" "}
+                {translate(data.user.middle_name)}{" "}
+                {translate(data.user.last_name)}
+              </p>
             );
           }}
         />

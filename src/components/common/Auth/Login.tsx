@@ -1,27 +1,26 @@
 "use client";
 import React from "react";
-import { AuthService } from "@/services/AuthService";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Link } from "@/navigation";
-import { swal } from "@/Helpers/UIHelpers";
-import { FormProvider, useForm } from "react-hook-form";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import Form from "@/components/common/ui/Form";
+import {POST} from "@/Http/Http";
+import {Navigate} from "@/Actions/navigate";
+import {setCookieClient} from "@/Actions/clientCookies";
+import {ApiResponse} from "@/Http/Response";
+import {AuthResponse} from "@/Models/User";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
-  const methods = useForm<{ email: string; password: string }>();
 
-  const onSubmit = async (data: { email: string; password: string }) => {
-    const res = await AuthService.make().login(url, data, pageType);
-
-    if (res.code == 401) {
-      swal.fire(
-        "Wrong Credentials",
-        "The Provided Credentials Didn't Match Our Records",
-        "error"
-      );
-    }
+  const handleSubmit = (data: { email: string; password: string }) => {
+    return  POST<AuthResponse>(url,data)
   };
+
+  const handleSuccess = (data:ApiResponse<AuthResponse>)=>{
+    setCookieClient('token',data?.data?.token ?? "")
+    setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
+    setCookieClient('user-type',pageType)
+    Navigate('/admin')
+  }
 
   return (
     <div className="relative w-[100wh] h-[100vh]">
@@ -30,8 +29,10 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
           <h1 className="font-bold text-2xl sm:text-3xl">Sing In</h1>
           <h4 className="mt-4 text-gray-500">Welcome Back !</h4>
         </div>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <Form
+         handleSubmit={handleSubmit}
+         onSuccess={handleSuccess}
+        >
             <div className={"flex flex-col gap-5"}>
               <Input
                 name="email"
@@ -46,21 +47,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
                 placeholder="Enter Your Password"
               />
             </div>
-            <div className={`flex justify-center items-center mt-5`}>
-              <PrimaryButton
-                disabled={methods.formState.isSubmitting}
-                type={"submit"}
-              >
-                Log In
-                {methods.formState.isSubmitting ? (
-                  <span className="mx-1">
-                    <LoadingSpin className="w-6 h-6 text-white" />
-                  </span>
-                ) : (
-                  ""
-                )}
-              </PrimaryButton>
-            </div>
+
             <div className="flex justify-center opacity-80 mt-4">
               <h4> Forget Password ? </h4>
               <Link
@@ -70,8 +57,8 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
                 Reset Password
               </Link>
             </div>
-          </form>
-        </FormProvider>
+
+        </Form>
       </div>
     </div>
   );

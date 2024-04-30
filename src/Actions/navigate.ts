@@ -1,4 +1,5 @@
 "use server";
+import { useLocale } from "next-intl";
 import { redirect } from "next/navigation";
 import { getCookieServer } from "./serverCookies";
 

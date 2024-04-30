@@ -24,7 +24,7 @@ const Select = ({
   const {
     setValue,
 
-    formState: { errors },
+    formState: { errors,defaultValues },
   } = useFormContext();
   if (name) {
 
@@ -33,6 +33,13 @@ const Select = ({
       setStatus?setStatus(e.target.value):false
       return setValue(name, e.target.value);
     };
+
+    if (data.includes(defaultValues?.status)) {
+      const index = data.indexOf(defaultValues?.status);
+      data.splice(index, 1);
+      data.unshift(defaultValues?.status);    
+    }
+
     return (
       <label className={"label flex flex-col w-full items-start"}>
         {label ?? ""}

@@ -44,7 +44,7 @@ const Sidebar = ({
           </svg>
           <XMark className={`h-8 w-8 md:hidden `} onClick={handleShowMenu} />
         </span>
-        <ul className="space-y-1 mt-6 px-4 pt-3 pb-6 max-h-[90vh] text-black overflow-scroll">
+        <ul className="space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black overflow-scroll">
           <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
           <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">

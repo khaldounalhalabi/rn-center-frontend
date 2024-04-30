@@ -4,12 +4,13 @@ import { Tab } from "@headlessui/react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
 import {useTranslations} from "next-intl";
+import Appointment from "@/components/admin/clinics/Appointments";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
+const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
   const t = useTranslations('admin.clinic.show')
   return (
     <div className={"w-full"}>
@@ -47,7 +48,9 @@ const ClinicOverview = ({ clinic }: { clinic?: Clinic | null | undefined }) => {
           <Tab.Panel className={"w-full"}>
             <Overview clinic={clinic} />
           </Tab.Panel>
-          <Tab.Panel>{t("appointments")}</Tab.Panel>
+          <Tab.Panel>
+            <Appointment clinicId={clinic?.id??0}/>
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

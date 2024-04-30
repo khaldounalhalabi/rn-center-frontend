@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
@@ -31,7 +31,6 @@ const AppointmentForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return AppointmentService.make<AppointmentService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
@@ -46,7 +45,8 @@ const AppointmentForm = ({
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
-  const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
+  const [status,setStatus] = useState('')
+  const statusData = ["checkin", "blocked", "cancelled", "pending"];
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -124,13 +124,17 @@ const AppointmentForm = ({
           data={statusData}
           selected={"Pending"}
           name={"status"}
+          status={status}
+          setStatus={setStatus}
         />
         <Datepicker name={"date"} label={"Date"} />
 
         <Timepicker label="From" name={"from"} />
         <Timepicker label="To" name={"to"} />
       </Grid>
-      <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
+      <Textarea name={"note"}  defaultValue={defaultValues?.note ?? ""} />
+      {status =="cancelled"? (<Textarea label={'Reason'} name={'cancellation_reason'}/>):false}
+
     </Form>
   );
 };

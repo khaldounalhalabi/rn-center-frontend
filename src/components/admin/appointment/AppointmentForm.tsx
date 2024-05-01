@@ -30,6 +30,7 @@ const AppointmentForm = ({
   type?: "store" | "update";
 }) => {
   const handleSubmit = async (data: any) => {
+    console.log(data)
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -53,7 +54,7 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/appointment`);
+    // Navigate(`/admin/appointment`);
   };
   const [status,setStatus] = useState('')
   const statusData = ["checkin", "blocked", "cancelled", "pending"];
@@ -89,9 +90,9 @@ const AppointmentForm = ({
           getOptionLabel={(data: Customer) => {
             return (
               <p >
-                {translate(data.user.first_name)}{" "}
-                {translate(data.user.middle_name)}{" "}
-                {translate(data.user.last_name)}
+                {translate(data?.user?.first_name)}{" "}
+                {translate(data?.user?.middle_name)}{" "}
+                {translate(data?.user?.last_name)}
               </p>
             );
           }}
@@ -109,7 +110,7 @@ const AppointmentForm = ({
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
         />
-        <div className={`flex gap-5 p-2 items-center`}>
+        <div className={`flex gap-5 p-2 items-end`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
           <Input
             name={"type"}

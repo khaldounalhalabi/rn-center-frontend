@@ -10,9 +10,12 @@ import { translate } from "@/Helpers/Translations";
 import Select from "@/components/common/ui/Selects/Select";
 import Datepicker from "@/components/common/ui/Datepicker";
 import Timepicker from "@/components/common/ui/TimePicker";
+import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
+import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 
-const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
-const typeData = ["Online", "Manual"];
+const statusData = ["checkin", "blocked", "cancelled", "pending"];
+const typeData = ["online", "manual"];
 const tableData: DataTableData<Appointment> = {
   createUrl: `/admin/appointment/create`,
   title: "Appointment",
@@ -122,9 +125,9 @@ const tableData: DataTableData<Appointment> = {
       <div className={"w-full grid grid-cols-1"}>
         <label className={"label"}>
           Status :
-          <Select
+          <SelectFilter
             data={statusData}
-            selected={"Pending"}
+            selected={"pending"}
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
@@ -132,9 +135,9 @@ const tableData: DataTableData<Appointment> = {
         </label>
         <label className="label">
           Type :
-          <Select
+          <SelectFilter
             data={typeData}
-            selected={"Pending"}
+            selected={"pending"}
             onChange={(event: any) => {
               setParams({ ...params, type: event.target.value });
             }}
@@ -142,16 +145,16 @@ const tableData: DataTableData<Appointment> = {
         </label>
         <label className="label">
           Date :
-          <Datepicker
+          <DatepickerFilter
             onChange={(time: any) => {
-              console.log(time?.format("YYYY-MM-DD"));
               setParams({ ...params, date: time?.format("YYYY-MM-DD") });
             }}
           />
         </label>
         <label className="label">
           From :
-          <Timepicker
+          <TimepickerFilter
+
             onChange={(time: any) => {
               setParams({ ...params, from: time?.format("HH:mm") });
             }}
@@ -159,8 +162,8 @@ const tableData: DataTableData<Appointment> = {
         </label>
         <label className="label">
           To :
-          <Timepicker
-            onChange={(time: any) => {
+          <TimepickerFilter
+              onChange={(time: any) => {
               setParams({ ...params, to: time?.format("HH:mm") });
             }}
           />

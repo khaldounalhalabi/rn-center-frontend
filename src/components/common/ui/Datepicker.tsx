@@ -4,13 +4,12 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 
-const Datepicker = ({ name, label ,onChange}: { name?: string; label?: string,onChange?:any }) => {
+const Datepicker = ({ name, label }: { name: string; label?: string}) => {
     const {
         setValue,
         formState: { errors, defaultValues },
     } = useFormContext();
 
-    if(name){
 
       const error = getNestedPropertyValue(errors, `${name}.message`);
       const defaultValue = getNestedPropertyValue(defaultValues, name);
@@ -20,25 +19,15 @@ const Datepicker = ({ name, label ,onChange}: { name?: string; label?: string,on
               {label ?? ""}
               <DatePicker
                   onChange={(val): void => {
-                      setValue(name, val?.format("YYYY-MM-DD") ?? "");
+                     return setValue(name, val?.format("YYYY-MM-DD") ?? "");
+
                   }}
                   defaultValue={defaultValue ? dayjs(defaultValue) : dayjs()}
               />
               {error ? <p className="text-error text-sm">{error}</p> : ""}
           </label>
       );
-  }else {
 
-      return (
-          <label className="flex flex-col items-start gap-2 label">
-              {label ?? ""}
-              <DatePicker
-                 onChange={onChange}
-              />
-
-          </label>
-      );
-  }
 };
 
 export default Datepicker;

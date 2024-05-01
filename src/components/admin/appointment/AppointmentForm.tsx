@@ -18,7 +18,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { Navigate } from "@/Actions/navigate";
 import {CustomerService} from "@/services/CustomerService";
 import {Customer} from "@/Models/Customer";
-import Swal from "sweetalert2";
+import {swal} from "@/Helpers/UIHelpers";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -30,7 +30,6 @@ const AppointmentForm = ({
   type?: "store" | "update";
 }) => {
   const handleSubmit = async (data: any) => {
-    console.log(data)
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -39,7 +38,7 @@ const AppointmentForm = ({
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
           if(res.code == 425){
-            Swal.fire("The time you selected is already booked!");
+            swal.fire("The time you selected is already booked!");
             return res
           }else return res
         });
@@ -47,14 +46,14 @@ const AppointmentForm = ({
       return await AppointmentService.make<AppointmentService>("admin").store(data)
           .then(res=>{
             if(res.code == 425){
-              Swal.fire("The time you selected is already booked!");
+              swal.fire("The time you selected is already booked!");
               return res
             }else return res
       })
     }
   };
   const onSuccess = () => {
-    // Navigate(`/admin/appointment`);
+    Navigate(`/admin/appointment`);
   };
   const [status,setStatus] = useState('')
   const statusData = ["checkin", "blocked", "cancelled", "pending"];

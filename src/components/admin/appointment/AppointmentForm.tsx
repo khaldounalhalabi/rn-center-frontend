@@ -139,14 +139,6 @@ const AppointmentForm = ({
           placeholder={"Extra Fees : 5"}
           label={"Extra"}
         />
-        <Input
-          name={"total_cost"}
-          type={"number"}
-          step={"any"}
-          placeholder={"Total Cost : 5"}
-          label={"Cost"}
-        />
-
         <Select
           label={"Appointment Status"}
           data={statusData}

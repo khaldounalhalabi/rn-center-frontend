@@ -34,7 +34,7 @@ export interface IApiSelectProps<TResponse, TData> {
   defaultValues?: TData[] | Option[];
   placeHolder?: string;
   label?: string;
-  name?: string;
+  name: string;
   closeOnSelect?: boolean;
   clearable?: boolean;
   styles?: {

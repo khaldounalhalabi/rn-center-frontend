@@ -14,7 +14,7 @@ function ApiSelect<TResponse, TData>({
   label,
   clearable = true,
   styles = undefined,
-  name = undefined,
+  name,
   isMultiple = false,
   closeOnSelect = true,
   optionLabel = undefined,
@@ -22,7 +22,7 @@ function ApiSelect<TResponse, TData>({
   getOptionLabel = undefined,
   getOptionValue = undefined,
   onSelect = undefined,
-  placeHolder = "Select An Item",
+  placeHolder = "Select",
   defaultValues = undefined,
   onChange = undefined,
   inputProps = {},
@@ -59,7 +59,7 @@ function ApiSelect<TResponse, TData>({
   const fullContainer = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ["tableData", search],
+    queryKey: [`tableData_${label}`, search],
     queryFn: async ({ pageParam }) => {
       let s = !search || search == "" ? undefined : search;
       return await api(pageParam, s, false, 1);
@@ -85,7 +85,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
     if (onSelect) {
@@ -126,7 +126,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -134,7 +134,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));

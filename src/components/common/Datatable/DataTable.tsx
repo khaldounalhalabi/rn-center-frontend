@@ -212,7 +212,11 @@ const DataTable = (tableData: DataTableData<any>) => {
               <div className={"flex gap-2"}>
                 <select
                   className="w-full max-w-xs select-bordered select-sm select"
-                  onChange={(e) => setPerPage(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    setPage(1);
+                    setSearch(undefined);
+                    setPerPage(parseInt(e.target.value));
+                  }}
                   value={perPage}
                 >
                   <option value={10}>10</option>

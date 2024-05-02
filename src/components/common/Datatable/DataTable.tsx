@@ -214,7 +214,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   className="w-full max-w-xs select-bordered select-sm select"
                   onChange={(e) => {
                     setPage(1);
-                    setSearch(undefined);
+                    setSearch("");
                     setPerPage(parseInt(e.target.value));
                   }}
                   value={perPage}

@@ -45,7 +45,9 @@ const CategoryForm = ({
     >
       <Grid md={"2"}>
         <TranslatableInput
-          locales={["en", "ar"]}
+            required={true}
+
+            locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
           label={`${t("serviceCategoryName")}`}

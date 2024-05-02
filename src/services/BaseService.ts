@@ -63,9 +63,6 @@ export class BaseService<T> {
   }
 
   public async delete(id?: number): Promise<ApiResponse<boolean>> {
-    if (!id) {
-      await Navigate("/404");
-    }
     let res: ApiResponse<boolean>;
     if (id) {
       res = await DELETE<boolean>(this.baseUrl + "/" + id);

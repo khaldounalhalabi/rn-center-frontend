@@ -3,8 +3,9 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
+import React from "react";
 
-const Timepicker = ({ name, label }: { name: string; label?: string }) => {
+const Timepicker = ({ name, label           ,required=false}: { name: string; label?: string ,  required?:boolean}) => {
     const {
         setValue,
         formState: { errors, defaultValues },
@@ -17,7 +18,7 @@ const Timepicker = ({ name, label }: { name: string; label?: string }) => {
 
       return (
           <label className="flex flex-col items-start gap-2 label">
-              {label ?? ""}
+              <p>{label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}</p>
               <TimePicker
                   onChange={(val): void => {
                      setValue(name, val?.format("HH:mm") ?? "");

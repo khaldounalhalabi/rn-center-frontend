@@ -21,19 +21,31 @@ const Page = () => {
     createUrl: `/admin/clinics/create`,
     schema: [
       {
+        name: "id",
+        label: `id`,
+        sortable: true,
+      },
+      {
+        name: "user.first_name",
+        sortable: true,
+        label: `${t("clinic")}`,
+        render: (_first_name, clinic) => {
+          return (
+              <p>{translate(clinic?.name)}</p>
+          );
+        },
+      },
+      {
         name: "user.first_name",
         sortable: true,
         label: `${t("doctor")}`,
         render: (_first_name, clinic) => {
           return (
-            <div className={`flex flex-col items-start`}>
-              <p>{translate(clinic?.name)}</p>
               <p>
                 {translate(clinic?.user?.first_name)}{" "}
                 {translate(clinic?.user?.middle_name)}{" "}
                 {translate(clinic?.user?.last_name)}
               </p>
-            </div>
           );
         },
       },

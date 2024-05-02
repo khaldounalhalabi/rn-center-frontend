@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import DataTable, {
-    DataTableData,
+  DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
@@ -10,10 +10,13 @@ import { translate } from "@/Helpers/Translations";
 import Select from "@/components/common/ui/Selects/Select";
 import Datepicker from "@/components/common/ui/Datepicker";
 import Timepicker from "@/components/common/ui/TimePicker";
-const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
-const typeData = ["Online","Manual"]
+import dayjs from "dayjs";
+import {DatePicker, TimePicker} from "@mui/x-date-pickers";
 
-const Appointment = ({ clinicId }: { clinicId:number }) => {
+const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
+const typeData = ["Online", "Manual"];
+
+const Appointment = ({ clinicId }: { clinicId: number }) => {
   const tableData: DataTableData<Appointment> = {
     schema: [
       {
@@ -109,50 +112,59 @@ const Appointment = ({ clinicId }: { clinicId:number }) => {
       ),
     filter: (params, setParams) => {
       return (
-          <div className={"w-full grid grid-cols-1"}>
-            <label className={"label"}>
-              Status :
-              <Select
-                  data={statusData}
-                  selected={"Pending"}
-                  onChange={(event:any) => {
-                    setParams({ ...params, status: event.target.value})
+        <div className={"w-full grid grid-cols-1"}>
+          <label className={"label"}>
+            Status :
+            <Select
+              data={statusData}
+              selected={"Pending"}
+              onChange={(event: any) => {
+                setParams({ ...params, status: event.target.value });
+              }}
+            />
+          </label>
+          <label className="label">
+            Type :
+            <Select
+              data={typeData}
+              selected={"Pending"}
+              onChange={(event: any) => {
+                setParams({ ...params, type: event.target.value });
+              }}
+            />
+          </label>
+          <label className="label">
+            Date :
+            <label className="flex flex-col items-start gap-2 label">
+              <DatePicker
+                onChange={(time: any) => {
+                  console.log(time?.format("YYYY-MM-DD"));
+                  setParams({ ...params, date: time?.format("YYYY-MM-DD") });
+                }}
+              />
+            </label>
+          </label>
+          <label className="label">
+            From :
+            <label className="flex flex-col items-start gap-2 label">
+              <TimePicker
+                  onChange={(time: any) => {
+                    setParams({ ...params, from: time?.format("HH:mm") });
                   }}
               />
             </label>
-            <label className="label">
-              Type :
-              <Select
-                  data={typeData}
-                  selected={"Pending"}
-                  onChange={(event:any) => {
-                    setParams({ ...params, type: event.target.value})
-
+          </label>
+          <label className="label">
+            To :
+            <label className="flex flex-col items-start gap-2 label">
+              <TimePicker
+                  onChange={(time: any) => {
+                    setParams({ ...params, to: time?.format("HH:mm") });
                   }}
               />
             </label>
-            <label className="label">
-              Date :
-              <Datepicker  onChange={(time:any)=>{
-                console.log(time?.format("YYYY-MM-DD"))
-                setParams({ ...params, date: time?.format("YYYY-MM-DD")})
-              }} />
-            </label>
-            <label className="label">
-              From :
-              <Timepicker  onChange={(time:any)=>{
-                setParams({ ...params, from: time?.format("HH:mm")})
-              }}/>
-
-            </label>
-            <label className="label">
-              To :
-              <Timepicker  onChange={(time:any)=>{
-                setParams({ ...params, to: time?.format("HH:mm")})
-              }}/>
-
-            </label>
-          </div>
+          </label>
+        </div>
       );
     },
   };

@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
@@ -16,9 +16,9 @@ import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Navigate } from "@/Actions/navigate";
-import {CustomerService} from "@/services/CustomerService";
-import {Customer} from "@/Models/Customer";
-import {swal} from "@/Helpers/UIHelpers";
+import { CustomerService } from "@/services/CustomerService";
+import { Customer } from "@/Models/Customer";
+import { swal } from "@/Helpers/UIHelpers";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -37,25 +37,26 @@ const AppointmentForm = ({
       return AppointmentService.make<AppointmentService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
-          if(res.code == 425){
+          if (res.code == 425) {
             swal.fire("The time you selected is already booked!");
-            return res
-          }else return res
+            return res;
+          } else return res;
         });
     } else {
-      return await AppointmentService.make<AppointmentService>("admin").store(data)
-          .then(res=>{
-            if(res.code == 425){
-              swal.fire("The time you selected is already booked!");
-              return res
-            }else return res
-      })
+      return await AppointmentService.make<AppointmentService>("admin")
+        .store(data)
+        .then((res) => {
+          if (res.code == 425) {
+            swal.fire("The time you selected is already booked!");
+            return res;
+          } else return res;
+        });
     }
   };
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
-  const [status,setStatus] = useState('')
+  const [status, setStatus] = useState("");
   const statusData = ["checkin", "blocked", "cancelled", "pending"];
   return (
     <Form
@@ -64,41 +65,51 @@ const AppointmentForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        <ApiSelect
-          name={"clinic_id"}
-          api={(page, search) =>
-            ClinicService.make<ClinicService>().indexWithPagination(
-              page,
-              search,
-            )
-          }
-          label={"Clinic Name"}
-          optionValue={"id"}
-          getOptionLabel={(data: Clinic) => translate(data.name)}
-        />
-        <ApiSelect
-          name={"customer_id"}
-          api={(page, search) =>
-            CustomerService.make<CustomerService>().indexWithPagination(
-              page,
-              search,
-            )
-          }
-          label={"Customer Name"}
-          optionValue={"id"}
-          getOptionLabel={(data: Customer) => {
-            return (
-              <p >
-                {translate(data?.user?.first_name)}{" "}
-                {translate(data?.user?.middle_name)}{" "}
-                {translate(data?.user?.last_name)}
-              </p>
-            );
-          }}
-        />
+        {type != "update" ?
+           <>
+             <ApiSelect
+                 required={true}
+                 placeHolder={"Select Clinic name ..."}
+                 name={"clinic_id"}
+                 api={(page, search) =>
+                     ClinicService.make<ClinicService>().indexWithPagination(
+                         page,
+                         search,
+                     )
+                 }
+                 label={"Clinic Name"}
+                 optionValue={"id"}
+                 getOptionLabel={(data: Clinic) => translate(data.name)}
+             />
+             <ApiSelect
+                 required={true}
+                 name={"customer_id"}
+                 placeHolder={"Select Customer name ..."}
+                 api={(page, search) =>
+                     CustomerService.make<CustomerService>().indexWithPagination(
+                         page,
+                         search,
+                     )
+                 }
+                 label={"Customer Name"}
+                 optionValue={"id"}
+                 getOptionLabel={(data: Customer) => {
+                   return (
+                       <p>
+                         {translate(data?.user?.first_name)}{" "}
+                         {translate(data?.user?.middle_name)}{" "}
+                         {translate(data?.user?.last_name)}
+                       </p>
+                   );
+                 }}
+             />
+           </>
+            :false}
 
         <ApiSelect
+          required={true}
           name={"service_id"}
+          placeHolder={"Select Service name ..."}
           api={(page, search) =>
             ServiceService.make<ServiceService>().indexWithPagination(
               page,
@@ -109,29 +120,31 @@ const AppointmentForm = ({
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
         />
-        <div className={`flex gap-5 p-2 items-end`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
-          <Input
-            name={"type"}
-            label={"manual"}
-            type="radio"
-            className="radio radio-info"
-            value={"manual"}
-            defaultChecked={
-              defaultValues ? defaultValues?.status == "manual" : true
-            }
-          />
-          <Input
-            name={"type"}
-            label={"online"}
-            type="radio"
-            className="radio radio-info"
-            value={"online"}
-            defaultChecked={defaultValues?.status == "online"}
-          />
-        </div>
-      </Grid>
-      <Grid md={"2"}>
+        {type != "update" ?
+            <div className={`flex gap-5 p-2 items-end`}>
+              <label className={`bg-pom p-2 rounded-md text-white`}>
+                Type:<span className="text-red-600">*</span>
+              </label>
+              <Input
+                  name={"type"}
+                  label={"manual"}
+                  type="radio"
+                  className="radio radio-info"
+                  value={"manual"}
+                  defaultChecked={
+                    defaultValues ? defaultValues?.status == "manual" : true
+                  }
+              />
+              <Input
+                  name={"type"}
+                  label={"online"}
+                  type="radio"
+                  className="radio radio-info"
+                  value={"online"}
+                  defaultChecked={defaultValues?.status == "online"}
+              />
+            </div>:false}
+
         <Input
           name={"extra_fees"}
           type={"number"}
@@ -140,6 +153,7 @@ const AppointmentForm = ({
           label={"Extra"}
         />
         <Select
+          required={true}
           label={"Appointment Status"}
           data={statusData}
           selected={"Pending"}
@@ -147,17 +161,15 @@ const AppointmentForm = ({
           status={status}
           setStatus={setStatus}
         />
-        <Datepicker name={"date"} label={"Date"} />
+        <Datepicker name={"date"} label={"Date"} required={true} />
 
-        <Timepicker label="From" name={"from"} />
-        <Timepicker label="To" name={"to"} />
+        <Timepicker label="From" name={"from"} required={true} />
+        <Timepicker label="To" name={"to"} required={true} />
       </Grid>
       <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
       {status == "cancelled" ? (
         <Textarea label={"Reason"} name={"cancellation_reason"} />
-      ) : (
-        false
-      )}
+      ) : false}
     </Form>
   );
 };

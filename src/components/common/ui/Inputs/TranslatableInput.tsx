@@ -11,6 +11,7 @@ interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   name: string;
   label?: string;
   locales?: Locales[];
+  required?:boolean
 }
 
 const TranslatableInput: React.FC<TranslatableInputProps> = ({
@@ -18,6 +19,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   label,
   locales = ["en", "ar"],
   name,
+                                                               required=false,
   ...props
 }) => {
   const {
@@ -44,7 +46,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
 
   return (
     <div className={`flex flex-col items-start justify-between w-full`}>
-      {label ? <label className={"label"}>{label}</label> : ""}
+      {label ? <label className={"label"}>{label}{required?<span className='ml-1 text-red-600'>*</span>:false}</label> : ""}
       <div className="flex items-center w-full relative">
         <input
           type={"text"}

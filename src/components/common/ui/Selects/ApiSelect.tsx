@@ -25,7 +25,9 @@ function ApiSelect<TResponse, TData>({
   placeHolder = "Select",
   defaultValues = undefined,
   onChange = undefined,
-  inputProps = {},
+  required =false,
+
+                                       inputProps = {},
 }: IApiSelectProps<TResponse, TData>) {
   const {
     setValue,
@@ -168,9 +170,9 @@ function ApiSelect<TResponse, TData>({
   return (
     <div className="relative w-full select-none" ref={fullContainer}>
       <label
-        className={`flex ${styles?.labelClasses ?? "label font-medium select-text"}`}
+        className={`flex ${styles?.labelClasses ?? "label font-medium justify-start select-text"}`}
       >
-        {label ?? ""}
+        {label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}
         <input
           ref={inputRef}
           name={name ?? ""}

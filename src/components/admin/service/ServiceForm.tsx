@@ -56,14 +56,19 @@ const ServiceForm = ({
     >
       <Grid md={"2"}>
         <TranslatableInput
-          locales={["en", "ar"]}
+            required={true}
+
+            locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
           label={t("serviceName")}
           name={"name"}
         />
         <ApiSelect
-          name={"clinic_id"}
+            placeHolder={'Select Clinic Name ...'}
+            required={true}
+
+            name={"clinic_id"}
           api={async (page, search) =>
             await ClinicService.make<ClinicService>().indexWithPagination(
               page,
@@ -80,9 +85,10 @@ const ServiceForm = ({
       </Grid>
       <Grid md={"2"}>
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>{t("status")}</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>{t("status")}<span className='text-red-600'>*</span></label>
           <Input
-            name={"status"}
+
+              name={"status"}
             label={t("active")}
             type="radio"
             className="radio radio-info"
@@ -101,7 +107,10 @@ const ServiceForm = ({
           />
         </div>
         <ApiSelect
-          api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
+            placeHolder={'Select Category Name ...'}
+            required={true}
+
+            api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().indexWithPagination(
               page,
               search,
@@ -120,14 +129,18 @@ const ServiceForm = ({
       </Grid>
       <Grid md={"2"}>
         <Input
-          name={"approximate_duration"}
+            required={true}
+
+            name={"approximate_duration"}
           type={"number"}
           step={"any"}
           placeholder={`${t("approximateDuration")} :`}
           label={t("approximateDuration")}
         />
         <Input
-          name={"price"}
+            required={true}
+
+            name={"price"}
           type={"number"}
           step={"any"}
           placeholder={"Price : "}

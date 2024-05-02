@@ -8,11 +8,22 @@ import {Navigate} from "@/Actions/navigate";
 import {setCookieClient} from "@/Actions/clientCookies";
 import {ApiResponse} from "@/Http/Response";
 import {AuthResponse} from "@/Models/User";
+import {swal} from "@/Helpers/UIHelpers";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
 
   const handleSubmit = (data: { email: string; password: string }) => {
-    return  POST<AuthResponse>(url,data)
+    return  POST<AuthResponse>(url,data).then((res:any)=>{
+      if(res.code == 401){
+        return swal.fire({
+          icon: "error",
+          title: "Invalid Credentials!",
+          text: "Your Credentials Didn't Match Our Records!",
+        });
+      }else {
+        return res
+      }
+    })
   };
 
   const handleSuccess = (data:ApiResponse<AuthResponse>)=>{

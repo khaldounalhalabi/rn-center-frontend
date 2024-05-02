@@ -8,7 +8,6 @@ import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import { CityService } from "@/services/CityService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ClinicService } from "@/services/ClinicService";
 import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm } from "@/Models/Clinic";
@@ -56,6 +55,7 @@ const ClinicForm = ({
           placeholder={"John"}
           label={t("first-Name")}
           name={"user.first_name"}
+          required={true}
         />
         <TranslatableInput
           type={"text"}
@@ -63,6 +63,8 @@ const ClinicForm = ({
           locales={["en", "ar"]}
           label={t("middle-name")}
           name={"user.middle_name"}
+          required={true}
+
         />
 
         <TranslatableInput
@@ -71,6 +73,8 @@ const ClinicForm = ({
           locales={["en", "ar"]}
           label={t("last-name")}
           name={"user.last_name"}
+          required={true}
+
         />
       </Grid>
 
@@ -81,24 +85,32 @@ const ClinicForm = ({
           placeholder={`Clinic Name`}
           label={t("clinicName")}
           name={"name"}
+          required={true}
+
         />
         <Input
           name={"user.email"}
           type={"text"}
           placeholder={"Enter The Doctor Email"}
           label={t("email")}
+          required={true}
+
         />
         <Input
           name={"user.password"}
           type={"text"}
           placeholder={"Password"}
           label={t("password")}
+          required={true}
+
         />
         <Input
           name={"user.password_confirmation"}
           type={"text"}
           placeholder={"Confirm Password"}
           label={t("confirm-password")}
+          required={true}
+
         />
         <Datepicker name={"user.birth_date"} label={t("birth-date")} />
         <Input
@@ -107,6 +119,8 @@ const ClinicForm = ({
           step={"any"}
           placeholder={"Appointment Cost i.e : 5"}
           label={t("cost")}
+          required={true}
+
         />
 
         <Input
@@ -115,6 +129,8 @@ const ClinicForm = ({
           step={"any"}
           placeholder={"Doctor Max Appointments Per Day Are ?"}
           label={t("max-appointments")}
+          required={true}
+
         />
       </Grid>
 
@@ -123,11 +139,13 @@ const ClinicForm = ({
         name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
         label={t("phones")}
+        required={true}
+
       />
 
       <Grid>
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>Status<span className='text-red-600'>*</span>: </label>
           <Input
             name={"status"}
             label={t("active")}
@@ -149,7 +167,7 @@ const ClinicForm = ({
         </div>
 
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>Gender<span className='text-red-600'>*</span>:</label>
           <Input
             name={"user.gender"}
             label={t("male")}
@@ -175,6 +193,7 @@ const ClinicForm = ({
         <ApiSelect
           label={t("hospital")}
           name="hsopital_id"
+          placeHolder={'Select Hospital Name ...'}
           api={(page, search): Promise<ApiResponse<Hospital[]>> =>
             HospitalService.make<HospitalService>().indexWithPagination(
               page,
@@ -189,8 +208,11 @@ const ClinicForm = ({
         />
 
         <ApiSelect
-          name={"speciality_ids"}
+            required={true}
+            name={"speciality_ids"}
           label={t("specialities")}
+          placeHolder={'Select Speciality Name ...'}
+
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
@@ -205,8 +227,12 @@ const ClinicForm = ({
         />
 
         <ApiSelect
-          name={"address.city_id"}
+            required={true}
+
+            name={"address.city_id"}
           label={t("city")}
+          placeHolder={'Select City Name ...'}
+
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
           }
@@ -218,7 +244,8 @@ const ClinicForm = ({
         />
 
         <TranslatableInput
-          name={"address.name"}
+            required={true}
+            name={"address.name"}
           type={"text"}
           label={t("address")}
         />

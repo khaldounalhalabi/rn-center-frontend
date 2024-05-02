@@ -18,8 +18,13 @@ const Page = () => {
   const dataTableSchema: DataTableData<Clinic> = {
     schema: [
       {
+        name: "id",
+        label: `id`,
+        sortable: true,
+      },
+      {
         name: "user.first_name",
-        label: `${t("doctor")}`,
+        label: `${t("clinic")}`,
         sortable: true,
         render: (_data, clinic) => {
           return (
@@ -27,13 +32,22 @@ const Page = () => {
               href={`/admin/clinics/${clinic?.id}`}
               className={`flex flex-col items-start btn btn-ghost p-1`}
             >
+              <p>{translate(clinic?.name)}</p>
+            </Link>
+          );
+        },
+      },
+      {
+        name: "user.first_name",
+        sortable: true,
+        label: `${t("doctor")}`,
+        render: (_first_name, clinic) => {
+          return (
               <p>
                 {translate(clinic?.user?.first_name)}{" "}
                 {translate(clinic?.user?.middle_name)}{" "}
                 {translate(clinic?.user?.last_name)}
               </p>
-              <p>{translate(clinic?.name)}</p>
-            </Link>
           );
         },
       },

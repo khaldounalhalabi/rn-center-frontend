@@ -24,6 +24,9 @@ export type Clinic = {
   created_at: string;
   updated_at: string;
   approximate_appointment_time?: number;
+  total_appointments:number
+  today_appointments_count:number
+  upcoming_appointments_count:number
 };
 
 export interface AddOrUpdateClinicForm {

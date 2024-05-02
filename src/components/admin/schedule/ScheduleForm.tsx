@@ -127,7 +127,10 @@ const ClinicScheduleForm = ({
         <div className={"w-full md:w-1/2 mb-5"}>
           {method == "store" ? (
             <ApiSelect
-              name={"clinic_id"}
+                placeHolder={'Select Clinic Name ...'}
+                required={true}
+
+                name={"clinic_id"}
               api={(page, search) =>
                 ClinicService.make<ClinicService>().indexWithPagination(
                   page,
@@ -140,7 +143,9 @@ const ClinicScheduleForm = ({
             />
           ) : (
             <Input
-              name={"clinic_id"}
+                required={true}
+
+                name={"clinic_id"}
               type={"number"}
               defaultValue={clinic_id ?? ""}
               className={"hidden"}

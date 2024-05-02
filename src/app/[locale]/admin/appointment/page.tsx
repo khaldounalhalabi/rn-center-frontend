@@ -21,19 +21,31 @@ const tableData: DataTableData<Appointment> = {
   title: "Appointment",
   schema: [
     {
+      name: "id",
+      sortable: true,
+      label: "id",
+    },
+    {
+      name: "clinic.user.first_name",
+      sortable: true,
+      label: "Clinic",
+      render: (_first_name, appointment) => {
+        return (
+            <p>{translate(appointment?.clinic?.name)}</p>
+        );
+      },
+    },
+    {
       name: "clinic.user.first_name",
       sortable: true,
       label: "Doctor",
       render: (_first_name, appointment) => {
         return (
-          <div className={`flex flex-col items-start`}>
-            <p>{translate(appointment?.clinic?.name)}</p>
             <p>
               {translate(appointment?.clinic?.user?.first_name)}{" "}
               {translate(appointment?.clinic?.user?.middle_name)}{" "}
               {translate(appointment?.clinic?.user?.last_name)}
             </p>
-          </div>
         );
       },
     },

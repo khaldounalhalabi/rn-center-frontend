@@ -13,6 +13,8 @@ export interface SelectInputProps
   > {}
 
 export interface IApiSelectProps<TResponse, TData> {
+  required?:boolean,
+
   api: (
     page?: number,
     search?: string,

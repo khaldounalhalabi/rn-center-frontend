@@ -21,19 +21,27 @@ const tableData: DataTableData<Appointment> = {
   title: "Appointment",
   schema: [
     {
+      name: "id",
+      sortable: true,
+      label: "id",
+    },
+    {
+      name: "clinic.name",
+      sortable: true,
+      label: "Clinic Name",
+      translatable: true,
+    },
+    {
       name: "clinic.user.first_name",
       sortable: true,
-      label: "Doctor",
+      label: "Doctor Name",
       render: (_first_name, appointment) => {
         return (
-          <div className={`flex flex-col items-start`}>
-            <p>{translate(appointment?.clinic?.name)}</p>
-            <p>
-              {translate(appointment?.clinic?.user?.first_name)}{" "}
-              {translate(appointment?.clinic?.user?.middle_name)}{" "}
-              {translate(appointment?.clinic?.user?.last_name)}
-            </p>
-          </div>
+          <p>
+            {translate(appointment?.clinic?.user?.first_name)}{" "}
+            {translate(appointment?.clinic?.user?.middle_name)}{" "}
+            {translate(appointment?.clinic?.user?.last_name)}
+          </p>
         );
       },
     },
@@ -154,17 +162,16 @@ const tableData: DataTableData<Appointment> = {
         <label className="label">
           From :
           <TimepickerFilter
-
             onChange={(time: any) => {
-              setParams({ ...params, from: time?.format("HH:MM") });
+              setParams({ ...params, from: time?.format("HH:mm") });
             }}
           />
         </label>
         <label className="label">
           To :
           <TimepickerFilter
-              onChange={(time: any) => {
-              setParams({ ...params, to: time?.format("HH:MM") });
+            onChange={(time: any) => {
+              setParams({ ...params, to: time?.format("HH:mm") });
             }}
           />
         </label>
@@ -173,7 +180,7 @@ const tableData: DataTableData<Appointment> = {
   },
 };
 const Page = () => {
-  return <DataTable {...tableData} />;
+    return <DataTable {...tableData} />;
 };
 
 export default Page;

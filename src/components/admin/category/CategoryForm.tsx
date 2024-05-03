@@ -7,7 +7,7 @@ import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const CategoryForm = ({
   defaultValues = undefined,
@@ -36,7 +36,7 @@ const CategoryForm = ({
   const onSuccess = () => {
     Navigate(`/admin/category`);
   };
-  const t = useTranslations('admin.category.create-edit')
+  const t = useTranslations("admin.category.create-edit");
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -45,6 +45,7 @@ const CategoryForm = ({
     >
       <Grid md={"2"}>
         <TranslatableInput
+          required={true}
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}

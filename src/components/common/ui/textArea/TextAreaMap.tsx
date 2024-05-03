@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
@@ -8,6 +8,7 @@ interface textAreaType {
   name: string;
   props?: any[];
   dir?: string;
+  required?: boolean;
 }
 
 const TextAreaMap: React.FC<textAreaType> = ({
@@ -15,18 +16,31 @@ const TextAreaMap: React.FC<textAreaType> = ({
   label,
   name,
   dir,
+  required = false,
 
   ...props
 }) => {
   const {
-    formState: { errors },
-    register,
+    formState: { errors, defaultValues },
+    setValue,
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}.message`);
+  const [value, setValueText] = useState("");
+  const df = getNestedPropertyValue(defaultValues, name);
+  useEffect(() => {
+    setValue(name, value);
+  }, [value]);
 
   return (
     <div className={className}>
-      {label ? <label className={"label"}>{label}</label> : ""}
+      {label ? (
+        <label className={"label"}>
+          {label}
+          {required ? <span className="ml-1 text-red-600">*</span> : false}
+        </label>
+      ) : (
+        ""
+      )}
       <textarea
         {...props}
         id="message"
@@ -34,7 +48,8 @@ const TextAreaMap: React.FC<textAreaType> = ({
         dir={dir}
         className="text-sm textarea textarea-bordered w-full"
         placeholder="Paste Your Map Location Iframe"
-        {...register(name)}
+        onChange={(e) => setValueText(e.target.value)}
+        defaultValue={df}
       />
       {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
     </div>

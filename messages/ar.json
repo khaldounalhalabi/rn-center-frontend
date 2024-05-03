@@ -69,6 +69,8 @@
       },
       "table": {
         "clinics": "عيادات",
+        "clinic": "العيادة",
+
         "doctor": "طبيب",
         "city": "مدينة",
         "status": "حالة",
@@ -111,6 +113,8 @@
     },
     "schedules": {
       "table": {
+        "clinic": "العيادة",
+
         "doctor": "طبيب",
         "approximateAppointmentTime": "الوقت التقريبي للموعد (دقيقة)",
         "clinicSchedules": "مواعيد العيادة",

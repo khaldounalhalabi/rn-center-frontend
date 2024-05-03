@@ -11,6 +11,7 @@ interface TranslatableTextAreaProps extends HTMLProps<HTMLTextAreaElement> {
   label?: string;
   locales?: Locales[];
   defaultValue?: string;
+  required?: boolean;
 }
 
 const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
@@ -19,6 +20,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   label,
   locales = ["en", "ar"],
   name,
+  required = false,
   ...props
 }) => {
   const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
@@ -67,8 +69,8 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
             key={index}
           >
             {label ? (
-              <label className={"label"}>
-                {label + " : " + locale.toUpperCase()}
+              <label className={"label justify-start"}>
+                {label + " : " + locale.toUpperCase()}{required?<span className='ml-1 text-red-600'>*</span>:false}
               </label>
             ) : (
               ""

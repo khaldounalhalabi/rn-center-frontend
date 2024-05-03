@@ -15,7 +15,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
         <div key={index} className="h-32">
           <ImagePreview
             src={typeof img == "string" ? img : getMedia(img)}
-            className={"h-full w-full object-cover rounded-md cursor-pointer"}
+            className={"h-full w-full object-contain rounded-md cursor-pointer"}
           />
         </div>
       ))}

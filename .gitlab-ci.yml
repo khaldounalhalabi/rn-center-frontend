@@ -1,6 +1,0 @@
-deploy:
-  stage: deploy
-  script:
-    - /bin/bash deploy.sh
-  only:
-    - staging

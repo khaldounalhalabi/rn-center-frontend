@@ -20,7 +20,7 @@ const Timepicker = ({ name, label }: { name: string; label?: string }) => {
               {label ?? ""}
               <TimePicker
                   onChange={(val): void => {
-                     setValue(name, val?.format("HH:mm") ?? "");
+                     setValue(name, val?.format("HH:MM") ?? "");
                   }}
                   defaultValue={defaultValue ? dayjs(defaultValue) : dayjs()}
               />

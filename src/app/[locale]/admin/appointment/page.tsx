@@ -156,7 +156,7 @@ const tableData: DataTableData<Appointment> = {
           <TimepickerFilter
 
             onChange={(time: any) => {
-              setParams({ ...params, from: time?.format("HH:mm") });
+              setParams({ ...params, from: time?.format("HH:MM") });
             }}
           />
         </label>
@@ -164,7 +164,7 @@ const tableData: DataTableData<Appointment> = {
           To :
           <TimepickerFilter
               onChange={(time: any) => {
-              setParams({ ...params, to: time?.format("HH:mm") });
+              setParams({ ...params, to: time?.format("HH:MM") });
             }}
           />
         </label>

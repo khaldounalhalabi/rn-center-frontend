@@ -143,7 +143,7 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
             From :
             <TimepickerFilter
               onChange={(time: any) => {
-                setParams({ ...params, from: time?.format("HH:mm") });
+                setParams({ ...params, from: time?.format("HH:MM") });
               }}
             />
           </label>
@@ -151,7 +151,7 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
             To :
             <TimepickerFilter
               onChange={(time: any) => {
-                setParams({ ...params, to: time?.format("HH:mm") });
+                setParams({ ...params, to: time?.format("HH:MM") });
               }}
             />
           </label>

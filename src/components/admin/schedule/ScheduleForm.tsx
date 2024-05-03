@@ -163,24 +163,24 @@ const ClinicScheduleForm = ({
                 <div key={index} className="flex items-center gap-1 my-1">
                   <TimePicker
                     label=""
-                    value={dayjs(timeRange.start_time, "HH:MM")}
+                    value={dayjs(timeRange.start_time, "HH:mm")}
                     onChange={(newValue) =>
                       handleChangeTimeRange(
                         day,
                         index,
-                        newValue?.format("HH:MM") ?? "",
+                        newValue?.format("HH:mm") ?? "",
                         "start_time"
                       )
                     }
                   />
                   <TimePicker
                     label=""
-                    value={dayjs(timeRange.end_time, "HH:MM")}
+                    value={dayjs(timeRange.end_time, "HH:mm")}
                     onChange={(newValue) =>
                       handleChangeTimeRange(
                         day,
                         index,
-                        newValue?.format("HH:MM") ?? "",
+                        newValue?.format("HH:mm") ?? "",
                         "end_time"
                       )
                     }

@@ -18,7 +18,7 @@ import { City } from "@/Models/City";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -29,7 +29,7 @@ const HospitalsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('admin.hospitals.create-edit')
+  const t = useTranslations("admin.hospitals.create-edit");
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -41,9 +41,7 @@ const HospitalsForm = ({
           return res;
         });
     } else {
-      return await HospitalService.make<HospitalService>().store(data).then((res) => {
-        return res;
-      });
+      return await HospitalService.make<HospitalService>().store(data);
     }
   };
   const onSuccess = () => {
@@ -58,9 +56,8 @@ const HospitalsForm = ({
     >
       <Grid md={"2"}>
         <TranslatableInput
-            required={true}
-
-            locales={["en", "ar"]}
+          required={true}
+          locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
           label={t("hospitalName")}
@@ -75,7 +72,6 @@ const HospitalsForm = ({
             )
           }
           required={true}
-
           isMultiple={true}
           optionValue={"id"}
           getOptionLabel={(data) => translate(data.name)}
@@ -84,8 +80,7 @@ const HospitalsForm = ({
               ? defaultValues.available_departments
               : []
           }
-          placeHolder={'Select Departments Name ...'}
-
+          placeHolder={"Select Departments Name ..."}
           label={t("availableDepartments")}
           name="available_departments"
           closeOnSelect={false}
@@ -93,8 +88,8 @@ const HospitalsForm = ({
       </Grid>
 
       <MultiInput
-          required={true}
-          type={"tel"}
+        required={true}
+        type={"tel"}
         name={"phone_numbers"}
         placeholder={"Enter Hospital Phone Number"}
         label={t("hospitalPhones")}
@@ -109,18 +104,16 @@ const HospitalsForm = ({
           defaultValues={
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []
           }
-          placeHolder={'Select City Name ...'}
+          placeHolder={"Select City Name ..."}
           required={true}
-
           name="address.city_id"
           label={t("city")}
           optionValue="id"
           getOptionLabel={(data) => translate(data.name)}
         />
         <TranslatableInput
-            required={true}
-
-            name={"address.name"}
+          required={true}
+          name={"address.name"}
           type={"text"}
           label={t("address")}
         />
@@ -133,20 +126,22 @@ const HospitalsForm = ({
               />
             ) : (
               <div className="flex items-center">
-                <label className="label"> {t('image')} : </label>
-                <span className="text-lg badge badge-neutral">{t('noData')}</span>
+                <label className="label"> {t("image")} : </label>
+                <span className="text-lg badge badge-neutral">
+                  {t("noData")}
+                </span>
               </div>
             )}
           </div>
-        ) : false
-        }
+        ) : (
+          false
+        )}
       </Grid>
 
       <ImageUploader name={"images"} isMultiple={true} />
       <TextAreaMap
-          required={true}
-
-          className={"col-span-2"}
+        required={true}
+        className={"col-span-2"}
         name="address.map_iframe"
         label={t("mapIframe")}
       />

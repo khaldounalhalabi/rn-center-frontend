@@ -43,7 +43,7 @@ const Select = ({
     }
 
     return (
-      <label className={"label flex flex-col w-full items-start"}>
+      <label className={"label flex flex-col gap-2 w-full items-start"}>
         <p>{label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}</p>
         <select
           className={"select select-bordered w-full"}

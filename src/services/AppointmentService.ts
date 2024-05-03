@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import {Appointment, AppointmentLogs} from "@/Models/Appointment";
+import {Appointment} from "@/Models/Appointment";
 import {ApiResponse} from "@/Http/Response";
 import {GET} from "@/Http/Http";
 

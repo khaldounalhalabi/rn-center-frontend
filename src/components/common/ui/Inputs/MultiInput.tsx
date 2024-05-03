@@ -1,12 +1,12 @@
 "use client";
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { InputProps } from "@/components/common/ui/Inputs/Input";
 import Trash from "@/components/icons/Trash";
 import {
   getNestedPropertyValue,
   sanitizeString,
 } from "@/Helpers/ObjectHelpers";
-import {useFormContext, useWatch} from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 interface MultiInputProps extends InputProps {
   name: string;
@@ -28,7 +28,6 @@ const MultiInput: React.FC<MultiInputProps> = ({
   const error = getNestedPropertyValue(errors, `${name}`);
   let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [""];
 
-
   const [inputs, setInputs] = useState<any[]>(defaultValue);
   const handleInputChange = (index: number, value: any) => {
     const newInputs = [...inputs];
@@ -49,11 +48,9 @@ const MultiInput: React.FC<MultiInputProps> = ({
     setInputs([...temp]);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setValue(name, inputs);
-  },[inputs])
-
-
+  }, [inputs]);
 
   return (
     <>

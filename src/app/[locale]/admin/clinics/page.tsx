@@ -16,8 +16,6 @@ import { useTranslations } from "next-intl";
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
   const dataTableData: DataTableData<Clinic> = {
-    //TODO::add total appointments when it is done
-
     createUrl: `/admin/clinics/create`,
     schema: [
       {
@@ -26,14 +24,10 @@ const Page = () => {
         sortable: true,
       },
       {
-        name: "user.first_name",
+        name: "name",
         sortable: true,
         label: `${t("clinic")}`,
-        render: (_first_name, clinic) => {
-          return (
-              <p>{translate(clinic?.name)}</p>
-          );
-        },
+        translatable: true,
       },
       {
         name: "user.first_name",
@@ -41,11 +35,11 @@ const Page = () => {
         label: `${t("doctor")}`,
         render: (_first_name, clinic) => {
           return (
-              <p>
-                {translate(clinic?.user?.first_name)}{" "}
-                {translate(clinic?.user?.middle_name)}{" "}
-                {translate(clinic?.user?.last_name)}
-              </p>
+            <p>
+              {translate(clinic?.user?.first_name)}{" "}
+              {translate(clinic?.user?.middle_name)}{" "}
+              {translate(clinic?.user?.last_name)}
+            </p>
           );
         },
       },
@@ -80,6 +74,11 @@ const Page = () => {
           ) : (
             <span className={`badge badge-success`}>{t("notArchived")}</span>
           ),
+      },
+      {
+        name: "total_appointments",
+        label: `${t("total-appointments")}`,
+        sortable: true,
       },
       {
         label: `${t("actions")}`,

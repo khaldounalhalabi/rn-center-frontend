@@ -63,7 +63,6 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            {/*TODO::configure it when appointments is done Appointments*/}
             <h1>{clinic.total_appointments}</h1>
             <h2>{t("total-appointments")}</h2>
           </div>

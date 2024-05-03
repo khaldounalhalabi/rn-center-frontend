@@ -14,6 +14,7 @@ import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTe
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { translate } from "@/Helpers/Translations";
 import { useTranslations } from "next-intl";
+import Datepicker from "@/components/common/ui/Datepicker";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -75,23 +76,17 @@ const HolidayForm = ({
         />
       )}
       <Grid md={2}>
-        <Input
+        <Datepicker
           required={true}
           name={"start_date"}
-          type={"date"}
           label={t("startHoliday")}
         />
-        <Input
-          required={true}
-          name={"end_date"}
-          type={"date"}
-          label={t("endHoliday")}
-        />
+        <Datepicker required={true} name={"end_date"} label={t("endHoliday")} />
       </Grid>
       <div className="my-3">
         <TranslatableTextArea
-            required={true}
-            defaultValue={defaultValues?.reason}
+          required={true}
+          defaultValue={defaultValues?.reason}
           label={t("reason")}
           name={"reason"}
           locales={["en", "ar"]}

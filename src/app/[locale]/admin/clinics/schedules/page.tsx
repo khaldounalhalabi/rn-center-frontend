@@ -30,7 +30,7 @@ const Page = () => {
           return (
             <Link
               href={`/admin/clinics/${clinic?.id}`}
-              className={`flex flex-col items-start btn btn-ghost p-1`}
+              className={`flex flex-col items-start btn btn-ghost p-1 hover:text-pom`}
             >
               <p>{translate(clinic?.name)}</p>
             </Link>
@@ -43,11 +43,11 @@ const Page = () => {
         label: `${t("doctor")}`,
         render: (_first_name, clinic) => {
           return (
-              <p>
-                {translate(clinic?.user?.first_name)}{" "}
-                {translate(clinic?.user?.middle_name)}{" "}
-                {translate(clinic?.user?.last_name)}
-              </p>
+            <p>
+              {translate(clinic?.user?.first_name)}{" "}
+              {translate(clinic?.user?.middle_name)}{" "}
+              {translate(clinic?.user?.last_name)}
+            </p>
           );
         },
       },

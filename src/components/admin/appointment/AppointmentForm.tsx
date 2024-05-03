@@ -38,16 +38,17 @@ const AppointmentForm = ({
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
           if (res.code == 425) {
-            swal.fire("The time you selected is already booked!");
+            swal.fire("The time you selected is unavailable!");
             return res;
           } else return res;
         });
     } else {
+      console.log(data);
       return await AppointmentService.make<AppointmentService>("admin")
         .store(data)
         .then((res) => {
           if (res.code == 425) {
-            swal.fire("The time you selected is already booked!");
+            swal.fire("The time you selected is unavailable!");
             return res;
           } else return res;
         });
@@ -65,46 +66,46 @@ const AppointmentForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        {type != "update" ?
-           <>
-             <ApiSelect
-                 required={true}
-                 placeHolder={"Select Clinic name ..."}
-                 name={"clinic_id"}
-                 api={(page, search) =>
-                     ClinicService.make<ClinicService>().indexWithPagination(
-                         page,
-                         search,
-                     )
-                 }
-                 label={"Clinic Name"}
-                 optionValue={"id"}
-                 getOptionLabel={(data: Clinic) => translate(data.name)}
-             />
-             <ApiSelect
-                 required={true}
-                 name={"customer_id"}
-                 placeHolder={"Select Customer name ..."}
-                 api={(page, search) =>
-                     CustomerService.make<CustomerService>().indexWithPagination(
-                         page,
-                         search,
-                     )
-                 }
-                 label={"Customer Name"}
-                 optionValue={"id"}
-                 getOptionLabel={(data: Customer) => {
-                   return (
-                       <p>
-                         {translate(data?.user?.first_name)}{" "}
-                         {translate(data?.user?.middle_name)}{" "}
-                         {translate(data?.user?.last_name)}
-                       </p>
-                   );
-                 }}
-             />
-           </>
-            :false}
+        {type != "update" ? (
+          <>
+            <ApiSelect
+              required={true}
+              placeHolder={"Select Clinic name ..."}
+              name={"clinic_id"}
+              api={(page, search) =>
+                ClinicService.make<ClinicService>().indexWithPagination(
+                  page,
+                  search,
+                )
+              }
+              label={"Clinic Name"}
+              optionValue={"id"}
+              getOptionLabel={(data: Clinic) => translate(data.name)}
+            />
+            <ApiSelect
+              required={true}
+              name={"customer_id"}
+              placeHolder={"Select Customer name ..."}
+              api={(page, search) =>
+                CustomerService.make<CustomerService>().indexWithPagination(
+                  page,
+                  search,
+                )
+              }
+              label={"Customer Name"}
+              optionValue={"id"}
+              getOptionLabel={(data: Customer) => {
+                return (
+                  <p>
+                    {translate(data?.user?.first_name)}{" "}
+                    {translate(data?.user?.middle_name)}{" "}
+                    {translate(data?.user?.last_name)}
+                  </p>
+                );
+              }}
+            />
+          </>
+        ) : false}
 
         <ApiSelect
           required={true}
@@ -120,30 +121,31 @@ const AppointmentForm = ({
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
         />
-        {type != "update" ?
-            <div className={`flex gap-5 p-2 items-end`}>
-              <label className={`bg-pom p-2 rounded-md text-white`}>
-                Type:<span className="text-red-600">*</span>
-              </label>
-              <Input
-                  name={"type"}
-                  label={"manual"}
-                  type="radio"
-                  className="radio radio-info"
-                  value={"manual"}
-                  defaultChecked={
-                    defaultValues ? defaultValues?.status == "manual" : true
-                  }
-              />
-              <Input
-                  name={"type"}
-                  label={"online"}
-                  type="radio"
-                  className="radio radio-info"
-                  value={"online"}
-                  defaultChecked={defaultValues?.status == "online"}
-              />
-            </div>:false}
+        {type != "update" ? (
+          <div className={`flex gap-5 p-2 items-end`}>
+            <label className={`bg-pom p-2 rounded-md text-white`}>
+              Type:<span className="text-red-600">*</span>
+            </label>
+            <Input
+              name={"type"}
+              label={"manual"}
+              type="radio"
+              className="radio radio-info"
+              value={"manual"}
+              defaultChecked={
+                defaultValues ? defaultValues?.status == "manual" : true
+              }
+            />
+            <Input
+              name={"type"}
+              label={"online"}
+              type="radio"
+              className="radio radio-info"
+              value={"online"}
+              defaultChecked={defaultValues?.status == "online"}
+            />
+          </div>
+        ) : false}
 
         <Input
           name={"extra_fees"}
@@ -166,7 +168,11 @@ const AppointmentForm = ({
         <Timepicker label="From" name={"from"} required={true} />
         <Timepicker label="To" name={"to"} required={true} />
       </Grid>
-      <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
+      <Textarea
+        name={"note"}
+        label={"Notes"}
+        defaultValue={defaultValues?.note ?? ""}
+      />
       {status == "cancelled" ? (
         <Textarea label={"Reason"} name={"cancellation_reason"} />
       ) : false}

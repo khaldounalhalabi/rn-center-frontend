@@ -8,10 +8,7 @@ import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { translate } from "@/Helpers/Translations";
 import Select from "@/components/common/ui/Selects/Select";
-import Datepicker from "@/components/common/ui/Datepicker";
-import Timepicker from "@/components/common/ui/TimePicker";
-import dayjs from "dayjs";
-import {DatePicker, TimePicker} from "@mui/x-date-pickers";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 
 const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
 const typeData = ["Online", "Manual"];
@@ -138,7 +135,6 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
             <label className="flex flex-col items-start gap-2 label">
               <DatePicker
                 onChange={(time: any) => {
-                  console.log(time?.format("YYYY-MM-DD"));
                   setParams({ ...params, date: time?.format("YYYY-MM-DD") });
                 }}
               />
@@ -148,9 +144,9 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
             From :
             <label className="flex flex-col items-start gap-2 label">
               <TimePicker
-                  onChange={(time: any) => {
-                    setParams({ ...params, from: time?.format("HH:mm") });
-                  }}
+                onChange={(time: any) => {
+                  setParams({ ...params, from: time?.format("HH:mm") });
+                }}
               />
             </label>
           </label>
@@ -158,9 +154,9 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
             To :
             <label className="flex flex-col items-start gap-2 label">
               <TimePicker
-                  onChange={(time: any) => {
-                    setParams({ ...params, to: time?.format("HH:mm") });
-                  }}
+                onChange={(time: any) => {
+                  setParams({ ...params, to: time?.format("HH:mm") });
+                }}
               />
             </label>
           </label>

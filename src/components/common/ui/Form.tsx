@@ -25,7 +25,7 @@ const Form = ({
   const onSubmit = async (data: any) => {
     const res = await handleSubmit(data);
 
-    if (!res.hasValidationErrors()) {
+    if (!res.hasValidationErrors() && res.code == 200) {
       if (onSuccess) onSuccess(res);
     }
 
@@ -42,7 +42,12 @@ const Form = ({
         encType="multipart/form-data"
       >
         {children}
-        <div className="flex justify-center items-center my-5">
+        <div
+          className="flex justify-center items-center my-5"
+          onClick={() => {
+            methods.clearErrors();
+          }}
+        >
           <PrimaryButton
             type="submit"
             disabled={methods.formState.isSubmitting}

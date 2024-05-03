@@ -4,9 +4,9 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 
-const page = async ({ params: { tagId } }: { params: { tagId: number } }) => {
+const page = async ({ params: { logId } }: { params: { logId: number } }) => {
   const data =
-    await AppointmentLogsService.make<AppointmentLogsService>().show(tagId);
+    await AppointmentLogsService.make<AppointmentLogsService>().show(logId);
   const res: AppointmentLogs = data?.data;
   console.log(res.cancellation_reason)
   return (

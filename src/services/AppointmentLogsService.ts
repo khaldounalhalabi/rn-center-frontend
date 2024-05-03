@@ -7,7 +7,7 @@ export class AppointmentLogsService extends BaseService<AppointmentLogs> {
     public getBaseUrl(): string {
         return `${this.actor}/appointment-logs`;
     }
-    public async getAllAppointmentsLogs(
+    public async getAppointmentLogs(
         appointmentId: number,
 
     ): Promise<ApiResponse<AppointmentLogs[]>> {

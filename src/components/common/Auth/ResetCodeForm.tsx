@@ -4,7 +4,6 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { POST } from "@/Http/Http";
 import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Form from "../ui/Form";
 
 const ResetCodeForm = ({

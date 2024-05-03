@@ -1,6 +1,5 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";

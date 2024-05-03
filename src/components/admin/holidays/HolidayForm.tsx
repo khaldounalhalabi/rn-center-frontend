@@ -2,7 +2,6 @@
 import Form from "@/components/common/ui/Form";
 import { ClinicService } from "@/services/ClinicService";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";

@@ -105,7 +105,9 @@ const AppointmentForm = ({
               }}
             />
           </>
-        ) : false}
+        ) : (
+          false
+        )}
 
         <ApiSelect
           required={true}
@@ -145,7 +147,9 @@ const AppointmentForm = ({
               defaultChecked={defaultValues?.status == "online"}
             />
           </div>
-        ) : false}
+        ) : (
+          false
+        )}
 
         <Input
           name={"extra_fees"}
@@ -175,7 +179,9 @@ const AppointmentForm = ({
       />
       {status == "cancelled" ? (
         <Textarea label={"Reason"} name={"cancellation_reason"} />
-      ) : false}
+      ) : (
+        false
+      )}
     </Form>
   );
 };

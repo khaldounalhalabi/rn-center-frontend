@@ -6,7 +6,7 @@ const page = async () => {
   return (
     <PageCard>
       <h2 className="card-title">Add Appointment</h2>
-      <AppointmentForm type='store'/>
+      <AppointmentForm type="store" />
     </PageCard>
   );
 };

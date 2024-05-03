@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputProps } from "@/components/common/ui/Inputs/Input";
 import Trash from "@/components/icons/Trash";
 import {

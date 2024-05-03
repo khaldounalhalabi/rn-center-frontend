@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import PageCard from "@/components/common/ui/PageCard";
 import Trash from "@/components/icons/Trash";
@@ -7,17 +7,16 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { Schedule, SchedulesCollection } from "@/Models/Schedule";
+import { SchedulesCollection } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
 import { translate } from "@/Helpers/Translations";
 import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
   "saturday",
@@ -57,7 +56,7 @@ const ClinicScheduleForm = ({
 
   const handleRemoveTimeRange = (
     day: keyof SchedulesCollection,
-    index: number
+    index: number,
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
@@ -69,19 +68,19 @@ const ClinicScheduleForm = ({
     day: keyof SchedulesCollection,
     index: number,
     time: string,
-    timeType: "start_time" | "end_time"
+    timeType: "start_time" | "end_time",
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].map((timeRange, i) =>
-        i === index ? { ...timeRange, [timeType]: time } : timeRange
+        i === index ? { ...timeRange, [timeType]: time } : timeRange,
       ),
     }));
   };
 
   const handleCopySchedule = (
     fromDay: keyof SchedulesCollection,
-    toDay: keyof SchedulesCollection
+    toDay: keyof SchedulesCollection,
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
@@ -106,13 +105,13 @@ const ClinicScheduleForm = ({
             end_time: item.end_time,
             day_of_week: value[0] as string,
           });
-        }
+        },
       );
     });
 
     return await ScheduleService.make<ScheduleService>().store(data);
   };
-  const t = useTranslations('admin.schedules.create')
+  const t = useTranslations("admin.schedules.create");
   return (
     <PageCard>
       <div className="card-title">
@@ -127,25 +126,23 @@ const ClinicScheduleForm = ({
         <div className={"w-full md:w-1/2 mb-5"}>
           {method == "store" ? (
             <ApiSelect
-                placeHolder={'Select Clinic Name ...'}
-                required={true}
-
-                name={"clinic_id"}
+              placeHolder={"Select Clinic Name ..."}
+              required={true}
+              name={"clinic_id"}
               api={(page, search) =>
                 ClinicService.make<ClinicService>().indexWithPagination(
                   page,
-                  search
+                  search,
                 )
               }
-              label={t('clinicName')}
+              label={t("clinicName")}
               optionValue={"id"}
               getOptionLabel={(data: Clinic) => translate(data.name)}
             />
           ) : (
             <Input
-                required={true}
-
-                name={"clinic_id"}
+              required={true}
+              name={"clinic_id"}
               type={"number"}
               defaultValue={clinic_id ?? ""}
               className={"hidden"}
@@ -169,7 +166,7 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "start_time"
+                        "start_time",
                       )
                     }
                   />
@@ -181,7 +178,7 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "end_time"
+                        "end_time",
                       )
                     }
                   />

@@ -64,7 +64,6 @@ const ClinicForm = ({
           label={t("middle-name")}
           name={"user.middle_name"}
           required={true}
-
         />
 
         <TranslatableInput
@@ -74,7 +73,6 @@ const ClinicForm = ({
           label={t("last-name")}
           name={"user.last_name"}
           required={true}
-
         />
       </Grid>
 
@@ -86,7 +84,6 @@ const ClinicForm = ({
           label={t("clinicName")}
           name={"name"}
           required={true}
-
         />
         <Input
           name={"user.email"}
@@ -94,7 +91,6 @@ const ClinicForm = ({
           placeholder={"Enter The Doctor Email"}
           label={t("email")}
           required={true}
-
         />
         <Input
           name={"user.password"}
@@ -102,7 +98,6 @@ const ClinicForm = ({
           placeholder={"Password"}
           label={t("password")}
           required={true}
-
         />
         <Input
           name={"user.password_confirmation"}
@@ -110,7 +105,6 @@ const ClinicForm = ({
           placeholder={"Confirm Password"}
           label={t("confirm-password")}
           required={true}
-
         />
         <Datepicker name={"user.birth_date"} label={t("birth-date")} />
         <Input
@@ -120,7 +114,6 @@ const ClinicForm = ({
           placeholder={"Appointment Cost i.e : 5"}
           label={t("cost")}
           required={true}
-
         />
 
         <Input
@@ -130,7 +123,6 @@ const ClinicForm = ({
           placeholder={"Doctor Max Appointments Per Day Are ?"}
           label={t("max-appointments")}
           required={true}
-
         />
       </Grid>
 
@@ -140,12 +132,13 @@ const ClinicForm = ({
         placeholder={"Enter Clinic Phone Number"}
         label={t("phones")}
         required={true}
-
       />
 
       <Grid>
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Status<span className='text-red-600'>*</span>: </label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            Status<span className="text-red-600">*</span>:
+          </label>
           <Input
             name={"status"}
             label={t("active")}
@@ -167,7 +160,9 @@ const ClinicForm = ({
         </div>
 
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Gender<span className='text-red-600'>*</span>:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            Gender<span className="text-red-600">*</span>:
+          </label>
           <Input
             name={"user.gender"}
             label={t("male")}
@@ -193,7 +188,7 @@ const ClinicForm = ({
         <ApiSelect
           label={t("hospital")}
           name="hsopital_id"
-          placeHolder={'Select Hospital Name ...'}
+          placeHolder={"Select Hospital Name ..."}
           api={(page, search): Promise<ApiResponse<Hospital[]>> =>
             HospitalService.make<HospitalService>().indexWithPagination(
               page,
@@ -208,11 +203,10 @@ const ClinicForm = ({
         />
 
         <ApiSelect
-            required={true}
-            name={"speciality_ids"}
+          required={true}
+          name={"speciality_ids"}
           label={t("specialities")}
-          placeHolder={'Select Speciality Name ...'}
-
+          placeHolder={"Select Speciality Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
@@ -227,12 +221,10 @@ const ClinicForm = ({
         />
 
         <ApiSelect
-            required={true}
-
-            name={"address.city_id"}
+          required={true}
+          name={"address.city_id"}
           label={t("city")}
-          placeHolder={'Select City Name ...'}
-
+          placeHolder={"Select City Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
           }
@@ -244,8 +236,8 @@ const ClinicForm = ({
         />
 
         <TranslatableInput
-            required={true}
-            name={"address.name"}
+          required={true}
+          name={"address.name"}
           type={"text"}
           label={t("address")}
         />
@@ -266,7 +258,9 @@ const ClinicForm = ({
           ) : (
             <div className="flex justify-between items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+              <span className="text-lg badge badge-neutral">
+                {t("noImage")}
+              </span>
             </div>
           )
         ) : (

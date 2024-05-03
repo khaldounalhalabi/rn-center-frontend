@@ -70,7 +70,12 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
           >
             {label ? (
               <label className={"label justify-start"}>
-                {label + " : " + locale.toUpperCase()}{required?<span className='ml-1 text-red-600'>*</span>:false}
+                {label + " : " + locale.toUpperCase()}
+                {required ? (
+                  <span className="ml-1 text-red-600">*</span>
+                ) : (
+                  false
+                )}
               </label>
             ) : (
               ""

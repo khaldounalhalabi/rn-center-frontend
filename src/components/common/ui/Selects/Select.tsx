@@ -44,7 +44,10 @@ const Select = ({
 
     return (
       <label className={"label flex flex-col gap-2 w-full items-start"}>
-        <p>{label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}</p>
+        <p>
+          {label ?? ""}
+          {required ? <span className="ml-1 text-red-600">*</span> : false}
+        </p>
         <select
           className={"select select-bordered w-full"}
           onChange={handleSelect}
@@ -62,7 +65,10 @@ const Select = ({
   } else {
     return (
       <label className={"label flex flex-col w-10/12 items-start"}>
-        <p>{label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}</p>
+        <p>
+          {label ?? ""}
+          {required ? <span className="ml-1 text-red-600">*</span> : false}
+        </p>
         <select
           className={"select select-bordered w-full"}
           defaultValue={selected}

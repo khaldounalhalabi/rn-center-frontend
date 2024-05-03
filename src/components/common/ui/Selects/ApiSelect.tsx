@@ -25,9 +25,9 @@ function ApiSelect<TResponse, TData>({
   placeHolder = "Select",
   defaultValues = undefined,
   onChange = undefined,
-  required =false,
+  required = false,
 
-                                       inputProps = {},
+  inputProps = {},
 }: IApiSelectProps<TResponse, TData>) {
   const {
     setValue,
@@ -87,7 +87,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
     if (onSelect) {
@@ -128,7 +128,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -136,7 +136,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -172,7 +172,8 @@ function ApiSelect<TResponse, TData>({
       <label
         className={`flex ${styles?.labelClasses ?? "label font-medium justify-start select-text"}`}
       >
-        {label ?? ""}{required?<span className='ml-1 text-red-600'>*</span>:false}
+        {label ?? ""}
+        {required ? <span className="ml-1 text-red-600">*</span> : false}
         <input
           ref={inputRef}
           name={name ?? ""}
@@ -294,6 +295,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-  selected.filter((op) => isEqual(op, option)).length > 0;
+    selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

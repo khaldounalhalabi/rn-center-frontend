@@ -18,7 +18,7 @@ const TablePaginator = ({
   return (
     <div className="flex justify-between border-gray-200 px-4 py-2 border-t rounded-b-lg">
       <div className={"justify-start"}>
-        Total Pages : {data?.paginate?.total}
+        Total Records : {data?.paginate?.total}
       </div>
       <ol className="flex justify-end items-center gap-1 font-medium text-xs">
         <li>

@@ -1,5 +1,11 @@
 "use client";
-import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
+import React, {
+  Fragment,
+  ReactNode,
+  ThHTMLAttributes,
+  useId,
+  useState,
+} from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -28,7 +34,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -42,13 +48,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -70,7 +76,7 @@ const DataTable = (tableData: DataTableData<any>) => {
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
     queryKey: [
-      "tableData",
+      `tableData_${tableData.createUrl}_${tableData.title}`,
       page,
       search,
       sortDir,
@@ -181,11 +187,15 @@ const DataTable = (tableData: DataTableData<any>) => {
               className={`card-actions w-full flex justify-between items-center`}
             >
               <div className={"flex gap-1"}>
-                {tableData.createUrl?<Link href={tableData.createUrl ?? "#"}>
-                  <button className="btn btn-info btn-sm btn-square">
-                    <DocumentPlus className={`h-6 w-6`} />
-                  </button>
-                </Link> :false}
+                {tableData.createUrl ? (
+                  <Link href={tableData.createUrl ?? "#"}>
+                    <button className="btn btn-info btn-sm btn-square">
+                      <DocumentPlus className={`h-6 w-6`} />
+                    </button>
+                  </Link>
+                ) : (
+                  false
+                )}
                 {tableData?.filter ? (
                   <div>
                     <button
@@ -202,7 +212,11 @@ const DataTable = (tableData: DataTableData<any>) => {
               <div className={"flex gap-2"}>
                 <select
                   className="w-full max-w-xs select-bordered select-sm select"
-                  onChange={(e) => setPerPage(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    setPage(1);
+                    setSearch("");
+                    setPerPage(parseInt(e.target.value));
+                  }}
                   value={perPage}
                 >
                   <option value={10}>10</option>

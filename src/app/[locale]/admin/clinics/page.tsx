@@ -78,7 +78,6 @@ const Page = () => {
       {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
-        sortable: true,
       },
       {
         label: `${t("actions")}`,

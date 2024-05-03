@@ -78,7 +78,8 @@
         "notArchived": "غير مؤرشفة",
         "archived?": "مؤرشف ?",
         "actions": "أجراءات",
-        "archived": "مؤرشف"
+        "archived": "مؤرشف",
+        "total-appointments": "إجمالي المواعيد"
       }
     },
     "holidays": {

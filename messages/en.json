@@ -78,7 +78,8 @@
         "notArchived": "Not Archived",
         "archived?": "Archived ?",
         "actions": "Actions",
-        "archived": "Archived"
+        "archived": "Archived",
+        "total-appointments": "Total Appointments"
       }
     },
     "holidays": {

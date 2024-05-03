@@ -21,3 +21,15 @@ export interface Appointment {
   clinic: Clinic;
   service: Service;
 }
+
+export interface AppointmentLogs {
+  id: number;
+  cancellation_reason: string;
+  status: string;
+  happen_in: string;
+  appointment_id: number;
+  actor_id: number;
+  affected_id: number;
+  created_at: string;
+  updated_at: string;
+}

@@ -68,6 +68,7 @@
       },
       "table": {
         "clinics": "Clinics",
+        "clinic": "Clinic",
         "doctor": "Doctor",
         "city": "City",
         "status": "Status",
@@ -110,6 +111,7 @@
     },
     "schedules": {
       "table": {
+        "clinic": "Clinic",
         "doctor": "Doctor",
         "approximateAppointmentTime": "Approximate Appointment Time (min)",
         "clinicSchedules": "Clinic Schedules",
@@ -164,7 +166,6 @@
         "city": "City",
         "image": "Image",
         "noData": "No Data"
-
       },
       "create-edit": {
         "addHospital": "Add Hospital",
@@ -177,7 +178,6 @@
         "image": "Image",
         "noData": "No Data",
         "mapIframe": "Map iframe"
-
       }
     },
     "service": {
@@ -205,7 +205,7 @@
         "editBtn": "Edit"
       },
       "create-edit": {
-        "addService":"Add Service",
+        "addService": "Add Service",
         "editService": "Edit Service",
         "serviceName": "Service Name",
         "clinicName": "Clinic Name",
@@ -215,7 +215,6 @@
         "category": "Category",
         "approximateDuration": "Approximate Duration",
         "price": "Price"
-
       }
     },
     "speciality": {
@@ -231,11 +230,10 @@
         "noData": "No Data",
         "editBtn": "Edit",
         "description": "Description"
-
       },
       "create-edit": {
         "addSpeciality": "Add Speciality",
-       "editSpeciality": "Edit Speciality",
+        "editSpeciality": "Edit Speciality",
         "specialityName": "Speciality Name",
         "tags": "Tags",
         "description": "Description"

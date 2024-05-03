@@ -3,7 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 import Appointment from "@/components/admin/clinics/Appointments";
 
 function classNames(...classes: any[]) {
@@ -11,7 +11,7 @@ function classNames(...classes: any[]) {
 }
 
 const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
-  const t = useTranslations('admin.clinic.show')
+  const t = useTranslations("admin.clinic.show");
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -49,7 +49,7 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
             <Overview clinic={clinic} />
           </Tab.Panel>
           <Tab.Panel>
-            <Appointment clinicId={clinic?.id??0}/>
+            <Appointment clinicId={clinic?.id ?? 0} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

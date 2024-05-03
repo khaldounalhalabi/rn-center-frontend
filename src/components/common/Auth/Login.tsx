@@ -3,24 +3,35 @@ import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
-import {POST} from "@/Http/Http";
-import {Navigate} from "@/Actions/navigate";
-import {setCookieClient} from "@/Actions/clientCookies";
-import {ApiResponse} from "@/Http/Response";
-import {AuthResponse} from "@/Models/User";
+import { POST } from "@/Http/Http";
+import { Navigate } from "@/Actions/navigate";
+import { setCookieClient } from "@/Actions/clientCookies";
+import { ApiResponse } from "@/Http/Response";
+import { AuthResponse } from "@/Models/User";
+import { swal } from "@/Helpers/UIHelpers";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
-
   const handleSubmit = (data: { email: string; password: string }) => {
-    return  POST<AuthResponse>(url,data)
+    return POST<AuthResponse>(url, data).then((res: any) => {
+      if (res.code == 401) {
+        swal.fire({
+          icon: "error",
+          title: "Invalid Credentials!",
+          text: "Your Credentials Didn't Match Our Records!",
+        });
+        return res;
+      } else {
+        return res;
+      }
+    });
   };
 
-  const handleSuccess = (data:ApiResponse<AuthResponse>)=>{
-    setCookieClient('token',data?.data?.token ?? "")
+  const handleSuccess = (data: ApiResponse<AuthResponse>) => {
+    setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
-    setCookieClient('user-type',pageType)
-    Navigate('/admin')
-  }
+    setCookieClient("user-type", pageType);
+    Navigate("/admin");
+  };
 
   return (
     <div className="relative w-[100wh] h-[100vh]">
@@ -30,34 +41,34 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
           <h4 className="mt-4 text-gray-500">Welcome Back !</h4>
         </div>
         <Form
-         handleSubmit={handleSubmit}
-         onSuccess={handleSuccess}
+          handleSubmit={handleSubmit}
+          onSuccess={handleSuccess}
+          buttonText={"Login"}
         >
-            <div className={"flex flex-col gap-5"}>
-              <Input
-                name="email"
-                type="email"
-                label="Email :"
-                placeholder="Enter Your Email"
-              />
-              <Input
-                name="password"
-                label="Password : "
-                type={"password"}
-                placeholder="Enter Your Password"
-              />
-            </div>
+          <div className={"flex flex-col gap-5"}>
+            <Input
+              name="email"
+              type="email"
+              label="Email :"
+              placeholder="Enter Your Email"
+            />
+            <Input
+              name="password"
+              label="Password : "
+              type={"password"}
+              placeholder="Enter Your Password"
+            />
+          </div>
 
-            <div className="flex justify-center opacity-80 mt-4">
-              <h4> Forget Password ? </h4>
-              <Link
-                href={`/auth/${pageType}/reset-password`}
-                className="text-blue-600"
-              >
-                Reset Password
-              </Link>
-            </div>
-
+          <div className="flex justify-center opacity-80 mt-4">
+            <h4> Forget Password ? </h4>
+            <Link
+              href={`/auth/${pageType}/reset-password`}
+              className="text-blue-600"
+            >
+              Reset Password
+            </Link>
+          </div>
         </Form>
       </div>
     </div>

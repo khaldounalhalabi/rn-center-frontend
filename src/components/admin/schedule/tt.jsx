@@ -1,27 +1,27 @@
-import { Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Fragment } from 'react'
+import { Popover, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Fragment } from "react";
 
 const solutions = [
   {
-    name: 'Insights',
-    description: 'Measure actions your users take',
-    href: '##',
+    name: "Insights",
+    description: "Measure actions your users take",
+    href: "##",
     icon: IconOne,
   },
   {
-    name: 'Automations',
-    description: 'Create your own targeted content',
-    href: '##',
+    name: "Automations",
+    description: "Create your own targeted content",
+    href: "##",
     icon: IconTwo,
   },
   {
-    name: 'Reports',
-    description: 'Keep track of your growth',
-    href: '##',
+    name: "Reports",
+    description: "Keep track of your growth",
+    href: "##",
     icon: IconThree,
   },
-]
+];
 
 export default function Example() {
   return (
@@ -31,12 +31,12 @@ export default function Example() {
           <>
             <Popover.Button
               className={`
-                ${open ? 'text-white' : 'text-white/90'}
+                ${open ? "text-white" : "text-white/90"}
                 group inline-flex items-center rounded-md bg-orange-700 px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
             >
               <span>Solutions</span>
               <ChevronDownIcon
-                className={`${open ? 'text-orange-300' : 'text-orange-300/70'}
+                className={`${open ? "text-orange-300" : "text-orange-300/70"}
                   ml-2 h-5 w-5 transition duration-150 ease-in-out group-hover:text-orange-300/80`}
                 aria-hidden="true"
               />
@@ -95,7 +95,7 @@ export default function Example() {
         )}
       </Popover>
     </div>
-  )
+  );
 }
 
 function IconOne() {
@@ -128,7 +128,7 @@ function IconOne() {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function IconTwo() {
@@ -154,7 +154,7 @@ function IconTwo() {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function IconThree() {
@@ -174,5 +174,5 @@ function IconThree() {
       <rect x="29" y="16" width="2" height="20" fill="#FB923C" />
       <rect x="33" y="12" width="2" height="24" fill="#FB923C" />
     </svg>
-  )
+  );
 }

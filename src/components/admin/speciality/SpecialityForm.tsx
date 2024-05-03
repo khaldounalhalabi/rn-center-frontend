@@ -4,11 +4,10 @@ import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import React from "react";
 import { AddSpeciality } from "@/Models/Speciality";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { SpecialityService } from "@/services/SpecialityService";
 import InputTags from "@/components/common/ui/InputTags";
 import { Navigate } from "@/Actions/navigate";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -19,7 +18,7 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("admin.speciality.create-edit")
+  const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
     if (
       type == "update" &&
@@ -45,6 +44,7 @@ const SpecialityForm = ({
     >
       <div>
         <TranslatableInput
+          required={true}
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
@@ -62,7 +62,6 @@ const SpecialityForm = ({
           defaultValue={array ?? []}
         />
       </div>
-      
     </Form>
   );
 };

@@ -10,6 +10,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   name?: string;
   label?: string;
   type: string;
+  required?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,6 +18,7 @@ const Input: React.FC<InputProps> = ({
   label,
   name,
   type,
+  required = false,
   ...props
 }) => {
   const {
@@ -30,7 +32,14 @@ const Input: React.FC<InputProps> = ({
   if (type == "password") {
     return (
       <div className={`flex flex-col items-start w-full`}>
-        {label ? <label className={"label"}>{label}</label> : ""}
+        {label ? (
+          <label className={"label"}>
+            {label}
+            {required ? <span className="ml-1 text-red-600">*</span> : false}
+          </label>
+        ) : (
+          ""
+        )}
         <div className={"relative w-full"}>
           <input
             {...props}
@@ -62,7 +71,14 @@ const Input: React.FC<InputProps> = ({
       <div
         className={`flex ${type == `radio` ? `` : "flex-col"} items-start w-full`}
       >
-        {label ? <label className={"label"}>{label}</label> : ""}
+        {label ? (
+          <label className={"label"}>
+            {label}
+            {required ? <span className="ml-1 text-red-600">*</span> : false}
+          </label>
+        ) : (
+          ""
+        )}
         <input
           {...props}
           {...register(`${name}`)}

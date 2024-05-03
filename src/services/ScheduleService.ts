@@ -6,7 +6,6 @@ import { GET } from "@/Http/Http";
 export class ScheduleService extends BaseService<
   Schedule | SchedulesCollection
 > {
-
   public getBaseUrl(): string {
     return `${this.actor}/schedules`;
   }

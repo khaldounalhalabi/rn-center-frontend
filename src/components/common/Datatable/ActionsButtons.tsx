@@ -39,7 +39,6 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const sUrl = showUrl ?? `${baseUrl}/${dataId ?? ""}`; // show url
   const eUrl = editUrl ?? `${baseUrl}/${dataId ?? ""}/edit` + ""; // edit url
   const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
-
   return (
     <div className={`flex justify-between items-center gap-2`}>
       {buttons.includes("show") ? (

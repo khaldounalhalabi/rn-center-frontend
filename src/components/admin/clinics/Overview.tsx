@@ -1,12 +1,12 @@
-'use client'
+"use client";
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
 import { translate } from "@/Helpers/Translations";
 import MapIFrame from "@/components/common/ui/MapIFrame";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
-  const t = useTranslations('admin.clinic.show')
+  const t = useTranslations("admin.clinic.show");
 
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -24,7 +24,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           </div>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t('blood')} : </label>
+          <label className={"label"}>{t("blood")} : </label>
           <div className={"badge badge-error"}>{clinic?.user?.blood_group}</div>
         </div>
         <div className={"w-full"}>
@@ -32,11 +32,11 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           <p className={"badge badge-success"}>{clinic?.user?.gender}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t('status')} : </label>
+          <label className={"label"}>{t("status")} : </label>
           <p className={"badge badge-warning"}>{clinic?.status}</p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t('birth')} : </label>
+          <label className={"label"}>{t("birth")} : </label>
           <div className={"badge badge-neutral"}>
             {clinic?.user?.birth_date}
           </div>
@@ -66,21 +66,21 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
         <div className={"w-full"}>
           <label className={"label"}>
-            {t( "maximumDaysToScheduleAnAppointment")} :
+            {t("maximumDaysToScheduleAnAppointment")} :
           </label>
           <p className={"badge badge-neutral"}>
             {clinic?.appointment_day_range}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t('hospital')} :</label>
+          <label className={"label"}>{t("hospital")} :</label>
           <p className={"badge badge-error"}>
             {translate(clinic?.hospital?.name ?? "No Hospital")}
           </p>
         </div>
 
         <div className={"w-full"}>
-          <label className={"label"}>{t('registeredOn')} :</label>
+          <label className={"label"}>{t("registeredOn")} :</label>
           <p className={"badge badge-secondary"}>{clinic?.created_at}</p>
         </div>
         <div className={"w-full"}>
@@ -89,7 +89,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
       </div>
       <div className={"w-full"}>
-        <label className={"label"}>{t('experience')} :</label>
+        <label className={"label"}>{t("experience")} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}

@@ -15,6 +15,11 @@ const Page = () => {
     title: `${t("service")}`,
     schema: [
       {
+        name: "id",
+        label: `id`,
+        sortable: true,
+      },
+      {
         name: "name",
         label: `${t("service")}`,
         sortable: true,

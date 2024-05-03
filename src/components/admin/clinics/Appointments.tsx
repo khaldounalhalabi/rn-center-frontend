@@ -7,9 +7,8 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { translate } from "@/Helpers/Translations";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
-import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
+import Select from "@/components/common/ui/Selects/Select";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 
 const statusData = ["Checkin", "Blocked", "Cancelled", "Pending"];
 const typeData = ["Online", "Manual"];
@@ -113,9 +112,9 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
             Status :
-            <SelectFilter
+            <Select
               data={statusData}
-              selected={"pending"}
+              selected={"Pending"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}
@@ -123,9 +122,9 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
           </label>
           <label className="label">
             Type :
-            <SelectFilter
+            <Select
               data={typeData}
-              selected={"pending"}
+              selected={"Pending"}
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}
@@ -133,27 +132,33 @@ const Appointment = ({ clinicId }: { clinicId: number }) => {
           </label>
           <label className="label">
             Date :
-            <DatepickerFilter
-              onChange={(time: any) => {
-                setParams({ ...params, date: time?.format("YYYY-MM-DD") });
-              }}
-            />
+            <label className="flex flex-col items-start gap-2 label">
+              <DatePicker
+                onChange={(time: any) => {
+                  setParams({ ...params, date: time?.format("YYYY-MM-DD") });
+                }}
+              />
+            </label>
           </label>
           <label className="label">
             From :
-            <TimepickerFilter
-              onChange={(time: any) => {
-                setParams({ ...params, from: time?.format("HH:MM") });
-              }}
-            />
+            <label className="flex flex-col items-start gap-2 label">
+              <TimePicker
+                onChange={(time: any) => {
+                  setParams({ ...params, from: time?.format("HH:mm") });
+                }}
+              />
+            </label>
           </label>
           <label className="label">
             To :
-            <TimepickerFilter
-              onChange={(time: any) => {
-                setParams({ ...params, to: time?.format("HH:MM") });
-              }}
-            />
+            <label className="flex flex-col items-start gap-2 label">
+              <TimePicker
+                onChange={(time: any) => {
+                  setParams({ ...params, to: time?.format("HH:mm") });
+                }}
+              />
+            </label>
           </label>
         </div>
       );

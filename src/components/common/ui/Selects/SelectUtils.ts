@@ -13,11 +13,13 @@ export interface SelectInputProps
   > {}
 
 export interface IApiSelectProps<TResponse, TData> {
+  required?: boolean;
+
   api: (
     page?: number,
     search?: string,
     isLast?: boolean,
-    totalPages?: number
+    totalPages?: number,
   ) => Promise<ApiResponse<TResponse>>;
   isMultiple?: boolean;
   optionLabel?: keyof TData;
@@ -29,7 +31,7 @@ export interface IApiSelectProps<TResponse, TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;
@@ -54,7 +56,7 @@ export interface IApiSelectProps<TResponse, TData> {
   getNextPage?: (
     prevPage: number,
     isLast: boolean,
-    totalPages: number
+    totalPages: number,
   ) => number;
 }
 
@@ -69,7 +71,7 @@ export interface ISelectProps<TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;
@@ -100,4 +102,4 @@ export const include = (option: Option, selected: Option[]): boolean =>
   selected.filter((op) => isEqual(op, option)).length > 0;
 
 export const isOption = (object: any): object is Option =>
-  "label" in object && "value" in object;
+    "label" in object && "value" in object;

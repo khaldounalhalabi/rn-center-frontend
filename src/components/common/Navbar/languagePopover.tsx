@@ -3,9 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import { Link } from "@/navigation";
-import {getCookieClient} from "@/Actions/clientCookies";
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -15,9 +13,11 @@ const LanguagePopover = () => {
   }, []);
   const router = useRouter();
   const pathname = usePathname();
-  const setCoc = (locale:string) => {
-    if (pathname.includes(`/${locale=='en'?"ar":"en"}/`)) {
-      return  router.replace(pathname.replace(`/${locale=='en'?"ar":"en"}/`, `/${locale}/`));
+  const setCoc = (locale: string) => {
+    if (pathname.includes(`/${locale == "en" ? "ar" : "en"}/`)) {
+      return router.replace(
+        pathname.replace(`/${locale == "en" ? "ar" : "en"}/`, `/${locale}/`),
+      );
     }
   };
 
@@ -46,7 +46,7 @@ const LanguagePopover = () => {
       >
         <div>
           <button
-              onClick={()=>setCoc('en')}
+            onClick={() => setCoc("en")}
             className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
             <img
@@ -57,7 +57,7 @@ const LanguagePopover = () => {
             <h3>English</h3>
           </button>
           <button
-              onClick={()=>setCoc('ar')}
+            onClick={() => setCoc("ar")}
             className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
             <img

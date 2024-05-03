@@ -2,7 +2,6 @@
 import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Form from "../ui/Form";
 
 const ResetPasswordRequest = ({
@@ -30,7 +29,10 @@ const ResetPasswordRequest = ({
           <h1 className="font-bold text-2xl sm:text-3xl">Reset Password</h1>
           <h4 className="mt-4 text-gray-500">Enter your Email Address</h4>
         </div>
-        <Form handleSubmit={handleSubmit}>
+        <Form
+          handleSubmit={handleSubmit}
+          buttonText={"Send Reset Password Email"}
+        >
           <Input
             name="email"
             type="text"

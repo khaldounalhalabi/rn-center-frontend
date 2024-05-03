@@ -3,6 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import Overview from "@/components/admin/appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
+import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -41,15 +42,16 @@ const AppointmentOverview = ({
               )
             }
           >
-            Appointments
-            {/*TODO::configure it when appointments is done Appointments*/}
+            Logs
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel className={"w-full"}>
             <Overview appointment={appointment} />
           </Tab.Panel>
-          <Tab.Panel>appointments</Tab.Panel>
+          <Tab.Panel className={"w-full"}>
+            <AppointmentLogs appointment={appointment} />
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

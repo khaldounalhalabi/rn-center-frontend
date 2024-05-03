@@ -38,7 +38,6 @@
         "experience": "خبرة",
         "about": "عن",
         "map": "خريطة"
-
       },
       "create-edit": {
         "first-Name": "اسم الدكتور الأول",
@@ -69,6 +68,7 @@
       },
       "table": {
         "clinics": "عيادات",
+        "clinic": "العيادة",
         "doctor": "طبيب",
         "city": "مدينة",
         "status": "حالة",
@@ -111,6 +111,7 @@
     },
     "schedules": {
       "table": {
+        "clinic": "العيادة",
         "doctor": "طبيب",
         "approximateAppointmentTime": "الوقت التقريبي للموعد (دقيقة)",
         "clinicSchedules": "مواعيد العيادة",
@@ -165,7 +166,6 @@
         "city": "مدينة",
         "image": "صورة",
         "noData": "لايوجد بيانات"
-
       },
       "create-edit": {
         "addHospital": "أضف مستشفى",
@@ -178,7 +178,6 @@
         "image": "صورة",
         "noData": "لايوجد بيانات",
         "mapIframe": " خريطة"
-
       }
     },
     "service": {
@@ -206,7 +205,7 @@
         "editBtn": "يحرر"
       },
       "create-edit": {
-        "addService":"أضف الخدمة",
+        "addService": "أضف الخدمة",
         "editService": "تحرير الخدمة",
         "serviceName": "اسم الخدمة",
         "clinicName": "اسم العيادة",
@@ -216,7 +215,6 @@
         "category": "فئة",
         "approximateDuration": "المدة التقريبية",
         "price": "سعر"
-
       }
     },
     "speciality": {
@@ -232,7 +230,6 @@
         "noData": "لايوجد بيانات",
         "editBtn": "يحرر",
         "description": "وصف"
-
       },
       "create-edit": {
         "addSpeciality": "أضف التخصص",

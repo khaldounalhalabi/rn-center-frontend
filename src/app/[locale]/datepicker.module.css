@@ -1,0 +1,30 @@
+.datePicker {
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.datePickerField {
+    width: 100% !important;
+    padding: 5px !important;
+    height: 0 !important;
+}
+
+.datePickerRoot {
+    border-radius: 9px !important;
+    width: 100% !important;
+    padding: 5px !important;
+    height: 0 !important;
+}
+
+.datePickerRoot:hover {
+    border-color: #D2D4D7 !important;
+    padding: 5px !important;
+    height: 0 !important;
+}
+
+.datePickerRoot:focus {
+    outline-color: #007BFF !important;
+    border-color: #007BFF !important;
+    padding: 5px !important;
+    height: 0 !important;
+}

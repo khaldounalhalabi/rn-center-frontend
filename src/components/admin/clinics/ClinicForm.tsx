@@ -187,7 +187,7 @@ const ClinicForm = ({
         </div>
         <ApiSelect
           label={t("hospital")}
-          name="hsopital_id"
+          name="hospital_id"
           placeHolder={"Select Hospital Name ..."}
           api={(page, search): Promise<ApiResponse<Hospital[]>> =>
             HospitalService.make<HospitalService>().indexWithPagination(

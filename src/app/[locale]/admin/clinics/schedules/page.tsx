@@ -10,8 +10,9 @@ import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
 import { TimePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useTranslations } from "next-intl";
+import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 
 const Page = () => {
   const t = useTranslations("admin.schedules.table");
@@ -80,7 +81,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     createUrl: `/admin/clinics/schedules/create`,
     title: `${t("clinicSchedules")}`,
@@ -89,18 +90,18 @@ const Page = () => {
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
             {t("startTime")} :
-            <TimePicker
-              defaultValue={dayjs(params.start_time, "HH:mm")}
-              onChange={(v): void => {
+            <TimepickerFilter
+              defaultValue={params.start_time}
+              onChange={(v: Dayjs): void => {
                 setParams({ ...params, start_time: v?.format("HH:mm") });
               }}
             />
           </label>
           <label className={`label`}>
             {t("endTime")} :
-            <TimePicker
-              defaultValue={dayjs(params.end_time, "HH:mm")}
-              onChange={(v): void => {
+            <TimepickerFilter
+              defaultValue={params.end_time}
+              onChange={(v: Dayjs): void => {
                 setParams({ ...params, end_time: v?.format("HH:mm") });
               }}
             />

@@ -115,7 +115,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             Status :
             <SelectFilter
               data={statusData}
-              selected={"pending"}
+              selected={params.status ?? "pending"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}
@@ -125,7 +125,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             Type :
             <SelectFilter
               data={typeData}
-              selected={"pending"}
+              selected={params.type ?? "online"}
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}
@@ -137,6 +137,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
               onChange={(time: any) => {
                 setParams({ ...params, date: time?.format("YYYY-MM-DD") });
               }}
+              defaultValue={params.date}
             />
           </label>
           <label className="label">
@@ -145,6 +146,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
               onChange={(time: any) => {
                 setParams({ ...params, from: time?.format("HH:mm") });
               }}
+              defaultValue={params.from}
             />
           </label>
           <label className="label">
@@ -153,6 +155,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
               onChange={(time: any) => {
                 setParams({ ...params, to: time?.format("HH:mm") });
               }}
+              defaultValue={params.to}
             />
           </label>
         </div>

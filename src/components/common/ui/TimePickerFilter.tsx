@@ -1,6 +1,7 @@
 "use client";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import styles from "./../../../app/[locale]/datepicker.module.css";
 
 const TimepickerFilter = ({
   onChange,
@@ -16,6 +17,8 @@ const TimepickerFilter = ({
         defaultValue={
           defaultValue ? dayjs(defaultValue, "HH:mm") : dayjs(new Date())
         }
+        slotProps={{ textField: { size: "small" } }}
+        className={styles.datePicker}
       />
     </label>
   );

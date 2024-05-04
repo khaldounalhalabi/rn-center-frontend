@@ -28,3 +28,21 @@
     padding: 5px !important;
     height: 0 !important;
 }
+
+.datePickerInput {
+    padding: 5px !important;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    width: 100%;
+}
+
+/* Styles for TimePicker */
+.timePickerWrapper {
+    padding: 0 !important;
+}
+
+.timePickerInput {
+    padding: 0 !important;
+    border: 1px solid;
+    border-radius: 50px;
+}

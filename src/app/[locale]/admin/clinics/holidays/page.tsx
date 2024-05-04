@@ -7,9 +7,8 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { Link } from "@/navigation";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 
 const Page = () => {
   const t = useTranslations("admin.holidays.table");
@@ -83,23 +82,23 @@ const Page = () => {
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
             {t("startDate")} :
-            <DatePicker
+            <DatepickerFilter
               onChange={(event): void => {
                 setParams({
                   ...params,
                   start_date: event?.format("YYYY-MM-DD"),
                 });
               }}
-              defaultValue={dayjs(params.start_date ?? null)}
+              defaultValue={params.start_date}
             />
           </label>
           <label className={`label`}>
             {t("endDate")} :
-            <DatePicker
+            <DatepickerFilter
               onChange={(event): void => {
                 setParams({ ...params, end_date: event?.format("YYYY-MM-DD") });
               }}
-              defaultValue={dayjs(params.end_date ?? null)}
+              defaultValue={params.end_date}
             />
           </label>
         </div>

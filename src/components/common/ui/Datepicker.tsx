@@ -34,7 +34,7 @@ const Datepicker = ({
           setValue(name, val?.format("YYYY-MM-DD") ?? "");
         }}
         defaultValue={defaultValue ? dayjs(defaultValue) : dayjs(new Date())}
-        slotProps={{ textField: { size: 'small' } }}
+        // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
       />
       {error ? <p className="text-error text-sm">{error}</p> : ""}

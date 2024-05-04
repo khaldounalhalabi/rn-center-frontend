@@ -92,7 +92,7 @@ const Page = () => {
             {t("startTime")} :
             <TimepickerFilter
               defaultValue={params.start_time}
-              onChange={(v: Dayjs): void => {
+              onChange={(v): void => {
                 setParams({ ...params, start_time: v?.format("HH:mm") });
               }}
             />
@@ -101,7 +101,7 @@ const Page = () => {
             {t("endTime")} :
             <TimepickerFilter
               defaultValue={params.end_time}
-              onChange={(v: Dayjs): void => {
+              onChange={(v): void => {
                 setParams({ ...params, end_time: v?.format("HH:mm") });
               }}
             />

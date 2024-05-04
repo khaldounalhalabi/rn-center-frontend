@@ -1,12 +1,12 @@
 "use client";
 import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 const DatepickerFilter = ({
   onChange,
   defaultValue,
 }: {
-  onChange: any;
+  onChange: (v: Dayjs | null) => void;
   defaultValue?: string;
 }) => {
   return (

@@ -200,6 +200,7 @@ const ClinicScheduleForm = ({
                   <>
                     <Popover.Button
                       className={"focus:outline-0 focus:border-0"}
+                      disabled={schedule[day].length == 0}
                     >
                       <Copy className="w-6 h-6 text-pom" />
                     </Popover.Button>

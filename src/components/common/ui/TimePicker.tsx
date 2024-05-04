@@ -33,9 +33,7 @@ const Timepicker = ({
           setValue(name, val?.format("HH:mm") ?? "");
         }}
         defaultValue={
-          defaultValue
-            ? dayjs(defaultValue, "HH:mm")
-            : dayjs(Date.now(), "HH:mm")
+          defaultValue ? dayjs(defaultValue, "HH:mm") : dayjs(new Date())
         }
       />
       {error ? <p className="text-error text-sm">{error}</p> : ""}

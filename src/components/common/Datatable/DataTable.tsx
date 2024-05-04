@@ -86,6 +86,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       return await tableData.api(page, s, sortC, sortD, perPage, params);
     },
     placeholderData: keepPreviousData,
+    refetchOnWindowFocus: false,
   });
 
   return (

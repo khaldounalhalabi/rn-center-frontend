@@ -6,6 +6,7 @@ import { CookiesProvider } from "next-client-cookies/server";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/navigation";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +36,10 @@ export default async function RootLayout({
     >
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <CookiesProvider>{children}</CookiesProvider>
+          <CookiesProvider>
+            <NextTopLoader />
+            {children}
+          </CookiesProvider>
         </NextIntlClientProvider>
       </body>
     </html>

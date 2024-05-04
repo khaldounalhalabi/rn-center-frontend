@@ -32,7 +32,7 @@ const Datepicker = ({
         onChange={(val): void => {
           setValue(name, val?.format("YYYY-MM-DD") ?? "");
         }}
-        defaultValue={defaultValue ? dayjs(defaultValue) : dayjs()}
+        defaultValue={defaultValue ? dayjs(defaultValue) : dayjs(new Date())}
       />
       {error ? <p className="text-error text-sm">{error}</p> : ""}
     </label>

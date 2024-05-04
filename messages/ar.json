@@ -141,7 +141,7 @@
       "show": {
         "categoryDetails": "تفاصيل الفئة",
         "editBtn": "يحرر",
-        "hospitalName": "اسم المستشفى"
+        "category-name": "نوع التخصص"
       },
       "create-edit": {
         "editCategory": "تحرير الفئة",

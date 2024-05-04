@@ -26,13 +26,13 @@ const page = async ({
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          {t("hospitalName")} En:{" "}
+          {t("category-name")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.en}
           </span>
         </label>
         <label className="label">
-          {t("hospitalName")} Ar:{" "}
+          {t("category-name")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {translate(res?.name, true)?.ar}
           </span>

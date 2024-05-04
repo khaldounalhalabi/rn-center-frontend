@@ -141,7 +141,7 @@
       "show": {
         "categoryDetails": "Category Details",
         "editBtn": "Edit",
-        "hospitalName": "Hospital Name"
+        "category-name": "Category Name"
       },
       "create-edit": {
         "editCategory": "Edit Category",

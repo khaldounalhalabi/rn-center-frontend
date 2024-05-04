@@ -39,11 +39,11 @@ const TableHead = ({
             }
             {...header.headerProps}
           >
-            <div className={`flex justify-between items-center`}>
+            <div className={`flex justify-between items-center gap-2`}>
               {header.label}
 
               {header.sortable ? (
-                <div className={`flex flex-col`}>
+                <div className={`flex flex-col gap-0`}>
                   <ChevronUp
                     className={`h-3 w-3 ${sortDir == "asc" && sortCol == header.name ? "fill-info" : ""}`}
                   />

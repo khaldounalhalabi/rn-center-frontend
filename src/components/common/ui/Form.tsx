@@ -3,7 +3,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { Navigate } from "@/Actions/navigate";
 import PrimaryButton from "./PrimaryButton";
 
 const Form = ({
@@ -27,12 +26,10 @@ const Form = ({
 
     if (!res.hasValidationErrors() && res.code == 200) {
       if (onSuccess) onSuccess(res);
-    }
-
-    await Navigate("").then(() => {
+    } else {
       res.fillValidationErrors(methods);
-      return res;
-    });
+    }
+    return res;
   };
 
   return (

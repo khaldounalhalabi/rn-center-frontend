@@ -132,7 +132,7 @@ const tableData: DataTableData<Appointment> = {
           Status :
           <SelectFilter
             data={statusData}
-            selected={"pending"}
+            selected={params.status ?? "pending"}
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
@@ -142,7 +142,7 @@ const tableData: DataTableData<Appointment> = {
           Type :
           <SelectFilter
             data={typeData}
-            selected={"pending"}
+            selected={params.type ?? "online"}
             onChange={(event: any) => {
               setParams({ ...params, type: event.target.value });
             }}
@@ -154,6 +154,7 @@ const tableData: DataTableData<Appointment> = {
             onChange={(time: any) => {
               setParams({ ...params, date: time?.format("YYYY-MM-DD") });
             }}
+            defaultValue={params.date}
           />
         </label>
         <label className="label">
@@ -162,6 +163,7 @@ const tableData: DataTableData<Appointment> = {
             onChange={(time: any) => {
               setParams({ ...params, from: time?.format("HH:mm") });
             }}
+            defaultValue={params.from}
           />
         </label>
         <label className="label">
@@ -170,6 +172,7 @@ const tableData: DataTableData<Appointment> = {
             onChange={(time: any) => {
               setParams({ ...params, to: time?.format("HH:mm") });
             }}
+            defaultValue={params.to}
           />
         </label>
       </div>
@@ -177,7 +180,7 @@ const tableData: DataTableData<Appointment> = {
   },
 };
 const Page = () => {
-    return <DataTable {...tableData} />;
+  return <DataTable {...tableData} />;
 };
 
 export default Page;

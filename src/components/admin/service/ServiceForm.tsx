@@ -45,7 +45,7 @@ const ServiceForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/category`);
+    Navigate(`/admin/service`);
   };
 
   return (

@@ -84,7 +84,6 @@ const ServiceForm = ({
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
             {t("status")}
-            <span className="text-red-600">*</span>
           </label>
           <Input
             name={"status"}

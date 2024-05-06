@@ -18,10 +18,10 @@ const Overview = ({
           <label className={"label"}>Extra Fees : </label>
           <p className={"badge badge-primary"}>{appointment?.extra_fees}</p>
           <label className={"label"}>Total Cost : </label>
-          <p className={"badge badge-ghost"}>{appointment?.total_cost}</p>
+          <p className={"badge badge-ghost"}>{appointment?.total_cost.toLocaleString()}</p>
           <label className={"label"}>Appointment Sequence : </label>
           <p className={"badge badge-info"}>
-            {appointment?.appointment_sequence}
+            {appointment?.appointment_sequence.toLocaleString()}
           </p>
         </div>
         <div className={"w-full"}>
@@ -29,14 +29,6 @@ const Overview = ({
           <p className={"badge badge-outline"}>{appointment?.device_type}</p>
           <label className={"label"}>Date :</label>
           <p className={"badge badge-neutral"}>{appointment?.date}</p>
-          <label className={"label"}>From :</label>
-          <p className={"badge badge-error"}>
-            {appointment?.from ?? "No Date"}
-          </p>
-          <label className={"label"}>To :</label>
-          <p className={"badge badge-secondary"}>
-            {appointment?.to ?? "No Date"}
-          </p>
         </div>
       </Grid>
       <div className={"w-full"}>

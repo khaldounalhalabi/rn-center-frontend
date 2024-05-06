@@ -29,7 +29,7 @@ const SelectFilter = ({
         onChange={onChange ?? false}
       >
         {data.map((item, index) => (
-          <option value={item} key={index}>
+          <option value={item == "all" ? "" : item} key={index}>
             {item}
           </option>
         ))}

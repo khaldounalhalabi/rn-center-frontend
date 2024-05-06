@@ -10,9 +10,9 @@ import { translate } from "@/Helpers/Translations";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
-
-const statusData = ["checkin", "blocked", "cancelled", "pending"];
-const typeData = ["online", "manual"];
+import AppointmentStatuses from "@/enm/Status";
+const statusData = AppointmentStatuses();
+const typeData = ["online", "manual","all"];
 
 const Appointments = ({ clinicId }: { clinicId: number }) => {
   const tableData: DataTableData<Appointment> = {
@@ -36,7 +36,11 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       {
         name: "appointment_sequence",
         label: "Sequence",
-        sortable: true,
+          render: (data) => (
+              <p >
+                  <span>{data.toLocaleString()}</span>
+              </p>
+          ),
       },
       {
         name: "date",
@@ -44,30 +48,22 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         sortable: true,
       },
       {
-        name: "from",
-        label: "From",
-        sortable: true,
-      },
-      {
-        name: "to",
-        label: "To",
-        sortable: true,
-      },
-      {
         name: "status",
         label: "Status",
         render: (data) =>
-          data == "checkout" ? (
-            <span className={`badge badge-neutral`}>Checkout</span>
-          ) : data == "cancelled" ? (
-            <span className={`badge badge-warning`}>Cancelled</span>
-          ) : data == "pending" ? (
-            <span className={`badge badge-primary`}>Pending</span>
-          ) : data == "checkin" ? (
-            <span className={`badge badge-success`}>Checkin</span>
-          ) : (
-            <span className={`badge badge-error`}>Blocked</span>
-          ),
+            data == "checkout" ? (
+                <span className={`badge badge-neutral`}>Checkout</span>
+            ) : data == "cancelled" ? (
+                <span className={`badge badge-warning`}>Cancelled</span>
+            ) : data == "pending" ? (
+                <span className={`badge badge-primary`}>Pending</span>
+            ) : data == "checkin" ? (
+                <span className={`badge badge-success`}>Checkin</span>
+            ) : data == "booked" ?(
+                <span className={`badge badge-error`}>Booked</span>
+            ): (
+                <span className={`badge badge-info`}>Completed</span>
+            ),
         sortable: true,
       },
       {
@@ -87,7 +83,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show"]}
+            buttons={["edit", "delete", "show","logs"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}

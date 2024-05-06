@@ -11,13 +11,12 @@ const Datepicker = ({
   label,
   required = false,
   shouldDisableDate,
-  setDate,
+
 }: {
   name: string;
   label?: string;
   required?: boolean;
   shouldDisableDate?: (day: PickerValidDate) => boolean;
-  setDate?: React.Dispatch<string | undefined>;
 }) => {
   const {
     setValue,
@@ -36,9 +35,6 @@ const Datepicker = ({
       <DatePicker
         onChange={(val): void => {
           setValue(name, val?.format("YYYY-MM-DD") ?? "");
-          if (setDate) {
-            setDate(val?.format("YYYY-MM-DD"));
-          }
         }}
         defaultValue={defaultValue ? dayjs(defaultValue) : dayjs(new Date())}
         // slotProps={{ textField: { size: 'small' } }}

@@ -63,7 +63,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
         />
         <SelectedLocale
           locales={locales}
-          className={"absolute z-10 ltr:right-1 rtl:left-1 "}
+          className={"absolute z-auto ltr:right-1 rtl:left-1 "}
           setSelectedLocale={setSelectedLocale}
         />
         {locales.map((l: Locales, index) => (

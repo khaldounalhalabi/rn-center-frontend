@@ -137,7 +137,7 @@ const ClinicForm = ({
       <Grid>
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
-            Status<span className="text-red-600">*</span>:
+            Status:
           </label>
           <Input
             name={"status"}
@@ -161,7 +161,7 @@ const ClinicForm = ({
 
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
-            Gender<span className="text-red-600">*</span>:
+            Gender:
           </label>
           <Input
             name={"user.gender"}

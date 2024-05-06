@@ -40,6 +40,7 @@
         "map": "Map"
       },
       "create-edit": {
+        "newClinic": "New Clinic",
         "first-Name": "Doctor First Name",
         "middle-name": "Doctor Middle Name",
         "last-name": "Doctor Last Name",

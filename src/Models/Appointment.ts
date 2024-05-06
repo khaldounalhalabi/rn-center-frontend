@@ -12,8 +12,6 @@ export interface Appointment {
   total_cost: number;
   type: string;
   date: string;
-  from: string;
-  to: string;
   status: string;
   device_type: string;
   appointment_sequence: string;

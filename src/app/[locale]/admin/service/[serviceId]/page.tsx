@@ -61,7 +61,7 @@ const page = async ({
           {t("approximateDuration")} :
           {res?.approximate_duration ? (
             <span className="badge badge-accent">
-              {res?.approximate_duration}
+              {res?.approximate_duration.toLocaleString()}
             </span>
           ) : (
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
@@ -71,7 +71,7 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("price")} :
           {res?.price ? (
-            <span className="badge badge-accent">{res?.price}</span>
+            <span className="badge badge-accent">{res?.price.toLocaleString()}</span>
           ) : (
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
           )}

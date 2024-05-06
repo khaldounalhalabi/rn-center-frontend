@@ -86,6 +86,7 @@ const Input: React.FC<InputProps> = ({
             className ??
             `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
           }
+          min={0}
           type={type == "password" && hidden ? "password" : type}
         />
         {error ? <p className={`text-error text-sm`}>{error}</p> : ""}

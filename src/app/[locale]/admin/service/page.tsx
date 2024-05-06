@@ -37,7 +37,7 @@ const Page = () => {
         sortable: true,
         render: (data) => (
           <p className="badge-success badge text-center">
-            <span>{data}</span>
+            <span>{data.toLocaleString()}</span>
           </p>
         ),
       },
@@ -50,7 +50,11 @@ const Page = () => {
       {
         name: "price",
         label: `${t("price")}`,
-        sortable: true,
+        render: (data) => (
+            <p >
+              <span>{data.toLocaleString()}</span>
+            </p>
+        ),
       },
       {
         name: "status",

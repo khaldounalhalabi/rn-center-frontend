@@ -78,6 +78,11 @@ const Page = () => {
       {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
+        render:(_undefined, clinic, setHidden, revalidate)=>{
+          return (
+              <span>{clinic?.total_appointments.toLocaleString()}</span>
+          )
+        }
       },
       {
         label: `${t("actions")}`,

@@ -19,8 +19,8 @@ import { CustomerService } from "@/services/CustomerService";
 import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
-import SelectTimeRange from "@/components/common/ui/Selects/SelectTimeRange";
 import { AvailableTime } from "@/Models/AvailableTime";
+import  {AppointmentStatusesWithOutAll} from "@/enm/Status";
 
 interface Range {
   id: number | undefined;
@@ -50,8 +50,6 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-  const [date, setDate] = useState<string | undefined>("");
-
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -81,7 +79,7 @@ const AppointmentForm = ({
   };
 
   const [status, setStatus] = useState("");
-  const statusData = ["checkin", "blocked", "cancelled", "pending"];
+  const statusData = AppointmentStatusesWithOutAll();
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -142,12 +140,9 @@ const AppointmentForm = ({
               }}
             />
           </>
-        ) : (
-          false
-        )}
+        ) :false}
 
         <ApiSelect
-          required={true}
           name={"service_id"}
           placeHolder={"Select Service name ..."}
           api={(page, search) =>
@@ -163,7 +158,7 @@ const AppointmentForm = ({
         {type != "update" ? (
           <div className={`flex gap-5 p-2 items-end`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
-              Type:<span className="text-red-600">*</span>
+              Type:
             </label>
             <Input
               name={"type"}
@@ -184,9 +179,7 @@ const AppointmentForm = ({
               defaultChecked={defaultValues?.status == "online"}
             />
           </div>
-        ) : (
-          false
-        )}
+        ) :false}
 
         <Input
           name={"extra_fees"}
@@ -208,7 +201,6 @@ const AppointmentForm = ({
           name={"date"}
           label={"Date"}
           required={true}
-          setDate={setDate}
           shouldDisableDate={(day) => {
             const data = range.data;
             if (range.id != 0 || data != undefined) {
@@ -224,13 +216,9 @@ const AppointmentForm = ({
         label={"Notes"}
         defaultValue={defaultValues?.note ?? ""}
       />
-      <SelectTimeRange data={range.data} date={date} limit={range.limit ?? 0} />
-      <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
       {status == "cancelled" ? (
         <Textarea label={"Cancellation Reason"} name={"cancellation_reason"} />
-      ) : (
-        false
-      )}
+      ) :false}
     </Form>
   );
 };

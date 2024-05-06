@@ -37,7 +37,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>
-            <NextTopLoader />
+            <NextTopLoader crawl={false}  showSpinner={false} />
             {children}
           </CookiesProvider>
         </NextIntlClientProvider>

@@ -1,5 +1,8 @@
 import dayjs, { Dayjs } from "dayjs";
 import { AvailableTime } from "@/Models/AvailableTime";
+import plugin from "dayjs/plugin/isBetween";
+
+dayjs.extend(plugin);
 
 type TimeRange = string;
 
@@ -212,6 +215,5 @@ export const HandleDatePicker = (
     isHoliday
   );
 };
-
 
 // ------------------------------------------------------------------------------------- ----------------

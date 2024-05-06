@@ -2,7 +2,7 @@ import { BaseService } from "@/services/BaseService";
 import { Appointment } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
-import {AvailableTime} from "@/Models/AvailableTime";
+import { AvailableTime } from "@/Models/AvailableTime";
 
 export class AppointmentService extends BaseService<Appointment> {
   public getBaseUrl(): string {

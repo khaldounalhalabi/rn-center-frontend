@@ -91,24 +91,23 @@ function ApiSelect<TResponse, TData>({
   ) => {
     e.stopPropagation();
 
-      if (onSelect) {
-        onSelect(item, selected, setSelected, e);
-      }
-      const option = getOption(item);
-      if (isMultiple) {
-        if (include(option, selected)) {
-          setSelected((prev) => prev.filter((sel) => !isEqual(sel, option)));
-        } else {
-          setSelected((prev) => [option, ...prev]);
-        }
+    if (onSelect) {
+      onSelect(item, selected, setSelected, e);
+    }
+    const option = getOption(item);
+    if (isMultiple) {
+      if (include(option, selected)) {
+        setSelected((prev) => prev.filter((sel) => !isEqual(sel, option)));
       } else {
-        if (include(option, selected)) {
-          setSelected([]);
-        } else {
-          setSelected([option]);
-        }
+        setSelected((prev) => [option, ...prev]);
       }
-
+    } else {
+      if (include(option, selected)) {
+        setSelected([]);
+      } else {
+        setSelected([option]);
+      }
+    }
 
     if (closeOnSelect) {
       setIsOpen(false);

@@ -180,7 +180,7 @@ const tableData: DataTableData<Appointment> = {
   },
 };
 const Page = () => {
-  return <DataTable {...tableData} />;
+    return <DataTable {...tableData} />;
 };
 
 export default Page;

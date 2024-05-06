@@ -79,7 +79,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     createUrl: `/admin/clinics/schedules/create`,
     title: `${t("clinicSchedules")}`,

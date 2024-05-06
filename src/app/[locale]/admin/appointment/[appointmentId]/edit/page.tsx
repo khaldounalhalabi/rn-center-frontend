@@ -13,10 +13,9 @@ const page = async ({
       appointmentId,
     )
   ).data;
-  const availableTimes =
-    await AppointmentService.make<AppointmentService>(
-      "admin",
-    ).getAvailableTimes(appointment.clinic_id);
+  const availableTimes = await AppointmentService.make<AppointmentService>(
+    "admin",
+  ).getAvailableTimes(appointment.clinic_id);
 
   return (
     <PageCard>

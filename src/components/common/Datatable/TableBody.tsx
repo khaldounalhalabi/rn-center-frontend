@@ -97,10 +97,7 @@ const TableBody = ({
         })
       ) : (
         <tr>
-          <td
-            colSpan={tableData.schema.length}
-            className={"text-center p-3"}
-          >
+          <td colSpan={tableData.schema.length} className={"text-center p-3"}>
             No Data
           </td>
         </tr>

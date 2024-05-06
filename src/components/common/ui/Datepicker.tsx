@@ -44,7 +44,6 @@ const Datepicker = ({
         // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}
-
       />
       {error ? <p className="text-error text-sm">{error}</p> : ""}
     </label>

@@ -132,9 +132,7 @@ const HospitalsForm = ({
               </div>
             )}
           </div>
-        ) : (
-          false
-        )}
+        ) : false}
       </Grid>
 
       <ImageUploader name={"images"} isMultiple={true} />

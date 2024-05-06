@@ -9,8 +9,6 @@ import { ClinicService } from "@/services/ClinicService";
 import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { translate } from "@/Helpers/Translations";
-import { TimePicker } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
 import { useTranslations } from "next-intl";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 

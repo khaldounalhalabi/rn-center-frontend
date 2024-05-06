@@ -2,7 +2,7 @@ import CheckTimeAvailable from "@/hooks/CheckTimeAvailable";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import {getNestedPropertyValue} from "@/Helpers/ObjectHelpers";
-import Grid from "@/components/common/ui/Grid";
+import {AvailableTime} from "@/Models/AvailableTime";
 
 const SelectTimeRange = ({
   data,

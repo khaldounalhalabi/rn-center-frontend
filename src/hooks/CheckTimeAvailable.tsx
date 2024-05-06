@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import * as isBetween from "dayjs/plugin/isBetween";
+import {AvailableTime} from "@/Models/AvailableTime";
 
 type TimeRange = string;
 

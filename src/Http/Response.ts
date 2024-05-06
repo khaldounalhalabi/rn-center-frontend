@@ -76,8 +76,6 @@ export class ApiResponse<T> {
   }
 
   public hasValidationErrors() {
-    if (this.getValidationError()) {
-      return true;
-    } else return false;
+    return !!this.getValidationError();
   }
 }

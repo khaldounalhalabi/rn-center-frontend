@@ -188,9 +188,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                       <DocumentPlus className={`h-6 w-6`} />
                     </button>
                   </Link>
-                ) : (
-                  false
-                )}
+                ) : false}
                 {tableData?.filter ? (
                   <div>
                     <button

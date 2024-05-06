@@ -1,5 +1,5 @@
 "use client";
-import {ChangeEvent, Fragment, useState } from "react";
+import {Fragment, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import PageCard from "@/components/common/ui/PageCard";
 import Trash from "@/components/icons/Trash";
@@ -7,7 +7,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import {Schedule, SchedulesCollection, WeekDay} from "@/Models/Schedule";
+import {SchedulesCollection} from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
@@ -17,7 +17,6 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
 import {useTranslations} from "next-intl";
-import {Hospital} from "@/Models/Hospital";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
   "saturday",

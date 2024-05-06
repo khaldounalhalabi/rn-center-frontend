@@ -34,9 +34,7 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
               defaultValue={res?.cancellation_reason}
             />
           </div>
-        ) : (
-          false
-        )}
+        ) : false}
       </div>
     </PageCard>
   );

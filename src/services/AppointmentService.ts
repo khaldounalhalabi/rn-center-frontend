@@ -8,6 +8,14 @@ export class AppointmentService extends BaseService<Appointment> {
     return `${this.actor}/appointments`;
   }
 
+  public async getAvailableTimes(
+    clinicId: number,
+  ): Promise<ApiResponse<AvailableTime>> {
+    return await GET<AvailableTime>(
+      `${this.actor}/clinics/${clinicId}/available-times`,
+    );
+  }
+
   public async getClinicAppointments(
     clinicId: number,
     page: number = 0,
@@ -30,4 +38,3 @@ export class AppointmentService extends BaseService<Appointment> {
     );
   }
 }
-

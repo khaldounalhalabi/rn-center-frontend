@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import {ChangeEvent, Fragment, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import PageCard from "@/components/common/ui/PageCard";
 import Trash from "@/components/icons/Trash";
@@ -7,7 +7,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { SchedulesCollection } from "@/Models/Schedule";
+import {Schedule, SchedulesCollection, WeekDay} from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
@@ -16,7 +16,8 @@ import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
-import { useTranslations } from "next-intl";
+import {useTranslations} from "next-intl";
+import {Hospital} from "@/Models/Hospital";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
   "saturday",
@@ -38,13 +39,13 @@ const ClinicScheduleForm = ({
   clinic_id?: number;
 }) => {
   const [schedule, setSchedule] = useState<SchedulesCollection>({
-    saturday: defaultValues?.saturday ?? [],
-    sunday: defaultValues?.sunday ?? [],
-    monday: defaultValues?.monday ?? [],
-    tuesday: defaultValues?.tuesday ?? [],
-    wednesday: defaultValues?.wednesday ?? [],
-    thursday: defaultValues?.thursday ?? [],
-    friday: defaultValues?.friday ?? [],
+    saturday: defaultValues?.saturday || method == 'update' ? (defaultValues?.saturday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm") ,id:0,day_of_week:"0"}],
+    sunday: defaultValues?.sunday || method == 'update' ? (defaultValues?.sunday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm") ,id:0,day_of_week:"0"}],
+    monday: defaultValues?.monday || method == 'update' ? (defaultValues?.monday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm") ,id:0,day_of_week:"0"}],
+    tuesday: defaultValues?.tuesday || method == 'update' ? (defaultValues?.tuesday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm"),id:0,day_of_week:"0"}],
+    wednesday: defaultValues?.wednesday || method == 'update' ? (defaultValues?.wednesday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm"),id:0,day_of_week:"0"}],
+    thursday: defaultValues?.thursday || method == 'update' ? (defaultValues?.thursday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm"),id:0,day_of_week:"0"}],
+    friday: defaultValues?.friday || method == 'update' ? (defaultValues?.friday ?? []) : [{start_time:dayjs("09:00" , "HH:mm").format("HH:mm") , end_time:dayjs("21:00" , "HH:mm").format("HH:mm"),id:0,day_of_week:"0"}],
   });
 
   const handleAddTimeRange = (day: keyof SchedulesCollection) => {
@@ -165,8 +166,8 @@ const ClinicScheduleForm = ({
                       handleChangeTimeRange(
                         day,
                         index,
-                        newValue?.format("HH:mm") ?? "",
-                        "start_time",
+                        newValue?.format("HH:MM") ?? "",
+                        "start_time"
                       )
                     }
                   />

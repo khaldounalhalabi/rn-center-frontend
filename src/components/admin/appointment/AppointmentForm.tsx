@@ -19,16 +19,42 @@ import { Navigate } from "@/Actions/navigate";
 import { CustomerService } from "@/services/CustomerService";
 import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
+import {HandleDatePicker} from "@/hooks/CheckTimeAvailable";
+import SelectTimeRange from "@/components/common/ui/Selects/SelectTimeRange";
+
+interface Range {
+  id:number|undefined,
+  range:number ,
+  limit:number| undefined,
+  data:AvailableTime
+}
 
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
   type = "store",
+  availableTimes =undefined
 }: {
   defaultValues?: Appointment;
   id?: number;
   type?: "store" | "update";
+  availableTimes?:AvailableTime
 }) => {
+  const [range, setRange] = useState<Range>({
+    id:defaultValues?.clinic_id??0,
+    range:defaultValues?.clinic.appointment_day_range?? 0,
+    limit:defaultValues?.clinic?.approximate_appointment_time?? 0,
+    data:{
+      booked_times:availableTimes?.booked_times??[],
+      clinic_schedule: availableTimes?.clinic_schedule??{},
+      clinic_holidays: availableTimes?.clinic_holidays??[]
+
+    }
+  });
+ const [date , setDate] = useState<string|undefined>('')
+
+
+
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -43,7 +69,6 @@ const AppointmentForm = ({
           } else return res;
         });
     } else {
-      console.log(data);
       return await AppointmentService.make<AppointmentService>("admin")
         .store(data)
         .then((res) => {
@@ -57,6 +82,7 @@ const AppointmentForm = ({
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
+
   const [status, setStatus] = useState("");
   const statusData = ["checkin", "blocked", "cancelled", "pending"];
   return (
@@ -66,48 +92,56 @@ const AppointmentForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        {type != "update" ? (
-          <>
-            <ApiSelect
-              required={true}
-              placeHolder={"Select Clinic name ..."}
-              name={"clinic_id"}
-              api={(page, search) =>
-                ClinicService.make<ClinicService>().indexWithPagination(
-                  page,
-                  search,
-                )
-              }
-              label={"Clinic Name"}
-              optionValue={"id"}
-              getOptionLabel={(data: Clinic) => translate(data.name)}
-            />
-            <ApiSelect
-              required={true}
-              name={"customer_id"}
-              placeHolder={"Select Customer name ..."}
-              api={(page, search) =>
-                CustomerService.make<CustomerService>().indexWithPagination(
-                  page,
-                  search,
-                )
-              }
-              label={"Customer Name"}
-              optionValue={"id"}
-              getOptionLabel={(data: Customer) => {
-                return (
-                  <p>
-                    {translate(data?.user?.first_name)}{" "}
-                    {translate(data?.user?.middle_name)}{" "}
-                    {translate(data?.user?.last_name)}
-                  </p>
-                );
-              }}
-            />
-          </>
-        ) : (
-          false
-        )}
+        {type != "update" ?
+           <>
+             <ApiSelect
+                 required={true}
+                 placeHolder={"Select Clinic name ..."}
+                 name={"clinic_id"}
+                 api={(page, search) =>
+                     ClinicService.make<ClinicService>().indexWithPagination(
+                         page,
+                         search,
+                     )
+                 }
+                 onSelect={async (selectedItem) => {
+                     return await AppointmentService.make<AppointmentService>("admin").getAvailableTimes(selectedItem?.id??0).then((res)=>{
+                       return setRange({
+                         id:selectedItem?.id,
+                         range:selectedItem?.appointment_day_range??0,
+                         limit:selectedItem?.approximate_appointment_time,
+                         data: res.data
+                       })
+                     })
+                 }}
+                 label={"Clinic Name"}
+                 optionValue={"id"}
+                 getOptionLabel={(data: Clinic) => translate(data.name)}
+             />
+             <ApiSelect
+                 required={true}
+                 name={"customer_id"}
+                 placeHolder={"Select Customer name ..."}
+                 api={(page, search) =>
+                     CustomerService.make<CustomerService>().indexWithPagination(
+                         page,
+                         search,
+                     )
+                 }
+                 label={"Customer Name"}
+                 optionValue={"id"}
+                 getOptionLabel={(data: Customer) => {
+                   return (
+                       <p>
+                         {translate(data?.user?.first_name)}{" "}
+                         {translate(data?.user?.middle_name)}{" "}
+                         {translate(data?.user?.last_name)}
+                       </p>
+                   );
+                 }}
+             />
+           </>
+            :false}
 
         <ApiSelect
           required={true}
@@ -147,9 +181,7 @@ const AppointmentForm = ({
               defaultChecked={defaultValues?.status == "online"}
             />
           </div>
-        ) : (
-          false
-        )}
+        ) : false}
 
         <Input
           name={"extra_fees"}
@@ -167,21 +199,26 @@ const AppointmentForm = ({
           status={status}
           setStatus={setStatus}
         />
-        <Datepicker name={"date"} label={"Date"} required={true} />
-
-        <Timepicker label="From" name={"from"} required={true} />
-        <Timepicker label="To" name={"to"} required={true} />
+        <Datepicker name={"date"} label={"Date"} required={true} setDate={setDate} shouldDisableDate={(day) => {
+          const data =range.data
+          if(range.id != 0 || data != undefined){
+            return  HandleDatePicker(data,day,range.range)
+           }else {
+            return true
+          }
+        }
+        }/>
       </Grid>
       <Textarea
         name={"note"}
         label={"Notes"}
         defaultValue={defaultValues?.note ?? ""}
       />
+      <SelectTimeRange data={range.data} date={date} limit={range.limit??0}/>
+      <Textarea name={"note"} defaultValue={defaultValues?.note ?? ""} />
       {status == "cancelled" ? (
-        <Textarea label={"Reason"} name={"cancellation_reason"} />
-      ) : (
-        false
-      )}
+        <Textarea label={"Cancellation Reason"} name={"cancellation_reason"} />
+      ) : false}
     </Form>
   );
 };

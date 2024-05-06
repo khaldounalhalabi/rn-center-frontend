@@ -13,6 +13,11 @@ const page = async ({
       appointmentId,
     )
   ).data;
+  const availableTimes =
+    await AppointmentService.make<AppointmentService>(
+      "admin",
+    ).getAvailableTimes(appointment.clinic_id);
+
   return (
     <PageCard>
       <h2 className="card-title">Edit Appointment</h2>
@@ -21,6 +26,7 @@ const page = async ({
         defaultValues={{
           ...appointment,
         }}
+        availableTimes={availableTimes.data}
       />
     </PageCard>
   );

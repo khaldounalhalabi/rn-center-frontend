@@ -90,9 +90,10 @@ function ApiSelect<TResponse, TData>({
     item: TData,
   ) => {
     e.stopPropagation();
-    if (onSelect) {
-      onSelect(item, selected, setSelected, e);
-    } else {
+
+      if (onSelect) {
+        onSelect(item, selected, setSelected, e);
+      }
       const option = getOption(item);
       if (isMultiple) {
         if (include(option, selected)) {
@@ -107,7 +108,7 @@ function ApiSelect<TResponse, TData>({
           setSelected([option]);
         }
       }
-    }
+
 
     if (closeOnSelect) {
       setIsOpen(false);

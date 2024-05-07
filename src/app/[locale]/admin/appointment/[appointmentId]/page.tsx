@@ -29,7 +29,7 @@ const page = async ({
           <label className="label justify-start text-xl">
             Clinic Name :{" "}
             <span className="ml-2 badge badge-success ">
-              {translate(res?.clinic.name)}
+              {translate(res?.clinic?.name)}
             </span>
           </label>
           <label className="label justify-start text-xl">

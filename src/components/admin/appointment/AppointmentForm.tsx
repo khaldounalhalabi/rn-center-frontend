@@ -25,6 +25,7 @@ import {useQuery} from "@tanstack/react-query";
 
 interface Range {
   id: number | undefined;
+    appointment_cost?:number
   range: number;
   limit: number | undefined;
   data: AvailableTime;
@@ -43,6 +44,7 @@ const AppointmentForm = ({
 }) => {
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
+      appointment_cost:defaultValues?.clinic.appointment_cost??0,
     range: defaultValues?.clinic.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
     data: {
@@ -63,7 +65,8 @@ const AppointmentForm = ({
             .then((res) => {
                setRange({
                 id: defaultValues?.clinic.id,
-                range: defaultValues?.clinic.appointment_day_range ?? 0,
+                   appointment_cost:defaultValues?.clinic.appointment_cost ??0,
+                   range: defaultValues?.clinic.appointment_day_range ?? 0,
                 limit: defaultValues?.clinic.approximate_appointment_time,
                 data: res.data,
               });
@@ -72,7 +75,6 @@ const AppointmentForm = ({
       }else return false
     }
   })
-  console.log(data)
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -100,6 +102,8 @@ const AppointmentForm = ({
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
+  const [getExtra ,setExtra] = useState(0)
+    const [getServicePrice,setServicePrice] = useState<number>()
 
   const [status, setStatus] = useState("");
   const statusData = AppointmentStatusesWithOutAll();
@@ -123,6 +127,7 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
+
                 return await AppointmentService.make<AppointmentService>(
                   "admin",
                 )
@@ -130,7 +135,8 @@ const AppointmentForm = ({
                   .then((res) => {
                     return setRange({
                       id: selectedItem?.id,
-                      range: selectedItem?.appointment_day_range ?? 0,
+                        appointment_cost:selectedItem?.appointment_cost,
+                        range: selectedItem?.appointment_day_range ?? 0,
                       limit: selectedItem?.approximate_appointment_time,
                       data: res.data,
                     });
@@ -175,6 +181,15 @@ const AppointmentForm = ({
             )
           }
           label={"Service Name"}
+          onSelect={async (selectedItem) => {
+            return await ServiceService.make<ServiceService>(
+                "admin",
+            )
+                .show(selectedItem?.id ?? 0)
+                .then((res) => {
+                    setServicePrice(res?.data.price)
+                });
+          }}
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
         />
@@ -210,6 +225,8 @@ const AppointmentForm = ({
           step={"any"}
           placeholder={"Extra Fees : 5"}
           label={"Extra Fees"}
+          setWatch={setExtra}
+
         />
         <Select
           required={true}
@@ -220,6 +237,12 @@ const AppointmentForm = ({
           status={status}
           setStatus={setStatus}
         />
+          <label className="label">
+              Total Cost :
+              <span className="bg-base-200 px-2 rounded-xl text-lg">
+            {getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)}
+          </span>
+          </label>
         <Datepicker
           name={"date"}
           label={"Date"}

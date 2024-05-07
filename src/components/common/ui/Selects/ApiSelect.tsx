@@ -59,6 +59,7 @@ function ApiSelect<TResponse, TData>({
   const [search, setSearch] = useState<string | undefined>(undefined);
   const inputRef = useRef<HTMLInputElement>(null);
   const fullContainer = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
     queryKey: [`tableData_${label}`, search],
@@ -155,6 +156,7 @@ function ApiSelect<TResponse, TData>({
 
   useEffect(() => {
     if (isOpen) {
+      searchInputRef.current?.focus();
       document.addEventListener("mousedown", handleClickOutside);
     }
   }, [isOpen]);
@@ -258,6 +260,7 @@ function ApiSelect<TResponse, TData>({
               name={"search-box"}
               type={"text"}
               placeholder={"Search ..."}
+              ref={searchInputRef}
             />
           </div>
 
@@ -295,6 +298,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-    selected.filter((op) => isEqual(op, option)).length > 0;
+  selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

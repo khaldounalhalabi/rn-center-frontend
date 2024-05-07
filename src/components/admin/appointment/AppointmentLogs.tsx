@@ -4,6 +4,7 @@ import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { useQuery } from "@tanstack/react-query";
 import Eye from "@/components/icons/Eye";
 import { Link } from "@/navigation";
+import { translate } from "@/Helpers/Translations";
 
 const AppointmentLogs = ({
   appointment,
@@ -29,6 +30,7 @@ const AppointmentLogs = ({
               <th>id</th>
               <th>status</th>
               <th>Happen In</th>
+              <th>Actor</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -38,6 +40,11 @@ const AppointmentLogs = ({
                 <th>{e.id}</th>
                 <td>{e.status}</td>
                 <td>{e.happen_in}</td>
+                <td>
+                  {translate(e.actor?.first_name)}{" "}
+                  {translate(e.actor?.middle_name)}{" "}
+                  {translate(e.actor?.last_name)}
+                </td>
                 <td>
                   <Link
                     href={`${appointment?.id}/logs/${e.id}`}

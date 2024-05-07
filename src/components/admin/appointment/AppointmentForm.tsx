@@ -209,7 +209,7 @@ const AppointmentForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Extra Fees : 5"}
-          label={"Extra"}
+          label={"Extra Fees"}
         />
         <Select
           required={true}

@@ -11,9 +11,10 @@ import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 import AppointmentStatuses from "@/enm/Status";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 
 const statusData = AppointmentStatuses();
-const typeData = ["online", "manual","all"];
+const typeData = ["online", "manual", "all"];
 const tableData: DataTableData<Appointment> = {
   createUrl: `/admin/appointment/create`,
   title: "Appointment",
@@ -35,11 +36,11 @@ const tableData: DataTableData<Appointment> = {
       label: "Doctor Name",
       render: (_first_name, appointment) => {
         return (
-            <p>
-              {translate(appointment?.clinic?.user?.first_name)}{" "}
-              {translate(appointment?.clinic?.user?.middle_name)}{" "}
-              {translate(appointment?.clinic?.user?.last_name)}
-            </p>
+          <p>
+            {translate(appointment?.clinic?.user?.first_name)}{" "}
+            {translate(appointment?.clinic?.user?.middle_name)}{" "}
+            {translate(appointment?.clinic?.user?.last_name)}
+          </p>
         );
       },
     },
@@ -49,13 +50,13 @@ const tableData: DataTableData<Appointment> = {
       label: "Patient",
       render: (_first_name, appointment) => {
         return (
-            <div className={`flex flex-col items-start`}>
-              <p>
-                {translate(appointment?.customer?.user?.first_name)}{" "}
-                {translate(appointment?.customer?.user?.middle_name)}{" "}
-                {translate(appointment?.customer?.user?.last_name)}
-              </p>
-            </div>
+          <div className={`flex flex-col items-start`}>
+            <p>
+              {translate(appointment?.customer?.user?.first_name)}{" "}
+              {translate(appointment?.customer?.user?.middle_name)}{" "}
+              {translate(appointment?.customer?.user?.last_name)}
+            </p>
+          </div>
         );
       },
     },
@@ -63,42 +64,41 @@ const tableData: DataTableData<Appointment> = {
       name: "status",
       label: "Status",
       render: (data) =>
-          data == "checkout" ? (
-              <span className={`badge badge-neutral`}>Checkout</span>
-          ) : data == "cancelled" ? (
-              <span className={`badge badge-warning`}>Cancelled</span>
-          ) : data == "pending" ? (
-              <span className={`badge badge-primary`}>Pending</span>
-          ) : data == "checkin" ? (
-              <span className={`badge badge-success`}>Checkin</span>
-          ) : data == "booked" ?(
-              <span className={`badge badge-error`}>Booked</span>
-          ): (
-              <span className={`badge badge-info`}>Completed</span>
-          ),
+        data == "checkout" ? (
+          <span className={`badge badge-neutral`}>Checkout</span>
+        ) : data == "cancelled" ? (
+          <span className={`badge badge-warning`}>Cancelled</span>
+        ) : data == "pending" ? (
+          <span className={`badge badge-primary`}>Pending</span>
+        ) : data == "checkin" ? (
+          <span className={`badge badge-success`}>Checkin</span>
+        ) : data == "booked" ? (
+          <span className={`badge badge-error`}>Booked</span>
+        ) : (
+          <span className={`badge badge-info`}>Completed</span>
+        ),
       sortable: true,
     },
     {
       name: "type",
       label: "Type",
       render: (data) =>
-          data == "online" ? (
-              <span className={`badge badge-success`}>Online</span>
-          ) : (
-              <span className={`badge badge-neutral`}>Manual</span>
-          ),
+        data == "online" ? (
+          <span className={`badge badge-success`}>Online</span>
+        ) : (
+          <span className={`badge badge-neutral`}>Manual</span>
+        ),
       sortable: true,
     },
-
 
     {
       name: "appointment_sequence",
       label: "Sequence",
-        render: (data) => (
-            <p >
-                <span>{data.toLocaleString()}</span>
-            </p>
-        ),
+      render: (data) => (
+        <p>
+          <span>{data.toLocaleString()}</span>
+        </p>
+      ),
     },
     {
       name: "date",
@@ -106,18 +106,19 @@ const tableData: DataTableData<Appointment> = {
       sortable: true,
     },
 
-
     {
       label: "Actions",
       render: (_undefined, data, setHidden) => (
         <ActionsButtons
           id={data?.id}
-          buttons={["edit", "delete", "show","logs"]}
+          buttons={["edit", "delete", "show", "logs"]}
           baseUrl={`/admin/appointment`}
           editUrl={`/admin/appointment/${data?.id}/edit`}
           showUrl={`/admin/appointment/${data?.id}`}
           setHidden={setHidden}
-        />
+        >
+          <AppointmentLogModal appointmentId={data?.id} />
+        </ActionsButtons>
       ),
     },
   ],
@@ -180,7 +181,7 @@ const tableData: DataTableData<Appointment> = {
   },
 };
 const Page = () => {
-    return <DataTable {...tableData} />;
+  return <DataTable {...tableData} />;
 };
 
 export default Page;

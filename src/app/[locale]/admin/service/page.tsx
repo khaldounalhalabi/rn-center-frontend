@@ -36,8 +36,8 @@ const Page = () => {
         label: `${t("approximateDuration")}`,
         sortable: true,
         render: (data) => (
-          <p className="badge-success badge text-center">
-            <span>{data.toLocaleString()}</span>
+          <p className="text-center flex justify-evenly">
+            {data} <span className={"badge-success badge "}>min</span>
           </p>
         ),
       },
@@ -51,9 +51,9 @@ const Page = () => {
         name: "price",
         label: `${t("price")}`,
         render: (data) => (
-            <p >
-              <span>{data.toLocaleString()}</span>
-            </p>
+          <p>
+            <span>{data.toLocaleString()}</span>
+          </p>
         ),
       },
       {

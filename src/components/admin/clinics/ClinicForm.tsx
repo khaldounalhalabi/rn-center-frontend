@@ -106,7 +106,7 @@ const ClinicForm = ({
           label={t("confirm-password")}
           required={true}
         />
-        <Datepicker name={"user.birth_date"} label={t("birth-date")} />
+        <Datepicker name={"user.birth_date"} label={t("birth-date")} required={true}/>
         <Input
           name={"appointment_cost"}
           type={"number"}
@@ -246,6 +246,7 @@ const ClinicForm = ({
           className={"col-span-2"}
           name="address.map_iframe"
           label={t("mapIframe")}
+          required={true}
         />
         {type == "update" ? (
           defaultValues?.user?.photo &&

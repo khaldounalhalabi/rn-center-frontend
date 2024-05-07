@@ -3,6 +3,7 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
+import { translate } from "@/Helpers/Translations";
 
 const page = async ({ params: { logId } }: { params: { logId: number } }) => {
   const data =
@@ -16,13 +17,21 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
-          <label className="label justify-start text-xl">
+          <label className="label text-xl">
             Status :{" "}
-            <span className="ml-2 badge badge-success ">{res.status}</span>
+            <span className="badge badge-success ">{res.status}</span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label text-xl">
             Happen In :{" "}
-            <span className="ml-2 badge badge-accent  ">{res.happen_in}</span>
+            <span className="badge badge-accent  ">{res.happen_in}</span>
+          </label>
+          <label className={"label text-xl"}>
+            Actor :
+            <span className={"ml-2 badge badge-neutral"}>
+              {translate(res.actor?.first_name)}{" "}
+              {translate(res.actor?.middle_name)}{" "}
+              {translate(res.actor?.last_name)}
+            </span>
           </label>
         </Grid>
         {res.cancellation_reason ? (
@@ -42,4 +51,4 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
   );
 };
 
-export default page
+export default page;

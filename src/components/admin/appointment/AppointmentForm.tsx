@@ -21,6 +21,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
 import  {AppointmentStatusesWithOutAll} from "@/enm/Status";
+import {useQuery} from "@tanstack/react-query";
 
 interface Range {
   id: number | undefined;
@@ -50,6 +51,28 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
+
+  const {data} = useQuery({
+    queryKey:['getRange'],
+    queryFn:async ()=>{
+      if(type == "update"){
+        return await AppointmentService.make<AppointmentService>(
+            "admin",
+        )
+            .getAvailableTimes(defaultValues?.clinic.id??0)
+            .then((res) => {
+               setRange({
+                id: defaultValues?.clinic.id,
+                range: defaultValues?.clinic.appointment_day_range ?? 0,
+                limit: defaultValues?.clinic.approximate_appointment_time,
+                data: res.data,
+              });
+               return res
+            });
+      }else return false
+    }
+  })
+  console.log(data)
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -203,7 +226,7 @@ const AppointmentForm = ({
           required={true}
           shouldDisableDate={(day) => {
             const data = range.data;
-            if (range.id != 0 || data != undefined) {
+            if (range.id != 0 || Object.keys(data.clinic_schedule).length != 0) {
               return HandleDatePicker(data, day, range.range);
             } else {
               return true;

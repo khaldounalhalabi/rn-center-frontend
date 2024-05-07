@@ -1,5 +1,4 @@
-import { AppointmentLogs } from "@/Models/Appointment";
-import Grid from "@/components/common/ui/Grid";
+import {AppointmentLogs} from "@/Models/AppointmentLog";import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";

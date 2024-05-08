@@ -11,6 +11,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   label?: string;
   type: string;
   required?: boolean;
+  setWatch?: React.Dispatch<number>;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -19,12 +20,17 @@ const Input: React.FC<InputProps> = ({
   name,
   type,
   required = false,
+  setWatch,
   ...props
 }) => {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
+  if (setWatch) {
+    setWatch(watch(name ?? ""));
+  }
 
   const [hidden, setHidden] = useState(true);
 

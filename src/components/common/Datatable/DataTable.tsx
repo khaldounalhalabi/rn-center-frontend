@@ -167,7 +167,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       )}
       <div className={`relative`}>
         {isPending || isFetching ? (
-          <div className="top-1/2 left-1/2 z-40 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
+          <div className="top-1/2 left-1/2 z-10 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
             <LoadingSpin className="w-8 h-8" />
           </div>
         ) : null}

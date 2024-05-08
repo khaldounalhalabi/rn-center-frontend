@@ -1,15 +1,28 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
+import { AppointmentStatusEnum } from "@/enm/AppointmentStatus";
 
-
-
-export default function SelectPopOver({id, status ,ArraySelect,handleSelect}:{ id:number|undefined,status:string |undefined,ArraySelect:string[],handleSelect:any}) {
+export default function SelectPopOver({
+  id,
+  status,
+  ArraySelect,
+  handleSelect,
+}: {
+  id: number | undefined;
+  status: string | undefined;
+  ArraySelect: string[];
+  handleSelect: any;
+}) {
   const [selected, setSelected] = useState(status);
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative mt-1">
         <Listbox.Button className="relative cursor-pointer w-full  rounded-lg bg-white py-2 pl-6 pr-6 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-          <span className={`block truncate ${status == "checkout"?"text-neutral":status == "cancelled"?"text-warning":status == "pending"?"text-primary":status == "checkin"?"text-success":status=="booked"?"text-error":status=="completed"?"text-info":""}`}>{selected}</span>
+          <span
+            className={`block truncate ${status == AppointmentStatusEnum.CHECKOUT ? "text-neutral" : status == AppointmentStatusEnum.CANCELLED ? "text-warning" : status == AppointmentStatusEnum.PENDING ? "text-primary" : status == AppointmentStatusEnum.CHECKIN ? "text-success" : status == AppointmentStatusEnum.BOOKED ? "text-error" : status == AppointmentStatusEnum.COMPLETED ? "text-info" : ""}`}
+          >
+            {selected}
+          </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"></span>
         </Listbox.Button>
         <Transition

@@ -20,7 +20,7 @@ import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
-import {AppointmentStatusEnum, AppointmentStatusesWithOutAll} from "@/enm/AppointmentStatus";
+import AppointmentStatuses, {AppointmentStatusEnum} from "@/enm/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
 
 interface Range {
@@ -104,7 +104,7 @@ const AppointmentForm = ({
   const [getServicePrice, setServicePrice] = useState<number>();
 
   const [status, setStatus] = useState("");
-  const statusData = AppointmentStatusesWithOutAll();
+  const statusData = AppointmentStatuses();
   return (
     <Form
       handleSubmit={handleSubmit}

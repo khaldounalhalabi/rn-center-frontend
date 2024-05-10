@@ -1,0 +1,38 @@
+import Textarea from "@/components/common/ui/textArea/Textarea";
+import Input from "@/components/common/ui/Inputs/Input";
+import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
+import React from "react";
+import {useFormContext} from "react-hook-form";
+import {Prescriptions} from "@/Models/Prescriptions";
+
+
+const TestForm = ({ defaultValue }:{defaultValue?:Prescriptions}) => {
+  const SelectDate = ["day", "week", "yar"];
+  const { setValue } = useFormContext();
+
+  return (
+    <>
+        <h2 className="card-title">Test</h2>
+
+        <Textarea name="test" label="Test" />
+      <Textarea name="problem_description" label="Problem Description" />
+      <div className='flex gap-4'>
+        <div className='w-24 h-[45px]'>
+            <Input type={"number"}   label={"Next Visit:"} name={"next"} defaultValue={defaultValue?.next_visit.replace(/\D/g, '')??undefined}  />
+        </div>
+
+            <SelectPopOver
+                id={1}
+                status={defaultValue?.next_visit.replace(/\d/g, '')??""}
+                label={"Date :"}
+                ArraySelect={SelectDate}
+                handleSelect={(select: string, id: number) => {
+                    setValue("visit", select);
+                }}
+            />
+
+      </div>
+    </>
+  );
+};
+export default TestForm

@@ -58,6 +58,7 @@ export interface IApiSelectProps<TResponse, TData> {
     isLast: boolean,
     totalPages: number,
   ) => number;
+  onClear?:() => void
 }
 
 export interface ISelectProps<TData> {

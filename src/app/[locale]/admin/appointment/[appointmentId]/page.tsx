@@ -51,7 +51,7 @@ const page = async ({
           <label className="label justify-start text-xl">
             Service Name :{" "}
             <span className="ml-2 badge badge-primary  ">
-              {translate(res?.service.name)}
+              {translate(res?.service?.name)}
             </span>
           </label>
         </Grid>

@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 import Overview from "@/components/admin/appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
+import PrescriptionsTable from "@/components/admin/prescriptions/TebalPrescriptions";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -44,6 +45,19 @@ const AppointmentOverview = ({
           >
             Logs
           </Tab>
+          <Tab
+              className={({ selected }) =>
+                  classNames(
+                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                          ? "bg-white text-blue-400 shadow"
+                          : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
+                  )
+              }
+          >
+            Prescriptions
+          </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel className={"w-full"}>
@@ -51,6 +65,9 @@ const AppointmentOverview = ({
           </Tab.Panel>
           <Tab.Panel className={"w-full"}>
             <AppointmentLogs appointment={appointment} />
+          </Tab.Panel>
+          <Tab.Panel className={"w-full"}>
+            <PrescriptionsTable appointment={appointment} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

@@ -17,6 +17,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
+import Grid from "@/components/common/ui/Grid";
 
 const weeKDays: (keyof SchedulesCollection)[] = [
   "saturday",
@@ -157,7 +158,7 @@ const ClinicScheduleForm = ({
       [toDay]: prevSchedule[fromDay],
     }));
   };
-
+  console.log(defaultValues)
   const onSubmit = async (data: {
     clinic_id: number;
     schedules?: { start_time: string; end_time: string; day_of_week: string }[];
@@ -179,7 +180,10 @@ const ClinicScheduleForm = ({
       );
     });
 
-    return await ScheduleService.make<ScheduleService>().store(data);
+    return await ScheduleService.make<ScheduleService>().store(data).then((res)=>{
+        console.log(res)
+        return res
+    })
   };
   const t = useTranslations("admin.schedules.create");
   return (
@@ -193,7 +197,16 @@ const ClinicScheduleForm = ({
           Navigate(`/admin/clinics/schedules`);
         }}
       >
-        <div className={"w-full md:w-1/2 mb-5"}>
+        <Grid md={2}>
+            <Input
+                required={true}
+                name={"appointment_gap"}
+                type={"text"}
+                label={'Appointment Gap'}
+                placeholder={'appointment gap ...'}
+                defaultValue={defaultValues?.appointment_gap??undefined}
+
+            />
           {method == "store" ? (
             <ApiSelect
               placeHolder={"Select Clinic Name ..."}
@@ -217,8 +230,10 @@ const ClinicScheduleForm = ({
               defaultValue={clinic_id ?? ""}
               className={"hidden"}
             />
+
           )}
-        </div>
+
+        </Grid>
         {weeKDays.map((day) => (
           <div
             key={day}

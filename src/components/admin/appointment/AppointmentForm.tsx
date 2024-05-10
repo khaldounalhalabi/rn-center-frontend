@@ -22,6 +22,7 @@ import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
 import  {AppointmentStatusesWithOutAll} from "@/enm/Status";
 import {useQuery} from "@tanstack/react-query";
+import dayjs from "dayjs";
 
 interface Range {
   id: number | undefined;
@@ -53,7 +54,6 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-
   const {data} = useQuery({
     queryKey:['getRange'],
     queryFn:async ()=>{
@@ -105,6 +105,12 @@ const AppointmentForm = ({
   const [getExtra ,setExtra] = useState(0)
     const [getServicePrice,setServicePrice] = useState<number>()
 
+    const handleCost = ()=>{
+
+      return getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)
+    }
+
+
   const [status, setStatus] = useState("");
   const statusData = AppointmentStatusesWithOutAll();
   return (
@@ -133,6 +139,7 @@ const AppointmentForm = ({
                 )
                   .getAvailableTimes(selectedItem?.id ?? 0)
                   .then((res) => {
+                      console.log(selectedItem)
                     return setRange({
                       id: selectedItem?.id,
                         appointment_cost:selectedItem?.appointment_cost,
@@ -140,6 +147,19 @@ const AppointmentForm = ({
                       limit: selectedItem?.approximate_appointment_time,
                       data: res.data,
                     });
+                  });
+              }}
+              onClear={()=>{
+                  return setRange({
+                      id: 0,
+                      appointment_cost:0,
+                      range: 0,
+                      limit: 0,
+                      data: {
+                          booked_times: [],
+                          clinic_schedule: {},
+                          clinic_holidays: [],
+                      },
                   });
               }}
               label={"Clinic Name"}
@@ -189,6 +209,9 @@ const AppointmentForm = ({
                 .then((res) => {
                     setServicePrice(res?.data.price)
                 });
+          }}
+          onClear={()=>{
+              setServicePrice(0)
           }}
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
@@ -240,7 +263,7 @@ const AppointmentForm = ({
           <label className="label">
               Total Cost :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)}
+            {getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)} IQD
           </span>
           </label>
         <Datepicker
@@ -263,7 +286,7 @@ const AppointmentForm = ({
         defaultValue={defaultValues?.note ?? ""}
       />
       {status == "cancelled" ? (
-        <Textarea label={"Cancellation Reason"} name={"cancellation_reason"} />
+        <Textarea required={true} label={"Cancellation Reason"} name={"cancellation_reason"} />
       ) :false}
     </Form>
   );

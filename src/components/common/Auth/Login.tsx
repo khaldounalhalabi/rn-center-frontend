@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
@@ -11,14 +11,12 @@ import { AuthResponse } from "@/Models/User";
 import { swal } from "@/Helpers/UIHelpers";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
+  const [error,setError] = useState(false)
   const handleSubmit = (data: { email: string; password: string }) => {
+    setError(false)
     return POST<AuthResponse>(url, data).then((res: any) => {
       if (res.code == 401) {
-        swal.fire({
-          icon: "error",
-          title: "Invalid Credentials!",
-          text: "Your Credentials Didn't Match Our Records!",
-        });
+        setError(true)
         return res;
       } else {
         return res;
@@ -59,6 +57,11 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
               placeholder="Enter Your Password"
             />
           </div>
+
+            {error?(
+                <p className='w-full bg-red-300 text-black p-2 text-sm my-3 '>The email or password is incorrect. Try again or click Forgot Password.</p>
+            ):false}
+
 
           <div className="flex justify-center opacity-80 mt-4">
             <h4> Forget Password ? </h4>

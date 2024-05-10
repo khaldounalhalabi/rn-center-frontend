@@ -76,7 +76,7 @@ const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | 
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await PrescriptionsService.make<PrescriptionsService>(
         "admin",
-      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      ).getAllPrescriptions(appointment?.id??0,page, search, sortCol, sortDir, perPage, params),
   };
   return <DataTable {...tableData} />;
 };

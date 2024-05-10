@@ -58,7 +58,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
 
         <div className={"w-full"}>
           <label className={"label"}>{t("cost")} :</label>
-          <p className={"badge badge-primary"}>{clinic?.appointment_cost.toLocaleString()}</p>
+          <p className={"badge badge-primary"}>{clinic?.appointment_cost.toLocaleString()} IQD</p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>

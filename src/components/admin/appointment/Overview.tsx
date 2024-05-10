@@ -18,7 +18,7 @@ const Overview = ({
           <label className={"label"}>Extra Fees : </label>
           <p className={"badge badge-primary"}>{appointment?.extra_fees}</p>
           <label className={"label"}>Total Cost : </label>
-          <p className={"badge badge-ghost"}>{appointment?.total_cost.toLocaleString()}</p>
+          <p className={"badge badge-ghost"}>{appointment?.total_cost.toLocaleString()} IQD</p>
           <label className={"label"}>Appointment Sequence : </label>
           <p className={"badge badge-info"}>
             {appointment?.appointment_sequence.toLocaleString()}

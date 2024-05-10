@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -28,8 +28,8 @@ const Page = () => {
           timer: 1000
       });
   }
-  const handleSelectStatus =async (status:string,id:number)=>{
-      return await AppointmentService.make('admin').update(id,{status:status})
+  const handleSelectStatus =async (status:any,id:number)=>{
+      return  await AppointmentService.make<AppointmentService>('admin').setToggleStatus(id??0,status)
   }
 
   const statusData = AppointmentStatuses();
@@ -89,7 +89,12 @@ const Page = () => {
       {
         name: "status",
         label: "Status",
-        render: (_status, appointment) => <SelectPopOver id={appointment?.id} status={appointment?.status} ArraySelect={statusData} handleSelect={handleSelectStatus}/>,
+        render: (_status, appointment) =>{
+
+            return (
+                <SelectPopOver id={appointment?.id} status={appointment?.status} ArraySelect={statusData} handleSelect={handleSelectStatus}/>
+            )
+        },
         sortable: true,
       },
       {

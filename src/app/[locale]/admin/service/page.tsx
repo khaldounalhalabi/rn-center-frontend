@@ -52,7 +52,7 @@ const Page = () => {
         label: `${t("price")}`,
         render: (data) => (
           <p>
-            <span>{data.toLocaleString()}</span>
+            <span>{data.toLocaleString()} IQD</span>
           </p>
         ),
       },

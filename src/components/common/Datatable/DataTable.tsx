@@ -216,7 +216,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   <option value={25}>25</option>
                   <option value={50}>50</option>
                   <option value={75}>75</option>
-                  <option value={data?.paginate?.total}>All</option>
+                  <option value={500}>500</option>
                 </select>
                 <label className="flex items-center gap-2 input-bordered input input-sm">
                   <input

@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import Overview from "@/components/admin/appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
-import PrescriptionsTable from "@/components/admin/prescriptions/TebalPrescriptions";
+import PrescriptionsTable from "@/components/admin/prescriptions/PrescriptionsTable";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

@@ -124,6 +124,14 @@ const ClinicForm = ({
           label={t("max-appointments")}
           required={true}
         />
+        <Input
+            name={"approximate_appointment_time"}
+            type={"number"}
+            step={"any"}
+            placeholder={"Doctor Approximate Appointment Time Are ?"}
+            label={"Approximate Appointment Time"}
+            required={true}
+        />
       </Grid>
 
       <MultiInput

@@ -12,7 +12,7 @@ const page = async ({
   const holiday = (
     await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId)
   ).data;
-  const t = await getTranslations("admin.holidays.creat-edit");
+  const t = await getTranslations("admin.holidays.create-edit");
   return (
     <PageCard>
       <h2 className="card-title">{t("editHolidays")}</h2>

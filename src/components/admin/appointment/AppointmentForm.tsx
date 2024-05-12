@@ -149,6 +149,7 @@ const AppointmentForm = ({
                     });
                   });
               }}
+
               onClear={()=>{
                   return setRange({
                       id: 0,
@@ -199,6 +200,9 @@ const AppointmentForm = ({
               page,
               search,
             )
+          }
+          defaultValues={
+              defaultValues?.service ? [defaultValues?.service] :[]
           }
           label={"Service Name"}
           onSelect={async (selectedItem) => {

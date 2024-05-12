@@ -76,6 +76,15 @@ const Page = () => {
           ),
       },
       {
+        name: "approximate_appointment_time",
+        label: `Approximate Appointment Time (min)`,
+        render:(_undefined, clinic, setHidden, revalidate)=>{
+          return (
+              <span className='badge-neutral badge'>{clinic?.approximate_appointment_time} min</span>
+          )
+        }
+      },
+      {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
         render:(_undefined, clinic, setHidden, revalidate)=>{

@@ -10,7 +10,7 @@ const page = async ({
 }: {
   params: { hospitalsId: number };
 }) => {
-  const t = await getTranslations("admin.hospitals.creat-edit");
+  const t = await getTranslations("admin.hospitals.create-edit");
 
   const hospital = (
     await HospitalService.make<HospitalService>().show(hospitalsId)

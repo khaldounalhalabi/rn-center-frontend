@@ -24,6 +24,7 @@ const PrescriptionsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  console.log(defaultValues)
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = {
       appointment_id: appointment.id,

@@ -1,37 +1,32 @@
 import {Customer} from "@/Models/Customer";
 import {Clinic} from "@/Models/Clinic";
 import {rename} from "fs";
+import { Medicine } from "./Medicines";
 
 
-export interface Prescriptions {
-    "id": number,
-    "clinic_id": number,
-    "customer_id": number,
-    "physical_information": string,
-    "problem_description": string,
-    "test": string,
-    "next_visit": string,
-    "clinic": Clinic,
-    "customer": Customer,
-    medicines_data:Multi[]
+export interface Prescription {
+    id: number,
+    clinic_id: number,
+    customer_id: number,
+    physical_information?: string,
+    problem_description?: string,
+    test?: string,
+    next_visit?: string,
+    clinic?: Clinic,
+    customer?: Customer,
+    medicines_data?:MedicineData[]
 }
-export interface Multi {
+export interface MedicineData {
     id?:number
     medicine_id: number;
-    dosage: string;
-    duration: string;
-    time: string;
-    dose_interval: string;
-    comment: string;
-    medicine?:medicine
+    dosage?: string;
+    duration?: string;
+    time?: string;
+    dose_interval?: string;
+    comment?: string;
+    medicine?:Medicine
 }
 
-export interface medicine {
-    "id": number,
-        "name": string,
-        "description": string,
-        "clinic_id": number
-}
 export interface PrescriptionsDataSend {
     clinic_id:number,
     customer_id:number,
@@ -40,8 +35,7 @@ export interface PrescriptionsDataSend {
     problem_description:string,
     next_visit:string,
     test:string,
-    medicines:Multi
-
+    medicines:MedicineData
 }
 export interface PrescriptionsData {
     clinic_id:number,
@@ -50,7 +44,7 @@ export interface PrescriptionsData {
     problem_description:string,
     next_visit:string,
     test:string,
-    medicines:Multi
+    medicines:MedicineData
     next:number,
     visit:string
 }

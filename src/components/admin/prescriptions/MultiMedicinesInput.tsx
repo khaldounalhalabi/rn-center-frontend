@@ -2,13 +2,13 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Trash from "@/components/icons/Trash";
 import React, {Fragment, useState, useTransition} from "react";
-import { MedicinesService } from "@/services/MedicinesSevice";
-import { Medicines } from "@/Models/Medicines";
+import { MedicineService } from "@/services/MedicinesSevice";
+import { Medicine } from "@/Models/Medicines";
 import { useRouter } from "@/navigation";
 import {useFormContext} from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {Multi} from "@/Models/Prescriptions";
-import {PrescriptionsService} from "@/services/PrescriptionsServise";
+import {MedicineData} from "@/Models/Prescriptions";
+import {PrescriptionService} from "@/services/PrescriptionsServise";
 import {Dialog, Transition} from "@headlessui/react";
 import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
 
@@ -18,11 +18,11 @@ const MultiMedicinesInput = ({
   defaultValues,
     type,
 }: {
-  defaultValues?: Multi[];
+  defaultValues?: MedicineData[];
   type: string
 }) => {
   const {setValue} = useFormContext()
-  const [medicines, setMedicines] = useState<Multi[]>(
+  const [medicines, setMedicines] = useState<MedicineData[]>(
     Array.isArray(defaultValues)
       ? defaultValues
       : [
@@ -118,7 +118,7 @@ const MultiMedicinesInput = ({
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <div className="flex justify-center items-center p-4 min-h-full text-center">
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -128,7 +128,7 @@ const MultiMedicinesInput = ({
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
                     <div className='p-4'>
                       <h2 className="card-title">New Medicine</h2>
                       <MedicinesForm />
@@ -150,17 +150,17 @@ const MultiMedicinesInput = ({
         </button>
       </div>
       {isMutating ? (
-        <div className='my-4 flex justify-center items-center'> <LoadingSpin className="h-8 w-8 text-primary" /></div>
+        <div className='flex justify-center items-center my-4'> <LoadingSpin className="w-8 h-8 text-primary" /></div>
       ) : (
         medicines.map((medicine, index) => (
-          <div className="border rounded-2xl p-4 my-2" key={index}>
-            <div className="flex md:flex-row flex-col gap-2 items-center justify-between">
+          <div className="my-2 p-4 border rounded-2xl" key={index}>
+            <div className="flex md:flex-row flex-col justify-between items-center gap-2">
               <ApiSelect
                 required={true}
                 placeHolder={"Medicine name ..."}
                 name={"medicine_id"}
                 api={(page, search) =>
-                  MedicinesService.make<MedicinesService>().indexWithPagination(
+                  MedicineService.make<MedicineService>().indexWithPagination(
                     page,
                     search,
                   )
@@ -170,7 +170,7 @@ const MultiMedicinesInput = ({
                 onSelect={(selectedItem) => {
                   handleInputChange(index, selectedItem?.id, "medicine_id");
                 }}
-                getOptionLabel={(data: Medicines) => data.name}
+                getOptionLabel={(data: Medicine) => data.name}
               />
               <div className={`flex flex-col items-start w-full`}>
                 <label className={"label"}>Dosage</label>
@@ -226,8 +226,8 @@ const MultiMedicinesInput = ({
                 }}
               />
             </div>
-            <div className="w-full flex justify-between items-center ">
-              <div className="w-full mr-5">
+            <div className="flex justify-between items-center w-full">
+              <div className="mr-5 w-full">
                 <label className="label">COMMENT :</label>
                 <textarea
                   className={"text-sm textarea textarea-bordered w-full"}
@@ -247,7 +247,7 @@ const MultiMedicinesInput = ({
                   deleteMedicine(index);
                   if (type == "update") {
                     const id =Array.isArray(defaultValues) ?defaultValues[index]?.id:0
-                    return await PrescriptionsService.make<PrescriptionsService>('admin').deleteMedicine(id??0).then(()=>{
+                    return await PrescriptionService.make<PrescriptionService>('admin').deleteMedicine(id??0).then(()=>{
                       setPending(true);
                       startTransition(rot.refresh);
                       setPending(false);
@@ -255,7 +255,7 @@ const MultiMedicinesInput = ({
                   }
                 }
               }
-                className="w-8 h-8 text-error hover:border-red-500 rounded-xl hover:border-2 mt-3 cursor-pointer"
+                className="hover:border-2 mt-3 hover:border-red-500 rounded-xl w-8 h-8 text-error cursor-pointer"
               />
             </div>
           </div>
@@ -266,22 +266,3 @@ const MultiMedicinesInput = ({
 };
 
 export default MultiMedicinesInput;
-
-const a = [
-  {
-    medicine_id: 0,
-    dosage: "gffghg",
-    duration: "one day only",
-    time: "After Meal",
-    dose_interval: "Every Morning",
-    comment: "fdsfsdf",
-  },
-  {
-    medicine_id: 1,
-    dosage: "dark",
-    duration: "one day only",
-    time: "After Meal",
-    dose_interval: "Every Morning",
-    comment: "fdgfdg",
-  },
-];

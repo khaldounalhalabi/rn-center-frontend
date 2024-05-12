@@ -3,42 +3,44 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import { PrescriptionsService } from "@/services/PrescriptionsServise";
-import { Multi, Prescriptions } from "@/Models/Prescriptions";
+import { PrescriptionService } from "@/services/PrescriptionsServise";
+import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { translate } from "@/Helpers/Translations";
 import { Stringify } from "@/components/admin/prescriptions/PhysicalForm";
 
 const page = async ({
-  params: {appointmentId, prescriptionsId },
+  params: { appointmentId, prescriptionsId },
 }: {
-  params: {appointmentId:number, prescriptionsId: number };
+  params: { appointmentId: number; prescriptionsId: number };
 }) => {
   const data =
-    await PrescriptionsService.make<PrescriptionsService>().show(
-      prescriptionsId,
-    );
-  const res: Prescriptions = data?.data;
-  const physicalInformation: Stringify = JSON.parse(res.physical_information);
-  const medicines: Multi[] = res.medicines_data;
+    await PrescriptionService.make<PrescriptionService>().show(prescriptionsId);
+  const res: Prescription = data?.data;
+  const physicalInformation: Stringify = JSON.parse(
+    res?.physical_information ?? "{}"
+  );
+  const medicines: MedicineData[] = res?.medicines_data ?? [];
   return (
     <>
       <PageCard>
         <div className="flex justify-between items-center w-full h-24">
           <h2 className="card-title">Prescriptions Details</h2>
-          <Link href={`/admin/appointment/${appointmentId}/prescriptions/${prescriptionsId}/edit`}>
+          <Link
+            href={`/admin/appointment/${appointmentId}/prescriptions/${prescriptionsId}/edit`}
+          >
             <PrimaryButton type={"button"}>Edit</PrimaryButton>
           </Link>
         </div>
         <Grid md={2} gap={5}>
           <label className="label">
             {"Clinic Name :"}
-            <span className="  badge-neutral px-2 rounded-xl text-lg">
+            <span className="px-2 rounded-xl text-lg badge-neutral">
               {translate(res.clinic.name)}
             </span>
           </label>
           <label className="label">
             {"Doctor Name :"}
-            <span className=" badge-success px-2 rounded-xl text-lg">
+            <span className="px-2 rounded-xl text-lg badge-success">
               <h3>
                 {translate(res.clinic?.user?.first_name)}{" "}
                 {translate(res.clinic?.user?.middle_name)}{" "}
@@ -48,7 +50,7 @@ const page = async ({
           </label>
           <label className="label">
             {"Customer Name :"}
-            <span className=" badge-info px-2 rounded-xl text-lg">
+            <span className="px-2 rounded-xl text-lg badge-info">
               <h3>
                 {translate(res.customer?.user?.first_name)}{" "}
                 {translate(res.customer?.user?.middle_name)}{" "}
@@ -59,7 +61,7 @@ const page = async ({
 
           <label className="label">
             {"Customer Age :"}
-            <span className=" badge-primary px-2 rounded-xl text-lg">
+            <span className="px-2 rounded-xl text-lg badge-primary">
               {res.customer.user.age}
             </span>
           </label>
@@ -99,7 +101,7 @@ const page = async ({
             <div className={"w-full"}>
               <label className={"label"}>Comment :</label>
               <textarea
-                className="textarea textarea-bordered h-24 w-full"
+                className="textarea-bordered w-full h-24 textarea"
                 disabled={true}
                 defaultValue={e.comment}
               ></textarea>
@@ -204,7 +206,7 @@ const page = async ({
           <div className={"w-full"}>
             <label className={"label"}>Test :</label>
             <textarea
-              className="textarea textarea-bordered h-24 w-full"
+              className="textarea-bordered w-full h-24 textarea"
               disabled={true}
               defaultValue={res.test}
             ></textarea>
@@ -212,7 +214,7 @@ const page = async ({
           <div className={"w-full"}>
             <label className={"label"}>Problem Description :</label>
             <textarea
-              className="textarea textarea-bordered h-24 w-full"
+              className="textarea-bordered w-full h-24 textarea"
               disabled={true}
               defaultValue={res.problem_description}
             ></textarea>

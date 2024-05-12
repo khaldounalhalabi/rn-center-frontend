@@ -202,13 +202,7 @@ const AppointmentForm = ({
           }
           label={"Service Name"}
           onSelect={async (selectedItem) => {
-            return await ServiceService.make<ServiceService>(
-                "admin",
-            )
-                .show(selectedItem?.id ?? 0)
-                .then((res) => {
-                    setServicePrice(res?.data.price)
-                });
+            setServicePrice(selectedItem?.price)
           }}
           onClear={()=>{
               setServicePrice(0)

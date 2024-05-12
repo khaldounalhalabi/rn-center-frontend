@@ -5,11 +5,11 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import {translate} from "@/Helpers/Translations";
-import {MedicinesService} from "@/services/MedicinesSevice";
-import {Medicines} from "@/Models/Medicines";
+import {MedicineService} from "@/services/MedicinesSevice";
+import {Medicine} from "@/Models/Medicines";
 
 const Page = () => {
-    const tableData: DataTableData<Medicines> = {
+    const tableData: DataTableData<Medicine> = {
         createUrl: `/admin/medicines/create`,
         title: `Medicines`,
         schema: [
@@ -57,7 +57,7 @@ const Page = () => {
             },
         ],
         api: async (page, search, sortCol, sortDir, perPage, params) =>
-            await MedicinesService.make<MedicinesService>("admin").indexWithPagination(
+            await MedicineService.make<MedicineService>("admin").indexWithPagination(
                 page,
                 search,
                 sortCol,

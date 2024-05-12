@@ -5,12 +5,12 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import {translate} from "@/Helpers/Translations";
-import {Prescriptions} from "@/Models/Prescriptions";
-import {PrescriptionsService} from "@/services/PrescriptionsServise";
+import {Prescription} from "@/Models/Prescriptions";
+import {PrescriptionService} from "@/services/PrescriptionsServise";
 import {Appointment} from "@/Models/Appointment";
 
 const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | undefined}) => {
-  const tableData: DataTableData<Prescriptions> = {
+  const tableData: DataTableData<Prescription> = {
     createUrl: `/admin/appointment/${appointment?.id}/prescriptions/create`,
     title: `Prescriptions`,
     schema: [
@@ -65,7 +65,7 @@ const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | 
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
-            baseUrl={`/admin/appointment/${appointment?.id}`}
+            baseUrl={`/admin/prescriptions`}
             editUrl={`/admin/appointment/${appointment?.id}/prescriptions/${data?.id}/edit`}
             showUrl={`/admin/appointment/${appointment?.id}/prescriptions/${data?.id}`}
             setHidden={setHidden}
@@ -74,7 +74,7 @@ const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | 
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PrescriptionsService.make<PrescriptionsService>(
+      await PrescriptionService.make<PrescriptionService>(
         "admin",
       ).getAllPrescriptions(appointment?.id??0,page, search, sortCol, sortDir, perPage, params),
   };

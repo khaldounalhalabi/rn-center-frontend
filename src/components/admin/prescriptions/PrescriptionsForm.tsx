@@ -3,11 +3,11 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import { Navigate } from "@/Actions/navigate";
 import {
-  Prescriptions,
+  Prescription,
   PrescriptionsData,
   PrescriptionsDataSend,
 } from "@/Models/Prescriptions";
-import { PrescriptionsService } from "@/services/PrescriptionsServise";
+import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PageCard from "@/components/common/ui/PageCard";
 import MultiMedicinesInput from "@/components/admin/prescriptions/MultiMedicinesInput";
 import PhysicalForm from "@/components/admin/prescriptions/PhysicalForm";
@@ -20,7 +20,7 @@ const PrescriptionsForm = ({
   id,
   type = "store",
 }: {
-  defaultValues?: Prescriptions;
+  defaultValues?: Prescription;
   appointment: Appointment;
   id?: number;
   type?: "store" | "update";
@@ -42,14 +42,14 @@ const PrescriptionsForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PrescriptionsService.make<PrescriptionsService>("admin")
+      return PrescriptionService.make<PrescriptionService>("admin")
         .update(defaultValues?.id ?? id, sendData)
         .then((res) => {
           console.log(res);
           return res;
         });
     } else {
-      return await PrescriptionsService.make<PrescriptionsService>("admin")
+      return await PrescriptionService.make<PrescriptionService>("admin")
         .store(sendData)
         .then((res) => {
           console.log(res);

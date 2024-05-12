@@ -1,33 +1,32 @@
 import { BaseService } from "@/services/BaseService";
-import {Multi, Prescriptions} from "@/Models/Prescriptions";
+import {MedicineData, Prescription} from "@/Models/Prescriptions";
 import {ApiResponse} from "@/Http/Response";
-import {Appointment, AppointmentLogs} from "@/Models/Appointment";
 import {DELETE, GET} from "@/Http/Http";
 
-export class PrescriptionsService extends BaseService<Prescriptions> {
+export class PrescriptionService extends BaseService<Prescription> {
     public getBaseUrl(): string {
         return `${this.actor}/prescriptions`;
     }
     public async deleteMedicine(
         medicineId: number,
-    ): Promise<ApiResponse<Multi[]>> {
-        return await DELETE<Multi[]>(
+    ): Promise<ApiResponse<MedicineData[]>> {
+        return await DELETE<MedicineData[]>(
             `${this.actor}/prescriptions/medicine-data/${medicineId}`,
         );
     }
 
 
     public async getAllPrescriptions(
-        appointmentsId: number,
+        appointmentId: number,
         page: number = 0,
         search?: string,
         sortCol?: string,
         sortDir?: string,
         per_page?: number,
         params?: object,
-    ): Promise<ApiResponse<Prescriptions[]>> {
-        return await GET<Prescriptions[]>(
-            `${this.actor}/appointments/${appointmentsId}/prescriptions`,
+    ): Promise<ApiResponse<Prescription[]>> {
+        return await GET<Prescription[]>(
+            `${this.actor}/appointments/${appointmentId}/prescriptions`,
             {
                 page: page,
                 search: search,

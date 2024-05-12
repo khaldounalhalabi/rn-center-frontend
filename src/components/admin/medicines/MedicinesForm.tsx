@@ -7,10 +7,10 @@ import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { useTranslations } from "next-intl";
-import {Prescriptions} from "@/Models/Prescriptions";
-import {PrescriptionsService} from "@/services/PrescriptionsServise";
-import {MedicinesService} from "@/services/MedicinesSevice";
-import {Medicines} from "@/Models/Medicines";
+import {Prescription} from "@/Models/Prescriptions";
+import {PrescriptionService} from "@/services/PrescriptionsServise";
+import {MedicineService} from "@/services/MedicinesSevice";
+import {Medicine} from "@/Models/Medicines";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import {ClinicService} from "@/services/ClinicService";
 import {AppointmentService} from "@/services/AppointmentService";
@@ -24,7 +24,7 @@ const MedicinesForm = ({
                                id,
                                type = "store",
                            }: {
-    defaultValues?: Medicines;
+    defaultValues?: Medicine;
     id?: number;
     type?: "store" | "update";
 }) => {
@@ -33,13 +33,13 @@ const MedicinesForm = ({
             type === "update" &&
             (defaultValues?.id != undefined || id != undefined)
         ) {
-            return MedicinesService.make<MedicinesService>("admin")
+            return MedicineService.make<MedicineService>("admin")
                 .update(defaultValues?.id ?? id, data)
                 .then((res) => {
                     return res;
                 });
         } else {
-            return await MedicinesService.make<MedicinesService>("admin").store(data);
+            return await MedicineService.make<MedicineService>("admin").store(data);
         }
     };
     const onSuccess = () => {

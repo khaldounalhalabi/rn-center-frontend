@@ -12,21 +12,20 @@ import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 import AppointmentStatuses from "@/enm/Status";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
-import copy from "copy-to-clipboard";
 import {swal} from "@/Helpers/UIHelpers";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 
 
 const Page = () => {
   const handleCopyLink = (id:number|undefined)=>{
-      copy(`${window.location.href}/${id}`)
-      return swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your Link is Copy",
-          showConfirmButton: false,
-          timer: 1000
-      });
+      // copy(`${window.location.href}/${id}`)
+      // return swal.fire({
+      //     position: "top-end",
+      //     icon: "success",
+      //     title: "Your Link is Copy",
+      //     showConfirmButton: false,
+      //     timer: 1000
+      // });
   }
   const handleSelectStatus =async (status:any,id:number)=>{
       return  await AppointmentService.make<AppointmentService>('admin').setToggleStatus(id??0,status)

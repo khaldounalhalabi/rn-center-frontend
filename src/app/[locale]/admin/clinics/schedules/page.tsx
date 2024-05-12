@@ -50,14 +50,7 @@ const Page = () => {
           );
         },
       },
-      {
-        name: "approximate_appointment_time",
-        label: `${t("approximateAppointmentTime")}`,
-        sortable: true,
-        render: (minutes) => (
-          <span className={`badge badge-primary`}>{minutes} minutes</span>
-        ),
-      },
+
       {
         label: `${t("actions")}`,
         render: (_undefined, clinic, setHidden) => (

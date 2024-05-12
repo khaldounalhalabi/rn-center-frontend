@@ -4,7 +4,6 @@ import React from "react";
 import { Navigate } from "@/Actions/navigate";
 import {
   Prescription,
-  PrescriptionsData,
   PrescriptionsDataSend,
 } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
@@ -25,15 +24,14 @@ const PrescriptionsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues);
-  const handleSubmit = async (data: PrescriptionsData) => {
+  const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = {
       appointment_id: appointment.id,
       clinic_id: appointment.clinic_id,
       customer_id: appointment.customer_id,
       physical_information: data.physical_information,
       problem_description: data.problem_description,
-      next_visit: data.next + data.visit,
+      next_visit: (data?.next??0) + (data?.visit??""),
       test: data.test,
       medicines: data.medicines,
     };

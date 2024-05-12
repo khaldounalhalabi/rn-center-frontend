@@ -1,27 +1,25 @@
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Trash from "@/components/icons/Trash";
-import React, {Fragment, useState, useTransition} from "react";
+import React, { Fragment, useState, useTransition } from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import { useRouter } from "@/navigation";
-import {useFormContext} from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {MedicineData} from "@/Models/Prescriptions";
-import {PrescriptionService} from "@/services/PrescriptionsServise";
-import {Dialog, Transition} from "@headlessui/react";
+import { MedicineData } from "@/Models/Prescriptions";
+import { PrescriptionService } from "@/services/PrescriptionsServise";
+import { Dialog, Transition } from "@headlessui/react";
 import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
-
-
 
 const MultiMedicinesInput = ({
   defaultValues,
-    type,
+  type,
 }: {
   defaultValues?: MedicineData[];
-  type: string
+  type: string;
 }) => {
-  const {setValue} = useFormContext()
+  const { setValue } = useFormContext();
   const [medicines, setMedicines] = useState<MedicineData[]>(
     Array.isArray(defaultValues)
       ? defaultValues
@@ -36,8 +34,6 @@ const MultiMedicinesInput = ({
           },
         ],
   );
-
-  console.log(medicines)
 
   const addMedicine = () => {
     const newMedicine = {
@@ -60,7 +56,7 @@ const MultiMedicinesInput = ({
     // @ts-ignore
     updatedMedicines[index][name] = value;
     setMedicines(updatedMedicines);
-    setValue('medicines',medicines)
+    setValue("medicines", medicines);
   };
   let rot = useRouter();
   const [isPending, setPending] = useState<boolean>(false);
@@ -87,32 +83,33 @@ const MultiMedicinesInput = ({
     "Three Time a Day",
     "4 Time a Day",
   ];
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
 
   return (
     <div>
-
       <div className="flex flex-row justify-between my-4">
         <h2 className="card-title">Medicines</h2>
-        <button className="btn btn-info"  onClick={openModal}>New Medicines</button>
+        <button className="btn btn-info" onClick={openModal}>
+          New Medicines
+        </button>
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
               <div className="fixed inset-0 bg-black/25" />
             </Transition.Child>
@@ -120,16 +117,16 @@ const MultiMedicinesInput = ({
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex justify-center items-center p-4 min-h-full text-center">
                 <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
-                    <div className='p-4'>
+                    <div className="p-4">
                       <h2 className="card-title">New Medicine</h2>
                       <MedicinesForm />
                     </div>
@@ -140,17 +137,19 @@ const MultiMedicinesInput = ({
           </Dialog>
         </Transition>
       </div>
-      <div className='text-end'>
+      <div className="text-end">
         <button
-            type={"button"}
-            className="btn btn-accent"
-            onClick={addMedicine}
+          type={"button"}
+          className="btn btn-accent"
+          onClick={addMedicine}
         >
           Add
         </button>
       </div>
       {isMutating ? (
-        <div className='flex justify-center items-center my-4'> <LoadingSpin className="w-8 h-8 text-primary" /></div>
+        <div className="flex justify-center items-center my-4">
+          <LoadingSpin className="w-8 h-8 text-primary" />
+        </div>
       ) : (
         medicines.map((medicine, index) => (
           <div className="my-2 p-4 border rounded-2xl" key={index}>
@@ -158,7 +157,7 @@ const MultiMedicinesInput = ({
               <ApiSelect
                 required={true}
                 placeHolder={"Medicine name ..."}
-                name={"medicine_id"}
+                name={`medicines[${index}].medicine_id`}
                 api={(page, search) =>
                   MedicineService.make<MedicineService>().indexWithPagination(
                     page,
@@ -167,6 +166,16 @@ const MultiMedicinesInput = ({
                 }
                 label={"Medicine Name"}
                 optionValue={"id"}
+                defaultValues={
+                  defaultValues?.[index]?.medicine
+                    ? [
+                        {
+                          label: defaultValues?.[index]?.medicine?.name,
+                          value: defaultValues?.[index]?.medicine?.id,
+                        },
+                      ]
+                    : undefined
+                }
                 onSelect={(selectedItem) => {
                   handleInputChange(index, selectedItem?.id, "medicine_id");
                 }}
@@ -208,8 +217,9 @@ const MultiMedicinesInput = ({
                   medicines[index].time ? medicines[index].time : "After Meal"
                 }
                 ArraySelect={time}
+
                 handleSelect={(select: string, id: number) => {
-                  handleInputChange(index, select, "time");
+                  handleInputChange(index, select, "duration");
                 }}
               />
               <SelectPopOver
@@ -222,7 +232,8 @@ const MultiMedicinesInput = ({
                 }
                 ArraySelect={doseInterval}
                 handleSelect={(select: string, id: number) => {
-                  handleInputChange(index, select, "dose_interval");
+
+                  handleInputChange(index, select, "duration");
                 }}
               />
             </div>
@@ -246,15 +257,20 @@ const MultiMedicinesInput = ({
                 onClick={async () => {
                   deleteMedicine(index);
                   if (type == "update") {
-                    const id =Array.isArray(defaultValues) ?defaultValues[index]?.id:0
-                    return await PrescriptionService.make<PrescriptionService>('admin').deleteMedicine(id??0).then(()=>{
-                      setPending(true);
-                      startTransition(rot.refresh);
-                      setPending(false);
-                    })
+                    const id = Array.isArray(defaultValues)
+                      ? defaultValues[index]?.id
+                      : 0;
+                    return await PrescriptionService.make<PrescriptionService>(
+                      "admin",
+                    )
+                      .deleteMedicine(id ?? 0)
+                      .then(() => {
+                        setPending(true);
+                        startTransition(rot.refresh);
+                        setPending(false);
+                      });
                   }
-                }
-              }
+                }}
                 className="hover:border-2 mt-3 hover:border-red-500 rounded-xl w-8 h-8 text-error cursor-pointer"
               />
             </div>

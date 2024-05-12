@@ -11,16 +11,27 @@ export default function SelectPopOver({
   ArraySelect,
   handleSelect,
   label,
+    name,
+    setValue = undefined
 }: {
   id: number | undefined;
   status: string | undefined;
   ArraySelect: string[];
   handleSelect: any;
   label?: string;
+  name?:string,
+  setValue?:any
 }) {
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
 
+
+
+
+
+  if(setValue){
+    setValue(name, selected);
+  }
   function closeModal() {
     setIsOpen(false);
   }

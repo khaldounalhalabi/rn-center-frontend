@@ -64,6 +64,9 @@ const MedicinesForm = ({
                     }
                     label={"Clinic Name"}
                     optionValue={"id"}
+                    defaultValues={
+                        defaultValues?.clinic ? [defaultValues?.clinic] : []
+                    }
                     getOptionLabel={(data: Clinic) => translate(data.name)}
                 />
                 <Input

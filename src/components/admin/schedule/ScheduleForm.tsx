@@ -32,11 +32,11 @@ const weeKDays: (keyof SchedulesCollection)[] = [
 const ClinicScheduleForm = ({
   method,
   defaultValues,
-  clinic_id,
+                                schedules_Id,
 }: {
   method: "store" | "update";
   defaultValues?: SchedulesCollection;
-  clinic_id?: number;
+    schedules_Id?: number;
 }) => {
   const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
@@ -227,7 +227,7 @@ const ClinicScheduleForm = ({
               required={true}
               name={"clinic_id"}
               type={"number"}
-              defaultValue={clinic_id ?? ""}
+              defaultValue={schedules_Id ?? ""}
               className={"hidden"}
             />
 

@@ -4,18 +4,18 @@ import { ApiResponse } from "@/Http/Response";
 import ScheduleForm from "@/components/admin/schedule/ScheduleForm";
 
 const Page = async ({
-  params: { clinicId },
+  params: { schedulesId },
 }: {
-  params: { clinicId: number };
+  params: { schedulesId: number };
 }) => {
   const schedules: ApiResponse<any> =
-    await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
+    await ScheduleService.make<ScheduleService>().getClinicSchedules(schedulesId);
 
   return (
     <ScheduleForm
       defaultValues={schedules.data}
       method={"update"}
-      clinic_id={clinicId}
+      schedules_Id={schedulesId}
     />
   );
 };

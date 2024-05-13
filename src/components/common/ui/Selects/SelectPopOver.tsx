@@ -43,7 +43,7 @@ export default function SelectPopOver({
       cancellation_reason: data.cancellation_reason ?? "",
     };
     return await AppointmentService.make<AppointmentService>("admin")
-      .setToggleStatus(id ?? 0, sendData)
+      .toggleStatus(id ?? 0, sendData)
       .then((res) => {
         if (res.code == 200) {
           closeModal();

@@ -17,7 +17,7 @@ export class AppointmentService extends BaseService<Appointment> {
     );
   }
 
-  public async setToggleStatus(
+  public async toggleStatus(
     appointmentId: number,
     data: { status: string; cancellation_reason?: string },
   ): Promise<ApiResponse<Appointment>> {

@@ -10,9 +10,12 @@ import { translate } from "@/Helpers/Translations";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
-import AppointmentStatuses, {AppointmentStatusEnum} from "@/enm/Status";
+import AppointmentStatuses, {
+  AppointmentStatusEnum,
+} from "@/enm/AppointmentStatus";
+
 const statusData = AppointmentStatuses();
-const typeData = ["online", "manual","all"];
+const typeData = ["online", "manual", "all"];
 
 const Appointments = ({ clinicId }: { clinicId: number }) => {
   const tableData: DataTableData<Appointment> = {
@@ -78,7 +81,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show","logs"]}
+            buttons={["edit", "delete", "show", "logs"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}

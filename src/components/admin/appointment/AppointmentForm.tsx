@@ -20,7 +20,7 @@ import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
-import { AppointmentStatusesWithOutAll } from "@/enm/Status";
+import AppointmentStatuses, {AppointmentStatusEnum} from "@/enm/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
 
 interface Range {
@@ -102,8 +102,9 @@ const AppointmentForm = ({
   };
   const [getExtra, setExtra] = useState(0);
   const [getServicePrice, setServicePrice] = useState<number>();
+
   const [status, setStatus] = useState("");
-  const statusData = AppointmentStatusesWithOutAll();
+  const statusData = AppointmentStatuses();
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -124,12 +125,12 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
+
                 return await AppointmentService.make<AppointmentService>(
                   "admin",
                 )
                   .getAvailableTimes(selectedItem?.id ?? 0)
                   .then((res) => {
-                    console.log(selectedItem);
                     return setRange({
                       id: selectedItem?.id,
                       appointment_cost: selectedItem?.appointment_cost,
@@ -277,15 +278,19 @@ const AppointmentForm = ({
         label={"Notes"}
         defaultValue={defaultValues?.note ?? ""}
       />
-      {status == "cancelled" ? (
-        <Textarea
-          required={true}
-          label={"Cancellation Reason"}
-          name={"cancellation_reason"}
-        />
+      {status == AppointmentStatusEnum.CANCELLED ? (
+        <Textarea label={"Cancellation Reason"} name={"cancellation_reason"} />
       ) : (
         false
       )}
+      <label className="label">
+        Total Cost :
+        <span className="bg-base-200 px-2 rounded-xl text-lg">
+          {getServicePrice
+            ? getServicePrice + (Number(getExtra) ?? 0)
+            : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}
+        </span>
+      </label>
     </Form>
   );
 };

@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { AvailableTime } from "@/Models/AvailableTime";
+import * as isBetween from 'dayjs/plugin/isBetween';
 
 export const HandleDatePicker = (
   data: AvailableTime,

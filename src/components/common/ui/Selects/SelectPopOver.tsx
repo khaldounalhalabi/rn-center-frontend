@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Listbox, Transition } from "@headlessui/react";
-import ChevronDown from "@/components/icons/ChevronDown";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import {AppointmentService} from "@/services/AppointmentService";
+import { AppointmentService } from "@/services/AppointmentService";
+import { AppointmentStatusEnum } from "@/enm/AppointmentStatus";
 
 export default function SelectPopOver({
   id,
@@ -11,27 +11,24 @@ export default function SelectPopOver({
   ArraySelect,
   handleSelect,
   label,
-    name,
-    setValue = undefined
+  name,
+  setValue = undefined,
 }: {
   id: number | undefined;
   status: string | undefined;
   ArraySelect: string[];
   handleSelect: any;
   label?: string;
-  name?:string,
-  setValue?:any
+  name?: string;
+  setValue?: any;
 }) {
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
 
-
-
-
-
-  if(setValue){
+  if (setValue) {
     setValue(name, selected);
   }
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -39,20 +36,21 @@ export default function SelectPopOver({
   function openModal() {
     setIsOpen(true);
   }
-  const HandleCancel = async (data:{cancellation_reason:string })=>{
-     const sendData = {
-       status:'cancelled',
-       cancellation_reason:data.cancellation_reason??""
-     }
-    return  await AppointmentService.make<AppointmentService>('admin').setToggleStatus(id??0,sendData).then((res)=>{
-      if(res.code == 200){
-        closeModal()
-      }
-      return res
-    })
 
-
-  }
+  const HandleCancel = async (data: { cancellation_reason: string }) => {
+    const sendData = {
+      status: AppointmentStatusEnum.CANCELLED,
+      cancellation_reason: data.cancellation_reason ?? "",
+    };
+    return await AppointmentService.make<AppointmentService>("admin")
+      .setToggleStatus(id ?? 0, sendData)
+      .then((res) => {
+        if (res.code == 200) {
+          closeModal();
+        }
+        return res;
+      });
+  };
 
   return (
     <div className=" w-full">
@@ -65,7 +63,6 @@ export default function SelectPopOver({
             >
               {selected}
             </span>
-
           </Listbox.Button>
           <Transition
             as={Fragment}
@@ -83,10 +80,9 @@ export default function SelectPopOver({
                     }`
                   }
                   onClick={() => {
-
                     if (person == "cancelled") {
                       openModal();
-                    }else {
+                    } else {
                       handleSelect(person, id);
                     }
                   }}
@@ -148,7 +144,11 @@ export default function SelectPopOver({
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Form handleSubmit={HandleCancel}>
-                    <Textarea name={'cancellation_reason'} required={true} label={'Cancellation Reason'}/>
+                    <Textarea
+                      name={"cancellation_reason"}
+                      required={true}
+                      label={"Cancellation Reason"}
+                    />
                   </Form>
                 </Dialog.Panel>
               </Transition.Child>

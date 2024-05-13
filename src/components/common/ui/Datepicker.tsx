@@ -11,7 +11,6 @@ const Datepicker = ({
   label,
   required = false,
   shouldDisableDate,
-
 }: {
   name: string;
   label?: string;

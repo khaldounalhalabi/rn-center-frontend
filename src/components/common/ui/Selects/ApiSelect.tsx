@@ -299,6 +299,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-  selected.filter((op) => isEqual(op, option)).length > 0;
+    selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

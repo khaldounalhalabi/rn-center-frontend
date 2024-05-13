@@ -2,10 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import { Navigate } from "@/Actions/navigate";
-import {
-  Prescription,
-  PrescriptionsDataSend,
-} from "@/Models/Prescriptions";
+import { Prescription, PrescriptionsDataSend } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PageCard from "@/components/common/ui/PageCard";
 import MultiMedicinesInput from "@/components/admin/prescriptions/MultiMedicinesInput";
@@ -24,7 +21,7 @@ const PrescriptionsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues)
+  console.log(defaultValues);
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = {
       appointment_id: appointment.id,
@@ -32,7 +29,7 @@ const PrescriptionsForm = ({
       customer_id: appointment.customer_id,
       physical_information: data.physical_information,
       problem_description: data.problem_description,
-      next_visit: (data?.next??0) + (data?.visit??""),
+      next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
       test: data.test,
       medicines: data.medicines,
     };

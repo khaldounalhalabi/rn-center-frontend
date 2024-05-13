@@ -29,27 +29,5 @@ export interface SchedulesCollection {
   wednesday: Schedule[];
   thursday: Schedule[];
   friday: Schedule[];
-  appointment_gap?:number
-}
-
-export interface StoreScheduleRequest {
-  clinic_id?: number;
-  hospital_id?: number;
-  schedules: Schedule[] | SchedulesGroupedByDay;
-}
-
-export interface ScheduleResponse {
-  clinic_id?: number;
-  hospital_id?: number;
-  schedules: SchedulesGroupedByDay;
-}
-
-export interface SchedulesGroupedByDay {
-  saturday?: Schedule[];
-  sunday?: Schedule[];
-  monday?: Schedule[];
-  tuesday?: Schedule[];
-  wednesday?: Schedule[];
-  thursday?: Schedule[];
-  friday?: Schedule[];
+  appointment_gap: number;
 }

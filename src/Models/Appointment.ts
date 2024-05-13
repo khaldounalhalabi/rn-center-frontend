@@ -1,7 +1,6 @@
 import { Clinic } from "./Clinic";
 import { Customer } from "./Customer";
 import { Service } from "./Service";
-import { User } from "@/Models/User";
 
 export interface Appointment {
   id: number;

@@ -87,11 +87,15 @@ const Page = () => {
       {
         name: "status",
         label: "Status",
-        render: (_status, appointment) =>{
-
-            return (
-                <SelectPopOver id={appointment?.id} status={appointment?.status} ArraySelect={statusData} handleSelect={handleSelectStatus}/>
-            )
+        render: (_status, appointment) => {
+          return (
+            <SelectPopOver
+              id={appointment?.id}
+              status={appointment?.status}
+              ArraySelect={statusData}
+              handleSelect={handleSelectStatus}
+            />
+          );
         },
         sortable: true,
       },
@@ -111,9 +115,9 @@ const Page = () => {
         name: "appointment_sequence",
         label: "Sequence",
         render: (data) => (
-            <p>
-              <span>{data}</span>
-            </p>
+          <p>
+            <span>{data}</span>
+          </p>
         ),
       },
       {

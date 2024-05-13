@@ -217,7 +217,6 @@ const MultiMedicinesInput = ({
                   medicines[index].time ? medicines[index].time : "After Meal"
                 }
                 ArraySelect={time}
-
                 handleSelect={(select: string, id: number) => {
                   handleInputChange(index, select, "duration");
                 }}
@@ -232,7 +231,6 @@ const MultiMedicinesInput = ({
                 }
                 ArraySelect={doseInterval}
                 handleSelect={(select: string, id: number) => {
-
                   handleInputChange(index, select, "duration");
                 }}
               />

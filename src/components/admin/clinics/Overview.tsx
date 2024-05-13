@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
   const t = useTranslations("admin.clinic.show");
-  console.log(clinic)
+  console.log(clinic);
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
       <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -25,7 +25,9 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
         <div className={"w-full"}>
           <label className={"label"}>Approximate Appointment Time : </label>
-          <div className={"badge badge-neutral"}>{clinic?.approximate_appointment_time} min</div>
+          <div className={"badge badge-neutral"}>
+            {clinic?.approximate_appointment_time} min
+          </div>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("blood")} : </label>
@@ -62,11 +64,15 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
 
         <div className={"w-full"}>
           <label className={"label"}>{t("cost")} :</label>
-          <p className={"badge badge-primary"}>{clinic?.appointment_cost.toLocaleString()} IQD</p>
+          <p className={"badge badge-primary"}>
+            {clinic?.appointment_cost.toLocaleString()} IQD
+          </p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
-          <p className={"badge badge-warning"}>{clinic?.max_appointments.toLocaleString()}</p>
+          <p className={"badge badge-warning"}>
+            {clinic?.max_appointments.toLocaleString()}
+          </p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>

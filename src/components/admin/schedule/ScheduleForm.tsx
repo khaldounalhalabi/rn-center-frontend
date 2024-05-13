@@ -7,7 +7,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { SchedulesCollection } from "@/Models/Schedule";
+import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
@@ -19,7 +19,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 
-const weeKDays: (keyof SchedulesCollection)[] = [
+const weeKDays: WeekDay[] = [
   "saturday",
   "sunday",
   "monday",
@@ -116,19 +116,17 @@ const ClinicScheduleForm = ({
               day_of_week: "0",
             },
           ],
+    appointment_gap: defaultValues?.appointment_gap ?? 10,
   });
 
-  const handleAddTimeRange = (day: keyof SchedulesCollection) => {
+  const handleAddTimeRange = (day: WeekDay) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: [...prevSchedule[day], { start_time: dayjs(), end_time: dayjs() }],
     }));
   };
 
-  const handleRemoveTimeRange = (
-    day: keyof SchedulesCollection,
-    index: number,
-  ) => {
+  const handleRemoveTimeRange = (day: WeekDay, index: number) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].filter((_, i: number) => i !== index),
@@ -136,7 +134,7 @@ const ClinicScheduleForm = ({
   };
 
   const handleChangeTimeRange = (
-    day: keyof SchedulesCollection,
+    day: WeekDay,
     index: number,
     time: string,
     timeType: "start_time" | "end_time",
@@ -194,16 +192,7 @@ const ClinicScheduleForm = ({
           Navigate(`/admin/clinics/schedules`);
         }}
       >
-        <Grid md={2}>
-            <Input
-                required={true}
-                name={"appointment_gap"}
-                type={"text"}
-                label={'Appointment Gap'}
-                placeholder={'appointment gap ...'}
-                defaultValue={defaultValues?.appointment_gap??undefined}
-
-            />
+        <Grid md={2} className={"mb-5"}>
           {method == "store" ? (
             <ApiSelect
               placeHolder={"Select Clinic Name ..."}
@@ -229,6 +218,14 @@ const ClinicScheduleForm = ({
             />
           )}
 
+          <Input
+            required={true}
+            name={"appointment_gap"}
+            type={"text"}
+            label={"Appointment Gap"}
+            placeholder={"appointment gap ..."}
+            defaultValue={defaultValues?.appointment_gap ?? undefined}
+          />
         </Grid>
         {weeKDays.map((day) => (
           <div

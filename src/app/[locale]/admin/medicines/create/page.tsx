@@ -3,12 +3,12 @@ import React from "react";
 import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
 
 const page = async () => {
-    return (
-        <PageCard>
-            <h2 className="card-title">Add Medicines</h2>
-            <MedicinesForm />
-        </PageCard>
-    );
+  return (
+    <PageCard>
+      <h2 className="card-title">Add Medicines</h2>
+      <MedicinesForm />
+    </PageCard>
+  );
 };
 
 export default page;

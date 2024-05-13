@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { AppointmentLogs } from "@/Models/Appointment";
+import { AppointmentLogs } from "@/Models/AppointmentLog";
 import LogsIcon from "@/components/icons/Logs";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { Dialog, Transition } from "@headlessui/react";

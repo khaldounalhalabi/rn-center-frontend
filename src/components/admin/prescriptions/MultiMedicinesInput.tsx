@@ -58,7 +58,7 @@ const MultiMedicinesInput = ({
     setMedicines(updatedMedicines);
     setValue("medicines", medicines);
   };
-  let rot = useRouter();
+  let router = useRouter();
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
@@ -66,7 +66,7 @@ const MultiMedicinesInput = ({
     const updatedMedicines = medicines.filter((_, i) => i !== index);
     setMedicines(updatedMedicines);
     setPending(true);
-    startTransition(rot.refresh);
+    startTransition(router.refresh);
     setPending(false);
   };
   const duration = [
@@ -217,7 +217,6 @@ const MultiMedicinesInput = ({
                   medicines[index].time ? medicines[index].time : "After Meal"
                 }
                 ArraySelect={time}
-
                 handleSelect={(select: string, id: number) => {
                   handleInputChange(index, select, "duration");
                 }}
@@ -232,7 +231,6 @@ const MultiMedicinesInput = ({
                 }
                 ArraySelect={doseInterval}
                 handleSelect={(select: string, id: number) => {
-
                   handleInputChange(index, select, "duration");
                 }}
               />
@@ -266,7 +264,7 @@ const MultiMedicinesInput = ({
                       .deleteMedicine(id ?? 0)
                       .then(() => {
                         setPending(true);
-                        startTransition(rot.refresh);
+                        startTransition(router.refresh);
                         setPending(false);
                       });
                   }

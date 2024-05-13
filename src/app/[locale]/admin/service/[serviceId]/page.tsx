@@ -71,7 +71,9 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("price")} :
           {res?.price ? (
-            <span className="badge badge-accent">{res?.price.toLocaleString()} IQD</span>
+            <span className="badge badge-accent">
+              {res?.price.toLocaleString()} IQD
+            </span>
           ) : (
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
           )}

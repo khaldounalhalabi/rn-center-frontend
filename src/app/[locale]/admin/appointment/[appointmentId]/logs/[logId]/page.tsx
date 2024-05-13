@@ -1,4 +1,4 @@
-import { AppointmentLogs } from "@/Models/Appointment";
+import { AppointmentLogs } from "@/Models/AppointmentLog";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
@@ -18,8 +18,7 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
           <label className="label text-xl">
-            Status :{" "}
-            <span className="badge badge-success ">{res.status}</span>
+            Status : <span className="badge badge-success ">{res.status}</span>
           </label>
           <label className="label text-xl">
             Happen In :{" "}

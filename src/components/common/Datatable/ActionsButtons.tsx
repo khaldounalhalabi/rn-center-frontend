@@ -2,11 +2,11 @@ import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
-import { AppointmentLogs } from "@/Models/Appointment";
+import { AppointmentLogs } from "@/Models/AppointmentLog";
 
 type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 

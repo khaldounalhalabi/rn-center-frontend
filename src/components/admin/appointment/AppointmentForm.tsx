@@ -20,13 +20,14 @@ import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
-import  {AppointmentStatusesWithOutAll} from "@/enm/Status";
-import {useQuery} from "@tanstack/react-query";
-import dayjs from "dayjs";
+import AppointmentStatuses, {
+  AppointmentStatusEnum,
+} from "@/enm/AppointmentStatus";
+import { useQuery } from "@tanstack/react-query";
 
 interface Range {
   id: number | undefined;
-    appointment_cost?:number
+  appointment_cost?: number;
   range: number;
   limit: number | undefined;
   data: AvailableTime;
@@ -45,7 +46,7 @@ const AppointmentForm = ({
 }) => {
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
-      appointment_cost:defaultValues?.clinic.appointment_cost??0,
+    appointment_cost: defaultValues?.clinic.appointment_cost ?? 0,
     range: defaultValues?.clinic.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
     data: {
@@ -54,27 +55,26 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-  const {data} = useQuery({
-    queryKey:['getRange'],
-    queryFn:async ()=>{
-      if(type == "update"){
-        return await AppointmentService.make<AppointmentService>(
-            "admin",
-        )
-            .getAvailableTimes(defaultValues?.clinic.id??0)
-            .then((res) => {
-               setRange({
-                id: defaultValues?.clinic.id,
-                   appointment_cost:defaultValues?.clinic.appointment_cost ??0,
-                   range: defaultValues?.clinic.appointment_day_range ?? 0,
-                limit: defaultValues?.clinic.approximate_appointment_time,
-                data: res.data,
-              });
-               return res
+
+  const { data } = useQuery({
+    queryKey: ["getRange"],
+    queryFn: async () => {
+      if (type == "update") {
+        return await AppointmentService.make<AppointmentService>("admin")
+          .getAvailableTimes(defaultValues?.clinic.id ?? 0)
+          .then((res) => {
+            setRange({
+              id: defaultValues?.clinic.id,
+              appointment_cost: defaultValues?.clinic.appointment_cost ?? 0,
+              range: defaultValues?.clinic.appointment_day_range ?? 0,
+              limit: defaultValues?.clinic.approximate_appointment_time,
+              data: res.data,
             });
-      }else return false
-    }
-  })
+            return res;
+          });
+      } else return false;
+    },
+  });
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -102,17 +102,11 @@ const AppointmentForm = ({
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
-  const [getExtra ,setExtra] = useState(0)
-    const [getServicePrice,setServicePrice] = useState<number>()
-
-    const handleCost = ()=>{
-
-      return getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)
-    }
-
+  const [getExtra, setExtra] = useState(0);
+  const [getServicePrice, setServicePrice] = useState<number>();
 
   const [status, setStatus] = useState("");
-  const statusData = AppointmentStatusesWithOutAll();
+  const statusData = AppointmentStatuses();
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -133,35 +127,32 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
-
                 return await AppointmentService.make<AppointmentService>(
                   "admin",
                 )
                   .getAvailableTimes(selectedItem?.id ?? 0)
                   .then((res) => {
-                      console.log(selectedItem)
                     return setRange({
                       id: selectedItem?.id,
-                        appointment_cost:selectedItem?.appointment_cost,
-                        range: selectedItem?.appointment_day_range ?? 0,
+                      appointment_cost: selectedItem?.appointment_cost,
+                      range: selectedItem?.appointment_day_range ?? 0,
                       limit: selectedItem?.approximate_appointment_time,
                       data: res.data,
                     });
                   });
               }}
-
-              onClear={()=>{
-                  return setRange({
-                      id: 0,
-                      appointment_cost:0,
-                      range: 0,
-                      limit: 0,
-                      data: {
-                          booked_times: [],
-                          clinic_schedule: {},
-                          clinic_holidays: [],
-                      },
-                  });
+              onClear={() => {
+                return setRange({
+                  id: 0,
+                  appointment_cost: 0,
+                  range: 0,
+                  limit: 0,
+                  data: {
+                    booked_times: [],
+                    clinic_schedule: {},
+                    clinic_holidays: [],
+                  },
+                });
               }}
               label={"Clinic Name"}
               optionValue={"id"}
@@ -190,7 +181,9 @@ const AppointmentForm = ({
               }}
             />
           </>
-        ) :false}
+        ) : (
+          false
+        )}
 
         <ApiSelect
           name={"service_id"}
@@ -201,24 +194,20 @@ const AppointmentForm = ({
               search,
             )
           }
-          defaultValues={
-              defaultValues?.service ? [defaultValues?.service] :[]
-          }
+          defaultValues={defaultValues?.service ? [defaultValues?.service] : []}
           label={"Service Name"}
           onSelect={async (selectedItem) => {
-            setServicePrice(selectedItem?.price)
+            setServicePrice(selectedItem?.price);
           }}
-          onClear={()=>{
-              setServicePrice(0)
+          onClear={() => {
+            setServicePrice(0);
           }}
           optionValue={"id"}
           getOptionLabel={(data: Service) => translate(data.name)}
         />
         {type != "update" ? (
           <div className={`flex gap-5 p-2 items-end`}>
-            <label className={`bg-pom p-2 rounded-md text-white`}>
-              Type:
-            </label>
+            <label className={`bg-pom p-2 rounded-md text-white`}>Type:</label>
             <Input
               name={"type"}
               label={"manual"}
@@ -238,7 +227,9 @@ const AppointmentForm = ({
               defaultChecked={defaultValues?.status == "online"}
             />
           </div>
-        ) :false}
+        ) : (
+          false
+        )}
 
         <Input
           name={"extra_fees"}
@@ -247,7 +238,6 @@ const AppointmentForm = ({
           placeholder={"Extra Fees : 5"}
           label={"Extra Fees"}
           setWatch={setExtra}
-
         />
         <Select
           required={true}
@@ -258,19 +248,25 @@ const AppointmentForm = ({
           status={status}
           setStatus={setStatus}
         />
-          <label className="label">
-              Total Cost :
-              <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {getServicePrice?getServicePrice + (Number(getExtra)??0):(range?.appointment_cost ??0) +(Number(getExtra)??0)} IQD
+        <label className="label">
+          Total Cost :
+          <span className="bg-base-200 px-2 rounded-xl text-lg">
+            {getServicePrice
+              ? getServicePrice + (Number(getExtra) ?? 0)
+              : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}{" "}
+            IQD
           </span>
-          </label>
+        </label>
         <Datepicker
           name={"date"}
           label={"Date"}
           required={true}
           shouldDisableDate={(day) => {
             const data = range.data;
-            if (range.id != 0 || Object.keys(data.clinic_schedule).length != 0) {
+            if (
+              range.id != 0 ||
+              Object.keys(data.clinic_schedule).length != 0
+            ) {
               return HandleDatePicker(data, day, range.range);
             } else {
               return true;
@@ -283,9 +279,19 @@ const AppointmentForm = ({
         label={"Notes"}
         defaultValue={defaultValues?.note ?? ""}
       />
-      {status == "cancelled" ? (
-        <Textarea required={true} label={"Cancellation Reason"} name={"cancellation_reason"} />
-      ) :false}
+      {status == AppointmentStatusEnum.CANCELLED ? (
+        <Textarea label={"Cancellation Reason"} name={"cancellation_reason"} />
+      ) : (
+        false
+      )}
+      <label className="label">
+        Total Cost :
+        <span className="bg-base-200 px-2 rounded-xl text-lg">
+          {getServicePrice
+            ? getServicePrice + (Number(getExtra) ?? 0)
+            : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}
+        </span>
+      </label>
     </Form>
   );
 };

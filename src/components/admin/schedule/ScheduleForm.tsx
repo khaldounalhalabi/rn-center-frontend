@@ -7,7 +7,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { SchedulesCollection } from "@/Models/Schedule";
+import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
@@ -19,7 +19,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 
-const weeKDays: (keyof SchedulesCollection)[] = [
+const weeKDays: WeekDay[] = [
   "saturday",
   "sunday",
   "monday",
@@ -32,11 +32,11 @@ const weeKDays: (keyof SchedulesCollection)[] = [
 const ClinicScheduleForm = ({
   method,
   defaultValues,
-                                schedules_Id,
+  clinic_id,
 }: {
   method: "store" | "update";
   defaultValues?: SchedulesCollection;
-    schedules_Id?: number;
+  clinic_id?: number;
 }) => {
   const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
@@ -116,19 +116,17 @@ const ClinicScheduleForm = ({
               day_of_week: "0",
             },
           ],
+    appointment_gap: defaultValues?.appointment_gap ?? 10,
   });
 
-  const handleAddTimeRange = (day: keyof SchedulesCollection) => {
+  const handleAddTimeRange = (day: WeekDay) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: [...prevSchedule[day], { start_time: dayjs(), end_time: dayjs() }],
     }));
   };
 
-  const handleRemoveTimeRange = (
-    day: keyof SchedulesCollection,
-    index: number,
-  ) => {
+  const handleRemoveTimeRange = (day: WeekDay, index: number) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].filter((_, i: number) => i !== index),
@@ -136,7 +134,7 @@ const ClinicScheduleForm = ({
   };
 
   const handleChangeTimeRange = (
-    day: keyof SchedulesCollection,
+    day: WeekDay,
     index: number,
     time: string,
     timeType: "start_time" | "end_time",
@@ -158,7 +156,7 @@ const ClinicScheduleForm = ({
       [toDay]: prevSchedule[fromDay],
     }));
   };
-  console.log(defaultValues)
+
   const onSubmit = async (data: {
     clinic_id: number;
     schedules?: { start_time: string; end_time: string; day_of_week: string }[];
@@ -180,10 +178,7 @@ const ClinicScheduleForm = ({
       );
     });
 
-    return await ScheduleService.make<ScheduleService>().store(data).then((res)=>{
-        console.log(res)
-        return res
-    })
+    return await ScheduleService.make<ScheduleService>().store(data);
   };
   const t = useTranslations("admin.schedules.create");
   return (
@@ -197,16 +192,7 @@ const ClinicScheduleForm = ({
           Navigate(`/admin/clinics/schedules`);
         }}
       >
-        <Grid md={2}>
-            <Input
-                required={true}
-                name={"appointment_gap"}
-                type={"text"}
-                label={'Appointment Gap'}
-                placeholder={'appointment gap ...'}
-                defaultValue={defaultValues?.appointment_gap??undefined}
-
-            />
+        <Grid md={2} className={"mb-5"}>
           {method == "store" ? (
             <ApiSelect
               placeHolder={"Select Clinic Name ..."}
@@ -227,12 +213,19 @@ const ClinicScheduleForm = ({
               required={true}
               name={"clinic_id"}
               type={"number"}
-              defaultValue={schedules_Id ?? ""}
+              defaultValue={clinic_id ?? ""}
               className={"hidden"}
             />
-
           )}
 
+          <Input
+            required={true}
+            name={"appointment_gap"}
+            type={"text"}
+            label={"Appointment Gap"}
+            placeholder={"appointment gap ..."}
+            defaultValue={defaultValues?.appointment_gap ?? undefined}
+          />
         </Grid>
         {weeKDays.map((day) => (
           <div

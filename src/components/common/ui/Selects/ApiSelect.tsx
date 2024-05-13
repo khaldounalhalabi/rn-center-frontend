@@ -230,7 +230,7 @@ function ApiSelect<TResponse, TData>({
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelected([]);
-                  onClear?onClear():false
+                  onClear ? onClear() : "";
                 }}
               />
             ) : (
@@ -299,6 +299,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-  selected.filter((op) => isEqual(op, option)).length > 0;
+    selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

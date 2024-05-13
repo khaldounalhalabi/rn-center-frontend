@@ -1,15 +1,19 @@
 "use client";
 import React from "react";
 import DataTable, {
-    DataTableData,
+  DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import {translate} from "@/Helpers/Translations";
-import {Prescription} from "@/Models/Prescriptions";
-import {PrescriptionService} from "@/services/PrescriptionsServise";
-import {Appointment} from "@/Models/Appointment";
+import { translate } from "@/Helpers/Translations";
+import { Prescription } from "@/Models/Prescriptions";
+import { PrescriptionService } from "@/services/PrescriptionsServise";
+import { Appointment } from "@/Models/Appointment";
 
-const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | undefined}) => {
+const PrescriptionsTable = ({
+  appointment,
+}: {
+  appointment?: Appointment | null | undefined;
+}) => {
   const tableData: DataTableData<Prescription> = {
     createUrl: `/admin/appointment/${appointment?.id}/prescriptions/create`,
     title: `Prescriptions`,
@@ -76,7 +80,15 @@ const PrescriptionsTable = ({ appointment }:{appointment?: Appointment | null | 
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await PrescriptionService.make<PrescriptionService>(
         "admin",
-      ).getAllPrescriptions(appointment?.id??0,page, search, sortCol, sortDir, perPage, params),
+      ).getAllPrescriptions(
+        appointment?.id ?? 0,
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
   };
   return <DataTable {...tableData} />;
 };

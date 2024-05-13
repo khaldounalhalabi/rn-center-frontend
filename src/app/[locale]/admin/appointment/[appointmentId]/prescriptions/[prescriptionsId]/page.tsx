@@ -8,7 +8,7 @@ import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { translate } from "@/Helpers/Translations";
 import { Stringify } from "@/components/admin/prescriptions/PhysicalForm";
 
-const page = async ({
+const Page = async ({
   params: { appointmentId, prescriptionsId },
 }: {
   params: { appointmentId: number; prescriptionsId: number };
@@ -17,7 +17,7 @@ const page = async ({
     await PrescriptionService.make<PrescriptionService>().show(prescriptionsId);
   const res: Prescription = data?.data;
   const physicalInformation: Stringify = JSON.parse(
-    res?.physical_information ?? "{}"
+    res?.physical_information ?? "{}",
   );
   const medicines: MedicineData[] = res?.medicines_data ?? [];
   return (
@@ -35,7 +35,7 @@ const page = async ({
           <label className="label">
             {"Clinic Name :"}
             <span className="px-2 rounded-xl text-lg badge-neutral">
-              {translate(res.clinic.name)}
+              {translate(res?.clinic?.name)}
             </span>
           </label>
           <label className="label">
@@ -62,7 +62,7 @@ const page = async ({
           <label className="label">
             {"Customer Age :"}
             <span className="px-2 rounded-xl text-lg badge-primary">
-              {res.customer.user.age}
+              {res?.customer?.user?.age}
             </span>
           </label>
         </Grid>
@@ -71,7 +71,7 @@ const page = async ({
       <PageCard>
         <h2 className="card-title">Medicines</h2>
         {medicines.map((e, index) => (
-          <div>
+          <div key={index}>
             <Grid md={2} gap={5} key={index}>
               <label className="label">
                 {"Medicine Name :"}
@@ -230,5 +230,4 @@ const page = async ({
     </>
   );
 };
-
-export default page;
+export default Page;

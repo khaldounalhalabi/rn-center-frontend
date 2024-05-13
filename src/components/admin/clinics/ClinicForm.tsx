@@ -106,7 +106,11 @@ const ClinicForm = ({
           label={t("confirm-password")}
           required={true}
         />
-        <Datepicker name={"user.birth_date"} label={t("birth-date")} required={true}/>
+        <Datepicker
+          name={"user.birth_date"}
+          label={t("birth-date")}
+          required={true}
+        />
         <Input
           name={"appointment_cost"}
           type={"number"}
@@ -125,12 +129,12 @@ const ClinicForm = ({
           required={true}
         />
         <Input
-            name={"approximate_appointment_time"}
-            type={"number"}
-            step={"any"}
-            placeholder={"Doctor Approximate Appointment Time Are ?"}
-            label={"Approximate Appointment Time"}
-            required={true}
+          name={"approximate_appointment_time"}
+          type={"number"}
+          step={"any"}
+          placeholder={"Doctor Approximate Appointment Time Are ?"}
+          label={"Approximate Appointment Time"}
+          required={true}
         />
       </Grid>
 
@@ -144,9 +148,7 @@ const ClinicForm = ({
 
       <Grid>
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>
-            Status:
-          </label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
           <Input
             name={"status"}
             label={t("active")}
@@ -168,9 +170,7 @@ const ClinicForm = ({
         </div>
 
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>
-            Gender:
-          </label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
           <Input
             name={"user.gender"}
             label={t("male")}

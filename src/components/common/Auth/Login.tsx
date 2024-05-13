@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
@@ -8,15 +8,14 @@ import { Navigate } from "@/Actions/navigate";
 import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
-import { swal } from "@/Helpers/UIHelpers";
 
 const Login = ({ url, pageType }: { url: string; pageType: string }) => {
-  const [error,setError] = useState(false)
+  const [error, setError] = useState(false);
   const handleSubmit = (data: { email: string; password: string }) => {
-    setError(false)
+    setError(false);
     return POST<AuthResponse>(url, data).then((res: any) => {
       if (res.code == 401) {
-        setError(true)
+        setError(true);
         return res;
       } else {
         return res;
@@ -58,10 +57,14 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
             />
           </div>
 
-            {error?(
-                <p className='my-3 p-2 w-full text-error text-sm'>The email or password is incorrect. Try again or click Forgot Password.</p>
-            ):false}
-
+          {error ? (
+            <p className="my-3 p-2 w-full text-error text-sm">
+              The email or password is incorrect. Try again or click Forgot
+              Password.
+            </p>
+          ) : (
+            false
+          )}
 
           <div className="flex justify-center opacity-80 mt-4">
             <h4> Forget Password ? </h4>

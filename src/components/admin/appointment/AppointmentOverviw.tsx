@@ -46,15 +46,15 @@ const AppointmentOverview = ({
             Logs
           </Tab>
           <Tab
-              className={({ selected }) =>
-                  classNames(
-                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                      selected
-                          ? "bg-white text-blue-400 shadow"
-                          : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
-                  )
-              }
+            className={({ selected }) =>
+              classNames(
+                "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                selected
+                  ? "bg-white text-blue-400 shadow"
+                  : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
+              )
+            }
           >
             Prescriptions
           </Tab>

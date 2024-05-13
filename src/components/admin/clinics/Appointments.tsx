@@ -10,9 +10,13 @@ import { translate } from "@/Helpers/Translations";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
-import AppointmentStatuses from "@/enm/Status";
+import AppointmentStatuses, {
+  AppointmentStatusEnum,
+} from "@/enm/AppointmentStatus";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
+
 const statusData = AppointmentStatuses();
-const typeData = ["online", "manual","all"];
+const typeData = ["online", "manual", "all"];
 
 const Appointments = ({ clinicId }: { clinicId: number }) => {
   const tableData: DataTableData<Appointment> = {
@@ -36,11 +40,6 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       {
         name: "appointment_sequence",
         label: "Sequence",
-          render: (data) => (
-              <p >
-                  <span>{data.toLocaleString()}</span>
-              </p>
-          ),
       },
       {
         name: "date",
@@ -51,19 +50,19 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         name: "status",
         label: "Status",
         render: (data) =>
-            data == "checkout" ? (
-                <span className={`badge badge-neutral`}>Checkout</span>
-            ) : data == "cancelled" ? (
-                <span className={`badge badge-warning`}>Cancelled</span>
-            ) : data == "pending" ? (
-                <span className={`badge badge-primary`}>Pending</span>
-            ) : data == "checkin" ? (
-                <span className={`badge badge-success`}>Checkin</span>
-            ) : data == "booked" ?(
-                <span className={`badge badge-error`}>Booked</span>
-            ): (
-                <span className={`badge badge-info`}>Completed</span>
-            ),
+          data == AppointmentStatusEnum.CHECKOUT ? (
+            <span className={`badge badge-neutral`}>Checkout</span>
+          ) : data == AppointmentStatusEnum.CANCELLED ? (
+            <span className={`badge badge-warning`}>Cancelled</span>
+          ) : data == AppointmentStatusEnum.PENDING ? (
+            <span className={`badge badge-primary`}>Pending</span>
+          ) : data == AppointmentStatusEnum.CHECKIN ? (
+            <span className={`badge badge-success`}>Checkin</span>
+          ) : data == AppointmentStatusEnum.BOOKED ? (
+            <span className={`badge badge-error`}>Booked</span>
+          ) : (
+            <span className={`badge badge-info`}>Completed</span>
+          ),
         sortable: true,
       },
       {
@@ -83,12 +82,14 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show","logs"]}
+            buttons={["edit", "delete", "show"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <AppointmentLogModal appointmentId={data?.id} />
+          </ActionsButtons>
         ),
       },
     ],
@@ -110,8 +111,8 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
           <label className={"label"}>
             Status :
             <SelectFilter
-              data={statusData}
-              selected={params.status ?? "pending"}
+              data={[...statusData, "all"]}
+              selected={params.status ?? AppointmentStatusEnum.PENDING}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}

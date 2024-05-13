@@ -1,10 +1,11 @@
 import React from "react";
-import { Appointment, AppointmentLogs } from "@/Models/Appointment";
+import { Appointment } from "@/Models/Appointment";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { useQuery } from "@tanstack/react-query";
 import Eye from "@/components/icons/Eye";
 import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
+import { AppointmentLogs } from "@/Models/AppointmentLog";
 
 const AppointmentLogs = ({
   appointment,

@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
-import {GET, POST} from "@/Http/Http";
+import { GET, POST } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
 
 export class AppointmentService extends BaseService<Appointment> {
@@ -16,15 +16,16 @@ export class AppointmentService extends BaseService<Appointment> {
       `${this.actor}/clinics/${clinicId}/available-times`,
     );
   }
-    public async setToggleStatus(
-        appointmentId: number,
-        data:{status:string,cancellation_reason?:string},
-    ): Promise<ApiResponse<Appointment>> {
-        return await POST<Appointment>(
-            `${this.actor}/appointments/${appointmentId}/toggle-status`,data
-        );
-    }
 
+  public async toggleStatus(
+    appointmentId: number,
+    data: { status: string; cancellation_reason?: string },
+  ): Promise<ApiResponse<Appointment>> {
+    return await POST<Appointment>(
+      `${this.actor}/appointments/${appointmentId}/toggle-status`,
+      data,
+    );
+  }
 
   public async getClinicAppointments(
     clinicId: number,

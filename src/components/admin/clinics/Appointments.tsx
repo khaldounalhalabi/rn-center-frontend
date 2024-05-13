@@ -13,6 +13,7 @@ import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enm/AppointmentStatus";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
@@ -81,12 +82,14 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show", "logs"]}
+            buttons={["edit", "delete", "show"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <AppointmentLogModal appointmentId={data?.id} />
+          </ActionsButtons>
         ),
       },
     ],

@@ -131,7 +131,7 @@ const Page = () => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show", "logs"]}
+            buttons={["edit", "delete", "show"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}

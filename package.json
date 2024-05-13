@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node app.js",
-    "lint": "next lint",
-    "serve-json": "json-server --watch db.json --port 4000"
+    "lint": "next lint"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.5",

@@ -71,7 +71,7 @@ const Page = async ({
       <PageCard>
         <h2 className="card-title">Medicines</h2>
         {medicines.map((e, index) => (
-          <div>
+          <div key={index}>
             <Grid md={2} gap={5} key={index}>
               <label className="label">
                 {"Medicine Name :"}

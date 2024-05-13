@@ -74,6 +74,9 @@ const Sidebar = ({
             <SidebarItem link={"/admin/medicines"}>
               Medicines
             </SidebarItem>
+            <SidebarItem link={"/admin/user"}>
+              Users
+            </SidebarItem>
           </div>
         </ul>
       </div>

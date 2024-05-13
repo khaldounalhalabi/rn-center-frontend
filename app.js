@@ -50,5 +50,6 @@ app.prepare().then(() => {
 
     .listen(port, () => {
       console.log(`> Ready on https://${hostname}:${port}`);
+      console.log(`> App Environment : ${process.env.NODE_ENV}`);
     });
 });

@@ -46,7 +46,7 @@ const ImageUploader = ({
                 : "";
             }
           }}
-          acceptedFileTypes={["image/*"]}
+          acceptedFileTypes={["image/jpeg", "image/png", "image/jpg"]}
           labelIdle={"Drag Or Click To Add Image"}
           storeAsFile={true}
           allowMultiple={isMultiple}

@@ -1,102 +1,74 @@
 export const cities = [
   {
     id: 1,
-    name: '{"en":"Baghdad","ar":"بغداد"}',
-  },
-  {
-    id: 2,
-    name: '{"en":"Basra","ar":"البصرة"}',
-  },
-  {
-    id: 3,
-    name: '{"en":"Mosul","ar":"الموصل"}',
-  },
-  {
-    id: 4,
-    name: '{"en":"Erbil","ar":"أربيل"}',
-  },
-  {
-    id: 5,
-    name: '{"en":"Karbala","ar":"كربلاء"}',
-  },
-  {
-    id: 6,
     name: '{"en":"Najaf","ar":"النجف"}',
   },
   {
-    id: 7,
-    name: '{"en":"Kirkuk","ar":"كركوك"}',
+    id: 2,
+    name: '{"en":"Karbala","ar":"كربلاء"}',
   },
   {
-    id: 8,
-    name: '{"en":"Dohuk","ar":"دهوك"}',
+    id: 3,
+    name: '{"en":"Basra","ar":"البصرة"}',
   },
   {
-    id: 9,
-    name: '{"en":"Maysan","ar":"ميسان"}',
-  },
-  {
-    id: 10,
+    id: 4,
     name: '{"en":"Muthanna","ar":"المثنى"}',
   },
   {
-    id: 11,
+    id: 5,
+    name: '{"en":"Qadisiyah","ar":"القادسية"}',
+  },
+  {
+    id: 6,
+    name: '{"en":"Dhi-Qar","ar":"ذي قار"}',
+  },
+  {
+    id: 7,
+    name: '{"en":"Maysan","ar":"ميسان"}',
+  },
+  {
+    id: 8,
     name: '{"en":"Wasit","ar":"واسط"}',
   },
   {
-    id: 12,
-    name: '{"en":"Diyala","ar":"ديالى"}',
+    id: 9,
+    name: '{"en":"Salah al-Din","ar":"صلاح الدين"}',
   },
   {
-    id: 13,
-    name: '{"en":"Saladin","ar":"صلاح الدين"}',
-  },
-  {
-    id: 14,
-    name: '{"en":"Al-Qadisiyyah","ar":"القادسية"}',
-  },
-  {
-    id: 15,
-    name: '{"en":"Anbar","ar":"الأنبار"}',
-  },
-  {
-    id: 16,
-    name: '{"en":"Kerbala","ar":"كربلاء"}',
-  },
-  {
-    id: 17,
+    id: 10,
     name: '{"en":"Sulaymaniyah","ar":"السليمانية"}',
   },
   {
-    id: 18,
-    name: '{"en":"Nineveh","ar":"نينوى"}',
+    id: 11,
+    name: '{"en":"Diyala","ar":"ديالى"}',
   },
   {
-    id: 19,
-    name: '{"en":"Dhi Qar","ar":"ذي قار"}',
-  },
-  {
-    id: 20,
+    id: 12,
     name: '{"en":"Babil","ar":"بابل"}',
   },
   {
-    id: 21,
-    name: '{"en":"Thi-Qar","ar":"ذي قار"}',
+    id: 13,
+    name: '{"en":"Baghdad","ar":"بغداد"}',
   },
   {
-    id: 22,
-    name: '{"en":"Al-Sulaymaniyah","ar":"السليمانية"}',
+    id: 14,
+    name: '{"en":"Anbar","ar":"الأنبار"}',
   },
   {
-    id: 23,
-    name: '{"en":"Al-Muthanna","ar":"المثنى"}',
+    id: 15,
+    name: '{"en":"Arbil","ar":"أربيل"}',
   },
   {
-    id: 24,
-    name: '{"en":"Al-Diwaniyah","ar":"الديوانية"}',
+    id: 16,
+    name: '{"en":"Kirkuk","ar":"كركوك"}',
   },
   {
-    id: 25,
-    name: '{"en":"Halabja","ar":"حلبجة"}',
+    id: 17,
+    name: '{"en":"Duhok","ar":"دهوك"}',
+  },
+  {
+    id: 18,
+    name: '{"en":"Mosul","ar":"الموصل"}',
   },
 ];

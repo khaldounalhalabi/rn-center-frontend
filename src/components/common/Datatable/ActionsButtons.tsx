@@ -6,8 +6,7 @@ import React, { Fragment, useState } from "react";
 import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
-import { AppointmentLogs } from "@/Models/Appointment";
-
+import {AppointmentLogs} from "@/Models/AppointmentLog";
 type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
 export interface ActionsButtonsProps<T> {

@@ -230,7 +230,7 @@ function ApiSelect<TResponse, TData>({
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelected([]);
-                  onClear?onClear():false
+                  onClear ? onClear() : "";
                 }}
               />
             ) : (

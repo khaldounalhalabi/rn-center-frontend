@@ -32,11 +32,11 @@ const weeKDays: (keyof SchedulesCollection)[] = [
 const ClinicScheduleForm = ({
   method,
   defaultValues,
-                                schedules_Id,
+  clinic_id,
 }: {
   method: "store" | "update";
   defaultValues?: SchedulesCollection;
-    schedules_Id?: number;
+  clinic_id?: number;
 }) => {
   const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
@@ -158,7 +158,7 @@ const ClinicScheduleForm = ({
       [toDay]: prevSchedule[fromDay],
     }));
   };
-  console.log(defaultValues)
+
   const onSubmit = async (data: {
     clinic_id: number;
     schedules?: { start_time: string; end_time: string; day_of_week: string }[];
@@ -180,10 +180,7 @@ const ClinicScheduleForm = ({
       );
     });
 
-    return await ScheduleService.make<ScheduleService>().store(data).then((res)=>{
-        console.log(res)
-        return res
-    })
+    return await ScheduleService.make<ScheduleService>().store(data);
   };
   const t = useTranslations("admin.schedules.create");
   return (
@@ -227,10 +224,9 @@ const ClinicScheduleForm = ({
               required={true}
               name={"clinic_id"}
               type={"number"}
-              defaultValue={schedules_Id ?? ""}
+              defaultValue={clinic_id ?? ""}
               className={"hidden"}
             />
-
           )}
 
         </Grid>

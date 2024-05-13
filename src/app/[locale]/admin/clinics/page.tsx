@@ -77,17 +77,18 @@ const Page = () => {
       },
       {
         name: "approximate_appointment_time",
-        label: `Approximate Appointment Time (min)`,
+        label: `Approximate Appointment Time`,
         render:(_undefined, clinic, setHidden, revalidate)=>{
           return (
               <span className='badge-neutral badge'>{clinic?.approximate_appointment_time} min</span>
           )
-        }
+        },
+        sortable:true,
       },
       {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
-        render:(_undefined, clinic, setHidden, revalidate)=>{
+        render:(_undefined, clinic)=>{
           return (
               <span>{clinic?.total_appointments.toLocaleString()}</span>
           )

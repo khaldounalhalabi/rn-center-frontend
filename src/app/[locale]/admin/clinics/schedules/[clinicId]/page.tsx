@@ -1,6 +1,5 @@
 import React from "react";
 import { ScheduleService } from "@/services/ScheduleService";
-import { ApiResponse } from "@/Http/Response";
 import ScheduleForm from "@/components/admin/schedule/ScheduleForm";
 
 const Page = async ({
@@ -8,14 +7,17 @@ const Page = async ({
 }: {
   params: { clinicId: number };
 }) => {
-  const schedules: ApiResponse<any> =
+  const data =
     await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
+
+  const {appointment_gap , ...schedules} = data.data;
 
   return (
     <ScheduleForm
-      defaultValues={schedules.data}
+      defaultValues={schedules}
       method={"update"}
       clinic_id={clinicId}
+      appointment_gap={appointment_gap}
     />
   );
 };

@@ -143,12 +143,12 @@ const ClinicScheduleForm = ({
     day: WeekDay,
     index: number,
     time: string,
-    timeType: "start_time" | "end_time",
+    timeType: "start_time" | "end_time"
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].map((timeRange, i) =>
-        i === index ? { ...timeRange, [timeType]: time } : timeRange,
+        i === index ? { ...timeRange, [timeType]: time } : timeRange
       ),
     }));
   };
@@ -177,7 +177,7 @@ const ClinicScheduleForm = ({
             end_time: item.end_time,
             day_of_week: value[0] as string,
           });
-        },
+        }
       );
     });
 
@@ -186,17 +186,14 @@ const ClinicScheduleForm = ({
   const t = useTranslations("admin.schedules.create");
   return (
     <PageCard>
-      <div className="card-title">
-        <h1></h1>
-      </div>
       <Form
         handleSubmit={onSubmit}
         onSuccess={(res) => {
           Navigate(`/admin/clinics/schedules`);
         }}
       >
-        <Grid md={2} className={"mb-5"}>
-          {method == "store" ? (
+        <Grid md={2}>
+          {method == "store" && (
             <ApiSelect
               placeHolder={"Select Clinic Name ..."}
               required={true}
@@ -204,20 +201,12 @@ const ClinicScheduleForm = ({
               api={(page, search) =>
                 ClinicService.make<ClinicService>().indexWithPagination(
                   page,
-                  search,
+                  search
                 )
               }
               label={t("clinicName")}
               optionValue={"id"}
               getOptionLabel={(data: Clinic) => translate(data.name)}
-            />
-          ) : (
-            <Input
-              required={true}
-              name={"clinic_id"}
-              type={"number"}
-              defaultValue={clinic_id ?? ""}
-              className={"hidden"}
             />
           )}
 
@@ -229,6 +218,17 @@ const ClinicScheduleForm = ({
             placeholder={"appointment gap ..."}
             defaultValue={appointment_gap ?? undefined}
           />
+
+          {method == "update" && (
+            <Input
+              required={true}
+              name={"clinic_id"}
+              type={"number"}
+              defaultValue={clinic_id ?? ""}
+              className={"hidden"}
+              hidden={true}
+            />
+          )}
         </Grid>
         {weeKDays.map((day) => (
           <div
@@ -247,7 +247,7 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "start_time",
+                        "start_time"
                       )
                     }
                   />
@@ -259,13 +259,13 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "end_time",
+                        "end_time"
                       )
                     }
                     shouldDisableTime={(time) => {
                       return time.isSameOrBefore(
                         dayjs(schedule?.[day]?.[index]?.start_time, "HH:mm"),
-                        "minutes",
+                        "minutes"
                       );
                     }}
                   />

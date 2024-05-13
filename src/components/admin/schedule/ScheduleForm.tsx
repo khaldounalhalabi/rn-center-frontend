@@ -173,8 +173,8 @@ const ClinicScheduleForm = ({
           day_of_week: string;
         }) => {
           data.schedules?.push({
-            start_time: item.start_time,
-            end_time: item.end_time,
+            start_time: dayjs(item.start_time, "HH:mm").format("HH:mm"),
+            end_time: dayjs(item.end_time, "HH:mm").format("HH:mm"),
             day_of_week: value[0] as string,
           });
         }

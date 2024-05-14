@@ -7,7 +7,6 @@ import { Prescription } from "@/Models/Prescriptions";
 
 const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
   const SelectDate = ["day", "week", "yar"];
-  const { setValue } = useFormContext();
   return (
     <>
       <h2 className="card-title">Test</h2>
@@ -32,13 +31,9 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
           label={"Date :"}
           ArraySelect={SelectDate}
           name={"visit"}
-          setValue={setValue}
-          handleSelect={(select: string, id: number) => {
-            setValue("visit", select);
-          }}
         />
       </div>
     </>
   );
 };
-export default TestForm
+export default TestForm;

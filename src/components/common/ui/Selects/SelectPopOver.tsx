@@ -4,28 +4,32 @@ import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { AppointmentStatusEnum } from "@/enm/AppointmentStatus";
+import { useFormContext } from "react-hook-form";
 
 export default function SelectPopOver({
   id,
+  required = false,
+
   status,
   ArraySelect,
-  handleSelect,
+  handleSelect = undefined,
   label,
   name,
-  setValue = undefined,
 }: {
+  required: boolean;
+
   id: number | undefined;
   status: string | undefined;
   ArraySelect: string[];
-  handleSelect: any;
+  handleSelect?: any;
   label?: string;
   name?: string;
-  setValue?: any;
 }) {
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
 
-  if (setValue) {
+  if (name) {
+    const { setValue } = useFormContext();
     setValue(name, selected);
   }
 
@@ -54,7 +58,14 @@ export default function SelectPopOver({
 
   return (
     <div className=" w-full">
-      {label ? <label className="label">{label}</label> : false}
+      {label ? (
+        <label className="label w-fit">
+          {label}
+          {required ? <span className="ml-1 text-red-600">*</span> : false}
+        </label>
+      ) : (
+        false
+      )}
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mb-1">
           <Listbox.Button className="relative input input-bordered cursor-pointer w-full  rounded-lg bg-white  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">

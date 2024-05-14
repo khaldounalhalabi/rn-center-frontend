@@ -19,8 +19,9 @@ export interface User {
   image?: Media[];
   phones: Phone[];
   address: Address;
-  password?:string,
-  password_confirmation?:string
+  password?: string;
+  password_confirmation?: string;
+  role?: string;
 }
 
 export interface AuthResponse {

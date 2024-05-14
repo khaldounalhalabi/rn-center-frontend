@@ -34,6 +34,11 @@ const Page = () => {
         },
       },
       {
+        name: "email",
+        label: `Email`,
+        sortable: true,
+      },
+      {
         name: "age",
         label: `Age`,
         sortable: true,
@@ -46,9 +51,9 @@ const Page = () => {
           return (
             <div className={`flex flex-col items-start`}>
               {user?.is_blocked ? (
-                <span className='badge badge-warning'>Blocked</span>
+                <span className="badge badge-error">Blocked</span>
               ) : (
-                <span className='badge badge-primary'>Not Blocked</span>
+                <span className="badge badge-success">Not Blocked</span>
               )}
             </div>
           );
@@ -57,16 +62,16 @@ const Page = () => {
       {
         name: "is_archived",
         sortable: true,
-        label: "is blocked",
+        label: "is Archived",
         render: (_is_archived, user) => {
           return (
-              <div className={`flex flex-col items-start`}>
-                {user?.is_archived ? (
-                    <span className='badge badge-warning'>Archived</span>
-                ) : (
-                    <span className='badge badge-info'>Not Archived</span>
-                )}
-              </div>
+            <div className={`flex flex-col items-start`}>
+              {user?.is_archived ? (
+                <span className="badge badge-neutral">Archived</span>
+              ) : (
+                <span className="badge badge-warning">Not Archived</span>
+              )}
+            </div>
           );
         },
       },

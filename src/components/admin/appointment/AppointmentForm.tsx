@@ -248,15 +248,6 @@ const AppointmentForm = ({
           status={status}
           setStatus={setStatus}
         />
-        <label className="label">
-          Total Cost :
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {getServicePrice
-              ? getServicePrice + (Number(getExtra) ?? 0)
-              : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}{" "}
-            IQD
-          </span>
-        </label>
         <Datepicker
           name={"date"}
           label={"Date"}
@@ -290,6 +281,7 @@ const AppointmentForm = ({
           {getServicePrice
             ? getServicePrice + (Number(getExtra) ?? 0)
             : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}
+            IQD
         </span>
       </label>
     </Form>

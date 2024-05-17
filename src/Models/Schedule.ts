@@ -29,5 +29,5 @@ export interface SchedulesCollection {
   wednesday: Schedule[];
   thursday: Schedule[];
   friday: Schedule[];
-  appointment_gap: number;
+  appointment_gap?: number;
 }

@@ -1,7 +1,10 @@
 "use client";
 
 import firebaseApp from "@/Helpers/Firebase";
-import { NotificationPayload } from "@/Models/NotificationPayload";
+import {
+  NotificationPayload,
+  NotificationPayloadData,
+} from "@/Models/NotificationPayload";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { ReactNode, useEffect } from "react";
@@ -23,12 +26,12 @@ const NotificationHandler = ({
       const unsubscribe = onMessage(messaging, (payload) => {
         const notification = new NotificationPayload(
           payload.collapseKey,
-          payload.data,
+          payload?.data as NotificationPayloadData | undefined,
           payload.from,
-          payload.messageId
+          payload.messageId,
         );
-        console.log(notification.getNotificationType() , notification);
-        
+        console.log(notification.getNotificationType(), notification);
+
         if (handle) {
           handle(notification);
         } else {

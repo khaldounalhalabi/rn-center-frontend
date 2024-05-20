@@ -42,7 +42,7 @@ export class NotificationPayload {
   }
 }
 
-interface NotificationPayloadData {
+export interface NotificationPayloadData {
   body?: string;
   body_ar?: string;
   data?: string; // json data

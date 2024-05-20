@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
@@ -28,10 +28,8 @@ export default function SelectPopOver({
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
 
-  if (name) {
-    const { setValue } = useFormContext();
-    setValue(name, selected);
-  }
+  const context = useFormContext() ?? undefined;
+  context?.setValue(name ?? "unused_field", selected);
 
   function closeModal() {
     setIsOpen(false);

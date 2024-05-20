@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./PrimaryButton";
+import { toast } from "react-toastify";
 
 const Form = ({
   children,
@@ -25,6 +26,7 @@ const Form = ({
     const res = await handleSubmit(data);
 
     if (!res.hasValidationErrors() && res.code == 200) {
+      toast.success((res?.message as string) ?? "success");
       if (onSuccess) onSuccess(res);
     } else {
       res.fillValidationErrors(methods);

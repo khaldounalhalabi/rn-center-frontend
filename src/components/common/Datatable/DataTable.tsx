@@ -2,7 +2,11 @@
 import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
 import { Link } from "@/navigation";
@@ -28,7 +32,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -42,13 +46,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -62,10 +66,12 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
-  const [refetch, setRefetch] = useState(false);
+  const queryClient = useQueryClient();
 
   const revalidate = () => {
-    setRefetch((prevState) => !prevState);
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
+    });
   };
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
@@ -77,7 +83,6 @@ const DataTable = (tableData: DataTableData<any>) => {
       sortCol,
       perPage,
       params,
-      refetch,
     ],
     queryFn: async () => {
       let s = !search || search == "" ? undefined : search;

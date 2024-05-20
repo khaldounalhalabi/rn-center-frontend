@@ -14,18 +14,13 @@ import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enm/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
-import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
+import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
+import { toast } from "react-toastify";
 
 const Page = () => {
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
-  };
-  const handleSelectStatus = async (status: string, id: number) => {
-    return await AppointmentService.make<AppointmentService>(
-      "admin",
-    ).toggleStatus(id, {
-      status: status,
-    });
+    toast.success("Link Has Been Copied Successfully");
   };
 
   const statusData = AppointmentStatuses();
@@ -89,13 +84,11 @@ const Page = () => {
       {
         name: "status",
         label: "Status",
-        render: (_status, appointment) => {
+        render: (_status, appointment, setHidden, revalidate) => {
           return (
-            <SelectPopOver
-              id={appointment?.id}
-              status={appointment?.status}
-              ArraySelect={statusData}
-              handleSelect={handleSelectStatus}
+            <AppointmentStatusColumn
+              appointment={appointment}
+              revalidate={revalidate}
             />
           );
         },

@@ -1,5 +1,5 @@
 export interface Speciality {
-  id?: number;
+  id: number;
   name: string;
   description: string;
   tags: string;

@@ -16,10 +16,12 @@ const MedicinesForm = ({
   defaultValues = undefined,
   id,
   type = "store",
+  closeModal,
 }: {
   defaultValues?: Medicine;
   id?: number;
-  type?: "store" | "update";
+  type?: "store" | "update" | "prescription";
+  closeModal?: any;
 }) => {
   const handleSubmit = async (data: any) => {
     if (
@@ -31,18 +33,23 @@ const MedicinesForm = ({
         data,
       );
     } else {
-      return await MedicineService.make<MedicineService>("admin").store(data);
+      return await MedicineService.make<MedicineService>("admin")
+        .store(data)
+        .then((res) => {
+          if (res.code == 200) {
+            if (type == "prescription") {
+              closeModal();
+            } else {
+              Navigate(`/admin/medicines`);
+            }
+          }
+          return res;
+        });
     }
   };
-  const onSuccess = () => {
-    Navigate(`/admin/medicines`);
-  };
+
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
-      defaultValues={defaultValues}
-    >
+    <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
       <Grid md={"2"}>
         <ApiSelect
           required={true}
@@ -68,6 +75,7 @@ const MedicinesForm = ({
         />
       </Grid>
       <Textarea
+        label={"Description :"}
         name={"description"}
         defaultValue={defaultValues ? defaultValues?.description : undefined}
       />

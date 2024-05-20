@@ -33,9 +33,7 @@ const Timepicker = ({
         onChange={(val): void => {
           setValue(name, val?.format("HH:mm") ?? "");
         }}
-        defaultValue={
-          defaultValue ? dayjs(defaultValue, "HH:mm") : dayjs(new Date())
-        }
+        defaultValue={defaultValue ? dayjs(defaultValue, "HH:mm") : undefined}
         // slotProps={{ textField: { size: "small" } }}
         className={styles.datePicker}
       />

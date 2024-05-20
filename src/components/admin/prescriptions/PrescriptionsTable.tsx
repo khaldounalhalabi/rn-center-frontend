@@ -62,6 +62,14 @@ const PrescriptionsTable = ({
       {
         name: "next_visit",
         label: "Next Visit",
+        render: (_next_visit, prescriptions) => {
+          const Next = prescriptions?.next_visit;
+          return (
+            <p>
+              {Next?.replace(/\D/g, "")} {Next?.replace(/\d/g, "")}
+            </p>
+          );
+        },
       },
       {
         label: `Actions`,

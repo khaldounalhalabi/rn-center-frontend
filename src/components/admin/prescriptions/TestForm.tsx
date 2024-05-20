@@ -19,6 +19,7 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
             type={"number"}
             label={"Next Visit:"}
             name={"next"}
+            step={"any"}
             defaultValue={
               defaultValue?.next_visit?.replace(/\D/g, "") ?? undefined
             }

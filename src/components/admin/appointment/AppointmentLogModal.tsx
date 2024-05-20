@@ -10,7 +10,6 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
   const [openLogs, setOpenLogs] = useState(false);
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
-
   return (
     <div className="btn btn-sm btn-square">
       <LogsIcon
@@ -71,6 +70,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                             <th>status</th>
                             <th>Happen In</th>
                             <th>Actor</th>
+                            <th>Event</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -84,6 +84,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                                 {translate(e.actor?.middle_name)}{" "}
                                 {translate(e.actor?.last_name)}
                               </td>
+                              <td>{e?.event}</td>
                             </tr>
                           ))}
                         </tbody>

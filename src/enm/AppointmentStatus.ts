@@ -1,10 +1,9 @@
 export enum AppointmentStatusEnum {
-  CHECKIN = "checkin",
-  BOOKED = "booked",
-  CANCELLED = "cancelled",
   PENDING = "pending",
+  BOOKED = "booked",
+  CHECKIN = "checkin",
   CHECKOUT = "checkout",
-  COMPLETED = "completed",
+  CANCELLED = "cancelled",
   ALL = "all",
 }
 

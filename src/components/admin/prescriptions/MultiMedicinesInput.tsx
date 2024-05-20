@@ -9,8 +9,6 @@ import { useFormContext } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { MedicineData } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
-import { Dialog, Transition } from "@headlessui/react";
-import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
 
 const MultiMedicinesInput = ({
   defaultValues,
@@ -19,10 +17,14 @@ const MultiMedicinesInput = ({
   defaultValues?: MedicineData[];
   type: string;
 }) => {
+  const dataDefault = Array.isArray(defaultValues)
+    ? defaultValues?.map(({ id, prescription_id, medicine, ...rest }) => rest)
+    : [];
+
   const { setValue } = useFormContext();
   const [medicines, setMedicines] = useState<MedicineData[]>(
     Array.isArray(defaultValues)
-      ? defaultValues
+      ? dataDefault
       : [
           {
             medicine_id: 0,
@@ -34,6 +36,7 @@ const MultiMedicinesInput = ({
           },
         ],
   );
+  console.log(medicines);
 
   const addMedicine = () => {
     const newMedicine = {
@@ -83,60 +86,9 @@ const MultiMedicinesInput = ({
     "Three Time a Day",
     "4 Time a Day",
   ];
-  let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   return (
     <div>
-      <div className="flex flex-row justify-between my-4">
-        <h2 className="card-title">Medicines</h2>
-        <button className="btn btn-info" onClick={openModal}>
-          New Medicines
-        </button>
-        <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black/25" />
-            </Transition.Child>
-
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex justify-center items-center p-4 min-h-full text-center">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
-                >
-                  <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
-                    <div className="p-4">
-                      <h2 className="card-title">New Medicine</h2>
-                      <MedicinesForm />
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
-            </div>
-          </Dialog>
-        </Transition>
-      </div>
       <div className="text-end">
         <button
           type={"button"}
@@ -191,8 +143,8 @@ const MultiMedicinesInput = ({
                   }
                   placeholder={"dosage..."}
                   defaultValue={
-                    medicines[index].dosage
-                      ? medicines[index].dosage
+                    medicines?.[index].dosage
+                      ? medicines?.[index].dosage
                       : undefined
                   }
                 />
@@ -201,8 +153,8 @@ const MultiMedicinesInput = ({
                 id={1}
                 label={"Duration"}
                 status={
-                  medicines[index].duration
-                    ? medicines[index].duration
+                  medicines?.[index].duration
+                    ? medicines?.[index].duration
                     : "one day only"
                 }
                 ArraySelect={duration}
@@ -211,27 +163,29 @@ const MultiMedicinesInput = ({
                 }}
               />
               <SelectPopOver
-                id={1}
+                id={2}
                 label={"Time"}
                 status={
-                  medicines[index].time ? medicines[index].time : "After Meal"
+                  medicines?.[index].time
+                    ? medicines?.[index].time
+                    : "After Meal"
                 }
                 ArraySelect={time}
                 handleSelect={(select: string, id: number) => {
-                  handleInputChange(index, select, "duration");
+                  handleInputChange(index, select, "time");
                 }}
               />
               <SelectPopOver
-                id={1}
+                id={3}
                 label={"Dose Interval"}
                 status={
-                  medicines[index].dose_interval
-                    ? medicines[index].dose_interval
+                  medicines?.[index].dose_interval
+                    ? medicines?.[index].dose_interval
                     : "Every Morning"
                 }
                 ArraySelect={doseInterval}
                 handleSelect={(select: string, id: number) => {
-                  handleInputChange(index, select, "duration");
+                  handleInputChange(index, select, "dose_interval");
                 }}
               />
             </div>
@@ -245,24 +199,24 @@ const MultiMedicinesInput = ({
                     handleInputChange(index, e.target.value, "comment");
                   }}
                   defaultValue={
-                    medicines[index].comment
-                      ? medicines[index].comment
+                    medicines?.[index].comment
+                      ? medicines?.[index].comment
                       : undefined
                   }
                 />
               </div>
               <Trash
                 onClick={async () => {
-                  deleteMedicine(index);
                   if (type == "update") {
                     const id = Array.isArray(defaultValues)
-                      ? defaultValues[index]?.id
+                      ? defaultValues?.[index]?.id
                       : 0;
                     return await PrescriptionService.make<PrescriptionService>(
                       "admin",
                     )
                       .deleteMedicine(id ?? 0)
                       .then(() => {
+                        deleteMedicine(index);
                         setPending(true);
                         startTransition(router.refresh);
                         setPending(false);

@@ -12,6 +12,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
 import { cities } from "@/constants/Cities";
 import { useTranslations } from "next-intl";
+import ArchiveButton from "@/components/common/ArchiveButton";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -102,46 +103,13 @@ const Page = () => {
             buttons={["edit", "show"]}
             baseUrl={`/admin/clinics`}
           >
-            <button className="btn btn-sm btn-square">
-              <ArchiveIcon
-                className="w-6 h-6 text-warning"
-                onClick={() => {
-                  swal
-                    .fire({
-                      title: clinic?.user?.is_archived
-                        ? "Do You Want To Un-Archive This Doctor ?"
-                        : "Do you want to archive this item ?",
-                      showDenyButton: true,
-                      showCancelButton: true,
-                      confirmButtonText: "Yes",
-                      denyButtonText: `No`,
-                      confirmButtonColor: "#007BFF",
-                    })
-                    .then((result) => {
-                      if (result.isConfirmed) {
-                        if (clinic?.user) {
-                          UserService.make<UserService>()
-                            .toggleArchive(clinic?.user_id)
-                            .then((res) => {
-                              swal.fire({
-                                title:
-                                  res.data == "archived"
-                                    ? "Archived!"
-                                    : "Un-Archived !",
-                                confirmButtonColor: "#007BFF",
-                                icon: "success",
-                              });
-                              if (revalidate) revalidate();
-                            })
-                            .catch((e) => {
-                              swal.fire("There Is Been An Error", "", "error");
-                            });
-                        }
-                      }
-                    });
-                }}
-              />
-            </button>
+            <ArchiveButton
+              data={clinic}
+              id={clinic?.user_id}
+              api={UserService}
+              revalidate={revalidate}
+              user={"admin"}
+            />
           </ActionsButtons>
         ),
       },

@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Roles from "@/enm/Role";
 import { useFormContext } from "react-hook-form";
+import Gallery from "@/components/common/ui/Gallery";
 
 const UserForm = ({
   defaultValues = undefined,
@@ -54,7 +55,7 @@ const UserForm = ({
     }
   };
   const onSuccess = () => {
-    // Navigate(`/admin/user`);
+    Navigate(`/admin/user`);
   };
   return (
     <Form
@@ -187,6 +188,22 @@ const UserForm = ({
           }}
         />
       </Grid>
+      {type == "update" ? (
+        <div className={"col-span-2"}>
+          {defaultValues?.image?.length != 0 ? (
+            <Gallery
+              media={defaultValues?.image ? defaultValues?.image : [""]}
+            />
+          ) : (
+            <div className="flex items-center">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
+          )}
+        </div>
+      ) : (
+        ""
+      )}
       <ImageUploader name={"image"} />
     </Form>
   );

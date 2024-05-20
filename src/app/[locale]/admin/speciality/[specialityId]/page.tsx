@@ -4,8 +4,9 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
-import { AddSpeciality } from "@/Models/Speciality";
+import { Speciality } from "@/Models/Speciality";
 import { getTranslations } from "next-intl/server";
+import Gallery from "@/components/common/ui/Gallery";
 
 const page = async ({
   params: { specialityId },
@@ -15,7 +16,7 @@ const page = async ({
   const t = await getTranslations("admin.speciality.show");
   const data =
     await SpecialityService.make<SpecialityService>().show(specialityId);
-  const res: AddSpeciality = data?.data;
+  const res: Speciality = data?.data;
   const tagsArray = res?.tags.split(",");
   return (
     <PageCard>
@@ -63,6 +64,16 @@ const page = async ({
             className="textarea-bordered w-full text-lg textarea"
             readOnly={true}
           />
+        </div>
+        <div className={"w-full"}>
+          {res?.image?.length != 0 ? (
+            <Gallery media={res?.image ? res?.image : [""]} />
+          ) : (
+            <div className="flex justify-between items-center">
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            </div>
+          )}
         </div>
       </div>
     </PageCard>

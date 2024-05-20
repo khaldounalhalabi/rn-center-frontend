@@ -143,12 +143,12 @@ const ClinicScheduleForm = ({
     day: WeekDay,
     index: number,
     time: string,
-    timeType: "start_time" | "end_time"
+    timeType: "start_time" | "end_time",
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].map((timeRange, i) =>
-        i === index ? { ...timeRange, [timeType]: time } : timeRange
+        i === index ? { ...timeRange, [timeType]: time } : timeRange,
       ),
     }));
   };
@@ -177,7 +177,7 @@ const ClinicScheduleForm = ({
             end_time: dayjs(item.end_time, "HH:mm").format("HH:mm"),
             day_of_week: value[0] as string,
           });
-        }
+        },
       );
     });
 
@@ -201,7 +201,7 @@ const ClinicScheduleForm = ({
               api={(page, search) =>
                 ClinicService.make<ClinicService>().indexWithPagination(
                   page,
-                  search
+                  search,
                 )
               }
               label={t("clinicName")}
@@ -214,6 +214,7 @@ const ClinicScheduleForm = ({
             required={true}
             name={"appointment_gap"}
             type={"number"}
+            unit={"min"}
             label={"Appointment Gap"}
             placeholder={"appointment gap ..."}
             defaultValue={appointment_gap ?? undefined}
@@ -247,7 +248,7 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "start_time"
+                        "start_time",
                       )
                     }
                   />
@@ -259,13 +260,13 @@ const ClinicScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "end_time"
+                        "end_time",
                       )
                     }
                     shouldDisableTime={(time) => {
                       return time.isSameOrBefore(
                         dayjs(schedule?.[day]?.[index]?.start_time, "HH:mm"),
-                        "minutes"
+                        "minutes",
                       );
                     }}
                   />

@@ -12,4 +12,5 @@ export interface AppointmentLogs {
   affected?: User;
   created_at: string;
   updated_at: string;
+  event?: string;
 }

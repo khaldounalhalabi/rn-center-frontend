@@ -7,6 +7,9 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { UsersService } from "@/services/UsersService";
 import { User } from "@/Models/User";
 import { translate } from "@/Helpers/Translations";
+import ArchiveButton from "@/components/common/ArchiveButton";
+import { AppointmentService } from "@/services/AppointmentService";
+import BlockButton from "@/components/common/BlockButton";
 
 const Page = () => {
   const tableData: DataTableData<User> = {
@@ -21,7 +24,7 @@ const Page = () => {
       {
         name: "first_name",
         sortable: true,
-        label: "Name",
+        label: "User Name",
         render: (_first_name, user) => {
           return (
             <div className={`flex flex-col items-start`}>
@@ -77,7 +80,7 @@ const Page = () => {
       },
       {
         label: `Actions`,
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
@@ -85,7 +88,24 @@ const Page = () => {
             editUrl={`/admin/user/${data?.id}/edit`}
             showUrl={`/admin/user/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <>
+              <ArchiveButton
+                data={data}
+                id={data?.id}
+                api={UsersService}
+                revalidate={revalidate}
+                user={"admin"}
+              />
+              <BlockButton
+                data={data}
+                id={data?.id}
+                api={UsersService}
+                revalidate={revalidate}
+                user={"admin"}
+              />
+            </>
+          </ActionsButtons>
         ),
       },
     ],

@@ -1,5 +1,5 @@
 import Grid from "@/components/common/ui/Grid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export interface Stringify {
@@ -19,40 +19,57 @@ export interface Stringify {
   temperature: string;
 }
 
+const defaultStringify: Stringify = {
+  blood: "",
+  food: "",
+  tendency: "",
+  heart: "",
+  diabetic: "",
+  medical: "",
+  female: "",
+  breast: "",
+  current: "",
+  surgery: "",
+  accident: "",
+  others: "",
+  pulse: "",
+  temperature: "",
+};
+
 const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
-  const defaultStringify = defaultValue ? JSON.parse(defaultValue) : "";
+  const initialStringify = defaultValue
+    ? JSON.parse(defaultValue)
+    : defaultStringify;
 
   const { setValue } = useFormContext();
+  const [value, setValueStringify] = useState<Stringify>(initialStringify);
 
-  const [value, setValueStringify] = useState<Stringify>(
-    defaultStringify
-      ? defaultStringify
-      : {
-          blood: "",
-          food: "",
-          tendency: "",
-          heart: "",
-          diabetic: "",
-          medical: "",
-          female: "",
-          breast: "",
-          current: "",
-          surgery: "",
-          accident: "",
-          others: "",
-          pulse: "",
-          temperature: "",
-        },
-  );
+  useEffect(() => {
+    const stringifyValue = JSON.stringify(value);
+    setValue("physical_information", stringifyValue);
+  }, [value, setValue]);
+
   const handleInputChange = (
     valueInput: string | number | undefined,
     name: string,
   ) => {
-    const newValue = { ...value, [name]: valueInput };
-    setValueStringify(newValue);
-    const stringifyValue = JSON.stringify(value);
-    setValue("physical_information", stringifyValue);
+    setValueStringify((prevValue) => ({ ...prevValue, [name]: valueInput }));
   };
+
+  const renderInputField = (label: string, name: keyof Stringify) => (
+    <div className={`flex flex-col items-start w-full`}>
+      <label className={"label"}>{label}:</label>
+      <input
+        step={"any"}
+        className={`input input-bordered w-full focus:outline-pom focus:border-pom`}
+        placeholder={"..."}
+        type="text"
+        name={name}
+        defaultValue={value[name] ?? ""}
+        onChange={(e) => handleInputChange(e.target.value, e.target.name)}
+      />
+    </div>
+  );
 
   return (
     <>
@@ -61,6 +78,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>High Blood Pressure:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -72,6 +90,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Food Allergies:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -83,6 +102,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Tendency Bleed:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -94,6 +114,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Heart Disease:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -105,6 +126,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Diabetic:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -116,6 +138,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Medical History:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -127,6 +150,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Female Pregnancy:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -138,6 +162,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Breast Feeding:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -149,6 +174,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Current Medication:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -160,6 +186,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Surgery:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -171,6 +198,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Accident:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -182,6 +210,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Others:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -193,6 +222,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Pulse Rate:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"
@@ -204,6 +234,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
         <div className={`flex flex-col items-start w-full`}>
           <label className={"label"}>Temperature:</label>
           <input
+            step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
             placeholder={"..."}
             type="text"

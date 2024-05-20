@@ -24,6 +24,7 @@ export interface MedicineData {
   dose_interval?: string;
   comment?: string;
   medicine?: Medicine;
+  prescription_id?: number;
 }
 
 export interface PrescriptionsDataSend {

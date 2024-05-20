@@ -93,7 +93,6 @@ const DataTable = (tableData: DataTableData<any>) => {
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
-
   return (
     <>
       {tableData.filter ? (

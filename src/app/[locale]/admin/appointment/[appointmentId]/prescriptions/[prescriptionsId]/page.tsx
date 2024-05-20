@@ -222,7 +222,8 @@ const Page = async ({
           <label className="label">
             {"Next Visit :"}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {res.next_visit}
+              {res.next_visit?.replace(/\D/g, "")}{" "}
+              {res.next_visit?.replace(/\d/g, "")}
             </span>
           </label>
         </Grid>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -9,6 +9,8 @@ import { Hospital } from "@/Models/Hospital";
 import ImagePreview from "@/components/common/ui/ImagePreview";
 import { Media } from "@/Models/Media";
 import { useTranslations } from "next-intl";
+import { cities } from "@/constants/Cities";
+import { translate } from "@/Helpers/Translations";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");
@@ -65,6 +67,31 @@ const Page = () => {
         perPage,
         params,
       ),
+    filter: (params, setParams) => {
+      return (
+        <div className={"w-full grid grid-cols-1"}>
+          <label className="label">
+            {t("city")} :
+            <select
+              className="select-bordered select"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                setParams({ ...params, city: e.target.value });
+              }}
+            >
+              {cities.map((city, index) => (
+                <option
+                  key={index}
+                  value={city.name}
+                  selected={params.city == city.name}
+                >
+                  {translate(city.name)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      );
+    },
   };
   return <DataTable {...tableData} />;
 };

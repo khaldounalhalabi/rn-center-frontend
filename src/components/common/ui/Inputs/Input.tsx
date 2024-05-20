@@ -12,6 +12,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   type: string;
   required?: boolean;
   setWatch?: React.Dispatch<number>;
+  unit?: "IQD" | "day" | "week" | "month" | "hour" | "sec" | "min" | undefined;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({
   type,
   required = false,
   setWatch,
+  unit,
   ...props
 }) => {
   const {
@@ -39,8 +41,15 @@ const Input: React.FC<InputProps> = ({
     return (
       <div className={`flex flex-col items-start w-full`}>
         {label ? (
-          <label className={"label"}>
+          <label className={"label w-fit"}>
             {label}
+            {unit ? (
+              <span className="ml-1 ">
+                (<span className="text-green-500">{unit}</span>)
+              </span>
+            ) : (
+              ""
+            )}
             {required ? <span className="ml-1 text-red-600">*</span> : false}
           </label>
         ) : (
@@ -80,6 +89,13 @@ const Input: React.FC<InputProps> = ({
         {label ? (
           <label className={"label"}>
             {label}
+            {unit ? (
+              <span className="ml-1 ">
+                (<span className="text-green-500">{unit}</span>)
+              </span>
+            ) : (
+              ""
+            )}
             {required ? <span className="ml-1 text-red-600">*</span> : false}
           </label>
         ) : (

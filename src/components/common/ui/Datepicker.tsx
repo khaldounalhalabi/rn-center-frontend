@@ -35,7 +35,7 @@ const Datepicker = ({
         onChange={(val): void => {
           setValue(name, val?.format("YYYY-MM-DD") ?? "");
         }}
-        defaultValue={defaultValue ? dayjs(defaultValue) : dayjs(new Date())}
+        defaultValue={defaultValue ? dayjs(defaultValue) : undefined}
         // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}

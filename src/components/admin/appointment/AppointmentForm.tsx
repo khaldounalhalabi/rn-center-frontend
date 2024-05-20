@@ -75,6 +75,7 @@ const AppointmentForm = ({
       } else return false;
     },
   });
+
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -103,7 +104,9 @@ const AppointmentForm = ({
     Navigate(`/admin/appointment`);
   };
   const [getExtra, setExtra] = useState(0);
-  const [getServicePrice, setServicePrice] = useState<number>();
+  const [getServicePrice, setServicePrice] = useState<number | undefined>(
+    defaultValues ? defaultValues.service.price : 0,
+  );
 
   const [status, setStatus] = useState("");
   const statusData = AppointmentStatuses();
@@ -235,6 +238,7 @@ const AppointmentForm = ({
           name={"extra_fees"}
           type={"number"}
           step={"any"}
+          unit={"IQD"}
           placeholder={"Extra Fees : 5"}
           label={"Extra Fees"}
           setWatch={setExtra}
@@ -254,14 +258,7 @@ const AppointmentForm = ({
           required={true}
           shouldDisableDate={(day) => {
             const data = range.data;
-            if (
-              range.id != 0 ||
-              Object.keys(data.clinic_schedule).length != 0
-            ) {
-              return HandleDatePicker(data, day, range.range);
-            } else {
-              return true;
-            }
+            return HandleDatePicker(data, day, range.range);
           }}
         />
       </Grid>
@@ -275,15 +272,42 @@ const AppointmentForm = ({
       ) : (
         false
       )}
-      <label className="label">
-        Total Cost :
-        <span className="bg-base-200 px-2 rounded-xl text-lg">
-          {getServicePrice
-            ? getServicePrice + (Number(getExtra) ?? 0)
-            : (range?.appointment_cost ?? 0) + (Number(getExtra) ?? 0)}
-            IQD
-        </span>
-      </label>
+      <div className="overflow-x-auto border-2 rounded-2xl">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Clinic</td>
+              <td className={`${getServicePrice ? "line-through" : ""}`}>
+                {range?.appointment_cost ?? 0} IQD
+              </td>
+            </tr>
+            <tr>
+              <td>Service</td>
+              <td>{getServicePrice ?? 0} IQD</td>
+            </tr>
+            <tr>
+              <td>Extra Fees</td>
+              <td>{Number(getExtra) ?? 0} IQD</td>
+            </tr>
+            <tr>
+              <td className="text-lg">Total Cost</td>
+              <td className="text-lg">
+                {getServicePrice
+                  ? getServicePrice + (Number(getExtra) ?? 0)
+                  : (range?.appointment_cost ?? 0) +
+                    (Number(getExtra) ?? 0)}{" "}
+                IQD
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </Form>
   );
 };

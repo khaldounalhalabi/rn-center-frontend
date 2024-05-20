@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { AvailableTime } from "@/Models/AvailableTime";
-import plugin from 'dayjs/plugin/isBetween';
+import plugin from "dayjs/plugin/isBetween";
 
 dayjs.extend(plugin);
 
@@ -16,6 +16,7 @@ export const HandleDatePicker = (
   const isHoliday = data?.clinic_holidays
     ? data?.clinic_holidays.some((e) => day.isBetween(e.start_date, e.end_date))
     : true;
+
   return (
     dayjs().isAfter(day.subtract(-1, "day")) ||
     !schedule.includes(day.format("dddd").toLowerCase()) ||
@@ -23,6 +24,5 @@ export const HandleDatePicker = (
     isHoliday
   );
 };
-
 
 // ------------------------------------------------------------------------------------- ----------------

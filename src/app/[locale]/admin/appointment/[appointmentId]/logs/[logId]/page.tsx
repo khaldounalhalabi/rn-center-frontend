@@ -33,6 +33,13 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
             </span>
           </label>
         </Grid>
+        <label className={"label text-xl"}>Event :</label>
+        <textarea
+          className="textarea textarea-bordered h-24 w-full"
+          disabled={true}
+          defaultValue={res?.event}
+        />
+
         {res.cancellation_reason ? (
           <div>
             <p>Cancellation Reason :</p>

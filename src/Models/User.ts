@@ -3,7 +3,7 @@ import { Address } from "@/Models/Address";
 import { Media } from "@/Models/Media";
 
 export interface User {
-  id: number;
+  id?: number;
   first_name: string;
   middle_name: string;
   last_name: string;

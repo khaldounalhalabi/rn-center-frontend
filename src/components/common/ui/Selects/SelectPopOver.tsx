@@ -16,7 +16,7 @@ export default function SelectPopOver({
   label,
   name,
 }: {
-  required: boolean;
+  required?: boolean;
 
   id: number | undefined;
   status: string | undefined;

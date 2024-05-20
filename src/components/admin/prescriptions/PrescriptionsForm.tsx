@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { Navigate } from "@/Actions/navigate";
 import { Prescription, PrescriptionsDataSend } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
@@ -9,7 +9,8 @@ import MultiMedicinesInput from "@/components/admin/prescriptions/MultiMedicines
 import PhysicalForm from "@/components/admin/prescriptions/PhysicalForm";
 import TestForm from "@/components/admin/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
-
+import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
+import { Dialog, Transition } from "@headlessui/react";
 const PrescriptionsForm = ({
   defaultValues = undefined,
   appointment,
@@ -56,30 +57,88 @@ const PrescriptionsForm = ({
   const onSuccess = () => {
     Navigate(`/admin/appointment/${appointment?.id}`);
   };
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
-      defaultValues={defaultValues}
-    >
-      <PageCard>
-        <MultiMedicinesInput
-          defaultValues={defaultValues?.medicines_data ?? undefined}
-          type={type}
-        />
-      </PageCard>
-      <PageCard>
-        <PhysicalForm
-          defaultValue={defaultValues?.physical_information ?? undefined}
-        />
-      </PageCard>
-      <PageCard>
-        <TestForm defaultValue={defaultValues ?? undefined} />
-      </PageCard>
-    </Form>
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex justify-center items-center p-4 min-h-full text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
+                  <div className="p-4">
+                    <h2 className="card-title">New Medicine</h2>
+                    <MedicinesForm
+                      type={"prescription"}
+                      closeModal={closeModal}
+                    />
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Form
+        handleSubmit={handleSubmit}
+        onSuccess={onSuccess}
+        defaultValues={defaultValues}
+      >
+        <PageCard>
+          <div className="flex flex-row justify-between my-4">
+            <h2 className="card-title">Medicines</h2>
+            <button
+              type={"button"}
+              className="btn btn-info"
+              onClick={openModal}
+            >
+              New Medicines
+            </button>
+          </div>
+          <MultiMedicinesInput
+            defaultValues={defaultValues?.medicines_data ?? undefined}
+            type={type}
+          />
+        </PageCard>
+        <PageCard>
+          <PhysicalForm
+            defaultValue={defaultValues?.physical_information ?? undefined}
+          />
+        </PageCard>
+        <PageCard>
+          <TestForm defaultValue={defaultValues ?? undefined} />
+        </PageCard>
+      </Form>
+    </>
   );
 };
 
 export default PrescriptionsForm;
-
-

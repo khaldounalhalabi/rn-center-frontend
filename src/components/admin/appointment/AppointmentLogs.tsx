@@ -32,6 +32,7 @@ const AppointmentLogs = ({
               <th>status</th>
               <th>Happen In</th>
               <th>Actor</th>
+              <th>Event</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -46,6 +47,7 @@ const AppointmentLogs = ({
                   {translate(e.actor?.middle_name)}{" "}
                   {translate(e.actor?.last_name)}
                 </td>
+                <td>{e.event}</td>
                 <td>
                   <Link
                     href={`${appointment?.id}/logs/${e.id}`}

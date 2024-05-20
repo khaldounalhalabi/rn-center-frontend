@@ -123,7 +123,7 @@ const Page = () => {
 
       {
         label: "Actions",
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}

@@ -130,6 +130,7 @@ const ServiceForm = ({
           name={"approximate_duration"}
           type={"number"}
           step={"any"}
+          unit={"min"}
           placeholder={`${t("approximateDuration")} :`}
           label={t("approximateDuration")}
         />
@@ -138,6 +139,7 @@ const ServiceForm = ({
           name={"price"}
           type={"number"}
           step={"any"}
+          unit={"IQD"}
           placeholder={"Price : "}
           label={t("price")}
         />

@@ -1,10 +1,8 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import React from "react";
-import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
-import { useTranslations } from "next-intl";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -49,18 +47,22 @@ const SubscriptionForm = ({
         <Input
           required={true}
           type={"text"}
-          placeholder={"John"}
+          placeholder={"Subscription Name"}
           label={`Name`}
           name={"name"}
         />
-        <Input
-          required={true}
-          type={"number"}
-          placeholder={"John"}
-          label={`Period`}
-          name={"period"}
-          unit={"month"}
-        />
+        <div>
+          <Input
+            required={true}
+            type={"number"}
+            placeholder={"12"}
+            label={`Period`}
+            name={"period"}
+            unit={"month"}
+            min={-1}
+          />
+          <p className={"text-sm my-1"}>for lifetime period put -1</p>
+        </div>
         <Input
           type={"number"}
           placeholder={"John"}

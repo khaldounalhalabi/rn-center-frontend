@@ -36,11 +36,16 @@ const Page = () => {
         name: "period",
         label: `Period`,
         sortable: true,
-        render: (data) => (
-          <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>month</span>
-          </p>
-        ),
+        render: (data) =>
+          data <= 0 ? (
+            <p className="text-center flex justify-evenly">
+              <span className={"badge-success badge "}>Life Time</span>
+            </p>
+          ) : (
+            <p className="text-center flex justify-evenly">
+              {data} <span className={"badge-success badge "}>month</span>
+            </p>
+          ),
       },
       {
         name: "allow_period",

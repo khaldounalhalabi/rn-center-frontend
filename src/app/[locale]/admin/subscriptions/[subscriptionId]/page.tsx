@@ -34,7 +34,7 @@ const page = async ({
         <label className="label">
           Period :
           <span className="badge badge-success px-2 rounded-xl text-lg">
-            {res?.period}
+            {res?.period && res?.period <= 0 ? "life time" : res?.period}
           </span>
         </label>
         <label className="label">

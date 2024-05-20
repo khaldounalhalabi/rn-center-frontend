@@ -21,6 +21,7 @@ const Page = () => {
         name: "type",
         label: `Type`,
         sortable: true,
+        render: (type) => type?.replace("_", " "),
       },
       {
         name: "value",

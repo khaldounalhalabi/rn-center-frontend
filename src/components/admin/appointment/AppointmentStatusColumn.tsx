@@ -13,7 +13,7 @@ const AppointmentStatusColumn = ({
   revalidate?: () => void;
 }) => {
   const handleSelectStatus = async (status: string, id: number) => {
-    return await AppointmentService.make("admin").update(id, {
+    return await AppointmentService.make<AppointmentService>("admin").toggleStatus(id, {
       status: status,
     });
   };

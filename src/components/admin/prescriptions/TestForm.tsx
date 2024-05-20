@@ -2,7 +2,6 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import Input from "@/components/common/ui/Inputs/Input";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import React from "react";
-import { useFormContext } from "react-hook-form";
 import { Prescription } from "@/Models/Prescriptions";
 
 const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
@@ -32,6 +31,7 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
           label={"Date :"}
           ArraySelect={SelectDate}
           name={"visit"}
+          handleSelect={() => {}}
         />
       </div>
     </>

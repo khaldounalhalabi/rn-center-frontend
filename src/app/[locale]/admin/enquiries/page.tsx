@@ -28,6 +28,11 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "read_at",
+        label: "Read At",
+        sortable: true,
+      },
+      {
         label: `Actions`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons

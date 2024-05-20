@@ -45,7 +45,7 @@ const SpecialityForm = ({
   const onSuccess = () => {
     Navigate(`/admin/speciality`);
   };
-  const array = defaultValues?.tags.split(",");
+  const array = defaultValues?.tags?.split(",") ?? [];
   return (
     <Form
       handleSubmit={handleSubmit}

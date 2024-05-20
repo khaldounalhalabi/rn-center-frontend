@@ -282,7 +282,7 @@ const AppointmentForm = ({
           </thead>
           <tbody>
             <tr>
-              <td>Clinic</td>
+              <td>Clinic Appointment Cost</td>
               <td className={`${getServicePrice ? "line-through" : ""}`}>
                 {range?.appointment_cost ?? 0} IQD
               </td>

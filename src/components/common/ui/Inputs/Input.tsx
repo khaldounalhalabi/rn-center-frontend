@@ -13,6 +13,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   required?: boolean;
   setWatch?: React.Dispatch<number>;
   unit?: "IQD" | "day" | "week" | "month" | "hour" | "sec" | "min" | undefined;
+  min?: number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   required = false,
   setWatch,
   unit,
+  min = 0,
   ...props
 }) => {
   const {
@@ -108,7 +110,7 @@ const Input: React.FC<InputProps> = ({
             className ??
             `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
           }
-          min={0}
+          min={min}
           type={type == "password" && hidden ? "password" : type}
           step={"any"}
         />

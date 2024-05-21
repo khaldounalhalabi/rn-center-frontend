@@ -57,42 +57,133 @@ const Sidebar = ({
           />
         </span>
         <ul className="space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black overflow-scroll">
-          <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
+          <SidebarItem
+            onClick={(e) => {
+              setOpenNavBar(false);
+            }}
+            link={"/admin"}
+          >
+            {" "}
+            {t("dashboard")}
+          </SidebarItem>
           <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">
-              <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
-              <SidebarItem link={"/admin/clinics/schedules"}>
+              <SidebarItem
+                onClick={(e) => {
+                  setOpenNavBar(false);
+                }}
+                link={"/admin/clinics"}
+              >
+                {" "}
+                {t("clinics")}
+              </SidebarItem>
+              <SidebarItem
+                onClick={(e) => {
+                  setOpenNavBar(false);
+                }}
+                link={"/admin/clinics/schedules"}
+              >
                 {t("clinicsSchedules")}
               </SidebarItem>
-              <SidebarItem link={"/admin/clinics/holidays"}>
+              <SidebarItem
+                onClick={(e) => {
+                  setOpenNavBar(false);
+                }}
+                link={"/admin/clinics/holidays"}
+              >
                 {t("clinicsHolidays")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/speciality"}
+            >
               {t("specialties")}
             </SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/hospitals"}
+            >
               {t("hospitals")}
             </SidebarItem>
-            <SidebarItem link={"/admin/category"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/category"}
+            >
               {t("serviceCategories")}
             </SidebarItem>
-            <SidebarItem link={"/admin/service"}>{t("services")}</SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/service"}
+            >
+              {t("services")}
+            </SidebarItem>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/appointment"}
+            >
               {t("appointment")}
             </SidebarItem>
-            <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
-            <SidebarItem link={"/admin/user"}>Users</SidebarItem>
-            <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
-            <SidebarItem link={"/admin/subscriptions"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/medicines"}
+            >
+              Medicines
+            </SidebarItem>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/user"}
+            >
+              Users
+            </SidebarItem>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/patients"}
+            >
+              Patients
+            </SidebarItem>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/subscriptions"}
+            >
               Subscriptions
             </SidebarItem>
-            <SidebarItem link={"/admin/blocked_item"}>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/blocked_item"}
+            >
               Blocked Items
             </SidebarItem>
-            <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
+            <SidebarItem
+              onClick={(e) => {
+                setOpenNavBar(false);
+              }}
+              link={"/admin/enquiries"}
+            >
+              Enquiries
+            </SidebarItem>
           </div>
         </ul>
       </div>

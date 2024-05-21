@@ -88,7 +88,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
 
@@ -136,11 +136,11 @@ function ApiSelect<TResponse, TData>({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value);
     },
-    300,
+    300
   );
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -148,7 +148,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -268,6 +268,7 @@ function ApiSelect<TResponse, TData>({
             maxHeight: `${styles?.dropDownContainerMaxHeight ?? "200"}px`,
           }}
           onScroll={(e) => handleDataScrolling(e)}
+          onTouchMove={(e) => handleDataScrolling(e)}
         >
           <div className={`sticky top-0 bg-inherit`}>
             <input

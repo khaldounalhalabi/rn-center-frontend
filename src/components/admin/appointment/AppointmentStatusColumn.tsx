@@ -4,6 +4,7 @@ import NotificationHandler from "@/components/common/NotificationHandler";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import AppointmentStatuses from "@/enm/AppointmentStatus";
 import { AppointmentService } from "@/services/AppointmentService";
+import {toast} from "react-toastify";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -13,9 +14,12 @@ const AppointmentStatusColumn = ({
   revalidate?: () => void;
 }) => {
   const handleSelectStatus = async (status: string, id: number) => {
+
     return await AppointmentService.make<AppointmentService>("admin").toggleStatus(id, {
       status: status,
-    });
+    }).then((res)=>{
+        toast.success("Status Changed!");
+    })
   };
 
   return (

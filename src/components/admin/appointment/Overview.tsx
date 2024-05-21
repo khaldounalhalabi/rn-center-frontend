@@ -41,6 +41,42 @@ const Overview = ({
           defaultValue={appointment?.note}
         />
       </div>
+      <div className="overflow-x-auto border-2 rounded-2xl">
+        <table className="table">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Clinic Appointment Cost</td>
+            <td className={`${appointment?.service.price ? "line-through" : ""}`}>
+              {appointment?.clinic?.appointment_cost ?? 0} IQD
+            </td>
+          </tr>
+          <tr>
+            <td>Service</td>
+            <td>{appointment?.service.price ?? 0} IQD</td>
+          </tr>
+          <tr>
+            <td>Extra Fees</td>
+            <td>{Number(appointment?.extra_fees) ?? 0} IQD</td>
+          </tr>
+          <tr>
+            <td className="text-lg">Total Cost</td>
+            <td className="text-lg">
+              {appointment?.service.price
+                  ? appointment?.service.price + (Number(appointment?.extra_fees) ?? 0)
+                  : (appointment?.clinic?.appointment_cost ?? 0) +
+                  (Number(appointment?.extra_fees) ?? 0)}{" "}
+              IQD
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

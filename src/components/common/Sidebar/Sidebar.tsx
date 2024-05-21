@@ -89,7 +89,7 @@ const Sidebar = ({
             <SidebarItem link={"/admin/subscriptions"}>
               Subscriptions
             </SidebarItem>
-            <SidebarItem link={"/admin/blocked_item"}>
+            <SidebarItem link={"/admin/blocked-item"}>
               Blocked Items
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>

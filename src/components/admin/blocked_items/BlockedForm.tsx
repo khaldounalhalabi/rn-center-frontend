@@ -7,6 +7,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { BlockedItemService } from "@/services/BlockedItemService";
 import { BlockedItem } from "@/Models/BlockedItem";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 const BlockedForm = ({
   defaultValues = undefined,
@@ -35,7 +36,7 @@ const BlockedForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/blocked_item`);
+    Navigate(`/admin/blocked-item`);
   };
 
   const types = ["email", "phone", "full_name"];
@@ -47,8 +48,7 @@ const BlockedForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        <SelectPopOver
-          handleSelect={() => {}}
+        <SelectPopOverFrom
           label={"Type"}
           id={2}
           required={true}

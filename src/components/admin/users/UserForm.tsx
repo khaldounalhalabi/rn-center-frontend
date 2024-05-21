@@ -22,6 +22,7 @@ import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Roles from "@/enm/Role";
 import { useFormContext } from "react-hook-form";
 import Gallery from "@/components/common/ui/Gallery";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 const UserForm = ({
   defaultValues = undefined,
@@ -88,12 +89,11 @@ const UserForm = ({
           label={`Last Name :`}
           name={"last_name"}
         />
-        <SelectPopOver
+        <SelectPopOverFrom
           required={true}
           label={"Role :"}
           name={"role"}
           id={1}
-          handleSelect={() => undefined}
           status={"admin"}
           ArraySelect={Roles()}
         />

@@ -1,6 +1,7 @@
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import React from "react";
+import {toast} from "react-toastify";
 
 interface ArchiveButtonProps {
   data: any;
@@ -38,13 +39,8 @@ const ArchiveButton: React.FC<ArchiveButtonProps> = ({
                   .make(user)
                   .toggleArchive(id)
                   .then((res: any) => {
-                    swal.fire({
-                      title:
-                        res.data == "archived" ? "Archived!" : "Un-Archived !",
-                      confirmButtonColor: "#007BFF",
-                      icon: "success",
-                    });
-                    if (revalidate) revalidate();
+                      toast.success(res.data == "archived" ? "Archived!" : "Un-Archived !");
+                      if (revalidate) revalidate();
                   })
                   .catch((e: any) => {
                     swal.fire("There Is Been An Error", "", "error");

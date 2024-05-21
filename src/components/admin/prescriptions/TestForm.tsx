@@ -3,6 +3,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import React from "react";
 import { Prescription } from "@/Models/Prescriptions";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
   const SelectDate = ["day", "week", "yar"];
@@ -25,13 +26,12 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
           />
         </div>
 
-        <SelectPopOver
+        <SelectPopOverFrom
           id={1}
           status={defaultValue?.next_visit?.replace(/\d/g, "") ?? ""}
           label={"Date :"}
           ArraySelect={SelectDate}
           name={"visit"}
-          handleSelect={() => {}}
         />
       </div>
     </>

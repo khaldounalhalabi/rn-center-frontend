@@ -7,6 +7,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { AppointmentLogs } from "@/Models/AppointmentLog";
+import {toast} from "react-toastify";
 
 type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -80,11 +81,8 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .setBaseUrl(aUrl)
                         .delete()
                         .then(() => {
-                          swal.fire({
-                            title: "Archived!",
-                            confirmButtonColor: "#007BFF",
-                            icon: "success",
-                          });
+                          toast.success("Archived!");
+
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);
                           }
@@ -124,11 +122,8 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .setBaseUrl(dUrl)
                         .delete()
                         .then(() => {
-                          swal.fire({
-                            title: "Deleted!",
-                            confirmButtonColor: "#007BFF",
-                            icon: "success",
-                          });
+                          toast.success("Deleted!");
+
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);
                           }

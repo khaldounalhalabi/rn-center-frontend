@@ -18,7 +18,7 @@ const page = async ({
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Blocked Item Details</h2>
-        <Link href={`/admin/blocked_item/${blockedId}/edit`}>
+        <Link href={`/admin/blocked-item/${blockedId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

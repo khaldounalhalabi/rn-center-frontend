@@ -9,7 +9,7 @@ import { BlockedItem } from "@/Models/BlockedItem";
 
 const Page = () => {
   const tableData: DataTableData<BlockedItem> = {
-    createUrl: `/admin/blocked_item/create`,
+    createUrl: `/admin/blocked-item/create`,
     title: `Blocked Items`,
     schema: [
       {
@@ -36,8 +36,8 @@ const Page = () => {
             id={data?.id}
             buttons={["edit", "delete", "show"]}
             baseUrl={`/admin/blocked_items`}
-            editUrl={`/admin/blocked_item/${data?.id}/edit`}
-            showUrl={`/admin/blocked_item/${data?.id}`}
+            editUrl={`/admin/blocked-item/${data?.id}/edit`}
+            showUrl={`/admin/blocked-item/${data?.id}`}
             setHidden={setHidden}
           />
         ),

@@ -1,6 +1,7 @@
 import { swal } from "@/Helpers/UIHelpers";
 import React from "react";
 import BlockIcon from "@/components/icons/BlockIcon";
+import {toast} from "react-toastify";
 
 interface BlockButtonProps {
   data: any;
@@ -38,12 +39,9 @@ const BlockButton: React.FC<BlockButtonProps> = ({
                   .make(user)
                   .toggleBlock(id)
                   .then((res: any) => {
-                    swal.fire({
-                      title: res.data.toUpperCase(),
-                      confirmButtonColor: "#007BFF",
-                      icon: "success",
-                    });
-                    if (revalidate) revalidate();
+                      toast.success(res.data.toUpperCase());
+
+                      if (revalidate) revalidate();
                   })
                   .catch((e: any) => {
                     swal.fire("There Is Been An Error", "", "error");

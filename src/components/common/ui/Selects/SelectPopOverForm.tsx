@@ -1,34 +1,31 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { AppointmentStatusEnum } from "@/enm/AppointmentStatus";
 import { useFormContext } from "react-hook-form";
-import {toast} from "react-toastify";
 
-export default function SelectPopOver({
+export default function SelectPopOverFrom({
   id,
   required = false,
   status,
   ArraySelect,
-  handleSelect = undefined,
   label,
+  name,
 }: {
   required?: boolean;
-
   id: number | undefined;
   status: string | undefined;
   ArraySelect: string[];
-  handleSelect?: any;
   label?: string;
+  name: string;
 }) {
-
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
 
-
-
+  const { setValue } = useFormContext();
+  setValue(name, selected);
 
   function closeModal() {
     setIsOpen(false);
@@ -48,17 +45,10 @@ export default function SelectPopOver({
       .then((res) => {
         if (res.code == 200) {
           closeModal();
-          toast.success("Status Changed!");
-
         }
         return res;
       });
   };
-
-  useEffect(()=>{
-    setSelected(status)
-  },[id])
-
 
   return (
     <div className=" w-full">
@@ -70,7 +60,7 @@ export default function SelectPopOver({
       ) : (
         ""
       )}
-      <Listbox value={selected} onChange={setSelected} >
+      <Listbox value={selected} onChange={setSelected}>
         <div className="relative mb-1">
           <Listbox.Button className="relative input input-bordered cursor-pointer w-full  rounded-lg bg-white  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span
@@ -97,10 +87,6 @@ export default function SelectPopOver({
                   onClick={() => {
                     if (person == "cancelled") {
                       openModal();
-                      setSelected(status)
-                    } else {
-                      handleSelect(person, id);
-                      setSelected(status)
                     }
                   }}
                   value={person}

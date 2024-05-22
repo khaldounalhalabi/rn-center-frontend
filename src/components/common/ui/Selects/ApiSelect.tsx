@@ -124,20 +124,9 @@ function ApiSelect<TResponse, TData>({
     }
   };
 
-  const debounce = (func: (...args: any[]) => void, delay: number) => {
-    let debounceTimer: NodeJS.Timeout;
-    return function (...args: any[]) {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => func(...args), delay);
-    };
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
-
-  const handleSearchChange = debounce(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearch(e.target.value);
-    },
-    300
-  );
 
   const handleClickingOnSearchInput = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>

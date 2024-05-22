@@ -47,6 +47,18 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "role",
+        label: `Role`,
+        sortable: true,
+        render: (_role, user) => {
+          const role =Array.isArray(user?.role) && user?.role.length !=0 ?user?.role:[{name:'No Data'}]
+            return (
+                <p>{role[0].name}</p>
+            )
+        },
+
+      },
+      {
         name: "is_blocked",
         sortable: true,
         label: "is blocked",

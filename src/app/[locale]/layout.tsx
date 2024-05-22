@@ -33,6 +33,7 @@ export default async function RootLayout({
     <html
       lang={locale == "ar" ? "ar" : "en"}
       dir={locale == "ar" ? "rtl" : "ltr"}
+
     >
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>

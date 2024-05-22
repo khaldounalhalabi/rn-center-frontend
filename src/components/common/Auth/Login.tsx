@@ -59,8 +59,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
 
           {error ? (
             <p className="my-3 p-2 w-full text-error text-sm">
-              The email or password is incorrect. Try again or click Forgot
-              Password.
+              Incorrect email or password.
             </p>
           ) : (
             false

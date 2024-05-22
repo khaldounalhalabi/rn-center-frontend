@@ -1,40 +1,67 @@
 import React, { useState } from "react";
-import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import { useTranslations } from "next-intl";
+import MenuIcon from "@/components/icons/MenuIcon";
+import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
+import SidebarCompactIcon from "@/components/common/Sidebar/sidbarCompactIcon";
+import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem"
+import DashBordIcon from "@/components/icons/DashBordIcon";
+import ClinicIcon from "@/components/icons/ClinicIcon";
+import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
+import HolidaysIcon from "@/components/icons/HolidaysIcon";
+import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
+import HospitalsIcon from "@/components/icons/HospitalsIcon";
+import CategoryIcon from "@/components/icons/CategoryIcon";
+import ServiceIcon from "@/components/icons/ServiceIcon";
+import AppointmentIcon from "@/components/icons/AppointmentIcon";
+import MedicineIcon from "@/components/icons/MedicineIcon";
+import UserIcon from "@/components/icons/UserIcon";
+import PatientIcon from "@/components/icons/PatientIcon";
+import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
+import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
+import EnquirieIcon from "@/components/icons/EnquirieIcon";
 
 const Sidebar = ({
   openNavBar,
   setOpenNavBar,
 }: {
-  openNavBar: boolean;
-  setOpenNavBar: React.Dispatch<boolean>;
-}) => {
-  const t = useTranslations("sideBar");
-  const handleShowMenuSM = () => {
-    openNavBar ? setOpenNavBar(false) : setOpenNavBar(true);
+  openNavBar: {
+    sm:boolean,
+    md:boolean
   };
-  const [openSideMd, setOpenSideMd] = useState(false);
+  setOpenNavBar: React.Dispatch<{
+    sm:boolean,
+    md:boolean
+  }>;
+}) => {
+
+  const t = useTranslations("sideBar");
+
+  // @ts-ignore
+  // @ts-ignore
   return (
     <div
-      className={`md:block w-full md:z-0 z-10 md:translate-y-0 md:relative bg-white h-screen md:flex-col md:justify-between md:border-e ease-in-out duration-500 md:bg-white
-       ${openSideMd ? " translate-x-[-80%] " : " translate-x-0"}
+      className={`md:block w-full h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:relative bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
+       ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
        ${
-         openNavBar
+         openNavBar.sm
            ? "absolute  translate-y-0 ease-in-out duration-500"
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
       <div>
-        <span className="flex justify-between items-center place-content-center px-4 pt-6 pb-3 rounded-lg h-10 text-xs">
+        <span
+          className={`flex justify-between items-center place-content-center px-4 pt-6 pb-3 rounded-lg h-10 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+        >
           {/*Logo*/}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 394 80"
-            className={`w-36 px-2`}
+            className={`w-36 px-2 ease-in-out duration-500 transform ${openNavBar.md ? " hidden" : ""}`}
           >
             <path
               fill="#000"
@@ -47,16 +74,21 @@ const Sidebar = ({
           </svg>
           <XMark
             className={`h-8 w-8 md:hidden cursor-pointer`}
-            onClick={handleShowMenuSM}
+            onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
           />
           <XMark
-            className={`h-8 w-8 md:block hidden cursor-pointer`}
-            onClick={() => {
-              setOpenSideMd(!openSideMd);
-            }}
+            className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
+            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
+          />
+          <MenuIcon
+            className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
+            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
         </span>
-        <ul className="space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black overflow-scroll">
+        <ul
+
+          className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
+        >
           <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
           <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">
@@ -94,6 +126,68 @@ const Sidebar = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
           </div>
+        </ul>
+      </div>
+      <div className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " w-0"}`}>
+        <ul>
+          <SidebarIcon link={"/admin"} title={t("dashboard")}>
+            <DashBordIcon className={`h-7 w-7 `} />
+          </SidebarIcon>
+          <SidebarCompactIcon
+            title={t("clinicsManagement")}
+            icon={<ClinicIcon className={`h-9 w-9 `} />}
+          >
+            <div className="flex flex-col">
+              <SidebarIcon link={"/admin/clinics"} title={t("clinics")}>
+                <ClinicsShowIcon className={`h-8 w-8 mx-3`} />
+              </SidebarIcon>
+              <SidebarIcon
+                link={"/admin/clinics/schedules"}
+                title={t("clinicsSchedules")}
+              >
+                <SchedulesIcon className={`h-7 w-7 mx-3`} />
+              </SidebarIcon>
+              <SidebarIcon
+                link={"/admin/clinics/holidays"}
+                title={t("clinicsHolidays")}
+              >
+                <HolidaysIcon className={`h-7 w-7 mx-3`} />
+              </SidebarIcon>
+            </div>
+          </SidebarCompactIcon>
+          <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
+            <SpecialitiesIcon className={`h-7 w-7`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
+            <HospitalsIcon className={`h-9 w-9`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/category"} title={t("serviceCategories")}>
+            <CategoryIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/service"} title={t("services")}>
+            <ServiceIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/appointment"} title={t("appointment")}>
+            <AppointmentIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/medicines"} title={"Medicines"}>
+            <MedicineIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/user"} title={"Users"}>
+            <UserIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/patients"} title={"Patients"}>
+            <PatientIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/subscriptions"} title={"Subscriptions"}>
+            <SubscriptionIcon className={`h-7 w-7`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/blocked-item"} title={"Blocked Items"}>
+            <BlockedItemIcon className={`h-7 w-7`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/enquiries"} title={"Enquiries"}>
+            <EnquirieIcon className={`h-8 w-8`} />
+          </SidebarIcon>
         </ul>
       </div>
     </div>

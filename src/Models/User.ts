@@ -21,11 +21,17 @@ export interface User {
   address: Address;
   password?: string;
   password_confirmation?: string;
-  role?: string;
+  role?: string | role[];
 }
 
 export interface AuthResponse {
   user: User;
   token?: string;
   refresh_token?: string;
+}
+
+
+export interface role {
+  "id": number,
+  "name": string,
 }

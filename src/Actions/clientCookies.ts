@@ -9,3 +9,4 @@ export function getCookieClient(key: string) {
   const coc: string | undefined = getCookie(key);
   return coc ? coc : "";
 }
+

@@ -44,7 +44,7 @@ const Sidebar = ({
   // @ts-ignore
   return (
     <div
-      className={`md:block w-full h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:relative bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
+      className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
        ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
        ${
          openNavBar.sm
@@ -125,6 +125,7 @@ const Sidebar = ({
               Blocked Items
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
+
           </div>
         </ul>
       </div>
@@ -188,6 +189,7 @@ const Sidebar = ({
           <SidebarIcon link={"/admin/enquiries"} title={"Enquiries"}>
             <EnquirieIcon className={`h-8 w-8`} />
           </SidebarIcon>
+
         </ul>
       </div>
     </div>

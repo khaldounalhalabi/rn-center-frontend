@@ -10,6 +10,7 @@ export interface Hospital {
   available_departments?: Department[];
   images?: Media[];
   address?: Address;
+  status:string
 }
 
 export interface AddHospital {
@@ -20,4 +21,5 @@ export interface AddHospital {
   photos?: Media[] | string[];
   address?: Address;
   images?: Media[];
+  status:string
 }

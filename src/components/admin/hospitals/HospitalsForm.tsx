@@ -18,6 +18,7 @@ import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { useTranslations } from "next-intl";
+import Input from "@/components/common/ui/Inputs/Input";
 
 const HospitalsForm = ({
   defaultValues = undefined,
@@ -96,6 +97,27 @@ const HospitalsForm = ({
       />
 
       <Grid md={"2"}>
+        <div className={`flex gap-5 p-2 items-end`}>
+          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
+          <Input
+              name={"status"}
+              label={"manual"}
+              type="radio"
+              className="radio radio-info"
+              value={"active"}
+              defaultChecked={
+                defaultValues ? defaultValues?.status == "active" : true
+              }
+          />
+          <Input
+              name={"status"}
+              label={"online"}
+              type="radio"
+              className="radio radio-info"
+              value={"in-active"}
+              defaultChecked={defaultValues?.status == "in-active"}
+          />
+        </div>
         <ApiSelect
           api={(page, search): Promise<ApiResponse<City[]>> =>
             CityService.make<CityService>().indexWithPagination(page, search)

@@ -90,6 +90,16 @@ const page = async ({
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
           )}
         </label>
+          <label className="flex flex-wrap items-center gap-2 w-full label">
+              Status :
+              {res?.status ? (
+                  <span className="badge badge-accent">
+              {res.status}
+            </span>
+              ) : (
+                  <span className="text-lg badge badge-neutral">{t("noData")}</span>
+              )}
+          </label>
       </Grid>
       <div className={"w-full"}>
         {res?.images?.length != 0 ? (

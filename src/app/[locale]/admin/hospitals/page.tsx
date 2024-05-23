@@ -11,9 +11,19 @@ import { Media } from "@/Models/Media";
 import { useTranslations } from "next-intl";
 import { cities } from "@/constants/Cities";
 import { translate } from "@/Helpers/Translations";
+import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
+import AppointmentStatuses from "@/enm/AppointmentStatus";
+import {AppointmentService} from "@/services/AppointmentService";
+import {toast} from "react-toastify";
+import StatusArray from "@/enm/status";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");
+  const handleSelectStatus = async ( id: number) => {
+    return await HospitalService.make<HospitalService>("admin").toggleStatus(id).then((res)=>{
+      toast.success("Status Changed!");
+    })
+  };
   const tableData: DataTableData<Hospital> = {
     createUrl: `/admin/hospitals/create`,
     title: `${t("hospitals")}`,
@@ -34,6 +44,23 @@ const Page = () => {
         label: `${t("city")}`,
         sortable: true,
         translatable: true,
+      },
+      {
+        name:"status",
+        label:"Status",
+        sortable:true,
+        render:(_undefined, data)=>(
+            <SelectPopOver
+                id={data?.id}
+                status={data?.status}
+                ArraySelect={StatusArray()}
+                handleSelect={(status:string,id:number)=>{
+                  if(data?.status != status){
+                    return handleSelectStatus(id)
+                  }
+                }}
+            />
+        )
       },
       {
         name: "images",

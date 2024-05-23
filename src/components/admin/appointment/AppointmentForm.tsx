@@ -24,6 +24,7 @@ import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enm/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
+import appointments from "@/components/admin/clinics/Appointments";
 
 interface Range {
   id: number | undefined;
@@ -55,6 +56,8 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
+
+
 
   const { data } = useQuery({
     queryKey: ["getRange"],
@@ -130,6 +133,11 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
+                setRange(
+                    prevState => ({...prevState ,
+                      appointment_cost:selectedItem?.appointment_cost
+                    }
+)                )
                 return await AppointmentService.make<AppointmentService>(
                   "admin",
                 )

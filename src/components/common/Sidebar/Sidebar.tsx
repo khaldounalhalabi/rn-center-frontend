@@ -127,7 +127,7 @@ const Sidebar = ({
           </div>
         </ul>
       </div>
-      <div className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " w-0"}`}>
+      <div className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}>
         <ul>
           <SidebarIcon link={"/admin"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />

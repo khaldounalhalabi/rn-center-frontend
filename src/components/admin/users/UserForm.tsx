@@ -33,6 +33,8 @@ const UserForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  console.log(defaultValues);
+
   const handleSubmit = async (data: any) => {
     console.log(data);
 

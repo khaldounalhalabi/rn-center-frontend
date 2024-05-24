@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer, SendPatient } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import BloodArray from "@/enm/blood";
 
 const PatientsForm = ({
   defaultValues = undefined,
@@ -97,10 +99,13 @@ const PatientsForm = ({
           label={`Last Name :`}
           name={"user.last_name"}
         />
-        <Input
-          type={"text"}
-          name={"user.blood_group"}
-          label={"Blood Group :"}
+        <SelectPopOverFrom
+         name={'user.blood_group'}
+         id={1}
+         required={true}
+         label={'Blood Group'}
+         ArraySelect={BloodArray()}
+         status={defaultValues?.user.blood_group ?? ""}
         />
       </Grid>
       <Input

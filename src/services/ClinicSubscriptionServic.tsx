@@ -1,0 +1,33 @@
+import { BaseService } from "@/services/BaseService";
+import {ApiResponse} from "@/Http/Response";
+import {GET} from "@/Http/Http";
+import {ClinicSubscription} from "@/Models/ClinicSubscription";
+
+export class ClinicSubscriptionService extends BaseService<ClinicSubscription> {
+    public getBaseUrl(): string {
+        return `${this.actor}/clinic-subscriptions`;
+    }
+
+    public async getClinicSubscriptions(
+        clinicId: number,
+        page: number = 0,
+        search?: string,
+        sortCol?: string,
+        sortDir?: string,
+        per_page?: number,
+        params?: object,
+    ): Promise<ApiResponse<ClinicSubscription[]>> {
+        return await GET<ClinicSubscription[]>(
+            `${this.actor}/clinics/${clinicId}/subscriptions`,
+            {
+                page: page,
+                search: search,
+                sort_col: sortCol,
+                sort_dir: sortDir,
+                per_page: per_page,
+                ...params,
+            },
+        );
+    }
+
+}

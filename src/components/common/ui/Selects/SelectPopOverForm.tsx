@@ -13,6 +13,7 @@ export default function SelectPopOverFrom({
   ArraySelect,
   label,
   name,
+  handleSelect = undefined,
 }: {
   required?: boolean;
   id: number | undefined;
@@ -20,6 +21,7 @@ export default function SelectPopOverFrom({
   ArraySelect: string[];
   label?: string;
   name: string;
+  handleSelect?: any;
 }) {
   const [selected, setSelected] = useState(status);
   let [isOpen, setIsOpen] = useState(false);
@@ -88,6 +90,11 @@ export default function SelectPopOverFrom({
                     if (person == "cancelled") {
                       openModal();
                     }
+                    if(handleSelect){
+                      handleSelect(person);
+
+                    }
+
                   }}
                   value={person}
                 >

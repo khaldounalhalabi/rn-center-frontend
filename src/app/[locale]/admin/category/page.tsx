@@ -7,6 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { CategoryService } from "@/services/CategoryService";
 import { useTranslations } from "next-intl";
+import DeleteCategory from "@/components/common/DeleteCategory";
 
 const Page = () => {
   const t = useTranslations("admin.category.table");
@@ -30,12 +31,17 @@ const Page = () => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show"]}
+            buttons={["edit", "show"]}
             baseUrl={`/admin/category`}
             editUrl={`/admin/category/${data?.id}/edit`}
             showUrl={`/admin/category/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <DeleteCategory
+              id={data?.id}
+              setHidden={setHidden}
+            />
+          </ActionsButtons>
         ),
       },
     ],

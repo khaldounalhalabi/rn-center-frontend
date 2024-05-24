@@ -64,6 +64,7 @@ const SubscriptionForm = ({
           <p className={"text-sm my-1"}>for lifetime period put -1</p>
         </div>
         <Input
+            required={true}
           type={"number"}
           placeholder={"John"}
           label={`Allow Period`}

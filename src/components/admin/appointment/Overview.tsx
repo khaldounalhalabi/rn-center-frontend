@@ -52,13 +52,13 @@ const Overview = ({
           <tbody>
           <tr>
             <td>Clinic Appointment Cost</td>
-            <td className={`${appointment?.service.price ? "line-through" : ""}`}>
+            <td className={`${appointment?.service?.price ? "line-through" : ""}`}>
               {appointment?.clinic?.appointment_cost ?? 0} IQD
             </td>
           </tr>
           <tr>
             <td>Service</td>
-            <td>{appointment?.service.price ?? 0} IQD</td>
+            <td>{appointment?.service?.price ?? 0} IQD</td>
           </tr>
           <tr>
             <td>Extra Fees</td>
@@ -67,8 +67,8 @@ const Overview = ({
           <tr>
             <td className="text-lg">Total Cost</td>
             <td className="text-lg">
-              {appointment?.service.price
-                  ? appointment?.service.price + (Number(appointment?.extra_fees) ?? 0)
+              {appointment?.service?.price
+                  ? appointment?.service?.price + (Number(appointment?.extra_fees) ?? 0)
                   : (appointment?.clinic?.appointment_cost ?? 0) +
                   (Number(appointment?.extra_fees) ?? 0)}{" "}
               IQD

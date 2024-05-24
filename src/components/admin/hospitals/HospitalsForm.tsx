@@ -101,7 +101,7 @@ const HospitalsForm = ({
           <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
           <Input
               name={"status"}
-              label={"manual"}
+              label={"active"}
               type="radio"
               className="radio radio-info"
               value={"active"}
@@ -111,7 +111,7 @@ const HospitalsForm = ({
           />
           <Input
               name={"status"}
-              label={"online"}
+              label={"in-active"}
               type="radio"
               className="radio radio-info"
               value={"in-active"}

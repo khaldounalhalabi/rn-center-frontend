@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
@@ -40,8 +40,6 @@ const Sidebar = ({
 
   const t = useTranslations("sideBar");
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <div
       className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white

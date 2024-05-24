@@ -15,7 +15,7 @@ export interface Appointment {
   status: string;
   device_type: string;
   appointment_sequence: string;
-  customer: Customer;
-  clinic: Clinic;
-  service: Service;
+  customer?: Customer;
+  clinic?: Clinic;
+  service?: Service;
 }

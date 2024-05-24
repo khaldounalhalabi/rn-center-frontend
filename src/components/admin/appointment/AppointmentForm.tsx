@@ -24,7 +24,6 @@ import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enm/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
-import appointments from "@/components/admin/clinics/Appointments";
 
 interface Range {
   id: number | undefined;
@@ -47,8 +46,8 @@ const AppointmentForm = ({
 }) => {
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
-    appointment_cost: defaultValues?.clinic.appointment_cost ?? 0,
-    range: defaultValues?.clinic.appointment_day_range ?? 0,
+    appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
+    range: defaultValues?.clinic?.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
     data: {
       booked_times: availableTimes?.booked_times ?? [],
@@ -57,20 +56,18 @@ const AppointmentForm = ({
     },
   });
 
-
-
   const { data } = useQuery({
     queryKey: ["getRange"],
     queryFn: async () => {
       if (type == "update") {
         return await AppointmentService.make<AppointmentService>("admin")
-          .getAvailableTimes(defaultValues?.clinic.id ?? 0)
+          .getAvailableTimes(defaultValues?.clinic?.id ?? 0)
           .then((res) => {
             setRange({
-              id: defaultValues?.clinic.id,
-              appointment_cost: defaultValues?.clinic.appointment_cost ?? 0,
-              range: defaultValues?.clinic.appointment_day_range ?? 0,
-              limit: defaultValues?.clinic.approximate_appointment_time,
+              id: defaultValues?.clinic?.id,
+              appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
+              range: defaultValues?.clinic?.appointment_day_range ?? 0,
+              limit: defaultValues?.clinic?.approximate_appointment_time,
               data: res.data,
             });
             return res;
@@ -108,7 +105,7 @@ const AppointmentForm = ({
   };
   const [getExtra, setExtra] = useState(0);
   const [getServicePrice, setServicePrice] = useState<number | undefined>(
-    defaultValues ? defaultValues.service.price : 0,
+    defaultValues?.service?.price ? defaultValues?.service?.price : 0,
   );
 
   const [status, setStatus] = useState("");
@@ -133,11 +130,10 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
-                setRange(
-                    prevState => ({...prevState ,
-                      appointment_cost:selectedItem?.appointment_cost
-                    }
-)                )
+                setRange((prevState) => ({
+                  ...prevState,
+                  appointment_cost: selectedItem?.appointment_cost,
+                }));
                 return await AppointmentService.make<AppointmentService>(
                   "admin",
                 )
@@ -193,7 +189,7 @@ const AppointmentForm = ({
             />
           </>
         ) : (
-          false
+          ""
         )}
 
         <ApiSelect

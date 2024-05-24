@@ -61,9 +61,7 @@ const Login = ({ url, pageType }: { url: string; pageType: string }) => {
             <p className="my-3 p-2 w-full text-error text-sm">
               Incorrect email or password.
             </p>
-          ) : (
-            false
-          )}
+          ) : ""}
 
           <div className="flex justify-center opacity-80 mt-4">
             <h4> Forget Password ? </h4>

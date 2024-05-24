@@ -1,14 +1,16 @@
 "use client";
 import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { Link } from "@/navigation";
+import {Link} from "@/navigation";
 
 const SidebarItem = ({
   link = "#",
   children,
+  onClick,
 }: {
   link?: string;
   children: ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
 }) => {
   const pathname = usePathname();
   let active: string;
@@ -18,7 +20,13 @@ const SidebarItem = ({
     active = "text-gray-500 hover:bg-gray-100 hover:text-gray-700";
   }
   return (
-    <li>
+    <li
+      onClick={(e) => {
+        if (onClick) {
+          onClick(e);
+        }
+      }}
+    >
       <Link
         href={link}
         className={`block rounded-lg px-4 py-4 text-sm font-medium ${active}`}

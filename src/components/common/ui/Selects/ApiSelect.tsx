@@ -88,7 +88,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
 
@@ -129,7 +129,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -137,7 +137,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -197,7 +197,14 @@ function ApiSelect<TResponse, TData>({
         onClick={() => handleOpen()}
         className={`flex justify-between cursor-pointer ${styles?.selectClasses ?? "border-gray-300 p-3 border rounded-sm w-full text-gray-700 sm:text-sm"}`}
       >
-        <div className="flex justify-between items-center w-full">
+        <div
+          className="flex justify-between items-center w-full"
+          role="listbox"
+          aria-expanded={isOpen}
+          aria-activedescendant={
+            selected.length ? selected[0].value : undefined
+          }
+        >
           {selected.length > 0 ? (
             <div className="flex flex-wrap items-center gap-1">
               {selected.map((option, index) => (
@@ -242,15 +249,15 @@ function ApiSelect<TResponse, TData>({
         <div
           className={
             isOpen
-              ? `absolute left-0 z-50 ${styles?.dropDownItemsContainerClasses ?? " px-3 pb-3 rounded-lg border border-gray-200 shadow-2xl bg-white w-full"}`
+              ? `absolute overflow-y-scroll left-0 z-50 ${styles?.dropDownItemsContainerClasses ?? " px-3 pb-3 rounded-lg border border-gray-200 shadow-2xl bg-white w-full"}`
               : "hidden"
           }
           style={{
             top: `${(fullContainer?.current?.clientHeight ?? 0) + 5}px`,
             maxHeight: `${styles?.dropDownContainerMaxHeight ?? "200"}px`,
-            overflowY: "scroll",
           }}
           onScroll={(e) => handleDataScrolling(e)}
+          onTouchMove={(e) => handleDataScrolling(e)}
         >
           <div className={`sticky top-0 bg-inherit`}>
             <input
@@ -299,6 +306,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-    selected.filter((op) => isEqual(op, option)).length > 0;
+  selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

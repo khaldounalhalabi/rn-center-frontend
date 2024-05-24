@@ -5,7 +5,7 @@ import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import { useTranslations } from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
 import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
-import SidebarCompactIcon from "@/components/common/Sidebar/sidbarCompactIcon";
+import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem"
 import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicIcon from "@/components/icons/ClinicIcon";

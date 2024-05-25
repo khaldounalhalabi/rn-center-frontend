@@ -12,9 +12,11 @@ export class EnquiriesService extends BaseService<Enquiries> {
     enquiriesId: number,
     data: { title: string; body: string },
   ): Promise<ApiResponse<{ title: string; body: string }>> {
-    return await POST<{ title: string; body: string }>(
+    const res = await POST<{ title: string; body: string }>(
       `${this.actor}/enquiries/${enquiriesId}/reply`,
       data,
     );
+    return await this.errorHandler(res)
+
   }
 }

@@ -11,9 +11,11 @@ export class PrescriptionService extends BaseService<Prescription> {
   public async deleteMedicine(
     medicineId: number,
   ): Promise<ApiResponse<MedicineData[]>> {
-    return await DELETE<MedicineData[]>(
+    const res = await DELETE<MedicineData[]>(
       `${this.actor}/prescriptions/medicine-data/${medicineId}`,
     );
+      return await this.errorHandler(res)
+
   }
 
   public async getAllPrescriptions(
@@ -25,7 +27,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     per_page?: number,
     params?: object,
   ): Promise<ApiResponse<Prescription[]>> {
-    return await GET<Prescription[]>(
+    const res = await GET<Prescription[]>(
       `${this.actor}/appointments/${appointmentId}/prescriptions`,
       {
         page: page,
@@ -36,5 +38,7 @@ export class PrescriptionService extends BaseService<Prescription> {
         ...params,
       },
     );
+      return await this.errorHandler(res)
+
   }
 }

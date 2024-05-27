@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Eye from "@/components/icons/Eye";
 import { Link } from "@/navigation";
 import { translate } from "@/Helpers/Translations";
-import { AppointmentLogs } from "@/Models/AppointmentLog";
+import { AppointmentLogs as AppointmentLogsModel } from "@/Models/AppointmentLog";
 
 const AppointmentLogs = ({
   appointment,
@@ -20,7 +20,7 @@ const AppointmentLogs = ({
       );
     },
   });
-  const res: AppointmentLogs[] | undefined = data?.data;
+  const res: AppointmentLogsModel[] | undefined = data?.data;
 
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -37,7 +37,7 @@ const AppointmentLogs = ({
             </tr>
           </thead>
           <tbody>
-            {res?.map((e: AppointmentLogs, index) => (
+            {res?.map((e: AppointmentLogsModel, index) => (
               <tr key={index}>
                 <th>{e.id}</th>
                 <td>{e.status}</td>

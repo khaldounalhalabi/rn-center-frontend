@@ -50,10 +50,10 @@ const Form = ({
       >
         {setLocale?
             <div className='h-8 w-full flex-row flex justify-center items-center'>
-              <span className='mx-2'>EN</span>
-              <input type="radio" name="radio-1" className="radio mx-1" checked={lang == "en"} onChange={()=>setLang('en')}/>
-              <input type="radio" name="radio-1" className="radio mx-1" checked={lang == "ar"} onChange={()=>setLang('ar')}/>
-              <span className='mx-2'>AR</span>
+              <div className='w-36  h-8 flex'>
+                  <p className={`w-1/2 h-full pt-1 rounded-l-2xl text-center cursor-pointer ${lang == "en"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('en')}>English</p>
+                  <p className={`w-1/2 h-full pt-1 rounded-r-2xl text-center cursor-pointer ${lang == "ar"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('ar')}>Arab</p>
+              </div>
             </div>
         :""}
         {children}

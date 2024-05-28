@@ -15,7 +15,7 @@ const DatepickerFilter = ({
       <DatePicker
         onChange={onChange}
         defaultValue={
-          defaultValue ? dayjs(defaultValue, "YYYY-MM-DD") : dayjs(new Date())
+          defaultValue ? dayjs(defaultValue, "YYYY-MM-DD") : undefined
         }
         slotProps={{ textField: { size: "small" } }}
         className={styles.datePicker}

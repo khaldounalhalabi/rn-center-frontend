@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
-import React from "react";
+import React, {useState} from "react";
 import { Speciality } from "@/Models/Speciality";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { SpecialityService } from "@/services/SpecialityService";
@@ -45,12 +45,15 @@ const SpecialityForm = ({
   const onSuccess = () => {
     Navigate(`/admin/speciality`);
   };
+  const [locale,setLocale] = useState<"en"|"ar">('en')
+
   const array = defaultValues?.tags?.split(",") ?? [];
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <div>
         <TranslatableInput
@@ -60,6 +63,7 @@ const SpecialityForm = ({
           placeholder={"John"}
           label={t("specialityName")}
           name={"name"}
+          locale={locale}
         />
       </div>
       <div className="my-3">

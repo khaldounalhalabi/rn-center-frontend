@@ -36,7 +36,6 @@ const MultiMedicinesInput = ({
           },
         ],
   );
-  console.log(medicines);
 
   const addMedicine = () => {
     const newMedicine = {
@@ -107,6 +106,7 @@ const MultiMedicinesInput = ({
           <div className="my-2 p-4 border rounded-2xl" key={index}>
             <div className="flex md:flex-row flex-col justify-between items-center gap-2">
               <ApiSelect
+                  type={'medicine'}
                 required={true}
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}

@@ -1,22 +1,29 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 export default function SelectedLocale({
   locales = ["en", "ar"],
+  locale = "en",
   className,
   setSelectedLocale,
 }: {
   locales: string[];
+  locale?: "en" | "ar";
   className: string;
-  setSelectedLocale?: any;
+  setSelectedLocale?: React.Dispatch<any>;
 }) {
-  const [selectedLocale, setSelected] = useState<string>("en");
+  const [selectedLocale, setSelected] = useState<string>(locale);
+
+  useEffect(() => {
+    setSelected(locale);
+  }, [locale]);
+
   return (
     <div className={className}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-black/30 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-            {selectedLocale?.toLocaleUpperCase()}
+          <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-black/30 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+            {selectedLocale?.toUpperCase()}
           </Menu.Button>
         </div>
         <Transition
@@ -34,16 +41,16 @@ export default function SelectedLocale({
                 <Menu.Item key={index}>
                   {({ active }) => (
                     <button
-                      type={"button"}
-                      onClick={(s) => {
-                        setSelectedLocale(e);
+                      type="button"
+                      onClick={() => {
+                        setSelectedLocale?.(e);
                         setSelected(e);
                       }}
                       className={`${
-                        active ? " bg-blue-500  text-white" : "text-gray-900"
+                        active ? "bg-blue-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-4 py-2 text-sm`}
                     >
-                      {e?.toLocaleUpperCase()}
+                      {e?.toUpperCase()}
                     </button>
                   )}
                 </Menu.Item>

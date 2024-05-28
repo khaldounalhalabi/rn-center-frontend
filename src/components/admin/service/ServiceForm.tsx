@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -46,12 +46,14 @@ const ServiceForm = ({
   const onSuccess = () => {
     Navigate(`/admin/service`);
   };
+  const [locale,setLocale] = useState<"en"|"ar">('en')
 
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <Grid md={"2"}>
         <TranslatableInput
@@ -61,6 +63,7 @@ const ServiceForm = ({
           placeholder={"John"}
           label={t("serviceName")}
           name={"name"}
+          locale={locale}
         />
         <ApiSelect
           placeHolder={"Select Clinic Name ..."}

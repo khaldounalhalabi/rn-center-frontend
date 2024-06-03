@@ -2,11 +2,10 @@ import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
-import React, { useState } from "react";
+import React from "react";
 import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
-import { AppointmentLogs } from "@/Models/AppointmentLog";
 import {toast} from "react-toastify";
 
 type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
@@ -41,9 +40,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const sUrl = showUrl ?? `${baseUrl}/${dataId ?? ""}`; // show url
   const eUrl = editUrl ?? `${baseUrl}/${dataId ?? ""}/edit` + ""; // edit url
   const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
-  const [openLogs, setOpenLogs] = useState(false);
 
-  const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (
     <div className={`flex justify-between items-center gap-2`}>
       {buttons.includes("show") ? (

@@ -52,7 +52,7 @@ const Form = ({
             <div className='h-8 w-full flex-row flex justify-center items-center'>
               <div className='w-36  h-8 flex'>
                   <p className={`w-1/2 h-full pt-1 rounded-l-2xl text-center cursor-pointer ${lang == "en"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('en')}>English</p>
-                  <p className={`w-1/2 h-full pt-1 rounded-r-2xl text-center cursor-pointer ${lang == "ar"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('ar')}>Arab</p>
+                  <p className={`w-1/2 h-full pt-1 rounded-r-2xl text-center cursor-pointer ${lang == "ar"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('ar')}>Arabic</p>
               </div>
             </div>
         :""}

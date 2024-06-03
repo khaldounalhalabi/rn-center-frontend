@@ -30,12 +30,6 @@ const Page = () => {
                 translatable: true,
             },
             {
-                name: "note",
-                label: `Note`,
-                sortable: true,
-                translatable: true,
-            },
-            {
                 name: "value",
                 label: `Value`,
                 sortable: true,

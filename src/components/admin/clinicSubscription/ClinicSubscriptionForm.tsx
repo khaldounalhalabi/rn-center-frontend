@@ -6,17 +6,11 @@ import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import Input from "@/components/common/ui/Inputs/Input";
-import Textarea from "@/components/common/ui/textArea/Textarea";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
-import { Clinic } from "@/Models/Clinic";
-import { ClinicService } from "@/services/ClinicService";
-import { translate } from "@/Helpers/Translations";
-import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
-import SubscriptionArray from "@/enm/TypeSubscription";
-import Select from "@/components/common/ui/Selects/Select";
+import SubscriptionArray, { SubscriptionType } from "@/enm/SubscriptionType";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 const ClinicSubscriptionForm = ({
@@ -29,20 +23,24 @@ const ClinicSubscriptionForm = ({
   type?: "store" | "update";
 }) => {
   const [typeSelect, setType] = useState("");
-  console.log(defaultValues)
+  console.log(defaultValues);
   const handleSubmit = async (data: any) => {
     const dataSend = {
-      clinic_id:id,
-      subscription_id:data.subscription_id,
-      type:data.type
-    }
+      clinic_id: id,
+      subscription_id: data.subscription_id,
+      type: data.type,
+    };
     const dataSendTow = {
-      clinic_id:id,
-      subscription_id:data.subscription_id,
-      type:data.type,
-      deduction_cost:data.deduction_cost
-    }
-    const send = typeSelect == "Booking Cost Based Subscription" || defaultValues?.type == "Booking Cost Based Subscription" ? dataSendTow:dataSend
+      clinic_id: id,
+      subscription_id: data.subscription_id,
+      type: data.type,
+      deduction_cost: data.deduction_cost,
+    };
+    const send =
+      typeSelect == SubscriptionType.BOOKING_COST ||
+      defaultValues?.type == SubscriptionType.BOOKING_COST
+        ? dataSendTow
+        : dataSend;
     console.log(send);
     if (
       type === "update" &&
@@ -106,7 +104,8 @@ const ClinicSubscriptionForm = ({
             setType(e);
           }}
         />
-        {typeSelect == "Booking Cost Based Subscription" || defaultValues?.type == "Booking Cost Based Subscription"? (
+        {typeSelect == "Booking Cost Based Subscription" ||
+        defaultValues?.type == "Booking Cost Based Subscription" ? (
           <Input
             required={true}
             unit={"%"}

@@ -8,6 +8,8 @@ import { User } from "@/Models/User";
 import { translate } from "@/Helpers/Translations";
 import { Phone } from "@/Models/Phone";
 import Gallery from "@/components/common/ui/Gallery";
+import RoundedImage from "@/components/common/RoundedImage";
+import {getMedia} from "@/Models/Media";
 
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
   const data = await UsersService.make<UsersService>().show(userId);
@@ -22,35 +24,54 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>
+      <div className={"card p-5 bg-base-200 my-3"}>
+        <div className={`flex items-center gap-3`}>
+          <RoundedImage
+              src={getMedia(res?.image?.[0] ?? undefined)}
+              alt={"doctor-profile"}
+              className={"w-24 h-24"}
+          />
+          <div className={"flex flex-col"}>
+            <h2 className={"font-bold text-lg"}><span >
+            {translate(res?.first_name)} {translate(res?.middle_name)}{" "}
+              {translate(res?.last_name)}
+          </span></h2>
+            <h3>
+              {res.email}
+            </h3>
+            <div className={"flex gap-1"}>
+              Phone :{" "}
+              {res.phones?.slice(0, 2).map((item: Phone, index) => {
+                return (
+                    <span className="ml-2 badge badge-accent  " key={item.id}>
+              {" "}
+                      {item.phone} {index != 0 && index != 2 ? "/" : ""}
+            </span>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Grid md={2} gap={5}>
         <label className="label justify-start text-xl">
-          Name :{" "}
-          <span className="ml-2 badge badge-info  ">
-            {translate(res?.first_name)} {translate(res?.middle_name)}{" "}
-            {translate(res?.last_name)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          Email :{" "}
-          <span className="ml-2 badge badge-neutral  ">{res.email}</span>
-        </label>
-        <label className="label justify-start text-xl">
           Birth Date :{" "}
-          <span className="ml-2 badge badge-outline  ">{res.birth_date}</span>
+          <span className="ml-2 badge badge-outline  ">{res?.birth_date}</span>
         </label>
         <label className="label justify-start text-xl">
-          Age : <span className="ml-2 badge badge-accent  ">{res.age}</span>
+          Age : <span className="ml-2 badge badge-accent  ">{res?.age}</span>
         </label>
         <label className="label justify-start text-xl">
           Address :{" "}
           <span className="ml-2 badge badge-success  ">
-            {translate(res.address.name)}
+            {translate(res?.address?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
           City :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {translate(res?.address.city?.name)}
+            {translate(res?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
@@ -93,27 +114,6 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
           <span className="text-lg badge badge-neutral">No Data</span>
         )}
       </label>
-      <label className="label justify-start text-xl">
-        Phone :{" "}
-        {res.phones?.slice(0, 2).map((item: Phone, index) => {
-          return (
-            <span className="ml-2 badge badge-accent  " key={item.id}>
-              {" "}
-              {item.phone} {index != 0 && index != 2 ? "/" : ""}
-            </span>
-          );
-        })}
-      </label>
-      <div className={"w-full"}>
-        {res?.image?.length != 0 ? (
-          <Gallery media={res?.image ? res?.image : [""]} />
-        ) : (
-          <div className="flex justify-between items-center">
-            <label className="label text-xl"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
-          </div>
-        )}
-      </div>
     </PageCard>
   );
 };

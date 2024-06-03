@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -33,6 +33,7 @@ const UserForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -56,13 +57,15 @@ const UserForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/user`);
+    // Navigate(`/admin/user`);
   };
+  const [locale,setLocale] = useState<'en'|"ar">('en')
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <Grid md={"2"}>
         <TranslatableInput
@@ -72,6 +75,7 @@ const UserForm = ({
           placeholder={"John"}
           label={`First Name :`}
           name={"first_name"}
+          locale={locale}
         />
         <TranslatableInput
           required={true}
@@ -80,6 +84,8 @@ const UserForm = ({
           placeholder={"John"}
           label={`Middle Name :`}
           name={"middle_name"}
+          locale={locale}
+
         />
         <TranslatableInput
           required={true}
@@ -88,6 +94,7 @@ const UserForm = ({
           placeholder={"John"}
           label={`Last Name :`}
           name={"last_name"}
+          locale={locale}
         />
         <SelectPopOverFrom
           required={true}
@@ -163,6 +170,7 @@ const UserForm = ({
           placeholder={"John"}
           label={`Address :`}
           name={"address.name"}
+          locale={locale}
           defaultValue={defaultValues?.address?.name ?? ""}
         />
         <ApiSelect

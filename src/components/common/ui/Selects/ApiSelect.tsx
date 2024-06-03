@@ -28,6 +28,7 @@ function ApiSelect<TResponse, TData>({
   required = false,
   onClear = undefined,
   inputProps = {},
+    type=undefined
 }: IApiSelectProps<TResponse, TData>) {
   const {
     setValue,
@@ -75,6 +76,8 @@ function ApiSelect<TResponse, TData>({
           : null
         : null;
     },
+    refetchInterval: type=="medicine"?4000:0,
+    staleTime: Infinity,
   });
 
   const handleClickOutside = (event: MouseEvent) => {

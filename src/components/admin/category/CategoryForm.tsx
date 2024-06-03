@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -36,11 +36,14 @@ const CategoryForm = ({
     Navigate(`/admin/category`);
   };
   const t = useTranslations("admin.category.create-edit");
+  const [locale,setLocale] = useState<"en"|"ar">('en')
+
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <Grid md={"2"}>
         <TranslatableInput
@@ -50,6 +53,7 @@ const CategoryForm = ({
           placeholder={"John"}
           label={`${t("serviceCategoryName")}`}
           name={"name"}
+          locale={locale}
         />
       </Grid>
     </Form>

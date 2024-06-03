@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { AddHospital } from "@/Models/Hospital";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
@@ -47,12 +47,14 @@ const HospitalsForm = ({
   const onSuccess = () => {
     Navigate(`/admin/hospitals`);
   };
+  const [locale,setLocale] = useState<"en"|"ar">('en')
 
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <Grid md={"2"}>
         <TranslatableInput
@@ -62,6 +64,7 @@ const HospitalsForm = ({
           placeholder={"John"}
           label={t("hospitalName")}
           name={"name"}
+          locale={locale}
         />
 
         <ApiSelect
@@ -137,6 +140,7 @@ const HospitalsForm = ({
           name={"address.name"}
           type={"text"}
           label={t("address")}
+          locale={locale}
         />
 
         {type == "update" ? (

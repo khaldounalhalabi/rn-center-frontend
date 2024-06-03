@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
@@ -12,12 +12,14 @@ const Form = ({
   onSuccess,
   defaultValues = {},
   buttonText = "Submit",
+    setLocale = undefined
 }: {
   children: React.ReactNode;
   handleSubmit: (data: any) => Promise<ApiResponse<any>>;
   defaultValues?: object | undefined | null;
   onSuccess?: (res: ApiResponse<any>) => void;
   buttonText?: string;
+  setLocale?:React.Dispatch<"en"|"ar">
 }) => {
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
@@ -34,12 +36,26 @@ const Form = ({
     return res;
   };
 
+  const [lang,setLang] = useState<"en"|"ar">('en')
+  useEffect(()=>{
+    if(setLocale){
+      setLocale(lang)
+    }
+  },[lang])
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
         encType="multipart/form-data"
       >
+        {setLocale?
+            <div className='h-8 w-full flex-row flex justify-center items-center'>
+              <div className='w-36  h-8 flex'>
+                  <p className={`w-1/2 h-full pt-1 rounded-l-2xl text-center cursor-pointer ${lang == "en"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('en')}>English</p>
+                  <p className={`w-1/2 h-full pt-1 rounded-r-2xl text-center cursor-pointer ${lang == "ar"?'bg-black text-white' : "bg-gray-300 text-black "}`} onClick={()=>setLang('ar')}>Arab</p>
+              </div>
+            </div>
+        :""}
         {children}
         <div
           className="flex justify-center items-center my-5"

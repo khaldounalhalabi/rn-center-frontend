@@ -3,9 +3,16 @@ import React from "react";
 import { UsersService } from "@/services/UsersService";
 import UserForm from "@/components/admin/users/UserForm";
 
+
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
   const user = (await UsersService.make<UsersService>("admin").show(userId))
     .data;
+
+  const defaultUser = {
+      phone_numbers: user?.phones.map((ph) => ph.phone),
+      ...user
+  }
+
 
   return (
     <PageCard>
@@ -13,7 +20,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
       <UserForm
         type={"update"}
         defaultValues={{
-          ...user,
+          ...defaultUser,
         }}
       />
     </PageCard>

@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer, SendPatient } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import BloodArray from "@/enm/blood";
 
 const PatientsForm = ({
   defaultValues = undefined,
@@ -65,12 +67,13 @@ const PatientsForm = ({
   const onSuccess = () => {
     Navigate(`/admin/patients`);
   };
-  console.log(defaultValues);
+  const [locale,setLocale] = useState<"en"|"ar">('en')
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={defaultValues}
+      setLocale={setLocale}
     >
       <Grid md={"2"}>
         <TranslatableInput
@@ -80,6 +83,7 @@ const PatientsForm = ({
           placeholder={"John"}
           label={`First Name :`}
           name={"user.first_name"}
+          locale={locale}
         />
         <TranslatableInput
           required={true}
@@ -88,6 +92,8 @@ const PatientsForm = ({
           placeholder={"John"}
           label={`Middle Name :`}
           name={"user.middle_name"}
+          locale={locale}
+
         />
         <TranslatableInput
           required={true}
@@ -95,12 +101,17 @@ const PatientsForm = ({
           type={"text"}
           placeholder={"John"}
           label={`Last Name :`}
+          locale={locale}
+
           name={"user.last_name"}
         />
-        <Input
-          type={"text"}
-          name={"user.blood_group"}
-          label={"Blood Group :"}
+        <SelectPopOverFrom
+         name={'user.blood_group'}
+         id={1}
+         required={true}
+         label={'Blood Group'}
+         ArraySelect={BloodArray()}
+         status={defaultValues?.user.blood_group ?? ""}
         />
       </Grid>
       <Input
@@ -169,6 +180,8 @@ const PatientsForm = ({
           placeholder={"John"}
           label={`Address :`}
           name={"user.address.name"}
+          locale={locale}
+
           defaultValue={defaultValues ? defaultValues?.user?.address?.name : ""}
         />
         <ApiSelect

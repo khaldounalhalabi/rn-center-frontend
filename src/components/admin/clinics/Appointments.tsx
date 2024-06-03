@@ -14,6 +14,7 @@ import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enm/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
+import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
@@ -49,20 +50,14 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       {
         name: "status",
         label: "Status",
-        render: (data) =>
-          data == AppointmentStatusEnum.CHECKOUT ? (
-            <span className={`badge badge-neutral`}>Checkout</span>
-          ) : data == AppointmentStatusEnum.CANCELLED ? (
-            <span className={`badge badge-warning`}>Cancelled</span>
-          ) : data == AppointmentStatusEnum.PENDING ? (
-            <span className={`badge badge-primary`}>Pending</span>
-          ) : data == AppointmentStatusEnum.CHECKIN ? (
-            <span className={`badge badge-success`}>Checkin</span>
-          ) : data == AppointmentStatusEnum.BOOKED ? (
-            <span className={`badge badge-error`}>Booked</span>
-          ) : (
-            <span className={`badge badge-info`}>Completed</span>
-          ),
+        render: (_status, appointment, setHidden, revalidate) => {
+          return (
+              <AppointmentStatusColumn
+                  appointment={appointment}
+                  revalidate={revalidate}
+              />
+          );
+        },
         sortable: true,
       },
       {

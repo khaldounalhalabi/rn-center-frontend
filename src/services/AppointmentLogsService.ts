@@ -11,9 +11,9 @@ export class AppointmentLogsService extends BaseService<AppointmentLogs> {
   public async getAppointmentLogs(
     appointmentId: number,
   ): Promise<ApiResponse<AppointmentLogs[]>> {
-    return await GET<AppointmentLogs[]>(
+    const res = await GET<AppointmentLogs[]>(
       `${this.actor}/appointments/${appointmentId}/logs`,
     );
+    return await this.errorHandler(res)
   }
 }
-

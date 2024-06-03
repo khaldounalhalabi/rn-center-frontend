@@ -8,9 +8,13 @@ export class UsersService extends BaseService<User> {
     return `${this.actor}/users`;
   }
   public async toggleArchive(userId: number): Promise<ApiResponse<User>> {
-    return await DELETE<User>(`${this.actor}/users/${userId}/toggle-archive`);
+    const res = await DELETE<User>(`${this.actor}/users/${userId}/toggle-archive`);
+    return await this.errorHandler(res)
+
   }
   public async toggleBlock(userId: number): Promise<ApiResponse<User>> {
-    return await GET<User>(`${this.actor}/users/${userId}/toggle-block`);
+    const res = await GET<User>(`${this.actor}/users/${userId}/toggle-block`);
+    return await this.errorHandler(res)
+
   }
 }

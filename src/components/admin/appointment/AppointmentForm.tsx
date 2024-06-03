@@ -22,7 +22,7 @@ import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
 import { AvailableTime } from "@/Models/AvailableTime";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
-} from "@/enm/AppointmentStatus";
+} from "@/enum/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
 
 interface Range {

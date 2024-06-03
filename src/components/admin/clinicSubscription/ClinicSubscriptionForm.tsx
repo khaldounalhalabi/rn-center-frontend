@@ -10,7 +10,7 @@ import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
-import SubscriptionArray, { SubscriptionType } from "@/enm/SubscriptionType";
+import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 const ClinicSubscriptionForm = ({

@@ -3,7 +3,7 @@ import { Dialog, Listbox, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
-import { AppointmentStatusEnum } from "@/enm/AppointmentStatus";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 import { useFormContext } from "react-hook-form";
 
 export default function SelectPopOverFrom({

@@ -11,7 +11,7 @@ import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
-} from "@/enm/AppointmentStatus";
+} from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";

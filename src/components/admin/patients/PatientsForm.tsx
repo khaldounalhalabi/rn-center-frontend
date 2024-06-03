@@ -17,7 +17,7 @@ import { PatientsService } from "@/services/PatientsService";
 import { Customer, SendPatient } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
-import BloodArray from "@/enm/blood";
+import BloodArray from "@/enum/blood";
 
 const PatientsForm = ({
   defaultValues = undefined,

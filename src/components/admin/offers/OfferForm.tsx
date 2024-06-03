@@ -2,7 +2,6 @@
 import Form from "@/components/common/ui/Form";
 import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
-import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { Offers } from "@/Models/Offers";
 import { OffersService } from "@/services/OffersService";
@@ -11,11 +10,11 @@ import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
 import { translate } from "@/Helpers/Translations";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
-import OffersArray from "@/enm/TypeOffers";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Datepicker";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import dayjs from "dayjs";
+import OffersArray from "@/enum/OfferType";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -73,7 +72,7 @@ const OfferForm = ({
               search,
             )
           }
-          defaultValues={defaultValues?.clinic?[defaultValues?.clinic]:[]}
+          defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
           label={"Clinic Name"}
           optionValue={"id"}
           getOptionLabel={(data: Clinic) => translate(data.name)}
@@ -107,19 +106,18 @@ const OfferForm = ({
           unit={typeOffers == "percentage" ? "%" : "IQD"}
         />
         <Datepicker
-            shouldDisableDate={(day)=>{
-              return dayjs().isAfter(day.add(1, "day"));
-            }
-        }
-            required={true}
-            name={"start_at"}
-            label={"Start At"}
+          shouldDisableDate={(day) => {
+            return dayjs().isAfter(day.add(1, "day"));
+          }}
+          required={true}
+          name={"start_at"}
+          label={"Start At"}
         />
         <Datepicker required={true} name={"end_at"} label={"End At"} />
       </Grid>
       <TranslatableTextArea
-          name={"note"}
-          defaultValue={defaultValues?.note ?? ""}
+        name={"note"}
+        defaultValue={defaultValues?.note ?? ""}
       />
     </Form>
   );

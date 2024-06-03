@@ -12,10 +12,10 @@ import { useTranslations } from "next-intl";
 import { cities } from "@/constants/Cities";
 import { translate } from "@/Helpers/Translations";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
-import AppointmentStatuses from "@/enm/AppointmentStatus";
+import AppointmentStatuses from "@/enum/AppointmentStatus";
 import {AppointmentService} from "@/services/AppointmentService";
 import {toast} from "react-toastify";
-import StatusArray from "@/enm/status";
+import StatusArray from "@/enum/status";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");

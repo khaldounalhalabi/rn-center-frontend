@@ -12,7 +12,7 @@ import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
-} from "@/enm/AppointmentStatus";
+} from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 

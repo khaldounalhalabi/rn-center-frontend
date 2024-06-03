@@ -19,7 +19,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
-import Roles from "@/enm/Role";
+import Roles from "@/enum/Role";
 import { useFormContext } from "react-hook-form";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";

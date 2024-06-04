@@ -43,7 +43,7 @@ app.prepare().then(() => {
       console.error(err);
       process.exit(1);
     })
-    .listen("passenger", () => {
+    .listen(port, () => {
       console.log(`> Ready on http://${hostname}:${port}`);
     });
 });

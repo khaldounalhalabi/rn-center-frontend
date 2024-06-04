@@ -8,7 +8,7 @@ import { Medicine } from "@/Models/Medicines";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 
@@ -38,7 +38,7 @@ const MedicinesForm = ({
         .then((res) => {
           if (res.code == 200) {
             if (type == "prescription") {
-              closeModal();
+              closeModal(data.name);
             } else {
               Navigate(`/admin/medicines`);
             }
@@ -64,7 +64,7 @@ const MedicinesForm = ({
           label={"Clinic Name"}
           optionValue={"id"}
           defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-          getOptionLabel={(data: Clinic) => translate(data.name)}
+          getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
         />
         <Input
           name={"name"}

@@ -1,8 +1,10 @@
-import {Link} from "@/navigation";
+'use client'
 import React from "react";
 
+
 const Page = () => {
-  return <div>
+
+    return <div>
 
 
   </div>;

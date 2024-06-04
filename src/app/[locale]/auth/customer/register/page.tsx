@@ -127,7 +127,7 @@
 //               {/*    api={(page?: number | undefined, search?: string | undefined) =>*/}
 //               {/*        CityService.make<CityService>().indexWithPagination(page, search)*/}
 //               {/*    }*/}
-//               {/*    getOptionLabel={(item) => translate(item.name)}*/}
+//               {/*    getOptionLabel={(item) => TranslateClient(item.name)}*/}
 //               {/*    optionValue={"id"}*/}
 //
 //               {/*/>*/}

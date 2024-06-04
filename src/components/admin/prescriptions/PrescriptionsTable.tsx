@@ -4,7 +4,7 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Prescription } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { Appointment } from "@/Models/Appointment";
@@ -36,9 +36,9 @@ const PrescriptionsTable = ({
         render: (_first_name, prescriptions) => {
           return (
             <p>
-              {translate(prescriptions?.clinic?.user?.first_name)}{" "}
-              {translate(prescriptions?.clinic?.user?.middle_name)}{" "}
-              {translate(prescriptions?.clinic?.user?.last_name)}
+              {TranslateClient(prescriptions?.clinic?.user?.first_name)}{" "}
+              {TranslateClient(prescriptions?.clinic?.user?.middle_name)}{" "}
+              {TranslateClient(prescriptions?.clinic?.user?.last_name)}
             </p>
           );
         },
@@ -51,9 +51,9 @@ const PrescriptionsTable = ({
           return (
             <div className={`flex flex-col items-start`}>
               <p>
-                {translate(prescriptions?.customer?.user?.first_name)}{" "}
-                {translate(prescriptions?.customer?.user?.middle_name)}{" "}
-                {translate(prescriptions?.customer?.user?.last_name)}
+                {TranslateClient(prescriptions?.customer?.user?.first_name)}{" "}
+                {TranslateClient(prescriptions?.customer?.user?.middle_name)}{" "}
+                {TranslateClient(prescriptions?.customer?.user?.last_name)}
               </p>
             </div>
           );

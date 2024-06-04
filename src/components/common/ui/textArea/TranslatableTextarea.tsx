@@ -3,7 +3,7 @@ import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 
 interface TranslatableTextAreaProps extends HTMLProps<HTMLTextAreaElement> {
   className?: string | undefined;
@@ -25,7 +25,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
 }) => {
   const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
   const [trVal, setTrVal] = useState<Translatable>(
-    defaultValue ? translate(defaultValue, true) : { en: "", ar: "" },
+    defaultValue ? TranslateClient(defaultValue, true) : { en: "", ar: "" },
   );
   const {
     setValue,

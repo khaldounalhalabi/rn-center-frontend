@@ -3,7 +3,7 @@ import React, { HTMLProps, useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectedLocale from "../Selects/SelectLocale";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
@@ -34,7 +34,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   const [selectedLocale, setSelectedLocale] = useState<Locales>(locale ?? "en");
   const [tValue, setTValue] = useState<Translatable>(
     typeof defaultValue === "string"
-      ? translate(defaultValue, true)
+      ? TranslateClient(defaultValue, true)
       : defaultValue ?? { en: "", ar: "" },
   );
 

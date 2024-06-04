@@ -2,11 +2,11 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import { SpecialityService } from "@/services/SpecialityService";
 import { Speciality } from "@/Models/Speciality";
 import { getTranslations } from "next-intl/server";
 import Gallery from "@/components/common/ui/Gallery";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { specialityId },
@@ -31,13 +31,13 @@ const page = async ({
           <h2 className="text-xl">
             {t("specialityName")} En:{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {translate(res?.name, true).en}
+              {(await TranslateServer(res?.name, true)).en}
             </span>
           </h2>
           <h2 className="text-xl">
             {t("specialityName")} Ar:{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {translate(res?.name, true).ar}
+              {(await TranslateServer(res?.name, true)).ar}
             </span>
           </h2>
         </div>

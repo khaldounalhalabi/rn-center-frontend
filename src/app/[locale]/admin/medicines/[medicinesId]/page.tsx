@@ -2,10 +2,10 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { medicinesId },
@@ -32,7 +32,7 @@ const page = async ({
         <label className="label">
           Clinic Name
           <span className="badge-primary px-2 rounded-xl text-lg">
-            {translate(res?.clinic?.name)}
+            {await TranslateServer(res?.clinic?.name)}
           </span>
         </label>
       </Grid>

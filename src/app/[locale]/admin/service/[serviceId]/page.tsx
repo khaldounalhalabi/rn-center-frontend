@@ -2,11 +2,11 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { serviceId },
@@ -28,20 +28,20 @@ const page = async ({
         <label className="label">
           {t("serviceName")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {translate(res?.name, true)?.en}
+            {(await TranslateServer(res?.name, true))?.en}
           </span>
         </label>
         <label className="label">
           {t("serviceName")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {translate(res?.name, true).ar}
+            {(await TranslateServer(res?.name, true)).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("category")} :
           {res?.serviceCategory.name ? (
             <span className="badge badge-error">
-              {translate(res?.serviceCategory.name)}
+              {await TranslateServer(res?.serviceCategory.name)}
             </span>
           ) : (
             <span className="text-lg badge-accent">{t("noData")}</span>
@@ -51,7 +51,7 @@ const page = async ({
           {t("clinicName")} :
           {res?.clinic.name ? (
             <span className="badge badge-primary">
-              {`${translate(res?.clinic.name)}`}
+              {`${await TranslateServer(res?.clinic.name)}`}
             </span>
           ) : (
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
@@ -60,7 +60,7 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("approximateDuration")} :
           {res?.approximate_duration ? (
-            <span className="badge badge-accent">
+            <span className="badge badge-accent" suppressHydrationWarning>
               {res?.approximate_duration.toLocaleString()}
             </span>
           ) : (
@@ -71,7 +71,7 @@ const page = async ({
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("price")} :
           {res?.price ? (
-            <span className="badge badge-accent">
+            <span className="badge badge-accent" suppressHydrationWarning>
               {res?.price.toLocaleString()} IQD
             </span>
           ) : (
@@ -93,7 +93,7 @@ const page = async ({
           {res?.status ? (
             <textarea
               rows={4}
-              value={translate(res?.description, true).en}
+              value={(await TranslateServer(res?.description, true)).en}
               className="textarea-bordered w-full text-lg textarea"
               readOnly={true}
             />
@@ -106,7 +106,7 @@ const page = async ({
           {res?.status ? (
             <textarea
               rows={4}
-              value={translate(res?.description, true).ar}
+              value={(await TranslateServer(res?.description, true)).ar}
               className="textarea-bordered w-full text-lg textarea"
               readOnly={true}
             />

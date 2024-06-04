@@ -9,7 +9,7 @@ import { HospitalService } from "@/services/HospitalService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { ApiResponse } from "@/Http/Response";
 import { Department } from "@/Models/Departments";
 import { CityService } from "@/services/CityService";
@@ -77,7 +77,7 @@ const HospitalsForm = ({
           required={true}
           isMultiple={true}
           optionValue={"id"}
-          getOptionLabel={(data) => translate(data.name)}
+          getOptionLabel={(data) => TranslateClient(data.name)}
           defaultValues={
             defaultValues?.available_departments
               ? defaultValues.available_departments
@@ -133,7 +133,7 @@ const HospitalsForm = ({
           name="address.city_id"
           label={t("city")}
           optionValue="id"
-          getOptionLabel={(data) => translate(data.name)}
+          getOptionLabel={(data) => TranslateClient(data.name)}
         />
         <TranslatableInput
           required={true}

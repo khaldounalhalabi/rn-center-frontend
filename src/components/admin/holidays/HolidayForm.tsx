@@ -11,7 +11,7 @@ import { ApiResponse } from "@/Http/Response";
 import { Clinic } from "@/Models/Clinic";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 import Datepicker from "@/components/common/ui/Datepicker";
 
@@ -58,7 +58,7 @@ const HolidayForm = ({
             }
             placeHolder={"Select Clinic Name ..."}
             label={`${t("clinicName")} :`}
-            getOptionLabel={(item) => translate(item.name)}
+            getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
             name={"clinic_id"}
             defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}

@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import { Clinic } from "@/Models/Clinic";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import MapIFrame from "@/components/common/ui/MapIFrame";
 import { useTranslations } from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
+  console.log(clinic)
   const t = useTranslations("admin.clinic.show");
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -16,7 +17,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
             {clinic?.specialities?.map((spec) => {
               return (
                 <div key={spec.id} className={"badge badge-info"}>
-                  {translate(spec.name)}
+                  {TranslateClient(spec.name)}
                 </div>
               );
             })}
@@ -55,21 +56,21 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>{t("address")} :</label>
           <div className={"flex flex-col"}>
-            <p>{translate(clinic?.user?.address?.name)}</p>
-            <p>{translate(clinic?.user?.address?.city?.name)}</p>
-            <p>{translate(clinic?.user?.address?.country)}</p>
+            <p>{TranslateClient(clinic?.user?.address?.name)}</p>
+            <p>{TranslateClient(clinic?.user?.address?.city?.name)}</p>
+            <p>{clinic?.user?.address?.country}</p>
           </div>
         </div>
 
         <div className={"w-full"}>
           <label className={"label"}>{t("cost")} :</label>
-          <p className={"badge badge-primary"}>
+          <p className={"badge badge-primary"} suppressHydrationWarning>
             {clinic?.appointment_cost.toLocaleString()} IQD
           </p>
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
-          <p className={"badge badge-warning"}>
+          <p className={"badge badge-warning"} suppressHydrationWarning >
             {clinic?.max_appointments.toLocaleString()}
           </p>
         </div>
@@ -84,7 +85,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>{t("hospital")} :</label>
           <p className={"badge badge-error"}>
-            {translate(clinic?.hospital?.name ?? "No Hospital")}
+            {TranslateClient(clinic?.hospital?.name )?? "No Hospital"}
           </p>
         </div>
 

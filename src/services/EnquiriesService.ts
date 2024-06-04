@@ -8,12 +8,11 @@ export class EnquiriesService extends BaseService<Enquiries> {
     return `${this.actor}/enquiries`;
   }
 
-  //TODO::check on this
   public async reply(
     enquiriesId: number,
     data: { title: string; body: string },
-  ): Promise<ApiResponse<{ title: string; body: string }>> {
-    const res = await POST<{ title: string; body: string }>(
+  ): Promise<ApiResponse<boolean>> {
+    const res = await POST<boolean>(
       `${this.actor}/enquiries/${enquiriesId}/reply`,
       data,
     );

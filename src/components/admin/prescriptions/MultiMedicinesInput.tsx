@@ -9,13 +9,16 @@ import { useFormContext } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { MedicineData } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
+import { swal } from "@/Helpers/UIHelpers";
 
 const MultiMedicinesInput = ({
   defaultValues,
   type,
+                               reloadSelect
 }: {
   defaultValues?: MedicineData[];
   type: string;
+  reloadSelect:string
 }) => {
   const dataDefault = Array.isArray(defaultValues)
     ? defaultValues?.map(({ id, prescription_id, medicine, ...rest }) => rest)
@@ -36,7 +39,6 @@ const MultiMedicinesInput = ({
           },
         ],
   );
-
   const addMedicine = () => {
     const newMedicine = {
       medicine_id: 0,
@@ -106,7 +108,7 @@ const MultiMedicinesInput = ({
           <div className="my-2 p-4 border rounded-2xl" key={index}>
             <div className="flex md:flex-row flex-col justify-between items-center gap-2">
               <ApiSelect
-                  type={'medicine'}
+                  revalidate={reloadSelect}
                 required={true}
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}
@@ -206,22 +208,38 @@ const MultiMedicinesInput = ({
                 />
               </div>
               <Trash
-                onClick={async () => {
-                  if (type == "update") {
-                    const id = Array.isArray(defaultValues)
-                      ? defaultValues?.[index]?.id
-                      : 0;
-                    return await PrescriptionService.make<PrescriptionService>(
-                      "admin",
-                    )
-                      .deleteMedicine(id ?? 0)
-                      .then(() => {
+                onClick={ () => {
+                  swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't to Delete this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes!"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      if (type == "update") {
+                        const id = Array.isArray(defaultValues)
+                            ? defaultValues?.[index]?.id
+                            : 0;
+                        if(id !=0){
+                          return PrescriptionService.make<PrescriptionService>(
+                              "admin",
+                          )
+                              .deleteMedicine(id ?? 0)
+                              .then(() => {
+                                deleteMedicine(index);
+                              });
+                        }else {
+                          deleteMedicine(index);
+                        }
+                      }else {
                         deleteMedicine(index);
-                        setPending(true);
-                        startTransition(router.refresh);
-                        setPending(false);
-                      });
-                  }
+                      }
+                    }
+                  });
+
                 }}
                 className="hover:border-2 mt-3 hover:border-red-500 rounded-xl w-8 h-8 text-error cursor-pointer"
               />

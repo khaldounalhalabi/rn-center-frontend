@@ -9,7 +9,7 @@ import { Service } from "@/Models/Service";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 import { ClinicService } from "@/services/ClinicService";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -75,7 +75,7 @@ const ServiceForm = ({
               search,
             )
           }
-          getOptionLabel={(option: Clinic) => translate(option.name)}
+          getOptionLabel={ (option: Clinic) => TranslateClient(option.name)}
           label={t("clinicName")}
           optionValue={"id"}
           defaultValues={
@@ -116,7 +116,7 @@ const ServiceForm = ({
               search,
             )
           }
-          getOptionLabel={(option: ServiceCategory) => translate(option.name)}
+          getOptionLabel={(option: ServiceCategory) => TranslateClient(option.name)}
           optionValue={"id"}
           name={"service_category_id"}
           label={t("category")}

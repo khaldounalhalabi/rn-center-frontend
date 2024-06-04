@@ -6,7 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
@@ -37,9 +37,9 @@ const Page = () => {
         render: (_first_name, clinic) => {
           return (
             <p>
-              {translate(clinic?.user?.first_name)}{" "}
-              {translate(clinic?.user?.middle_name)}{" "}
-              {translate(clinic?.user?.last_name)}
+              {TranslateClient(clinic?.user?.first_name)}{" "}
+              {TranslateClient(clinic?.user?.middle_name)}{" "}
+              {TranslateClient(clinic?.user?.last_name)}
             </p>
           );
         },
@@ -92,7 +92,7 @@ const Page = () => {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
         render: (_undefined, clinic) => {
-          return <span>{clinic?.total_appointments.toLocaleString()}</span>;
+          return <span suppressHydrationWarning>{clinic?.total_appointments.toLocaleString()}</span>;
         },
       },
       {
@@ -153,7 +153,7 @@ const Page = () => {
                   value={city.name}
                   selected={params.city_name == city.name}
                 >
-                  {translate(city.name)}
+                  {TranslateClient(city.name)}
                 </option>
               ))}
             </select>

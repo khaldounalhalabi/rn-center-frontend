@@ -2,11 +2,11 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentOverview from "@/components/admin/appointment/AppointmentOverviw";
 import Grid from "@/components/common/ui/Grid";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { appointmentId },
@@ -29,29 +29,29 @@ const page = async ({
           <label className="label justify-start text-xl">
             Clinic Name :{" "}
             <span className="ml-2 badge badge-success ">
-              {translate(res?.clinic?.name)}
+              {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
             Doctor Name :{" "}
             <span className="ml-2 badge badge-accent  ">
-              {translate(res?.clinic?.user?.first_name)}{" "}
-              {translate(res?.clinic?.user?.middle_name)}{" "}
-              {translate(res?.clinic?.user?.last_name)}
+              {await TranslateServer(res?.clinic?.user?.first_name)}{" "}
+              {await TranslateServer(res?.clinic?.user?.middle_name)}{" "}
+              {await TranslateServer(res?.clinic?.user?.last_name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
             Customer Name :{" "}
             <span className="ml-2 badge badge-neutral ">
-              {translate(res?.customer?.user?.first_name)}{" "}
-              {translate(res?.customer?.user?.middle_name)}{" "}
-              {translate(res?.customer?.user?.last_name)}{" "}
+              {await TranslateServer(res?.customer?.user?.first_name)}{" "}
+              {await TranslateServer(res?.customer?.user?.middle_name)}{" "}
+              {await TranslateServer(res?.customer?.user?.last_name)}{" "}
             </span>
           </label>
           <label className="label justify-start text-xl">
             Service Name :{" "}
             <span className="ml-2 badge badge-primary  ">
-              {translate(res?.service?.name)}
+              {await TranslateServer(res?.service?.name)}
             </span>
           </label>
         </Grid>

@@ -6,7 +6,7 @@ import XMark from "@/components/icons/XMark";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import ChevronDown from "@/components/icons/ChevronDown";
 import { useFormContext } from "react-hook-form";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query";
 
 function ApiSelect<TResponse, TData>({
   api,
@@ -28,7 +28,7 @@ function ApiSelect<TResponse, TData>({
   required = false,
   onClear = undefined,
   inputProps = {},
-    type=undefined
+  revalidate,
 }: IApiSelectProps<TResponse, TData>) {
   const {
     setValue,
@@ -55,6 +55,8 @@ function ApiSelect<TResponse, TData>({
     });
   }
 
+
+
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<{ label: any; value: any }[]>(df);
   const [search, setSearch] = useState<string | undefined>(undefined);
@@ -62,7 +64,7 @@ function ApiSelect<TResponse, TData>({
   const fullContainer = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching,refetch } = useInfiniteQuery({
     queryKey: [`tableData_${label}`, search],
     queryFn: async ({ pageParam }) => {
       let s = !search || search == "" ? undefined : search;
@@ -76,10 +78,11 @@ function ApiSelect<TResponse, TData>({
           : null
         : null;
     },
-    refetchInterval: type=="medicine"?4000:0,
     staleTime: Infinity,
   });
-
+  useEffect(()=>{
+     refetch().then(r => r)
+  },[revalidate])
   const handleClickOutside = (event: MouseEvent) => {
     if (
       fullContainer.current &&

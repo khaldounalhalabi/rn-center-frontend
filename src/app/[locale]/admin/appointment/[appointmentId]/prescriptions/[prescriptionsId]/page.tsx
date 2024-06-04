@@ -5,8 +5,8 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { MedicineData, Prescription } from "@/Models/Prescriptions";
-import { translate } from "@/Helpers/Translations";
 import { Stringify } from "@/components/admin/prescriptions/PhysicalForm";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const Page = async ({
   params: { appointmentId, prescriptionsId },
@@ -35,16 +35,16 @@ const Page = async ({
           <label className="label">
             {"Clinic Name :"}
             <span className="px-2 rounded-xl text-lg badge-neutral">
-              {translate(res?.clinic?.name)}
+              {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
           <label className="label">
             {"Doctor Name :"}
             <span className="px-2 rounded-xl text-lg badge-success">
               <h3>
-                {translate(res.clinic?.user?.first_name)}{" "}
-                {translate(res.clinic?.user?.middle_name)}{" "}
-                {translate(res.clinic?.user?.last_name)}
+                {await TranslateServer(res.clinic?.user?.first_name)}{" "}
+                {await TranslateServer(res.clinic?.user?.middle_name)}{" "}
+                {await TranslateServer(res.clinic?.user?.last_name)}
               </h3>
             </span>
           </label>
@@ -52,9 +52,9 @@ const Page = async ({
             {"Customer Name :"}
             <span className="px-2 rounded-xl text-lg badge-info">
               <h3>
-                {translate(res.customer?.user?.first_name)}{" "}
-                {translate(res.customer?.user?.middle_name)}{" "}
-                {translate(res.customer?.user?.last_name)}
+                {await TranslateServer(res.customer?.user?.first_name)}{" "}
+                {await TranslateServer(res.customer?.user?.middle_name)}{" "}
+                {await TranslateServer(res.customer?.user?.last_name)}
               </h3>
             </span>
           </label>

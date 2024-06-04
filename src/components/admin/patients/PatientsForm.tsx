@@ -9,7 +9,7 @@ import Datepicker from "@/components/common/ui/Datepicker";
 import InputTags from "@/components/common/ui/InputTags";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
@@ -192,7 +192,7 @@ const PatientsForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
           }
-          getOptionLabel={(item) => translate(item.name)}
+          getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
             defaultValues?.user.address?.city

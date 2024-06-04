@@ -4,7 +4,7 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 
@@ -31,9 +31,9 @@ const Page = () => {
         render: (_first_name, medicines) => {
           return (
             <p>
-              {translate(medicines?.clinic?.user?.first_name)}{" "}
-              {translate(medicines?.clinic?.user?.middle_name)}{" "}
-              {translate(medicines?.clinic?.user?.last_name)}
+              {TranslateClient(medicines?.clinic?.user?.first_name)}{" "}
+              {TranslateClient(medicines?.clinic?.user?.middle_name)}{" "}
+              {TranslateClient(medicines?.clinic?.user?.last_name)}
             </p>
           );
         },

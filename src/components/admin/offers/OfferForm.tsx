@@ -8,13 +8,14 @@ import { OffersService } from "@/services/OffersService";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Datepicker";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import dayjs from "dayjs";
 import OffersArray from "@/enum/OfferType";
+import {Navigate} from "@/Actions/navigate";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -48,7 +49,7 @@ const OfferForm = ({
     }
   };
   const onSuccess = () => {
-    // Navigate(`/admin/offer`);
+    Navigate(`/admin/offer`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const [typeOffers, setTypeOffers] = useState(
@@ -75,7 +76,7 @@ const OfferForm = ({
           defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
           label={"Clinic Name"}
           optionValue={"id"}
-          getOptionLabel={(data: Clinic) => translate(data.name)}
+          getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
         />
         <TranslatableInput
           required={true}

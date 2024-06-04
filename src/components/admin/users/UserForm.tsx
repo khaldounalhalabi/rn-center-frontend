@@ -4,9 +4,6 @@ import React, {useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
-import { CategoryService } from "@/services/CategoryService";
-import { ServiceCategory } from "@/Models/ServiceCategory";
-import { useTranslations } from "next-intl";
 import { User } from "@/Models/User";
 import { UsersService } from "@/services/UsersService";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -14,13 +11,11 @@ import Datepicker from "@/components/common/ui/Datepicker";
 import InputTags from "@/components/common/ui/InputTags";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
-import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Roles from "@/enum/Role";
-import { useFormContext } from "react-hook-form";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
@@ -57,7 +52,7 @@ const UserForm = ({
     }
   };
   const onSuccess = () => {
-    // Navigate(`/admin/user`);
+    Navigate(`/admin/user`);
   };
   const [locale,setLocale] = useState<'en'|"ar">('en')
   return (
@@ -181,7 +176,7 @@ const UserForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
           }
-          getOptionLabel={(item) => translate(item.name)}
+          getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []

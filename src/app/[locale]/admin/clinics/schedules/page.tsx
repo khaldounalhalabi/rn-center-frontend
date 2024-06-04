@@ -8,7 +8,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicService } from "@/services/ClinicService";
 import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 
@@ -31,7 +31,7 @@ const Page = () => {
               href={`/admin/clinics/${clinic?.id}`}
               className={`flex flex-col items-start btn btn-ghost p-1 hover:text-pom`}
             >
-              <p>{translate(clinic?.name)}</p>
+              <p>{TranslateClient(clinic?.name)}</p>
             </Link>
           );
         },
@@ -43,9 +43,9 @@ const Page = () => {
         render: (_first_name, clinic) => {
           return (
             <p>
-              {translate(clinic?.user?.first_name)}{" "}
-              {translate(clinic?.user?.middle_name)}{" "}
-              {translate(clinic?.user?.last_name)}
+              {TranslateClient(clinic?.user?.first_name)}{" "}
+              {TranslateClient(clinic?.user?.middle_name)}{" "}
+              {TranslateClient(clinic?.user?.last_name)}
             </p>
           );
         },

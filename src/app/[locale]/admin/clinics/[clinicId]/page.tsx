@@ -9,8 +9,8 @@ import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import { getTranslations } from "next-intl/server";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const Page = async ({
   params: { clinicId },
@@ -39,11 +39,11 @@ const Page = async ({
             className={"w-24 h-24"}
           />
           <div className={"flex flex-col"}>
-            <h2 className={"font-bold text-lg"}>{translate(clinic?.name)}</h2>
+            <h2 className={"font-bold text-lg"}>{await TranslateServer(clinic?.name)}</h2>
             <h3>
-              {translate(clinic?.user?.first_name)}{" "}
-              {translate(clinic?.user?.middle_name)}{" "}
-              {translate(clinic?.user?.last_name)}
+              {await TranslateServer(clinic?.user?.first_name)}{" "}
+              {await TranslateServer(clinic?.user?.middle_name)}{" "}
+              {await TranslateServer(clinic?.user?.last_name)}
             </h3>
             <p>{clinic?.user?.email}</p>
             <div className={"flex gap-1"}>
@@ -63,7 +63,7 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1>{clinic?.total_appointments?.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>{clinic?.total_appointments?.toLocaleString()}</h1>
             <h2>{t("total-appointments")}</h2>
           </div>
           <div
@@ -71,7 +71,7 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1>{clinic?.today_appointments_count.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>{clinic?.today_appointments_count.toLocaleString()}</h1>
             <h2>{t("today-appointments")}</h2>
           </div>
           <div
@@ -79,7 +79,7 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1>{clinic?.upcoming_appointments_count.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>{clinic?.upcoming_appointments_count.toLocaleString()}</h1>
             <h2 className={""}>{t("upcoming-appointments")}</h2>
           </div>
         </div>

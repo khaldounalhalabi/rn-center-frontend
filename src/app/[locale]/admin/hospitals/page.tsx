@@ -10,7 +10,7 @@ import ImagePreview from "@/components/common/ui/ImagePreview";
 import { Media } from "@/Models/Media";
 import { useTranslations } from "next-intl";
 import { cities } from "@/constants/Cities";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import AppointmentStatuses from "@/enum/AppointmentStatus";
 import {AppointmentService} from "@/services/AppointmentService";
@@ -111,7 +111,7 @@ const Page = () => {
                   value={city.name}
                   selected={params.city == city.name}
                 >
-                  {translate(city.name)}
+                  {TranslateClient(city.name)}
                 </option>
               ))}
             </select>

@@ -1,18 +1,18 @@
-import { getCookieClient } from "@/Actions/clientCookies";
 import { getCookieServer } from "@/Actions/serverCookies";
 import { Translatable } from "@/Models/Translatable";
+import {getCookieClient} from "@/Actions/clientCookies";
 
-export function translate(
+export function TranslateClient(
   val: string | undefined | null,
   object?: boolean,
 ): string;
 
-export function translate(
+export function TranslateClient(
   val: string | undefined | null,
   object: true,
 ): Translatable;
 
-export function translate(
+export function TranslateClient(
   val: string | undefined | null,
   object = false,
 ): string | Translatable {

@@ -11,7 +11,7 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import { ClinicService } from "@/services/ClinicService";
 import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm } from "@/Models/Clinic";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 import Gallery from "@/components/common/ui/Gallery";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
@@ -214,7 +214,7 @@ const ClinicForm = ({
               search,
             )
           }
-          getOptionLabel={(item) => translate(item.name)}
+          getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
             defaultValues?.hospital ? [defaultValues?.hospital] : []
@@ -232,7 +232,7 @@ const ClinicForm = ({
               search,
             )
           }
-          getOptionLabel={(item) => translate(item.name)}
+          getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={defaultValues?.specialities ?? []}
           isMultiple={true}
@@ -247,7 +247,7 @@ const ClinicForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
           }
-          getOptionLabel={(item) => translate(item.name)}
+          getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
             defaultValues?.address?.city ? [defaultValues?.address?.city] : []

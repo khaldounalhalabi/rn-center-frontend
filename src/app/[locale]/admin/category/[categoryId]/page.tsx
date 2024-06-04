@@ -2,11 +2,11 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import Grid from "@/components/common/ui/Grid";
 import { CategoryService } from "@/services/CategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { getTranslations } from "next-intl/server";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { categoryId },
@@ -28,13 +28,13 @@ const page = async ({
         <label className="label">
           {t("category-name")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {translate(res?.name, true)?.en}
+            {(await TranslateServer(res?.name, true))?.en}
           </span>
         </label>
         <label className="label">
           {t("category-name")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {translate(res?.name, true)?.ar}
+            {(await TranslateServer(res?.name, true))?.ar}
           </span>
         </label>
       </Grid>

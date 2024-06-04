@@ -4,12 +4,11 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { User } from "@/Models/User";
-import { translate } from "@/Helpers/Translations";
 import { Phone } from "@/Models/Phone";
-import Gallery from "@/components/common/ui/Gallery";
 import { PatientsService } from "@/services/PatientsService";
 import RoundedImage from "@/components/common/RoundedImage";
 import {getMedia} from "@/Models/Media";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { patientId },
@@ -37,8 +36,8 @@ const page = async ({
           />
           <div className={"flex flex-col"}>
             <h2 className={"font-bold text-lg"}><span >
-            {translate(res?.first_name)} {translate(res?.middle_name)}{" "}
-              {translate(res?.last_name)}
+            {await TranslateServer(res?.first_name)} {await TranslateServer(res?.middle_name)}{" "}
+              {await TranslateServer(res?.last_name)}
           </span></h2>
             <h3>
               {res.email}
@@ -69,13 +68,13 @@ const page = async ({
         <label className="label justify-start text-xl">
           Address :{" "}
           <span className="ml-2 badge badge-success  ">
-            {translate(res?.address?.name)}
+            {await TranslateServer(res?.address?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
           City :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {translate(res?.address?.city?.name)}
+            {await TranslateServer(res?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">

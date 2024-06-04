@@ -1,12 +1,12 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import AppointmentStatuses, {
@@ -57,9 +57,9 @@ const Page = () => {
         render: (_first_name, appointment) => {
           return (
             <p>
-              {translate(appointment?.clinic?.user?.first_name)}{" "}
-              {translate(appointment?.clinic?.user?.middle_name)}{" "}
-              {translate(appointment?.clinic?.user?.last_name)}
+              {TranslateClient(appointment?.clinic?.user?.first_name)}{" "}
+              {TranslateClient(appointment?.clinic?.user?.middle_name)}{" "}
+              {TranslateClient(appointment?.clinic?.user?.last_name)}
             </p>
           );
         },
@@ -72,9 +72,9 @@ const Page = () => {
           return (
             <div className={`flex flex-col items-start`}>
               <p>
-                {translate(appointment?.customer?.user?.first_name)}{" "}
-                {translate(appointment?.customer?.user?.middle_name)}{" "}
-                {translate(appointment?.customer?.user?.last_name)}
+                {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.last_name)}
               </p>
             </div>
           );

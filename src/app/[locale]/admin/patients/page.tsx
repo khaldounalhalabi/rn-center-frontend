@@ -9,7 +9,7 @@ import { CategoryService } from "@/services/CategoryService";
 import { useTranslations } from "next-intl";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer } from "@/Models/Customer";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import { UsersService } from "@/services/UsersService";
 import BlockButton from "@/components/common/BlockButton";
@@ -31,9 +31,9 @@ const Page = () => {
         render: (_first_name, patient) => {
           return (
             <p>
-              {translate(patient?.user?.first_name)}{" "}
-              {translate(patient?.user?.middle_name)}{" "}
-              {translate(patient?.user?.last_name)}
+              {TranslateClient(patient?.user?.first_name)}{" "}
+              {TranslateClient(patient?.user?.middle_name)}{" "}
+              {TranslateClient(patient?.user?.last_name)}
             </p>
           );
         },

@@ -11,7 +11,7 @@ import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
@@ -206,7 +206,7 @@ const ClinicScheduleForm = ({
               }
               label={t("clinicName")}
               optionValue={"id"}
-              getOptionLabel={(data: Clinic) => translate(data.name)}
+              getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
             />
           )}
 

@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import {OffersService} from "@/services/OffersService";
 import {Offers} from "@/Models/Offers";
-import {translate} from "@/Helpers/Translations";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({ params: { offerId } }: { params: { offerId: number } }) => {
     const data = await OffersService.make<OffersService>().show(offerId);
@@ -22,15 +22,15 @@ const page = async ({ params: { offerId } }: { params: { offerId: number } }) =>
             <Grid md={2} gap={5}>
                 <label className="label justify-start text-xl">
                     Clinic Name :{" "}
-                    <span className="ml-2 badge badge-error">{translate(res.clinic.name)}</span>
+                    <span className="ml-2 badge badge-error">{await TranslateServer(res.clinic.name)}</span>
                 </label>
                 <label className="label justify-start text-xl">
                     Appointment Cost :{" "}
-                    <span className="ml-2 badge badge-error">{res.clinic.appointment_cost} IQD</span>
+                    <span className="ml-2 badge badge-error" suppressHydrationWarning>{res.clinic.appointment_cost.toLocaleString()} IQD</span>
                 </label>
                 <label className="label justify-start text-xl">
                     Title :{" "}
-                    <span className="ml-2 badge badge-outline  ">{translate(res?.title)}</span>
+                    <span className="ml-2 badge badge-outline  ">{await TranslateServer(res?.title)}</span>
                 </label>
                 <label className="label justify-start text-xl">
                     Is Active :{" "}
@@ -65,7 +65,7 @@ const page = async ({ params: { offerId } }: { params: { offerId: number } }) =>
             <textarea
                 className="textarea textarea-bordered h-24 w-full"
                 disabled={true}
-                defaultValue={translate(res?.note)}
+                defaultValue={await TranslateServer(res?.note)}
             />
         </PageCard>
     );

@@ -3,7 +3,7 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
-import { translate } from "@/Helpers/Translations";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({ params: { logId } }: { params: { logId: number } }) => {
   const data =
@@ -27,9 +27,9 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
           <label className={"label text-xl"}>
             Actor :
             <span className={"ml-2 badge badge-neutral"}>
-              {translate(res.actor?.first_name)}{" "}
-              {translate(res.actor?.middle_name)}{" "}
-              {translate(res.actor?.last_name)}
+              {await TranslateServer(res.actor?.first_name)}{" "}
+              {await TranslateServer(res.actor?.middle_name)}{" "}
+              {await TranslateServer(res.actor?.last_name)}
             </span>
           </label>
         </Grid>

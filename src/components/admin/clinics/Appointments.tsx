@@ -6,7 +6,7 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
@@ -30,9 +30,9 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
           return (
             <div className={`flex flex-col items-start`}>
               <p>
-                {translate(appointment?.customer?.user?.first_name)}{" "}
-                {translate(appointment?.customer?.user?.middle_name)}{" "}
-                {translate(appointment?.customer?.user?.last_name)}
+                {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.last_name)}
               </p>
             </div>
           );

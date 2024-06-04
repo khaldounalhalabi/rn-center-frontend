@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { ClinicService } from "@/services/ClinicService";
 import { Clinic } from "@/Models/Clinic";
 import { ServiceService } from "@/services/ServiceService";
@@ -163,7 +163,7 @@ const AppointmentForm = ({
               }}
               label={"Clinic Name"}
               optionValue={"id"}
-              getOptionLabel={(data: Clinic) => translate(data.name)}
+              getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
             />
             <ApiSelect
               required={true}
@@ -180,9 +180,9 @@ const AppointmentForm = ({
               getOptionLabel={(data: Customer) => {
                 return (
                   <p>
-                    {translate(data?.user?.first_name)}{" "}
-                    {translate(data?.user?.middle_name)}{" "}
-                    {translate(data?.user?.last_name)}
+                    {TranslateClient(data?.user?.first_name)}{" "}
+                    {TranslateClient(data?.user?.middle_name)}{" "}
+                    {TranslateClient(data?.user?.last_name)}
                   </p>
                 );
               }}
@@ -210,7 +210,7 @@ const AppointmentForm = ({
             setServicePrice(0);
           }}
           optionValue={"id"}
-          getOptionLabel={(data: Service) => translate(data.name)}
+          getOptionLabel={(data: Service) => TranslateClient(data.name)}
         />
         {type != "update" ? (
           <div className={`flex gap-5 p-2 items-end`}>

@@ -4,8 +4,9 @@ import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { useQuery } from "@tanstack/react-query";
 import Eye from "@/components/icons/Eye";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { AppointmentLogs as AppointmentLogsModel } from "@/Models/AppointmentLog";
+import {useLocale} from "next-intl";
 
 const AppointmentLogs = ({
   appointment,
@@ -21,7 +22,7 @@ const AppointmentLogs = ({
     },
   });
   const res: AppointmentLogsModel[] | undefined = data?.data;
-
+  const locale = useLocale()
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
       <div className="overflow-x-auto bg-white rounded-xl">
@@ -43,9 +44,13 @@ const AppointmentLogs = ({
                 <td>{e.status}</td>
                 <td>{e.happen_in}</td>
                 <td>
-                  {translate(e.actor?.first_name)}{" "}
-                  {translate(e.actor?.middle_name)}{" "}
-                  {translate(e.actor?.last_name)}
+                  {locale == 'en'?
+                      `${TranslateClient(e.actor?.first_name,true).en}${" "}
+                  ${TranslateClient(e.actor?.middle_name,true).en}${" "}
+                  ${TranslateClient(e.actor?.last_name,true).en}`:
+                  `${TranslateClient(e.actor?.first_name,true).ar}${" "}
+                  ${TranslateClient(e.actor?.middle_name,true).ar}${" "}
+                  ${TranslateClient(e.actor?.last_name,true).ar}`}
                 </td>
                 <td>{e.event}</td>
                 <td>

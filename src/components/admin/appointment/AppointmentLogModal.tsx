@@ -4,7 +4,7 @@ import LogsIcon from "@/components/icons/Logs";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { Dialog, Transition } from "@headlessui/react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
   const [openLogs, setOpenLogs] = useState(false);
@@ -80,9 +80,9 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                               <td>{e.status}</td>
                               <td>{e.happen_in}</td>
                               <td>
-                                {translate(e.actor?.first_name)}{" "}
-                                {translate(e.actor?.middle_name)}{" "}
-                                {translate(e.actor?.last_name)}
+                                {TranslateClient(e.actor?.first_name)}{" "}
+                                {TranslateClient(e.actor?.middle_name)}{" "}
+                                {TranslateClient(e.actor?.last_name)}
                               </td>
                               <td>{e?.event}</td>
                             </tr>

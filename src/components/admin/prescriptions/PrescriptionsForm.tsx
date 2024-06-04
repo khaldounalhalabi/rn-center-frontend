@@ -22,7 +22,6 @@ const PrescriptionsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  console.log(defaultValues);
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = {
       appointment_id: appointment.id,
@@ -58,18 +57,18 @@ const PrescriptionsForm = ({
     Navigate(`/admin/appointment/${appointment?.id}`);
   };
   let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
+  let [reloadSelect,setReloadSelect] = useState('')
+  function closeModal(data?:string) {
+    setReloadSelect(data??"")
     setIsOpen(false);
   }
-
   function openModal() {
     setIsOpen(true);
   }
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10" onClose={()=>closeModal('')}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -126,6 +125,7 @@ const PrescriptionsForm = ({
           <MultiMedicinesInput
             defaultValues={defaultValues?.medicines_data ?? undefined}
             type={type}
+            reloadSelect={reloadSelect}
           />
         </PageCard>
         <PageCard>

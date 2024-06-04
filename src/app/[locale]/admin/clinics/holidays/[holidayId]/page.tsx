@@ -4,8 +4,8 @@ import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import { translate } from "@/Helpers/Translations";
 import { getTranslations } from "next-intl/server";
+import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { holidayId },
@@ -16,6 +16,7 @@ const page = async ({
   const data =
     await ClinicHolidayService.make<ClinicHolidayService>().show(holidayId);
   const res: ClinicHoliday = data?.data;
+
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -29,7 +30,7 @@ const page = async ({
           <h2 className="text-xl">
             {t("clinicName")} :{" "}
             <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {translate(res?.clinic?.name)}
+              {await TranslateServer(res?.clinic?.name)}
             </span>
           </h2>
         </div>
@@ -61,7 +62,7 @@ const page = async ({
             <textarea
               rows={4}
               dir="ltr"
-              value={translate(res?.reason, true).en}
+              value={(await TranslateServer(res?.reason, true)).en}
               className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
               readOnly={true}
             />
@@ -70,7 +71,7 @@ const page = async ({
             {t("reason")} Ar : <br />
             <textarea
               rows={4}
-              value={translate(res?.reason, true).ar}
+              value={(await TranslateServer(res?.reason, true)).ar}
               dir="rtl"
               className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
               readOnly={true}

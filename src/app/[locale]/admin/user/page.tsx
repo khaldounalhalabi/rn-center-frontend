@@ -6,7 +6,7 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { UsersService } from "@/services/UsersService";
 import { User } from "@/Models/User";
-import { translate } from "@/Helpers/Translations";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import { AppointmentService } from "@/services/AppointmentService";
 import BlockButton from "@/components/common/BlockButton";
@@ -29,8 +29,8 @@ const Page = () => {
           return (
             <div className={`flex flex-col items-start`}>
               <p>
-                {translate(user?.first_name)} {translate(user?.middle_name)}{" "}
-                {translate(user?.last_name)}
+                {TranslateClient(user?.first_name)} {TranslateClient(user?.middle_name)}{" "}
+                {TranslateClient(user?.last_name)}
               </p>
             </div>
           );

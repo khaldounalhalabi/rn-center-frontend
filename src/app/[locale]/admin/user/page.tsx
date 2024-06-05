@@ -8,7 +8,6 @@ import { UsersService } from "@/services/UsersService";
 import { User } from "@/Models/User";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
-import { AppointmentService } from "@/services/AppointmentService";
 import BlockButton from "@/components/common/BlockButton";
 
 const Page = () => {
@@ -29,7 +28,8 @@ const Page = () => {
           return (
             <div className={`flex flex-col items-start`}>
               <p>
-                {TranslateClient(user?.first_name)} {TranslateClient(user?.middle_name)}{" "}
+                {TranslateClient(user?.first_name)}{" "}
+                {TranslateClient(user?.middle_name)}{" "}
                 {TranslateClient(user?.last_name)}
               </p>
             </div>
@@ -51,12 +51,12 @@ const Page = () => {
         label: `Role`,
         sortable: true,
         render: (_role, user) => {
-          const role =Array.isArray(user?.role) && user?.role.length !=0 ?user?.role:[{name:'No Data'}]
-            return (
-                <p>{role[0].name}</p>
-            )
+          const role =
+            Array.isArray(user?.role) && user?.role.length != 0
+              ? user?.role
+              : [{ name: "No Data" }];
+          return <p>{role[0].name}</p>;
         },
-
       },
       {
         name: "is_blocked",

@@ -30,8 +30,7 @@ export interface AuthResponse {
   refresh_token?: string;
 }
 
-
 export interface role {
-  "id": number,
-  "name": string,
+  id: number;
+  name: string;
 }

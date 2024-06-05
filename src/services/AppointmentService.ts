@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
-import { DELETE, GET, POST } from "@/Http/Http";
+import { GET, POST } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
 
 export class AppointmentService extends BaseService<Appointment> {
@@ -15,8 +15,7 @@ export class AppointmentService extends BaseService<Appointment> {
     const res = await GET<AvailableTime>(
       `${this.actor}/clinics/${clinicId}/available-times`,
     );
-      return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 
   public async toggleStatus(
@@ -27,8 +26,7 @@ export class AppointmentService extends BaseService<Appointment> {
       `${this.actor}/appointments/${appointmentId}/toggle-status`,
       data,
     );
-      return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 
   public async getClinicAppointments(
@@ -51,6 +49,6 @@ export class AppointmentService extends BaseService<Appointment> {
         ...params,
       },
     );
-      return await this.errorHandler(res)
+    return await this.errorHandler(res);
   }
 }

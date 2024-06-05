@@ -14,6 +14,6 @@ export class AppointmentLogsService extends BaseService<AppointmentLogs> {
     const res = await GET<AppointmentLogs[]>(
       `${this.actor}/appointments/${appointmentId}/logs`,
     );
-    return await this.errorHandler(res)
+    return await this.errorHandler(res);
   }
 }

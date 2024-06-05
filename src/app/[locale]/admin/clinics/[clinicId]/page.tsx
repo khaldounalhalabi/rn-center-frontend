@@ -39,7 +39,9 @@ const Page = async ({
             className={"w-24 h-24"}
           />
           <div className={"flex flex-col"}>
-            <h2 className={"font-bold text-lg"}>{await TranslateServer(clinic?.name)}</h2>
+            <h2 className={"font-bold text-lg"}>
+              {await TranslateServer(clinic?.name)}
+            </h2>
             <h3>
               {await TranslateServer(clinic?.user?.first_name)}{" "}
               {await TranslateServer(clinic?.user?.middle_name)}{" "}
@@ -63,7 +65,9 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1 suppressHydrationWarning>{clinic?.total_appointments?.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>
+              {clinic?.total_appointments?.toLocaleString()}
+            </h1>
             <h2>{t("total-appointments")}</h2>
           </div>
           <div
@@ -71,7 +75,9 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1 suppressHydrationWarning>{clinic?.today_appointments_count.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>
+              {clinic?.today_appointments_count.toLocaleString()}
+            </h1>
             <h2>{t("today-appointments")}</h2>
           </div>
           <div
@@ -79,7 +85,9 @@ const Page = async ({
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
             }
           >
-            <h1 suppressHydrationWarning>{clinic?.upcoming_appointments_count.toLocaleString()}</h1>
+            <h1 suppressHydrationWarning>
+              {clinic?.upcoming_appointments_count.toLocaleString()}
+            </h1>
             <h2 className={""}>{t("upcoming-appointments")}</h2>
           </div>
         </div>

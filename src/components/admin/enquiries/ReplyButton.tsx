@@ -5,6 +5,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { EnquiriesService } from "@/services/EnquiriesService";
+
 const ReplyButton = ({ id }: { id: number }) => {
   let [isOpen, setIsOpen] = useState(false);
 
@@ -15,6 +16,7 @@ const ReplyButton = ({ id }: { id: number }) => {
   function openModal() {
     setIsOpen(true);
   }
+
   const handleSubmit = async (data: any) => {
     return await EnquiriesService.make<EnquiriesService>("admin").reply(
       id,

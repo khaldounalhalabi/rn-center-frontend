@@ -16,7 +16,6 @@ export class EnquiriesService extends BaseService<Enquiries> {
       `${this.actor}/enquiries/${enquiriesId}/reply`,
       data,
     );
-    return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 }

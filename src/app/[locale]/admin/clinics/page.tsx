@@ -7,8 +7,6 @@ import { Clinic } from "@/Models/Clinic";
 import { ClinicService } from "@/services/ClinicService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import ArchiveIcon from "@/components/icons/ArchiveIcon";
-import { swal } from "@/Helpers/UIHelpers";
 import { UserService } from "@/services/UserService";
 import { cities } from "@/constants/Cities";
 import { useTranslations } from "next-intl";
@@ -92,7 +90,11 @@ const Page = () => {
         name: "total_appointments",
         label: `${t("total-appointments")}`,
         render: (_undefined, clinic) => {
-          return <span suppressHydrationWarning>{clinic?.total_appointments.toLocaleString()}</span>;
+          return (
+            <span suppressHydrationWarning>
+              {clinic?.total_appointments.toLocaleString()}
+            </span>
+          );
         },
       },
       {

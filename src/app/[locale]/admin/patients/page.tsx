@@ -4,9 +4,6 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { ServiceCategory } from "@/Models/ServiceCategory";
-import { CategoryService } from "@/services/CategoryService";
-import { useTranslations } from "next-intl";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";

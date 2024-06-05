@@ -12,17 +12,17 @@ import { useTranslations } from "next-intl";
 import { cities } from "@/constants/Cities";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
-import AppointmentStatuses from "@/enum/AppointmentStatus";
-import {AppointmentService} from "@/services/AppointmentService";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import StatusArray from "@/enum/status";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");
-  const handleSelectStatus = async ( id: number) => {
-    return await HospitalService.make<HospitalService>("admin").toggleStatus(id).then((res)=>{
-      toast.success("Status Changed!");
-    })
+  const handleSelectStatus = async (id: number) => {
+    return await HospitalService.make<HospitalService>("admin")
+      .toggleStatus(id)
+      .then((res) => {
+        toast.success("Status Changed!");
+      });
   };
   const tableData: DataTableData<Hospital> = {
     createUrl: `/admin/hospitals/create`,
@@ -46,21 +46,21 @@ const Page = () => {
         translatable: true,
       },
       {
-        name:"status",
-        label:"Status",
-        sortable:true,
-        render:(_undefined, data)=>(
-            <SelectPopOver
-                id={data?.id}
-                status={data?.status}
-                ArraySelect={StatusArray()}
-                handleSelect={(status:string,id:number)=>{
-                  if(data?.status != status){
-                    return handleSelectStatus(id)
-                  }
-                }}
-            />
-        )
+        name: "status",
+        label: "Status",
+        sortable: true,
+        render: (_undefined, data) => (
+          <SelectPopOver
+            id={data?.id}
+            status={data?.status}
+            ArraySelect={StatusArray()}
+            handleSelect={(status: string, id: number) => {
+              if (data?.status != status) {
+                return handleSelectStatus(id);
+              }
+            }}
+          />
+        ),
       },
       {
         name: "images",

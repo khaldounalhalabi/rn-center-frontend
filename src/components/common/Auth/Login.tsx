@@ -37,50 +37,51 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   };
 
   return (
-      <div className="relative w-full h-screen">
-        <div className="absolute top-[20%] left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] transform -translate-x-1/2">
-          <div className="flex flex-col items-center mb-4 w-full">
-            <h1 className="font-bold text-2xl sm:text-3xl">Sign In</h1>
-            <h4 className="mt-4 text-gray-500">Welcome Back!</h4>
-          </div>
-          <Form
-              handleSubmit={handleSubmit}
-              onSuccess={handleSuccess}
-              buttonText={"Login"}
-          >
-            <div className="flex flex-col gap-5">
-              <Input
-                  name="email"
-                  type="email"
-                  label="Email:"
-                  placeholder="Enter Your Email"
-              />
-              <Input
-                  name="password"
-                  label="Password:"
-                  type="password"
-                  placeholder="Enter Your Password"
-              />
-            </div>
-
-            {error && (
-                <p className="my-3 p-2 w-full text-error text-sm">
-                  The email or password is incorrect. Try again or click Forgot Password.
-                </p>
-            )}
-
-            <div className="flex justify-center opacity-80 mt-4">
-              <h4>Forget Password?</h4>
-              <Link
-                  href={`/auth/${pageType}/reset-password`}
-                  className="text-blue-600 ml-1"
-              >
-                Reset Password
-              </Link>
-            </div>
-          </Form>
+    <div className="relative w-full h-screen">
+      <div className="absolute top-[20%] left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] transform -translate-x-1/2">
+        <div className="flex flex-col items-center mb-4 w-full">
+          <h1 className="font-bold text-2xl sm:text-3xl">Sign In</h1>
+          <h4 className="mt-4 text-gray-500">Welcome Back!</h4>
         </div>
+        <Form
+          handleSubmit={handleSubmit}
+          onSuccess={handleSuccess}
+          buttonText={"Login"}
+        >
+          <div className="flex flex-col gap-5">
+            <Input
+              name="email"
+              type="email"
+              label="Email:"
+              placeholder="Enter Your Email"
+            />
+            <Input
+              name="password"
+              label="Password:"
+              type="password"
+              placeholder="Enter Your Password"
+            />
+          </div>
+
+          {error && (
+            <p className="my-3 p-2 w-full text-error text-sm">
+              The email or password is incorrect. Try again or click Forgot
+              Password.
+            </p>
+          )}
+
+          <div className="flex justify-center opacity-80 mt-4">
+            <h4>Forget Password?</h4>
+            <Link
+              href={`/auth/${pageType}/reset-password`}
+              className="text-blue-600 ml-1"
+            >
+              Reset Password
+            </Link>
+          </div>
+        </Form>
       </div>
+    </div>
   );
 };
 

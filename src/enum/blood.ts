@@ -1,22 +1,21 @@
 export enum Blood {
-    A="A+",
-    A_="A-",
-B="B+",
+  A = "A+",
+  A_ = "A-",
+  B = "B+",
 
-B_="B-",
+  B_ = "B-",
 
+  AB = "AB+",
 
-AB="AB+",
+  AB_ = "AB-",
 
-AB_="AB-",
+  O = "O",
 
-O="O",
-
-O_="O-"
+  O_ = "O-",
 }
 
 const BloodArray = (): string[] => {
-    return Object.values(Blood);
+  return Object.values(Blood);
 };
 
 export default BloodArray;

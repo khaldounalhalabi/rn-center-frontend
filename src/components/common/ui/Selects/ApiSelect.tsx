@@ -6,7 +6,7 @@ import XMark from "@/components/icons/XMark";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import ChevronDown from "@/components/icons/ChevronDown";
 import { useFormContext } from "react-hook-form";
-import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 function ApiSelect<TResponse, TData>({
   api,
@@ -55,8 +55,6 @@ function ApiSelect<TResponse, TData>({
     });
   }
 
-
-
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<{ label: any; value: any }[]>(df);
   const [search, setSearch] = useState<string | undefined>(undefined);
@@ -64,25 +62,26 @@ function ApiSelect<TResponse, TData>({
   const fullContainer = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetching,refetch } = useInfiniteQuery({
-    queryKey: [`tableData_${label}`, search],
-    queryFn: async ({ pageParam }) => {
-      let s = !search || search == "" ? undefined : search;
-      return await api(pageParam, s, false, 1);
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      return !lastPage.paginate?.isLast
-        ? lastPage.paginate?.currentPage
-          ? lastPage.paginate?.currentPage + 1
-          : null
-        : null;
-    },
-    staleTime: Infinity,
-  });
-  useEffect(()=>{
-     refetch().then(r => r)
-  },[revalidate])
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+    useInfiniteQuery({
+      queryKey: [`tableData_${label}`, search],
+      queryFn: async ({ pageParam }) => {
+        let s = !search || search == "" ? undefined : search;
+        return await api(pageParam, s, false, 1);
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        return !lastPage.paginate?.isLast
+          ? lastPage.paginate?.currentPage
+            ? lastPage.paginate?.currentPage + 1
+            : null
+          : null;
+      },
+      staleTime: Infinity,
+    });
+  useEffect(() => {
+    refetch().then((r) => r);
+  }, [revalidate]);
   const handleClickOutside = (event: MouseEvent) => {
     if (
       fullContainer.current &&
@@ -94,7 +93,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
 
@@ -135,7 +134,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -143,7 +142,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -312,6 +311,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-  selected.filter((op) => isEqual(op, option)).length > 0;
+    selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

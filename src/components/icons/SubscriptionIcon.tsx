@@ -1,7 +1,10 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const SubscriptionIcon: React.FC<IconAttributes> = ({ className, ...props }) => {
+const SubscriptionIcon: React.FC<IconAttributes> = ({
+  className,
+  ...props
+}) => {
   return (
     <svg
       className={className}

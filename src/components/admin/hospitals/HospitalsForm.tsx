@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { AddHospital } from "@/Models/Hospital";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
@@ -47,7 +47,7 @@ const HospitalsForm = ({
   const onSuccess = () => {
     Navigate(`/admin/hospitals`);
   };
-  const [locale,setLocale] = useState<"en"|"ar">('en')
+  const [locale, setLocale] = useState<"en" | "ar">("en");
 
   return (
     <Form
@@ -103,22 +103,22 @@ const HospitalsForm = ({
         <div className={`flex gap-5 p-2 items-end`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
           <Input
-              name={"status"}
-              label={"active"}
-              type="radio"
-              className="radio radio-info"
-              value={"active"}
-              defaultChecked={
-                defaultValues ? defaultValues?.status == "active" : true
-              }
+            name={"status"}
+            label={"active"}
+            type="radio"
+            className="radio radio-info"
+            value={"active"}
+            defaultChecked={
+              defaultValues ? defaultValues?.status == "active" : true
+            }
           />
           <Input
-              name={"status"}
-              label={"in-active"}
-              type="radio"
-              className="radio radio-info"
-              value={"in-active"}
-              defaultChecked={defaultValues?.status == "in-active"}
+            name={"status"}
+            label={"in-active"}
+            type="radio"
+            className="radio radio-info"
+            value={"in-active"}
+            defaultChecked={defaultValues?.status == "in-active"}
           />
         </div>
         <ApiSelect

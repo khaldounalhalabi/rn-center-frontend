@@ -14,8 +14,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     const res = await DELETE<MedicineData[]>(
       `${this.actor}/prescriptions/medicine-data/${medicineId}`,
     );
-      return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 
   public async getAllPrescriptions(
@@ -38,7 +37,6 @@ export class PrescriptionService extends BaseService<Prescription> {
         ...params,
       },
     );
-      return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 }

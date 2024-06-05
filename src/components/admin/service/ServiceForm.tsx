@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -46,7 +46,7 @@ const ServiceForm = ({
   const onSuccess = () => {
     Navigate(`/admin/service`);
   };
-  const [locale,setLocale] = useState<"en"|"ar">('en')
+  const [locale, setLocale] = useState<"en" | "ar">("en");
 
   return (
     <Form
@@ -75,7 +75,7 @@ const ServiceForm = ({
               search,
             )
           }
-          getOptionLabel={ (option: Clinic) => TranslateClient(option.name)}
+          getOptionLabel={(option: Clinic) => TranslateClient(option.name)}
           label={t("clinicName")}
           optionValue={"id"}
           defaultValues={
@@ -116,7 +116,9 @@ const ServiceForm = ({
               search,
             )
           }
-          getOptionLabel={(option: ServiceCategory) => TranslateClient(option.name)}
+          getOptionLabel={(option: ServiceCategory) =>
+            TranslateClient(option.name)
+          }
           optionValue={"id"}
           name={"service_category_id"}
           label={t("category")}

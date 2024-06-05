@@ -14,9 +14,7 @@ const TimepickerFilter = ({
     <label className="flex flex-col items-start gap-2 label">
       <TimePicker
         onChange={onChange}
-        defaultValue={
-          defaultValue ? dayjs(defaultValue, "HH:mm") : undefined
-        }
+        defaultValue={defaultValue ? dayjs(defaultValue, "HH:mm") : undefined}
         slotProps={{ textField: { size: "small" } }}
         className={styles.datePicker}
       />

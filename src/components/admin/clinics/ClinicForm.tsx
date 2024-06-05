@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -40,7 +40,7 @@ const ClinicForm = ({
     };
   }
   const t = useTranslations("admin.clinic.create-edit");
-  const [locale,setLocale] = useState<"en"|"ar">('en')
+  const [locale, setLocale] = useState<"en" | "ar">("en");
   return (
     <Form
       handleSubmit={onSubmit}
@@ -68,7 +68,6 @@ const ClinicForm = ({
           name={"user.middle_name"}
           required={true}
           locale={locale}
-
         />
 
         <TranslatableInput
@@ -79,7 +78,6 @@ const ClinicForm = ({
           name={"user.last_name"}
           required={true}
           locale={locale}
-
         />
       </Grid>
 
@@ -92,7 +90,6 @@ const ClinicForm = ({
           name={"name"}
           required={true}
           locale={locale}
-
         />
         <Input
           name={"user.email"}
@@ -260,7 +257,6 @@ const ClinicForm = ({
           type={"text"}
           label={t("address")}
           locale={locale}
-
         />
 
         <TextAreaMap

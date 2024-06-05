@@ -7,14 +7,16 @@ export class UsersService extends BaseService<User> {
   getBaseUrl(): string {
     return `${this.actor}/users`;
   }
-  public async toggleArchive(userId: number): Promise<ApiResponse<User>> {
-    const res = await DELETE<User>(`${this.actor}/users/${userId}/toggle-archive`);
-    return await this.errorHandler(res)
 
+  public async toggleArchive(userId: number): Promise<ApiResponse<User>> {
+    const res = await DELETE<User>(
+      `${this.actor}/users/${userId}/toggle-archive`,
+    );
+    return await this.errorHandler(res);
   }
+
   public async toggleBlock(userId: number): Promise<ApiResponse<User>> {
     const res = await GET<User>(`${this.actor}/users/${userId}/toggle-block`);
-    return await this.errorHandler(res)
-
+    return await this.errorHandler(res);
   }
 }

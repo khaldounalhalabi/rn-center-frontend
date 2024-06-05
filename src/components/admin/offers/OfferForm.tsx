@@ -15,7 +15,7 @@ import Datepicker from "@/components/common/ui/Datepicker";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import dayjs from "dayjs";
 import OffersArray from "@/enum/OfferType";
-import {Navigate} from "@/Actions/navigate";
+import { Navigate } from "@/Actions/navigate";
 
 const OfferForm = ({
   defaultValues = undefined,

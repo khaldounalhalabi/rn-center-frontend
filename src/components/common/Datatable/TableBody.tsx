@@ -36,7 +36,9 @@ const TableBody = ({
                         {...schema.cellProps}
                       >
                         {schema?.translatable
-                          ? TranslateClient(getNestedPropertyValue(item, schema.name))
+                          ? TranslateClient(
+                              getNestedPropertyValue(item, schema.name),
+                            )
                           : getNestedPropertyValue(item, schema.name) ??
                             "No Data"}
                       </td>

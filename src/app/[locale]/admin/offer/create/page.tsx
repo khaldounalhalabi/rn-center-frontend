@@ -3,12 +3,12 @@ import React from "react";
 import OfferForm from "@/components/admin/offers/OfferForm";
 
 const page = async () => {
-    return (
-        <PageCard>
-            <h2 className="card-title">Add Offer</h2>
-            <OfferForm />
-        </PageCard>
-    );
+  return (
+    <PageCard>
+      <h2 className="card-title">Add Offer</h2>
+      <OfferForm />
+    </PageCard>
+  );
 };
 
 export default page;

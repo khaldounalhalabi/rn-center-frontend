@@ -1,10 +1,7 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const BlockedItemIcon: React.FC<IconAttributes> = ({
-  className,
-  ...props
-}) => {
+const BlockedItemIcon: React.FC<IconAttributes> = ({ className, ...props }) => {
   return (
     <svg
       className={className}

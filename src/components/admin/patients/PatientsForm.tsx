@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -67,7 +67,7 @@ const PatientsForm = ({
   const onSuccess = () => {
     Navigate(`/admin/patients`);
   };
-  const [locale,setLocale] = useState<"en"|"ar">('en')
+  const [locale, setLocale] = useState<"en" | "ar">("en");
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -93,7 +93,6 @@ const PatientsForm = ({
           label={`Middle Name :`}
           name={"user.middle_name"}
           locale={locale}
-
         />
         <TranslatableInput
           required={true}
@@ -102,16 +101,15 @@ const PatientsForm = ({
           placeholder={"John"}
           label={`Last Name :`}
           locale={locale}
-
           name={"user.last_name"}
         />
         <SelectPopOverFrom
-         name={'user.blood_group'}
-         id={1}
-         required={true}
-         label={'Blood Group'}
-         ArraySelect={BloodArray()}
-         status={defaultValues?.user.blood_group ?? ""}
+          name={"user.blood_group"}
+          id={1}
+          required={true}
+          label={"Blood Group"}
+          ArraySelect={BloodArray()}
+          status={defaultValues?.user.blood_group ?? ""}
         />
       </Grid>
       <Input
@@ -181,7 +179,6 @@ const PatientsForm = ({
           label={`Address :`}
           name={"user.address.name"}
           locale={locale}
-
           defaultValue={defaultValues ? defaultValues?.user?.address?.name : ""}
         />
         <ApiSelect

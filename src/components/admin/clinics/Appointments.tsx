@@ -52,10 +52,10 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         label: "Status",
         render: (_status, appointment, setHidden, revalidate) => {
           return (
-              <AppointmentStatusColumn
-                  appointment={appointment}
-                  revalidate={revalidate}
-              />
+            <AppointmentStatusColumn
+              appointment={appointment}
+              revalidate={revalidate}
+            />
           );
         },
         sortable: true,

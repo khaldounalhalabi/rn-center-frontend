@@ -9,6 +9,7 @@ export interface Customer {
   user_id: number;
   user: User;
 }
+
 export interface SendPatient {
   first_name: string;
   middle_name: string;

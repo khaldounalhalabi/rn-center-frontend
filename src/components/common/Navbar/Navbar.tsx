@@ -13,12 +13,12 @@ const Navbar = ({
   setOpenNavBar,
 }: {
   openNavBar: {
-    sm:boolean,
-    md:boolean
+    sm: boolean;
+    md: boolean;
   };
   setOpenNavBar: React.Dispatch<{
-    sm:boolean,
-    md:boolean
+    sm: boolean;
+    md: boolean;
   }>;
 }) => {
   const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const Navbar = ({
       <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
         <MenuIcon
           className={`h-6 w-6 md:hidden`}
-          onClick={() =>setOpenNavBar({sm:!openNavBar.sm,md:false})}
+          onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
         />
         <SearchIcon
           className={`h-6 w-6 cursor-pointer`}

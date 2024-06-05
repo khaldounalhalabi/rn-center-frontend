@@ -6,7 +6,7 @@ import MapIFrame from "@/components/common/ui/MapIFrame";
 import { useTranslations } from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
-  console.log(clinic)
+  console.log(clinic);
   const t = useTranslations("admin.clinic.show");
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -70,7 +70,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
-          <p className={"badge badge-warning"} suppressHydrationWarning >
+          <p className={"badge badge-warning"} suppressHydrationWarning>
             {clinic?.max_appointments.toLocaleString()}
           </p>
         </div>
@@ -85,7 +85,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>{t("hospital")} :</label>
           <p className={"badge badge-error"}>
-            {TranslateClient(clinic?.hospital?.name )?? "No Hospital"}
+            {TranslateClient(clinic?.hospital?.name) ?? "No Hospital"}
           </p>
         </div>
 

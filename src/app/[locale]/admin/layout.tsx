@@ -9,8 +9,6 @@ const Layout = ({
 }>) => {
   return (
     <div>
-
-
       <main
         style={{
           background:
@@ -18,13 +16,11 @@ const Layout = ({
         }}
         className={` h-fit  w-full min-h-[calc(100vh-4rem)]`}
       >
-
-          <Providers>
+        <Providers>
           <div
             className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}
           >
-              <NavProvider> {children}</NavProvider>
-
+            <NavProvider> {children}</NavProvider>
           </div>
         </Providers>
       </main>

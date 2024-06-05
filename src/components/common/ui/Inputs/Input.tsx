@@ -12,7 +12,16 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   type: string;
   required?: boolean;
   setWatch?: React.Dispatch<number>;
-  unit?: "IQD" | "day" | "week" | "month" | "hour" | "sec" | "min" | "%" | undefined;
+  unit?:
+    | "IQD"
+    | "day"
+    | "week"
+    | "month"
+    | "hour"
+    | "sec"
+    | "min"
+    | "%"
+    | undefined;
   min?: number;
 }
 

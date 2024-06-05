@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -28,7 +28,6 @@ const UserForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -54,7 +53,7 @@ const UserForm = ({
   const onSuccess = () => {
     Navigate(`/admin/user`);
   };
-  const [locale,setLocale] = useState<'en'|"ar">('en')
+  const [locale, setLocale] = useState<"en" | "ar">("en");
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -80,7 +79,6 @@ const UserForm = ({
           label={`Middle Name :`}
           name={"middle_name"}
           locale={locale}
-
         />
         <TranslatableInput
           required={true}

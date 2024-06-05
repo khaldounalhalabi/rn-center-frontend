@@ -90,11 +90,9 @@ export default function SelectPopOverFrom({
                     if (person == "cancelled") {
                       openModal();
                     }
-                    if(handleSelect){
+                    if (handleSelect) {
                       handleSelect(person);
-
                     }
-
                   }}
                   value={person}
                 >

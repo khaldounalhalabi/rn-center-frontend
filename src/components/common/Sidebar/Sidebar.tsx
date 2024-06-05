@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
 import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
 import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
-import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem"
+import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicIcon from "@/components/icons/ClinicIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
@@ -30,15 +30,14 @@ const Sidebar = ({
   setOpenNavBar,
 }: {
   openNavBar: {
-    sm:boolean,
-    md:boolean
+    sm: boolean;
+    md: boolean;
   };
   setOpenNavBar: React.Dispatch<{
-    sm:boolean,
-    md:boolean
+    sm: boolean;
+    md: boolean;
   }>;
 }) => {
-
   const t = useTranslations("sideBar");
 
   return (
@@ -85,7 +84,6 @@ const Sidebar = ({
           />
         </span>
         <ul
-
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
@@ -125,12 +123,12 @@ const Sidebar = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-
-
           </div>
         </ul>
       </div>
-      <div className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}>
+      <div
+        className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
+      >
         <ul>
           <SidebarIcon link={"/admin"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
@@ -193,7 +191,6 @@ const Sidebar = ({
           <SidebarIcon link={"/admin/offer"} title={"Offers"}>
             <OfferIcon className={`h-8 w-8`} />
           </SidebarIcon>
-
         </ul>
       </div>
     </div>

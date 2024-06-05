@@ -37,10 +37,7 @@ const Page = () => {
             showUrl={`/admin/category/${data?.id}`}
             setHidden={setHidden}
           >
-            <DeleteCategory
-              id={data?.id}
-              setHidden={setHidden}
-            />
+            <DeleteCategory id={data?.id} setHidden={setHidden} />
           </ActionsButtons>
         ),
       },

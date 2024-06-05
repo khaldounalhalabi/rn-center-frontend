@@ -1,6 +1,6 @@
 import { getCookieServer } from "@/Actions/serverCookies";
 import { Translatable } from "@/Models/Translatable";
-import {getCookieClient} from "@/Actions/clientCookies";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 export function TranslateClient(
   val: string | undefined | null,

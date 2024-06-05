@@ -7,7 +7,7 @@ import { User } from "@/Models/User";
 import { Phone } from "@/Models/Phone";
 import { PatientsService } from "@/services/PatientsService";
 import RoundedImage from "@/components/common/RoundedImage";
-import {getMedia} from "@/Models/Media";
+import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 
 const page = async ({
@@ -30,26 +30,27 @@ const page = async ({
       <div className={"card p-5 bg-base-200 my-3"}>
         <div className={`flex items-center gap-3`}>
           <RoundedImage
-              src={getMedia(res?.image?.[0] ?? undefined)}
-              alt={"doctor-profile"}
-              className={"w-24 h-24"}
+            src={getMedia(res?.image?.[0] ?? undefined)}
+            alt={"doctor-profile"}
+            className={"w-24 h-24"}
           />
           <div className={"flex flex-col"}>
-            <h2 className={"font-bold text-lg"}><span >
-            {await TranslateServer(res?.first_name)} {await TranslateServer(res?.middle_name)}{" "}
-              {await TranslateServer(res?.last_name)}
-          </span></h2>
-            <h3>
-              {res.email}
-            </h3>
+            <h2 className={"font-bold text-lg"}>
+              <span>
+                {await TranslateServer(res?.first_name)}{" "}
+                {await TranslateServer(res?.middle_name)}{" "}
+                {await TranslateServer(res?.last_name)}
+              </span>
+            </h2>
+            <h3>{res.email}</h3>
             <div className={"flex gap-1"}>
               Phone :{" "}
               {res.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (
-                    <span className="ml-2 badge badge-accent  " key={item.id}>
-              {" "}
-                      {item.phone} {index != 0 && index != 2 ? "/" : ""}
-            </span>
+                  <span className="ml-2 badge badge-accent  " key={item.id}>
+                    {" "}
+                    {item.phone} {index != 0 && index != 2 ? "/" : ""}
+                  </span>
                 );
               })}
             </div>
@@ -117,7 +118,6 @@ const page = async ({
           <span className="text-lg badge badge-neutral">No Data</span>
         )}
       </label>
-
     </PageCard>
   );
 };

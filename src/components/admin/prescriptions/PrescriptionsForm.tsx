@@ -11,6 +11,7 @@ import TestForm from "@/components/admin/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
+
 const PrescriptionsForm = ({
   defaultValues = undefined,
   appointment,
@@ -57,18 +58,25 @@ const PrescriptionsForm = ({
     Navigate(`/admin/appointment/${appointment?.id}`);
   };
   let [isOpen, setIsOpen] = useState(false);
-  let [reloadSelect,setReloadSelect] = useState('')
-  function closeModal(data?:string) {
-    setReloadSelect(data??"")
+  let [reloadSelect, setReloadSelect] = useState("");
+
+  function closeModal(data?: string) {
+    setReloadSelect(data ?? "");
     setIsOpen(false);
   }
+
   function openModal() {
     setIsOpen(true);
   }
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={()=>closeModal('')}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => closeModal("")}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

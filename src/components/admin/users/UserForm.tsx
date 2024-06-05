@@ -102,7 +102,7 @@ const UserForm = ({
       </Grid>
       <Input
         name={"email"}
-        type={"email"}
+        type={"text"}
         label={"Email :"}
         required={true}
         defaultValue={defaultValues?.email ?? ""}
@@ -110,14 +110,14 @@ const UserForm = ({
       <Grid md={2} gap={5}>
         <Input
           name={"password"}
-          type={"password"}
+          type={"text"}
           label={"Password :"}
           required={true}
           defaultValue={defaultValues?.password ?? ""}
         />
         <Input
           name={"password_confirmation"}
-          type={"password"}
+          type={"text"}
           label={"Password Confirmation :"}
           required={true}
           defaultValue={defaultValues?.password_confirmation ?? ""}

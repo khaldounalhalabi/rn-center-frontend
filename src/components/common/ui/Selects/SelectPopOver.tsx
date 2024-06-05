@@ -153,7 +153,7 @@ export default function SelectPopOver({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Form handleSubmit={HandleCancel}>
+                  <Form handleSubmit={HandleCancel} showToastMessage={false}>
                     <Textarea
                       name={"cancellation_reason"}
                       required={true}

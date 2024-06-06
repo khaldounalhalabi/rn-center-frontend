@@ -14,7 +14,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
 import { PatientsService } from "@/services/PatientsService";
-import { Customer, SendPatient } from "@/Models/Customer";
+import { DefCustomer} from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
@@ -24,40 +24,26 @@ const PatientsForm = ({
   id,
   type = "store",
 }: {
-  defaultValues?: Customer;
+  defaultValues?: DefCustomer;
   id?: number;
   type?: "store" | "update";
 }) => {
   const handleSubmit = async (data: any) => {
-    const sendCreate: SendPatient = {
-      first_name: data.user.first_name,
-      middle_name: data.user.middle_name,
-      last_name: data.user.last_name,
-      address: data.user.address,
-      birth_date: data.user.birth_date,
-      blood_group: data.user.blood_group,
-      phone_numbers: data.user.phone_numbers,
-      gender: data.user.gender,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-      tags: data.tags,
-      image: data.image,
-      email: data.user.email,
-    };
-    console.log(sendCreate);
+
+    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return PatientsService.make<PatientsService>("admin")
-        .update(defaultValues?.id ?? id, sendCreate)
+        .update(defaultValues?.id ?? id, data)
         .then((res) => {
           console.log(res);
           return res;
         });
     } else {
       return await PatientsService.make<PatientsService>("admin")
-        .store(sendCreate)
+        .store(data)
         .then((res) => {
           console.log(res);
           return res;
@@ -82,7 +68,7 @@ const PatientsForm = ({
           type={"text"}
           placeholder={"John"}
           label={`First Name :`}
-          name={"user.first_name"}
+          name={"first_name"}
           locale={locale}
         />
         <TranslatableInput
@@ -91,7 +77,7 @@ const PatientsForm = ({
           type={"text"}
           placeholder={"John"}
           label={`Middle Name :`}
-          name={"user.middle_name"}
+          name={"middle_name"}
           locale={locale}
         />
         <TranslatableInput
@@ -101,19 +87,19 @@ const PatientsForm = ({
           placeholder={"John"}
           label={`Last Name :`}
           locale={locale}
-          name={"user.last_name"}
+          name={"last_name"}
         />
         <SelectPopOverFrom
-          name={"user.blood_group"}
+          name={"blood_group"}
           id={1}
           required={true}
           label={"Blood Group"}
           ArraySelect={BloodArray()}
-          status={defaultValues?.user.blood_group ?? ""}
+          status={defaultValues?.blood_group ?? ""}
         />
       </Grid>
       <Input
-        name={"user.email"}
+        name={"email"}
         type={"email"}
         label={"Email :"}
         required={true}
@@ -134,14 +120,14 @@ const PatientsForm = ({
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
           <Input
-            name={"user.gender"}
+            name={"gender"}
             label="Male"
             type="radio"
             className="radio radio-info"
             value={"male"}
             defaultChecked={
-              defaultValues?.user.gender
-                ? defaultValues?.user.gender == "male"
+              defaultValues?.gender
+                ? defaultValues?.gender == "male"
                 : true
             }
           />
@@ -152,20 +138,20 @@ const PatientsForm = ({
             type="radio"
             className="radio radio-info"
             value={"female"}
-            defaultChecked={defaultValues?.user.gender == "female"}
+            defaultChecked={defaultValues?.gender == "female"}
           />
         </div>
         <InputTags
           name={"tags"}
           label={"Tags :"}
           defaultValue={
-            defaultValues?.user.tags ? [defaultValues.user.tags] : []
+            defaultValues?.tags ? [defaultValues.tags] : []
           }
         />
       </Grid>
       <MultiInput
         type={"tel"}
-        name={"user.phone_numbers"}
+        name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
         label={"Phones :"}
         required={true}
@@ -177,13 +163,13 @@ const PatientsForm = ({
           type={"text"}
           placeholder={"John"}
           label={`Address :`}
-          name={"user.address.name"}
+          name={"address.name"}
           locale={locale}
-          defaultValue={defaultValues ? defaultValues?.user?.address?.name : ""}
+          defaultValue={defaultValues ? defaultValues?.address?.name : ""}
         />
         <ApiSelect
           required={true}
-          name={"user.address.city_id"}
+          name={"address.city_id"}
           label={"City :"}
           placeHolder={"Select City Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
@@ -192,13 +178,13 @@ const PatientsForm = ({
           getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
-            defaultValues?.user.address?.city
-              ? [defaultValues?.user.address?.city]
+            defaultValues?.address?.city
+              ? [defaultValues?.address?.city]
               : []
           }
         />
         <Datepicker
-          name={"user.birth_date"}
+          name={"birth_date"}
           label={"Birth Date :"}
           required={true}
           shouldDisableDate={(day) => {
@@ -208,10 +194,10 @@ const PatientsForm = ({
       </Grid>
       {type == "update" ? (
         <div className={"col-span-2"}>
-          {defaultValues?.user.image?.length != 0 ? (
+          {defaultValues?.image?.length != 0 ? (
             <Gallery
               media={
-                defaultValues?.user.image ? defaultValues?.user.image : [""]
+                defaultValues?.image ? defaultValues?.image : [""]
               }
             />
           ) : (

@@ -4,6 +4,7 @@ import { Hospital } from "@/Models/Hospital";
 import { Translatable } from "@/Models/Translatable";
 import { Media } from "@/Models/Media";
 import { City } from "./City";
+import {Subscriptions} from "@/Models/Subscriptions";
 
 export type Clinic = {
   id: number;
@@ -27,7 +28,21 @@ export type Clinic = {
   total_appointments: number;
   today_appointments_count: number;
   upcoming_appointments_count: number;
+  active_subscription?: activeSubscription;
 };
+
+export interface activeSubscription {
+  clinic_id: number;
+  deduction_cost: number;
+  end_time: string;
+  id: number;
+  remaining: string;
+  start_time: string;
+  status: string;
+  subscription_id: number;
+  type: string;
+  subscription:Subscriptions
+}
 
 export interface AddOrUpdateClinicForm {
   name?: string | Translatable;
@@ -57,4 +72,7 @@ export interface AddOrUpdateClinicForm {
   };
   hospital?: Hospital;
   specialities?: Speciality[];
+  deduction_cost?: string;
+  subscription_id?: number;
+  subscription_type?: string;
 }

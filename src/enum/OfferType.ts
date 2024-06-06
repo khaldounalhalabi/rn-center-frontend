@@ -1,6 +1,6 @@
 export enum OfferType {
-  PERCENTAGE = "PERCENTAGE",
-  FIXED = "FIXED",
+  PERCENTAGE = "percentage",
+  FIXED = "fixed",
 }
 
 const OffersArray = (): string[] => {

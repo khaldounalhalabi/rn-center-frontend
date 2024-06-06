@@ -95,8 +95,38 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
         <div className={"w-full"}>
           <label className={"label"}>{t("lastUpdatedAt")} :</label>
-          <p className={"badge badge-primary"}>{clinic?.updated_at}</p>
+          <p className={"badge badge-accent"}>{clinic?.updated_at}</p>
         </div>
+
+        <div className={"w-full"}>
+          <label className={"label"}>Subscription :</label>
+          <p className={"badge badge-warning"}>{clinic?.active_subscription?.subscription.name}</p>
+        </div>
+        <div className={"w-full"}>
+          <label className={"label"}>{("Subscription Type")} :</label>
+          <p className={"badge badge-primary"}>{clinic?.active_subscription?.type}</p>
+        </div>
+        <div className={"w-full"}>
+          <label className={"label"}>{("Subscription Cost")} :</label>
+          <p className={"badge badge-success"}>{clinic?.active_subscription?.deduction_cost}</p>
+        </div>
+        <div className={"w-full"}>
+          <label className={"label"}>{("Start Time")} :</label>
+          <p className={"badge badge-neutral"}>{clinic?.active_subscription?.start_time}</p>
+        </div>
+        <div className={"w-full"}>
+          <label className={"label"}>{("End Time")} :</label>
+          <p className={"badge badge-accent"}>{clinic?.active_subscription?.end_time}</p>
+        </div>
+
+      </div>
+      <div className={"w-full"}>
+        <label className={"label"}>{("Subscription Description")} :</label>
+        <textarea
+            className="textarea textarea-bordered h-24 w-full"
+            disabled={true}
+            defaultValue={clinic?.active_subscription?.subscription.description}
+        ></textarea>
       </div>
       <div className={"w-full"}>
         <label className={"label"}>{t("experience")} :</label>

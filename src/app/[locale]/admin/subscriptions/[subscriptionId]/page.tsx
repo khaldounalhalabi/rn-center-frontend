@@ -1,10 +1,11 @@
 import PageCard from "@/components/common/ui/PageCard";
-import React from "react";
+import React, {ChangeEvent} from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
+import TableClinic from "@/components/admin/subscriptions/TableClinic";
 
 const page = async ({
   params: { subscriptionId },
@@ -16,6 +17,7 @@ const page = async ({
       subscriptionId,
     );
   const res: Subscriptions = data?.data;
+
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -56,6 +58,7 @@ const page = async ({
         className={"textarea"}
         disabled={true}
       />
+      <TableClinic id={res.id}/>
     </PageCard>
   );
 };

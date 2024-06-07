@@ -51,7 +51,7 @@ export default function SelectPopOver({
 
   useEffect(() => {
     setSelected(status);
-  }, [id]);
+  }, [id , status]);
 
   return (
     <div className=" w-full">

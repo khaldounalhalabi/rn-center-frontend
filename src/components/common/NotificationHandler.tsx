@@ -18,7 +18,6 @@ const NotificationHandler = ({
   children?: ReactNode;
 }) => {
   const { fcmToken } = useFcmToken();
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
@@ -28,7 +27,7 @@ const NotificationHandler = ({
           payload.collapseKey,
           payload?.data as NotificationPayloadData | undefined,
           payload.from,
-          payload.messageId,
+          payload.messageId
         );
         console.log(notification.getNotificationType(), notification);
 

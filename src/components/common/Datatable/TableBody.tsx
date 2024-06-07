@@ -1,6 +1,6 @@
 import { ApiResponse } from "@/Http/Response";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import React from "react";
+import React, { useEffect } from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 
@@ -37,7 +37,7 @@ const TableBody = ({
                       >
                         {schema?.translatable
                           ? TranslateClient(
-                              getNestedPropertyValue(item, schema.name),
+                              getNestedPropertyValue(item, schema.name)
                             )
                           : getNestedPropertyValue(item, schema.name) ??
                             "No Data"}
@@ -56,13 +56,13 @@ const TableBody = ({
                         {schema.render(
                           schema?.translatable
                             ? TranslateClient(
-                                getNestedPropertyValue(item, schema.name),
+                                getNestedPropertyValue(item, schema.name)
                               )
                             : getNestedPropertyValue(item, schema.name) ??
                                 "No Data",
                           item,
                           setHidden,
-                          revalidate,
+                          revalidate
                         )}
                       </td>
                     );

@@ -1,5 +1,5 @@
 import { Appointment } from "@/Models/Appointment";
-import { NotificationsType } from "@/Models/NotificationPayload";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import AppointmentStatuses from "@/enum/AppointmentStatus";
@@ -29,7 +29,7 @@ const AppointmentStatusColumn = ({
         handle={(payload) => {
           if (
             payload.getNotificationType() ==
-              NotificationsType.AdminAppointmentStatusChanged &&
+              RealTimeEvents.AppointmentStatusChange &&
             revalidate
           ) {
             revalidate();

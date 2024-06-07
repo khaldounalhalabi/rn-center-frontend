@@ -7,9 +7,9 @@ import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 
 const page = async ({
-  params: { subscriptionId },
+  params: {clinicId, subscriptionId },
 }: {
-  params: { subscriptionId: number };
+  params: {clinicId:number, subscriptionId: number };
 }) => {
   const data =
     await ClinicSubscriptionService.make<ClinicSubscriptionService>().show(
@@ -20,7 +20,7 @@ const page = async ({
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Subscription Details</h2>
-        <Link href={`/admin/subscriptions/${subscriptionId}/edit`}>
+        <Link href={`/admin/clinics/${clinicId}/subscriptions/${subscriptionId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

@@ -9,7 +9,6 @@ const page = async ({ params: { logId } }: { params: { logId: number } }) => {
   const data =
     await AppointmentLogsService.make<AppointmentLogsService>().show(logId);
   const res: AppointmentLogs = data?.data;
-  console.log(res.cancellation_reason);
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

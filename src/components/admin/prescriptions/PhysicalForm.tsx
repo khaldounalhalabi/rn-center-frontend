@@ -37,9 +37,7 @@ const defaultStringify: Stringify = {
 };
 
 const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
-  const initialStringify = defaultValue
-    ? JSON.parse(defaultValue)
-    : defaultStringify;
+  const initialStringify = defaultValue ? JSON.parse(defaultValue) : defaultStringify;
 
   const { setValue } = useFormContext();
   const [value, setValueStringify] = useState<Stringify>(initialStringify);
@@ -56,20 +54,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
     setValueStringify((prevValue) => ({ ...prevValue, [name]: valueInput }));
   };
 
-  const renderInputField = (label: string, name: keyof Stringify) => (
-    <div className={`flex flex-col items-start w-full`}>
-      <label className={"label"}>{label}:</label>
-      <input
-        step={"any"}
-        className={`input input-bordered w-full focus:outline-pom focus:border-pom`}
-        placeholder={"..."}
-        type="text"
-        name={name}
-        defaultValue={value[name] ?? ""}
-        onChange={(e) => handleInputChange(e.target.value, e.target.name)}
-      />
-    </div>
-  );
+
 
   return (
     <>

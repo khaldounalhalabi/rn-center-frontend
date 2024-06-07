@@ -12,7 +12,6 @@ function classNames(...classes: any[]) {
 }
 
 const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
-  console.log(clinic)
   const t = useTranslations("admin.clinic.show");
   return (
     <div className={"w-full"}>

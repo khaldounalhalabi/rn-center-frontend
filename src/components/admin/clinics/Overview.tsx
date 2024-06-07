@@ -6,7 +6,6 @@ import MapIFrame from "@/components/common/ui/MapIFrame";
 import { useTranslations } from "next-intl";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
-  console.log(clinic);
   const t = useTranslations("admin.clinic.show");
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>

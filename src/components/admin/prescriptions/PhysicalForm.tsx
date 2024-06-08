@@ -37,7 +37,9 @@ const defaultStringify: Stringify = {
 };
 
 const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
-  const initialStringify = defaultValue ? JSON.parse(defaultValue) : defaultStringify;
+  const initialStringify = defaultValue
+    ? JSON.parse(defaultValue)
+    : defaultStringify;
 
   const { setValue } = useFormContext();
   const [value, setValueStringify] = useState<Stringify>(initialStringify);
@@ -53,8 +55,6 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
   ) => {
     setValueStringify((prevValue) => ({ ...prevValue, [name]: valueInput }));
   };
-
-
 
   return (
     <>

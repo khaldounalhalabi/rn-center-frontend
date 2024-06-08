@@ -1,5 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
-import React, {ChangeEvent} from "react";
+import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
@@ -58,7 +58,7 @@ const page = async ({
         className={"textarea"}
         disabled={true}
       />
-      <SubscriptionClinicsTable subscriptionId={res.id}/>
+      <SubscriptionClinicsTable subscriptionId={res.id} />
     </PageCard>
   );
 };

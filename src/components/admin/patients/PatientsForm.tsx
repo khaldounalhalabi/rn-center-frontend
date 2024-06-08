@@ -14,7 +14,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
 import { PatientsService } from "@/services/PatientsService";
-import { AddOrUpdateCustomer} from "@/Models/Customer";
+import { AddOrUpdateCustomer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
@@ -29,7 +29,6 @@ const PatientsForm = ({
   type?: "store" | "update";
 }) => {
   const handleSubmit = async (data: any) => {
-
     console.log(data);
     if (
       type === "update" &&
@@ -98,12 +97,7 @@ const PatientsForm = ({
           status={defaultValues?.blood_group ?? ""}
         />
       </Grid>
-      <Input
-        name={"email"}
-        type={"text"}
-        label={"Email :"}
-        required={true}
-      />
+      <Input name={"email"} type={"text"} label={"Email :"} required={true} />
       <Grid md={2} gap={5}>
         <Input
           name={"password"}
@@ -126,9 +120,7 @@ const PatientsForm = ({
             className="radio radio-info"
             value={"male"}
             defaultChecked={
-              defaultValues?.gender
-                ? defaultValues?.gender == "male"
-                : true
+              defaultValues?.gender ? defaultValues?.gender == "male" : true
             }
           />
 
@@ -144,9 +136,7 @@ const PatientsForm = ({
         <InputTags
           name={"tags"}
           label={"Tags :"}
-          defaultValue={
-            defaultValues?.tags ? [defaultValues.tags] : []
-          }
+          defaultValue={defaultValues?.tags ? [defaultValues.tags] : []}
         />
       </Grid>
       <MultiInput
@@ -178,9 +168,7 @@ const PatientsForm = ({
           getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={
-            defaultValues?.address?.city
-              ? [defaultValues?.address?.city]
-              : []
+            defaultValues?.address?.city ? [defaultValues?.address?.city] : []
           }
         />
         <Datepicker
@@ -196,9 +184,7 @@ const PatientsForm = ({
         <div className={"col-span-2"}>
           {defaultValues?.image?.length != 0 ? (
             <Gallery
-              media={
-                defaultValues?.image ? defaultValues?.image : [""]
-              }
+              media={defaultValues?.image ? defaultValues?.image : [""]}
             />
           ) : (
             <div className="flex items-center">

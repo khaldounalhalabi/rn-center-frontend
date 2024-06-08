@@ -51,12 +51,10 @@ const page = async ({
         <h2 className="card-title">Other Data :</h2>
         <Grid md={2}>
           {otherData?.map((data, index) => (
-              <label key={index} className="label justify-start text-xl">
-                {data.key} :{" "}
-                <span className="ml-2 badge badge-warning">
-                     {data.value}
-                </span>
-              </label>
+            <label key={index} className="label justify-start text-xl">
+              {data.key} :{" "}
+              <span className="ml-2 badge badge-warning">{data.value}</span>
+            </label>
           ))}
         </Grid>
       </PageCard>

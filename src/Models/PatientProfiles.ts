@@ -7,7 +7,7 @@ export interface PatientProfiles {
   clinic_id: number;
   medical_condition: string;
   note: string;
-  updated_at:string
+  updated_at: string;
   other_data: string;
   customer: Customer;
   clinic: Clinic;

@@ -35,9 +35,7 @@ const page = async ({
         </label>
         <label className="label">
           Subscription Type :
-          <span className="bg-accent px-2 rounded-xl text-lg">
-            {res?.type}
-          </span>
+          <span className="bg-accent px-2 rounded-xl text-lg">{res?.type}</span>
         </label>
 
         <label className="label">

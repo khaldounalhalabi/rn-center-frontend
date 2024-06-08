@@ -24,8 +24,6 @@ export default function SelectPopOver({
 }) {
   const [selected, setSelected] = useState(status);
 
-
-
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -54,7 +52,7 @@ export default function SelectPopOver({
 
   useEffect(() => {
     setSelected(status);
-  }, [id , status]);
+  }, [id, status]);
 
   return (
     <div className=" w-full">
@@ -95,7 +93,7 @@ export default function SelectPopOver({
                       openModal();
                       setSelected(status);
                     } else {
-                      handleSelect(person, id,setSelected);
+                      handleSelect(person, id, setSelected);
                       setSelected(status);
                     }
                   }}

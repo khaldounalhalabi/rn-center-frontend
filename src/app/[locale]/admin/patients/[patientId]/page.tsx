@@ -2,7 +2,6 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
-import Grid from "@/components/common/ui/Grid";
 import { User } from "@/Models/User";
 import { Phone } from "@/Models/Phone";
 import { PatientsService } from "@/services/PatientsService";
@@ -57,8 +56,7 @@ const page = async ({
         </div>
       </div>
 
-      <PatientsOverview patient={res} id={patientId}/>
-
+      <PatientsOverview patient={res} id={patientId} />
     </PageCard>
   );
 };

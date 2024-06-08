@@ -27,7 +27,7 @@ const NotificationHandler = ({
           payload.collapseKey,
           payload?.data as NotificationPayloadData | undefined,
           payload.from,
-          payload.messageId
+          payload.messageId,
         );
         console.log(notification.getNotificationType(), notification);
 

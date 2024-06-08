@@ -13,7 +13,7 @@ export const HandleDatePicker = (
         ? Object.keys(data.clinic_schedule)
         : [];
     const lastDay = dayjs().add(range - 1, "day");
-    const isHoliday = data?.clinic_holidays ? data?.clinic_holidays.some((e) => day.isBetween(e.start_date, e.end_date, null, "()")) : true;
+    const isHoliday = data?.clinic_holidays ? data?.clinic_holidays.some((e) => day.isBetween(e.start_date, e.end_date, "day", "[]")) : true;
 
     return (
         dayjs().isAfter(day.subtract(-1, "day")) ||
@@ -23,4 +23,4 @@ export const HandleDatePicker = (
     );
 };
 
-// ------------------------------------------------------------------------------------- ----------------
+// -----------------------------------------------------------------------------------------------------

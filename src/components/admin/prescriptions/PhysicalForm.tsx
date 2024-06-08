@@ -56,21 +56,6 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
     setValueStringify((prevValue) => ({ ...prevValue, [name]: valueInput }));
   };
 
-  const renderInputField = (label: string, name: keyof Stringify) => (
-    <div className={`flex flex-col items-start w-full`}>
-      <label className={"label"}>{label}:</label>
-      <input
-        step={"any"}
-        className={`input input-bordered w-full focus:outline-pom focus:border-pom`}
-        placeholder={"..."}
-        type="text"
-        name={name}
-        defaultValue={value[name] ?? ""}
-        onChange={(e) => handleInputChange(e.target.value, e.target.name)}
-      />
-    </div>
-  );
-
   return (
     <>
       <h2 className="card-title">Physical Information</h2>

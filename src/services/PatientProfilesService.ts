@@ -1,24 +1,24 @@
 import { BaseService } from "@/services/BaseService";
-import { Clinic } from "@/Models/Clinic";
+import { PatientProfiles } from "@/Models/PatientProfiles";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class ClinicService extends BaseService<Clinic> {
-  getBaseUrl(): string {
-    return `${this.actor}/clinics`;
+export class PatientProfilesService extends BaseService<PatientProfiles> {
+  public getBaseUrl(): string {
+    return `${this.actor}/patient-profiles`;
   }
 
-  public async getClinicsBySubscription(
-    subscriptionId: number,
+  public async getCustomerPatientProfiles(
+    patientId: number,
     page: number = 0,
     search?: string,
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
     params?: object,
-  ): Promise<ApiResponse<Clinic[]>> {
-    const res = await GET<Clinic[]>(
-      `${this.actor}/subscriptions/${subscriptionId}/clinics`,
+  ): Promise<ApiResponse<PatientProfiles[]>> {
+    const res = await GET<PatientProfiles[]>(
+      `${this.actor}/customers/${patientId}/patient-profiles`,
       {
         page: page,
         search: search,

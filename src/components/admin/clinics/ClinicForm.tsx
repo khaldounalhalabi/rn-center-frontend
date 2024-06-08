@@ -20,6 +20,10 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import { Hospital } from "@/Models/Hospital";
 import Datepicker from "@/components/common/ui/Datepicker";
+import { Subscriptions } from "@/Models/Subscriptions";
+import { SubscriptionsService } from "@/services/SubscriptionsService";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 
 const ClinicForm = ({
   type = "store",
@@ -30,8 +34,18 @@ const ClinicForm = ({
   defaultValues?: AddOrUpdateClinicForm | undefined | null;
   id?: number | undefined;
 }) => {
+  const [typeSelect, setType] = useState("");
+
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
-    return await ClinicService.make<ClinicService>().store(data);
+    const { deduction_cost, ...subscriptionData } = data;
+    const sendData =
+      typeSelect == SubscriptionType.BOOKING_COST ? data : subscriptionData;
+    return await ClinicService.make<ClinicService>()
+      .store(sendData)
+      .then((r) => {
+        console.log(r);
+        return r;
+      });
   };
 
   if (type == "update" && id) {
@@ -41,6 +55,7 @@ const ClinicForm = ({
   }
   const t = useTranslations("admin.clinic.create-edit");
   const [locale, setLocale] = useState<"en" | "ar">("en");
+
   return (
     <Form
       handleSubmit={onSubmit}
@@ -265,6 +280,49 @@ const ClinicForm = ({
           label={t("mapIframe")}
           required={true}
         />
+        {type != "update" ? (
+          <>
+            <ApiSelect
+              required={true}
+              api={(page, search): Promise<ApiResponse<Subscriptions[]>> =>
+                SubscriptionsService.make<SubscriptionsService>().indexWithPagination(
+                  page,
+                  search,
+                )
+              }
+              placeHolder={"Select Subscription Name ..."}
+              label={`Subscription :`}
+              optionLabel={"name"}
+              optionValue={"id"}
+              name={"subscription_id"}
+            />
+            <SelectPopOverFrom
+              required={true}
+              id={2}
+              name={"subscription_type"}
+              label={"Subscription Type :"}
+              status={""}
+              ArraySelect={SubscriptionArray()}
+              handleSelect={(e: any) => {
+                setType(e);
+              }}
+            />
+            {typeSelect == "Booking Cost Based Subscription" ? (
+              <Input
+                required={true}
+                unit={"%"}
+                type={"number"}
+                placeholder={"John"}
+                label={`Deduction Cost`}
+                name={"deduction_cost"}
+              />
+            ) : (
+              ""
+            )}
+          </>
+        ) : (
+          ""
+        )}
         {type == "update" ? (
           defaultValues?.user?.photo &&
           defaultValues?.user?.photo?.length > 0 ? (

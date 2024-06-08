@@ -51,7 +51,6 @@ const MultiInput: React.FC<MultiInputProps> = ({
   useEffect(() => {
     setValue(name, inputs);
   }, [inputs]);
-
   return (
     <>
       {label ? (

@@ -5,6 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
+import SubscriptionClinicsTable from "@/components/admin/subscriptions/SubscriptionClinicsTable";
 
 const page = async ({
   params: { subscriptionId },
@@ -16,6 +17,7 @@ const page = async ({
       subscriptionId,
     );
   const res: Subscriptions = data?.data;
+
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -56,6 +58,7 @@ const page = async ({
         className={"textarea"}
         disabled={true}
       />
+      <SubscriptionClinicsTable subscriptionId={res.id} />
     </PageCard>
   );
 };

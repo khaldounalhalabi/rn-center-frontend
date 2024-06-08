@@ -23,7 +23,6 @@ const ClinicSubscriptionForm = ({
   type?: "store" | "update";
 }) => {
   const [typeSelect, setType] = useState("");
-  console.log(defaultValues);
   const handleSubmit = async (data: any) => {
     const dataSend = {
       clinic_id: id,
@@ -68,7 +67,6 @@ const ClinicSubscriptionForm = ({
   const onSuccess = () => {
     Navigate(`/admin/clinics/${id}`);
   };
-  console.log(typeSelect);
   return (
     <Form
       handleSubmit={handleSubmit}

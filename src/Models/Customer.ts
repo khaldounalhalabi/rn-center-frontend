@@ -1,7 +1,6 @@
 import { User } from "@/Models/User";
 import { Address } from "@/Models/Address";
 import { Media } from "@/Models/Media";
-import { Phone } from "@/Models/Phone";
 
 export interface Customer {
   id: number;
@@ -10,7 +9,10 @@ export interface Customer {
   user: User;
 }
 
-export interface SendPatient {
+export interface AddOrUpdateCustomer {
+  id: number;
+  medical_condition?: string;
+  user_id: number;
   first_name: string;
   middle_name: string;
   last_name: string;
@@ -20,7 +22,7 @@ export interface SendPatient {
   blood_group: string;
   tags: string;
   image?: Media[];
-  phone_numbers: Phone[];
+  phone_numbers: string[];
   address: Address;
   password?: string;
   password_confirmation?: string;

@@ -1,7 +1,6 @@
 import { BaseService } from "@/services/BaseService";
 import { Clinic } from "@/Models/Clinic";
 import {ApiResponse} from "@/Http/Response";
-import {Appointment} from "@/Models/Appointment";
 import {GET} from "@/Http/Http";
 
 export class ClinicService extends BaseService<Clinic> {

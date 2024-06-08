@@ -14,7 +14,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
 import { PatientsService } from "@/services/PatientsService";
-import { DefCustomer} from "@/Models/Customer";
+import { AddOrUpdateCustomer} from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
@@ -24,7 +24,7 @@ const PatientsForm = ({
   id,
   type = "store",
 }: {
-  defaultValues?: DefCustomer;
+  defaultValues?: AddOrUpdateCustomer;
   id?: number;
   type?: "store" | "update";
 }) => {
@@ -100,20 +100,20 @@ const PatientsForm = ({
       </Grid>
       <Input
         name={"email"}
-        type={"email"}
+        type={"text"}
         label={"Email :"}
         required={true}
       />
       <Grid md={2} gap={5}>
         <Input
           name={"password"}
-          type={"password"}
+          type={"text"}
           label={"Password :"}
           required={true}
         />
         <Input
           name={"password_confirmation"}
-          type={"password"}
+          type={"text"}
           label={"Password Confirmation :"}
           required={true}
         />

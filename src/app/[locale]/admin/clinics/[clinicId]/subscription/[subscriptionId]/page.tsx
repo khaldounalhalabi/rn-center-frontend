@@ -7,9 +7,9 @@ import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 
 const page = async ({
-  params: {clinicId, subscriptionId },
+  params: { clinicId, subscriptionId },
 }: {
-  params: {clinicId:number, subscriptionId: number };
+  params: { clinicId: number; subscriptionId: number };
 }) => {
   const data =
     await ClinicSubscriptionService.make<ClinicSubscriptionService>().show(
@@ -20,27 +20,23 @@ const page = async ({
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Subscription Details</h2>
-        <Link href={`/admin/clinics/${clinicId}/subscriptions/${subscriptionId}/edit`}>
+        <Link
+          href={`/admin/clinics/${clinicId}/subscription/${subscriptionId}/edit`}
+        >
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          Name :
+          Subscription Name :
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {res?.subscription?.name}
           </span>
         </label>
         <label className="label">
-          Type :
-          <span className="badge badge-accent px-2 rounded-xl text-lg">
+          Subscription Type :
+          <span className="bg-accent px-2 rounded-xl text-lg">
             {res?.type}
-          </span>
-        </label>
-        <label className="label">
-          Remaining :
-          <span className="badge badge-accent px-2 rounded-xl text-lg">
-            {res?.remaining}
           </span>
         </label>
 
@@ -53,8 +49,17 @@ const page = async ({
           </span>
         </label>
 
+        {res?.subscription?.period && res?.subscription?.period >= 0 && (
+          <label className="label">
+            Subscription Remaining Time :
+            <span className="badge badge-accent px-2 rounded-xl text-lg">
+              {res?.remaining}
+            </span>
+          </label>
+        )}
+
         <label className="label">
-          Cost :
+          Subscription Cost :
           <span className="badge badge-neutral px-2 rounded-xl text-lg">
             {res?.subscription?.cost}
           </span>

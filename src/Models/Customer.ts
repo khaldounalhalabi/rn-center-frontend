@@ -10,7 +10,7 @@ export interface Customer {
   user: User;
 }
 
-export interface DefCustomer {
+export interface AddOrUpdateCustomer {
   id: number;
   medical_condition?: string;
   user_id: number;

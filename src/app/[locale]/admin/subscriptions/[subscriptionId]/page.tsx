@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
-import TableClinic from "@/components/admin/subscriptions/TableClinic";
+import SubscriptionClinicsTable from "@/components/admin/subscriptions/SubscriptionClinicsTable";
 
 const page = async ({
   params: { subscriptionId },
@@ -58,7 +58,7 @@ const page = async ({
         className={"textarea"}
         disabled={true}
       />
-      <TableClinic id={res.id}/>
+      <SubscriptionClinicsTable subscriptionId={res.id}/>
     </PageCard>
   );
 };

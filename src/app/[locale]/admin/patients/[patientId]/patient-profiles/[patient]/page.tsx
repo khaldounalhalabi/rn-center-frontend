@@ -26,7 +26,7 @@ const page = async ({
             <PageCard>
                 <div className="flex justify-between items-center w-full h-24">
                     <h2 className="card-title">Patient Profile Details</h2>
-                    <Link href={`/admin/patient/${patientId}/patient-profiles/${patient}/edit`}>
+                    <Link href={`/admin/patients/${patientId}/patient-profiles/${patient}/edit`}>
                         <PrimaryButton type={"button"}>Edit</PrimaryButton>
                     </Link>
                 </div>

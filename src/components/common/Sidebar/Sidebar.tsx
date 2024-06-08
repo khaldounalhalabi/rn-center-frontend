@@ -114,7 +114,12 @@ const Sidebar = ({
             </SidebarItem>
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
             <SidebarItem link={"/admin/user"}>Users</SidebarItem>
-            <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
+            <SidebarCompactItem title={"Patients Management"}>
+              <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
+              <SidebarItem link={"/admin/patient-profiles"}>
+                Patient Profiles
+              </SidebarItem>
+            </SidebarCompactItem>
             <SidebarItem link={"/admin/subscriptions"}>
               Subscriptions
             </SidebarItem>
@@ -123,7 +128,6 @@ const Sidebar = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-            <SidebarItem link={"/admin/patient-profiles"}>Patient Profiles</SidebarItem>
           </div>
         </ul>
       </div>

@@ -4,7 +4,7 @@ import React from "react";
 import {User} from "@/Models/User";
 
 
-const PatientsDetiles = ({ patient }:{patient: User | null | undefined}) => {
+const PatientsDetailes = ({ patient }:{patient: User | null | undefined}) => {
   const tagsArray = patient?.tags.split(",");
 
   return <>
@@ -71,4 +71,4 @@ const PatientsDetiles = ({ patient }:{patient: User | null | undefined}) => {
   </>;
 };
 
-export default PatientsDetiles
+export default PatientsDetailes

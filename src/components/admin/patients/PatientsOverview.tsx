@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import PatitentsDetiles from "@/components/admin/patients/PatientsDetiles";
+import PatitentsDetiles from "@/components/admin/patients/PatientsDetailes";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
 import {User} from "@/Models/User";
 

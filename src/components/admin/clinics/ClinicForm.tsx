@@ -290,7 +290,7 @@ const ClinicForm = ({
                       }
                       placeHolder={"Select Subscription Name ..."}
                       label={`Subscription :`}
-                      getOptionLabel={(item) => item?.name}
+                      optionLabel={"name"}
                       optionValue={"id"}
                       name={"subscription_id"}
 

@@ -1,5 +1,11 @@
 "use client";
-import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
+import React, {
+  Fragment,
+  ReactNode,
+  ThHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import {
@@ -32,7 +38,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -46,13 +52,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -66,9 +72,11 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
+  const [isRevalidating, setIsRevalidating] = useState(false);
   const queryClient = useQueryClient();
 
   const revalidate = () => {
+    setIsRevalidating(true);
     queryClient.invalidateQueries({
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
@@ -88,7 +96,12 @@ const DataTable = (tableData: DataTableData<any>) => {
       let s = !search || search == "" ? undefined : search;
       let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
       let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
-      return await tableData.api(page, s, sortC, sortD, perPage, params);
+      return await tableData
+        .api(page, s, sortC, sortD, perPage, params)
+        .then((res) => {
+          setIsRevalidating(false);
+          return res;
+        });
     },
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
@@ -235,7 +248,7 @@ const DataTable = (tableData: DataTableData<any>) => {
           </div>
           <div className="border-gray-200 border rounded-lg">
             <div className="rounded-t-lg overflow-x-auto relative">
-              {isPending || isFetching ? (
+              {isPending || (isFetching && !isRevalidating) ? (
                 <div className="top-1/2 left-1/2 z-10 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
                   <LoadingSpin className="w-8 h-8" />
                 </div>

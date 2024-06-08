@@ -118,6 +118,7 @@ const OfferForm = ({
       </Grid>
       <TranslatableTextArea
         name={"note"}
+        locale={locale}
         defaultValue={defaultValues?.note ?? ""}
       />
     </Form>

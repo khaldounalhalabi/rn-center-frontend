@@ -151,6 +151,7 @@ const ServiceForm = ({
       </Grid>
       <TranslatableTextArea
         name={"description"}
+        locale={locale}
         defaultValue={defaultValues?.description ?? ""}
       />
     </Form>

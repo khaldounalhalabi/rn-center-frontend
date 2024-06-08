@@ -24,6 +24,8 @@ import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
 import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
 import EnquirieIcon from "@/components/icons/EnquirieIcon";
 import OfferIcon from "@/components/icons/OfferIcon";
+import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
+import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 
 const Sidebar = ({
   openNavBar,
@@ -132,9 +134,9 @@ const Sidebar = ({
         </ul>
       </div>
       <div
-        className={`mt-5 ease-in-out duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
+        className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul>
+        <ul className={''}>
           <SidebarIcon link={"/admin"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>
@@ -181,9 +183,24 @@ const Sidebar = ({
           <SidebarIcon link={"/admin/user"} title={"Users"}>
             <UserIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/admin/patients"} title={"Patients"}>
-            <PatientIcon className={`h-8 w-8`} />
-          </SidebarIcon>
+
+          <SidebarCompactIcon
+              title={("Patients Management")}
+              icon={<PatientMangerIcon className={`h-9 w-9 `} />}
+          >
+            <div className="flex flex-col">
+              <SidebarIcon link={"/admin/patients"} title={"Patients"}>
+                <PatientIcon className={`h-7 w-7`} />
+              </SidebarIcon>
+              <SidebarIcon link={"/admin/patient-profiles"} title={"Patient Profiles"}>
+                <PatientProfilesIcon className={`h-7 w-7`} />
+              </SidebarIcon>
+            </div>
+          </SidebarCompactIcon>
+
+
+
+
           <SidebarIcon link={"/admin/subscriptions"} title={"Subscriptions"}>
             <SubscriptionIcon className={`h-7 w-7`} />
           </SidebarIcon>

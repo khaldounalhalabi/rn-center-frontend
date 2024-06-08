@@ -148,6 +148,19 @@ const AppointmentForm = ({
                     });
                   });
               }}
+              onRemoveSelected={()=>{
+                return setRange({
+                  id: 0,
+                  appointment_cost: 0,
+                  range: 0,
+                  limit: 0,
+                  data: {
+                    booked_times: [],
+                    clinic_schedule: {},
+                    clinic_holidays: [],
+                  },
+                });
+              }}
               onClear={() => {
                 return setRange({
                   id: 0,
@@ -207,6 +220,9 @@ const AppointmentForm = ({
             setServicePrice(selectedItem?.price);
           }}
           onClear={() => {
+            setServicePrice(0);
+          }}
+          onRemoveSelected={()=>{
             setServicePrice(0);
           }}
           optionValue={"id"}

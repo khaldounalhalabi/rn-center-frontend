@@ -124,7 +124,7 @@ const PatientProfilesForm = ({
           required={true}
           label={"Medical Condition"}
         />
-        <Textarea name={"note"} required={true} label={"Note"} />
+        <Textarea name={"note"}  label={"Note"} />
       </PageCard>
     </Form>
   );

@@ -38,7 +38,7 @@ const Navbar = ({
       </div>
       <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
         <MenuIcon
-          className={`h-6 w-6 md:hidden`}
+          className={`h-6 w-6 cursor-pointer md:hidden`}
           onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
         />
         <SearchIcon

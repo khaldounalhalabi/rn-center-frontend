@@ -11,7 +11,7 @@ const SidebarCompactIcon = ({
 }) => {
   return (
     <li className={"group/comp"}>
-      <p className="absolute hidden whitespace-nowrap  w-fit text-sm group-hover/comp:!block  left-[90%] bg-black/70 text-white rounded-2xl z-[1000] p-2">
+      <p className="absolute hidden whitespace-nowrap  w-fit text-sm group-hover/comp:!block  ltr:left-[90%] rtl:right-[90%] bg-black/70 text-white rounded-2xl z-[1000] p-2">
         {title}
       </p>
       <details className=" [&_summary::-webkit-details-marker]:hidden">

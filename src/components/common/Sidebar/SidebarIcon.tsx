@@ -14,7 +14,7 @@ const SidebarIcon = ({
   return (
     <>
       <div className="w-full h-12 px-2 my-1 group">
-        <p className="absolute hidden whitespace-nowrap  w-fit text-sm group-hover:!block left-[90%] bg-black/70 text-white rounded-2xl z-[1000] p-2">
+        <p className="absolute hidden  whitespace-nowrap  w-fit text-sm group-hover:!block ltr:left-[90%] rtl:right-[90%] bg-black/70 text-white rounded-2xl z-[1000] p-2">
           {title}
         </p>
         <Link

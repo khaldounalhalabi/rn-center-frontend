@@ -4,6 +4,10 @@ import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { POST } from "@/Http/Http";
+import {AuthResponse} from "@/Models/User";
+import {deleteCookieClient} from "@/Actions/clientCookies";
+import {swal} from "@/Helpers/UIHelpers";
+import {Navigate} from "@/Actions/navigate";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -49,21 +53,35 @@ const ProfileOptionsPopover = () => {
         </div>
         <div className="opacity-[0.8]">
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>Home</h3>
-          </div>
-          <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
             <h3>Profile</h3>
-          </div>
-          <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>Setting</h3>
           </div>
         </div>
         <hr className="my-2"></hr>
         <div
-          className="py-3 px-4 text-red-600 cursor-pointer hover:bg-red-200 hover:text-white"
+          className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white"
           onClick={handleLogout}
         >
-          <h3>Logout</h3>
+          <h3 onClick={()=>{
+            swal.fire({
+              title: "Are you sure?",
+              text: "You won't Logout!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes!"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                return POST<AuthResponse>('admin/logout',{}).then(()=>{
+                  deleteCookieClient('token')
+                  deleteCookieClient('user-type')
+                  deleteCookieClient('refresh_token')
+                  return Navigate('/')
+                })
+              }
+            });
+          }}>Logout</h3>
+
         </div>
       </div>
     </div>

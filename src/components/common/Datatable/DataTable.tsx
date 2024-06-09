@@ -55,7 +55,6 @@ export interface DataTableData<T> {
     ) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
-
 const DataTable = (tableData: DataTableData<any>) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -75,6 +74,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
+  console.log(params)
 
   const { isPending, data, isFetching, isPlaceholderData } = useQuery({
     queryKey: [

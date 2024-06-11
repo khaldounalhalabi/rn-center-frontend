@@ -23,7 +23,7 @@ const UserDetailsForm = ({
 }) => {
   const handleSubmit = async (data: any) => {
     console.log(data);
-    return await AuthService.make<AuthService>("admin")
+    return await AuthService.make<AuthService>("doctor")
       .UpdateUserDetails(data)
       .then((res) => {
         console.log(res);
@@ -40,7 +40,7 @@ const UserDetailsForm = ({
     setIsOpen(true)
   }
   const onSuccess = () => {
-    Navigate(`/admin/user_details`);
+    Navigate(`/doctor/user_details`);
   };
 
 
@@ -142,36 +142,8 @@ const UserDetailsForm = ({
            label={"Email"}
            type="text"
        />
-       <MultiInput
-           type={"tel"}
-           name={"phone_numbers"}
-           placeholder={"Enter Clinic Phone Number"}
-           label={("Phones")}
-       />
+
        <Grid md={'2'}>
-
-
-         <TranslatableInput
-             locales={["en", "ar"]}
-             type={"text"}
-             placeholder={"John"}
-             label={`Address :`}
-             name={"address.name"}
-             locale={locale}
-         />
-         <ApiSelect
-             name={"address.city_id"}
-             label={("City")}
-             placeHolder={"Select City Name ..."}
-             api={(page?: number | undefined, search?: string | undefined) =>
-                 CityService.make<CityService>().indexWithPagination(page, search)
-             }
-             getOptionLabel={(item) => TranslateClient(item.name)}
-             optionValue={"id"}
-             defaultValues={
-               defaultValues?.address?.city ? [defaultValues?.address?.city] : []
-             }
-         />
          <div className={`flex gap-5 p-2 items-center`}>
            <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
            <Input
@@ -197,7 +169,6 @@ const UserDetailsForm = ({
            />
          </div>
        </Grid>
-       <Textarea name={'address.map_iframe'} label={'Map'}/>
        <ImageUploader name={"image"} />
        <button
            type="button"

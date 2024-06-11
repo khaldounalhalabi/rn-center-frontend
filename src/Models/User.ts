@@ -1,6 +1,7 @@
 import { Phone } from "@/Models/Phone";
 import { Address } from "@/Models/Address";
 import { Media } from "@/Models/Media";
+import {Clinic} from "@/Models/Clinic";
 
 export interface User {
   id?: number;
@@ -22,6 +23,8 @@ export interface User {
   password?: string;
   password_confirmation?: string;
   role?: string | role[];
+  clinic?:Clinic
+
 }
 
 export interface AuthResponse {

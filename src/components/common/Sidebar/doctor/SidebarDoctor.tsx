@@ -28,7 +28,7 @@ import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
 import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
 
-const Sidebar = ({
+const SidebarDoctor = ({
   openNavBar,
   setOpenNavBar,
 }: {
@@ -89,136 +89,51 @@ const Sidebar = ({
         <ul
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
-          <SidebarCompactItem title={t("clinicsManagement")}>
+          <SidebarItem link={"/doctor"}> {("Dashboard")}</SidebarItem>
+          <SidebarCompactItem title={("Clinic Management")}>
             <div className="flex flex-col">
-              <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
-              <SidebarItem link={"/admin/clinics/schedules"}>
-                {t("clinicsSchedules")}
+              <SidebarItem link={"/doctor/clinic/schedules"}>
+                {("Clinics Schedules")}
               </SidebarItem>
-              <SidebarItem link={"/admin/clinics/holidays"}>
-                {t("clinicsHolidays")}
+              <SidebarItem link={"/doctor/clinic/holidays"}>
+                {("Clinic Holidays")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
-          <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>
-              {t("specialties")}
-            </SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>
-              {t("hospitals")}
-            </SidebarItem>
-            <SidebarItem link={"/admin/category"}>
-              {t("serviceCategories")}
-            </SidebarItem>
-            <SidebarItem link={"/admin/service"}>{t("services")}</SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
-              {t("appointment")}
-            </SidebarItem>
-            <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
-            <SidebarItem link={"/admin/user"}>Users</SidebarItem>
-            <SidebarCompactItem title={"Patients Management"}>
-              <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
-              <SidebarItem link={"/admin/patient-profiles"}>
-                Patient Profiles
-              </SidebarItem>
-            </SidebarCompactItem>
-            <SidebarItem link={"/admin/subscriptions"}>
-              Subscriptions
-            </SidebarItem>
-            <SidebarItem link={"/admin/blocked-item"}>
-              Blocked Items
-            </SidebarItem>
-            <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
-            <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-            <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
 
-          </div>
         </ul>
       </div>
       <div
         className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
         <ul className={''}>
-          <SidebarIcon link={"/admin"} title={t("dashboard")}>
+          <SidebarIcon link={"/doctor"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>
           <SidebarCompactIcon
-            title={t("clinicsManagement")}
-            icon={<ClinicIcon className={`h-9 w-9 `} />}
+              title={("Clinic Management")}
+              icon={<ClinicIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
-              <SidebarIcon link={"/admin/clinics"} title={t("clinics")}>
-                <ClinicsShowIcon className={`h-8 w-8 mx-3`} />
-              </SidebarIcon>
+
               <SidebarIcon
-                link={"/admin/clinics/schedules"}
-                title={t("clinicsSchedules")}
+                  link={"/doctor/clinic/schedules"}
+                  title={("Clinics Schedules")}
               >
                 <SchedulesIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
               <SidebarIcon
-                link={"/admin/clinics/holidays"}
-                title={t("clinicsHolidays")}
+                  link={"/doctor/clinic/holidays"}
+                  title={("Clinic Holidays")}
               >
                 <HolidaysIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-          <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
-            <SpecialitiesIcon className={`h-7 w-7`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
-            <HospitalsIcon className={`h-9 w-9`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/category"} title={t("serviceCategories")}>
-            <CategoryIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/service"} title={t("services")}>
-            <ServiceIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/appointment"} title={t("appointment")}>
-            <AppointmentIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/medicines"} title={"Medicines"}>
-            <MedicineIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/user"} title={"Users"}>
-            <UserIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-
-          <SidebarCompactIcon
-              title={("Patients Management")}
-              icon={<PatientMangerIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/patients"} title={"Patients"}>
-                <PatientIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-              <SidebarIcon link={"/admin/patient-profiles"} title={"Patient Profiles"}>
-                <PatientProfilesIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarIcon link={"/admin/subscriptions"} title={"Subscriptions"}>
-            <SubscriptionIcon className={`h-7 w-7`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/blocked-item"} title={"Blocked Items"}>
-            <BlockedItemIcon className={`h-7 w-7`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/enquiries"} title={"Enquiries"}>
-            <EnquirieIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/offer"} title={"Offers"}>
-            <OfferIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/transaction"} title={"Transactions"}>
-            <TransactionIcon className={`h-8 w-8`} />
-          </SidebarIcon>
         </ul>
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default SidebarDoctor;

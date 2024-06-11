@@ -5,7 +5,7 @@ import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { POST } from "@/Http/Http";
 import {AuthResponse, User} from "@/Models/User";
-import {deleteCookieClient} from "@/Actions/clientCookies";
+import {deleteCookieClient, getCookieClient} from "@/Actions/clientCookies";
 import {swal} from "@/Helpers/UIHelpers";
 import {Navigate} from "@/Actions/navigate";
 import {useQuery} from "@tanstack/react-query";
@@ -19,16 +19,16 @@ const ProfileOptionsPopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
-
-  const {data} = useQuery({
+  const actor = getCookieClient('user-type')
+   const {data} = useQuery({
     queryKey:['user'],
     queryFn:async ()=>{
-      return await AuthService.make<AuthService>().GetUserDetails()
+      // @ts-ignore
+      return await AuthService.make<AuthService>(actor).GetUserDetails()
     }
   })
   const res :User | undefined = data?.data
 
-  const handleLogout = async () => await POST("/admin/logout", {});
   return (
     <div
       ref={ref}
@@ -60,20 +60,19 @@ const ProfileOptionsPopover = () => {
         }}
       >
         <div className="px-4 my-3">
-          <h2 className='text-sm'>{TranslateClient(res?.first_name)}{" "}
+          <h2 className='text-sm '>{TranslateClient(res?.first_name)}{" "}
             {TranslateClient(res?.middle_name)}{" "}
             {TranslateClient(res?.last_name)}
           </h2>
-          <p className="opacity-[0.6]">{res?.email}</p>
+          <p className="opacity-[0.6] overflow-x-hidden">{res?.email}</p>
         </div>
-        <Link onClick={()=>setOpenPopProfile(false)} href={'/admin/user_details'} className="opacity-[0.8]">
+        <Link onClick={()=>setOpenPopProfile(false)} href={`/${actor}/user_details`} className="opacity-[0.8]">
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
             <h3>Profile</h3>
           </div>
         </Link>
         <div
           className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white"
-          onClick={handleLogout}
         >
           <h3 onClick={()=>{
             swal.fire({
@@ -86,7 +85,7 @@ const ProfileOptionsPopover = () => {
               confirmButtonText: "Yes!"
             }).then((result) => {
               if (result.isConfirmed) {
-                return POST<AuthResponse>('admin/logout',{}).then(()=>{
+                return POST<AuthResponse>(`${actor}/logout`,{}).then(()=>{
                   deleteCookieClient('token')
                   deleteCookieClient('user-type')
                   deleteCookieClient('refresh_token')

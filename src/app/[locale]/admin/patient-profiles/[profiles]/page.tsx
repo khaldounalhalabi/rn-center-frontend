@@ -6,6 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
+import Gallery from "@/components/common/ui/Gallery";
 
 const page = async ({
   params: { profiles },
@@ -72,6 +73,22 @@ const page = async ({
           disabled={true}
           defaultValue={res?.medical_condition ?? ""}
         />
+
+            <div className={"col-span-2"}>
+              {res?.photos?.length != 0 ? (
+                  <Gallery
+                      media={res?.photos ? res?.photos : [""]}
+                  />
+              ) : (
+                  <div className="flex items-center">
+                    <label className="label"> {("Image")} : </label>
+                    <span className="text-lg badge badge-neutral">
+                  {("No Data")}
+                </span>
+                  </div>
+              )}
+            </div>
+
       </PageCard>
     </>
   );

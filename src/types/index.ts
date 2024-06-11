@@ -1,1 +1,1 @@
-export type Actors = "admin" | "clinic" | "customer" | "public";
+export type Actors = "admin" | "clinic" | "doctor" | "customer" | "public";

@@ -1,0 +1,117 @@
+import {User} from "@/Models/User";
+import PageCard from "@/components/common/ui/PageCard";
+import {Link} from "@/navigation";
+import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import React from "react";
+import {getMedia} from "@/Models/Media";
+import RoundedImage from "@/components/common/RoundedImage";
+import TranslateServer from "@/Helpers/TranslationsServer";
+import MapIFrame from "@/components/common/ui/MapIFrame";
+import Grid from "@/components/common/ui/Grid";
+import {AuthService} from "@/services/AuthService";
+
+
+const page = async ()=>{
+
+    const data = await AuthService.make<AuthService>("doctor").GetUserDetails()
+    const res :User = data.data
+    console.log(res)
+    return (
+      <PageCard>
+        <div className="flex justify-between items-center  w-full h-24">
+          <h2 className="card-title ">Name : {' '}
+            {await TranslateServer(res.first_name)}{" "}
+            {await TranslateServer(res.middle_name)}{" "}
+            {await TranslateServer(res.last_name)}
+          </h2>
+
+          <Link href={`/doctor/user_details/edit`}>
+            <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          </Link>
+        </div>
+        <hr />
+        <div className="w-full flex my-4 h-56">
+          <div className={"w-1/2  flex flex-col h-full justify-between"}>
+            <RoundedImage
+              src={getMedia(res?.image?.[0] ?? undefined)}
+              alt={"doctor-profile"}
+              className={"w-24 h-24"}
+            />
+              <h2 >Clinic Name : {' '}
+                  <span className='badge badge-primary'>{await TranslateServer(res?.clinic?.name)}</span>
+              </h2>
+            <h2>Email : <span className='badge badge-accent'>{res?.email}</span></h2>
+          </div>
+          <div className="w-1/2  flex flex-col h-full justify-between">
+              <h2>Birth Date : <span className='badge badge-outline'>{res?.birth_date}</span></h2>
+
+              <div className='flex '>
+                  <h1>Phone : </h1>
+                  <div className={'flex flex-col'}>
+                      {res?.phones.length != 0 ? res.phones.map((e,index)=>{
+                          return(
+                              <span key={index} className={'badge ml-3 mt-1 badge-neutral'}>{e.phone}</span>
+                          )
+                      }):<span className='badge ml-3 mt-1 badge-neutral'>No Data</span>}
+                  </div>
+              </div>
+              <h2 >Gender : <span className='badge ml-3 mt-1 badge-warning'>{res?.gender}</span></h2>
+              <h2 >Status : <span className='badge ml-3 mt-1 badge-success'>{res?.is_blocked ?"Blocked":"Active"}</span></h2>
+
+          </div>
+        </div>
+          <hr/>
+          <div className={"grid grid-cols-1 md:grid-cols-3 gap-3"}>
+              <div
+                  className={
+                      "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+                  }
+              >
+                  <h1 suppressHydrationWarning>
+                      {res?.clinic?.experience_years?.toLocaleString()}
+                  </h1>
+                  <h2>{("Experience Years")}</h2>
+              </div>
+              <div
+                  className={
+                      "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+                  }
+              >
+                  <h1 suppressHydrationWarning>
+                      {res?.clinic?.appointment_day_range.toLocaleString()}
+                  </h1>
+                  <h2>{("Appointment Day Range")}</h2>
+              </div>
+              <div
+                  className={
+                      "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+                  }
+              >
+                  <h1 suppressHydrationWarning>
+                      {res?.clinic?.appointment_cost.toLocaleString()}
+                  </h1>
+                  <h2 className={""}>{("Appointment cost")}</h2>
+              </div>
+          </div>
+          <hr/>
+          <div className={'w-full  my-4'}>
+            <div className={'h-2/3 flex flex-col justify-between'}>
+                <Grid md={'2'} className={' justify-between h-52'}>
+                    <h2>Age : <span className='badge badge-info'>{res?.age}</span></h2>
+                    <h2 >Blood Group : <span className='badge ml-3 mt-1 badge-warning'>{res?.blood_group ?? "No Data"}</span></h2>
+                    <h2 >is Archived : <span className='badge ml-3 mt-1 badge-success'>{res?.is_archived ?"Archived":"Not Archived"}</span></h2>
+                    <h2 >city : <span className='badge ml-3 mt-1 badge-primary'>{await TranslateServer(res?.address?.city.name)}</span></h2>
+                    <h2 >Address : <span className='badge ml-3 mt-1 badge-accent'>{await TranslateServer(res?.address?.name)}</span></h2>
+                </Grid>
+                <h2 >tags : <span className='badge ml-3 mt-1 badge-outline'>{res?.tags ?? "No Data"}</span></h2>
+            </div>
+
+              <div className={'h-1/3'}>
+                  <MapIFrame iframe={res?.address?.map_iframe} />
+              </div>
+          </div>
+      </PageCard>
+    );
+}
+
+export default page

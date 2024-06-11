@@ -1,23 +1,13 @@
 import { Navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
-import { AuthResponse } from "@/Models/User";
+import {AuthResponse, User} from "@/Models/User";
 import { setServerCookie } from "@/Actions/serverCookies";
 import { GET, POST } from "@/Http/Http";
+import { BaseService } from "./BaseService";
 
-export class AuthService {
-  public static instance?: AuthService | undefined | null;
+export class AuthService extends BaseService<AuthResponse> {
   public successStatus: boolean = false;
   private locale: string = "en";
-
-  public static make() {
-    if (!AuthService.instance) {
-      AuthService.instance = new AuthService();
-    }
-
-    AuthService.instance.successStatus = false;
-
-    return AuthService.instance;
-  }
 
   public static async getCurrentActor() {
     const res = await GET<string>("/check-role");
@@ -26,15 +16,15 @@ export class AuthService {
 
   public async login(url: string, dataForm: object, pageType: string) {
     const response = await POST<AuthResponse>(url, dataForm).then(
-      (res: ApiResponse<AuthResponse>) => {
-        if (res.code == 200) {
-          setServerCookie("token", res?.data?.token ?? "");
-          setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
-          this.successStatus = true;
-        }
+        (res: ApiResponse<AuthResponse>) => {
+          if (res.code == 200) {
+            setServerCookie("token", res?.data?.token ?? "");
+            setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
+            this.successStatus = true;
+          }
 
-        return res;
-      },
+          return res;
+        }
     );
     if (this.successStatus) await Navigate(`/${pageType}`);
 
@@ -45,9 +35,9 @@ export class AuthService {
   }
 
   public async submitResetCode(
-    url: string,
-    dataForm: object,
-    pageType: string,
+      url: string,
+      dataForm: object,
+      pageType: string
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -61,9 +51,9 @@ export class AuthService {
   }
 
   public async requestResetPasswordRequest(
-    url: string,
-    dataForm: object,
-    typePage: string,
+      url: string,
+      dataForm: object,
+      typePage: string
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -95,5 +85,21 @@ export class AuthService {
     if (this.successStatus) await Navigate(`/customer`);
 
     return response;
+  }
+
+  public async GetUserDetails(): Promise<ApiResponse<User>> {
+    const res = await GET<User>(
+        `${this.actor}/me`,
+    );
+    return await this.errorHandler(res);
+  }
+  public async UpdateUserDetails(
+      data: any,
+  ): Promise<ApiResponse<User>> {
+    const res = await POST<User>(
+        `${this.actor}/update-user-data`,
+        data,
+    );
+    return await this.errorHandler(res);
   }
 }

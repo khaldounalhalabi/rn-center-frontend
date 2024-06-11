@@ -4,10 +4,14 @@ import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { POST } from "@/Http/Http";
-import {AuthResponse} from "@/Models/User";
+import {AuthResponse, User} from "@/Models/User";
 import {deleteCookieClient} from "@/Actions/clientCookies";
 import {swal} from "@/Helpers/UIHelpers";
 import {Navigate} from "@/Actions/navigate";
+import {useQuery} from "@tanstack/react-query";
+import {TranslateClient} from "@/Helpers/TranslationsClient";
+import {Link} from "@/navigation";
+import {AuthService} from "@/services/AuthService";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -15,6 +19,14 @@ const ProfileOptionsPopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
+
+  const {data} = useQuery({
+    queryKey:['user'],
+    queryFn:async ()=>{
+      return await AuthService.make<AuthService>().GetUserDetails()
+    }
+  })
+  const res :User | undefined = data?.data
 
   const handleLogout = async () => await POST("/admin/logout", {});
   return (
@@ -48,15 +60,17 @@ const ProfileOptionsPopover = () => {
         }}
       >
         <div className="px-4 my-3">
-          <h2>Jaydon Frankie</h2>
-          <p className="opacity-[0.6]">demo@minimals.cc</p>
+          <h2 className='text-sm'>{TranslateClient(res?.first_name)}{" "}
+            {TranslateClient(res?.middle_name)}{" "}
+            {TranslateClient(res?.last_name)}
+          </h2>
+          <p className="opacity-[0.6]">{res?.email}</p>
         </div>
-        <div className="opacity-[0.8]">
+        <Link onClick={()=>setOpenPopProfile(false)} href={'/admin/user_details'} className="opacity-[0.8]">
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
             <h3>Profile</h3>
           </div>
-        </div>
-        <hr className="my-2"></hr>
+        </Link>
         <div
           className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white"
           onClick={handleLogout}

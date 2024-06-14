@@ -32,6 +32,7 @@ export class BaseService<T> {
     return this;
   }
 
+
   public async all(): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl + "/all");
     return await this.errorHandler(res);

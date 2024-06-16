@@ -8,7 +8,7 @@ const PatientsDetailes = ({
 }: {
   patient: User | null | undefined;
 }) => {
-  const tagsArray = patient?.tags.split(",");
+  const tagsArray = patient?.tags? patient?.tags.split(","):[]
 
   return (
     <>

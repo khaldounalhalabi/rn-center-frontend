@@ -11,7 +11,6 @@ const page = async ({
   const patient = (
     await PatientsService.make<PatientsService>("admin").show(patientId)
   ).data;
-
   const defaultValues = {
     ...patient,
     first_name: patient.user.first_name,

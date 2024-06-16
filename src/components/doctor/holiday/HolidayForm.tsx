@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";

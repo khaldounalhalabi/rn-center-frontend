@@ -5,7 +5,7 @@ import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
@@ -124,7 +124,7 @@ const AppointmentForm = ({
               placeHolder={"Select Clinic name ..."}
               name={"clinic_id"}
               api={(page, search) =>
-                ClinicService.make<ClinicService>().indexWithPagination(
+                ClinicsService.make<ClinicsService>().indexWithPagination(
                   page,
                   search,
                 )

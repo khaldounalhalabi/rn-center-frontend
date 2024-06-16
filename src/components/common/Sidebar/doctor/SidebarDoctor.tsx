@@ -102,6 +102,7 @@ const SidebarDoctor = ({
           </SidebarCompactItem>
           <SidebarItem link={"/doctor/service"}>{t("services")}</SidebarItem>
           <SidebarItem link={"/doctor/offer"}>Offers</SidebarItem>
+          <SidebarItem link={"/doctor/patients"}>Patients</SidebarItem>
 
 
         </ul>
@@ -138,6 +139,9 @@ const SidebarDoctor = ({
           </SidebarIcon>
           <SidebarIcon link={"/doctor/offer"} title={"Offers"}>
             <OfferIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/doctor/patients"} title={"Patients"}>
+            <PatientIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

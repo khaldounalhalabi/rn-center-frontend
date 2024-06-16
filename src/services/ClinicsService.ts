@@ -3,7 +3,7 @@ import { Clinic } from "@/Models/Clinic";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class ClinicService extends BaseService<Clinic> {
+export class ClinicsService extends BaseService<Clinic> {
   getBaseUrl(): string {
     return `${this.actor}/clinics`;
   }

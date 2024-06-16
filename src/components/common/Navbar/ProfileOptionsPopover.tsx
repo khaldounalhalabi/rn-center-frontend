@@ -66,11 +66,18 @@ const ProfileOptionsPopover = () => {
           </h2>
           <p className="opacity-[0.6] overflow-x-hidden">{res?.email}</p>
         </div>
+
         <Link onClick={()=>setOpenPopProfile(false)} href={`/${actor}/user_details`} className="opacity-[0.8]">
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>Profile</h3>
+            <h3>{actor == "doctor"?"User Profile":"Profile"}</h3>
           </div>
         </Link>
+        {actor == "doctor"?
+            <Link onClick={()=>setOpenPopProfile(false)} href={`/${actor}/clinic-details`} className="opacity-[0.8]">
+              <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
+                <h3>Clinic Profile</h3>
+              </div>
+            </Link>:""}
         <div
           className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white"
         >

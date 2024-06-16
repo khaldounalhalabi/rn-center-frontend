@@ -9,7 +9,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import { UserService } from "@/services/UserService";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import React, { ChangeEvent } from "react";
 import { cities } from "@/constants/Cities";
 
@@ -121,7 +121,7 @@ const SubscriptionClinicsTable = ({
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicService.make<ClinicService>().getClinicsBySubscription(
+      await ClinicsService.make<ClinicsService>().getClinicsBySubscription(
         subscriptionId,
         page,
         search,

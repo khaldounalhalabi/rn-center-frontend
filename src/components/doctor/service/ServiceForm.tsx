@@ -11,7 +11,7 @@ import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import { Clinic } from "@/Models/Clinic";

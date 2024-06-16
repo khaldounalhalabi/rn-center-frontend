@@ -26,4 +26,5 @@ export interface AddOrUpdateCustomer {
   address: Address;
   password?: string;
   password_confirmation?: string;
+  other_data?:string
 }

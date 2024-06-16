@@ -27,6 +27,7 @@ import OfferIcon from "@/components/icons/OfferIcon";
 import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
 import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
+import BloodIcon from "@/components/icons/BloodIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -132,6 +133,8 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
             <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
+            <SidebarItem link={"/admin/blood-donation"}>Blood Donation</SidebarItem>
+
 
           </div>
         </ul>
@@ -214,6 +217,9 @@ const SidebarAdmin = ({
           </SidebarIcon>
           <SidebarIcon link={"/admin/transaction"} title={"Transactions"}>
             <TransactionIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/blood-donation"} title={"Blood Donation"}>
+            <BloodIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

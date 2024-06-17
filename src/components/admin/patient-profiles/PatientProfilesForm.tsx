@@ -131,9 +131,9 @@ const PatientProfilesForm = ({
         <Textarea name={"note"} label={"Note"} />
         {type == "update" ? (
             <div className={"col-span-2"}>
-              {defaultValues?.photos?.length != 0 ? (
+              {defaultValues?.images?.length != 0 ? (
                   <Gallery
-                      media={defaultValues?.photos ? defaultValues?.photos : [""]}
+                      media={defaultValues?.images ? defaultValues?.images : [""]}
                   />
               ) : (
                   <div className="flex items-center">
@@ -145,7 +145,7 @@ const PatientProfilesForm = ({
               )}
             </div>
         ) : ""}
-        <ImageUploader name={"image"} isMultiple={true}/>
+        <ImageUploader name={"images"} isMultiple={true}/>
 
       </PageCard>
     </Form>

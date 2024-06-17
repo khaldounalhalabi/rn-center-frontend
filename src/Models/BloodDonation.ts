@@ -1,4 +1,4 @@
-
+import {City} from "@/Models/City";
 
 interface BloodDonation {
 
@@ -11,8 +11,5 @@ interface BloodDonation {
     "nearest_hospital": string,
     "notes": string,
     "can_wait_until": string,
-    "city": {
-        "id": number,
-        "name": string
-    }
+    "city"?:City;
 }

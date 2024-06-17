@@ -8,7 +8,7 @@ import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transactions } from "@/Models/Transactions";
 import TransactionTypeArray, {TransactionType} from "@/enum/TransactionType";
-import DatePickerRang from "@/components/common/ui/DatePickerRang";
+import DateTimePickerRang from "@/components/common/ui/DateTimePickerRang";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 
 const OfferForm = ({
@@ -70,7 +70,7 @@ const OfferForm = ({
           type="number"
           unit={"IQD"}
         />
-        <DatePickerRang
+        <DateTimePickerRang
           name={"date"}
           label={"Date :"}
         />

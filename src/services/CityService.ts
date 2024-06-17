@@ -7,7 +7,7 @@ export class CityService extends BaseService<City> {
   getBaseUrl(): string {
     return `${this.actor}/cities`;
   }
-  public async getAllCity(
+  public async getAllCities(
       page: number = 0,
       search?: string,
       sortCol?: string,

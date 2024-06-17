@@ -12,5 +12,5 @@ export interface PatientProfiles {
   other_data: string;
   customer: Customer;
   clinic: Clinic;
-  photos?: Media[] | string[];
+  images?: Media[] | string[];
 }

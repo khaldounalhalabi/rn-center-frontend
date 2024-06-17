@@ -9,24 +9,11 @@ import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicIcon from "@/components/icons/ClinicIcon";
-import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
 import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import HolidaysIcon from "@/components/icons/HolidaysIcon";
-import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
-import HospitalsIcon from "@/components/icons/HospitalsIcon";
-import CategoryIcon from "@/components/icons/CategoryIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
-import AppointmentIcon from "@/components/icons/AppointmentIcon";
-import MedicineIcon from "@/components/icons/MedicineIcon";
-import UserIcon from "@/components/icons/UserIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
-import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
-import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
-import EnquirieIcon from "@/components/icons/EnquirieIcon";
 import OfferIcon from "@/components/icons/OfferIcon";
-import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
-import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
-import TransactionIcon from "@/components/icons/TransactionIcon";
 
 const SidebarDoctor = ({
   openNavBar,

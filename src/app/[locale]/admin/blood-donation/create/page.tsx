@@ -5,7 +5,7 @@ import BloodDonationForm from "@/components/admin/blood-donation/BloodDonationFo
 const page = async () => {
     return (
         <PageCard>
-            <h2 className="card-title">Add Blood Donation</h2>
+            <h2 className="card-title">Add Blood Donation Request</h2>
             <BloodDonationForm />
         </PageCard>
     );

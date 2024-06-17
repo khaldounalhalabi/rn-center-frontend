@@ -23,7 +23,7 @@ export interface AddOrUpdateCustomer {
   tags: string;
   image?: Media[];
   phone_numbers: string[];
-  address: Address;
+  address?: Address;
   password?: string;
   password_confirmation?: string;
   other_data?:string

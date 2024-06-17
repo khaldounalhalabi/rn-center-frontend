@@ -11,10 +11,8 @@ import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
-import { ClinicsService } from "@/services/ClinicsService";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
-import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
@@ -30,7 +28,6 @@ const ServiceForm = ({
 }) => {
   const t = useTranslations("admin.service.create-edit");
   const handleSubmit = async (data: any) => {
-
     console.log(data);
     if (
       type === "update" &&
@@ -50,9 +47,8 @@ const ServiceForm = ({
     Navigate(`/doctor/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  // @ts-ignore
-  const { icon, ...rest } = defaultValues;
 
+  const { icon, ...rest } = defaultValues;
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -62,52 +58,52 @@ const ServiceForm = ({
     >
       <Grid md={"2"}>
         <TranslatableInput
-            required={true}
-            locales={["en", "ar"]}
-            type={"text"}
-            placeholder={"John"}
-            label={t("serviceName")}
-            name={"name"}
-            locale={locale}
+          required={true}
+          locales={["en", "ar"]}
+          type={"text"}
+          placeholder={"John"}
+          label={t("serviceName")}
+          name={"name"}
+          locale={locale}
         />
         <ApiSelect
-            placeHolder={"Select Category Name ..."}
-            required={true}
-            api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
-                await CategoryService.make<CategoryService>().getAllCategory(
-                    page,
-                    search,
-                )
-            }
-            getOptionLabel={(option: ServiceCategory) =>
-                TranslateClient(option.name)
-            }
-            optionValue={"id"}
-            name={"service_category_id"}
-            label={t("category")}
-            defaultValues={
-              defaultValues?.service_category_id
-                  ? [defaultValues?.serviceCategory]
-                  : []
-            }
+          placeHolder={"Select Category Name ..."}
+          required={true}
+          api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
+            await CategoryService.make<CategoryService>().getAllCategory(
+              page,
+              search,
+            )
+          }
+          getOptionLabel={(option: ServiceCategory) =>
+            TranslateClient(option.name)
+          }
+          optionValue={"id"}
+          name={"service_category_id"}
+          label={t("category")}
+          defaultValues={
+            defaultValues?.service_category_id
+              ? [defaultValues?.serviceCategory]
+              : []
+          }
         />
         <Input
-            required={true}
-            name={"approximate_duration"}
-            type={"number"}
-            step={"any"}
-            unit={"min"}
-            placeholder={`${t("approximateDuration")} :`}
-            label={t("approximateDuration")}
+          required={true}
+          name={"approximate_duration"}
+          type={"number"}
+          step={"any"}
+          unit={"min"}
+          placeholder={`${t("approximateDuration")} :`}
+          label={t("approximateDuration")}
         />
         <Input
-            required={true}
-            name={"price"}
-            type={"number"}
-            step={"any"}
-            unit={"IQD"}
-            placeholder={"Price : "}
-            label={t("price")}
+          required={true}
+          name={"price"}
+          type={"number"}
+          step={"any"}
+          unit={"IQD"}
+          placeholder={"Price : "}
+          label={t("price")}
         />
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
@@ -132,7 +128,6 @@ const ServiceForm = ({
             defaultChecked={defaultValues?.status == "in-active"}
           />
         </div>
-
       </Grid>
 
       <TranslatableTextArea
@@ -141,26 +136,18 @@ const ServiceForm = ({
         defaultValue={defaultValues?.description ?? ""}
       />
       {type == "update" ? (
-          defaultValues?.icon &&
-          defaultValues?.icon?.length > 0 ? (
-              <Gallery
-                  media={
-                    defaultValues?.icon ? defaultValues?.icon : [""]
-                  }
-              />
-          ) : (
-              <div className="flex justify-between items-center">
-                <label className="label"> {t("image")} : </label>
-                <span className="text-lg badge badge-neutral">
-                {t("noImage")}
-              </span>
-              </div>
-          )
+        defaultValues?.icon && defaultValues?.icon?.length > 0 ? (
+          <Gallery media={defaultValues?.icon ? defaultValues?.icon : [""]} />
+        ) : (
+          <div className="flex justify-between items-center">
+            <label className="label"> {t("image")} : </label>
+            <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+          </div>
+        )
       ) : (
-          ""
+        ""
       )}
-      <ImageUploader name={"icon"}  />
-
+      <ImageUploader name={"icon"} />
     </Form>
   );
 };

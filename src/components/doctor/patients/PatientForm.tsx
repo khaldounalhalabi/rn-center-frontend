@@ -6,7 +6,6 @@ import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Datepicker";
-import InputTags from "@/components/common/ui/InputTags";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
@@ -22,7 +21,7 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
 
-const PatientsForm = ({
+const PatientForm = ({
   defaultValues = undefined,
   id,
   type = "store",
@@ -152,7 +151,7 @@ const PatientsForm = ({
                 label={"City :"}
                 placeHolder={"Select City Name ..."}
                 api={(page?: number | undefined, search?: string | undefined) =>
-                    CityService.make<CityService>("doctor").getAllCity(
+                    CityService.make<CityService>("doctor").getAllCities(
                         page,
                         search,
                     )
@@ -206,4 +205,4 @@ const PatientsForm = ({
   );
 };
 
-export default PatientsForm;
+export default PatientForm;

@@ -4,14 +4,12 @@ import DataTable, {
     DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { BlockedItemService } from "@/services/BlockedItemService";
-import { BlockedItem } from "@/Models/BlockedItem";
 import {BloodDonationService} from "@/services/BloodDonationService";
 
 const Page = () => {
     const tableData: DataTableData<BloodDonation> = {
         createUrl: `/admin/blood-donation/create`,
-        title: `Blood Donation`,
+        title: `Blood Donation Requests`,
         schema: [
             {
                 name: "id",

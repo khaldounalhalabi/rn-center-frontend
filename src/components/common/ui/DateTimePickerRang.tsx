@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import React from "react";
 import styles from "./../../../app/[locale]/datepicker.module.css";
 
-const DatePickerRang = ({
+const DateTimePickerRang = ({
                         name,
                         label,
                         required = false,
@@ -36,7 +36,6 @@ const DatePickerRang = ({
                     setValue(name, val?.format("YYYY-MM-DD hh:mm") ?? "");
                 }}
                 defaultValue={defaultValue ? dayjs(defaultValue) : undefined}
-                // slotProps={{ textField: { size: 'small' } }}
                 className={styles.datePicker}
                 shouldDisableDate={shouldDisableDate ?? undefined}
             />
@@ -45,4 +44,4 @@ const DatePickerRang = ({
     );
 };
 
-export default DatePickerRang;
+export default DateTimePickerRang;

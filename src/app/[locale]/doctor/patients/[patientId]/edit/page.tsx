@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PatientsForm from "@/components/doctor/patients/PatientsForm";
+import PatientForm from "@/components/doctor/patients/PatientForm";
 import { PatientsService } from "@/services/PatientsService";
 
 const page = async ({
@@ -31,7 +31,7 @@ const page = async ({
   return (
     <PageCard>
       <h2 className="card-title">Edit Patient</h2>
-      <PatientsForm
+      <PatientForm
         type={"update"}
         defaultValues={{
           ...defaultValues,

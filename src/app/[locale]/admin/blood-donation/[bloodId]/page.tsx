@@ -17,7 +17,7 @@ const page = async ({
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Blood Donation Details</h2>
+        <h2 className="card-title">Blood Donation Request Details</h2>
         <Link href={`/admin/blood-donation/${bloodId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>

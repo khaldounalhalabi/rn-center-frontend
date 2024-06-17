@@ -16,6 +16,7 @@ const page = async ({
   const data =
     await PatientProfilesService.make<PatientProfilesService>().show(profiles);
   const res: PatientProfiles = data?.data;
+  console.log(data);
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));
   };
@@ -75,9 +76,9 @@ const page = async ({
         />
 
             <div className={"col-span-2"}>
-              {res?.photos?.length != 0 ? (
+              {res?.images?.length != 0 ? (
                   <Gallery
-                      media={res?.photos ? res?.photos : [""]}
+                      media={res?.images ? res?.images : [""]}
                   />
               ) : (
                   <div className="flex items-center">

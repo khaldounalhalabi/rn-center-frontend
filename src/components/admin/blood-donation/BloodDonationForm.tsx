@@ -11,7 +11,7 @@ import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import BloodArray from "@/enum/blood";
-import DatePickerRang from "@/components/common/ui/DatePickerRang";
+import DateTimePickerRang from "@/components/common/ui/DateTimePickerRang";
 
 const BloodDonationForm = ({
   defaultValues = undefined,
@@ -72,7 +72,7 @@ const BloodDonationForm = ({
           label={`Nearest Hospital`}
           name={"nearest_hospital"}
         />
-        <DatePickerRang name={"can_wait_until"} label={"Can Wait Until"} />
+        <DateTimePickerRang name={"can_wait_until"} label={"Can Wait Until"} />
         <SelectPopOverFrom
           label={"Blood Group"}
           id={1}

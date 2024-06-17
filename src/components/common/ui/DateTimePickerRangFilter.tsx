@@ -3,7 +3,7 @@ import { DateTimePicker} from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import styles from "./../../../app/[locale]/datepicker.module.css";
 
-const DatepickerRangFilter = ({
+const DateTimePickerRangFilter = ({
                               onChange,
                               defaultValue,
                           }: {
@@ -24,4 +24,4 @@ const DatepickerRangFilter = ({
     );
 };
 
-export default DatepickerRangFilter;
+export default DateTimePickerRangFilter;

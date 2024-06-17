@@ -7,7 +7,7 @@ export class SpecialityService extends BaseService<Speciality> {
   public getBaseUrl(): string {
     return `${this.actor}/specialities`;
   }
-  public async getAllSpeciality(
+  public async getAllSpecialities(
       page: number = 0,
       search?: string,
       sortCol?: string,

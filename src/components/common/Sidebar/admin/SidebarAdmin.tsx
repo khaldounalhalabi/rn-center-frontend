@@ -55,7 +55,7 @@ const SidebarAdmin = ({
        }`}
     >
       <div>
-        <span
+        <div
           className={`flex justify-between items-center place-content-center px-4 pt-6 pb-3 rounded-lg h-10 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
           {/*Logo*/}
@@ -86,7 +86,7 @@ const SidebarAdmin = ({
             className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
             onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
-        </span>
+        </div>
         <ul
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >

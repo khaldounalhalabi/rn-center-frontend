@@ -14,4 +14,6 @@ export class HospitalService extends BaseService<Hospital> {
     );
     return this.errorHandler(res);
   }
+
+  // TODO :: add get all method
 }

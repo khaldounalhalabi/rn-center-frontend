@@ -36,14 +36,13 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   };
 
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  console.log(defaultValues)
+  console.log(defaultValues);
 
   const defaultRes = {
-    address:defaultValues.user.address,
-    phone_numbers:defaultValues.user.phones,
-    ...defaultValues
-  }
-
+    address: defaultValues.user.address,
+    phone_numbers: defaultValues.user.phones,
+    ...defaultValues,
+  };
 
   return (
     <>
@@ -87,10 +86,10 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             type="text"
           />
           <Input
-              placeholder={"Experience ...  "}
-              name={"experience"}
-              label={"Experience"}
-              type="text"
+            placeholder={"Experience ...  "}
+            name={"experience"}
+            label={"Experience"}
+            type="text"
           />
           <Datepicker
             name={"working_start_year"}
@@ -152,7 +151,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
                 "doctor",
-              ).indexWithPagination(page, search)
+              ).getAllSpecialities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -161,12 +160,12 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             closeOnSelect={false}
           />
           <TranslatableInput
-              locales={["en", "ar"]}
-              type={"text"}
-              placeholder={"John"}
-              label={`Address :`}
-              name={"address.name"}
-              locale={locale}
+            locales={["en", "ar"]}
+            type={"text"}
+            placeholder={"John"}
+            label={`Address :`}
+            name={"address.name"}
+            locale={locale}
           />
           <ApiSelect
             required={true}
@@ -174,10 +173,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             label={"City"}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>("doctor").indexWithPagination(
-                page,
-                search,
-              )
+              CityService.make<CityService>("doctor").getAllCities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -196,7 +192,6 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
         />
         <Textarea name="about_us" label={"About Us"} required={true} />
         <ImageUploader name={"work_gallery"} isMultiple={true} />
-
       </Form>
     </>
   );

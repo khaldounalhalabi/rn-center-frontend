@@ -8,16 +8,16 @@ const page = async ({
                     }: {
     params: { bloodId: number };
 }) => {
-    const BlockedItem = (
+    const bloodDonation = (
         await BloodDonationService.make<BloodDonationService>("admin").show(bloodId)
     ).data;
     return (
         <PageCard>
-            <h2 className="card-title">Edit Blood Donation</h2>
+            <h2 className="card-title">Edit Blood Donation Request</h2>
             <BloodDonationForm
                 type={"update"}
                 defaultValues={{
-                    ...BlockedItem,
+                    ...bloodDonation,
                 }}
             />
         </PageCard>

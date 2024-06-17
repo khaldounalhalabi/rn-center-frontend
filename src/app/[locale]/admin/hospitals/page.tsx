@@ -13,7 +13,7 @@ import { cities } from "@/constants/Cities";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import { toast } from "react-toastify";
-import StatusArray from "@/enum/status";
+import AllHospitalStatus from "@/enum/hospitalStatus";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");
@@ -53,7 +53,7 @@ const Page = () => {
           <SelectPopOver
             id={data?.id}
             status={data?.status}
-            ArraySelect={StatusArray()}
+            ArraySelect={AllHospitalStatus()}
             handleSelect={(status: string, id: number) => {
               if (data?.status != status) {
                 return handleSelectStatus(id);

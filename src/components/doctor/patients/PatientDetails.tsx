@@ -3,7 +3,7 @@ import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import { User } from "@/Models/User";
 
-const PatientsDetailes = ({
+const PatientDetails = ({
   patient,
 }: {
   patient: User | null | undefined;
@@ -81,4 +81,4 @@ const PatientsDetailes = ({
   );
 };
 
-export default PatientsDetailes
+export default PatientDetails

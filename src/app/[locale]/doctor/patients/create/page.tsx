@@ -1,10 +1,10 @@
 import React from "react";
-import PatientsForm from "@/components/doctor/patients/PatientsForm";
+import PatientForm from "@/components/doctor/patients/PatientForm";
 
 const page = async () => {
   return (
 
-      <PatientsForm />
+      <PatientForm />
 
   );
 };

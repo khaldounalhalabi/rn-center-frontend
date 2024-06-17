@@ -9,7 +9,7 @@ import { Transactions } from "@/Models/Transactions";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import TransactionTypeArray from "@/enum/TransactionType";
-import DatepickerRangFilter from "@/components/common/ui/DatePickerRangFilter";
+import DateTimePickerRangFilter from "@/components/common/ui/DateTimePickerRangFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 
@@ -91,7 +91,6 @@ const Page = () => {
                 const data = amountEnd && event.target.value ? [event.target.value,amountEnd] :event.target.value
                 setParams({ ...params, amount: data });
             }}
-
           />
           <label className={"label"}>Amount To :</label>
           <InputFilter type="number" onChange={(event:any) => {
@@ -110,14 +109,14 @@ const Page = () => {
           />
 
           <label className="label">Start Date :</label>
-          <DatepickerRangFilter
+          <DateTimePickerRangFilter
             onChange={(time: any) => {
                 setStartDate(time?.format("YYYY-MM-DD hh:mm"))
               setParams({ ...params, date: [time?.format("YYYY-MM-DD hh:mm"),endDate] });
             }}
           />
           <label className="label">End Date :</label>
-          <DatepickerRangFilter
+          <DateTimePickerRangFilter
             onChange={(time: any) => {
                 setEndDate(time?.format("YYYY-MM-DD hh:mm"))
                 setParams({ ...params, date: [startDate,time?.format("YYYY-MM-DD hh:mm")] });

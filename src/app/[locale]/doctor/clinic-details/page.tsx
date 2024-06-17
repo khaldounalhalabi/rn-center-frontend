@@ -19,45 +19,41 @@ const page = async ()=>{
     console.log(res)
     return (
       <PageCard>
-        <div className="flex justify-between items-center  w-full h-24">
-          <h2 className="card-title ">Clinic Name : {' '}
-            {await TranslateServer(res.name)}{" "}
-
-          </h2>
-
-          <Link href={`/doctor/clinic-details/edit`}>
-            <PrimaryButton type={"button"}>Edit</PrimaryButton>
-          </Link>
-        </div>
-        <hr />
           <div className={"card p-5 bg-base-200 my-3 "}>
-              <div className={`flex items-center gap-3`}>
-                  <RoundedImage
-                      src={getMedia(res?.user?.image?.[0] ?? undefined)}
-                      alt={"doctor-profile"}
-                      className={"w-24 h-24"}
-                  />
-                  <div className={"flex flex-col"}>
-                      <h2 className={"font-bold text-lg"}>
-                          {await TranslateServer(res?.name)}
-                      </h2>
-                      <h3>
-                          {await TranslateServer(res?.user?.first_name)}{" "}
-                          {await TranslateServer(res?.user?.middle_name)}{" "}
-                          {await TranslateServer(res?.user?.last_name)}
-                      </h3>
-                      <p>{res?.user?.email}</p>
-                      <div className={"flex gap-1"}>
-                          {res?.user?.phones?.slice(0, 2).map((item: Phone, index) => {
-                              return (
-                                  <p key={item.id}>
-                                      {item.phone} {index != 0 && index != 2 ? "/" : ""}
-                                  </p>
-                              );
-                          })}
-                      </div>
-                  </div>
-              </div>
+             <div className={'flex justify-between'}>
+                 <div className={`flex items-center gap-3`}>
+                     <RoundedImage
+                         src={getMedia(res?.user?.image?.[0] ?? undefined)}
+                         alt={"doctor-profile"}
+                         className={"w-24 h-24"}
+                     />
+                     <div className={"flex flex-col"}>
+                         <h2 className={"font-bold text-lg"}>
+                             {await TranslateServer(res?.name)}
+                         </h2>
+                         <h3>
+                             {await TranslateServer(res?.user?.first_name)}{" "}
+                             {await TranslateServer(res?.user?.middle_name)}{" "}
+                             {await TranslateServer(res?.user?.last_name)}
+                         </h3>
+                         <p>{res?.user?.email}</p>
+                         <div className={"flex gap-1"}>
+                             {res?.user?.phones?.slice(0, 2).map((item: Phone, index) => {
+                                 return (
+                                     <p key={item.id}>
+                                         {item.phone} {index != 0 && index != 2 ? "/" : ""}
+                                     </p>
+                                 );
+                             })}
+                         </div>
+                     </div>
+                 </div>
+                 <div>
+                     <Link href={`/doctor/clinic-details/edit`}>
+                         <PrimaryButton type={"button"}>Edit</PrimaryButton>
+                     </Link>
+                 </div>
+             </div>
               <div className={"grid grid-cols-1 md:grid-cols-3 gap-3"}>
                   <div
                       className={

@@ -16,6 +16,8 @@ import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import Gallery from "@/components/common/ui/Gallery";
+import ImageUploader from "@/components/common/ui/ImageUploader";
 
 const ServiceForm = ({
   defaultValues = undefined,
@@ -47,12 +49,12 @@ const ServiceForm = ({
     Navigate(`/admin/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-
+  const { icon, ...rest } = defaultValues??{icon:""};
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={rest}
       setLocale={setLocale}
     >
       <Grid md={"2"}>
@@ -154,6 +156,26 @@ const ServiceForm = ({
         locale={locale}
         defaultValue={defaultValues?.description ?? ""}
       />
+      {type == "update" ? (
+          defaultValues?.icon &&
+          defaultValues?.icon?.length > 0 ? (
+              <Gallery
+                  media={
+                    defaultValues?.icon ? defaultValues?.icon : [""]
+                  }
+              />
+          ) : (
+              <div className="flex justify-between items-center">
+                <label className="label"> {("Image")} : </label>
+                <span className="text-lg badge badge-neutral">
+                {("No Image")}
+              </span>
+              </div>
+          )
+      ) : (
+          ""
+      )}
+      <ImageUploader name={"icon"}  />
     </Form>
   );
 };

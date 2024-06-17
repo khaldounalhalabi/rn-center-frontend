@@ -36,8 +36,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   };
 
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { image, ...rest } = defaultValues;
-  // @ts-ignore
+  const { image, ...rest } = defaultValues??{image:""};
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

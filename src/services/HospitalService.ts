@@ -15,5 +15,25 @@ export class HospitalService extends BaseService<Hospital> {
     return this.errorHandler(res);
   }
 
-  // TODO :: add get all method
+  public async getAllHospital(
+      page: number = 0,
+      search?: string,
+      sortCol?: string,
+      sortDir?: string,
+      per_page?: number,
+      params?: object,
+  ): Promise<ApiResponse<Hospital>> {
+    const res = await GET<Hospital>(
+        `hospitals`,
+        {
+          page: page,
+          search: search,
+          sort_col: sortCol,
+          sort_dir: sortDir,
+          per_page: per_page,
+          ...params,
+        },
+    );
+    return await this.errorHandler(res);
+  }
 }

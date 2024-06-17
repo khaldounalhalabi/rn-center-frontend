@@ -11,8 +11,10 @@ import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
+import { ClinicsService } from "@/services/ClinicsService";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
+import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
@@ -28,6 +30,7 @@ const ServiceForm = ({
 }) => {
   const t = useTranslations("admin.service.create-edit");
   const handleSubmit = async (data: any) => {
+
     console.log(data);
     if (
       type === "update" &&
@@ -47,8 +50,8 @@ const ServiceForm = ({
     Navigate(`/doctor/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
+  const { icon, ...rest } = defaultValues??{icon:""};
 
-  const { icon, ...rest } = defaultValues;
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -128,6 +131,7 @@ const ServiceForm = ({
             defaultChecked={defaultValues?.status == "in-active"}
           />
         </div>
+
       </Grid>
 
       <TranslatableTextArea
@@ -136,18 +140,26 @@ const ServiceForm = ({
         defaultValue={defaultValues?.description ?? ""}
       />
       {type == "update" ? (
-        defaultValues?.icon && defaultValues?.icon?.length > 0 ? (
-          <Gallery media={defaultValues?.icon ? defaultValues?.icon : [""]} />
-        ) : (
-          <div className="flex justify-between items-center">
-            <label className="label"> {t("image")} : </label>
-            <span className="text-lg badge badge-neutral">{t("noImage")}</span>
-          </div>
-        )
+          defaultValues?.icon &&
+          defaultValues?.icon?.length > 0 ? (
+              <Gallery
+                  media={
+                    defaultValues?.icon ? defaultValues?.icon : [""]
+                  }
+              />
+          ) : (
+              <div className="flex justify-between items-center">
+                <label className="label"> {t("image")} : </label>
+                <span className="text-lg badge badge-neutral">
+                {t("noImage")}
+              </span>
+              </div>
+          )
       ) : (
-        ""
+          ""
       )}
-      <ImageUploader name={"icon"} />
+      <ImageUploader name={"icon"}  />
+
     </Form>
   );
 };

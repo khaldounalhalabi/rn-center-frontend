@@ -131,10 +131,10 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             label={"Hospital"}
             name="hospital_id"
             placeHolder={"Select Hospital Name ..."}
-            api={(page, search): Promise<ApiResponse<Hospital[]>> =>
+            api={(page, search): Promise<ApiResponse<Hospital>> =>
               HospitalService.make<HospitalService>(
                 "doctor",
-              ).indexWithPagination(page, search)
+              ).getAllHospital(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -151,7 +151,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
                 "doctor",
-              ).getAllSpecialities(page, search)
+              ).getAllSpeciality(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -173,7 +173,10 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             label={"City"}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>("doctor").getAllCities(page, search)
+              CityService.make<CityService>("doctor").getAllCity(
+                page,
+                search,
+              )
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -192,6 +195,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
         />
         <Textarea name="about_us" label={"About Us"} required={true} />
         <ImageUploader name={"work_gallery"} isMultiple={true} />
+
       </Form>
     </>
   );

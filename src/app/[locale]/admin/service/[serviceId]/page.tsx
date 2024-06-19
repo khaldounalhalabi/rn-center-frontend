@@ -7,6 +7,7 @@ import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import Gallery from "@/components/common/ui/Gallery";
 
 const page = async ({
   params: { serviceId },
@@ -114,6 +115,14 @@ const page = async ({
             <span className="text-lg badge badge-neutral">{t("noData")}</span>
           )}
         </label>
+        {res?.icon && res?.icon?.length > 0 ? (
+          <Gallery media={res?.icon ? res?.icon : [""]} />
+        ) : (
+          <div className="flex justify-between items-center">
+            <label className="label"> {t("image")} : </label>
+            <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+          </div>
+        )}
       </Grid>
     </PageCard>
   );

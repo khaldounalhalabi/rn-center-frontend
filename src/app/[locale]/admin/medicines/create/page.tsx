@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
+import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 
 const page = async () => {
   return (

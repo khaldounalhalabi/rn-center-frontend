@@ -4,7 +4,7 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import { Clinic } from "@/Models/Clinic";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { UserService } from "@/services/UserService";
@@ -117,7 +117,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicService.make<ClinicService>().indexWithPagination(
+      await ClinicsService.make<ClinicsService>().indexWithPagination(
         page,
         search,
         sortCol,

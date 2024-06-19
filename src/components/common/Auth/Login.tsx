@@ -33,7 +33,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
-    Navigate("/admin");
+    Navigate(`/${pageType}`);
   };
 
   return (

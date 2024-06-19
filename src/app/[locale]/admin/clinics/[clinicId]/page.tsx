@@ -1,6 +1,6 @@
 import React from "react";
 import PageCard from "@/components/common/ui/PageCard";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import RoundedImage from "@/components/common/RoundedImage";
 import { ApiResponse } from "@/Http/Response";
@@ -18,7 +18,7 @@ const Page = async ({
   params: { clinicId: number };
 }) => {
   const data: ApiResponse<Clinic> =
-    await ClinicService.make<ClinicService>().show(clinicId);
+    await ClinicsService.make<ClinicsService>().show(clinicId);
   const clinic = data.data;
   const t = await getTranslations("admin.clinic.show");
   return (
@@ -31,7 +31,7 @@ const Page = async ({
           </Link>
         </div>
       </div>
-      <div className={"card p-5 bg-base-200 my-3"}>
+      <div className={"card p-5 bg-base-200 my-3 "}>
         <div className={`flex items-center gap-3`}>
           <RoundedImage
             src={getMedia(clinic?.user?.image?.[0] ?? undefined)}

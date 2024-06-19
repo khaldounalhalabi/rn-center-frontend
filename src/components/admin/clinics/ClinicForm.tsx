@@ -8,7 +8,7 @@ import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import { CityService } from "@/services/CityService";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import Form from "@/components/common/ui/Form";
 import { AddOrUpdateClinicForm } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
@@ -40,7 +40,7 @@ const ClinicForm = ({
     const { deduction_cost, ...subscriptionData } = data;
     const sendData =
       typeSelect == SubscriptionType.BOOKING_COST ? data : subscriptionData;
-    return await ClinicService.make<ClinicService>()
+    return await ClinicsService.make<ClinicsService>()
       .store(sendData)
       .then((r) => {
         console.log(r);
@@ -50,7 +50,7 @@ const ClinicForm = ({
 
   if (type == "update" && id) {
     onSubmit = async (data: any) => {
-      return await ClinicService.make<ClinicService>().update(id, data);
+      return await ClinicsService.make<ClinicsService>().update(id, data);
     };
   }
   const t = useTranslations("admin.clinic.create-edit");

@@ -132,24 +132,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
               defaultValue={params.date}
             />
           </label>
-          <label className="label">
-            From :
-            <TimepickerFilter
-              onChange={(time: any) => {
-                setParams({ ...params, from: time?.format("HH:mm") });
-              }}
-              defaultValue={params.from}
-            />
-          </label>
-          <label className="label">
-            To :
-            <TimepickerFilter
-              onChange={(time: any) => {
-                setParams({ ...params, to: time?.format("HH:mm") });
-              }}
-              defaultValue={params.to}
-            />
-          </label>
+
         </div>
       );
     },

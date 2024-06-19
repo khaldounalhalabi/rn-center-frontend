@@ -11,11 +11,13 @@ import { ApiResponse } from "@/Http/Response";
 import { CategoryService } from "@/services/CategoryService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import Input from "@/components/common/ui/Inputs/Input";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import Gallery from "@/components/common/ui/Gallery";
+import ImageUploader from "@/components/common/ui/ImageUploader";
 
 const ServiceForm = ({
   defaultValues = undefined,
@@ -47,12 +49,12 @@ const ServiceForm = ({
     Navigate(`/admin/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-
+  const { icon, ...rest } = defaultValues??{icon:""};
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={rest}
       setLocale={setLocale}
     >
       <Grid md={"2"}>
@@ -70,7 +72,7 @@ const ServiceForm = ({
           required={true}
           name={"clinic_id"}
           api={async (page, search) =>
-            await ClinicService.make<ClinicService>().indexWithPagination(
+            await ClinicsService.make<ClinicsService>().indexWithPagination(
               page,
               search,
             )
@@ -151,8 +153,29 @@ const ServiceForm = ({
       </Grid>
       <TranslatableTextArea
         name={"description"}
+        locale={locale}
         defaultValue={defaultValues?.description ?? ""}
       />
+      {type == "update" ? (
+          defaultValues?.icon &&
+          defaultValues?.icon?.length > 0 ? (
+              <Gallery
+                  media={
+                    defaultValues?.icon ? defaultValues?.icon : [""]
+                  }
+              />
+          ) : (
+              <div className="flex justify-between items-center">
+                <label className="label"> {("Image")} : </label>
+                <span className="text-lg badge badge-neutral">
+                {("No Image")}
+              </span>
+              </div>
+          )
+      ) : (
+          ""
+      )}
+      <ImageUploader name={"icon"}  />
     </Form>
   );
 };

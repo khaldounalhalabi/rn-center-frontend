@@ -9,7 +9,7 @@ import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
 import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Form from "@/components/common/ui/Form";
@@ -199,7 +199,7 @@ const ClinicScheduleForm = ({
               required={true}
               name={"clinic_id"}
               api={(page, search) =>
-                ClinicService.make<ClinicService>().indexWithPagination(
+                ClinicsService.make<ClinicsService>().indexWithPagination(
                   page,
                   search,
                 )

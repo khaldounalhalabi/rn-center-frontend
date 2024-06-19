@@ -5,7 +5,7 @@ import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
@@ -55,7 +55,7 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-
+  const [clinicId, setClinicId] = useState<number | undefined>();
   const { data } = useQuery({
     queryKey: ["getRange"],
     queryFn: async () => {
@@ -75,7 +75,6 @@ const AppointmentForm = ({
       } else return false;
     },
   });
-
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -124,12 +123,13 @@ const AppointmentForm = ({
               placeHolder={"Select Clinic name ..."}
               name={"clinic_id"}
               api={(page, search) =>
-                ClinicService.make<ClinicService>().indexWithPagination(
+                ClinicsService.make<ClinicsService>().indexWithPagination(
                   page,
                   search,
                 )
               }
               onSelect={async (selectedItem) => {
+                setClinicId(selectedItem?.id ?? 0);
                 setRange((prevState) => ({
                   ...prevState,
                   appointment_cost: selectedItem?.appointment_cost,
@@ -147,6 +147,19 @@ const AppointmentForm = ({
                       data: res.data,
                     });
                   });
+              }}
+              onRemoveSelected={() => {
+                return setRange({
+                  id: 0,
+                  appointment_cost: 0,
+                  range: 0,
+                  limit: 0,
+                  data: {
+                    booked_times: [],
+                    clinic_schedule: {},
+                    clinic_holidays: [],
+                  },
+                });
               }}
               onClear={() => {
                 return setRange({
@@ -196,17 +209,22 @@ const AppointmentForm = ({
           name={"service_id"}
           placeHolder={"Select Service name ..."}
           api={(page, search) =>
-            ServiceService.make<ServiceService>().indexWithPagination(
+            ServiceService.make<ServiceService>().getClinicService(
+              clinicId,
               page,
               search,
             )
           }
           defaultValues={defaultValues?.service ? [defaultValues?.service] : []}
           label={"Service Name"}
+          revalidate={`${clinicId}`}
           onSelect={async (selectedItem) => {
             setServicePrice(selectedItem?.price);
           }}
           onClear={() => {
+            setServicePrice(0);
+          }}
+          onRemoveSelected={() => {
             setServicePrice(0);
           }}
           optionValue={"id"}

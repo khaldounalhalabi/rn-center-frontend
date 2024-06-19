@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import PatitentsDetiles from "@/components/admin/patients/PatientsDetailes";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
 import { User } from "@/Models/User";
+import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -49,7 +49,7 @@ const PatientsOverview = ({
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel>
-            <PatitentsDetiles patient={patient} />
+            <PatientDetails patient={patient} />
           </Tab.Panel>
           <Tab.Panel>
             <PatientProfilesTable id={id} />

@@ -22,7 +22,7 @@ const page = async ({
   const res: Hospital = data?.data;
   return (
     <PageCard>
-      <div className="flex justify-between items-center w-full h-24">
+      <div className="flex justify-between items-center w-full h-24 ">
         <h2 className="card-title">{t("hospitalDetails")}</h2>
         <Link href={`/admin/hospitals/${hospitalsId}/edit`}>
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>

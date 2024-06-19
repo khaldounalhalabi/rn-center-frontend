@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Navigate } from "@/Actions/navigate";
@@ -14,6 +14,8 @@ import { Customer } from "@/Models/Customer";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
+import ImageUploader from "@/components/common/ui/ImageUploader";
+import Gallery from "@/components/common/ui/Gallery";
 
 const PatientProfilesForm = ({
   defaultValues = undefined,
@@ -75,7 +77,7 @@ const PatientProfilesForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicService.make<ClinicService>().indexWithPagination(
+              ClinicsService.make<ClinicsService>().indexWithPagination(
                 page,
                 search,
               )
@@ -102,9 +104,11 @@ const PatientProfilesForm = ({
               label={"Customer Name"}
               optionValue={"id"}
               getOptionLabel={(data: Customer) => (
-                TranslateClient(data.user.first_name),
-                TranslateClient(data.user.middle_name),
-                TranslateClient(data.user.last_name)
+                <p>
+                  {TranslateClient(data.user.first_name)}{" "}
+                  {TranslateClient(data.user.middle_name)}{" "}
+                  {TranslateClient(data.user.last_name)}{" "}
+                </p>
               )}
             />
           ) : (
@@ -124,7 +128,25 @@ const PatientProfilesForm = ({
           required={true}
           label={"Medical Condition"}
         />
-        <Textarea name={"note"} required={true} label={"Note"} />
+        <Textarea name={"note"} label={"Note"} />
+        {type == "update" ? (
+            <div className={"col-span-2"}>
+              {defaultValues?.images?.length != 0 ? (
+                  <Gallery
+                      media={defaultValues?.images ? defaultValues?.images : [""]}
+                  />
+              ) : (
+                  <div className="flex items-center">
+                    <label className="label"> {("Image")} : </label>
+                    <span className="text-lg badge badge-neutral">
+                  {("No Data")}
+                </span>
+                  </div>
+              )}
+            </div>
+        ) : ""}
+        <ImageUploader name={"images"} isMultiple={true}/>
+
       </PageCard>
     </Form>
   );

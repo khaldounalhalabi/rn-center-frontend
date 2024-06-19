@@ -32,6 +32,7 @@ export class BaseService<T> {
     return this;
   }
 
+
   public async all(): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl + "/all");
     return await this.errorHandler(res);
@@ -108,7 +109,7 @@ export class BaseService<T> {
     res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
-      await Navigate("/auth/admin/login");
+      await Navigate(`/auth/${this.actor}/login`);
     }
     return res;
   }

@@ -1,5 +1,4 @@
-"use client";
-import React, { HTMLProps, useState } from "react";
+import React, { HTMLProps, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
@@ -12,6 +11,7 @@ interface TranslatableTextAreaProps extends HTMLProps<HTMLTextAreaElement> {
   locales?: Locales[];
   defaultValue?: string;
   required?: boolean;
+  locale?: "en" | "ar" | undefined;
 }
 
 const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
@@ -21,9 +21,10 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   locales = ["en", "ar"],
   name,
   required = false,
+  locale = undefined,
   ...props
 }) => {
-  const [selectedLocale, setSelectedLocale] = useState<Locales>("en");
+  const [selectedLocale, setSelectedLocale] = useState<Locales>(locale ?? "en");
   const [trVal, setTrVal] = useState<Translatable>(
     defaultValue ? TranslateClient(defaultValue, true) : { en: "", ar: "" },
   );
@@ -31,6 +32,10 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
     setValue,
     formState: { errors },
   } = useFormContext();
+
+  useEffect(() => {
+    setSelectedLocale(locale ?? "en");
+  }, [locale]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = event.target.value;
@@ -46,16 +51,15 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   return (
     <div className="flex items-center">
       <select
+        value={selectedLocale}
         onChange={(e) => setSelectedLocale(e.target.value as Locales)}
         className="select select-bordered"
       >
-        {locales.map((e: string, index: number) => {
-          return (
-            <option key={index} value={e} className="cursor-pointer">
-              {e}
-            </option>
-          );
-        })}
+        {locales.map((e: string, index: number) => (
+          <option key={index} value={e} className="cursor-pointer">
+            {e}
+          </option>
+        ))}
       </select>
 
       {locales.map((locale: Locales, index: number) => {

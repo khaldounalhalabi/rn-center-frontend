@@ -5,7 +5,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
@@ -66,7 +66,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicService.make<ClinicService>().indexWithPagination(
+      await ClinicsService.make<ClinicsService>().indexWithPagination(
         page,
         search,
         sortCol,

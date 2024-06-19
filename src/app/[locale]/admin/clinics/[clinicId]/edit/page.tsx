@@ -1,7 +1,7 @@
 import React from "react";
 import { ApiResponse } from "@/Http/Response";
 import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
-import { ClinicService } from "@/services/ClinicService";
+import { ClinicsService } from "@/services/ClinicsService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";
 
@@ -11,7 +11,7 @@ const Page = async ({
   params: { clinicId: number };
 }) => {
   const data: ApiResponse<Clinic> =
-    await ClinicService.make<ClinicService>().show(clinicId);
+    await ClinicsService.make<ClinicsService>().show(clinicId);
   const clinic = data.data;
 
   const defaultValues: AddOrUpdateClinicForm = {

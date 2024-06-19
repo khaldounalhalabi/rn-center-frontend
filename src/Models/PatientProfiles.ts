@@ -1,5 +1,6 @@
 import { Customer } from "@/Models/Customer";
 import { Clinic } from "@/Models/Clinic";
+import {Media} from "@/Models/Media";
 
 export interface PatientProfiles {
   id: number;
@@ -11,4 +12,5 @@ export interface PatientProfiles {
   other_data: string;
   customer: Customer;
   clinic: Clinic;
+  images?: Media[] | string[];
 }

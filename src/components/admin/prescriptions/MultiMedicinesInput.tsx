@@ -1,7 +1,7 @@
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Trash from "@/components/icons/Trash";
-import React, { useState, useTransition } from "react";
+import React, {useEffect, useState, useTransition} from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import { useRouter } from "@/navigation";
@@ -62,11 +62,15 @@ const MultiMedicinesInput = ({
     setMedicines(updatedMedicines);
     setValue("medicines", medicines);
   };
+  useEffect(()=>{
+    setValue("medicines", medicines);
+
+  },[medicines])
   let router = useRouter();
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
-  const deleteMedicine = (index: number) => {
+  const deleteMedicineForm = (index: number) => {
     const updatedMedicines = medicines.filter((_, i) => i !== index);
     setMedicines(updatedMedicines);
     setPending(true);
@@ -225,19 +229,20 @@ const MultiMedicinesInput = ({
                           const id = Array.isArray(defaultValues)
                             ? defaultValues?.[index]?.id
                             : 0;
+                          console.log(id)
                           if (id != 0) {
                             return PrescriptionService.make<PrescriptionService>(
                               "admin",
                             )
                               .deleteMedicine(id ?? 0)
                               .then(() => {
-                                deleteMedicine(index);
+                                deleteMedicineForm(index);
                               });
                           } else {
-                            deleteMedicine(index);
+                            deleteMedicineForm(index);
                           }
                         } else {
-                          deleteMedicine(index);
+                          deleteMedicineForm(index);
                         }
                       }
                     });

@@ -14,7 +14,7 @@ const VerificationEmailCode = ({
   pageType: string;
 }) => {
   const handleSubmit = (data: { verificationCode: string }) => {
-    return AuthService.make().requestVerificationCode(url, data);
+    return AuthService.make<AuthService>().requestVerificationCode(url, data);
   };
   const handleResendVerCode = () => {
     const email = {

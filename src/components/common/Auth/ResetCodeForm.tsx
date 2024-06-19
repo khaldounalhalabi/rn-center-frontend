@@ -29,7 +29,7 @@ const ResetCodeForm = ({
 
   const handleSubmit = (data: { reset_password_code: string }) => {
     window.localStorage.setItem(pageType + "code", data.reset_password_code);
-    return AuthService.make().submitResetCode(url, data, pageType);
+    return AuthService.make<AuthService>().submitResetCode(url, data, pageType);
   };
   return (
     <div

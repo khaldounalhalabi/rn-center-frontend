@@ -14,6 +14,7 @@ import HolidaysIcon from "@/components/icons/HolidaysIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import OfferIcon from "@/components/icons/OfferIcon";
+import MedicineIcon from "@/components/icons/MedicineIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -30,6 +31,7 @@ const SidebarDoctor = ({
 }) => {
   const t = useTranslations("sideBar");
 
+  // @ts-ignore
   return (
     <div
       className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
@@ -90,6 +92,7 @@ const SidebarDoctor = ({
           <SidebarItem link={"/doctor/service"}>{t("services")}</SidebarItem>
           <SidebarItem link={"/doctor/offer"}>Offers</SidebarItem>
           <SidebarItem link={"/doctor/patients"}>Patients</SidebarItem>
+          <SidebarItem link={"/doctor/medicines"}>Medicines</SidebarItem>
 
 
         </ul>
@@ -129,6 +132,9 @@ const SidebarDoctor = ({
           </SidebarIcon>
           <SidebarIcon link={"/doctor/patients"} title={"Patients"}>
             <PatientIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/doctor/medicines"} title={"Patients"}>
+            <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

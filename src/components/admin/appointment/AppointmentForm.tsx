@@ -55,7 +55,7 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-
+  const [clinicId,setClinicId] = useState<number | undefined>()
   const { data } = useQuery({
     queryKey: ["getRange"],
     queryFn: async () => {
@@ -75,7 +75,6 @@ const AppointmentForm = ({
       } else return false;
     },
   });
-
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -130,6 +129,7 @@ const AppointmentForm = ({
                 )
               }
               onSelect={async (selectedItem) => {
+                setClinicId(selectedItem?.id ?? 0)
                 setRange((prevState) => ({
                   ...prevState,
                   appointment_cost: selectedItem?.appointment_cost,
@@ -188,6 +188,7 @@ const AppointmentForm = ({
                   search,
                 )
               }
+
               label={"Customer Name"}
               optionValue={"id"}
               getOptionLabel={(data: Customer) => {
@@ -209,13 +210,15 @@ const AppointmentForm = ({
           name={"service_id"}
           placeHolder={"Select Service name ..."}
           api={(page, search) =>
-            ServiceService.make<ServiceService>().indexWithPagination(
+            ServiceService.make<ServiceService>().getClinicService(
+                clinicId,
               page,
               search,
             )
           }
           defaultValues={defaultValues?.service ? [defaultValues?.service] : []}
           label={"Service Name"}
+          revalidate={`${clinicId}`}
           onSelect={async (selectedItem) => {
             setServicePrice(selectedItem?.price);
           }}

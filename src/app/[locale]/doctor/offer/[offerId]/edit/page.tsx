@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 
-import OfferForm from "@/components/doctor/offers/OfferForm";
+import OfferForm from "@/components/common/OfferForm";
 import { OffersService } from "@/services/OffersService";
 
 const page = async ({
@@ -16,6 +16,7 @@ const page = async ({
     <PageCard>
       <h2 className="card-title">Edit Offer</h2>
       <OfferForm
+          typePage={"doctor"}
         type={"update"}
         defaultValues={{
           ...offers,

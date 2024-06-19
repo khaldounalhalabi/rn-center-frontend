@@ -94,7 +94,7 @@ const ProfileOptionsPopover = () => {
               deleteCookieClient("token");
               deleteCookieClient("user-type");
               deleteCookieClient("refresh_token");
-              Navigate("/");
+              return Navigate("/");
             }}
           >
             Logout

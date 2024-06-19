@@ -9,13 +9,14 @@ const page = async ({
   params: { medicinesId: number };
 }) => {
   const medicines = (
-    await MedicineService.make<MedicineService>("admin").show(medicinesId)
+    await MedicineService.make<MedicineService>("doctor").show(medicinesId)
   ).data;
 
   return (
     <PageCard>
       <h2 className="card-title">Edit Medicine</h2>
       <MedicinesForm
+          typePage={'doctor'}
         type={"update"}
         defaultValues={{
           ...medicines,

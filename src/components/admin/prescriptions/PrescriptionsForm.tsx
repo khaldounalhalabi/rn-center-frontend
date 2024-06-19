@@ -9,7 +9,7 @@ import MultiMedicinesInput from "@/components/admin/prescriptions/MultiMedicines
 import PhysicalForm from "@/components/admin/prescriptions/PhysicalForm";
 import TestForm from "@/components/admin/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
-import MedicinesForm from "@/components/admin/medicines/MedicinesForm";
+import MedicinesForm from "@/components/common/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
 
 const PrescriptionsForm = ({

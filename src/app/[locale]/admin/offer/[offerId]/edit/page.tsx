@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 
-import OfferForm from "@/components/admin/offers/OfferForm";
+import OfferForm from "@/components/common/OfferForm";
 import { OffersService } from "@/services/OffersService";
 
 const page = async ({

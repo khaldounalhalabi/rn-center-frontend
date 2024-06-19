@@ -13,7 +13,7 @@ import { cities } from "@/constants/Cities";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import { toast } from "react-toastify";
-import AllHospitalStatus from "@/enum/hospitalStatus";
+import AllHospitalStatus from "@/enum/HospitalStatus";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");

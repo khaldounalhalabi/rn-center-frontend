@@ -60,7 +60,7 @@ const BloodDonationForm = ({
         />
         <Input
           required={true}
-          type={"number"}
+          type={"tel"}
           placeholder={"John"}
           label={`Phone`}
           name={"contact_phone"}

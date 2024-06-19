@@ -5,6 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { BloodDonationService } from "@/services/BloodDonationService";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import { BloodDonation } from "@/Models/BloodDonation";
 
 const page = async ({
   params: { bloodId },
@@ -62,12 +63,12 @@ const page = async ({
         <label className="label">
           City :
           <span className="badge badge-info px-2 rounded-xl text-lg">
-            {await TranslateServer(res?.city.name)}
+            {await TranslateServer(res?.city?.name)}
           </span>
         </label>
       </Grid>
-      <label className={'label'}>Notes :</label>
-      <textarea defaultValue={res.notes??"No Data"} disabled={true}/>
+      <label className={"label"}>Notes :</label>
+      <textarea defaultValue={res.notes ?? "No Data"} disabled={true} />
     </PageCard>
   );
 };

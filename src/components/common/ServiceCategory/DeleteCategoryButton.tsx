@@ -12,7 +12,7 @@ export interface ActionsButtonsProps<T> {
   setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void;
 }
 
-const DeleteCategory: React.FC<ActionsButtonsProps<any>> = ({
+const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
   data,
   id,
   setHidden,
@@ -59,4 +59,4 @@ const DeleteCategory: React.FC<ActionsButtonsProps<any>> = ({
     </button>
   );
 };
-export default DeleteCategory
+export default DeleteCategoryButton;

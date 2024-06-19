@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
-import MedicinesForm from "@/components/common/MedicinesForm";
+import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 
 const page = async ({
   params: { medicinesId },

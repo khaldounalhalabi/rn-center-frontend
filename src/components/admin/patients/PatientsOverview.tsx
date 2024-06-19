@@ -3,7 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
 import { User } from "@/Models/User";
-import PatientDetails from "@/components/common/PatientDetails";
+import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

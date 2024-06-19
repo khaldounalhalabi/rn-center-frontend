@@ -2,7 +2,6 @@
 import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Form from "../ui/Form";
 
 const SetNewPassword = ({

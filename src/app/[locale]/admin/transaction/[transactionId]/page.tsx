@@ -28,9 +28,9 @@ const page = async ({
         <label className="label justify-start text-xl">
           Actor Name :{" "}
           <span className="ml-2 badge badge-primary">
-            {await TranslateServer(res.actor.first_name)}{" "}
-            {await TranslateServer(res.actor.middle_name)}{" "}
-            {await TranslateServer(res.actor.last_name)}
+            {await TranslateServer(res?.actor?.first_name)}{" "}
+            {await TranslateServer(res?.actor?.middle_name)}{" "}
+            {await TranslateServer(res?.actor?.last_name)}
           </span>
         </label>
         <label className="label justify-start text-xl">

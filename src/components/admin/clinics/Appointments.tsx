@@ -9,7 +9,6 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
-import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enum/AppointmentStatus";

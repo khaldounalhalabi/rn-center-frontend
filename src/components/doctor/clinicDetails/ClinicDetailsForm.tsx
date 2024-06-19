@@ -151,7 +151,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
                 "doctor",
-              ).getAllSpeciality(page, search)
+              ).getAllSpecialities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -173,7 +173,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             label={"City"}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>("doctor").getAllCity(
+              CityService.make<CityService>("doctor").getAllCities(
                 page,
                 search,
               )

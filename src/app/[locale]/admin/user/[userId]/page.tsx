@@ -13,7 +13,7 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
   const data = await UsersService.make<UsersService>().show(userId);
   const res: User = data?.data;
-  const tagsArray = res?.tags.split(",");
+  const tagsArray = res?.tags?.split(",");
 
   return (
     <PageCard>
@@ -79,7 +79,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
           <span className="ml-2 badge badge-accent  ">{res?.gender}</span>
         </label>
         <label className="label justify-start text-xl">
-          blood_group :{" "}
+          Blood group :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.blood_group}</span>
         </label>
         <label className="label justify-start text-xl">

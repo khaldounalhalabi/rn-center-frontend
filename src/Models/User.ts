@@ -18,8 +18,8 @@ export interface User {
   fcm_token?: null | string;
   is_archived: boolean;
   image?: Media[];
-  phones: Phone[];
-  address: Address;
+  phones?: Phone[];
+  address?: Address;
   password?: string;
   password_confirmation?: string;
   role?: string | role[];

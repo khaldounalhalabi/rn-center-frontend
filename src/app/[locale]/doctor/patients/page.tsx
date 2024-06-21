@@ -88,22 +88,6 @@ const Page = () => {
             showUrl={`/doctor/patients/${data?.id}`}
             setHidden={setHidden}
           >
-            <>
-              <ArchiveButton
-                data={data}
-                id={data?.user_id}
-                api={UsersService}
-                revalidate={revalidate}
-                user={"admin"}
-              />
-              <BlockButton
-                data={data}
-                id={data?.user_id}
-                api={UsersService}
-                revalidate={revalidate}
-                user={"admin"}
-              />
-            </>
           </ActionsButtons>
         ),
       },

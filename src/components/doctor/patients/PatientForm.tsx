@@ -54,6 +54,7 @@ const PatientForm = ({
   const onSuccess = () => {
     Navigate(`/doctor/patients`);
   };
+  console.log(defaultValues)
   const [locale, setLocale] = useState<"en" | "ar">("en");
   return (
     <div className={'mt-4'}>
@@ -184,9 +185,9 @@ const PatientForm = ({
 
           {type == "update" ? (
               <div className={"col-span-2"}>
-                {defaultValues?.image?.length != 0 ? (
+                {defaultValues?.images?.length != 0 ? (
                     <Gallery
-                        media={defaultValues?.image ? defaultValues?.image : [""]}
+                        media={defaultValues?.images ? defaultValues?.images : [""]}
                     />
                 ) : (
                     <div className="flex items-center">

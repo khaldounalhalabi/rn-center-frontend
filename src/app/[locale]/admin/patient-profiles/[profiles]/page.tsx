@@ -36,15 +36,15 @@ const page = async ({
           <label className="label justify-start text-xl">
             Clinic Name :{" "}
             <span className="ml-2 badge badge-neutral">
-              {await TranslateServer(res.clinic.name)}
+              {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
             Customer Name :{" "}
             <span className="ml-2 badge badge-secondary">
-              {await TranslateServer(res.customer.user.first_name)}{" "}
-              {await TranslateServer(res.customer.user.middle_name)}{" "}
-              {await TranslateServer(res.customer.user.last_name)}
+              {await TranslateServer(res?.customer?.user?.first_name)}{" "}
+              {await TranslateServer(res?.customer?.user?.middle_name)}{" "}
+              {await TranslateServer(res?.customer?.user?.last_name)}
             </span>
           </label>
         </Grid>

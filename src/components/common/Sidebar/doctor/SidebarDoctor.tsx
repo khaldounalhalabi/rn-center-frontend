@@ -15,6 +15,7 @@ import ServiceIcon from "@/components/icons/ServiceIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import OfferIcon from "@/components/icons/OfferIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
+import HospitalsIcon from "@/components/icons/HospitalsIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -136,6 +137,7 @@ const SidebarDoctor = ({
           <SidebarIcon link={"/doctor/medicines"} title={"Patients"}>
             <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
+
         </ul>
       </div>
     </div>

@@ -19,6 +19,7 @@ import { Hospital } from "@/Models/Hospital";
 import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
+import Gallery from "@/components/common/ui/Gallery";
 
 const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   const handleSubmit = async (data: any) => {
@@ -39,11 +40,11 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   console.log(defaultValues);
 
   const defaultRes = {
-    address: defaultValues.user.address,
-    phone_numbers: defaultValues.user.phones,
+    address: defaultValues?.user?.address,
+    phone_numbers: defaultValues?.user?.phones,
     ...defaultValues,
   };
-
+  console.log(defaultValues)
   return (
     <>
       <Form
@@ -67,7 +68,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             type={"number"}
             step={"any"}
             placeholder={"Doctor Max Appointments Per Day Are ?"}
-            label={"Max Appointments"}
+            label={"Max Appointments Per Day"}
             required={true}
           />
           <Input
@@ -181,7 +182,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
             defaultValues={
-              defaultValues?.user.address?.city
+              defaultValues?.user?.address?.city
                 ? [defaultValues?.user.address?.city]
                 : []
             }
@@ -194,6 +195,18 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           required={true}
         />
         <Textarea name="about_us" label={"About Us"} required={true} />
+        <div className={"col-span-2"}>
+          {defaultValues?.work_gallery?.length != 0 ? (
+              <Gallery
+                  media={defaultValues?.work_gallery ? defaultValues?.work_gallery : [""]}
+              />
+          ) : (
+              <div className="flex items-center">
+                <label className="label"> Image : </label>
+                <span className="text-lg badge badge-neutral">No Data</span>
+              </div>
+          )}
+        </div>
         <ImageUploader name={"work_gallery"} isMultiple={true} />
 
       </Form>

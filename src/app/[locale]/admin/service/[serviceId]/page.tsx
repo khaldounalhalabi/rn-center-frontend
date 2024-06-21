@@ -40,7 +40,7 @@ const page = async ({
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("category")} :
-          {res?.serviceCategory.name ? (
+          {res?.serviceCategory?.name ? (
             <span className="badge badge-error">
               {await TranslateServer(res?.serviceCategory.name)}
             </span>
@@ -50,7 +50,7 @@ const page = async ({
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("clinicName")} :
-          {res?.clinic.name ? (
+          {res?.clinic?.name ? (
             <span className="badge badge-primary">
               {`${await TranslateServer(res?.clinic.name)}`}
             </span>

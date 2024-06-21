@@ -81,7 +81,7 @@ const ServiceForm = ({
           label={t("clinicName")}
           optionValue={"id"}
           defaultValues={
-            defaultValues?.clinic_id ? [defaultValues?.clinic] : []
+            defaultValues?.clinic?.id ? [defaultValues?.clinic] : []
           }
         />
       </Grid>
@@ -125,7 +125,7 @@ const ServiceForm = ({
           name={"service_category_id"}
           label={t("category")}
           defaultValues={
-            defaultValues?.service_category_id
+            defaultValues?.serviceCategory?.id
               ? [defaultValues?.serviceCategory]
               : []
           }

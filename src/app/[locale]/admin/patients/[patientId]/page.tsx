@@ -9,6 +9,7 @@ import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";
+import {Customer} from "@/Models/Customer";
 
 const page = async ({
   params: { patientId },
@@ -17,6 +18,7 @@ const page = async ({
 }) => {
   const data = await PatientsService.make<PatientsService>().show(patientId);
   const res: User = data?.data.user;
+  const patient : Customer = data?.data
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -56,7 +58,7 @@ const page = async ({
         </div>
       </div>
 
-      <PatientsOverview patient={res} id={patientId} />
+      <PatientsOverview patient={patient} id={patientId} />
     </PageCard>
   );
 };

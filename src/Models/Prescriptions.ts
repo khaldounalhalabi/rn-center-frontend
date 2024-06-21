@@ -35,7 +35,7 @@ export interface PrescriptionsDataSend {
   problem_description: string;
   next_visit: string;
   test: string;
-  medicines: MedicineData;
+  medicines?: MedicineData;
   next?: number;
   visit?: string;
 }

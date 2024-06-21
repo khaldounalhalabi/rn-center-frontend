@@ -14,83 +14,82 @@ const page = async ({
 }: {
   params: { serviceId: number };
 }) => {
-  const t = await getTranslations("admin.service.show");
   const data = await ServiceService.make<ServiceService>("doctor").show(serviceId);
   const res: Service = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">{t("serviceDetails")}</h2>
+        <h2 className="card-title">{("Service Details")}</h2>
         <Link href={`/doctor/service/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+          <PrimaryButton type={"button"}>{("Edit")}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          {t("serviceName")} En:{" "}
+          {("Service Name")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true))?.en}
           </span>
         </label>
         <label className="label">
-          {t("serviceName")} Ar:{" "}
+          {("Service Name")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true)).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("category")} :
+          {("Category")} :
           {res?.serviceCategory.name ? (
             <span className="badge badge-error">
               {await TranslateServer(res?.serviceCategory.name)}
             </span>
           ) : (
-            <span className="text-lg badge-accent">{t("noData")}</span>
+            <span className="text-lg badge-accent">{("No Data")}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("clinicName")} :
+          {("Clinic Name")} :
           {res?.clinic.name ? (
             <span className="badge badge-primary">
               {`${await TranslateServer(res?.clinic.name)}`}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("approximateDuration")} :
+          {("Approximate Duration")} :
           {res?.approximate_duration ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.approximate_duration.toLocaleString()}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
 
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("price")} :
+          {("Price")} :
           {res?.price ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.price.toLocaleString()} IQD
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-1 w-full label">
-          {t("status")} :
+          {("Status")} :
           {res?.status ? (
             <span className="badge badge-success">{res?.status}</span>
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
       </Grid>
       <Grid md={1}>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("description")} EN :
+          {("Description")} EN :
           {res?.status ? (
             <textarea
               rows={4}
@@ -99,11 +98,11 @@ const page = async ({
               readOnly={true}
             />
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("description")} AR :
+          {("Description")} AR :
           {res?.status ? (
             <textarea
               rows={4}
@@ -112,7 +111,7 @@ const page = async ({
               readOnly={true}
             />
           ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
+            <span className="text-lg badge badge-neutral">{("No Data")}</span>
           )}
         </label>
         {res?.icon &&
@@ -124,9 +123,9 @@ const page = async ({
             />
         ) : (
             <div className="flex justify-between items-center">
-              <label className="label"> {t("image")} : </label>
+              <label className="label"> {("Image")} : </label>
               <span className="text-lg badge badge-neutral">
-                {t("noImage")}
+                {("No Image")}
               </span>
             </div>
         )}

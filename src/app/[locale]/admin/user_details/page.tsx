@@ -43,7 +43,7 @@ const page = async ()=>{
               <div className='flex '>
                   <h1>Phone : </h1>
                   <div className={'flex flex-col'}>
-                      {res?.phones.length != 0 ? res.phones.map((e,index)=>{
+                      {res?.phones?.length != 0 ? res?.phones?.map((e,index)=>{
                           return(
                               <span key={index} className={'badge ml-3 mt-1 badge-neutral'}>{e.phone}</span>
                           )
@@ -62,7 +62,7 @@ const page = async ()=>{
                     <h2>Age : <span className='badge badge-info'>{res?.age}</span></h2>
                     <h2 >Blood Group : <span className='badge ml-3 mt-1 badge-warning'>{res?.blood_group ?? "No Data"}</span></h2>
                     <h2 >is Archived : <span className='badge ml-3 mt-1 badge-success'>{res?.is_archived ?"Archived":"Not Archived"}</span></h2>
-                    <h2 >city : <span className='badge ml-3 mt-1 badge-primary'>{await TranslateServer(res?.address?.city.name)}</span></h2>
+                    <h2 >city : <span className='badge ml-3 mt-1 badge-primary'>{await TranslateServer(res?.address?.city?.name)}</span></h2>
                     <h2 >Address : <span className='badge ml-3 mt-1 badge-accent'>{await TranslateServer(res?.address?.name)}</span></h2>
                 </Grid>
                 <h2 >tags : <span className='badge ml-3 mt-1 badge-outline'>{res?.tags ?? "No Data"}</span></h2>

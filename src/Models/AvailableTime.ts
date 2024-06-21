@@ -26,7 +26,7 @@ export interface TimeSlot {
 
 export interface BookedDate {
   date: string;
-  times: TimeSlot[];
+  times?: TimeSlot[];
 }
 
 export interface AvailableTime {

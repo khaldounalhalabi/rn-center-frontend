@@ -28,6 +28,8 @@ import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
 import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
 import BloodIcon from "@/components/icons/BloodIcon";
+import CompactHospitalIcon from "@/components/icons/CompactHospitalIcon";
+import AvailableDepartmentIcon from "@/components/icons/AvailableDepartmentIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -106,9 +108,7 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/speciality"}>
               {t("specialties")}
             </SidebarItem>
-            <SidebarItem link={"/admin/hospitals"}>
-              {t("hospitals")}
-            </SidebarItem>
+
             <SidebarItem link={"/admin/category"}>
               {t("serviceCategories")}
             </SidebarItem>
@@ -116,13 +116,16 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
+            <SidebarCompactItem title={"Hospitals"}>
+              <SidebarItem link={"/admin/hospitals"}>{t("hospitals")}</SidebarItem>
+              <SidebarItem link={"/admin/department"}>Available Department</SidebarItem>
+            </SidebarCompactItem>
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
+
             <SidebarItem link={"/admin/user"}>Users</SidebarItem>
             <SidebarCompactItem title={"Patients Management"}>
               <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
-              <SidebarItem link={"/admin/patient-profiles"}>
-                Patient Profiles
-              </SidebarItem>
+              <SidebarItem link={"/admin/patient-profiles"}>Patient Profiles</SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/subscriptions"}>
               Subscriptions
@@ -171,9 +174,20 @@ const SidebarAdmin = ({
           <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
             <SpecialitiesIcon className={`h-7 w-7`} />
           </SidebarIcon>
-          <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
-            <HospitalsIcon className={`h-9 w-9`} />
-          </SidebarIcon>
+          <SidebarCompactIcon
+              title={("Hospital")}
+              icon={<CompactHospitalIcon className={`h-9 w-9 `} />}
+          >
+            <div className="flex flex-col">
+              <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
+                <HospitalsIcon className={`h-9 w-9`} />
+              </SidebarIcon>
+              <SidebarIcon link={"/admin/department"} title={t("hospitals")}>
+                <AvailableDepartmentIcon className={`h-9 w-9`} />
+              </SidebarIcon>
+            </div>
+          </SidebarCompactIcon>
+
           <SidebarIcon link={"/admin/category"} title={t("serviceCategories")}>
             <CategoryIcon className={`h-8 w-8`} />
           </SidebarIcon>

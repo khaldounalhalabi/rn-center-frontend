@@ -16,6 +16,7 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import {AuthService} from "@/services/AuthService";
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import Gallery from "@/components/common/ui/Gallery";
 const UserDetailsForm = ({
   defaultValues ,
 }: {
@@ -198,6 +199,18 @@ const UserDetailsForm = ({
          </div>
        </Grid>
        <Textarea name={'address.map_iframe'} label={'Map'}/>
+       <div className={"col-span-2"}>
+         {defaultValues?.image?.length != 0 ? (
+             <Gallery
+                 media={defaultValues?.image ? defaultValues?.image : [""]}
+             />
+         ) : (
+             <div className="flex items-center">
+               <label className="label"> Image : </label>
+               <span className="text-lg badge badge-neutral">No Data</span>
+             </div>
+         )}
+       </div>
        <ImageUploader name={"image"} />
        <button
            type="button"

@@ -9,7 +9,7 @@ const page = async () => {
     ).data;
     return (
         <PageCard>
-            <h2 className="card-title">Edit User Details</h2>
+            <h2 className="card-title">Edit Clinic Details</h2>
             <ClinicDetailsForm
                 defaultValues={{
                     ...UserDetails,

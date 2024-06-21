@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -18,7 +19,7 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
   const actor = getCookieClient("user-type");
-  const { data } = useQuery({
+  const { data,isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       // @ts-ignore
@@ -26,7 +27,7 @@ const ProfileOptionsPopover = () => {
     },
   });
   const res: User | undefined = data?.data;
-
+  const imageUrl = data?.data?.image[0]?.file_url
   return (
     <div
       ref={ref}
@@ -40,7 +41,8 @@ const ProfileOptionsPopover = () => {
             : " w-7 h-7"
         }
       >
-        <RoundedImage src={"/user.png"} alt={"user-profile"} />
+        {!isLoading?<RoundedImage src={imageUrl??"/user.png"} alt={"user-profile"} />:<LoadingSpin className={"w-5 h-5"} />}
+
       </div>
 
       <div
@@ -63,7 +65,12 @@ const ProfileOptionsPopover = () => {
             {TranslateClient(res?.middle_name)}{" "}
             {TranslateClient(res?.last_name)}
           </h2>
-          <p className="opacity-[0.6] overflow-x-hidden">{res?.email}</p>
+          {/*<p className="opacity-[0.6] overflow-x-hidden">{res?.email}</p>*/}
+          <div className="overflow-hidden whitespace-nowrap">
+            <h1 className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
+              {res?.email}
+            </h1>
+          </div>
         </div>
 
         <Link
@@ -72,7 +79,7 @@ const ProfileOptionsPopover = () => {
           className="opacity-[0.8]"
         >
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>{actor == "doctor" ? "User Profile" : "Profile"}</h3>
+            <h3>{"Profile"}</h3>
           </div>
         </Link>
         {actor == "doctor" ? (

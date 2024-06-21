@@ -11,7 +11,7 @@ export interface Service {
   status: string;
   description: string;
   clinic_id: number;
-  serviceCategory: ServiceCategory;
-  clinic: Clinic;
+  serviceCategory?: ServiceCategory;
+  clinic?: Clinic;
   icon?:Media[]
 }

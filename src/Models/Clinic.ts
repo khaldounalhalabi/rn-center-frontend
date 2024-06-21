@@ -18,7 +18,7 @@ export type Clinic = {
   status?: string;
   about_us?: string;
   experience?: string;
-  user: User;
+  user?: User;
   specialities?: Speciality[];
   hospital_id?: number;
   hospital?: Hospital;
@@ -29,6 +29,7 @@ export type Clinic = {
   today_appointments_count: number;
   upcoming_appointments_count: number;
   active_subscription?: ClinicSubscription;
+  work_gallery?: Media[]
 };
 
 export interface AddOrUpdateClinicForm {

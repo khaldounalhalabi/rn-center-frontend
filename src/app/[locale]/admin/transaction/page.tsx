@@ -114,6 +114,7 @@ const Page = () => {
                 setStartDate(time?.format("YYYY-MM-DD hh:mm"))
               setParams({ ...params, date: [time?.format("YYYY-MM-DD hh:mm"),endDate] });
             }}
+            defaultValue={startDate??""}
           />
           <label className="label">End Date :</label>
           <DateTimePickerRangFilter
@@ -121,7 +122,7 @@ const Page = () => {
                 setEndDate(time?.format("YYYY-MM-DD hh:mm"))
                 setParams({ ...params, date: [startDate,time?.format("YYYY-MM-DD hh:mm")] });
             }}
-            defaultValue={dayjs().format("YYYY-MM-DD hh:mm")}
+            defaultValue={endDate??dayjs().format("YYYY-MM-DD hh:mm")}
           />
         </div>
       );

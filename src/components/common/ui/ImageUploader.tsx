@@ -29,7 +29,8 @@ const ImageUploader = ({
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
-    <div className={`flex justify-center items-center flex-col my-3`}>
+    <div className={`flex justify-center  flex-col my-3`}>
+        <lable className={'lable mb-2'}>Upload Image :</lable>
       <div className={`w-full`}>
         <FilePond
           onupdatefiles={(fileItems) => {

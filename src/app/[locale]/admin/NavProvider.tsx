@@ -14,17 +14,13 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
     sm: false,
     md: false,
   });
-  const path = usePathname();
-  const actor = getCookieClient("user-type");
+
   return (
     <div className="flex flex-row w-[100vw]">
-      {path.includes("admin") && actor == "admin" ? (
+
         <SidebarAdmin openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
-      ) : path.includes("doctor") && actor == "doctor" ? (
-        <SidebarDoctor openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
-      ) : (
-        ""
-      )}
+
+
 
       <div
         className={`flex-grow transition-all duration-300 w-[75%] min-h-screen`}

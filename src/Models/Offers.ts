@@ -10,5 +10,5 @@ export interface Offers {
   is_active: boolean;
   type: string;
   clinic_id: number;
-  clinic: Clinic;
+  clinic?: Clinic;
 }

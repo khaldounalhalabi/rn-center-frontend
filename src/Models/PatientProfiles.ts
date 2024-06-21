@@ -10,7 +10,7 @@ export interface PatientProfiles {
   note: string;
   updated_at: string;
   other_data: string;
-  customer: Customer;
-  clinic: Clinic;
+  customer?: Customer;
+  clinic?: Clinic;
   images?: Media[] | string[];
 }

@@ -1,9 +1,7 @@
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
-import { User } from "@/Models/User";
 import {Customer} from "@/Models/Customer";
-import PageCard from "@/components/common/ui/PageCard";
 
 const PatientDetails = ({
   patient,
@@ -15,7 +13,7 @@ const PatientDetails = ({
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));
   };
-  const tagsArray = patient?.user.tags? patient?.user.tags.split(","):[]
+  const tagsArray = patient?.user?.tags? patient?.user?.tags.split(","):[]
   const otherData = patient?.currentClinicPatientProfile?.other_data
       ? convertObjectToArray(JSON.parse(patient?.currentClinicPatientProfile?.other_data))
       : [];
@@ -25,38 +23,38 @@ const PatientDetails = ({
         <label className="label justify-start text-xl">
           Birth Date :{" "}
           <span className="ml-2 badge badge-outline  ">
-            {patient?.user.birth_date}
+            {patient?.user?.birth_date}
           </span>
         </label>
         <label className="label justify-start text-xl">
           Age :{" "}
-          <span className="ml-2 badge badge-accent  ">{patient?.user.age}</span>
+          <span className="ml-2 badge badge-accent  ">{patient?.user?.age}</span>
         </label>
         <label className="label justify-start text-xl">
           Address :{" "}
           <span className="ml-2 badge badge-success  ">
-            {TranslateClient(patient?.user.address?.name)}
+            {TranslateClient(patient?.user?.address?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
           City :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {TranslateClient(patient?.user.address?.city?.name)}
+            {TranslateClient(patient?.user?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
           gender :{" "}
-          <span className="ml-2 badge badge-accent  ">{patient?.user.gender}</span>
+          <span className="ml-2 badge badge-accent  ">{patient?.user?.gender}</span>
         </label>
         <label className="label justify-start text-xl">
           blood_group :{" "}
           <span className="ml-2 badge badge-accent  ">
-            {patient?.user.blood_group}
+            {patient?.user?.blood_group}
           </span>
         </label>
         <label className="label justify-start text-xl">
           Is Blocked :{" "}
-          {patient?.user.is_blocked ? (
+          {patient?.user?.is_blocked ? (
             <span className="ml-2 badge badge-error">Blocked</span>
           ) : (
             <span className="ml-2 badge badge-success">Not Blocked</span>
@@ -64,7 +62,7 @@ const PatientDetails = ({
         </label>
         <label className="label justify-start text-xl">
           Is Archived :{" "}
-          {patient?.user.is_archived ? (
+          {patient?.user?.is_archived ? (
             <span className="ml-2 badge badge-neutral">Archived</span>
           ) : (
             <span className="ml-2 badge badge-warning">Not Archived</span>

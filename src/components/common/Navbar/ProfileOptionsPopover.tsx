@@ -27,7 +27,7 @@ const ProfileOptionsPopover = () => {
     },
   });
   const res: User | undefined = data?.data;
-  const imageUrl = data?.data?.image[0]?.file_url
+  const imageUrl = data?.data?.image?.[0]?.file_url
   return (
     <div
       ref={ref}
@@ -65,7 +65,6 @@ const ProfileOptionsPopover = () => {
             {TranslateClient(res?.middle_name)}{" "}
             {TranslateClient(res?.last_name)}
           </h2>
-          {/*<p className="opacity-[0.6] overflow-x-hidden">{res?.email}</p>*/}
           <div className="overflow-hidden whitespace-nowrap">
             <h1 className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
               {res?.email}

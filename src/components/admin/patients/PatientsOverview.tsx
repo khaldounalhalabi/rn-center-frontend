@@ -2,7 +2,6 @@
 import React from "react";
 import { Tab } from "@headlessui/react";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
-import { User } from "@/Models/User";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import {Customer} from "@/Models/Customer";
 

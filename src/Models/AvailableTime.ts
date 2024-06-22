@@ -1,3 +1,5 @@
+import {ClinicHoliday} from "@/Models/ClinicHoliday";
+
 export interface ClinicScheduleEntry {
   id: number;
   schedulable_type: string;
@@ -5,16 +7,6 @@ export interface ClinicScheduleEntry {
   day_of_week: string;
   start_time: string;
   end_time: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface ClinicHoliday {
-  id: number;
-  start_date: string;
-  end_date: string;
-  reason: string;
-  clinic_id: number;
   created_at: string;
   updated_at: string;
 }

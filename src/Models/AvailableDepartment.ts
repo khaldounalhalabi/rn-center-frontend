@@ -1,5 +1,3 @@
-
-
 export interface AvailableDepartment {
     "id": number,
     "name": string,

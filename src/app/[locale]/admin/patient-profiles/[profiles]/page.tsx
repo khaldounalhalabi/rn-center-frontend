@@ -78,7 +78,7 @@ const page = async ({
             <div className={"col-span-2"}>
               {res?.images?.length != 0 ? (
                   <Gallery
-                      media={res?.images ? res?.images : [""]}
+                      media={res?.images ? res?.images : []}
                   />
               ) : (
                   <div className="flex items-center">

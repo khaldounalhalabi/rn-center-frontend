@@ -9,7 +9,7 @@ import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";
-import {Customer} from "@/Models/Customer";
+import { Customer } from "@/Models/Customer";
 
 const page = async ({
   params: { patientId },
@@ -17,8 +17,8 @@ const page = async ({
   params: { patientId: number };
 }) => {
   const data = await PatientsService.make<PatientsService>().show(patientId);
-  const res: User = data?.data.user;
-  const patient : Customer = data?.data
+  const user: User|undefined = data?.data.user;
+  const patient: Customer = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
@@ -30,22 +30,22 @@ const page = async ({
       <div className={"card p-5 bg-base-200 my-3"}>
         <div className={`flex items-center gap-3`}>
           <RoundedImage
-            src={getMedia(res?.image?.[0] ?? undefined)}
+            src={getMedia(user?.image?.[0] ?? undefined)}
             alt={"doctor-profile"}
             className={"w-24 h-24"}
           />
           <div className={"flex flex-col"}>
             <h2 className={"font-bold text-lg"}>
               <span>
-                {await TranslateServer(res?.first_name)}{" "}
-                {await TranslateServer(res?.middle_name)}{" "}
-                {await TranslateServer(res?.last_name)}
+                {await TranslateServer(user?.first_name)}{" "}
+                {await TranslateServer(user?.middle_name)}{" "}
+                {await TranslateServer(user?.last_name)}
               </span>
             </h2>
-            <h3>{res.email}</h3>
+            <h3>{user?.email}</h3>
             <div className={"flex gap-1"}>
               Phone :{" "}
-              {res.phones?.slice(0, 2).map((item: Phone, index) => {
+              {user?.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (
                   <span className="ml-2 badge badge-accent  " key={item.id}>
                     {" "}

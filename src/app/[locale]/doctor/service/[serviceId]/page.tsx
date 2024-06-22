@@ -39,7 +39,7 @@ const page = async ({
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {("Category")} :
-          {res?.serviceCategory.name ? (
+          {res?.serviceCategory?.name ? (
             <span className="badge badge-error">
               {await TranslateServer(res?.serviceCategory.name)}
             </span>
@@ -49,9 +49,9 @@ const page = async ({
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
           {("Clinic Name")} :
-          {res?.clinic.name ? (
+          {res?.clinic?.name ? (
             <span className="badge badge-primary">
-              {`${await TranslateServer(res?.clinic.name)}`}
+              {`${await TranslateServer(res?.clinic?.name)}`}
             </span>
           ) : (
             <span className="text-lg badge badge-neutral">{("No Data")}</span>

@@ -7,7 +7,7 @@ export interface Customer {
   id: number;
   medical_condition?: string;
   user_id: number;
-  user: User;
+  user?: User;
   currentClinicPatientProfile?:PatientProfiles
 }
 

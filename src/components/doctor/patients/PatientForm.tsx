@@ -187,7 +187,7 @@ const PatientForm = ({
               <div className={"col-span-2"}>
                 {defaultValues?.images?.length != 0 ? (
                     <Gallery
-                        media={defaultValues?.images ? defaultValues?.images : [""]}
+                        media={defaultValues?.images ? defaultValues?.images : []}
                     />
                 ) : (
                     <div className="flex items-center">

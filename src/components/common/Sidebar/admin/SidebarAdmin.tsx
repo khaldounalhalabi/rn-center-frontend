@@ -116,9 +116,9 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
-            <SidebarCompactItem title={"Hospitals"}>
+            <SidebarCompactItem title={"Hospitals Management"}>
               <SidebarItem link={"/admin/hospitals"}>{t("hospitals")}</SidebarItem>
-              <SidebarItem link={"/admin/department"}>Available Department</SidebarItem>
+              <SidebarItem link={"/admin/hospital-departments"}>Available Departments</SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
 
@@ -175,14 +175,14 @@ const SidebarAdmin = ({
             <SpecialitiesIcon className={`h-7 w-7`} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={("Hospital")}
+              title={("Hospitals Management")}
               icon={<CompactHospitalIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
                 <HospitalsIcon className={`h-9 w-9`} />
               </SidebarIcon>
-              <SidebarIcon link={"/admin/department"} title={t("hospitals")}>
+              <SidebarIcon link={"/admin/hospital-departments"} title={t("hospitals")}>
                 <AvailableDepartmentIcon className={`h-9 w-9`} />
               </SidebarIcon>
             </div>

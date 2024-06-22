@@ -17,7 +17,6 @@ const AppointmentStatusColumn = ({
   appointment?: Appointment;
   revalidate?: () => void;
 }) => {
-  const router = useRouter();
   const handleSelectStatus = async (
     status: string,
     id: number,

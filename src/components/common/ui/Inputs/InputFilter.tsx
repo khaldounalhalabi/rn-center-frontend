@@ -4,13 +4,13 @@ import React, { HTMLProps } from "react";
 export interface InputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
   type: string;
-  onChange:any
+  onChange: any;
   min?: number;
 }
 
 const InputFilter: React.FC<InputProps> = ({
   className,
-                                             onChange,
+  onChange,
   type,
   min = 0,
   ...props
@@ -19,7 +19,7 @@ const InputFilter: React.FC<InputProps> = ({
     <div className={`flex flex-col items-start w-full`}>
       <input
         {...props}
-          onChange={onChange}
+        onChange={onChange}
         className={
           className ??
           `input input-bordered w-full focus:outline-pom focus:border-pom`

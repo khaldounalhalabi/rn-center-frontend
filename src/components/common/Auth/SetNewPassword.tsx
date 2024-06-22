@@ -22,7 +22,11 @@ const SetNewPassword = ({
       password: data.password,
       password_confirmation: data.password_confirmation,
     };
-    return AuthService.make<AuthService>().setNewPassword(url, dataSend, pageType);
+    return AuthService.make<AuthService>().setNewPassword(
+      url,
+      dataSend,
+      pageType,
+    );
   };
   return (
     <div
@@ -51,8 +55,7 @@ const SetNewPassword = ({
               placeholder="Reset New Password"
             />
           </div>
-          <div className={`flex justify-center items-center mt-3`}>
-          </div>
+          <div className={`flex justify-center items-center mt-3`}></div>
         </Form>
       </div>
     </div>

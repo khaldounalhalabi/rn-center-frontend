@@ -9,11 +9,13 @@ const page = async ({
   params: { holidayId: number };
 }) => {
   const holiday = (
-    await ClinicHolidayService.make<ClinicHolidayService>("doctor").show(holidayId)
+    await ClinicHolidayService.make<ClinicHolidayService>("doctor").show(
+      holidayId,
+    )
   ).data;
   return (
     <PageCard>
-      <h2 className="card-title">{("Edit Holidays")}</h2>
+      <h2 className="card-title">{"Edit Holidays"}</h2>
       <HolidayForm type={"update"} defaultValues={holiday} />
     </PageCard>
   );

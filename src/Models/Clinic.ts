@@ -29,7 +29,7 @@ export type Clinic = {
   today_appointments_count: number;
   upcoming_appointments_count: number;
   active_subscription?: ClinicSubscription;
-  work_gallery?: Media[]
+  work_gallery?: Media[];
 };
 
 export interface AddOrUpdateClinicForm {

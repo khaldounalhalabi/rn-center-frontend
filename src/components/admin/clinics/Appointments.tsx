@@ -131,7 +131,6 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
               defaultValue={params.date}
             />
           </label>
-
         </div>
       );
     },

@@ -1,4 +1,4 @@
-import {ClinicHoliday} from "@/Models/ClinicHoliday";
+import { ClinicHoliday } from "@/Models/ClinicHoliday";
 
 export interface ClinicScheduleEntry {
   id: number;

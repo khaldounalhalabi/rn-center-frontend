@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import {AvailableDepartmentService} from "@/services/AvailableDepartmentService";
+import { AvailableDepartmentService } from "@/services/AvailableDepartmentService";
 import DepartmentForm from "@/components/admin/department/DepartmentForm";
 
 const page = async ({
@@ -9,7 +9,9 @@ const page = async ({
   params: { hospitalDepartmentId: number };
 }) => {
   const medicines = (
-    await AvailableDepartmentService.make<AvailableDepartmentService>("admin").show(hospitalDepartmentId)
+    await AvailableDepartmentService.make<AvailableDepartmentService>(
+      "admin",
+    ).show(hospitalDepartmentId)
   ).data;
 
   return (

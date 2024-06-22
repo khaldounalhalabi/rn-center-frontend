@@ -14,12 +14,12 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 
 const MedicinesForm = ({
   defaultValues = undefined,
-                           typePage = "admin",
+  typePage = "admin",
   id,
   type = "store",
   closeModal,
 }: {
-    typePage?:"admin" | "doctor" | "customer"
+  typePage?: "admin" | "doctor" | "customer";
   defaultValues?: Medicine;
   id?: number;
   type?: "store" | "update" | "prescription";
@@ -53,23 +53,25 @@ const MedicinesForm = ({
   return (
     <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
       <Grid md={"2"}>
-          {typePage == "admin"?
-              <ApiSelect
-                  required={true}
-                  placeHolder={"Select Clinic name ..."}
-                  name={"clinic_id"}
-                  api={(page, search) =>
-                      ClinicsService.make<ClinicsService>().indexWithPagination(
-                          page,
-                          search,
-                      )
-                  }
-                  label={"Clinic Name"}
-                  optionValue={"id"}
-                  defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-                  getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
-              />
-          :""}
+        {typePage == "admin" ? (
+          <ApiSelect
+            required={true}
+            placeHolder={"Select Clinic name ..."}
+            name={"clinic_id"}
+            api={(page, search) =>
+              ClinicsService.make<ClinicsService>().indexWithPagination(
+                page,
+                search,
+              )
+            }
+            label={"Clinic Name"}
+            optionValue={"id"}
+            defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
+            getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
+          />
+        ) : (
+          ""
+        )}
         <Input
           name={"name"}
           label={"Medicine Name :"}

@@ -1,6 +1,6 @@
 import { Clinic } from "./Clinic";
 import { ServiceCategory } from "@/Models/ServiceCategory";
-import {Media} from "@/Models/Media";
+import { Media } from "@/Models/Media";
 
 export interface Service {
   id: number;
@@ -13,5 +13,5 @@ export interface Service {
   clinic_id: number;
   serviceCategory?: ServiceCategory;
   clinic?: Clinic;
-  icon?:Media[]
+  icon?: Media[];
 }

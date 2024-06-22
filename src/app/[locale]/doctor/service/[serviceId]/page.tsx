@@ -5,7 +5,6 @@ import { Link } from "@/navigation";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
-import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
 
@@ -14,82 +13,83 @@ const page = async ({
 }: {
   params: { serviceId: number };
 }) => {
-  const data = await ServiceService.make<ServiceService>("doctor").show(serviceId);
+  const data =
+    await ServiceService.make<ServiceService>("doctor").show(serviceId);
   const res: Service = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">{("Service Details")}</h2>
+        <h2 className="card-title">{"Service Details"}</h2>
         <Link href={`/doctor/service/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>{("Edit")}</PrimaryButton>
+          <PrimaryButton type={"button"}>{"Edit"}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          {("Service Name")} En:{" "}
+          {"Service Name"} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true))?.en}
           </span>
         </label>
         <label className="label">
-          {("Service Name")} Ar:{" "}
+          {"Service Name"} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true)).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Category")} :
+          {"Category"} :
           {res?.serviceCategory?.name ? (
             <span className="badge badge-error">
               {await TranslateServer(res?.serviceCategory.name)}
             </span>
           ) : (
-            <span className="text-lg badge-accent">{("No Data")}</span>
+            <span className="text-lg badge-accent">{"No Data"}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Clinic Name")} :
+          {"Clinic Name"} :
           {res?.clinic?.name ? (
             <span className="badge badge-primary">
               {`${await TranslateServer(res?.clinic?.name)}`}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Approximate Duration")} :
+          {"Approximate Duration"} :
           {res?.approximate_duration ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.approximate_duration.toLocaleString()}
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
 
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Price")} :
+          {"Price"} :
           {res?.price ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.price.toLocaleString()} IQD
             </span>
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-1 w-full label">
-          {("Status")} :
+          {"Status"} :
           {res?.status ? (
             <span className="badge badge-success">{res?.status}</span>
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
       </Grid>
       <Grid md={1}>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Description")} EN :
+          {"Description"} EN :
           {res?.status ? (
             <textarea
               rows={4}
@@ -98,11 +98,11 @@ const page = async ({
               readOnly={true}
             />
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {("Description")} AR :
+          {"Description"} AR :
           {res?.status ? (
             <textarea
               rows={4}
@@ -111,23 +111,16 @@ const page = async ({
               readOnly={true}
             />
           ) : (
-            <span className="text-lg badge badge-neutral">{("No Data")}</span>
+            <span className="text-lg badge badge-neutral">{"No Data"}</span>
           )}
         </label>
-        {res?.icon &&
-        res?.icon?.length > 0 ? (
-            <Gallery
-                media={
-                  res?.icon ? res?.icon : [""]
-                }
-            />
+        {res?.icon && res?.icon?.length > 0 ? (
+          <Gallery media={res?.icon ? res?.icon : [""]} />
         ) : (
-            <div className="flex justify-between items-center">
-              <label className="label"> {("Image")} : </label>
-              <span className="text-lg badge badge-neutral">
-                {("No Image")}
-              </span>
-            </div>
+          <div className="flex justify-between items-center">
+            <label className="label"> {"Image"} : </label>
+            <span className="text-lg badge badge-neutral">{"No Image"}</span>
+          </div>
         )}
       </Grid>
     </PageCard>

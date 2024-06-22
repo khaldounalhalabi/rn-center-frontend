@@ -49,7 +49,7 @@ const ServiceForm = ({
     Navigate(`/admin/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { icon, ...rest } = defaultValues??{icon:""};
+  const { icon, ...rest } = defaultValues ?? { icon: "" };
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -157,25 +157,18 @@ const ServiceForm = ({
         defaultValue={defaultValues?.description ?? ""}
       />
       {type == "update" ? (
-          defaultValues?.icon &&
-          defaultValues?.icon?.length > 0 ? (
-              <Gallery
-                  media={
-                    defaultValues?.icon ? defaultValues?.icon : [""]
-                  }
-              />
-          ) : (
-              <div className="flex justify-between items-center">
-                <label className="label"> {("Image")} : </label>
-                <span className="text-lg badge badge-neutral">
-                {("No Image")}
-              </span>
-              </div>
-          )
+        defaultValues?.icon && defaultValues?.icon?.length > 0 ? (
+          <Gallery media={defaultValues?.icon ? defaultValues?.icon : [""]} />
+        ) : (
+          <div className="flex justify-between items-center">
+            <label className="label"> {"Image"} : </label>
+            <span className="text-lg badge badge-neutral">{"No Image"}</span>
+          </div>
+        )
       ) : (
-          ""
+        ""
       )}
-      <ImageUploader name={"icon"}  />
+      <ImageUploader name={"icon"} />
     </Form>
   );
 };

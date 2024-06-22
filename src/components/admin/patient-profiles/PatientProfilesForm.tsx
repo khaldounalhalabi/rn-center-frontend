@@ -130,23 +130,22 @@ const PatientProfilesForm = ({
         />
         <Textarea name={"note"} label={"Note"} />
         {type == "update" ? (
-            <div className={"col-span-2"}>
-              {defaultValues?.images?.length != 0 ? (
-                  <Gallery
-                      media={defaultValues?.images ? defaultValues?.images : [""]}
-                  />
-              ) : (
-                  <div className="flex items-center">
-                    <label className="label"> {("Image")} : </label>
-                    <span className="text-lg badge badge-neutral">
-                  {("No Data")}
-                </span>
-                  </div>
-              )}
-            </div>
-        ) : ""}
-        <ImageUploader name={"images"} isMultiple={true}/>
-
+          <div className={"col-span-2"}>
+            {defaultValues?.images?.length != 0 ? (
+              <Gallery
+                media={defaultValues?.images ? defaultValues?.images : [""]}
+              />
+            ) : (
+              <div className="flex items-center">
+                <label className="label"> {"Image"} : </label>
+                <span className="text-lg badge badge-neutral">{"No Data"}</span>
+              </div>
+            )}
+          </div>
+        ) : (
+          ""
+        )}
+        <ImageUploader name={"images"} isMultiple={true} />
       </PageCard>
     </Form>
   );

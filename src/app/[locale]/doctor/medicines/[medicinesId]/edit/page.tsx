@@ -16,7 +16,7 @@ const page = async ({
     <PageCard>
       <h2 className="card-title">Edit Medicine</h2>
       <MedicinesForm
-          typePage={'doctor'}
+        typePage={"doctor"}
         type={"update"}
         defaultValues={{
           ...medicines,

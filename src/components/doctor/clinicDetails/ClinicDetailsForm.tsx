@@ -44,7 +44,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
     phone_numbers: defaultValues?.user?.phones,
     ...defaultValues,
   };
-  console.log(defaultValues)
+  console.log(defaultValues);
   return (
     <>
       <Form
@@ -133,9 +133,10 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             name="hospital_id"
             placeHolder={"Select Hospital Name ..."}
             api={(page, search): Promise<ApiResponse<Hospital>> =>
-              HospitalService.make<HospitalService>(
-                "doctor",
-              ).getAllHospital(page, search)
+              HospitalService.make<HospitalService>("doctor").getAllHospital(
+                page,
+                search,
+              )
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -174,10 +175,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             label={"City"}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>("doctor").getAllCities(
-                page,
-                search,
-              )
+              CityService.make<CityService>("doctor").getAllCities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
@@ -197,18 +195,19 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
         <Textarea name="about_us" label={"About Us"} required={true} />
         <div className={"col-span-2"}>
           {defaultValues?.work_gallery?.length != 0 ? (
-              <Gallery
-                  media={defaultValues?.work_gallery ? defaultValues?.work_gallery : [""]}
-              />
+            <Gallery
+              media={
+                defaultValues?.work_gallery ? defaultValues?.work_gallery : [""]
+              }
+            />
           ) : (
-              <div className="flex items-center">
-                <label className="label"> Image : </label>
-                <span className="text-lg badge badge-neutral">No Data</span>
-              </div>
+            <div className="flex items-center">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
           )}
         </div>
         <ImageUploader name={"work_gallery"} isMultiple={true} />
-
       </Form>
     </>
   );

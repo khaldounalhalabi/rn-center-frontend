@@ -19,12 +19,12 @@ import { Navigate } from "@/Actions/navigate";
 
 const OfferForm = ({
   defaultValues = undefined,
-                     typePage="admin",
+  typePage = "admin",
   id,
   type = "store",
 }: {
   defaultValues?: Offers;
-  typePage?:"admin"|"doctor"|"customer"
+  typePage?: "admin" | "doctor" | "customer";
   id?: number;
   type?: "store" | "update";
 }) => {
@@ -65,23 +65,25 @@ const OfferForm = ({
       setLocale={setLocale}
     >
       <Grid md={"2"}>
-        {typePage == "admin" ?
-            <ApiSelect
-                required={true}
-                placeHolder={"Select Clinic name ..."}
-                name={"clinic_id"}
-                api={(page, search) =>
-                    ClinicsService.make<ClinicsService>().indexWithPagination(
-                        page,
-                        search,
-                    )
-                }
-                defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-                label={"Clinic Name"}
-                optionValue={"id"}
-                getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
-            />
-        :""}
+        {typePage == "admin" ? (
+          <ApiSelect
+            required={true}
+            placeHolder={"Select Clinic name ..."}
+            name={"clinic_id"}
+            api={(page, search) =>
+              ClinicsService.make<ClinicsService>().indexWithPagination(
+                page,
+                search,
+              )
+            }
+            defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
+            label={"Clinic Name"}
+            optionValue={"id"}
+            getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
+          />
+        ) : (
+          ""
+        )}
         <TranslatableInput
           required={true}
           locales={["en", "ar"]}
@@ -110,30 +112,31 @@ const OfferForm = ({
           type="number"
           unit={typeOffers == "percentage" ? "%" : "IQD"}
         />
-        {typePage == "doctor"?
-            <div className={`flex gap-5 p-2 items-center`}>
-              <label className={`bg-pom p-2 rounded-md text-white`}>
-                {("Status")}
-              </label>
-              <Input
-                  name={"is_active"}
-                  label={("Active")}
-                  type="radio"
-                  className="radio radio-info"
-                  value={"active"}
-                  defaultChecked={
-                    defaultValues ? defaultValues?.is_active  : true
-                  }
-              />
-              <Input
-                  name={"is_active"}
-                  label={("in Active")}
-                  type="radio"
-                  className="radio radio-info"
-                  value={"in-active"}
-                  defaultChecked={!defaultValues?.is_active }
-              />
-            </div>:""}
+        {typePage == "doctor" ? (
+          <div className={`flex gap-5 p-2 items-center`}>
+            <label className={`bg-pom p-2 rounded-md text-white`}>
+              {"Status"}
+            </label>
+            <Input
+              name={"is_active"}
+              label={"Active"}
+              type="radio"
+              className="radio radio-info"
+              value={"active"}
+              defaultChecked={defaultValues ? defaultValues?.is_active : true}
+            />
+            <Input
+              name={"is_active"}
+              label={"in Active"}
+              type="radio"
+              className="radio radio-info"
+              value={"in-active"}
+              defaultChecked={!defaultValues?.is_active}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <Datepicker
           shouldDisableDate={(day) => {
             return dayjs().isAfter(day.add(1, "day"));

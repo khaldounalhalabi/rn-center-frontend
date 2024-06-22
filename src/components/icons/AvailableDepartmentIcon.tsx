@@ -1,7 +1,7 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const AvailableDepartmentIcon: React.FC<IconAttributes> = ({...props }) => {
+const AvailableDepartmentIcon: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
       <g fill="none" fillRule="evenodd">

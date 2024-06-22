@@ -60,7 +60,7 @@ export interface IApiSelectProps<TResponse, TData> {
     totalPages: number,
   ) => number;
   onClear?: () => void;
-  onRemoveSelected?: (item:Option) => void;
+  onRemoveSelected?: (item: Option) => void;
 }
 
 export interface ISelectProps<TData> {

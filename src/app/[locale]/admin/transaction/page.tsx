@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -14,11 +14,11 @@ import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 
 const Page = () => {
-    const [amountStart,setAmountStart] = useState(0)
-    const [amountEnd,setAmountEnd] = useState()
-    const [startDate,setStartDate] = useState()
-    const [endDate,setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"))
-    const tableData: DataTableData<Transactions> = {
+  const [amountStart, setAmountStart] = useState(0);
+  const [amountEnd, setAmountEnd] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+  const tableData: DataTableData<Transactions> = {
     createUrl: `/admin/transaction/create`,
     title: `Transactions`,
     schema: [
@@ -86,19 +86,27 @@ const Page = () => {
           <InputFilter
             type="number"
             defaultValue={0}
-            onChange={(event:any) => {
-                setAmountStart(event.target.value)
-                const data = amountEnd && event.target.value ? [event.target.value,amountEnd] :event.target.value
-                setParams({ ...params, amount: data });
+            onChange={(event: any) => {
+              setAmountStart(event.target.value);
+              const data =
+                amountEnd && event.target.value
+                  ? [event.target.value, amountEnd]
+                  : event.target.value;
+              setParams({ ...params, amount: data });
             }}
           />
           <label className={"label"}>Amount To :</label>
-          <InputFilter type="number" onChange={(event:any) => {
-              setAmountEnd(event.target.value)
-              const data = amountStart && event.target.value ? [amountStart,event.target.value] :event.target.value
+          <InputFilter
+            type="number"
+            onChange={(event: any) => {
+              setAmountEnd(event.target.value);
+              const data =
+                amountStart && event.target.value
+                  ? [amountStart, event.target.value]
+                  : event.target.value;
               setParams({ ...params, amount: data });
-
-          }} />
+            }}
+          />
           <label className="label">Type :</label>
           <SelectFilter
             data={TransactionTypeArray()}
@@ -111,18 +119,24 @@ const Page = () => {
           <label className="label">Start Date :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
-                setStartDate(time?.format("YYYY-MM-DD hh:mm"))
-              setParams({ ...params, date: [time?.format("YYYY-MM-DD hh:mm"),endDate] });
+              setStartDate(time?.format("YYYY-MM-DD hh:mm"));
+              setParams({
+                ...params,
+                date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+              });
             }}
-            defaultValue={startDate??""}
+            defaultValue={startDate ?? ""}
           />
           <label className="label">End Date :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
-                setEndDate(time?.format("YYYY-MM-DD hh:mm"))
-                setParams({ ...params, date: [startDate,time?.format("YYYY-MM-DD hh:mm")] });
+              setEndDate(time?.format("YYYY-MM-DD hh:mm"));
+              setParams({
+                ...params,
+                date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+              });
             }}
-            defaultValue={endDate??dayjs().format("YYYY-MM-DD hh:mm")}
+            defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
           />
         </div>
       );

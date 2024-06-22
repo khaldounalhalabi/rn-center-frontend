@@ -16,8 +16,8 @@ export class ScheduleService extends BaseService<
     const res = await GET(`${this.actor}/clinics/${clinicId}/schedules`);
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }
-  public async getDoctorSchedules(
-  ): Promise<ApiResponse<SchedulesCollection>> {
+
+  public async getDoctorSchedules(): Promise<ApiResponse<SchedulesCollection>> {
     const res = await GET(`${this.actor}/schedules`);
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }

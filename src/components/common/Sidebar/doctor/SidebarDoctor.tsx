@@ -78,14 +78,14 @@ const SidebarDoctor = ({
         <ul
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem link={"/doctor"}> {("Dashboard")}</SidebarItem>
-          <SidebarCompactItem title={("Clinic Management")}>
+          <SidebarItem link={"/doctor"}> {"Dashboard"}</SidebarItem>
+          <SidebarCompactItem title={"Clinic Management"}>
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/clinic/schedules"}>
-                {("Clinics Schedules")}
+                {"Clinics Schedules"}
               </SidebarItem>
               <SidebarItem link={"/doctor/clinic/holidays"}>
-                {("Clinic Holidays")}
+                {"Clinic Holidays"}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
@@ -93,32 +93,29 @@ const SidebarDoctor = ({
           <SidebarItem link={"/doctor/offer"}>Offers</SidebarItem>
           <SidebarItem link={"/doctor/patients"}>Patients</SidebarItem>
           <SidebarItem link={"/doctor/medicines"}>Medicines</SidebarItem>
-
-
         </ul>
       </div>
       <div
         className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul className={''}>
+        <ul className={""}>
           <SidebarIcon link={"/doctor"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={("Clinic Management")}
-              icon={<ClinicIcon className={`h-9 w-9 `} />}
+            title={"Clinic Management"}
+            icon={<ClinicIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
-
               <SidebarIcon
-                  link={"/doctor/clinic/schedules"}
-                  title={("Clinics Schedules")}
+                link={"/doctor/clinic/schedules"}
+                title={"Clinics Schedules"}
               >
                 <SchedulesIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
               <SidebarIcon
-                  link={"/doctor/clinic/holidays"}
-                  title={("Clinic Holidays")}
+                link={"/doctor/clinic/holidays"}
+                title={"Clinic Holidays"}
               >
                 <HolidaysIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>

@@ -1,10 +1,7 @@
 "use client";
-import SidebarAdmin from "@/components/common/Sidebar/admin/SidebarAdmin";
 import React, { useState } from "react";
 import Navbar from "@/components/common/Navbar/Navbar";
 import SidebarDoctor from "@/components/common/Sidebar/doctor/SidebarDoctor";
-import { usePathname } from "@/navigation";
-import { getCookieClient } from "@/Actions/clientCookies";
 
 const NavProvider = ({ children }: { children: React.ReactNode }) => {
   const [openNavBar, setOpenNavBar] = useState<{
@@ -17,7 +14,7 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex flex-row w-[100vw]">
-        <SidebarDoctor openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
+      <SidebarDoctor openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
       <div
         className={`flex-grow transition-all duration-300 w-[75%] min-h-screen`}
       >

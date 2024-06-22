@@ -17,7 +17,7 @@ const page = async ({
   params: { patientId: number };
 }) => {
   const data = await PatientsService.make<PatientsService>().show(patientId);
-  const user: User|undefined = data?.data.user;
+  const user: User | undefined = data?.data.user;
   const patient: Customer = data?.data;
   return (
     <PageCard>

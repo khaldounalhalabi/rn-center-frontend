@@ -14,7 +14,11 @@ const ResetPasswordRequest = ({
   const handleSubmit = (data: { email: string }) => {
     window.localStorage.setItem(typePage, data.email);
 
-    return AuthService.make<AuthService>().requestResetPasswordRequest(url, data, typePage);
+    return AuthService.make<AuthService>().requestResetPasswordRequest(
+      url,
+      data,
+      typePage,
+    );
   };
   return (
     <div

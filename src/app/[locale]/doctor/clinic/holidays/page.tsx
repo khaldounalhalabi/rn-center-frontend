@@ -11,7 +11,7 @@ import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
 const Page = () => {
   const tableData: DataTableData<ClinicHoliday> = {
     createUrl: `/doctor/clinic/holidays/create`,
-    title: `${("Clinics Holidays")}`,
+    title: `${"Clinics Holidays"}`,
     schema: [
       {
         name: "id",
@@ -20,22 +20,22 @@ const Page = () => {
       },
       {
         name: "start_date",
-        label: `${("Start")}`,
+        label: `${"Start"}`,
         sortable: true,
       },
       {
         name: "end_date",
-        label: `${("End")}`,
+        label: `${"End"}`,
         sortable: true,
       },
       {
         name: "reason",
-        label: `${("Reason")}`,
+        label: `${"Reason"}`,
         translatable: true,
         render: (data) => <p className={`overflow-ellipsis`}>{data}</p>,
       },
       {
-        label: `${("Actions")}`,
+        label: `${"Actions"}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -49,20 +49,15 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicHolidayService.make<ClinicHolidayService>("doctor").indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await ClinicHolidayService.make<ClinicHolidayService>(
+        "doctor",
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
 
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            {("Start Date")} :
+            {"Start Date"} :
             <DatepickerFilter
               onChange={(event): void => {
                 setParams({
@@ -74,7 +69,7 @@ const Page = () => {
             />
           </label>
           <label className={`label`}>
-            {("End Date")} :
+            {"End Date"} :
             <DatepickerFilter
               onChange={(event): void => {
                 setParams({ ...params, end_date: event?.format("YYYY-MM-DD") });

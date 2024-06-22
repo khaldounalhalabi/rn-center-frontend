@@ -28,7 +28,6 @@ const ServiceForm = ({
 }) => {
   const t = useTranslations("admin.service.create-edit");
   const handleSubmit = async (data: any) => {
-
     console.log(data);
     if (
       type === "update" &&
@@ -48,7 +47,7 @@ const ServiceForm = ({
     Navigate(`/doctor/service`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { icon, ...rest } = defaultValues??{icon:""};
+  const { icon, ...rest } = defaultValues ?? { icon: "" };
 
   return (
     <Form
@@ -129,7 +128,6 @@ const ServiceForm = ({
             defaultChecked={defaultValues?.status == "in-active"}
           />
         </div>
-
       </Grid>
 
       <TranslatableTextArea
@@ -138,26 +136,18 @@ const ServiceForm = ({
         defaultValue={defaultValues?.description ?? ""}
       />
       {type == "update" ? (
-          defaultValues?.icon &&
-          defaultValues?.icon?.length > 0 ? (
-              <Gallery
-                  media={
-                    defaultValues?.icon ? defaultValues?.icon : [""]
-                  }
-              />
-          ) : (
-              <div className="flex justify-between items-center">
-                <label className="label"> {t("image")} : </label>
-                <span className="text-lg badge badge-neutral">
-                {t("noImage")}
-              </span>
-              </div>
-          )
+        defaultValues?.icon && defaultValues?.icon?.length > 0 ? (
+          <Gallery media={defaultValues?.icon ? defaultValues?.icon : [""]} />
+        ) : (
+          <div className="flex justify-between items-center">
+            <label className="label"> {t("image")} : </label>
+            <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+          </div>
+        )
       ) : (
-          ""
+        ""
       )}
-      <ImageUploader name={"icon"}  />
-
+      <ImageUploader name={"icon"} />
     </Form>
   );
 };

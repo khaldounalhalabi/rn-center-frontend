@@ -54,62 +54,62 @@ const PatientForm = ({
   const onSuccess = () => {
     Navigate(`/doctor/patients`);
   };
-  console.log(defaultValues)
+  console.log(defaultValues);
   const [locale, setLocale] = useState<"en" | "ar">("en");
   return (
-    <div className={'mt-4'}>
+    <div className={"mt-4"}>
       <Form
-          handleSubmit={handleSubmit}
-          onSuccess={onSuccess}
-          defaultValues={defaultValues}
-          setLocale={setLocale}
+        handleSubmit={handleSubmit}
+        onSuccess={onSuccess}
+        defaultValues={defaultValues}
+        setLocale={setLocale}
       >
         <PageCard>
           <h2 className="card-title">Add Patient</h2>
           <Grid md={"2"}>
             <TranslatableInput
-                required={true}
-                locales={["en", "ar"]}
-                type={"text"}
-                placeholder={"John"}
-                label={`First Name :`}
-                name={"first_name"}
-                locale={locale}
+              required={true}
+              locales={["en", "ar"]}
+              type={"text"}
+              placeholder={"John"}
+              label={`First Name :`}
+              name={"first_name"}
+              locale={locale}
             />
             <TranslatableInput
-                required={true}
-                locales={["en", "ar"]}
-                type={"text"}
-                placeholder={"John"}
-                label={`Middle Name :`}
-                name={"middle_name"}
-                locale={locale}
+              required={true}
+              locales={["en", "ar"]}
+              type={"text"}
+              placeholder={"John"}
+              label={`Middle Name :`}
+              name={"middle_name"}
+              locale={locale}
             />
             <TranslatableInput
-                required={true}
-                locales={["en", "ar"]}
-                type={"text"}
-                placeholder={"John"}
-                label={`Last Name :`}
-                locale={locale}
-                name={"last_name"}
+              required={true}
+              locales={["en", "ar"]}
+              type={"text"}
+              placeholder={"John"}
+              label={`Last Name :`}
+              locale={locale}
+              name={"last_name"}
             />
             <SelectPopOverFrom
-                name={"blood_group"}
-                id={1}
-                required={true}
-                label={"Blood Group"}
-                ArraySelect={BloodArray()}
-                status={defaultValues?.blood_group ?? ""}
+              name={"blood_group"}
+              id={1}
+              required={true}
+              label={"Blood Group"}
+              ArraySelect={BloodArray()}
+              status={defaultValues?.blood_group ?? ""}
             />
           </Grid>
 
           <MultiInput
-              type={"tel"}
-              name={"phone_numbers"}
-              placeholder={"Enter Clinic Phone Number"}
-              label={"Phones :"}
-              required={true}
+            type={"tel"}
+            name={"phone_numbers"}
+            placeholder={"Enter Clinic Phone Number"}
+            label={"Phones :"}
+            required={true}
           />
           <Grid md={2}>
             <div className={`flex gap-5 p-2 items-center`}>
@@ -117,66 +117,68 @@ const PatientForm = ({
                 Gender:
               </label>
               <Input
-                  name={"gender"}
-                  label="Male"
-                  type="radio"
-                  className="radio radio-info"
-                  value={"male"}
-                  defaultChecked={
-                    defaultValues?.gender ? defaultValues?.gender == "male" : true
-                  }
+                name={"gender"}
+                label="Male"
+                type="radio"
+                className="radio radio-info"
+                value={"male"}
+                defaultChecked={
+                  defaultValues?.gender ? defaultValues?.gender == "male" : true
+                }
               />
 
               <Input
-                  name={"gender"}
-                  label={"Female"}
-                  type="radio"
-                  className="radio radio-info"
-                  value={"female"}
-                  defaultChecked={defaultValues?.gender == "female"}
+                name={"gender"}
+                label={"Female"}
+                type="radio"
+                className="radio radio-info"
+                value={"female"}
+                defaultChecked={defaultValues?.gender == "female"}
               />
             </div>
             <TranslatableInput
-                required={true}
-                locales={["en", "ar"]}
-                type={"text"}
-                placeholder={"John"}
-                label={`Address :`}
-                name={"address.name"}
-                locale={locale}
-                defaultValue={defaultValues ? defaultValues?.address?.name : ""}
+              required={true}
+              locales={["en", "ar"]}
+              type={"text"}
+              placeholder={"John"}
+              label={`Address :`}
+              name={"address.name"}
+              locale={locale}
+              defaultValue={defaultValues ? defaultValues?.address?.name : ""}
             />
             <ApiSelect
-                required={true}
-                name={"address.city_id"}
-                label={"City :"}
-                placeHolder={"Select City Name ..."}
-                api={(page?: number | undefined, search?: string | undefined) =>
-                    CityService.make<CityService>("doctor").getAllCities(
-                        page,
-                        search,
-                    )
-                }
-                getOptionLabel={(item) => TranslateClient(item.name)}
-                optionValue={"id"}
-                defaultValues={
-                  defaultValues?.address?.city ? [defaultValues?.address?.city] : []
-                }
+              required={true}
+              name={"address.city_id"}
+              label={"City :"}
+              placeHolder={"Select City Name ..."}
+              api={(page?: number | undefined, search?: string | undefined) =>
+                CityService.make<CityService>("doctor").getAllCities(
+                  page,
+                  search,
+                )
+              }
+              getOptionLabel={(item) => TranslateClient(item.name)}
+              optionValue={"id"}
+              defaultValues={
+                defaultValues?.address?.city
+                  ? [defaultValues?.address?.city]
+                  : []
+              }
             />
             <Datepicker
-                name={"birth_date"}
-                label={"Birth Date :"}
-                required={true}
-                shouldDisableDate={(day) => {
-                  return !day.isBefore(dayjs().subtract(20, "year"));
-                }}
+              name={"birth_date"}
+              label={"Birth Date :"}
+              required={true}
+              shouldDisableDate={(day) => {
+                return !day.isBefore(dayjs().subtract(20, "year"));
+              }}
             />
           </Grid>
         </PageCard>
 
         <PageCard>
           <OtherDataInput
-              defaultValues={defaultValues?.other_data ?? undefined}
+            defaultValues={defaultValues?.other_data ?? undefined}
           />
         </PageCard>
         <PageCard>
@@ -184,20 +186,20 @@ const PatientForm = ({
           <Textarea name={"note"} label={"Note"} />
 
           {type == "update" ? (
-              <div className={"col-span-2"}>
-                {defaultValues?.images?.length != 0 ? (
-                    <Gallery
-                        media={defaultValues?.images ? defaultValues?.images : []}
-                    />
-                ) : (
-                    <div className="flex items-center">
-                      <label className="label"> Image : </label>
-                      <span className="text-lg badge badge-neutral">No Data</span>
-                    </div>
-                )}
-              </div>
+            <div className={"col-span-2"}>
+              {defaultValues?.images?.length != 0 ? (
+                <Gallery
+                  media={defaultValues?.images ? defaultValues?.images : []}
+                />
+              ) : (
+                <div className="flex items-center">
+                  <label className="label"> Image : </label>
+                  <span className="text-lg badge badge-neutral">No Data</span>
+                </div>
+              )}
+            </div>
           ) : (
-              ""
+            ""
           )}
           <ImageUploader name={"images"} isMultiple={true} />
         </PageCard>

@@ -1,6 +1,6 @@
 import { Customer } from "@/Models/Customer";
 import { Clinic } from "@/Models/Clinic";
-import {Media} from "@/Models/Media";
+import { Media } from "@/Models/Media";
 
 export interface PatientProfiles {
   id: number;

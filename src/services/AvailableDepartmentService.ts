@@ -1,8 +1,8 @@
 import { BaseService } from "@/services/BaseService";
-import {AvailableDepartment} from "@/Models/AvailableDepartment";
+import { AvailableDepartment } from "@/Models/AvailableDepartment";
 
 export class AvailableDepartmentService extends BaseService<AvailableDepartment> {
-    public getBaseUrl(): string {
-        return `${this.actor}/available-departments`;
-    }
+  public getBaseUrl(): string {
+    return `${this.actor}/available-departments`;
+  }
 }

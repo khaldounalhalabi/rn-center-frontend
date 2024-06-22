@@ -1,7 +1,7 @@
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import Trash from "@/components/icons/Trash";
-import React, {useEffect, useState, useTransition} from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import { useRouter } from "@/navigation";
@@ -62,10 +62,9 @@ const MultiMedicinesInput = ({
     setMedicines(updatedMedicines);
     setValue("medicines", medicines);
   };
-  useEffect(()=>{
+  useEffect(() => {
     setValue("medicines", medicines);
-
-  },[medicines])
+  }, [medicines]);
   let router = useRouter();
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
@@ -229,7 +228,7 @@ const MultiMedicinesInput = ({
                           const id = Array.isArray(defaultValues)
                             ? defaultValues?.[index]?.id
                             : 0;
-                          console.log(id)
+                          console.log(id);
                           if (id != 0) {
                             return PrescriptionService.make<PrescriptionService>(
                               "admin",

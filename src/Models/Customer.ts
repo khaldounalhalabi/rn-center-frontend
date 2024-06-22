@@ -1,14 +1,14 @@
 import { User } from "@/Models/User";
 import { Address } from "@/Models/Address";
 import { Media } from "@/Models/Media";
-import {PatientProfiles} from "@/Models/PatientProfiles";
+import { PatientProfiles } from "@/Models/PatientProfiles";
 
 export interface Customer {
   id: number;
   medical_condition?: string;
   user_id: number;
   user?: User;
-  currentClinicPatientProfile?:PatientProfiles
+  currentClinicPatientProfile?: PatientProfiles;
 }
 
 export interface AddOrUpdateCustomer {
@@ -28,7 +28,7 @@ export interface AddOrUpdateCustomer {
   address?: Address;
   password?: string;
   password_confirmation?: string;
-  other_data?:string,
+  other_data?: string;
   images?: Media[] | string[];
   note?: string;
 }

@@ -55,6 +55,7 @@ export interface DataTableData<T> {
     ) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
+
 const DataTable = (tableData: DataTableData<any>) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");

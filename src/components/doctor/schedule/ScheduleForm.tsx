@@ -31,7 +31,7 @@ const weeKDays: WeekDay[] = [
 interface SchedulesTimes extends Omit<SchedulesCollection, "appointment_gap"> {}
 
 const ScheduleForm = ({
-  defaultValues ,
+  defaultValues,
   method,
   appointment_gap,
 }: {

@@ -27,7 +27,7 @@ function ApiSelect<TResponse, TData>({
   onChange = undefined,
   required = false,
   onClear = undefined,
-  onRemoveSelected= undefined,
+  onRemoveSelected = undefined,
   inputProps = {},
   revalidate,
 }: IApiSelectProps<TResponse, TData>) {
@@ -147,7 +147,7 @@ function ApiSelect<TResponse, TData>({
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
-    onRemoveSelected?onRemoveSelected(clickedItem):false
+    onRemoveSelected ? onRemoveSelected(clickedItem) : false;
   };
 
   const handleDataScrolling = (e: any) => {

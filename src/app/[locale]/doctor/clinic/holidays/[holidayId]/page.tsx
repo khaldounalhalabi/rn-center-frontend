@@ -14,7 +14,9 @@ const page = async ({
 }) => {
   const t = await getTranslations("admin.holidays.show");
   const data =
-    await ClinicHolidayService.make<ClinicHolidayService>("doctor").show(holidayId);
+    await ClinicHolidayService.make<ClinicHolidayService>("doctor").show(
+      holidayId,
+    );
   const res: ClinicHoliday = data?.data;
 
   return (

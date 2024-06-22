@@ -10,7 +10,8 @@ const page = async ({
 }: {
   params: { medicinesId: number };
 }) => {
-  const data = await MedicineService.make<MedicineService>("doctor").show(medicinesId);
+  const data =
+    await MedicineService.make<MedicineService>("doctor").show(medicinesId);
   const res: Medicine = data?.data;
   return (
     <PageCard>
@@ -20,12 +21,10 @@ const page = async ({
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>
-        <label className="label">
-          Medicine Name
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {res?.name}
-          </span>
-        </label>
+      <label className="label">
+        Medicine Name
+        <span className="bg-base-200 px-2 rounded-xl text-lg">{res?.name}</span>
+      </label>
       <div className="w-full">
         <label className="label">Description :</label>
         <textarea

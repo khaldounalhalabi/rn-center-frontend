@@ -11,7 +11,7 @@ const TranslateServer = async (
   const noDataObj = JSON.parse(noData ?? "{}");
 
   if (!val && object) {
-    return noDataObj
+    return noDataObj;
   }
 
   if (!val && !object) {

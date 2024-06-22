@@ -6,7 +6,7 @@ const page = async () => {
   return (
     <PageCard>
       <h2 className="card-title">Add Offer</h2>
-      <OfferForm typePage={"doctor"}/>
+      <OfferForm typePage={"doctor"} />
     </PageCard>
   );
 };

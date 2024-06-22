@@ -7,9 +7,6 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import ArchiveButton from "@/components/common/ArchiveButton";
-import { UsersService } from "@/services/UsersService";
-import BlockButton from "@/components/common/BlockButton";
 
 const Page = () => {
   const tableData: DataTableData<Customer> = {
@@ -87,8 +84,7 @@ const Page = () => {
             editUrl={`/doctor/patients/${data?.id}/edit`}
             showUrl={`/doctor/patients/${data?.id}`}
             setHidden={setHidden}
-          >
-          </ActionsButtons>
+          ></ActionsButtons>
         ),
       },
     ],

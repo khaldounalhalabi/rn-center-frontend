@@ -50,7 +50,8 @@ const Page = () => {
       },
       {
         label: `${t("phone")}`,
-        render: (_undefined, clinic) => clinic?.user?.phones ?clinic?.user?.phones[0]?.phone: "",
+        render: (_undefined, clinic) =>
+          clinic?.user?.phones ? clinic?.user?.phones[0]?.phone : "",
       },
       {
         label: `${t("status")}`,

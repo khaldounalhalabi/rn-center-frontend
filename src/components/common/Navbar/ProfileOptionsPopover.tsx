@@ -19,7 +19,7 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
   const actor = getCookieClient("user-type");
-  const { data,isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       // @ts-ignore
@@ -27,7 +27,7 @@ const ProfileOptionsPopover = () => {
     },
   });
   const res: User | undefined = data?.data;
-  const imageUrl = data?.data?.image?.[0]?.file_url
+  const imageUrl = data?.data?.image?.[0]?.file_url;
   return (
     <div
       ref={ref}
@@ -41,8 +41,11 @@ const ProfileOptionsPopover = () => {
             : " w-7 h-7"
         }
       >
-        {!isLoading?<RoundedImage src={imageUrl??"/user.png"} alt={"user-profile"} />:<LoadingSpin className={"w-5 h-5"} />}
-
+        {!isLoading ? (
+          <RoundedImage src={imageUrl ?? "/user.png"} alt={"user-profile"} />
+        ) : (
+          <LoadingSpin className={"w-5 h-5"} />
+        )}
       </div>
 
       <div

@@ -117,15 +117,21 @@ const SidebarAdmin = ({
               {t("appointment")}
             </SidebarItem>
             <SidebarCompactItem title={"Hospitals Management"}>
-              <SidebarItem link={"/admin/hospitals"}>{t("hospitals")}</SidebarItem>
-              <SidebarItem link={"/admin/hospital-departments"}>Available Departments</SidebarItem>
+              <SidebarItem link={"/admin/hospitals"}>
+                {t("hospitals")}
+              </SidebarItem>
+              <SidebarItem link={"/admin/hospital-departments"}>
+                Available Departments
+              </SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
 
             <SidebarItem link={"/admin/user"}>Users</SidebarItem>
             <SidebarCompactItem title={"Patients Management"}>
               <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
-              <SidebarItem link={"/admin/patient-profiles"}>Patient Profiles</SidebarItem>
+              <SidebarItem link={"/admin/patient-profiles"}>
+                Patient Profiles
+              </SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/subscriptions"}>
               Subscriptions
@@ -136,16 +142,16 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
             <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
-            <SidebarItem link={"/admin/blood-donation"}>Blood Donation</SidebarItem>
-
-
+            <SidebarItem link={"/admin/blood-donation"}>
+              Blood Donation
+            </SidebarItem>
           </div>
         </ul>
       </div>
       <div
         className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul className={''}>
+        <ul className={""}>
           <SidebarIcon link={"/admin"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>
@@ -175,14 +181,17 @@ const SidebarAdmin = ({
             <SpecialitiesIcon className={`h-7 w-7`} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={("Hospitals Management")}
-              icon={<CompactHospitalIcon className={`h-9 w-9 `} />}
+            title={"Hospitals Management"}
+            icon={<CompactHospitalIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
                 <HospitalsIcon className={`h-9 w-9`} />
               </SidebarIcon>
-              <SidebarIcon link={"/admin/hospital-departments"} title={t("hospitals")}>
+              <SidebarIcon
+                link={"/admin/hospital-departments"}
+                title={t("hospitals")}
+              >
                 <AvailableDepartmentIcon className={`h-9 w-9`} />
               </SidebarIcon>
             </div>
@@ -205,14 +214,17 @@ const SidebarAdmin = ({
           </SidebarIcon>
 
           <SidebarCompactIcon
-              title={("Patients Management")}
-              icon={<PatientMangerIcon className={`h-9 w-9 `} />}
+            title={"Patients Management"}
+            icon={<PatientMangerIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/patients"} title={"Patients"}>
                 <PatientIcon className={`h-7 w-7`} />
               </SidebarIcon>
-              <SidebarIcon link={"/admin/patient-profiles"} title={"Patient Profiles"}>
+              <SidebarIcon
+                link={"/admin/patient-profiles"}
+                title={"Patient Profiles"}
+              >
                 <PatientProfilesIcon className={`h-7 w-7`} />
               </SidebarIcon>
             </div>

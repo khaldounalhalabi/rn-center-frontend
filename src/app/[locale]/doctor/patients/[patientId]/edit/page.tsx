@@ -26,10 +26,10 @@ const page = async ({
     address: patient.user.address,
     password: patient.user.password,
     password_confirmation: patient.user.password_confirmation,
-    other_data:patient.currentClinicPatientProfile?.other_data,
-    note:patient.currentClinicPatientProfile?.note,
-    medical_condition:patient.currentClinicPatientProfile?.medical_condition,
-    images:patient.currentClinicPatientProfile?.images
+    other_data: patient.currentClinicPatientProfile?.other_data,
+    note: patient.currentClinicPatientProfile?.note,
+    medical_condition: patient.currentClinicPatientProfile?.medical_condition,
+    images: patient.currentClinicPatientProfile?.images,
   };
 
   return (

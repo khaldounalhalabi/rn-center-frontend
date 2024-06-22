@@ -21,11 +21,11 @@ const Page = async ({
       photo: clinic?.user?.image,
       image: [],
     },
-    phone_numbers: clinic?.user?.phones.map((ph) => ph.phone),
+    phone_numbers: clinic?.user?.phones?.map((ph) => ph.phone),
     address: {
       ...clinic?.user?.address,
       city_id: clinic?.user?.address?.city_id,
-      map_iframe: clinic.user.address.map_iframe,
+      map_iframe: clinic.user?.address?.map_iframe,
     },
     speciality_ids:
       clinic && clinic.specialities

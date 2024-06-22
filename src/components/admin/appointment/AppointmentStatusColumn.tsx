@@ -8,7 +8,6 @@ import AppointmentStatuses, {
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { swal } from "@/Helpers/UIHelpers";
-import { useRouter } from "@/navigation";
 
 const AppointmentStatusColumn = ({
   appointment,

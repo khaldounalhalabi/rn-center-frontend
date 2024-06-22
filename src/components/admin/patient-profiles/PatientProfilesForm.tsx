@@ -105,9 +105,9 @@ const PatientProfilesForm = ({
               optionValue={"id"}
               getOptionLabel={(data: Customer) => (
                 <p>
-                  {TranslateClient(data.user.first_name)}{" "}
-                  {TranslateClient(data.user.middle_name)}{" "}
-                  {TranslateClient(data.user.last_name)}{" "}
+                  {TranslateClient(data.user?.first_name)}{" "}
+                  {TranslateClient(data.user?.middle_name)}{" "}
+                  {TranslateClient(data.user?.last_name)}{" "}
                 </p>
               )}
             />

@@ -12,17 +12,17 @@ export interface Customer {
 }
 
 export interface AddOrUpdateCustomer {
-  id: number;
+  id?: number;
   medical_condition?: string;
-  user_id: number;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
-  email: string;
-  birth_date: string;
-  gender: string;
-  blood_group: string;
-  tags: string;
+  user_id?: number;
+  first_name?: string;
+  middle_name?: string;
+  last_name?: string;
+  email?: string;
+  birth_date?: string;
+  gender?: string;
+  blood_group?: string;
+  tags?: string;
   image?: Media[];
   phone_numbers?: string[];
   address?: Address;

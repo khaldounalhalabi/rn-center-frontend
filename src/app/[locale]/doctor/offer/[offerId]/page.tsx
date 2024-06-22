@@ -27,7 +27,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           Appointment Cost :{" "}
           <span className="ml-2 badge badge-error" suppressHydrationWarning>
-            {res.clinic.appointment_cost.toLocaleString()} IQD
+            {res.clinic?.appointment_cost.toLocaleString()} IQD
           </span>
         </label>
         <label className="label justify-start text-xl">

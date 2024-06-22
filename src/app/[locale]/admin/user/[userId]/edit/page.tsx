@@ -8,7 +8,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
     .data;
 
   const defaultUser = {
-    phone_numbers: user?.phones.map((ph) => ph.phone),
+    phone_numbers: user?.phones?.map((ph) => ph.phone),
     ...user,
   };
 

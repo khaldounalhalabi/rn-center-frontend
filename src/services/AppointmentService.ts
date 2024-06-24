@@ -10,21 +10,21 @@ export class AppointmentService extends BaseService<Appointment> {
   }
 
   public async getAvailableTimes(
-    clinicId: number,
+    clinicId: number
   ): Promise<ApiResponse<AvailableTime>> {
     const res = await GET<AvailableTime>(
-      `${this.actor}/clinics/${clinicId}/available-times`,
+      `${this.actor}/clinics/${clinicId}/available-times`
     );
     return await this.errorHandler(res);
   }
 
   public async toggleStatus(
     appointmentId: number,
-    data: { status: string; cancellation_reason?: string },
+    data: { status: string; cancellation_reason?: string }
   ): Promise<ApiResponse<Appointment>> {
     const res = await POST<Appointment>(
       `${this.actor}/appointments/${appointmentId}/toggle-status`,
-      data,
+      data
     );
     return await this.errorHandler(res);
   }
@@ -36,7 +36,7 @@ export class AppointmentService extends BaseService<Appointment> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Appointment[]>> {
     const res = await GET<Appointment[]>(
       `${this.actor}/clinics/${clinicId}/appointments`,
@@ -48,6 +48,7 @@ export class AppointmentService extends BaseService<Appointment> {
         per_page: per_page,
         ...params,
       },
+      this.headers
     );
     return await this.errorHandler(res);
   }

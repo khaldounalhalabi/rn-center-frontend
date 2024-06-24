@@ -15,7 +15,7 @@ export class ServiceService extends BaseService<Service> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Service[]>> {
     const res = await GET<Service[]>(
       `${this.actor}/clinics/${clinicId}/services`,
@@ -27,6 +27,7 @@ export class ServiceService extends BaseService<Service> {
         per_page: per_page,
         ...params,
       },
+      this.headers
     );
     return await this.errorHandler(res);
   }

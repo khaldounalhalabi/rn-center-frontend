@@ -221,10 +221,9 @@ const ClinicForm = ({
           name="hospital_id"
           placeHolder={"Select Hospital Name ..."}
           api={(page, search): Promise<ApiResponse<Hospital[]>> =>
-            HospitalService.make<HospitalService>().indexWithPagination(
-              page,
-              search,
-            )
+            HospitalService.make<HospitalService>()
+              .setHeaders({ filtered: true })
+              .indexWithPagination(page, search)
           }
           getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
@@ -241,7 +240,7 @@ const ClinicForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
-              search,
+              search
             )
           }
           getOptionLabel={(item) => TranslateClient(item.name)}
@@ -287,7 +286,7 @@ const ClinicForm = ({
               api={(page, search): Promise<ApiResponse<Subscriptions[]>> =>
                 SubscriptionsService.make<SubscriptionsService>().indexWithPagination(
                   page,
-                  search,
+                  search
                 )
               }
               placeHolder={"Select Subscription Name ..."}

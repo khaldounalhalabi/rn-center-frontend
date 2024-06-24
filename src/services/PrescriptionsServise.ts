@@ -9,10 +9,12 @@ export class PrescriptionService extends BaseService<Prescription> {
   }
 
   public async deleteMedicine(
-    medicineId: number,
+    medicineId: number
   ): Promise<ApiResponse<MedicineData[]>> {
     const res = await DELETE<MedicineData[]>(
       `${this.actor}/prescriptions/medicine-data/${medicineId}`,
+      undefined,
+      this.headers
     );
     return await this.errorHandler(res);
   }
@@ -24,7 +26,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Prescription[]>> {
     const res = await GET<Prescription[]>(
       `${this.actor}/appointments/${appointmentId}/prescriptions`,
@@ -36,6 +38,7 @@ export class PrescriptionService extends BaseService<Prescription> {
         per_page: per_page,
         ...params,
       },
+      this.headers
     );
     return await this.errorHandler(res);
   }

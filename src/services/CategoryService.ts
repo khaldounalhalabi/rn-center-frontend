@@ -14,16 +14,20 @@ export class CategoryService extends BaseService<ServiceCategory> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<ServiceCategory[]>> {
-    const res = await GET<ServiceCategory[]>(`service-categories`, {
-      page: page,
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      ...params,
-    });
+    const res = await GET<ServiceCategory[]>(
+      `service-categories`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers
+    );
     return await this.errorHandler(res);
   }
 }

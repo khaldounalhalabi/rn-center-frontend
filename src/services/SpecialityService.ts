@@ -14,16 +14,20 @@ export class SpecialityService extends BaseService<Speciality> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Speciality>> {
-    const res = await GET<Speciality>(`specialities`, {
-      page: page,
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      ...params,
-    });
+    const res = await GET<Speciality>(
+      `specialities`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers
+    );
     return await this.errorHandler(res);
   }
 }

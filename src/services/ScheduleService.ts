@@ -11,14 +11,18 @@ export class ScheduleService extends BaseService<
   }
 
   public async getClinicSchedules(
-    clinicId: number,
+    clinicId: number
   ): Promise<ApiResponse<SchedulesCollection>> {
-    const res = await GET(`${this.actor}/clinics/${clinicId}/schedules`);
+    const res = await GET(
+      `${this.actor}/clinics/${clinicId}/schedules`,
+      undefined,
+      this.headers
+    );
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }
 
   public async getDoctorSchedules(): Promise<ApiResponse<SchedulesCollection>> {
-    const res = await GET(`${this.actor}/schedules`);
+    const res = await GET(`${this.actor}/schedules`, undefined, this.headers);
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }
 }

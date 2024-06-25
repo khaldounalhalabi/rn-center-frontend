@@ -8,14 +8,17 @@ import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
 import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
 import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
 import DashBordIcon from "@/components/icons/DashBordIcon";
-import ClinicIcon from "@/components/icons/ClinicIcon";
 import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import HolidaysIcon from "@/components/icons/HolidaysIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import OfferIcon from "@/components/icons/OfferIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
-
+import { getCookieClient } from "@/Actions/clientCookies";
+import { PermissionsDoctor } from "@/enum/Permissions";
+import { Role } from "@/enum/Role";
+import ClinicIcon from "@/components/icons/ClinicIcon";
+import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
 const SidebarDoctor = ({
   openNavBar,
   setOpenNavBar,
@@ -30,9 +33,14 @@ const SidebarDoctor = ({
   }>;
 }) => {
   const t = useTranslations("sideBar");
-
+  const permissions: string | undefined = getCookieClient("permissions");
+  const permissionsArray: string[] = permissions?.split(",") ?? [""];
+  const role = getCookieClient("role");
   // @ts-ignore
-  return (
+  // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    return (
     <div
       className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
        ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
@@ -81,18 +89,88 @@ const SidebarDoctor = ({
           <SidebarItem link={"/doctor"}> {"Dashboard"}</SidebarItem>
           <SidebarCompactItem title={"Clinic Management"}>
             <div className="flex flex-col">
-              <SidebarItem link={"/doctor/clinic/schedules"}>
+                <SidebarItem link={"/doctor/clinic-details"}>
+                    {"Clinic Details"}
+                </SidebarItem>
+              <SidebarItem
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.MANGE_SCHEDULES)
+                    ? "hidden"
+                    : ""
+                }
+                link={"/doctor/clinic/schedules"}
+              >
                 {"Clinics Schedules"}
               </SidebarItem>
-              <SidebarItem link={"/doctor/clinic/holidays"}>
+              <SidebarItem
+                link={"/doctor/clinic/holidays"}
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.MANAGE_HOLIDAYS)
+                      ? "hidden"
+                      : ""
+                }
+              >
                 {"Clinic Holidays"}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
-          <SidebarItem link={"/doctor/service"}>{t("services")}</SidebarItem>
-          <SidebarItem link={"/doctor/offer"}>Offers</SidebarItem>
-          <SidebarItem link={"/doctor/patients"}>Patients</SidebarItem>
-          <SidebarItem link={"/doctor/medicines"}>Medicines</SidebarItem>
+          <SidebarItem
+            link={"/doctor/service"}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
+                  ? "hidden"
+                  : ""
+            }
+          >
+            {t("services")}
+          </SidebarItem>
+          <SidebarItem
+            link={"/doctor/offer"}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
+                  ? "hidden"
+                  : ""
+            }
+          >
+            Offers
+          </SidebarItem>
+          <SidebarItem
+            link={"/doctor/patients"}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
+                  ? "hidden"
+                  : ""
+            }
+          >
+            Patients
+          </SidebarItem>
+          <SidebarItem
+            link={"/doctor/medicines"}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.MANAGE_MEDICINES)
+                  ? "hidden"
+                  : ""
+            }
+          >
+            Medicines
+          </SidebarItem>
+          <SidebarItem
+            link={"/doctor/staff"}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
+                  ? "hidden"
+                  : ""
+            }
+          >
+            Staff
+          </SidebarItem>
         </ul>
       </div>
       <div
@@ -107,13 +185,31 @@ const SidebarDoctor = ({
             icon={<ClinicIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
+                <SidebarIcon
+                    link={"/doctor/clinic-details"}
+                    title={"Clinic Details"}
+                >
+                    <ClinicsShowIcon className={`h-7 w-7 mx-3`} />
+                </SidebarIcon>
               <SidebarIcon
+                  className={
+                    role == Role.CLINIC_EMPLOYEE &&
+                    !permissionsArray.includes(PermissionsDoctor.MANGE_SCHEDULES)
+                        ? "hidden"
+                        : ""
+                  }
                 link={"/doctor/clinic/schedules"}
                 title={"Clinics Schedules"}
               >
                 <SchedulesIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
               <SidebarIcon
+                  className={
+                    role == Role.CLINIC_EMPLOYEE &&
+                    !permissionsArray.includes(PermissionsDoctor.MANAGE_HOLIDAYS)
+                        ? "hidden"
+                        : ""
+                  }
                 link={"/doctor/clinic/holidays"}
                 title={"Clinic Holidays"}
               >
@@ -121,16 +217,44 @@ const SidebarDoctor = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-          <SidebarIcon link={"/doctor/service"} title={t("services")}>
+          <SidebarIcon
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
+                    ? "hidden"
+                    : ""
+              }
+              link={"/doctor/service"} title={t("services")}>
             <ServiceIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/doctor/offer"} title={"Offers"}>
+          <SidebarIcon
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
+                    ? "hidden"
+                    : ""
+              }
+              link={"/doctor/offer"} title={"Offers"}>
             <OfferIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/doctor/patients"} title={"Patients"}>
+          <SidebarIcon
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
+                    ? "hidden"
+                    : ""
+              }
+              link={"/doctor/patients"} title={"Patients"}>
             <PatientIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/doctor/medicines"} title={"Patients"}>
+          <SidebarIcon
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_MEDICINES)
+                    ? "hidden"
+                    : ""
+              }
+              link={"/doctor/medicines"} title={"medicines"}>
             <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>

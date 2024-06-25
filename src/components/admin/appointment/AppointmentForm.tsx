@@ -31,6 +31,7 @@ interface Range {
   range: number;
   limit: number | undefined;
   data: AvailableTime;
+  customer_id?:number,
 }
 
 const AppointmentForm = ({
@@ -49,6 +50,7 @@ const AppointmentForm = ({
     appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
     range: defaultValues?.clinic?.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
+    customer_id:0,
     data: {
       booked_times: availableTimes?.booked_times ?? [],
       clinic_schedule: availableTimes?.clinic_schedule ?? {},
@@ -57,24 +59,14 @@ const AppointmentForm = ({
   });
   const [clinicId, setClinicId] = useState<number | undefined>();
   const { data } = useQuery({
-    queryKey: ["getRange"],
+    queryKey: ["getLastVista"],
     queryFn: async () => {
-      if (type == "update") {
-        return await AppointmentService.make<AppointmentService>("admin")
-          .getAvailableTimes(defaultValues?.clinic?.id ?? 0)
-          .then((res) => {
-            setRange({
-              id: defaultValues?.clinic?.id,
-              appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
-              range: defaultValues?.clinic?.appointment_day_range ?? 0,
-              limit: defaultValues?.clinic?.approximate_appointment_time,
-              data: res.data,
-            });
-            return res;
-          });
-      } else return false;
+        if(range.id != 0 && range.customer_id != 0){
+         return await CustomerService.make<CustomerService>().getCustomerLastVista(range?.customer_id??0,range.id??0)
+        }
     },
   });
+  const res :Appointment | undefined= data?.data
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -99,10 +91,13 @@ const AppointmentForm = ({
         });
     }
   };
+  console.log(data)
   const onSuccess = () => {
     Navigate(`/admin/appointment`);
   };
   const [getExtra, setExtra] = useState(0);
+  const [getDiscount, setDiscount] = useState(0);
+
   const [getServicePrice, setServicePrice] = useState<number | undefined>(
     defaultValues?.service?.price ? defaultValues?.service?.price : 0,
   );
@@ -188,6 +183,12 @@ const AppointmentForm = ({
                   search,
                 )
               }
+              onSelect={(selectedItem)=>{
+                setRange({
+                  customer_id:selectedItem?.id ??0,
+                  ...range
+                })
+              }}
               label={"Customer Name"}
               optionValue={"id"}
               getOptionLabel={(data: Customer) => {
@@ -283,7 +284,18 @@ const AppointmentForm = ({
             return HandleDatePicker(data, day, range.range);
           }}
         />
+        <Input
+            name={"discount"}
+            type={"number"}
+            step={"any"}
+            placeholder={"Discount ..."}
+            label={"Discount"}
+            setWatch={setDiscount}
+        />
+        <label className={'label'}>Last Vista :  <span className={'badge badge-warning'}>{res?.date ?? "No Vista" }</span></label>
+
       </Grid>
+
       <Textarea
         name={"note"}
         label={"Notes"}
@@ -318,12 +330,13 @@ const AppointmentForm = ({
               <td>{Number(getExtra) ?? 0} IQD</td>
             </tr>
             <tr>
+              <td>Discount</td>
+              <td>{Number(getDiscount) ?? 0} IQD</td>
+            </tr>
+            <tr>
               <td className="text-lg">Total Cost</td>
               <td className="text-lg">
-                {getServicePrice
-                  ? getServicePrice + (Number(getExtra) ?? 0)
-                  : (range?.appointment_cost ?? 0) +
-                    (Number(getExtra) ?? 0)}{" "}
+                {(getServicePrice??0) +(Number(getExtra) ?? 0) +(range?.appointment_cost ?? 0) +(Number(getDiscount) ?? 0)}{" "}
                 IQD
               </td>
             </tr>

@@ -1,0 +1,405 @@
+"use client";
+import Form from "@/components/common/ui/Form";
+import React, { Fragment, useState } from "react";
+import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
+import { Navigate } from "@/Actions/navigate";
+import Grid from "@/components/common/ui/Grid";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
+import Input from "@/components/common/ui/Inputs/Input";
+import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import ImageUploader from "@/components/common/ui/ImageUploader";
+import Gallery from "@/components/common/ui/Gallery";
+import { StaffService } from "@/services/StaffService";
+import Datepicker from "@/components/common/ui/Datepicker";
+import { CityService } from "@/services/CityService";
+import MultiInput from "@/components/common/ui/Inputs/MultiInput";
+import { User } from "@/Models/User";
+import { Dialog, Transition } from "@headlessui/react";
+import PermissionsDoctorArray, { PermissionsDoctor } from "@/enum/Permissions";
+import {getCookieClient, setCookieClient} from "@/Actions/clientCookies";
+
+interface PermissionsType {
+  "edit-clinic-profile": boolean,
+  "manage-medicines": boolean,
+  "manage-patients": boolean,
+  "manage-offers": boolean,
+  "manage-services": boolean,
+  "manage-schedules": boolean,
+  "manage-holidays": boolean,
+  "manage-employees": boolean,
+  "show-clinic-profile"?:boolean,
+  "manage-appointments": boolean
+}
+function comparePermissions(a: string[], b: string[]): PermissionsType {
+  const permissions: PermissionsType = {
+    "manage-schedules": false,
+    "manage-holidays": false,
+    "manage-services": false,
+    "manage-offers": false,
+    "manage-patients": false,
+    "manage-medicines": false,
+    "manage-appointments": false,
+    "edit-clinic-profile": false,
+    "show-clinic-profile":false,
+    "manage-employees": false
+  };
+  a.forEach((item:string) => {
+    if (b.includes(item)) {
+      // @ts-ignore
+      permissions[item] = true;
+    }
+  });
+  b.forEach(item => {
+    if (a.includes(item)) {
+      // @ts-ignore
+      permissions[item] = true;
+    }
+  });
+
+  return permissions;
+}
+const StaffForm = ({
+  defaultValues = undefined,
+  id,
+  type = "store",
+}: {
+  defaultValues?: User;
+  id?: number;
+  type?: "store" | "update";
+}) => {
+  const handleSubmit = async (data: any) => {
+    console.log(data);
+    if (
+      type === "update" &&
+      (defaultValues?.id != undefined || id != undefined)
+    ) {
+      return StaffService.make<StaffService>("doctor")
+        .update(id, data)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
+    } else {
+      return await StaffService.make<StaffService>("doctor")
+        .store(data)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
+    }
+  };
+  const onSuccess = () => {
+    Navigate(`/doctor/staff`);
+  };
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  const handleSubmitPermissions = async (data: PermissionsType) => {
+    // @ts-ignore
+    const permissions = Object.keys(data).filter(key => data[key]);
+    console.log(permissions)
+    const dataSend = {
+      permissions:permissions
+    }
+    return await StaffService.make<StaffService>("doctor").updateEmployeePermissions(id??0,dataSend).then((res)=>{
+      console.log(res)
+      setCookieClient('permissions',permissions.toString())
+      return res
+    })
+  };
+  const [locale, setLocale] = useState<"en" | "ar">("en");
+  const { image, ...res } = defaultValues ?? { image: "" };
+  const role = getCookieClient('role')
+  const defPermissions = comparePermissions(PermissionsDoctorArray(),defaultValues?.permissions??[""])
+  return (
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-[1000]" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Form
+                    handleSubmit={handleSubmitPermissions}
+                    onSuccess={() => closeModal()}
+                    defaultValues={defPermissions}
+                  >
+                    <h1 className={'card-title'}>Set Permissions : </h1>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Edit Clinic Profile</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.EDIT_CLINIC_PROFILE}
+                          type="checkbox"
+                          className="checkbox checkbox-info "
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Medicines</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_MEDICINES}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Patients</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_PATIENTS}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Offers</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_OFFERS}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Services</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_SERVICE}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Schedules</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANGE_SCHEDULES}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Holidays</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_HOLIDAYS}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Employees</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_EMPLOYEES}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>Manage Appointments</label>
+                      <div className={"w-1/3"}>
+                        <Input
+                          name={PermissionsDoctor.MANAGE_APPOINTMENTS}
+                          type="checkbox"
+                          className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                  </Form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Form
+        handleSubmit={handleSubmit}
+        onSuccess={onSuccess}
+        defaultValues={res}
+        setLocale={setLocale}
+      >
+        <Grid md={"2"}>
+          <TranslatableInput
+            required={true}
+            locales={["en", "ar"]}
+            type={"text"}
+            placeholder={"John"}
+            label={"First Name"}
+            name={"first_name"}
+            locale={locale}
+          />
+          <TranslatableInput
+            required={true}
+            locales={["en", "ar"]}
+            type={"text"}
+            placeholder={"John"}
+            label={"Middle Name"}
+            name={"middle_name"}
+            locale={locale}
+          />
+          <TranslatableInput
+            required={true}
+            locales={["en", "ar"]}
+            type={"text"}
+            placeholder={"John"}
+            label={"Last Name"}
+            name={"last_name"}
+            locale={locale}
+          />
+
+          <Input
+            required={true}
+            name={"email"}
+            type={"text"}
+            step={"any"}
+            placeholder={`Email ...`}
+            label={"Email"}
+          />
+          <Input
+            required={true}
+            name={"password"}
+            type={"text"}
+            step={"any"}
+            placeholder={"password : "}
+            label={"Password"}
+          />
+          <Input
+            required={true}
+            name={"password_confirmation"}
+            type={"text"}
+            step={"any"}
+            placeholder={"password confirmation : "}
+            label={"Password Confirmation"}
+          />
+          <Datepicker
+            name={"birth_date"}
+            label={"Birth Date"}
+            required={true}
+          />
+          <div className={`flex gap-5 p-2 items-center`}>
+            <label className={`bg-pom p-2 rounded-md text-white`}>
+              Gender:
+            </label>
+            <Input
+              name={"gender"}
+              label={"Male"}
+              type="radio"
+              className="radio radio-info"
+              value={"male"}
+              defaultChecked={
+                defaultValues?.gender ? defaultValues?.gender == "male" : true
+              }
+            />
+
+            <Input
+              name={"gender"}
+              label={"Female"}
+              type="radio"
+              className="radio radio-info"
+              value={"female"}
+              defaultChecked={defaultValues?.gender == "female"}
+            />
+          </div>
+          <TranslatableInput
+            locales={["en", "ar"]}
+            type={"text"}
+            placeholder={"John"}
+            label={"Address"}
+            name={"address.name"}
+            required={true}
+            locale={locale}
+          />
+          <ApiSelect
+            required={true}
+            name={"address.city_id"}
+            label={"City"}
+            placeHolder={"Select City Name ..."}
+            api={(page?: number | undefined, search?: string | undefined) =>
+              CityService.make<CityService>().getAllCities(page, search)
+            }
+            getOptionLabel={(item) => TranslateClient(item.name)}
+            optionValue={"id"}
+            defaultValues={
+              defaultValues?.address?.city ? [defaultValues?.address?.city] : []
+            }
+          />
+        </Grid>
+
+        <MultiInput
+          type={"tel"}
+          name={"phone_numbers"}
+          placeholder={"Enter Clinic Phone Number"}
+          label={"Phones"}
+          required={true}
+        />
+
+        {type == "update" ? (
+          defaultValues?.image && defaultValues?.image?.length > 0 ? (
+            <Gallery
+              media={defaultValues?.image ? defaultValues?.image : [""]}
+            />
+          ) : (
+            <div className="flex justify-between items-center">
+              <label className="label"> {"Image"} : </label>
+              <span className="text-lg badge badge-neutral">{"No Image"}</span>
+            </div>
+          )
+        ) : (
+          ""
+        )}
+        <ImageUploader name={"image"} label={"Supplemental Icon"} />
+        {type == "update" && role != "clinic-employee"? (
+          <button
+            type="button"
+            onClick={openModal}
+            className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+          >
+            Set Permissions
+          </button>
+        ) : (
+          ""
+        )}
+      </Form>
+    </>
+  );
+};
+
+export default StaffForm;

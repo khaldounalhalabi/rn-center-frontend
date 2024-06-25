@@ -97,7 +97,6 @@ const PatientForm = ({
             <SelectPopOverFrom
               name={"blood_group"}
               id={1}
-              required={true}
               label={"Blood Group"}
               ArraySelect={BloodArray()}
               status={defaultValues?.blood_group ?? ""}
@@ -168,10 +167,7 @@ const PatientForm = ({
             <Datepicker
               name={"birth_date"}
               label={"Birth Date :"}
-              required={true}
-              shouldDisableDate={(day) => {
-                return !day.isBefore(dayjs().subtract(20, "year"));
-              }}
+
             />
           </Grid>
         </PageCard>
@@ -201,7 +197,8 @@ const PatientForm = ({
           ) : (
             ""
           )}
-          <ImageUploader name={"images"} isMultiple={true} />
+
+          <ImageUploader name={"images"} isMultiple={true} label={'Supplemental Images'}/>
         </PageCard>
       </Form>
     </div>

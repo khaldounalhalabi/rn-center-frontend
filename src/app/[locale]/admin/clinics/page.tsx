@@ -11,6 +11,9 @@ import { UserService } from "@/services/UserService";
 import { cities } from "@/constants/Cities";
 import { useTranslations } from "next-intl";
 import ArchiveButton from "@/components/common/ArchiveButton";
+import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import TransactionTypeArray from "@/enum/TransactionType";
+import SubscriptionStatuses from "@/enum/SubscriptionStatus";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -161,6 +164,14 @@ const Page = () => {
               ))}
             </select>
           </label>
+          <label className="label">Status :</label>
+          <SelectFilter
+              data={SubscriptionStatuses()}
+              selected={params.subscription_status ?? ""}
+              onChange={(event: any) => {
+                setParams({ ...params, subscription_status: event.target.value });
+              }}
+          />
         </div>
       );
     },

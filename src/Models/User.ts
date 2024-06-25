@@ -24,6 +24,7 @@ export interface User {
   password_confirmation?: string;
   role?: string | role[];
   clinic?: Clinic;
+  permissions?:string[]
 }
 
 export interface AuthResponse {

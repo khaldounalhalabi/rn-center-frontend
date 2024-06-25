@@ -33,7 +33,12 @@ const MedicinesForm = ({
       return await MedicineService.make<MedicineService>(typePage).update(
         defaultValues?.id ?? id,
         data,
-      );
+      ).then((res)=>{
+        if (res.code == 200) {
+            Navigate(`/${typePage}/medicines`);
+        }
+        return res
+      })
     } else {
       return await MedicineService.make<MedicineService>(typePage)
         .store(data)
@@ -51,7 +56,7 @@ const MedicinesForm = ({
   };
 
   return (
-    <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
+    <Form handleSubmit={handleSubmit} defaultValues={defaultValues} >
       <Grid md={"2"}>
         {typePage == "admin" ? (
           <ApiSelect

@@ -8,6 +8,8 @@ import { Navigate } from "@/Actions/navigate";
 import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
+import {Role} from "@/enum/Role";
+import {isArray} from "util";
 
 interface LoginProps {
   url: string;
@@ -16,6 +18,7 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
+  const [errorBlocked,setErrorBlocked] = useState()
 
   const handleSubmit = (data: { email: string; password: string }) => {
     setError(false);
@@ -23,7 +26,20 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
       if (res.code == 401) {
         setError(true);
         return res;
+      }else if( res.code == 430 || res.code == 431){
+        setErrorBlocked(res?.message)
+        return res
       } else {
+        isArray(res?.data?.user?.role)? res?.data?.user.role?.forEach((e:{id:number,name:string})=>{
+          setCookieClient('role', e.name)
+          if(e.name == Role.CLINIC_EMPLOYEE){
+
+            const permissions = res.data.user.permissions
+            return setCookieClient('permissions',permissions.toString())
+          }else {
+            return setCookieClient('permissions',"dffds%2Cfdsf")
+          }
+        }):false
         return res;
       }
     });
@@ -69,6 +85,12 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
               Password.
             </p>
           )}
+          {errorBlocked?
+              <p className="my-3 p-2 w-full text-error text-sm">
+                {errorBlocked}
+              </p>
+              :""
+          }
 
           <div className="flex justify-center opacity-80 mt-4">
             <h4>Forget Password?</h4>

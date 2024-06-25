@@ -12,9 +12,11 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 const ImageUploader = ({
   name,
   isMultiple = false,
+    label = undefined
 }: {
   name: string;
   isMultiple?: boolean;
+    label?:string
 }) => {
   registerPlugin(
     FilePondPluginImageExifOrientation,
@@ -30,6 +32,7 @@ const ImageUploader = ({
   const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
     <div className={`flex justify-center  flex-col my-3`}>
+      {label?<label className={"label"}>{label}{' '}:</label>:""}
       <div className={`w-full`}>
         <FilePond
           onupdatefiles={(fileItems) => {

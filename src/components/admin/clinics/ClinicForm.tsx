@@ -24,6 +24,7 @@ import { Subscriptions } from "@/Models/Subscriptions";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
+import dayjs from "dayjs";
 
 const ClinicForm = ({
   type = "store",
@@ -131,6 +132,9 @@ const ClinicForm = ({
           name={"user.birth_date"}
           label={t("birth-date")}
           required={true}
+          shouldDisableDate={(day) => {
+            return !day.isBefore(dayjs().subtract(20, "year"));
+          }}
         />
         <Input
           name={"appointment_cost"}
@@ -343,7 +347,7 @@ const ClinicForm = ({
           ""
         )}
       </Grid>
-      <ImageUploader name={"user.image"} />
+      <ImageUploader name={"user.image"} label={'Supplemental Image'}/>
     </Form>
   );
 };

@@ -30,7 +30,7 @@ const page = async () => {
           </h2>
         </div>
 
-        <Link href={`/doctor/user_details/edit`}>
+        <Link href={`/doctor/user-details/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

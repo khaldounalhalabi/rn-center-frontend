@@ -22,6 +22,7 @@ import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
 
 const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
+
   const handleSubmit = async (data: any) => {
     console.log(data);
     return await AuthService.make<AuthService>("doctor")
@@ -41,7 +42,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
 
   const defaultRes = {
     address: defaultValues?.user?.address,
-    phone_numbers: defaultValues?.user?.phones,
+    phone_numbers: defaultValues?.user?.phones?.map((ph) => ph.phone),
     ...defaultValues,
   };
   console.log(defaultValues);
@@ -207,7 +208,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             </div>
           )}
         </div>
-        <ImageUploader name={"work_gallery"} isMultiple={true} />
+        <ImageUploader name={"work_gallery"} isMultiple={true} label={'Our Work'}/>
       </Form>
     </>
   );

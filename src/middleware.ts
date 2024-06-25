@@ -2,6 +2,8 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { getCookieServer } from "./Actions/serverCookies";
 import { locales } from "./navigation";
+import PermissionsDoctorArray, {PermissionsDoctor} from "@/enum/Permissions";
+import handleStaffRole from "@/hooks/handleStaffRole";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -15,10 +17,11 @@ export const config = {
 
 async function authenticationMiddleware(req: NextRequest) {
   const path = `${req.nextUrl.pathname}`;
-
+  const role = await getCookieServer("role");
   const access = await getCookieServer("user-type");
   const locale = await getCookieServer("NEXT_LOCALE");
-
+  const permissions :string |undefined = await getCookieServer('permissions')
+  const permissionsArray = permissions?.split(',')
   if (!access && path.includes(`${locale}/admin`)) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,
@@ -61,6 +64,11 @@ async function authenticationMiddleware(req: NextRequest) {
     const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
+
+  if(access == 'doctor' && role == "clinic-employee"){
+    return  await handleStaffRole(req)
+  }
+
   return translationMiddleware(req);
 }
 

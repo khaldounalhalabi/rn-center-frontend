@@ -77,7 +77,7 @@ const ProfileOptionsPopover = () => {
 
         <Link
           onClick={() => setOpenPopProfile(false)}
-          href={`/${actor}/user_details`}
+          href={`/${actor}/user-details`}
           className="opacity-[0.8]"
         >
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
@@ -103,6 +103,8 @@ const ProfileOptionsPopover = () => {
               deleteCookieClient("token");
               deleteCookieClient("user-type");
               deleteCookieClient("refresh_token");
+              deleteCookieClient("role");
+              deleteCookieClient("permissions");
               return Navigate("/");
             }}
           >

@@ -22,7 +22,7 @@ const page = async () => {
           {await TranslateServer(res.middle_name)}{" "}
           {await TranslateServer(res.last_name)}
         </h2>
-        <Link href={`/admin/user_details/edit`}>
+        <Link href={`/admin/user-details/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>

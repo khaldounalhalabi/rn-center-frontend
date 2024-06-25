@@ -85,7 +85,7 @@ const Page = () => {
           <label className={"label"}>Amount from :</label>
           <InputFilter
             type="number"
-            defaultValue={0}
+            defaultValue={amountStart}
             onChange={(event: any) => {
               setAmountStart(event.target.value);
               const data =
@@ -94,10 +94,12 @@ const Page = () => {
                   : event.target.value;
               setParams({ ...params, amount: data });
             }}
+
           />
           <label className={"label"}>Amount To :</label>
           <InputFilter
             type="number"
+            defaultValue={amountEnd}
             onChange={(event: any) => {
               setAmountEnd(event.target.value);
               const data =

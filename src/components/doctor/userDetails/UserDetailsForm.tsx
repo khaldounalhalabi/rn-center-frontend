@@ -10,6 +10,7 @@ import { User } from "@/Models/User";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
+import Gallery from "@/components/common/ui/Gallery";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const handleSubmit = async (data: any) => {
@@ -32,7 +33,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   }
 
   const onSuccess = () => {
-    Navigate(`/doctor/user_details`);
+    Navigate(`/doctor/user-details`);
   };
 
   const [locale, setLocale] = useState<"en" | "ar">("en");
@@ -152,7 +153,19 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             />
           </div>
         </Grid>
-        <ImageUploader name={"image"} />
+        <div className={"col-span-2"}>
+          {defaultValues?.image?.length != 0 ? (
+              <Gallery
+                  media={defaultValues?.image ? defaultValues?.image : []}
+              />
+          ) : (
+              <div className="flex items-center">
+                <label className="label"> Image : </label>
+                <span className="text-lg badge badge-neutral">No Data</span>
+              </div>
+          )}
+        </div>
+        <ImageUploader name={"image"} label={'Supplemental Image'}/>
         <button
           type="button"
           onClick={openModal}

@@ -38,7 +38,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   }
 
   const onSuccess = () => {
-    Navigate(`/admin/user_details`);
+    Navigate(`/admin/user-details`);
   };
 
   const [locale, setLocale] = useState<"en" | "ar">("en");
@@ -198,7 +198,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             </div>
           )}
         </div>
-        <ImageUploader name={"image"} />
+        <ImageUploader name={"image"} label={'Supplemental Image'}/>
         <button
           type="button"
           onClick={openModal}

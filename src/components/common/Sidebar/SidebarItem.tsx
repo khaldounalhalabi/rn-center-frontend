@@ -7,10 +7,12 @@ const SidebarItem = ({
   link = "#",
   children,
   onClick,
+    className = undefined
 }: {
   link?: string;
   children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
+  className?:string
 }) => {
   const pathname = usePathname();
   let active: string;
@@ -20,7 +22,7 @@ const SidebarItem = ({
     active = "text-gray-500 hover:bg-gray-100 hover:text-gray-700";
   }
   return (
-    <li
+    <li className={`${className}`}
       onClick={(e) => {
         if (onClick) {
           onClick(e);

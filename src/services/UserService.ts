@@ -12,6 +12,8 @@ export class UserService extends BaseService<User | string> {
     if (!userId) throw new Error("Undefined User ID");
     const res: ApiResponse<string> = await DELETE(
       `${this.baseUrl}/${userId}/toggle-archive`,
+      undefined,
+      this.headers
     );
     return this.errorHandler(res);
   };

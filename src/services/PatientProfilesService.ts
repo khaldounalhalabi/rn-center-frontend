@@ -15,7 +15,7 @@ export class PatientProfilesService extends BaseService<PatientProfiles> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<PatientProfiles[]>> {
     const res = await GET<PatientProfiles[]>(
       `${this.actor}/customers/${patientId}/patient-profiles`,
@@ -27,6 +27,7 @@ export class PatientProfilesService extends BaseService<PatientProfiles> {
         per_page: per_page,
         ...params,
       },
+      this.headers
     );
     return await this.errorHandler(res);
   }

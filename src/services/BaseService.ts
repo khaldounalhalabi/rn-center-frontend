@@ -7,11 +7,17 @@ export class BaseService<T> {
   protected static instance?: BaseService<any>;
   public baseUrl = "/";
   public actor: string = "customer";
+  protected headers: Record<string, any> = {};
 
   protected constructor() {}
 
+  public setHeaders(headers: Record<string, any> = {}): BaseService<T> {
+    this.headers = headers;
+    return this;
+  }
+
   public static make<Service extends BaseService<any>>(
-    actor: Actors = "admin",
+    actor: Actors = "admin"
   ): Service {
     if (!this.instance) {
       this.instance = new this();
@@ -33,7 +39,11 @@ export class BaseService<T> {
   }
 
   public async all(): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl + "/all");
+    const res: ApiResponse<T[]> = await GET<T[]>(
+      this.baseUrl + "/all",
+      undefined,
+      this.headers
+    );
     return await this.errorHandler(res);
   }
 
@@ -43,30 +53,41 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET<T[]>(this.baseUrl, {
-      page: page,
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      ...params,
-    });
+    const res: ApiResponse<T[]> = await GET<T[]>(
+      this.baseUrl,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers
+    );
 
     return await this.errorHandler(res);
   }
 
   public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
-    const res: ApiResponse<T> = await POST<T>(this.baseUrl, data, headers);
+    const res: ApiResponse<T> = await POST<T>(this.baseUrl, data, {
+      ...headers,
+      ...this.headers,
+    });
     return await this.errorHandler(res);
   }
 
   public async delete(id?: number): Promise<ApiResponse<boolean>> {
     let res: ApiResponse<boolean>;
     if (id) {
-      res = await DELETE<boolean>(this.baseUrl + "/" + id);
-    } else res = await DELETE<boolean>(this.baseUrl);
+      res = await DELETE<boolean>(
+        this.baseUrl + "/" + id,
+        undefined,
+        this.headers
+      );
+    } else res = await DELETE<boolean>(this.baseUrl, undefined, this.headers);
     return await this.errorHandler(res);
   }
 
@@ -74,7 +95,7 @@ export class BaseService<T> {
     if (!id) {
       await Navigate("/404");
     }
-    const res = await GET<T>(this.baseUrl + "/" + id);
+    const res = await GET<T>(this.baseUrl + "/" + id, undefined, this.headers);
     if (res.code == 404) {
       await Navigate("/404");
     }
@@ -84,12 +105,15 @@ export class BaseService<T> {
   public async update(
     id?: number,
     data?: any,
-    headers?: object,
+    headers?: object
   ): Promise<ApiResponse<T>> {
     if (!id) {
       await Navigate("/404");
     }
-    const res = await PUT<T>(this.baseUrl + "/" + id, data, headers);
+    const res = await PUT<T>(this.baseUrl + "/" + id, data, {
+      ...headers,
+      ...this.headers,
+    });
     if (res.code == 404) {
       await Navigate("/404");
     }
@@ -97,15 +121,15 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>,
+    res: ApiResponse<ResType>
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>,
+    res: ApiResponse<ResType[]>
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler(
-    res: ApiResponse<T> | ApiResponse<T[]>,
+    res: ApiResponse<T> | ApiResponse<T[]>
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
       await Navigate(`/auth/${this.actor}/login`);

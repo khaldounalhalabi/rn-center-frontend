@@ -14,16 +14,20 @@ export class SubscriptionsService extends BaseService<Subscriptions> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Subscriptions>> {
-    const res = await GET<Subscriptions>(`subscriptions`, {
-      page: page,
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      ...params,
-    });
+    const res = await GET<Subscriptions>(
+      `subscriptions`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers
+    );
     return await this.errorHandler(res);
   }
 }

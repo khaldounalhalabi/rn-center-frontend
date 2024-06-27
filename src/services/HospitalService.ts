@@ -11,6 +11,8 @@ export class HospitalService extends BaseService<Hospital> {
   public async toggleStatus(hospitaltId: number): Promise<ApiResponse<any>> {
     const res = await GET<any>(
       `${this.actor}/hospitals/${hospitaltId}/toggle-status`,
+      undefined,
+      this.headers
     );
     return this.errorHandler(res);
   }
@@ -21,16 +23,20 @@ export class HospitalService extends BaseService<Hospital> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Hospital>> {
-    const res = await GET<Hospital>(`hospitals`, {
-      page: page,
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      ...params,
-    });
+    const res = await GET<Hospital>(
+      `hospitals`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers
+    );
     return await this.errorHandler(res);
   }
 }

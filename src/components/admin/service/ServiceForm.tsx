@@ -72,7 +72,7 @@ const ServiceForm = ({
           required={true}
           name={"clinic_id"}
           api={async (page, search) =>
-            await ClinicsService.make<ClinicsService>().indexWithPagination(
+            await ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
               page,
               search,
             )

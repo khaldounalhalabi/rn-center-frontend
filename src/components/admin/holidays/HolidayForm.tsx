@@ -51,7 +51,7 @@ const HolidayForm = ({
           <ApiSelect
             required={true}
             api={(page, search): Promise<ApiResponse<Clinic[]>> =>
-              ClinicsService.make<ClinicsService>().indexWithPagination(
+              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
                 page,
                 search,
               )

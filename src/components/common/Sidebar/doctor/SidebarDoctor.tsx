@@ -19,6 +19,7 @@ import { PermissionsDoctor } from "@/enum/Permissions";
 import { Role } from "@/enum/Role";
 import ClinicIcon from "@/components/icons/ClinicIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
+import StaffIcon from "@/components/icons/StaffIcon";
 const SidebarDoctor = ({
   openNavBar,
   setOpenNavBar,
@@ -257,6 +258,16 @@ const SidebarDoctor = ({
               link={"/doctor/medicines"} title={"medicines"}>
             <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
+            <SidebarIcon
+                className={
+                    role == Role.CLINIC_EMPLOYEE &&
+                    !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
+                        ? "hidden"
+                        : ""
+                }
+                link={"/doctor/staff"} title={"medicines"}>
+                <StaffIcon className={`h-8 w-8`} />
+            </SidebarIcon>
         </ul>
       </div>
     </div>

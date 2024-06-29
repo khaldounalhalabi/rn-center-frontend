@@ -12,7 +12,6 @@ import BlockButton from "@/components/common/BlockButton";
 
 const Page = () => {
   const tableData: DataTableData<User> = {
-    createUrl: `/admin/user/create`,
     title: `Users`,
     schema: [
       {

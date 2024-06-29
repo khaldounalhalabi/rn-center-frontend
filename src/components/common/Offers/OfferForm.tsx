@@ -16,6 +16,8 @@ import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTe
 import dayjs from "dayjs";
 import OffersArray from "@/enum/OfferType";
 import { Navigate } from "@/Actions/navigate";
+import Gallery from "@/components/common/ui/Gallery";
+import ImageUploader from "@/components/common/ui/ImageUploader";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -71,7 +73,7 @@ const OfferForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicsService.make<ClinicsService>().indexWithPagination(
+              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
                 page,
                 search,
               )
@@ -152,6 +154,24 @@ const OfferForm = ({
         locale={locale}
         defaultValue={defaultValues?.note ?? ""}
       />
+      {type == "update" ? (
+          <div className={"col-span-2"}>
+            {defaultValues?.image?.length != 0 ? (
+                <Gallery
+                    media={defaultValues?.image ? defaultValues?.image : []}
+                />
+            ) : (
+                <div className="flex items-center">
+                  <label className="label"> Image : </label>
+                  <span className="text-lg badge badge-neutral">No Data</span>
+                </div>
+            )}
+          </div>
+      ) : (
+          ""
+      )}
+
+      <ImageUploader name={"image"} label={'Supplemental Images'}/>
     </Form>
   );
 };

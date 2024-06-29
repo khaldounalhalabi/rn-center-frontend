@@ -51,7 +51,7 @@ const Page = () => {
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await ClinicHolidayService.make<ClinicHolidayService>(
         "doctor",
-      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      ).setHeaders({ filtered: true }).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
 
     filter: (params, setParams) => {
       return (

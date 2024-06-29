@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
-import { GET, POST } from "@/Http/Http";
+import {GET, POST, PUT} from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
 
 export class AppointmentService extends BaseService<Appointment> {
@@ -28,6 +28,18 @@ export class AppointmentService extends BaseService<Appointment> {
     );
     return await this.errorHandler(res);
   }
+
+
+    public async updateDate(
+        appointmentId: number,
+        data: { date:string }
+    ): Promise<ApiResponse<Appointment>> {
+        const res = await PUT<Appointment>(
+            `${this.actor}/appointments/${appointmentId}/update-date`,
+            data
+        );
+        return await this.errorHandler(res);
+    }
 
   public async getClinicAppointments(
     clinicId: number,

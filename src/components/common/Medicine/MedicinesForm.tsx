@@ -64,7 +64,7 @@ const MedicinesForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicsService.make<ClinicsService>().indexWithPagination(
+              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
                 page,
                 search,
               )

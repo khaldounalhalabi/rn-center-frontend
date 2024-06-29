@@ -6,6 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import Gallery from "@/components/common/ui/Gallery";
 
 const page = async ({
   params: { offerId },
@@ -68,6 +69,18 @@ const page = async ({
         disabled={true}
         defaultValue={await TranslateServer(res?.note)}
       />
+      <div className={"col-span-2"}>
+        {res?.image?.length != 0 ? (
+            <Gallery
+                media={res?.image ? res?.image : []}
+            />
+        ) : (
+            <div className="flex items-center">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
+        )}
+      </div>
     </PageCard>
   );
 };

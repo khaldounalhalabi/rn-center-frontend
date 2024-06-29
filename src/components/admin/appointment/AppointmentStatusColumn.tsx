@@ -70,6 +70,7 @@ const AppointmentStatusColumn = ({
         }}
       />
       <SelectPopOver
+          fixed={true}
         id={appointment?.id}
         status={appointment?.status}
         ArraySelect={AppointmentStatuses()}

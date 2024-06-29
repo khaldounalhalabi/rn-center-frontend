@@ -8,7 +8,7 @@ export class CustomerService extends BaseService<Customer> {
   public getBaseUrl(): string {
     return `${this.actor}/customers`;
   }
-  public async getCustomerLastVista(
+  public async getCustomerLastVisit(
       customerId: number,
       clinicId:number
 

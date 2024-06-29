@@ -76,7 +76,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show"]}
+            buttons={["edit", "show"]}
             baseUrl={`/admin/appointment`}
             editUrl={`/admin/appointment/${data?.id}/edit`}
             showUrl={`/admin/appointment/${data?.id}`}

@@ -2,7 +2,7 @@
 import ImagePreview from "./ImagePreview";
 import { getMedia, Media } from "@/Models/Media";
 import XMark from "@/components/icons/XMark";
-import {DeleteMediaService} from "@/services/DeleteMediaService";
+import {MediaService} from "@/services/MediaService";
 import { swal } from "@/Helpers/UIHelpers";
 import {useState, useTransition} from "react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
@@ -29,7 +29,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
       confirmButtonText: "Yes!"
     }).then(async (result) => {
       if (result.isConfirmed) {
-       return await DeleteMediaService.make<DeleteMediaService>().DeleteImage(index).then(res=>{
+       return await MediaService.make<MediaService>().delete(index).then(res=>{
          setPending(true);
          startTransition(router.refresh);
          setPending(false);

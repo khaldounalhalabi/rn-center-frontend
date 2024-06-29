@@ -27,7 +27,7 @@ const handleStaffRole = async (req: NextRequest) => {
     (!permissionsArray?.includes(PermissionsDoctor.MANAGE_EMPLOYEES) &&
       path.includes(`/doctor/staff`))
   ) {
-    return NextResponse.redirect(new URL(`/${locale}/404`, req.url));
+    return NextResponse.redirect(new URL(`/${locale}/403`, req.url));
   }
 };
 

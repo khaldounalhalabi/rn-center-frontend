@@ -29,7 +29,6 @@ import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
-import { isArray } from "util";
 
 interface Range {
   id: number | undefined;
@@ -64,37 +63,35 @@ const AppointmentForm = ({
     },
   });
   const [offer, setOffer] = useState<Offers>(
-    isArray(defaultValues?.offers) && defaultValues?.offers.length != 0
-      ? defaultValues?.offers[0]
-      : {
-          type: "",
-          value: 0,
-          id: 0,
-          title: "",
-          note: "",
-          start_at: "",
-          end_at: "",
-          is_active: true,
-          clinic_id: 0,
-        },
+    defaultValues?.offers?.[0] ?? {
+      type: "",
+      value: 0,
+      id: 0,
+      title: "",
+      note: "",
+      start_at: "",
+      end_at: "",
+      is_active: true,
+      clinic_id: 0,
+    },
   );
   const [systemOffer, setSystemOffer] = useState(
     defaultValues?.system_offers ?? [],
   );
   const [clinicId, setClinicId] = useState<number | undefined>();
   const { data } = useQuery({
-    queryKey: ["getLastVista"],
+    queryKey: ["getLastVisit"],
     queryFn: async () => {
       if (range.id != 0 && range.customer_id != 0) {
-        return await CustomerService.make<CustomerService>().getCustomerLastVista(
+        return await CustomerService.make<CustomerService>().getCustomerLastVisit(
           range?.customer_id ?? 0,
           range.id ?? 0,
         );
       }
     },
   });
-  console.log(defaultValues);
-  const res: Appointment | undefined = data?.data;
+  const lastAppointment: Appointment | undefined = data?.data;
+  console.log(lastAppointment);
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -152,7 +149,7 @@ const AppointmentForm = ({
     );
   };
 
-  const [typeAppointment,setTypeAppointment] = useState<number | string>(0)
+  const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
 
   const calculateFinalAmountInSystemOffer = (
     discounts: any,
@@ -268,7 +265,7 @@ const AppointmentForm = ({
         defaultValues={defaultValues}
       >
         <Grid md={"2"}>
-          {type != "update" ? (
+          {type === "store" ? (
             <>
               <ApiSelect
                 required={true}
@@ -329,34 +326,41 @@ const AppointmentForm = ({
                 optionValue={"id"}
                 getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
               />
-              <ApiSelect
-                required={true}
-                name={"customer_id"}
-                placeHolder={"Select Customer name ..."}
-                api={(page, search) =>
-                  CustomerService.make<CustomerService>().indexWithPagination(
-                    page,
-                    search,
-                  )
-                }
-                onSelect={(selectedItem) => {
-                  setRange({
-                    customer_id: selectedItem?.id ?? 0,
-                    ...range,
-                  });
-                }}
-                label={"Customer Name"}
-                optionValue={"id"}
-                getOptionLabel={(data: Customer) => {
-                  return (
-                    <p>
-                      {TranslateClient(data?.user?.first_name)}{" "}
-                      {TranslateClient(data?.user?.middle_name)}{" "}
-                      {TranslateClient(data?.user?.last_name)}
-                    </p>
-                  );
-                }}
-              />
+              <div>
+                <ApiSelect
+                  required={true}
+                  name={"customer_id"}
+                  placeHolder={"Select Customer name ..."}
+                  api={(page, search) =>
+                    CustomerService.make<CustomerService>().indexWithPagination(
+                      page,
+                      search,
+                    )
+                  }
+                  onSelect={(selectedItem) => {
+                    setRange({
+                      customer_id: selectedItem?.id ?? 0,
+                      ...range,
+                    });
+                  }}
+                  label={"Customer Name"}
+                  optionValue={"id"}
+                  getOptionLabel={(data: Customer) => {
+                    return (
+                      <p>
+                        {TranslateClient(data?.user?.first_name)}{" "}
+                        {TranslateClient(data?.user?.middle_name)}{" "}
+                        {TranslateClient(data?.user?.last_name)}
+                      </p>
+                    );
+                  }}
+                />
+                {lastAppointment?.date ? (
+                  <p className={"label"}>Last Visit : {lastAppointment.date}</p>
+                ) : (
+                  ""
+                )}
+              </div>
             </>
           ) : (
             ""
@@ -389,35 +393,37 @@ const AppointmentForm = ({
             optionValue={"id"}
             getOptionLabel={(data: Service) => TranslateClient(data.name)}
           />
-          {type == "store" && typeAppointment == "online"?
-                  <ApiSelect
-                      name={"system_offers"}
-                      placeHolder={"Select system offer ..."}
-                      api={(page, search) =>
-                          SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
-                              clinicId,
-                              page,
-                              search,
-                          )
-                      }
-                      closeOnSelect={false}
-                      label={"System Offers"}
-                      revalidate={`${clinicId}`}
-                      onSelect={async (selectedItem) => {
-                        // @ts-ignore
-                        setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
-                      }}
-                      onClear={() => {
-                        setSystemOffer([]);
-                      }}
-                      onRemoveSelected={() => {
-                        setSystemOffer([]);
-                      }}
-                      isMultiple={true}
-                      optionValue={"id"}
-                      getOptionLabel={(data: SystemOffers) => data.title}
-                  />
-              :""}
+          {type == "store" && typeAppointment == "online" ? (
+            <ApiSelect
+              name={"system_offers"}
+              placeHolder={"Select system offer ..."}
+              api={(page, search) =>
+                SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
+                  clinicId,
+                  page,
+                  search,
+                )
+              }
+              closeOnSelect={false}
+              label={"System Offers"}
+              revalidate={`${clinicId}`}
+              onSelect={async (selectedItem) => {
+                // @ts-ignore
+                setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
+              }}
+              onClear={() => {
+                setSystemOffer([]);
+              }}
+              onRemoveSelected={() => {
+                setSystemOffer([]);
+              }}
+              isMultiple={true}
+              optionValue={"id"}
+              getOptionLabel={(data: SystemOffers) => data.title}
+            />
+          ) : (
+            ""
+          )}
           <ApiSelect
             name={"offers"}
             placeHolder={"Select offer ..."}
@@ -462,7 +468,7 @@ const AppointmentForm = ({
                 Type:
               </label>
               <Input
-                  onClick={()=>setSystemOffer([])}
+                onClick={() => setSystemOffer([])}
                 name={"type"}
                 label={"manual"}
                 type="radio"
@@ -481,7 +487,6 @@ const AppointmentForm = ({
                 value={"online"}
                 defaultChecked={defaultValues?.status == "online"}
                 setWatch={setTypeAppointment}
-
               />
             </div>
           ) : (
@@ -528,12 +533,6 @@ const AppointmentForm = ({
             label={"Discount"}
             setWatch={setDiscount}
           />
-          <label className={"label"}>
-            Last Vista :{" "}
-            <span className={"badge badge-warning"}>
-              {res?.date ?? "No Vista"}
-            </span>
-          </label>
         </Grid>
         {type == "update" ? (
           <button

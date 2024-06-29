@@ -27,8 +27,8 @@ const page = async ({
       </div>
       <label className="label justify-start text-xl">
         Clinics Name :{" "}
-        {clinics?.map(async (e) => (
-            <span className="ml-2 badge badge-accent">
+        {clinics?.map(async (e , index) => (
+            <span className="ml-2 badge badge-accent" key={index}>
               { TranslateServer(e.name)}
             </span>
         ))}

@@ -346,7 +346,7 @@ const ClinicForm = ({
           ""
         )}
       </Grid>
-      <ImageUploader name={"user.image"} label={'Supplemental Image'}/>
+      <ImageUploader name={"user.image"} label={'Image'}/>
     </Form>
   );
 };

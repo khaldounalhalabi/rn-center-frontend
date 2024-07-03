@@ -36,7 +36,6 @@ interface Range {
   range: number;
   limit: number | undefined;
   data: AvailableTime;
-  customer_id?: number;
 }
 
 const AppointmentForm = ({
@@ -55,13 +54,13 @@ const AppointmentForm = ({
     appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
     range: defaultValues?.clinic?.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
-    customer_id: 0,
     data: {
       booked_times: availableTimes?.booked_times ?? [],
       clinic_schedule: availableTimes?.clinic_schedule ?? {},
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
+  const [customer_id,setCustomer_id] = useState(0)
   const [offer, setOffer] = useState<Offers>(
     defaultValues?.offers?.[0] ?? {
       type: "",
@@ -72,7 +71,7 @@ const AppointmentForm = ({
       start_at: "",
       end_at: "",
       is_active: true,
-      clinic_id: 0,
+        clinic_id:0
     },
   );
   const [systemOffer, setSystemOffer] = useState(
@@ -80,18 +79,22 @@ const AppointmentForm = ({
   );
   const [clinicId, setClinicId] = useState<number | undefined>();
   const { data } = useQuery({
-    queryKey: ["getLastVisit"],
+    queryKey: ["getLastVisit" , customer_id,range.id],
     queryFn: async () => {
-      if (range.id != 0 && range.customer_id != 0) {
+      if (range.id != 0 && customer_id ) {
         return await CustomerService.make<CustomerService>().getCustomerLastVisit(
-          range?.customer_id ?? 0,
+          customer_id ?? 0,
           range.id ?? 0,
         );
+      }else {
+        return {data:{date:""}}
       }
+
     },
   });
-  const lastAppointment: Appointment | undefined = data?.data;
-  console.log(lastAppointment);
+
+
+  const lastAppointmentDate = data?.data?.date
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -338,10 +341,7 @@ const AppointmentForm = ({
                     )
                   }
                   onSelect={(selectedItem) => {
-                    setRange({
-                      customer_id: selectedItem?.id ?? 0,
-                      ...range,
-                    });
+                    setCustomer_id(selectedItem?.id??0)
                   }}
                   label={"Customer Name"}
                   optionValue={"id"}
@@ -355,8 +355,8 @@ const AppointmentForm = ({
                     );
                   }}
                 />
-                {lastAppointment?.date ? (
-                  <p className={"label"}>Last Visit : {lastAppointment.date}</p>
+                {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
+                  <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
                 ) : (
                   ""
                 )}
@@ -407,15 +407,16 @@ const AppointmentForm = ({
               closeOnSelect={false}
               label={"System Offers"}
               revalidate={`${clinicId}`}
-              onSelect={async (selectedItem) => {
-                // @ts-ignore
-                setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
+              onSelect={ (selectedItem) => {
+                if (selectedItem){
+                  setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
+                }
               }}
               onClear={() => {
                 setSystemOffer([]);
               }}
-              onRemoveSelected={() => {
-                setSystemOffer([]);
+              onRemoveSelected={(selectedItem) => {
+                setSystemOffer(prev => prev.filter(item => item.id != selectedItem.value));
               }}
               isMultiple={true}
               optionValue={"id"}

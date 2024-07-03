@@ -196,7 +196,7 @@ const PatientsForm = ({
       ) : (
         ""
       )}
-      <ImageUploader name={"image"} label={'Supplemental Image'}/>
+      <ImageUploader name={"image"} label={'Image'}/>
     </Form>
   );
 };

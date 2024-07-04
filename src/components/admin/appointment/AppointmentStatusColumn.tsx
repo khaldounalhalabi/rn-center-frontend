@@ -97,6 +97,7 @@ const AppointmentStatusColumn = ({
     };
 
 
+
     return (
     <>
         <Transition appear show={isOpen} as={Fragment}>
@@ -134,9 +135,28 @@ const AppointmentStatusColumn = ({
           }
         }}
       />
-        <select className="select select-info w-fit" onChange={(e)=>e.target.value == AppointmentStatusEnum.CANCELLED ?openModal() : handleSelectStatus(e.target.value,appointment?.id??0,setSelected)}>
+        <select className={`select select-bordered text-sm font-medium w-fit `}
+                onChange={(e)=>e.target.value == AppointmentStatusEnum.CANCELLED ?openModal() : handleSelectStatus(e.target.value,appointment?.id??0,setSelected)}>
             {isMutating?<option>Loading...</option>:AppointmentStatuses().map((e,index)=>(
-                <option key={index}  selected={selected == e}>{e}</option>
+
+                  <option key={index}  selected={selected == e}
+                          className={`block truncate   ${
+                              e == AppointmentStatusEnum.CHECKOUT
+                                  ? "text-neutral"
+                                  : e == AppointmentStatusEnum.CANCELLED
+                                      ? "text-warning"
+                                      : e == AppointmentStatusEnum.PENDING
+                                          ? "text-primary"
+                                          : e == AppointmentStatusEnum.CHECKIN
+                                              ? "text-success"
+                                              : e == AppointmentStatusEnum.BOOKED
+                                                  ? "text-error"
+                                                  : e == "completed"
+                                                      ? "text-info"
+                                                      : ""
+                          }`}
+                  >{e}</option>
+
             ))
             }
         </select>

@@ -16,20 +16,21 @@ import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { User } from "@/Models/User";
 import { Dialog, Transition } from "@headlessui/react";
 import PermissionsDoctorArray, { PermissionsDoctor } from "@/enum/Permissions";
-import {getCookieClient, setCookieClient} from "@/Actions/clientCookies";
+import { getCookieClient, setCookieClient } from "@/Actions/clientCookies";
 
 interface PermissionsType {
-  "edit-clinic-profile": boolean,
-  "manage-medicines": boolean,
-  "manage-patients": boolean,
-  "manage-offers": boolean,
-  "manage-services": boolean,
-  "manage-schedules": boolean,
-  "manage-holidays": boolean,
-  "manage-employees": boolean,
-  "show-clinic-profile"?:boolean,
-  "manage-appointments": boolean
+  "edit-clinic-profile": boolean;
+  "manage-medicines": boolean;
+  "manage-patients": boolean;
+  "manage-offers": boolean;
+  "manage-services": boolean;
+  "manage-schedules": boolean;
+  "manage-holidays": boolean;
+  "manage-employees": boolean;
+  "show-clinic-profile"?: boolean;
+  "manage-appointments": boolean;
 }
+
 function comparePermissions(a: string[], b: string[]): PermissionsType {
   const permissions: PermissionsType = {
     "manage-schedules": false,
@@ -40,16 +41,16 @@ function comparePermissions(a: string[], b: string[]): PermissionsType {
     "manage-medicines": false,
     "manage-appointments": false,
     "edit-clinic-profile": false,
-    "show-clinic-profile":false,
-    "manage-employees": false
+    "show-clinic-profile": false,
+    "manage-employees": false,
   };
-  a.forEach((item:string) => {
+  a.forEach((item: string) => {
     if (b.includes(item)) {
       // @ts-ignore
       permissions[item] = true;
     }
   });
-  b.forEach(item => {
+  b.forEach((item) => {
     if (a.includes(item)) {
       // @ts-ignore
       permissions[item] = true;
@@ -58,12 +59,13 @@ function comparePermissions(a: string[], b: string[]): PermissionsType {
 
   return permissions;
 }
+
 const StaffForm = ({
   defaultValues = undefined,
   id,
   type = "store",
 }: {
-  defaultValues?: User;
+  defaultValues?: { user?: User; phone_numbers?: string[] };
   id?: number;
   type?: "store" | "update";
 }) => {
@@ -71,7 +73,7 @@ const StaffForm = ({
     console.log(data);
     if (
       type === "update" &&
-      (defaultValues?.id != undefined || id != undefined)
+      (defaultValues?.user?.id != undefined || id != undefined)
     ) {
       return StaffService.make<StaffService>("doctor")
         .update(id, data)
@@ -100,23 +102,33 @@ const StaffForm = ({
   function openModal() {
     setIsOpen(true);
   }
+
   const handleSubmitPermissions = async (data: PermissionsType) => {
     // @ts-ignore
-    const permissions = Object.keys(data).filter(key => data[key]);
-    console.log(permissions)
+    const permissions = Object.keys(data).filter((key) => data[key]);
+    console.log(permissions);
     const dataSend = {
-      permissions:permissions
-    }
-    return await StaffService.make<StaffService>("doctor").updateEmployeePermissions(id??0,dataSend).then((res)=>{
-      console.log(res)
-      setCookieClient('permissions',permissions.toString())
-      return res
-    })
+      permissions: permissions,
+    };
+    return await StaffService.make<StaffService>("doctor")
+      .updateEmployeePermissions(id ?? 0, dataSend)
+      .then((res) => {
+        console.log(res);
+        setCookieClient("permissions", permissions.toString());
+        return res;
+      });
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { image, ...res } = defaultValues ?? { image: "" };
-  const role = getCookieClient('role')
-  const defPermissions = comparePermissions(PermissionsDoctorArray(),defaultValues?.permissions??[""])
+  const { image, ...res } = defaultValues?.user ?? { image: "" };
+  const role = getCookieClient("role");
+  const defPermissions = comparePermissions(
+    PermissionsDoctorArray(),
+    defaultValues?.user?.permissions ?? [""],
+  );
+  const formValues = {
+      phone_numbers:defaultValues?.phone_numbers ?? [],
+      ...defaultValues?.user
+  }
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -150,7 +162,7 @@ const StaffForm = ({
                     onSuccess={() => closeModal()}
                     defaultValues={defPermissions}
                   >
-                    <h1 className={'card-title'}>Set Permissions : </h1>
+                    <h1 className={"card-title"}>Set Permissions : </h1>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
                       <label className={"w-2/3"}>Edit Clinic Profile</label>
                       <div className={"w-1/3"}>
@@ -168,7 +180,6 @@ const StaffForm = ({
                           name={PermissionsDoctor.MANAGE_MEDICINES}
                           type="checkbox"
                           className="checkbox checkbox-info"
-
                         />
                       </div>
                     </div>
@@ -179,7 +190,6 @@ const StaffForm = ({
                           name={PermissionsDoctor.MANAGE_PATIENTS}
                           type="checkbox"
                           className="checkbox checkbox-info"
-
                         />
                       </div>
                     </div>
@@ -253,7 +263,7 @@ const StaffForm = ({
       <Form
         handleSubmit={handleSubmit}
         onSuccess={onSuccess}
-        defaultValues={res}
+        defaultValues={formValues}
         setLocale={setLocale}
       >
         <Grid md={"2"}>
@@ -325,7 +335,9 @@ const StaffForm = ({
               className="radio radio-info"
               value={"male"}
               defaultChecked={
-                defaultValues?.gender ? defaultValues?.gender == "male" : true
+                defaultValues?.user?.gender
+                  ? defaultValues?.user?.gender == "male"
+                  : true
               }
             />
 
@@ -335,7 +347,7 @@ const StaffForm = ({
               type="radio"
               className="radio radio-info"
               value={"female"}
-              defaultChecked={defaultValues?.gender == "female"}
+              defaultChecked={defaultValues?.user?.gender == "female"}
             />
           </div>
           <TranslatableInput
@@ -358,7 +370,9 @@ const StaffForm = ({
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
             defaultValues={
-              defaultValues?.address?.city ? [defaultValues?.address?.city] : []
+              defaultValues?.user?.address?.city
+                ? [defaultValues?.user?.address?.city]
+                : []
             }
           />
         </Grid>
@@ -372,9 +386,12 @@ const StaffForm = ({
         />
 
         {type == "update" ? (
-          defaultValues?.image && defaultValues?.image?.length > 0 ? (
+          defaultValues?.user?.image &&
+          defaultValues?.user?.image?.length > 0 ? (
             <Gallery
-              media={defaultValues?.image ? defaultValues?.image : [""]}
+              media={
+                defaultValues?.user?.image ? defaultValues?.user?.image : [""]
+              }
             />
           ) : (
             <div className="flex justify-between items-center">
@@ -386,7 +403,7 @@ const StaffForm = ({
           ""
         )}
         <ImageUploader name={"image"} label={"Icon"} />
-        {type == "update" && role != "clinic-employee"? (
+        {type == "update" && role != "clinic-employee" ? (
           <button
             type="button"
             onClick={openModal}

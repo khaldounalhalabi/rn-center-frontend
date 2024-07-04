@@ -28,7 +28,7 @@ const page = async ({
   params: { staffId: number };
 }) => {
   const data = await StaffService.make<StaffService>("doctor").show(staffId);
-  const res: User = data.data.user;
+  const res: User | undefined = data.data.user;
   const permission = formatPermissions(res?.permissions ?? []);
   return (
     <PageCard>

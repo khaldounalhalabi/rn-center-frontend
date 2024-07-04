@@ -60,7 +60,7 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-  const [customer_id,setCustomer_id] = useState(0)
+  const [customer_id,setCustomerId] = useState(0)
   const [offer, setOffer] = useState<Offers>(
     defaultValues?.offers?.[0] ?? {
       type: "",
@@ -341,7 +341,7 @@ const AppointmentForm = ({
                     )
                   }
                   onSelect={(selectedItem) => {
-                    setCustomer_id(selectedItem?.id??0)
+                    setCustomerId(selectedItem?.id??0)
                   }}
                   label={"Customer Name"}
                   optionValue={"id"}

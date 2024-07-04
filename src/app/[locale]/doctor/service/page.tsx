@@ -68,7 +68,7 @@ const Page = () => {
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
-            baseUrl={`/doctor/service`}
+            baseUrl={`/doctor/services`}
             editUrl={`/doctor/service/${data?.id}/edit`}
             showUrl={`/doctor/service/${data?.id}`}
             setHidden={setHidden}

@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
     env: {
         // localApi: 'http://localhost/pom/public/api/',
-        localApi: 'https://api.planetofmedicine.com/api/',
+      localApi: 'https://api.planetofmedicine.com/api/',
     },
 };
 export default withNextIntl(nextConfig);

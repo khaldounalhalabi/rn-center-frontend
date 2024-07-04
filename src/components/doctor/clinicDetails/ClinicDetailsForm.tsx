@@ -45,13 +45,13 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
     phone_numbers: defaultValues?.user?.phones?.map((ph) => ph.phone),
     ...defaultValues,
   };
-  console.log(defaultValues);
+  const {work_gallery,...res} = defaultRes
   return (
     <>
       <Form
         handleSubmit={handleSubmit}
         onSuccess={onSuccess}
-        defaultValues={defaultRes}
+        defaultValues={res}
         setLocale={setLocale}
       >
         <Grid md={"2"}>

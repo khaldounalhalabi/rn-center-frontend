@@ -385,7 +385,7 @@ const StaffForm = ({
         ) : (
           ""
         )}
-        <ImageUploader name={"image"} label={"Supplemental Icon"} />
+        <ImageUploader name={"image"} label={"Icon"} />
         {type == "update" && role != "clinic-employee"? (
           <button
             type="button"

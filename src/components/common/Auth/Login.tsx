@@ -23,6 +23,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const handleSubmit = (data: { email: string; password: string }) => {
     setError(false);
     return POST<AuthResponse>(url, data).then((res: any) => {
+      console.log(res)
       if (res.code == 401) {
         setError(true);
         return res;

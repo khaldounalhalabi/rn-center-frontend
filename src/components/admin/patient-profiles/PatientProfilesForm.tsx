@@ -145,7 +145,7 @@ const PatientProfilesForm = ({
         ) : (
           ""
         )}
-        <ImageUploader name={"images"} isMultiple={true} label={'Supplemental Images'}/>
+        <ImageUploader name={"images"} isMultiple={true} label={'Images'}/>
       </PageCard>
     </Form>
   );

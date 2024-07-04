@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
@@ -11,6 +11,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {ReFetchPhoto} from "@/app/[locale]/providers";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -19,13 +20,19 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
   const actor = getCookieClient("user-type");
-  const { data, isLoading } = useQuery({
+  const {reFetch,setReFetch} = useContext(ReFetchPhoto)
+
+  const { data, isLoading,refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       // @ts-ignore
       return await AuthService.make<AuthService>(actor).GetUserDetails();
     },
   });
+  if(reFetch){
+    refetch().then((r) => r)
+    setReFetch(false)
+  }
   const res: User | undefined = data?.data;
   const imageUrl = data?.data?.image?.[0]?.file_url;
   return (
@@ -77,6 +84,7 @@ const ProfileOptionsPopover = () => {
 
         <Link
           onClick={() => setOpenPopProfile(false)}
+          suppressHydrationWarning
           href={`/${actor}/user-details`}
           className="opacity-[0.8]"
         >
@@ -86,8 +94,9 @@ const ProfileOptionsPopover = () => {
         </Link>
         {actor == "doctor" ? (
           <Link
+              suppressHydrationWarning
             onClick={() => setOpenPopProfile(false)}
-            href={`/${actor}/clinic-details`}
+            href={`/doctor/clinic-details`}
             className="opacity-[0.8]"
           >
             <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">

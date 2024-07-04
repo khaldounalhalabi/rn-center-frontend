@@ -152,7 +152,7 @@ const SystemOfferForm = ({
                 ""
             )}
 
-            <ImageUploader name={"image"} label={'Supplemental Images'}/>
+            <ImageUploader name={"image"} label={'Images'}/>
         </Form>
     );
 };

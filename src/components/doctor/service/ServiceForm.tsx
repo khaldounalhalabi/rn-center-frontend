@@ -147,7 +147,7 @@ const ServiceForm = ({
       ) : (
         ""
       )}
-      <ImageUploader name={"icon"} label={'Supplemental Icon'}/>
+      <ImageUploader name={"icon"} label={'Icon'}/>
     </Form>
   );
 };

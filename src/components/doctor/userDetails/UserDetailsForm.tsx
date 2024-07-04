@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, { Fragment, useState } from "react";
+import React, {Fragment, useContext, useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -11,13 +11,17 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
 import Gallery from "@/components/common/ui/Gallery";
+import {ReFetchPhoto} from "@/app/[locale]/providers";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
+  const {setReFetch} = useContext(ReFetchPhoto)
+
   const handleSubmit = async (data: any) => {
     console.log(data);
     return await AuthService.make<AuthService>("doctor")
       .UpdateUserDetails(data)
       .then((res) => {
+        setReFetch(true)
         console.log(res);
         return res;
       });
@@ -165,7 +169,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
               </div>
           )}
         </div>
-        <ImageUploader name={"image"} label={'Supplemental Image'}/>
+        <ImageUploader name={"image"} label={'Image'}/>
         <button
           type="button"
           onClick={openModal}

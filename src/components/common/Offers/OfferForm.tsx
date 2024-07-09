@@ -11,7 +11,7 @@ import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import dayjs from "dayjs";
 import OffersArray from "@/enum/OfferType";
@@ -59,11 +59,12 @@ const OfferForm = ({
   const [typeOffers, setTypeOffers] = useState(
     defaultValues?.type ?? "percentage",
   );
+  const {image,...res} = defaultValues ??{image:[]}
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={res}
       setLocale={setLocale}
     >
       <Grid md={"2"}>
@@ -97,7 +98,6 @@ const OfferForm = ({
         />
         <SelectPopOverFrom
           name={"type"}
-          id={1}
           handleSelect={(type: string) => {
             setTypeOffers(type);
           }}

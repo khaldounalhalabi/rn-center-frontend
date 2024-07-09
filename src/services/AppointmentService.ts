@@ -17,6 +17,13 @@ export class AppointmentService extends BaseService<Appointment> {
     );
     return await this.errorHandler(res);
   }
+    public async getAvailableTimesClinic(
+    ): Promise<ApiResponse<AvailableTime>> {
+        const res = await GET<AvailableTime>(
+            `${this.actor}/available-times`
+        );
+        return await this.errorHandler(res);
+    }
 
   public async toggleStatus(
     appointmentId: number,
@@ -64,4 +71,11 @@ export class AppointmentService extends BaseService<Appointment> {
     );
     return await this.errorHandler(res);
   }
+    public async exportExcel(){
+        const res = await GET<any>(
+            `${this.actor}/appointments/export`
+        );
+        return (await res);
+    }
+
 }

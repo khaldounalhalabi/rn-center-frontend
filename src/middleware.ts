@@ -19,46 +19,37 @@ async function authenticationMiddleware(req: NextRequest) {
   const role = await getCookieServer("role");
   const access = await getCookieServer("user-type");
   const locale = await getCookieServer("NEXT_LOCALE");
-  if (!access && path.includes(`${locale}/admin`)) {
+  if (
+    (!access && path.includes(`${locale}/admin`)) ||
+    ((access == "customer" || access == "doctor") &&
+      path.includes(`${locale}/admin`))
+  ) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,
       req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!access && path.includes(`${locale}/customer`)) {
+  if (
+    (!access && path.includes(`${locale}/customer`)) ||
+    ((access == "admin" || access == "doctor") &&
+      path.includes(`${locale}/customer`))
+  ) {
     const absolutURL = new URL(
       `${locale}/auth/customer/login`,
       req.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (!access && path.includes(`${locale}/doctor`)) {
+  if (
+    (!access && path.includes(`${locale}/doctor`)) ||
+    ((access == "customer" || access == "admin") &&
+      path.includes(`${locale}/doctor`))
+  ) {
     const absolutURL = new URL(
       `${locale}/auth/doctor/login`,
       req.nextUrl.origin,
     );
-    return NextResponse.redirect(absolutURL.toString());
-  }
-  if (
-    access == "admin" &&
-    (path.includes(`${locale}/customer`) || path.includes(`${locale}/doctor`))
-  ) {
-    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
-    return NextResponse.redirect(absolutURL.toString());
-  }
-  if (
-    access == "customer" &&
-    (path.includes(`${locale}/admin`) || path.includes(`${locale}/doctor`))
-  ) {
-    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
-    return NextResponse.redirect(absolutURL.toString());
-  }
-  if (
-    access == "doctor" &&
-    (path.includes(`${locale}/customer`) || path.includes(`${locale}/admin`))
-  ) {
-    const absolutURL = new URL(`${locale}/404`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
 

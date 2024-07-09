@@ -158,6 +158,11 @@ const SidebarDoctor = ({
           >
             Staff
           </SidebarItem>
+            <SidebarItem
+                link={"/doctor/appointment"}
+            >
+                Appointment
+            </SidebarItem>
         </ul>
       </div>
       <div

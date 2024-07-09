@@ -1,7 +1,7 @@
 "use client";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import styles from "./../../../app/[locale]/datepicker.module.css";
+import styles from "../../../../app/[locale]/datepicker.module.css";
 
 const DateTimePickerRangFilter = ({
   onChange,

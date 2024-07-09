@@ -7,7 +7,7 @@ import Grid from "@/components/common/ui/Grid";
 import { User } from "@/Models/User";
 import { UsersService } from "@/services/UsersService";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import InputTags from "@/components/common/ui/InputTags";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";

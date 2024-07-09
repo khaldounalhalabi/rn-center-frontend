@@ -4,7 +4,7 @@ import React, {Fragment, useContext, useState} from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { Navigate } from "@/Actions/navigate";
 import { User } from "@/Models/User";
 import ImageUploader from "@/components/common/ui/ImageUploader";

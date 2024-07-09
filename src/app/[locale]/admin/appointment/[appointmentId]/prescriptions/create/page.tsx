@@ -1,5 +1,5 @@
 import React from "react";
-import PrescriptionsForm from "@/components/admin/prescriptions/PrescriptionsForm";
+import PrescriptionsForm from "@/components/common/prescriptions/PrescriptionsForm";
 import { AppointmentService } from "@/services/AppointmentService";
 
 const page = async ({

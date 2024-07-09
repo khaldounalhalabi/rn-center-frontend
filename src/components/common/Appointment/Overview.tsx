@@ -1,12 +1,29 @@
 import React from "react";
 import { Appointment } from "@/Models/Appointment";
 import Grid from "@/components/common/ui/Grid";
+import {SystemOffers} from "@/Models/SystemOffer";
+import {Offers} from "@/Models/Offers";
+import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 
 const Overview = ({
   appointment,
+                    userType="admin"
 }: {
   appointment?: Appointment | undefined | null;
+  userType?: "admin"|"doctor"
+
 }) => {
+  console.log(appointment)
+
+
+  const appointmentCost = userType == "doctor"?
+      HandleCalcOffers(appointment?.offers??[],appointment?.clinic?.appointment_cost??0,"offer"):
+      HandleCalcOffers(appointment?.offers??[],HandleCalcOffers(appointment?.system_offers??[],appointment?.clinic?.appointment_cost??0,"system"),"offer")
+
+  const handleTotalCost = (): number => {
+      return  Number(appointmentCost) + Number(appointment?.extra_fees) + Number(appointment?.service?.price)  - Number(appointment?.discount)
+  };
+
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
       <Grid md={2} gap={5}>
@@ -52,9 +69,7 @@ const Overview = ({
           <tbody>
             <tr>
               <td>Clinic Appointment Cost</td>
-              <td
-                className={`${appointment?.service?.price ? "line-through" : ""}`}
-              >
+              <td>
                 {appointment?.clinic?.appointment_cost ?? 0} IQD
               </td>
             </tr>
@@ -67,13 +82,35 @@ const Overview = ({
               <td>{Number(appointment?.extra_fees) ?? 0} IQD</td>
             </tr>
             <tr>
+              <td>Discount</td>
+              <td>{Number(appointment?.discount) ?? 0} IQD</td>
+            </tr>
+            {appointment?.offers?.length != 0
+                ? appointment?.offers?.map((e: Offers, index) => (
+                    <tr key={index}>
+                      <td>Offer [{index}]</td>
+                      <td>
+                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                      </td>
+                    </tr>
+                ))
+                : ""}
+            {userType == "admin" ?
+                appointment?.system_offers?.length != 0
+                    ? appointment?.system_offers?.map((e: SystemOffers, index) => (
+                        <tr key={index}>
+                          <td>System Offer [{index}]</td>
+                          <td>
+                            {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                          </td>
+                        </tr>
+                    ))
+                    : "":""
+            }
+            <tr>
               <td className="text-lg">Total Cost</td>
               <td className="text-lg">
-                {appointment?.service?.price
-                  ? appointment?.service?.price +
-                    (Number(appointment?.extra_fees) ?? 0)
-                  : (appointment?.clinic?.appointment_cost ?? 0) +
-                    (Number(appointment?.extra_fees) ?? 0)}{" "}
+                {handleTotalCost()}{" "}
                 IQD
               </td>
             </tr>

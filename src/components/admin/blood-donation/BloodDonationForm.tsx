@@ -11,7 +11,7 @@ import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import BloodArray from "@/enum/blood";
-import DateTimePickerRang from "@/components/common/ui/DateTimePickerRang";
+import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import { BloodDonation } from "@/Models/BloodDonation";
 
 const BloodDonationForm = ({

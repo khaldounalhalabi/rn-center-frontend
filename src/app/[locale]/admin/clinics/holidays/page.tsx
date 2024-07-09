@@ -8,7 +8,7 @@ import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { Link } from "@/navigation";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
-import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 const Page = () => {
   const t = useTranslations("admin.holidays.table");

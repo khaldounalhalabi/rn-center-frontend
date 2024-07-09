@@ -10,7 +10,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
 import { StaffService } from "@/services/StaffService";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { CityService } from "@/services/CityService";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { User } from "@/Models/User";

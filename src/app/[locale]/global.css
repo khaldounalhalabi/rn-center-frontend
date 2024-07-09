@@ -127,6 +127,14 @@ iframe {
     border-color: #007BFF !important;
 } */
 
+.eventContent {
+    background-color: transparent !important;
+    border-color: #ccc; /* لون الحدود الافتراضي */
+}
+.fc-event {
+    background-color: transparent !important; /* تعيين خلفية شفافة */
+    border-color: #ccc; /* لون الحدود الافتراضي */
+}
 
 ::-webkit-scrollbar {
     @apply w-[5px]

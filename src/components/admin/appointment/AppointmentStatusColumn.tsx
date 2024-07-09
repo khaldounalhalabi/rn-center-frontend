@@ -1,6 +1,6 @@
 'use client'
 import { Appointment } from "@/Models/Appointment";
-import { RealTimeEvents } from "@/Models/NotificationPayload";
+import {NotificationPayload, RealTimeEvents} from "@/Models/NotificationPayload";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
@@ -17,9 +17,11 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 const AppointmentStatusColumn = ({
   appointment,
   revalidate,
+    userType = "admin"
 }: {
   appointment?: Appointment;
   revalidate?: () => void;
+    userType ?:"admin"|"doctor"
 }) => {
     const [isPending, setPending] = useState<boolean>(false);
     const [isTransitionStarted, startTransition] = useTransition();
@@ -45,12 +47,15 @@ const AppointmentStatusColumn = ({
         })
         .then((result) => {
           if (result.isConfirmed) {
-            return AppointmentService.make<AppointmentService>("admin")
+            return AppointmentService.make<AppointmentService>(userType)
               .toggleStatus(id, {
                 status: status,
               })
               .then((res) => {
-                toast.success("Status Changed!");
+
+                  setSelected(res.data.status);
+
+                  toast.success("Status Changed!");
               });
           } else {
             setSelected(appointment?.status);
@@ -60,17 +65,22 @@ const AppointmentStatusColumn = ({
           }
         });
     } else {
-      return  AppointmentService.make<AppointmentService>("admin")
+      return  AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, {
           status: status,
         })
         .then((res) => {
-          toast.success("Status Changed!");
+            toast.success("Status Changed!");
         });
     }
   };
   const [selected,setSelected] = useState(appointment?.status)
     const [isOpen, setIsOpen] = useState(false);
+
+  const [payload,setPayload] = useState<NotificationPayload>()
+  useEffect(()=>{
+      setSelected(appointment?.status)
+  },[revalidate,payload])
 
     function closeModal() {
         setIsOpen(false);
@@ -85,7 +95,7 @@ const AppointmentStatusColumn = ({
             status: AppointmentStatusEnum.CANCELLED,
             cancellation_reason: data.cancellation_reason ?? "",
         };
-        return await AppointmentService.make<AppointmentService>("admin")
+        return await AppointmentService.make<AppointmentService>(userType)
             .toggleStatus(appointment?.id ?? 0, sendData)
             .then((res) => {
                 if (res.code == 200) {
@@ -125,7 +135,8 @@ const AppointmentStatusColumn = ({
             </Dialog>
         </Transition>
       <NotificationHandler
-        handle={(payload) => {
+        handle={(payload:NotificationPayload) => {
+            setPayload(payload)
           if (
             payload.getNotificationType() ==
               RealTimeEvents.AppointmentStatusChange &&

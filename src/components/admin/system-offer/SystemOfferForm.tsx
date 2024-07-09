@@ -8,7 +8,7 @@ import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import OffersArray from "@/enum/OfferType";
 import { Navigate } from "@/Actions/navigate";
 import {SystemOffersService} from "@/services/SystemOffersService";
@@ -57,12 +57,12 @@ const SystemOfferForm = ({
         Navigate(`/admin/system-offer`);
     };
     console.log(defaultValues)
-
+    const {image,...res} = defaultValues ?? {image:[]}
     return (
         <Form
             handleSubmit={handleSubmit}
             onSuccess={onSuccess}
-            defaultValues={defaultValues}
+            defaultValues={res}
         >
             <Grid md={"2"}>
                 <ApiSelect
@@ -84,7 +84,6 @@ const SystemOfferForm = ({
                 />
                 <SelectPopOverFrom
                     name={"type"}
-                    id={1}
                     status={defaultValues?.type ?? "percentage"}
                     ArraySelect={OffersArray()}
                     required={true}

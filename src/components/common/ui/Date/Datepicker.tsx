@@ -1,12 +1,12 @@
 "use client";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import { DateTimePicker, PickerValidDate } from "@mui/x-date-pickers";
+import { DatePicker, PickerValidDate } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import React from "react";
-import styles from "./../../../app/[locale]/datepicker.module.css";
+import styles from "../../../../app/[locale]/datepicker.module.css";
 
-const DateTimePickerRang = ({
+const Datepicker = ({
   name,
   label,
   required = false,
@@ -31,11 +31,12 @@ const DateTimePickerRang = ({
         {label ?? ""}
         {required ? <span className="ml-1 text-red-600">*</span> : false}
       </p>
-      <DateTimePicker
+      <DatePicker
         onChange={(val): void => {
-          setValue(name, val?.format("YYYY-MM-DD hh:mm") ?? "");
+          setValue(name, val?.format("YYYY-MM-DD") ?? "");
         }}
         defaultValue={defaultValue ? dayjs(defaultValue) : undefined}
+        // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}
       />
@@ -44,4 +45,4 @@ const DateTimePickerRang = ({
   );
 };
 
-export default DateTimePickerRang;
+export default Datepicker;

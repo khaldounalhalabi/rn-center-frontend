@@ -26,11 +26,11 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
         </div>
 
         <SelectPopOverFrom
-          id={1}
           status={defaultValue?.next_visit?.replace(/\d/g, "") ?? ""}
           label={"Date :"}
           ArraySelect={SelectDate}
           name={"visit"}
+          handleSelect={()=>undefined}
         />
       </div>
     </>

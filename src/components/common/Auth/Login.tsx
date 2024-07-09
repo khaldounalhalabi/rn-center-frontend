@@ -47,6 +47,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   };
 
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
+    window.localStorage.setItem("user",JSON.stringify(data?.data?.user??undefined))
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);

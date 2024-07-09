@@ -10,6 +10,7 @@ import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import Gallery from "@/components/common/ui/Gallery";
 
 const page = async () => {
   const data = await AuthService.make<AuthService>("doctor").GetClinicDetails();
@@ -218,6 +219,16 @@ const page = async () => {
             disabled={true}
             defaultValue={res?.about_us}
           />
+        </div>
+        <div className={"w-full"}>
+          {res?.work_gallery?.length != 0 ? (
+              <Gallery media={res?.work_gallery ? res?.work_gallery : [""]} />
+          ) : (
+              <div className="flex justify-between items-center">
+                <label className="label"> {("Image")} : </label>
+                <span className="text-lg badge badge-neutral">{("No Data")}</span>
+              </div>
+          )}
         </div>
         <MapIFrame iframe={res?.user?.address?.map_iframe} />
       </div>

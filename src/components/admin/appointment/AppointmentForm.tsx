@@ -10,7 +10,7 @@ import { Clinic } from "@/Models/Clinic";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
@@ -29,6 +29,8 @@ import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
+import HandleCalcOffers from "@/hooks/HandleCalcOffers";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 
 interface Range {
   id: number | undefined;
@@ -61,23 +63,12 @@ const AppointmentForm = ({
     },
   });
   const [customer_id,setCustomerId] = useState(0)
-  const [offer, setOffer] = useState<Offers>(
-    defaultValues?.offers?.[0] ?? {
-      type: "",
-      value: 0,
-      id: 0,
-      title: "",
-      note: "",
-      start_at: "",
-      end_at: "",
-      is_active: true,
-        clinic_id:0
-    },
-  );
+
   const [systemOffer, setSystemOffer] = useState(
     defaultValues?.system_offers ?? [],
   );
-  const [clinicId, setClinicId] = useState<number | undefined>();
+  const [offer,setOffer] = useState(defaultValues?.offers??[])
+  const [clinicId, setClinicId] = useState<number | undefined>(defaultValues?.clinic_id);
   const { data } = useQuery({
     queryKey: ["getLastVisit" , customer_id,range.id],
     queryFn: async () => {
@@ -128,11 +119,9 @@ const AppointmentForm = ({
   const [getExtra, setExtra] = useState(0);
   const [getDiscount, setDiscount] = useState(0);
 
-  const [getServicePrice, setServicePrice] = useState<number | undefined>(
-    defaultValues?.service?.price ? defaultValues?.service?.price : 0,
-  );
+  const [getServicePrice, setServicePrice] = useState<number | undefined>(defaultValues?.service?.price);
 
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(defaultValues?.status);
   const statusData = AppointmentStatuses();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -154,31 +143,10 @@ const AppointmentForm = ({
 
   const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
 
-  const calculateFinalAmountInSystemOffer = (
-    discounts: any,
-    initialAmount: number,
-  ): number => {
-    let finalAmount = initialAmount;
 
-    discounts.forEach((discount: SystemOffers) => {
-      if (discount.type === "fixed") {
-        finalAmount -= discount.amount;
-      } else if (discount.type === "percentage") {
-        finalAmount -= (discount.amount / 100) * initialAmount;
-      }
-    });
 
-    return finalAmount;
-  };
-
-  const appointmentCost = calculateFinalAmountInSystemOffer(
-    defaultValues?.system_offers
-      ? defaultValues?.system_offers
-      : systemOffer
-        ? systemOffer
-        : [],
-    range?.appointment_cost ?? 0,
-  );
+  const appointmentCostSystem = HandleCalcOffers(defaultValues?.system_offers ? defaultValues?.system_offers : systemOffer ? systemOffer : [], range?.appointment_cost ?? 0,"system");
+  const appointmentCostOffer = HandleCalcOffers(defaultValues?.offers ? defaultValues?.offers : offer ? offer : [], appointmentCostSystem ?? 0,"offer");
 
   const [totalCost, setTotalCost] = useState(0);
 
@@ -187,29 +155,7 @@ const AppointmentForm = ({
   }, [getServicePrice, getExtra, range, getDiscount, offer]);
 
   const handleTotalCost = (): number => {
-    if (offer.type == "percentage") {
-      const cost =
-        (getServicePrice ?? 0) +
-        (Number(getExtra) ?? 0) +
-        (appointmentCost ?? 0) -
-        (Number(getDiscount) ?? 0);
-      const offerConst = (range?.appointment_cost ?? 0) * (offer.value / 100);
-      return Number(cost - offerConst);
-    } else if (offer.type == "fixed") {
-      const cost =
-        (getServicePrice ?? 0) +
-        (Number(getExtra) ?? 0) +
-        (appointmentCost ?? 0) -
-        (Number(getDiscount) ?? 0);
-      return Number(cost - offer.value);
-    } else {
-      const cost =
-        (getServicePrice ?? 0) +
-        (Number(getExtra) ?? 0) +
-        (appointmentCost ?? 0) -
-        (Number(getDiscount) ?? 0);
-      return Number(cost);
-    }
+   return  appointmentCostOffer + Number(getServicePrice) + Number(getExtra) - Number(getDiscount)
   };
 
   return (
@@ -343,6 +289,12 @@ const AppointmentForm = ({
                   onSelect={(selectedItem) => {
                     setCustomerId(selectedItem?.id??0)
                   }}
+                  onRemoveSelected={()=>{
+                    setCustomerId(0)
+                  }}
+                  onClear={()=>{
+                    setCustomerId(0)
+                  }}
                   label={"Customer Name"}
                   optionValue={"id"}
                   getOptionLabel={(data: Customer) => {
@@ -355,7 +307,7 @@ const AppointmentForm = ({
                     );
                   }}
                 />
-                {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
+                {lastAppointmentDate && lastAppointmentDate?.length > 0 && customer_id != 0? (
                   <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
                 ) : (
                   ""
@@ -379,6 +331,7 @@ const AppointmentForm = ({
             defaultValues={
               defaultValues?.service ? [defaultValues?.service] : []
             }
+
             label={"Service Name"}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
@@ -435,29 +388,21 @@ const AppointmentForm = ({
                 search,
               )
             }
+            closeOnSelect={false}
+
             defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
             label={"Offers"}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
-              setOffer({
-                ...offer,
-                type: selectedItem?.type ?? "",
-                value: selectedItem?.value ?? 0,
-              });
+              if (selectedItem){
+                setOffer((prevOffers) => [...prevOffers, selectedItem]);
+              }
             }}
             onClear={() => {
-              setOffer({
-                ...offer,
-                type: "",
-                value: 0,
-              });
+              setOffer([]);
             }}
-            onRemoveSelected={() => {
-              setOffer({
-                ...offer,
-                type: "",
-                value: 0,
-              });
+            onRemoveSelected={(selectedItem) => {
+              setOffer(prev => prev.filter(item => item.id != selectedItem.value));
             }}
             isMultiple={true}
             optionValue={"id"}
@@ -503,14 +448,13 @@ const AppointmentForm = ({
             label={"Extra Fees"}
             setWatch={setExtra}
           />
-          <Select
-            required={true}
-            label={"Appointment Status"}
-            data={statusData}
-            selected={"Pending"}
-            name={"status"}
-            status={status}
-            setStatus={setStatus}
+          <SelectPopOverFrom
+              required={true}
+              name={"status"}
+              ArraySelect={statusData}
+              status={status}
+              label={"Status"}
+              handleSelect={(select: string) => setStatus(select)}
           />
 
           {type == "store" ? (
@@ -584,12 +528,16 @@ const AppointmentForm = ({
                 <td>Discount</td>
                 <td>{Number(getDiscount) ?? 0} IQD</td>
               </tr>
-              <tr>
-                <td>Doctor Offer</td>
-                <td>
-                  {offer.value ?? 0} {offer.type == "fixed" ? "IQD" : "%"}
-                </td>
-              </tr>
+              {offer.length != 0
+                  ? offer?.map((e: Offers, index) => (
+                      <tr key={index}>
+                        <td>Offer [{index}]</td>
+                        <td>
+                          {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        </td>
+                      </tr>
+                  ))
+                  : ""}
               {systemOffer.length != 0
                 ? systemOffer?.map((e: SystemOffers, index) => (
                     <tr key={index}>

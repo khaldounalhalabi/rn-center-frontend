@@ -37,6 +37,7 @@ export interface DataTableSchema<T> {
 }
 
 export interface DataTableData<T> {
+  extraButton?:any,
   title?: string;
   createUrl?: string;
   schema: DataTableSchema<T>[];
@@ -208,6 +209,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               ) : (
                 ""
               )}
+              {tableData.extraButton?<>{tableData.extraButton}</>:""}
             </div>
             <div className={"flex justify-between items-center gap-1"}>
               <select

@@ -6,7 +6,7 @@ import DataTable, {
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 const Page = () => {
   const tableData: DataTableData<ClinicHoliday> = {

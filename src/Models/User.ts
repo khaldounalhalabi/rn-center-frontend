@@ -29,6 +29,7 @@ export interface User {
 
 export interface AuthResponse {
   user: User;
+  clinic?:Clinic
   token?: string;
   refresh_token?: string;
 }

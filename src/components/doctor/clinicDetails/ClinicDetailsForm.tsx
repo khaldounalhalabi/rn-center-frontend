@@ -6,7 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { Navigate } from "@/Actions/navigate";
 import { CityService } from "@/services/CityService";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";

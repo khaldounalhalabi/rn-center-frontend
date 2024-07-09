@@ -13,7 +13,7 @@ import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTe
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 
 const HolidayForm = ({
   defaultValues = undefined,

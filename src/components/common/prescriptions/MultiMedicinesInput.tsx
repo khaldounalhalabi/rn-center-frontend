@@ -12,10 +12,13 @@ import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { swal } from "@/Helpers/UIHelpers";
 
 const MultiMedicinesInput = ({
-  defaultValues,
+                               userType="admin",
+
+                               defaultValues,
   type,
   reloadSelect,
 }: {
+  userType?:"admin"|"doctor"
   defaultValues?: MedicineData[];
   type: string;
   reloadSelect: string;
@@ -116,7 +119,7 @@ const MultiMedicinesInput = ({
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}
                 api={(page, search) =>
-                  MedicineService.make<MedicineService>().indexWithPagination(
+                  MedicineService.make<MedicineService>(userType).indexWithPagination(
                     page,
                     search,
                   )
@@ -231,7 +234,7 @@ const MultiMedicinesInput = ({
                           console.log(id);
                           if (id != 0) {
                             return PrescriptionService.make<PrescriptionService>(
-                              "admin",
+                                userType,
                             )
                               .deleteMedicine(id ?? 0)
                               .then(() => {

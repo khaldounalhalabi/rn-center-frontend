@@ -5,19 +5,21 @@ import { Navigate } from "@/Actions/navigate";
 import { Prescription, PrescriptionsDataSend } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PageCard from "@/components/common/ui/PageCard";
-import MultiMedicinesInput from "@/components/admin/prescriptions/MultiMedicinesInput";
-import PhysicalForm from "@/components/admin/prescriptions/PhysicalForm";
-import TestForm from "@/components/admin/prescriptions/TestForm";
+import MultiMedicinesInput from "@/components/common/prescriptions/MultiMedicinesInput";
+import PhysicalForm from "@/components/common/prescriptions/PhysicalForm";
+import TestForm from "@/components/common/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
 
 const PrescriptionsForm = ({
+    userType="admin",
   defaultValues = undefined,
   appointment,
   id,
   type = "store",
 }: {
+  userType?:"admin"|"doctor"
   defaultValues?: Prescription;
   appointment: Appointment;
   id?: number;
@@ -39,14 +41,14 @@ const PrescriptionsForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PrescriptionService.make<PrescriptionService>("admin")
+      return PrescriptionService.make<PrescriptionService>(userType)
         .update(defaultValues?.id ?? id, sendData)
         .then((res) => {
           console.log(res);
           return res;
         });
     } else {
-      return await PrescriptionService.make<PrescriptionService>("admin")
+      return await PrescriptionService.make<PrescriptionService>(userType)
         .store(sendData)
         .then((res) => {
           console.log(res);
@@ -55,7 +57,7 @@ const PrescriptionsForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/appointment/${appointment?.id}`);
+    Navigate(`/${userType}/appointment/${appointment?.id}`);
   };
   let [isOpen, setIsOpen] = useState(false);
   let [reloadSelect, setReloadSelect] = useState("");
@@ -104,6 +106,7 @@ const PrescriptionsForm = ({
                   <div className="p-4">
                     <h2 className="card-title">New Medicine</h2>
                     <MedicinesForm
+                        typePage={'doctor'}
                       type={"prescription"}
                       closeModal={closeModal}
                     />
@@ -131,6 +134,7 @@ const PrescriptionsForm = ({
             </button>
           </div>
           <MultiMedicinesInput
+              userType={userType}
             defaultValues={defaultValues?.medicines_data ?? undefined}
             type={type}
             reloadSelect={reloadSelect}

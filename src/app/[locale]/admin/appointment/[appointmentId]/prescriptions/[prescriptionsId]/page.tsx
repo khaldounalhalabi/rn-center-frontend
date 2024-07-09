@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { MedicineData, Prescription } from "@/Models/Prescriptions";
-import { Stringify } from "@/components/admin/prescriptions/PhysicalForm";
+import { Stringify } from "@/components/common/prescriptions/PhysicalForm";
 import TranslateServer from "@/Helpers/TranslationsServer";
 
 const Page = async ({

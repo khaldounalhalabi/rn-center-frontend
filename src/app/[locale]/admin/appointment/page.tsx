@@ -8,7 +8,7 @@ import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import DatepickerFilter from "@/components/common/ui/DatePickerFilter";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enum/AppointmentStatus";

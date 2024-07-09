@@ -6,7 +6,7 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
-import Datepicker from "@/components/common/ui/Datepicker";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
 
 const HolidayForm = ({
   defaultValues = undefined,

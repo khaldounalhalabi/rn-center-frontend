@@ -22,4 +22,5 @@ export interface Appointment {
   service?: Service;
   system_offers?:SystemOffers[]
   offers?:Offers[]
+  discount:number
 }

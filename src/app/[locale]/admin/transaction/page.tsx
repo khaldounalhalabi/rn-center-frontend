@@ -9,7 +9,7 @@ import { Transactions } from "@/Models/Transactions";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import TransactionTypeArray from "@/enum/TransactionType";
-import DateTimePickerRangFilter from "@/components/common/ui/DateTimePickerRangFilter";
+import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 

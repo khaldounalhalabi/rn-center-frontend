@@ -11,11 +11,13 @@ import { Appointment } from "@/Models/Appointment";
 
 const PrescriptionsTable = ({
   appointment,
+    userType="admin"
 }: {
   appointment?: Appointment | null | undefined;
+  userType?: "admin"|"doctor"
 }) => {
   const tableData: DataTableData<Prescription> = {
-    createUrl: `/admin/appointment/${appointment?.id}/prescriptions/create`,
+    createUrl: `/${userType}/appointment/${appointment?.id}/prescriptions/create`,
     title: `Prescriptions`,
     schema: [
       {
@@ -77,9 +79,9 @@ const PrescriptionsTable = ({
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
-            baseUrl={`/admin/prescriptions`}
-            editUrl={`/admin/appointment/${appointment?.id}/prescriptions/${data?.id}/edit`}
-            showUrl={`/admin/appointment/${appointment?.id}/prescriptions/${data?.id}`}
+            baseUrl={`/${userType}/prescriptions`}
+            editUrl={`/${userType}/appointment/${appointment?.id}/prescriptions/${data?.id}/edit`}
+            showUrl={`/${userType}/appointment/${appointment?.id}/prescriptions/${data?.id}`}
             setHidden={setHidden}
           />
         ),
@@ -87,7 +89,7 @@ const PrescriptionsTable = ({
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await PrescriptionService.make<PrescriptionService>(
-        "admin",
+        userType,
       ).getAllPrescriptions(
         appointment?.id ?? 0,
         page,

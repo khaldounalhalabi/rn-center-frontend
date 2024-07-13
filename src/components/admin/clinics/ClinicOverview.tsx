@@ -6,6 +6,7 @@ import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
 import Appointments from "@/components/admin/clinics/Appointments";
 import ClinicSubscriptionTable from "@/components/admin/clinics/ClinicSubscriptionTable";
+import AppointmentDeductionTable from "@/components/admin/clinics/AppointmentDeductionTable";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -56,6 +57,19 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
           >
             Clinic Subscription
           </Tab>
+          <Tab
+              className={({ selected }) =>
+                  classNames(
+                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                          ? "bg-white text-blue-400 shadow"
+                          : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
+                  )
+              }
+          >
+            Appointment Deductions
+          </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel className={"w-full"}>
@@ -66,6 +80,9 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
           </Tab.Panel>
           <Tab.Panel>
             <ClinicSubscriptionTable clinicId={clinic?.id ?? 0} />
+          </Tab.Panel>
+          <Tab.Panel>
+            <AppointmentDeductionTable clinicId={clinic?.id ?? 0} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

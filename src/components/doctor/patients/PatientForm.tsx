@@ -96,9 +96,9 @@ const PatientForm = ({
             />
             <SelectPopOverFrom
               name={"blood_group"}
-              id={1}
               label={"Blood Group"}
               ArraySelect={BloodArray()}
+              handleSelect={()=>undefined}
               status={defaultValues?.blood_group ?? ""}
             />
           </Grid>

@@ -22,19 +22,21 @@ const useFcmToken = () => {
               vapidKey:
                 "BIutuhaOvqImTR8RpGVoDLHDSzeJay1fAXWes5wWtLmLLBKkyOxUebJA2fQu3hfiwhHq51BKfzDT-tni6ndtVcM",
             });
-            let prevToken = await GET<{ fcm_token: string }>(
-              "admin/fcm/get-token",
-            ).then((res) => {
-              return res?.data?.fcm_token;
-            });
-            if (currentToken != prevToken) {
-              await POST("admin/fcm/store-token", {
-                fcm_token: currentToken,
-              });
-              setToken(currentToken);
-            } else {
-              setToken(currentToken);
-            }
+
+             let prevToken = await GET<{ fcm_token: string }>(
+                 "admin/fcm/get-token",
+             ).then((res) => {
+               return res?.data?.fcm_token;
+             });
+             if (currentToken != prevToken) {
+               await POST("admin/fcm/store-token", {
+                 fcm_token: currentToken,
+               });
+               setToken(currentToken);
+             } else {
+               setToken(currentToken);
+             }
+
           }
         }
       } catch (error) {

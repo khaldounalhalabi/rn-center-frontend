@@ -11,7 +11,6 @@ import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Navigate } from "@/Actions/navigate";
@@ -144,9 +143,9 @@ const AppointmentForm = ({
   const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
 
 
-
   const appointmentCostSystem = HandleCalcOffers(defaultValues?.system_offers ? defaultValues?.system_offers : systemOffer ? systemOffer : [], range?.appointment_cost ?? 0,"system");
   const appointmentCostOffer = HandleCalcOffers(defaultValues?.offers ? defaultValues?.offers : offer ? offer : [], appointmentCostSystem ?? 0,"offer");
+  const appointmentCostOfferOnly = HandleCalcOffers(defaultValues?.offers ? defaultValues?.offers : offer ? offer : [], range?.appointment_cost ?? 0,"offer");
 
   const [totalCost, setTotalCost] = useState(0);
 
@@ -155,7 +154,15 @@ const AppointmentForm = ({
   }, [getServicePrice, getExtra, range, getDiscount, offer]);
 
   const handleTotalCost = (): number => {
-   return  appointmentCostOffer + Number(getServicePrice) + Number(getExtra) - Number(getDiscount)
+   if((systemOffer && offer) || (defaultValues?.system_offers && defaultValues?.offers)){
+     return  appointmentCostOffer + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
+   }else if(systemOffer || defaultValues?.system_offers){
+     return  appointmentCostSystem + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
+   }else if(offer || defaultValues?.offers){
+     return  appointmentCostOfferOnly + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
+   }else {
+     return  Number(range?.appointment_cost ?? 0) + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
+   }
   };
 
   return (
@@ -281,11 +288,14 @@ const AppointmentForm = ({
                   name={"customer_id"}
                   placeHolder={"Select Customer name ..."}
                   api={(page, search) =>
-                    CustomerService.make<CustomerService>().indexWithPagination(
+                    CustomerService.make<CustomerService>().getClinicCustomer(
+                        clinicId,
                       page,
                       search,
                     )
                   }
+                  revalidate={`${clinicId}`}
+
                   onSelect={(selectedItem) => {
                     setCustomerId(selectedItem?.id??0)
                   }}
@@ -550,7 +560,7 @@ const AppointmentForm = ({
                 : ""}
               <tr>
                 <td className="text-lg">Total Cost</td>
-                <td className="text-lg">{totalCost.toFixed(1)} IQD</td>
+                <td className="text-lg">{Number(totalCost).toFixed(1)} IQD</td>
               </tr>
             </tbody>
           </table>

@@ -23,16 +23,15 @@ const ExportButton = () => {
   };
 
   return (
-    <button
-      disabled={isLoading}
-      className={` rounded-lg px-1  ${isLoading?"bg-gray-400":"hover:bg-info"}`}
-      onClick={handleExport}
-    >
-      <ExcelIcon
-        className={`w-7 h-7 cursor-pointer ${isLoading ? "hidden" : ""}`}
-      />
-      {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : ""}
-    </button>
+      <button
+          disabled={isLoading}
+          className="btn btn-info btn-sm btn-square"
+          onClick={handleExport}
+      >
+        <ExcelIcon className={`w-6 h-6 cursor-pointer ${isLoading?"bg-gray-400":""}`} />
+        {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : ""}
+
+      </button>
   );
 };
 

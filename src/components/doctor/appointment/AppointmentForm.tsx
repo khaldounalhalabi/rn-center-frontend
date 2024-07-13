@@ -222,7 +222,7 @@ const AppointmentForm = ({
                   api={(page, search) =>
                     CustomerService.make<CustomerService>(
                       "doctor",
-                    ).indexWithPagination(page, search)
+                    ).setHeaders({ filtered: true }).indexWithPagination(page, search)
                   }
                   onSelect={(selectedItem) => {
                     setCustomerId(selectedItem?.id ?? 0);

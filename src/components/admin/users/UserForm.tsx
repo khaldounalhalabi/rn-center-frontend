@@ -93,7 +93,6 @@ const UserForm = ({
           required={true}
           label={"Role :"}
           name={"role"}
-          id={1}
           status={"admin"}
           ArraySelect={Roles()}
         />

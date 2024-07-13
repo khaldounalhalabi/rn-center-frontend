@@ -32,6 +32,9 @@ import CompactHospitalIcon from "@/components/icons/CompactHospitalIcon";
 import AvailableDepartmentIcon from "@/components/icons/AvailableDepartmentIcon";
 import SystemOfferIcon from "@/components/icons/SystemOfferIcon";
 import SidebarEnIcon from "@/components/icons/SidebarIconEn";
+import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
+import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionIcon";
+import SettingIcon from "@/components/icons/SettingIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -128,13 +131,20 @@ const SidebarAdmin = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-            <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
+            <SidebarCompactItem title={"Accountant Management"}>
+              <div className="flex flex-col">
+                <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
+                <SidebarItem link={"/admin/appointment-deductions"}>Appointment Deductions</SidebarItem>
+              </div>
+            </SidebarCompactItem>
             <SidebarItem link={"/admin/blood-donation"}>
               Blood Donation
             </SidebarItem>
             <SidebarItem link={"/admin/system-offer"}>
               System Offers
             </SidebarItem>
+            <SidebarItem link={"/admin/setting"}>Settings</SidebarItem>
+
           </div>
         </ul>
       </div>
@@ -231,14 +241,33 @@ const SidebarAdmin = ({
           <SidebarIcon link={"/admin/offer"} title={"Offers"}>
             <OfferIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/admin/transaction"} title={"Transactions"}>
-            <TransactionIcon className={`h-8 w-8`} />
-          </SidebarIcon>
+          <SidebarCompactIcon
+              title={"Accountant Management"}
+              icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
+          >
+            <div className="flex flex-col">
+              <SidebarIcon
+                  link={"/admin/transaction"}
+                  title={"Transaction"}
+              >
+                <TransactionIcon className={`h-7 w-7 mx-3`} />
+              </SidebarIcon>
+              <SidebarIcon
+                  link={"/admin/appointment-deductions"}
+                  title={"Appointment Deductions"}
+              >
+                <AppointmentDeductionstIcon className={`h-7 w-7 mx-3`} />
+              </SidebarIcon>
+            </div>
+          </SidebarCompactIcon>
           <SidebarIcon link={"/admin/blood-donation"} title={"Blood Donation"}>
             <BloodIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarIcon link={"/admin/system-offer"} title={"Blood Donation"}>
             <SystemOfferIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+          <SidebarIcon link={"/admin/setting"} title={"Settings"}>
+            <SettingIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

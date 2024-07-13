@@ -21,7 +21,7 @@ const Overview = ({
       HandleCalcOffers(appointment?.offers??[],HandleCalcOffers(appointment?.system_offers??[],appointment?.clinic?.appointment_cost??0,"system"),"offer")
 
   const handleTotalCost = (): number => {
-      return  Number(appointmentCost) + Number(appointment?.extra_fees) + Number(appointment?.service?.price)  - Number(appointment?.discount)
+      return  Number(appointmentCost ?? 0) + Number(appointment?.extra_fees ??0) + Number(appointment?.service?.price ?? 0)  - Number(appointment?.discount??0)
   };
 
   return (

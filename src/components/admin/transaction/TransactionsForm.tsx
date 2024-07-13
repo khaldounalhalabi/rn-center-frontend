@@ -55,7 +55,6 @@ const OfferForm = ({
       <Grid md={"2"}>
         <SelectPopOverFrom
           name={"type"}
-          id={1}
           handleSelect={(type: string) => {}}
           status={defaultValues?.type ?? TransactionType.INCOME}
           ArraySelect={TransactionTypeArray()}

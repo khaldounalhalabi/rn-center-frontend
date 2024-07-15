@@ -139,7 +139,7 @@ const Page = () => {
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentService.make<AppointmentService>(
         "admin",
-      ).setHeaders({ filtered: true }).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>

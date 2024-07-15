@@ -53,7 +53,7 @@ const page = async ({
           </span>
         </label>
         <label className="label">
-          App Date :
+          Appointment Date :
           <span className="badge-success px-2 rounded-xl text-lg">
             {res?.appointment?.date}
           </span>

@@ -34,7 +34,7 @@ interface filterExportType {
 
 const Page = () => {
     const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
     const { data: balance } = useQuery({
         queryKey: ["balance",startDate,endDate],
         queryFn: async () => {
@@ -89,7 +89,7 @@ const Page = () => {
                             {transaction?.clinic?.id ? (
                                 <div className={"btn btn-sm  cursor-pointer"}>
                                     <Link
-                                        href={`/admin/clinics/${transaction?.clinic?.user?.id}`}
+                                        href={`/admin/clinics/${transaction?.clinic?.id}`}
                                     >
                                         <p>
                                             {TranslateClient(
@@ -136,7 +136,7 @@ const Page = () => {
             },
             {
                 name: "appointment.date",
-                label: `App Date`,
+                label: `Appointment Date`,
                 sortable: true,
                 render: (_id, transaction) => {
                     return (

@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import {ClinicTransaction, Summary} from "@/Models/ClinicTransaction";
+import {ClinicTransaction, ClinicSummary} from "@/Models/ClinicTransaction";
 import {ApiResponse} from "@/Http/Response";
 import {GET} from "@/Http/Http";
 
@@ -9,8 +9,8 @@ export class ClinicTransactionService extends BaseService<ClinicTransaction> {
     }
 
     public async getSummary(
-    ): Promise<ApiResponse<Summary>> {
-        const res = await GET<Summary>(
+    ): Promise<ApiResponse<ClinicSummary>> {
+        const res = await GET<ClinicSummary>(
             `doctor/clinic-transactions/summary`
         );
         return await this.errorHandler(res);

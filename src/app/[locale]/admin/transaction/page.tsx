@@ -17,16 +17,25 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import {
+  NotificationPayload,
+  RealTimeEvents,
+} from "@/Models/NotificationPayload";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const Page = () => {
-    const { data: balance } = useQuery({
-        queryKey: ["balance"],
-        queryFn: async () => {
-            return await TransactionService.make<TransactionService>(
-                "admin",
-            ).getSummary();
-        },
-    });
+  const [fetchBalance, setFetchBalance] = useState(false);
+  const { data: balance, isLoading } = useQuery({
+    queryKey: ["balance", fetchBalance],
+    queryFn: async () => {
+      return await TransactionService.make<TransactionService>(
+        "admin"
+      ).getSummary();
+    },
+  });
+  console.log(balance);
+
   const [amountStart, setAmountStart] = useState(0);
   const [amountEnd, setAmountEnd] = useState();
   const [startDate, setStartDate] = useState();
@@ -90,7 +99,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await TransactionService.make<TransactionService>(
-        "admin",
+        "admin"
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -107,7 +116,6 @@ const Page = () => {
                   : event.target.value;
               setParams({ ...params, amount: data });
             }}
-
           />
           <label className={"label"}>Amount To :</label>
           <InputFilter
@@ -158,35 +166,51 @@ const Page = () => {
     },
   };
   return (
-      <>
-          <Grid>
-              <PageCard>
-                  <label className={"card-title"}>Clinic Balance</label>
-                  <div className={"my-4 flex items-center "}>
-                      <div className={"p-4 rounded-full bg-green-100"}>
-                          <BalanceIcon
-                              className={"w-9 h-9 bg-green-100 rounded-full fill-green-600"}
-                          />
-                      </div>
-                      <span suppressHydrationWarning className=" mx-4 text-2xl">
-              {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()} IQD
-            </span>
-                  </div>
-              </PageCard>
-              <PageCard>
-                  <label className={"card-title"}>Pending Amount</label>
-                  <div className={"my-4 flex items-center"}>
-                      <div className={"p-4 rounded-full bg-indigo-100"}>
-                          <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />
-                      </div>
-                      <span suppressHydrationWarning className=" mx-4 text-2xl">
-              {Number(balance?.data?.pending_amount ?? 0).toLocaleString()} IQD
-            </span>
-                  </div>
-              </PageCard>
-          </Grid>
-          <DataTable {...tableData} />
-      </>
+    <>
+      <NotificationHandler
+        handle={(payload: NotificationPayload) => {
+          if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
+            setFetchBalance((prev) => !prev);
+          }
+        }}
+      />
+      <Grid>
+        <PageCard>
+          <label className={"card-title"}>Balance</label>
+          <div className={"my-4 flex items-center justify-between"}>
+            <div className={"p-4 rounded-full bg-green-100"}>
+              <BalanceIcon
+                className={"w-9 h-9 bg-green-100 rounded-full fill-green-600"}
+              />
+            </div>
+            {isLoading ? (
+              <LoadingSpin className="w-6 h-6" />
+            ) : (
+              <span suppressHydrationWarning className=" mx-4 text-2xl">
+                {Number(balance?.data?.balance ?? 0).toLocaleString()} IQD
+              </span>
+            )}
+          </div>
+        </PageCard>
+        <PageCard>
+          <label className={"card-title"}>Pending Amount</label>
+          <div className={"my-4 flex items-center justify-between"}>
+            <div className={"p-4 rounded-full bg-indigo-100"}>
+              <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />
+            </div>
+            {isLoading ? (
+              <LoadingSpin className="w-6 h-6" />
+            ) : (
+              <span suppressHydrationWarning className=" mx-4 text-2xl">
+                {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
+                IQD
+              </span>
+            )}
+          </div>
+        </PageCard>
+      </Grid>
+      <DataTable {...tableData} />
+    </>
   );
 };
 

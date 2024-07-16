@@ -15,7 +15,7 @@ export interface ClinicTransaction {
     clinic?:Clinic
 }
 
-export interface Summary{
+export interface ClinicSummary{
     "clinic_balance": number,
     "pending_amount": number
 }

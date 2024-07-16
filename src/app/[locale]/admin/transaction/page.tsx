@@ -25,21 +25,18 @@ import {
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const Page = () => {
-  const [fetchBalance, setFetchBalance] = useState(false);
-  const { data: balance, isLoading } = useQuery({
-    queryKey: ["balance", fetchBalance],
+  const {
+    data: balance,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["balance"],
     queryFn: async () => {
       return await TransactionService.make<TransactionService>(
         "admin"
       ).getSummary();
     },
   });
-  console.log(balance);
-
-  const [amountStart, setAmountStart] = useState(0);
-  const [amountEnd, setAmountEnd] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
   const tableData: DataTableData<Transactions> = {
     createUrl: `/admin/transaction/create`,
     title: `Transactions`,
@@ -107,26 +104,22 @@ const Page = () => {
           <label className={"label"}>Amount from :</label>
           <InputFilter
             type="number"
-            defaultValue={amountStart}
+            defaultValue={params?.amount?.[0] ?? 0}
             onChange={(event: any) => {
-              setAmountStart(event.target.value);
-              const data =
-                amountEnd && event.target.value
-                  ? [event.target.value, amountEnd]
-                  : event.target.value;
+              const data = event.target.value
+                ? [event.target.value, params?.amount?.[1] ?? 99999]
+                : event.target.value;
               setParams({ ...params, amount: data });
             }}
           />
           <label className={"label"}>Amount To :</label>
           <InputFilter
             type="number"
-            defaultValue={amountEnd}
+            defaultValue={params?.amount?.[1] ?? 99999}
             onChange={(event: any) => {
-              setAmountEnd(event.target.value);
-              const data =
-                amountStart && event.target.value
-                  ? [amountStart, event.target.value]
-                  : event.target.value;
+              const data = event.target.value
+                ? [params?.amount?.[0] ?? 0, event.target.value]
+                : event.target.value;
               setParams({ ...params, amount: data });
             }}
           />
@@ -142,24 +135,28 @@ const Page = () => {
           <label className="label">Start Date :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
-              setStartDate(time?.format("YYYY-MM-DD hh:mm"));
               setParams({
                 ...params,
-                date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                date: [
+                  time?.format("YYYY-MM-DD hh:mm"),
+                  params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                ],
               });
             }}
-            defaultValue={startDate ?? ""}
+            defaultValue={params?.date?.[0] ?? ""}
           />
           <label className="label">End Date :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
-              setEndDate(time?.format("YYYY-MM-DD hh:mm"));
               setParams({
                 ...params,
-                date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                date: [
+                  params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                  time?.format("YYYY-MM-DD hh:mm"),
+                ],
               });
             }}
-            defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+            defaultValue={params?.date?.[1] ?? ""}
           />
         </div>
       );
@@ -170,7 +167,7 @@ const Page = () => {
       <NotificationHandler
         handle={(payload: NotificationPayload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            setFetchBalance((prev) => !prev);
+            refetch();
           }
         }}
       />

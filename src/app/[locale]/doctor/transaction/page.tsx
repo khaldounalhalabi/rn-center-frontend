@@ -17,7 +17,9 @@ import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@/navigation";
-import ClinicTransactionTypeArray, {TransactionType} from "@/enum/ClinicTransactionType";
+import ClinicTransactionTypeArray, {
+  TransactionType,
+} from "@/enum/ClinicTransactionType";
 import ClinicTransactionStatusArray from "@/enum/ClinicTransactionStatus";
 import ClinicTransactionDate, {
   DateFilter,
@@ -27,8 +29,9 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import ExportButton from "@/components/doctor/transaction/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, {MonthsEnum} from "@/enum/Month";
+import AllMonth, { MonthsEnum } from "@/enum/Month";
 import ChartIcon from "@/components/icons/ChartIcon";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 interface filterExportType {
   year: string;
@@ -36,11 +39,15 @@ interface filterExportType {
 }
 
 const Page = () => {
-  const { data: balance } = useQuery({
+  const {
+    data: balance,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor",
+        "doctor"
       ).getSummary();
     },
   });
@@ -58,11 +65,9 @@ const Page = () => {
   function openModal() {
     setIsOpen(true);
   }
-  const type = ClinicTransactionTypeArray().map(type => type.replace(/_/g, ' '));
-  const [amountStart, setAmountStart] = useState(0);
-  const [amountEnd, setAmountEnd] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const type = ClinicTransactionTypeArray().map((type) =>
+    type.replace(/_/g, " ")
+  );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<ClinicTransaction> = {
@@ -75,12 +80,9 @@ const Page = () => {
             <ChartIcon className={"w-6 h-6"} />
           </button>
         </Link>
-          <button
-              className="btn btn-info btn-sm btn-square"
-              onClick={openModal}
-          >
-              <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
-          </button>
+        <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
+          <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
+        </button>
       </>
     ),
     schema: [
@@ -103,13 +105,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name,
+                        transaction?.appointment?.customer?.user?.first_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name,
+                        transaction?.appointment?.customer?.user?.middle_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name,
+                        transaction?.appointment?.customer?.user?.last_name
                       )}
                     </p>
                   </Link>
@@ -143,7 +145,7 @@ const Page = () => {
       },
       {
         name: "appointment.date",
-        label: `App Date`,
+        label: `Appointment Date`,
         sortable: true,
         render: (_id, transaction) => {
           return (
@@ -184,7 +186,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     filter: (params, setParams) => {
       return (
@@ -192,26 +194,22 @@ const Page = () => {
           <label className={"label"}>Amount from :</label>
           <InputFilter
             type="number"
-            defaultValue={amountStart}
+            defaultValue={params?.amount?.[0] ?? 0}
             onChange={(event: any) => {
-              setAmountStart(event.target.value);
-              const data =
-                amountEnd && event.target.value
-                  ? [event.target.value, amountEnd]
-                  : event.target.value;
+              const data = event.target.value
+                ? [event.target.value, params?.amount?.[1] ?? 999999999]
+                : event.target.value;
               setParams({ ...params, amount: data });
             }}
           />
           <label className={"label"}>Amount To :</label>
           <InputFilter
             type="number"
-            defaultValue={amountEnd}
+            defaultValue={params?.amount?.[1] ?? 999999999}
             onChange={(event: any) => {
-              setAmountEnd(event.target.value);
-              const data =
-                amountStart && event.target.value
-                  ? [amountStart, event.target.value]
-                  : event.target.value;
+              const data = event.target.value
+                ? [params?.amount?.[0] ?? 0, event.target.value]
+                : event.target.value;
               setParams({ ...params, amount: data });
             }}
           />
@@ -220,13 +218,13 @@ const Page = () => {
             data={type}
             selected={params.type ?? ""}
             onChange={(event: any) => {
-                if(event.target.value == "system debt"){
-                    setParams({ ...params, type: TransactionType.SYSTEM_DEBT });
-                }else if(event.target.value == "debt to me"){
-                    setParams({ ...params, type: TransactionType.DEBT_TO_ME });
-                }else {
-                    setParams({ ...params, type: event.target.value });
-                }
+              if (event.target.value == "system debt") {
+                setParams({ ...params, type: TransactionType.SYSTEM_DEBT });
+              } else if (event.target.value == "debt to me") {
+                setParams({ ...params, type: TransactionType.DEBT_TO_ME });
+              } else {
+                setParams({ ...params, type: event.target.value });
+              }
             }}
           />
           <label className="label">Status :</label>
@@ -262,24 +260,28 @@ const Page = () => {
               <label className="label">Start Date :</label>
               <DatepickerFilter
                 onChange={(time: any) => {
-                  setStartDate(time?.format("YYYY-MM-DD"));
                   setParams({
                     ...params,
-                    date: [time?.format("YYYY-MM-DD"), endDate],
+                    date: [
+                      time?.format("YYYY-MM-DD"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD"),
+                    ],
                   });
                 }}
-                defaultValue={startDate ?? ""}
+                defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
               <DatepickerFilter
                 onChange={(time: any) => {
-                  setEndDate(time?.format("YYYY-MM-DD"));
                   setParams({
                     ...params,
-                    date: [startDate, time?.format("YYYY-MM-DD")],
+                    date: [
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD"),
+                      time?.format("YYYY-MM-DD"),
+                    ],
                   });
                 }}
-                defaultValue={endDate ?? ""}
+                defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (
@@ -337,18 +339,18 @@ const Page = () => {
                     <SelectFilter
                       data={AllMonth()}
                       selected={MonthsEnum.NON}
-                      onChange={(e: any) =>{
-                       if(e.target.value == MonthsEnum.NON){
-                           setFilterExport({
-                               ...filterExport,
-                               month: "",
-                           })
-                       }else {
-                           setFilterExport({
-                               ...filterExport,
-                               month: e.target.value,
-                           })
-                       }
+                      onChange={(e: any) => {
+                        if (e.target.value == MonthsEnum.NON) {
+                          setFilterExport({
+                            ...filterExport,
+                            month: "",
+                          });
+                        } else {
+                          setFilterExport({
+                            ...filterExport,
+                            month: e.target.value,
+                          });
+                        }
                       }}
                     />
                   </div>
@@ -363,26 +365,36 @@ const Page = () => {
       <Grid>
         <PageCard>
           <label className={"card-title"}>Clinic Balance</label>
-          <div className={"my-4 flex items-center "}>
+          <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-green-100"}>
               <BalanceIcon
                 className={"w-9 h-9 bg-green-100 rounded-full fill-green-600"}
               />
             </div>
-            <span suppressHydrationWarning className=" mx-4 text-2xl">
-              {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()} IQD
-            </span>
+            {isLoading || isFetching ? (
+              <LoadingSpin />
+            ) : (
+              <span suppressHydrationWarning className=" mx-4 text-2xl">
+                {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}{" "}
+                IQD
+              </span>
+            )}
           </div>
         </PageCard>
         <PageCard>
           <label className={"card-title"}>Pending Amount</label>
-          <div className={"my-4 flex items-center"}>
+          <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-indigo-100"}>
               <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />
             </div>
-            <span suppressHydrationWarning className=" mx-4 text-2xl">
-              {Number(balance?.data?.pending_amount ?? 0).toLocaleString()} IQD
-            </span>
+            {isLoading || isFetching ? (
+              <LoadingSpin />
+            ) : (
+              <span suppressHydrationWarning className=" mx-4 text-2xl">
+                {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
+                IQD
+              </span>
+            )}
           </div>
         </PageCard>
       </Grid>

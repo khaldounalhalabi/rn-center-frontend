@@ -12,36 +12,23 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
   getBaseUrl(): string {
     return `${this.actor}/appointment-deductions`;
   }
-  public async getSummary(
-    params?: object
-  ): Promise<ApiResponse<AdminAppointmentDeductionSummary>>;
-  public async getSummary(
-    params?: object
-  ): Promise<ApiResponse<ClinicAppointmentDeductionSummary>>;
-  public async getSummary(
-    params?: object
-  ): Promise<
-    | ApiResponse<ClinicAppointmentDeductionSummary>
-    | ApiResponse<AdminAppointmentDeductionSummary>
+
+  public async getAdminSummary(): Promise<
+    ApiResponse<AdminAppointmentDeductionSummary>
   > {
-    let res;
-    if (this.actor == "admin") {
-      res = await GET<AdminAppointmentDeductionSummary>(
-        `${this.actor}/appointment-deductions/summary`,
-        {
-          ...params,
-        }
-      );
-      return await this.errorHandler(res);
-    } else {
-      res = await GET<ClinicAppointmentDeductionSummary>(
-        `${this.actor}/appointment-deductions/summary`,
-        {
-          ...params,
-        }
-      );
-      return await this.errorHandler(res);
-    }
+    const res = await GET<AdminAppointmentDeductionSummary>(
+      `admin/appointment-deductions/summary`
+    );
+    return await this.errorHandler(res);
+  }
+
+  public async getDoctorSummary(): Promise<
+    ApiResponse<ClinicAppointmentDeductionSummary>
+  > {
+    const res = await GET<ClinicAppointmentDeductionSummary>(
+      `doctor/appointment-deductions/summary`
+    );
+    return await this.errorHandler(res);
   }
 
   public async toggleStatus(

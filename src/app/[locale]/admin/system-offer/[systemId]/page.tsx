@@ -26,36 +26,21 @@ const page = async ({
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
       </div>
-      <label className="label justify-start text-xl">
-        Clinics Name :{" "}
-        {clinics?.map(async (e , index) => (
-            <span className="ml-2 badge badge-accent" key={index}>
-              { TranslateServer(e.name)}
-            </span>
-        ))}
-      </label>
       <Grid md={2} gap={5}>
-
         <label className="label justify-start text-xl">
           Title :{" "}
-          <span className="ml-2 badge badge-outline  ">
-            {res?.title}
-          </span>
+          <span className="ml-2 badge badge-outline  ">{res?.title}</span>
         </label>
         <label className="label justify-start text-xl">
           Type : <span className="ml-2 badge badge-success  ">{res?.type}</span>
         </label>
         <label className="label justify-start text-xl">
           Amount :{" "}
-          <span className="ml-2 badge badge-ghost  ">
-            {res?.amount}
-          </span>
+          <span className="ml-2 badge badge-ghost  ">{res?.amount}</span>
         </label>
         <label className="label justify-start text-xl">
           Allowed Uses :{" "}
-          <span className="ml-2 badge badge-ghost  ">
-            {res?.allowed_uses}
-          </span>
+          <span className="ml-2 badge badge-ghost  ">{res?.allowed_uses}</span>
         </label>
         <label className="label justify-start text-xl">
           Reuse :{" "}
@@ -68,28 +53,25 @@ const page = async ({
           <span className="ml-2 badge badge-accent  ">{res?.from}</span>
         </label>
         <label className="label justify-start text-xl">
-          End At :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.to}</span>
+          End At : <span className="ml-2 badge badge-accent  ">{res?.to}</span>
         </label>
       </Grid>
       <label className={"label text-xl"}>Description :</label>
       <textarea
         className="textarea textarea-bordered h-24 w-full"
         disabled={true}
-        defaultValue={res?.description??"No Data"}
+        defaultValue={res?.description ?? "No Data"}
       />
       {res?.image?.length != 0 ? (
-          <Gallery
-              media={res?.image ? res?.image : []}
-          />
+        <Gallery media={res?.image ? res?.image : []} />
       ) : (
-          <div className="flex items-center">
-            <label className="label"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
-          </div>
+        <div className="flex items-center">
+          <label className="label"> Image : </label>
+          <span className="text-lg badge badge-neutral">No Data</span>
+        </div>
       )}
-      <hr className={'my-4'}/>
-      <ClinicTable id={systemId}/>
+      <hr className={"my-4"} />
+      <ClinicTable id={systemId} />
     </PageCard>
   );
 };

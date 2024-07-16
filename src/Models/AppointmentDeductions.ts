@@ -21,9 +21,6 @@ export interface ClinicAppointmentDeductionSummary {
   subscription_start?: string;
   subscription_end?: string;
   clinic_balance?: number;
-  balance?: number;
-  done_appointment_deductions?: number;
-  pending_appointment_deductions?: number;
 }
 
 export interface AdminAppointmentDeductionSummary {

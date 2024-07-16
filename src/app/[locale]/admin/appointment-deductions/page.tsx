@@ -47,7 +47,7 @@ const Page = () => {
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
         "admin"
-      ).getSummary();
+      ).getAdminSummary();
     },
   });
 
@@ -208,11 +208,11 @@ const Page = () => {
                     ...params,
                     date: [
                       time?.format("YYYY-MM-DD"),
-                      params.date?.[1] ?? dayjs().format("YYYY-MM-DD"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD"),
                     ],
                   });
                 }}
-                defaultValue={params.date?.[0] ?? ""}
+                defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
               <DatepickerFilter
@@ -220,12 +220,12 @@ const Page = () => {
                   setParams({
                     ...params,
                     date: [
-                      params.date?.[0] ?? dayjs().format("YYYY-MM-DD"),
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD"),
                       time?.format("YYYY-MM-DD"),
                     ],
                   });
                 }}
-                defaultValue={params.date?.[1] ?? ""}
+                defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (

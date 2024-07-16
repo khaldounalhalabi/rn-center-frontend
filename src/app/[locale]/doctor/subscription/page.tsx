@@ -21,8 +21,41 @@ const Page = () => {
                 sortable: true,
             },
             {
-                name: "subscription.cost",
-                label: `Cost`,
+                name: "start_time",
+                sortable: true,
+                label: "Start Time",
+                translatable: true,
+            },
+            {
+                name: "end_time",
+                sortable: true,
+                label: "End Time",
+                translatable: true,
+            },
+            {
+                label: `${("Status")}`,
+                name: "status",
+                sortable: true,
+                render: (data) =>
+                    data == "active" ? (
+                        <span className={`badge badge-success`}>{("Active")}</span>
+                    ) : (
+                        <span className={`badge badge-error`}>{("in Active")}</span>
+                    ),
+            },
+            {
+                name: "type",
+                label: `Type`,
+                sortable: true,
+                render: (data) => (
+                    <p className="text-center flex justify-evenly">
+                        {data}
+                    </p>
+                ),
+            },
+            {
+                name: "deduction_cost",
+                label: `Deduction Cost`,
                 sortable: true,
                 render: (data) => (
                     <p className="text-center flex justify-evenly">
@@ -45,16 +78,7 @@ const Page = () => {
                         </p>
                     ),
             },
-            {
-                name: "subscription.allow_period",
-                label: `Allow Period`,
-                sortable: true,
-                render: (data) => (
-                    <p className="text-center flex justify-evenly">
-                        {data} <span className={"badge-success badge "}>days</span>
-                    </p>
-                ),
-            },
+
         ],
         api: async (page, search, sortCol, sortDir, perPage, params) =>
             await ClinicSubscriptionService.make<ClinicSubscriptionService>("doctor").indexWithPagination(

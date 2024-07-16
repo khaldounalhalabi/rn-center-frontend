@@ -98,7 +98,7 @@ const Input: React.FC<InputProps> = ({
         className={`flex ${type == `radio` ? `` : "flex-col"} items-start w-full`}
       >
         {label ? (
-          <label className={"label"}>
+          <label className={"label text-nowrap"}>
             {label}
             {unit ? (
               <span className="ml-1 ">

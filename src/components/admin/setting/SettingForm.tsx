@@ -20,7 +20,7 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
       .update(defaultValues?.id, data)
       .then((res) => {
         if (res.code == 200) {
-          Navigate(`/admin/medicines`);
+          Navigate(`/admin/setting`);
         }
         return res;
       });
@@ -32,7 +32,7 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         <label className="label">
           Label :
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {defaultValues?.label}
+            {defaultValues?.label?.replace(/_/g, ' ')}
           </span>
         </label>
         <Input

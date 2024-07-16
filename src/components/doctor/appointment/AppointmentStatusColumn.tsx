@@ -72,7 +72,6 @@ const AppointmentStatusColumn = ({
         });
     }
   };
-
   const [selected, setSelected] = useState(appointment?.status);
   const [isOpen, setIsOpen] = useState(false);
   const [payload, setPayload] = useState<NotificationPayload>();
@@ -143,8 +142,8 @@ const AppointmentStatusColumn = ({
           }
         }}
       />
-      {appointment?.status === AppointmentStatusEnum.CANCELLED ||
-      appointment?.status === AppointmentStatusEnum.CHECKOUT ? (
+      {isMutating?"Loading...":(appointment?.status === AppointmentStatusEnum.CANCELLED ||
+      appointment?.status === AppointmentStatusEnum.CHECKOUT)&& appointment?.type == "online"  ? (
         <div className={"w-full text-center"}>
           <span
             className={` badge  ${
@@ -170,7 +169,7 @@ const AppointmentStatusColumn = ({
                   setSelected,
                 )
           }
-          value={selected}
+          defaultValue={selected}
         >
           {isMutating ? (
             <option>Loading...</option>

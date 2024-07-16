@@ -7,6 +7,7 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import Gallery from "@/components/common/ui/Gallery";
+import ClinicTable from "@/components/admin/system-offer/ClinicTable";
 
 const page = async ({
   params: { systemId },
@@ -87,6 +88,8 @@ const page = async ({
             <span className="text-lg badge badge-neutral">No Data</span>
           </div>
       )}
+      <hr className={'my-4'}/>
+      <ClinicTable id={systemId}/>
     </PageCard>
   );
 };

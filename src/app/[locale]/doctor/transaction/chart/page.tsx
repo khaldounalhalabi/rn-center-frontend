@@ -118,11 +118,11 @@ const Page: React.FC = () => {
                                <>
                                    <div>
                                        <label className="label">Start Date :</label>
-                                       <DatepickerFilter onChange={(time)=>{setDataRange([time?.format("YYYY-MM-DD hh:mm")??"",dataRange[1]])}} defaultValue={dataRange[0]}/>
+                                       <DatepickerFilter onChange={(time)=>{setDataRange([time?.format("YYYY-MM-DD")??"",dataRange[1]])}} defaultValue={dataRange[0]}/>
                                    </div>
                                    <div>
                                        <label className="label">End Date :</label>
-                                       <DatepickerFilter onChange={(time)=>{setDataRange([dataRange[0],time?.format("YYYY-MM-DD hh:mm")??""])}} defaultValue={dataRange[1]}/>
+                                       <DatepickerFilter onChange={(time)=>{setDataRange([dataRange[0],time?.format("YYYY-MM-DD")??""])}} defaultValue={dataRange[1]}/>
                                    </div>
                                </>:""}
                        </Grid>

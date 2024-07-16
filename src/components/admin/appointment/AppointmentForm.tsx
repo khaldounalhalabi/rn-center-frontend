@@ -253,6 +253,10 @@ const AppointmentForm = ({
                     });
                 }}
                 onRemoveSelected={() => {
+                  setOffer([]);
+                  setSystemOffer([]);
+                  setServicePrice(0);
+                  setCustomerId(0)
                   return setRange({
                     id: 0,
                     appointment_cost: 0,
@@ -266,6 +270,10 @@ const AppointmentForm = ({
                   });
                 }}
                 onClear={() => {
+                  setOffer([]);
+                  setSystemOffer([]);
+                  setServicePrice(0);
+                  setCustomerId(0)
                   return setRange({
                     id: 0,
                     appointment_cost: 0,

@@ -44,7 +44,7 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
     }
 
     const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+    const [endDate, setEndDate] = useState();
     const [showCustomDate, setShowCustomDate] = useState(true);
     const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
     const tableData: DataTableData<AppointmentDeductions> = {
@@ -178,7 +178,7 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                                         date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
                                     });
                                 }}
-                                defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+                                defaultValue={endDate ?? ""}
                             />
                         </>
                     ) : (

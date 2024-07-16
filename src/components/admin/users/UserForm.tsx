@@ -95,6 +95,8 @@ const UserForm = ({
           name={"role"}
           status={"admin"}
           ArraySelect={Roles()}
+          handleSelect={()=>undefined}
+
         />
       </Grid>
       <Input

@@ -9,7 +9,6 @@ import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import Select from "@/components/common/ui/Selects/Select";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Navigate } from "@/Actions/navigate";
@@ -17,7 +16,7 @@ import { CustomerService } from "@/services/CustomerService";
 import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
-import AppointmentStatuses, {
+import  {
   AppointmentStatusEnum,
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
@@ -27,8 +26,9 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
-import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import PageCard from "@/components/common/ui/PageCard";
+import PatientForm from "@/components/doctor/patients/PatientForm";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -156,8 +156,69 @@ const AppointmentForm = ({
     );
   };
 
+
+  let [isOpenPatient, setIsOpenPatient] = useState(false);
+  let [reloadSelect, setReloadSelect] = useState("");
+
+  function closeModalPatient() {
+    setReloadSelect("re")
+    setIsOpenPatient(false);
+  }
+
+  function openModalPatient() {
+    setIsOpenPatient(true);
+  }
+
+
   return (
-    <>
+    <PageCard>
+       <div className={'flex justify-between'}>
+         <h2 className="card-title">{type=="store"?"Add":"Edit"} Appointment</h2>
+         <button
+             type={"button"}
+             className="btn btn-info"
+             onClick={openModalPatient}
+         >
+           New Patient
+         </button>
+       </div>
+      <Transition appear show={isOpenPatient} as={Fragment}>
+        <Dialog as="div" className="relative z-[1000]" onClose={closeModalPatient}>
+          <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-[70vw] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <PatientForm appointment={true} close={closeModalPatient}/>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+
+
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[1000]" onClose={closeModal}>
           <Transition.Child
@@ -238,7 +299,9 @@ const AppointmentForm = ({
                       </p>
                     );
                   }}
+                  revalidate={reloadSelect}
                 />
+
                 {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
                   <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
                 ) : (
@@ -416,7 +479,7 @@ const AppointmentForm = ({
           </table>
         </div>
       </Form>
-    </>
+    </PageCard>
   );
 };
 

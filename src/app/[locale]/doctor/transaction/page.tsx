@@ -17,14 +17,13 @@ import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@/navigation";
-import ClinicTransactionTypeArray from "@/enum/ClinicTransactionType";
+import ClinicTransactionTypeArray, {TransactionType} from "@/enum/ClinicTransactionType";
 import ClinicTransactionStatusArray from "@/enum/ClinicTransactionStatus";
 import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import CalenderIcon from "@/components/icons/CalenderIcon";
 import ExportButton from "@/components/doctor/transaction/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
@@ -59,11 +58,11 @@ const Page = () => {
   function openModal() {
     setIsOpen(true);
   }
-
+  const type = ClinicTransactionTypeArray().map(type => type.replace(/_/g, ' '));
   const [amountStart, setAmountStart] = useState(0);
   const [amountEnd, setAmountEnd] = useState();
   const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+  const [endDate, setEndDate] = useState();
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<ClinicTransaction> = {
@@ -218,16 +217,22 @@ const Page = () => {
           />
           <label className="label">Type :</label>
           <SelectFilter
-            data={ClinicTransactionTypeArray()}
+            data={type}
             selected={params.type ?? ""}
             onChange={(event: any) => {
-              setParams({ ...params, type: event.target.value });
+                if(event.target.value == "system debt"){
+                    setParams({ ...params, type: TransactionType.SYSTEM_DEBT });
+                }else if(event.target.value == "debt to me"){
+                    setParams({ ...params, type: TransactionType.DEBT_TO_ME });
+                }else {
+                    setParams({ ...params, type: event.target.value });
+                }
             }}
           />
           <label className="label">Status :</label>
           <SelectFilter
             data={ClinicTransactionStatusArray()}
-            selected={params.type ?? ""}
+            selected={params.status ?? ""}
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
@@ -257,10 +262,10 @@ const Page = () => {
               <label className="label">Start Date :</label>
               <DatepickerFilter
                 onChange={(time: any) => {
-                  setStartDate(time?.format("YYYY-MM-DD hh:mm"));
+                  setStartDate(time?.format("YYYY-MM-DD"));
                   setParams({
                     ...params,
-                    date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                    date: [time?.format("YYYY-MM-DD"), endDate],
                   });
                 }}
                 defaultValue={startDate ?? ""}
@@ -268,13 +273,13 @@ const Page = () => {
               <label className="label">End Date :</label>
               <DatepickerFilter
                 onChange={(time: any) => {
-                  setEndDate(time?.format("YYYY-MM-DD hh:mm"));
+                  setEndDate(time?.format("YYYY-MM-DD"));
                   setParams({
                     ...params,
-                    date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                    date: [startDate, time?.format("YYYY-MM-DD")],
                   });
                 }}
-                defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+                defaultValue={endDate ?? ""}
               />
             </>
           ) : (

@@ -301,7 +301,6 @@ const ClinicForm = ({
             />
             <SelectPopOverFrom
               required={true}
-              id={2}
               name={"subscription_type"}
               label={"Subscription Type :"}
               status={""}

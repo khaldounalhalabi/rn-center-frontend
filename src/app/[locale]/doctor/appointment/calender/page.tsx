@@ -21,8 +21,8 @@ import {Link} from "@/navigation";
 const CalendarComponent = () => {
     const calendarRef = useRef(null);
     const [openFilter, setOpenFilter] = useState(false);
-    const [startDate, setStartDate] = useState<string>();
-    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+    const [startDate, setStartDate] = useState<string>(dayjs().startOf('month').format("YYYY-MM-DD"));
+    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
     const statusData = AppointmentStatuses();
     const typeData = ["online", "manual", "all"];
     const [params, setParams] = useState({});
@@ -55,24 +55,24 @@ const CalendarComponent = () => {
                     <label className="label">Start Date :</label>
                     <DatepickerFilter
                         onChange={(time) => {
-                            setStartDate(time?.format("YYYY-MM-DD hh:mm")??"");
+                            setStartDate(time?.format("YYYY-MM-DD")??"");
                             setParams({
                                 ...params,
-                                date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                                date: [time?.format("YYYY-MM-DD"), endDate],
                             });
                         }}
-                        defaultValue={startDate ?? ""}
+                        defaultValue={startDate ?? dayjs().startOf('month').format("YYYY-MM-DD")}
                     />
                     <label className="label">End Date :</label>
                     <DatepickerFilter
                         onChange={(time) => {
-                            setEndDate(time?.format("YYYY-MM-DD hh:mm")??"");
+                            setEndDate(time?.format("YYYY-MM-DD")??"");
                             setParams({
                                 ...params,
-                                date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                                date: [startDate, time?.format("YYYY-MM-DD")],
                             });
                         }}
-                        defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+                        defaultValue={endDate ?? dayjs().format("YYYY-MM-DD")}
                     />
                 </div>
                 <div className="flex justify-between items-center mt-4">
@@ -127,16 +127,10 @@ const CalendarComponent = () => {
         const lastName = TranslateClient(customer?.user?.last_name);
 
         return (
-            <Link href={`/doctor/appointment/${appointment?.id}`} className={'overflow-hidden '} >
-                <div className={"w-full h-full hover:bg-yellow-200 cursor-pointer"}>
-                    <div className="flex flex-wrap px-2">
-                        <span className="badge badge-warning m-1">{firstName}</span>
-                        <span className="badge badge-warning m-1">{middleName}</span>
-                        <span className="badge badge-warning m-1">{lastName}</span>
-                    </div>
-                    <label className={'label text-black w-fit mx-2'}>type : <span className={'ml-1 badge badge-accent'}>{appointment.type}</span></label>
-                    <label className={'label text-black w-fit mx-2'}>status : <span className={'ml-1 badge badge-primary'}>{appointment.status}</span></label>
-
+            <Link href={`/doctor/appointment/${appointment?.id}`} className={'text-wrap'} >
+                <div className={'label text-sm bg-success flex flex-col rounded-xl hover:bg-gray-400'}>
+                    <p>An appointment with :</p>
+                    <span className={'text-black'}>{firstName} {middleName} {lastName}</span>
                 </div>
             </Link>
         );

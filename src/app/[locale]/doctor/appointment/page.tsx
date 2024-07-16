@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {Fragment, useState} from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -22,6 +22,14 @@ import ExportButton from "@/components/common/Appointment/ExportButton";
 import {Link} from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
 import DocumentPlus from "@/components/icons/DocumentPlus";
+import {Dialog, Transition} from "@headlessui/react";
+import AllMonth, {MonthsEnum} from "@/enum/Month";
+import ExcelIcon from "@/components/icons/ExcelIcon";
+
+interface filterExportType {
+  year: string;
+  month: string;
+}
 
 const Page = () => {
   const handleCopyLink = (id: number | undefined) => {
@@ -30,9 +38,25 @@ const Page = () => {
   };
   const locale = getCookieClient("NEXT_LOCALE");
   const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+  const [endDate, setEndDate] = useState();
   const statusData = AppointmentStatuses();
   const typeData = ["online", "manual", "all"];
+
+  const [filterExport, setFilterExport] = useState<filterExportType>({
+    year: "",
+    month: "",
+  });
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/appointment/create`,
     title: "Appointment",
@@ -43,7 +67,12 @@ const Page = () => {
            <CalenderIcon className={'w-6 h-6'}/>
          </button>
        </Link>
-       <ExportButton />
+       <button
+           className="btn btn-info btn-sm btn-square"
+           onClick={openModal}
+       >
+         <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
+       </button>
      </>
     ),
     schema: [
@@ -132,7 +161,6 @@ const Page = () => {
               setHidden={setHidden}
             >
               <>
-                <AppointmentLogModal appointmentId={data?.id} />
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
             </ActionsButtons>
@@ -170,10 +198,10 @@ const Page = () => {
           <label className="label">Start Date :</label>
           <DatepickerFilter
             onChange={(time: any) => {
-              setStartDate(time?.format("YYYY-MM-DD hh:mm"));
+              setStartDate(time?.format("YYYY-MM-DD"));
               setParams({
                 ...params,
-                date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                date: [time?.format("YYYY-MM-DD"), endDate],
               });
             }}
             defaultValue={startDate ?? ""}
@@ -181,20 +209,93 @@ const Page = () => {
           <label className="label">End Date :</label>
           <DatepickerFilter
             onChange={(time: any) => {
-              setEndDate(time?.format("YYYY-MM-DD hh:mm"));
+              setEndDate(time?.format("YYYY-MM-DD"));
               setParams({
                 ...params,
-                date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                date: [startDate, time?.format("YYYY-MM-DD")],
               });
             }}
-            defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+            defaultValue={endDate ?? ""}
           />
         </div>
       );
     },
   };
 
-  return <DataTable {...tableData} />;
+  return (
+      <>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black/25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <div className={"w-full my-4 grid grid-cols-1"}>
+                      <label className={"label"}>Year :</label>
+                      <input
+                          className="input input-bordered w-full focus:outline-pom focus:border-pom"
+                          type={"number"}
+                          min={1900}
+                          max={2099}
+                          step={1}
+                          onChange={(e) =>
+                              setFilterExport({
+                                ...filterExport,
+                                year: e.target.value,
+                              })
+                          }
+                          defaultValue={filterExport.year}
+                      />
+                      <label className={"label"}>Month :</label>
+                      <SelectFilter
+                          data={AllMonth()}
+                          selected={MonthsEnum.NON}
+                          onChange={(e: any) =>{
+                            if(e.target.value == MonthsEnum.NON){
+                              setFilterExport({
+                                ...filterExport,
+                                month: "",
+                              })
+                            }else {
+                              setFilterExport({
+                                ...filterExport,
+                                month: e.target.value,
+                              })
+                            }
+                          }}
+                      />
+                    </div>
+
+                    <ExportButton data={filterExport} close={closeModal} />
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+        <DataTable {...tableData} />
+      </>
+  );
 };
 
 export default Page;

@@ -1,38 +1,37 @@
-import ExcelIcon from "@/components/icons/ExcelIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
 import HandleExportExcel from "@/hooks/HandleExportExcel";
 import { getCookieClient } from "@/Actions/clientCookies";
 
-const ExportButton = () => {
-  const { isLoading, handleExportData } = HandleExportExcel();
-  const token = getCookieClient("token");
-  const handleExport = () => {
-    const response = fetch(
-      `${process.env.localApi}doctor/appointments/export`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      },
+const ExportButton = ({data,close}:{data:{year:string,month:string},close:any}) => {
+    const { isLoading, handleExportData } = HandleExportExcel();
+    const token = getCookieClient("token");
+    const handleExport = () => {
+        const api = `${process.env.localApi}doctor/appointments/export${data.year && !data.month?`?year=${data.year}`:data.month && !data.year?`?month=${data.month}`:data.year && data.month?`?year=${data.year}&month=${data.month}`:""}`
+        const response = fetch(
+            api,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                    "Access-Control-Allow-Origin": "*",
+                },
+            },
+        );
+        close()
+        return handleExportData(response);
+    };
+
+    return (
+        <button
+            type="button"
+            className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            onClick={handleExport}
+        >
+            {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : "Apply"}
+        </button>
     );
-    return handleExportData(response);
-  };
-
-  return (
-      <button
-          disabled={isLoading}
-          className="btn btn-info btn-sm btn-square"
-          onClick={handleExport}
-      >
-        <ExcelIcon className={`w-6 h-6 cursor-pointer ${isLoading?"bg-gray-400":""}`} />
-        {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : ""}
-
-      </button>
-  );
 };
 
 export default ExportButton

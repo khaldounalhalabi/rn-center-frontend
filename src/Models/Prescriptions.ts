@@ -30,7 +30,7 @@ export interface MedicineData {
 export interface PrescriptionsDataSend {
   clinic_id: number;
   customer_id: number;
-  appointment_id: number;
+  appointment_id?: number;
   physical_information: string;
   problem_description: string;
   next_visit: string;

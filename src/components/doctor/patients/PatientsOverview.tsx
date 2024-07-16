@@ -3,6 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
+import PrescriptionsTable from "@/components/common/Appointment/PrescriptionsTable";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,6 +16,7 @@ const PatientsOverview = ({
   patient: Customer;
   id: number;
 }) => {
+  console.log(patient)
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -67,7 +69,7 @@ const PatientsOverview = ({
             <div></div>
           </Tab.Panel>
           <Tab.Panel>
-            <div></div>
+            <PrescriptionsTable patient={patient} userType={'customer'}/>
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

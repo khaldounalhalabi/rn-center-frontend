@@ -49,11 +49,12 @@ const BlockedForm = ({
       <Grid md={"2"}>
         <SelectPopOverFrom
           label={"Type"}
-          id={2}
           required={true}
           ArraySelect={types}
           name={"type"}
           status={defaultValues?.type ?? "email"}
+          handleSelect={()=>undefined}
+
         />
         <Input
           required={true}

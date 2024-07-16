@@ -34,13 +34,13 @@ interface filterExportType {
 
 const Page = () => {
     const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
+    const [endDate, setEndDate] = useState();
     const { data: balance } = useQuery({
         queryKey: ["balance",startDate,endDate],
         queryFn: async () => {
             return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
                 "admin",
-            ).getSummary({date:[startDate,endDate]});
+            ).getSummary();
         },
     });
 
@@ -184,7 +184,7 @@ const Page = () => {
                     <label className="label">Status :</label>
                     <SelectFilter
                         data={AppointmentDeductionsStatusArray()}
-                        selected={params.type ?? ""}
+                        selected={params.status ?? ""}
                         onChange={(event: any) => {
                             setParams({ ...params, status: event.target.value });
                         }}
@@ -214,10 +214,10 @@ const Page = () => {
                             <label className="label">Start Date :</label>
                             <DatepickerFilter
                                 onChange={(time: any) => {
-                                    setStartDate(time?.format("YYYY-MM-DD hh:mm"));
+                                    setStartDate(time?.format("YYYY-MM-DD"));
                                     setParams({
                                         ...params,
-                                        date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                                        date: [time?.format("YYYY-MM-DD"), endDate],
                                     });
                                 }}
                                 defaultValue={startDate ?? ""}
@@ -225,13 +225,13 @@ const Page = () => {
                             <label className="label">End Date :</label>
                             <DatepickerFilter
                                 onChange={(time: any) => {
-                                    setEndDate(time?.format("YYYY-MM-DD hh:mm"));
+                                    setEndDate(time?.format("YYYY-MM-DD"));
                                     setParams({
                                         ...params,
-                                        date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                                        date: [startDate, time?.format("YYYY-MM-DD")],
                                     });
                                 }}
-                                defaultValue={endDate ?? dayjs().format("YYYY-MM-DD hh:mm")}
+                                defaultValue={endDate ?? ""}
                             />
                         </>
                     ) : (

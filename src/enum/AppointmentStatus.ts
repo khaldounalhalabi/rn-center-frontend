@@ -34,7 +34,7 @@ export const AppointmentStatusesFilter = (type: string, status: string): string[
         return [];
     }
   } else {
-    return Object.values(AppointmentStatusEnum).filter((item) => item !== "all");
+    return Object.values(AppointmentStatusEnum).filter((item) => item !== "all" && item !=="pending");
   }
 };
 

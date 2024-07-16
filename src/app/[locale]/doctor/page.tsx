@@ -1,9 +1,11 @@
 'use client'
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
-import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
+import dayjs from "dayjs";
 
 const Home =  () => {
-   const path = "/en/doctor/offers"
+   const path = HandleGetUserData()
+    console.log(dayjs().startOf('month').format("YYYY-MM-DD"))
+    console.log(path)
   return <></>;
 };
 

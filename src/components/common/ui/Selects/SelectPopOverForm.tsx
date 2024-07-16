@@ -15,7 +15,7 @@ export default function SelectPopOverFrom({
   ArraySelect: string[];
   label?: string;
   name: string;
-  handleSelect?: any;
+  handleSelect: any;
 }) {
   const [selected, setSelected] = useState(status);
 

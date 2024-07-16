@@ -11,6 +11,7 @@ import TestForm from "@/components/common/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
+import HandleGetUserAndClinic from "@/hooks/HandleGetUserAndClinic";
 
 const PrescriptionsForm = ({
     userType="admin",
@@ -21,21 +22,32 @@ const PrescriptionsForm = ({
 }: {
   userType?:"admin"|"doctor"
   defaultValues?: Prescription;
-  appointment: Appointment;
+  appointment?: Appointment;
   id?: number;
   type?: "store" | "update";
 }) => {
+  const clinicId = HandleGetUserAndClinic()
   const handleSubmit = async (data: PrescriptionsDataSend) => {
-    const sendData: PrescriptionsDataSend = {
-      appointment_id: appointment.id,
-      clinic_id: appointment.clinic_id,
-      customer_id: appointment.customer_id,
+
+    const sendData: PrescriptionsDataSend = id?
+        {
+          clinic_id: clinicId?.clinic?.id,
+          customer_id: id,
+          physical_information: data.physical_information,
+          problem_description: data.problem_description,
+          next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
+          test: data.test,
+          medicines: data.medicines,
+    }:{
+      appointment_id: appointment?.id??0,
+      clinic_id: appointment?.clinic_id??0,
+      customer_id: appointment?.customer_id??0,
       physical_information: data.physical_information,
       problem_description: data.problem_description,
       next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
       test: data.test,
       medicines: data.medicines,
-    };
+    }
     console.log(sendData);
     if (
       type === "update" &&
@@ -57,7 +69,11 @@ const PrescriptionsForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/${userType}/appointment/${appointment?.id}`);
+    if(id){
+      Navigate(`/${userType}/patients/${id}`);
+    }else {
+      Navigate(`/${userType}/appointment/${appointment?.id}`);
+    }
   };
   let [isOpen, setIsOpen] = useState(false);
   let [reloadSelect, setReloadSelect] = useState("");

@@ -50,6 +50,7 @@ const Page = () => {
         label: "Clinic Name",
         translatable: true,
       },
+
       {
         name: "clinic.user.first_name",
         sortable: true,

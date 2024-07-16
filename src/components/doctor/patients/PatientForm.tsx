@@ -25,10 +25,14 @@ const PatientForm = ({
   defaultValues = undefined,
   id,
   type = "store",
+                       appointment = false,
+                       close = undefined
 }: {
   defaultValues?: AddOrUpdateCustomer;
   id?: number;
   type?: "store" | "update";
+  appointment?:boolean,
+  close?:()=>void
 }) => {
   const handleSubmit = async (data: any) => {
     console.log(data);
@@ -52,7 +56,11 @@ const PatientForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/doctor/patients`);
+    if (appointment && close){
+     return close()
+    }else {
+      Navigate(`/doctor/patients`);
+    }
   };
   console.log(defaultValues);
   const [locale, setLocale] = useState<"en" | "ar">("en");
@@ -94,13 +102,14 @@ const PatientForm = ({
               locale={locale}
               name={"last_name"}
             />
-            <SelectPopOverFrom
-              name={"blood_group"}
-              label={"Blood Group"}
-              ArraySelect={BloodArray()}
-              handleSelect={()=>undefined}
-              status={defaultValues?.blood_group ?? ""}
-            />
+            {appointment?"":
+                <SelectPopOverFrom
+                    name={"blood_group"}
+                    label={"Blood Group"}
+                    ArraySelect={BloodArray()}
+                    handleSelect={()=>undefined}
+                    status={defaultValues?.blood_group ?? ""}
+                />}
           </Grid>
 
           <MultiInput
@@ -164,41 +173,45 @@ const PatientForm = ({
                   : []
               }
             />
-            <Datepicker
-              name={"birth_date"}
-              label={"Birth Date :"}
+            {appointment?"":
+                <Datepicker
+                    name={"birth_date"}
+                    label={"Birth Date :"}
 
-            />
+                />}
           </Grid>
         </PageCard>
-
-        <PageCard>
-          <OtherDataInput
-            defaultValues={defaultValues?.other_data ?? undefined}
-          />
-        </PageCard>
+        {appointment?"":
+            <PageCard>
+              <OtherDataInput
+                  defaultValues={defaultValues?.other_data ?? undefined}
+              />
+            </PageCard>}
         <PageCard>
           <Textarea name={"medical_condition"} label={"Medical Condition"} />
-          <Textarea name={"note"} label={"Note"} />
+          {appointment?"":
+          <>
+            <Textarea name={"note"} label={"Note"} />
 
-          {type == "update" ? (
-            <div className={"col-span-2"}>
-              {defaultValues?.images?.length != 0 ? (
-                <Gallery
-                  media={defaultValues?.images ? defaultValues?.images : []}
-                />
-              ) : (
-                <div className="flex items-center">
-                  <label className="label"> Image : </label>
-                  <span className="text-lg badge badge-neutral">No Data</span>
+            {type == "update" ? (
+                <div className={"col-span-2"}>
+                  {defaultValues?.images?.length != 0 ? (
+                      <Gallery
+                          media={defaultValues?.images ? defaultValues?.images : []}
+                      />
+                  ) : (
+                      <div className="flex items-center">
+                        <label className="label"> Image : </label>
+                        <span className="text-lg badge badge-neutral">No Data</span>
+                      </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ) : (
-            ""
-          )}
+            ) : (
+                ""
+            )}
 
-          <ImageUploader name={"images"} isMultiple={true} label={'Supplemental Images'}/>
+            <ImageUploader name={"images"} isMultiple={true} label={'Supplemental Images'}/>
+          </>}
         </PageCard>
       </Form>
     </div>

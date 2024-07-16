@@ -12,12 +12,25 @@ import TransactionTypeArray from "@/enum/TransactionType";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
+import { useQuery } from "@tanstack/react-query";
+import Grid from "@/components/common/ui/Grid";
+import PageCard from "@/components/common/ui/PageCard";
+import BalanceIcon from "@/components/icons/BalanceIcon";
+import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
 
 const Page = () => {
+    const { data: balance } = useQuery({
+        queryKey: ["balance"],
+        queryFn: async () => {
+            return await TransactionService.make<TransactionService>(
+                "admin",
+            ).getSummary();
+        },
+    });
   const [amountStart, setAmountStart] = useState(0);
   const [amountEnd, setAmountEnd] = useState();
   const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD hh:mm"));
+  const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
   const tableData: DataTableData<Transactions> = {
     createUrl: `/admin/transaction/create`,
     title: `Transactions`,
@@ -144,7 +157,37 @@ const Page = () => {
       );
     },
   };
-  return <DataTable {...tableData} />;
+  return (
+      <>
+          <Grid>
+              <PageCard>
+                  <label className={"card-title"}>Clinic Balance</label>
+                  <div className={"my-4 flex items-center "}>
+                      <div className={"p-4 rounded-full bg-green-100"}>
+                          <BalanceIcon
+                              className={"w-9 h-9 bg-green-100 rounded-full fill-green-600"}
+                          />
+                      </div>
+                      <span suppressHydrationWarning className=" mx-4 text-2xl">
+              {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()} IQD
+            </span>
+                  </div>
+              </PageCard>
+              <PageCard>
+                  <label className={"card-title"}>Pending Amount</label>
+                  <div className={"my-4 flex items-center"}>
+                      <div className={"p-4 rounded-full bg-indigo-100"}>
+                          <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />
+                      </div>
+                      <span suppressHydrationWarning className=" mx-4 text-2xl">
+              {Number(balance?.data?.pending_amount ?? 0).toLocaleString()} IQD
+            </span>
+                  </div>
+              </PageCard>
+          </Grid>
+          <DataTable {...tableData} />
+      </>
+  );
 };
 
 export default Page;

@@ -93,7 +93,6 @@ const ClinicSubscriptionForm = ({
         />
         <SelectPopOverFrom
           required={true}
-          id={2}
           name={"type"}
           label={"Type :"}
           status={defaultValues?.type ?? ""}

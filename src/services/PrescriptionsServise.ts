@@ -19,7 +19,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     return await this.errorHandler(res);
   }
 
-  public async getAllPrescriptions(
+  public async getAllAppointmentPrescriptions(
     appointmentId: number,
     page: number = 0,
     search?: string,
@@ -42,4 +42,27 @@ export class PrescriptionService extends BaseService<Prescription> {
     );
     return await this.errorHandler(res);
   }
+    public async getAllPatientPrescriptions(
+        patientId: number,
+        page: number = 0,
+        search?: string,
+        sortCol?: string,
+        sortDir?: string,
+        per_page?: number,
+        params?: object
+    ): Promise<ApiResponse<Prescription[]>> {
+        const res = await GET<Prescription[]>(
+            `${this.actor}/customers/${patientId}/prescriptions`,
+            {
+                page: page,
+                search: search,
+                sort_col: sortCol,
+                sort_dir: sortDir,
+                per_page: per_page,
+                ...params,
+            },
+            this.headers
+        );
+        return await this.errorHandler(res);
+    }
 }

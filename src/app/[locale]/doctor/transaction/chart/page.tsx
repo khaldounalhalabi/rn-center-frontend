@@ -30,14 +30,16 @@ interface ChartData {
 }
 
 const Page: React.FC = () => {
-
-    const [dataRange,setDataRange] = useState([
+    const [dataRange, setDataRange] = useState([
         dayjs().startOf("month").format("YYYY-MM-DD"),
         dayjs().format("YYYY-MM-DD"),
-    ])
+    ]);
+
+    const [showCustomDate, setShowCustomDate] = useState(true);
+    const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
 
     const { data, error } = useQuery({
-        queryKey: ["ClinicTransaction",dataRange],
+        queryKey: ["ClinicTransaction", dataRange],
         queryFn: async () => {
             try {
                 return await ClinicTransactionService.make<ClinicTransactionService>(
@@ -87,46 +89,42 @@ const Page: React.FC = () => {
         return <div>Error: {error.message}</div>;
     }
 
-    const [showCustomDate, setShowCustomDate] = useState(true);
-    const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
-
     return (
         <>
             <PageCard>
-
-                   <div suppressHydrationWarning className={'md:w-1/2'}>
-                       <h1 className={'card-title'}>Filter :</h1>
-                       <div className={'w-full items-center'}>
-                           <SelectFilter
-                               data={ClinicTransactionDate()}
-                               selected={customDate}
-                               onChange={(event: any) => {
-                                   if (event.target.value == DateFilter.CUSTOM_DATE) {
-                                       setShowCustomDate(true);
-                                       setCustomDate(DateFilter.CUSTOM_DATE);
-                                   } else {
-                                       setCustomDate(event.target.value);
-                                       setShowCustomDate(false);
-                                       const date = HandleFormatArrayDateFilter(event.target.value);
-                                       return setDataRange(date)
-                                   }
-                               }}
-                           />
-                       </div>
-                       <Grid md={2}>
-                           {showCustomDate?
-                               <>
-                                   <div>
-                                       <label className="label">Start Date :</label>
-                                       <DatepickerFilter onChange={(time)=>{setDataRange([time?.format("YYYY-MM-DD")??"",dataRange[1]])}} defaultValue={dataRange[0]}/>
-                                   </div>
-                                   <div>
-                                       <label className="label">End Date :</label>
-                                       <DatepickerFilter onChange={(time)=>{setDataRange([dataRange[0],time?.format("YYYY-MM-DD")??""])}} defaultValue={dataRange[1]}/>
-                                   </div>
-                               </>:""}
-                       </Grid>
-                   </div>
+                <div suppressHydrationWarning className={'md:w-1/2'}>
+                    <h1 className={'card-title'}>Filter :</h1>
+                    <div className={'w-full items-center'}>
+                        <SelectFilter
+                            data={ClinicTransactionDate()}
+                            selected={customDate}
+                            onChange={(event: any) => {
+                                if (event.target.value == DateFilter.CUSTOM_DATE) {
+                                    setShowCustomDate(true);
+                                    setCustomDate(DateFilter.CUSTOM_DATE);
+                                } else {
+                                    setCustomDate(event.target.value);
+                                    setShowCustomDate(false);
+                                    const date = HandleFormatArrayDateFilter(event.target.value);
+                                    return setDataRange(date);
+                                }
+                            }}
+                        />
+                    </div>
+                    <Grid md={2}>
+                        {showCustomDate ?
+                            <>
+                                <div>
+                                    <label className="label">Start Date :</label>
+                                    <DatepickerFilter onChange={(time) => { setDataRange([time?.format("YYYY-MM-DD") ?? "", dataRange[1]]) }} defaultValue={dataRange[0]} />
+                                </div>
+                                <div>
+                                    <label className="label">End Date :</label>
+                                    <DatepickerFilter onChange={(time) => { setDataRange([dataRange[0], time?.format("YYYY-MM-DD") ?? ""]) }} defaultValue={dataRange[1]} />
+                                </div>
+                            </> : ""}
+                    </Grid>
+                </div>
 
                 <h1 className={'card-title'}>Chart Income & Outcome :</h1>
 
@@ -142,7 +140,6 @@ const Page: React.FC = () => {
                     </LineChart>
 
                 </ResponsiveContainer>
-
             </PageCard>
         </>
     );

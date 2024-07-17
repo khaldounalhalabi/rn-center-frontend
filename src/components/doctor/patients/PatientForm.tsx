@@ -110,40 +110,41 @@ const PatientForm = ({
                     handleSelect={()=>undefined}
                     status={defaultValues?.blood_group ?? ""}
                 />}
-          </Grid>
-
-          <MultiInput
-            type={"tel"}
-            name={"phone_numbers"}
-            placeholder={"Enter Clinic Phone Number"}
-            label={"Phones :"}
-            required={true}
-          />
-          <Grid md={2}>
             <div className={`flex gap-5 p-2 items-center`}>
               <label className={`bg-pom p-2 rounded-md text-white`}>
                 Gender:
               </label>
               <Input
-                name={"gender"}
-                label="Male"
-                type="radio"
-                className="radio radio-info"
-                value={"male"}
-                defaultChecked={
-                  defaultValues?.gender ? defaultValues?.gender == "male" : true
-                }
+                  name={"gender"}
+                  label="Male"
+                  type="radio"
+                  className="radio radio-info"
+                  value={"male"}
+                  defaultChecked={
+                    defaultValues?.gender ? defaultValues?.gender == "male" : true
+                  }
               />
 
               <Input
-                name={"gender"}
-                label={"Female"}
-                type="radio"
-                className="radio radio-info"
-                value={"female"}
-                defaultChecked={defaultValues?.gender == "female"}
+                  name={"gender"}
+                  label={"Female"}
+                  type="radio"
+                  className="radio radio-info"
+                  value={"female"}
+                  defaultChecked={defaultValues?.gender == "female"}
               />
             </div>
+            {appointment?"":
+                <Datepicker
+                    name={"birth_date"}
+                    label={"Birth Date :"}
+
+                />}
+          </Grid>
+
+
+          <Grid md={2}>
+
             <TranslatableInput
               required={true}
               locales={["en", "ar"]}
@@ -173,13 +174,15 @@ const PatientForm = ({
                   : []
               }
             />
-            {appointment?"":
-                <Datepicker
-                    name={"birth_date"}
-                    label={"Birth Date :"}
 
-                />}
           </Grid>
+          <MultiInput
+              type={"tel"}
+              name={"phone_numbers"}
+              placeholder={"Enter Clinic Phone Number"}
+              label={"Phones :"}
+              required={true}
+          />
         </PageCard>
         {appointment?"":
             <PageCard>

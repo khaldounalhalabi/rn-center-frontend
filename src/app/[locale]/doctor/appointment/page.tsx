@@ -3,7 +3,7 @@ import React, {Fragment, useState} from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import ActionsButtons, {Buttons} from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
@@ -151,10 +151,11 @@ const Page = () => {
             locale == "en"
               ? `The appointment number ${sequence} the doctor is waiting for you`
               : `الموعد رقم ${sequence}  الطبيبُ في انتظارك`;
+          const button:Buttons[]= data?.type == "online" && data.status == "checkout" ? ["show"]:["edit", "show"]
           return (
             <ActionsButtons
               id={data?.id}
-              buttons={["edit", "show"]}
+              buttons={button}
               baseUrl={`/doctor/appointment`}
               editUrl={`/doctor/appointment/${data?.id}/edit`}
               showUrl={`/doctor/appointment/${data?.id}`}

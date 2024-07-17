@@ -7,6 +7,9 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import {AppointmentStatusEnum} from "@/enum/AppointmentStatus";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 const Page = () => {
   const tableData: DataTableData<Customer> = {
@@ -89,7 +92,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PatientsService.make<PatientsService>("doctor").indexWithPagination(
+      await PatientsService.make<PatientsService>("doctor").setHeaders({ filtered: true }).indexWithPagination(
         page,
         search,
         sortCol,
@@ -97,6 +100,7 @@ const Page = () => {
         perPage,
         params,
       ),
+
   };
   return <DataTable {...tableData} />;
 };

@@ -8,7 +8,7 @@ import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";
 
-type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
+export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
 export interface ActionsButtonsProps<T> {
   data?: T;

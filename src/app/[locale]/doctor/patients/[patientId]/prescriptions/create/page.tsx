@@ -11,7 +11,7 @@ const page = async ({
     <div>
       <h2 className="card-title mt-8 ml-8">Add Prescription</h2>
 
-      <PrescriptionsForm id={patientId} userType={"doctor"}/>
+      <PrescriptionsForm customerId={patientId} userType={"doctor"}/>
     </div>
   );
 };

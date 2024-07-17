@@ -18,21 +18,23 @@ const PrescriptionsForm = ({
   defaultValues = undefined,
   appointment,
   id,
+    customerId,
   type = "store",
 }: {
   userType?:"admin"|"doctor"
   defaultValues?: Prescription;
   appointment?: Appointment;
   id?: number;
+  customerId?:number
   type?: "store" | "update";
 }) => {
   const clinicId = HandleGetUserAndClinic()
   const handleSubmit = async (data: PrescriptionsDataSend) => {
 
-    const sendData: PrescriptionsDataSend = id?
+    const sendData: PrescriptionsDataSend = customerId?
         {
           clinic_id: clinicId?.clinic?.id,
-          customer_id: id,
+          customer_id: customerId,
           physical_information: data.physical_information,
           problem_description: data.problem_description,
           next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
@@ -70,7 +72,7 @@ const PrescriptionsForm = ({
   };
   const onSuccess = () => {
     if(id){
-      Navigate(`/${userType}/patients/${id}`);
+      Navigate(`/${userType}/patients/${customerId}`);
     }else {
       Navigate(`/${userType}/appointment/${appointment?.id}`);
     }

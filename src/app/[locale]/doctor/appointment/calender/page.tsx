@@ -1,5 +1,5 @@
 "use client"
-import React, { Fragment, useState, useRef } from 'react';
+import React, {Fragment, useState, useRef, useEffect} from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -22,11 +22,11 @@ const CalendarComponent = () => {
     const calendarRef = useRef(null);
     const [openFilter, setOpenFilter] = useState(false);
     const [startDate, setStartDate] = useState<string>(dayjs().startOf('month').format("YYYY-MM-DD"));
-    const [endDate, setEndDate] = useState(dayjs().format("YYYY-MM-DD"));
+    const [endDate, setEndDate] = useState<string>(dayjs().format("YYYY-MM-DD"));
     const statusData = AppointmentStatuses();
     const typeData = ["online", "manual", "all"];
     const [params, setParams] = useState({});
-    const [startFilter, setStartFilter] = useState(false);
+    const [startFilter, setStartFilter] = useState(0);
 
     const filter = (params:any, setParams:any) => {
         return (
@@ -81,7 +81,7 @@ const CalendarComponent = () => {
                         className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                             console.log(params);
-                            setStartFilter(!startFilter);
+                            setStartFilter(startFilter+1);
                             setOpenFilter(false);
                         }}
                     >
@@ -120,6 +120,7 @@ const CalendarComponent = () => {
         },
     }));
 
+    console.log(startDate)
     const renderEventContent = (eventInfo:any) => {
         const { customer,appointment } = eventInfo.event.extendedProps;
         const firstName = TranslateClient(customer?.user?.first_name);
@@ -136,17 +137,6 @@ const CalendarComponent = () => {
         );
     };
 
-    const handlePrevYear = () => {
-        // @ts-ignore
-        let calendarApi = calendarRef?.current?.getApi();
-        calendarApi.prevYear();
-    };
-
-    const handleNextYear = () => {
-        // @ts-ignore
-        let calendarApi = calendarRef?.current?.getApi();
-        calendarApi.nextYear();
-    };
 
 
     return (
@@ -202,20 +192,6 @@ const CalendarComponent = () => {
                     >
                         <FilterIcon />
                     </button>
-                    <div>
-                        <button
-                            className="btn btn-neutral btn-sm me-2"
-                            onClick={handlePrevYear}
-                        >
-                            Prev Year
-                        </button>
-                        <button
-                            className="btn btn-neutral btn-sm me-2"
-                            onClick={handleNextYear}
-                        >
-                            Next Year
-                        </button>
-                    </div>
                 </div>
                 {isLoading?<div className={'flex w-full h-full justify-center items-center'}><LoadingSpin className={'w-7 h-7'}/></div>
                 : <FullCalendar
@@ -224,6 +200,7 @@ const CalendarComponent = () => {
                         initialView="dayGridMonth"
                         // @ts-ignore
                         events={events}
+                        initialDate={startDate}
                         eventContent={renderEventContent}
                     />}
 

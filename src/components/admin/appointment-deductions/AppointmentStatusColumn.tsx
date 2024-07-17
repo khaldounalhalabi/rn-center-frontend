@@ -5,7 +5,7 @@ import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 
-const AppointmentStatusColumn = ({
+const AppointmentDeductionStatusColumn = ({
   transaction,
   revalidate,
   userType = "admin",
@@ -50,4 +50,4 @@ const AppointmentStatusColumn = ({
   );
 };
 
-export default AppointmentStatusColumn;
+export default AppointmentDeductionStatusColumn;

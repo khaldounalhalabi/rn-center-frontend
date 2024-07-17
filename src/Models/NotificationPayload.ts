@@ -10,7 +10,7 @@ export class NotificationPayload {
     collapseKey?: string,
     data?: NotificationPayloadData,
     from?: string,
-    messageId?: string,
+    messageId?: string
   ) {
     this.collapseKey = collapseKey;
     this.data = data;
@@ -58,4 +58,5 @@ export enum NotificationsType {
 
 export enum RealTimeEvents {
   AppointmentStatusChange = "RealTime\\AppointmentStatusChangeNotification",
+  BalanceChange = "RealTime\\BalanceChangeNotification",
 }

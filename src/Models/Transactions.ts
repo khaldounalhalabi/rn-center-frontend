@@ -9,3 +9,8 @@ export interface Transactions {
   actor_id: number;
   actor?: User;
 }
+
+export interface AdminSummary {
+  balance: number;
+  pending_amount: number;
+}

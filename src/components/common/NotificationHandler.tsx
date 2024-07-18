@@ -1,5 +1,6 @@
 "use client";
 
+import { Navigate } from "@/Actions/navigate";
 import firebaseApp from "@/Helpers/Firebase";
 import {
   NotificationPayload,
@@ -32,7 +33,12 @@ const NotificationHandler = ({
         console.log(notification.getNotificationType(), notification);
 
         if (notification.isNotification()) {
-          toast.success(notification.data?.message);
+          toast.success(notification.data?.message, {
+            onClick: () => {
+              Navigate(notification.getUrl());
+            },
+            bodyClassName: "cursor-pointer",
+          });
           if (handle) {
             handle(notification);
           }

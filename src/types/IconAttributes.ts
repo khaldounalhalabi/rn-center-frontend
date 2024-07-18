@@ -6,4 +6,5 @@ interface SVGPropsWithRef extends React.SVGProps<SVGSVGElement> {
 
 export interface IconAttributes extends SVGPropsWithRef {
   className?: string;
+  solid?: boolean;
 }

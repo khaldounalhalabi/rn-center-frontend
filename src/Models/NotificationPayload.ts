@@ -1,3 +1,4 @@
+import { getCookieServer } from "@/Actions/serverCookies";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 export class NotificationPayload {
@@ -5,24 +6,76 @@ export class NotificationPayload {
   public data?: NotificationPayloadData;
   private from?: string;
   private messageId?: string;
+  public id?: string;
+  public type?: string;
+  public message_en?: string;
+  public message_ar?: string;
+  public message?: string;
+  public body?: {
+    body: string;
+    body_ar: string;
+  };
+  public read_at?: string;
+  public created_at?: string;
+  public notificationData?: Record<string, any>;
+  public title?: string;
 
   constructor(
     collapseKey?: string,
     data?: NotificationPayloadData,
     from?: string,
-    messageId?: string
+    messageId?: string,
+    message?: string,
+    read_at?: string,
+    created_at?: string,
+    type?: string,
+    id?: string
   ) {
     this.collapseKey = collapseKey;
+    this.body = {
+      body:
+        getNestedPropertyValue(data, "body") ??
+        getNestedPropertyValue(data, "body_en"),
+      body_ar: getNestedPropertyValue(data, "body_ar"),
+    };
+
+    this.message = message;
+
+    try {
+      this.message_en =
+        (message
+          ? getNestedPropertyValue(JSON.parse(message) ?? {}, "message_en")
+          : getNestedPropertyValue(data, "message") ??
+            getNestedPropertyValue(data, "message_en")) ?? message;
+    } catch (e) {
+      this.message_en = message;
+    }
+
+    try {
+      this.message_ar = this.message_en =
+        (message
+          ? getNestedPropertyValue(JSON.parse(message) ?? {}, "message_ar")
+          : getNestedPropertyValue(data, "message_ar")) ?? message;
+    } catch (e) {
+      this.message_ar = message;
+    }
+
+    this.title = getNestedPropertyValue(data, "title");
+    this.notificationData = JSON.parse(data?.data ?? "{}");
+    this.read_at = read_at;
+    this.created_at = created_at;
+    this.type = type;
     this.data = data;
     this.from = from;
     this.messageId = messageId;
+    this.id = id;
   }
 
   /**
    * getNotificationType
    */
   public getNotificationType(): string | undefined {
-    return this.data?.type;
+    return this.data?.type ?? this.type;
   }
 
   /**
@@ -33,12 +86,48 @@ export class NotificationPayload {
     return getNestedPropertyValue(data, key);
   }
 
-  /**
-   * getUrl
-   */
-  public getUrl() {
-    const data = JSON.parse(this.data?.data ?? "{}");
-    return data?.url ?? undefined;
+  public isNotification() {
+    if (this.getNotificationType() != undefined) {
+      return (Object.values(NotificationsType) as Array<string>).includes(
+        String(this.getNotificationType())
+      );
+    } else {
+      return false;
+    }
+  }
+
+  public isRealTimeEvent() {
+    if (this.getNotificationType() != undefined) {
+      return (Object.values(RealTimeEvents) as Array<string>).includes(
+        this.getNotificationType() as string
+      );
+    } else {
+      return false;
+    }
+  }
+
+  public getMessage() {
+    let locale = "en";
+    getCookieServer("NEXT_LOCALE").then((l) => {
+      locale = l ?? "en";
+    });
+    if (locale == "ar") {
+      return this.message_ar;
+    } else {
+      return this.message_en;
+    }
+  }
+
+  public getUrl(): string {
+    const type = this.getNotificationType();
+    console.log(type);
+
+    switch (type) {
+      case NotificationsType.ClinicNewOnlineAppointment:
+        return `/doctor/appointment/${this.getFromData("appointment_id")}`;
+      default:
+        return "#";
+    }
   }
 }
 
@@ -53,10 +142,24 @@ export interface NotificationPayloadData {
 }
 
 export enum NotificationsType {
-  AdminAppointmentStatusChanged = "Admin\\AppointmentStatusChangedNotification",
+  // Customer Notifications
+  CustomerAppointmentRemainingTime = "Customer\\AppointmentRemainingTimeNotification",
+  CustomerAppointmentChange = "Customer\\CustomerAppointmentChangedNotification",
+
+  // Clinic Notifications
+  ClinicNewOnlineAppointment = "Clinic\\NewOnlineAppointmentNotification",
 }
 
 export enum RealTimeEvents {
   AppointmentStatusChange = "RealTime\\AppointmentStatusChangeNotification",
   BalanceChange = "RealTime\\BalanceChangeNotification",
+}
+
+export interface Notification {
+  id: string;
+  data: string;
+  type: string;
+  message: string;
+  read_at: string;
+  created_at: string;
 }

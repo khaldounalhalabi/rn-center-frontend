@@ -1,12 +1,52 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
-import Link from "next/link";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
+import { NotificationPayload } from "@/Models/NotificationPayload";
+import { NotificationService } from "@/services/NotificationService";
+import { getCookieClient } from "@/Actions/clientCookies";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Actors } from "@/types";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import NotificationHandler from "../NotificationHandler";
+import CircleCheckMark from "@/components/icons/CircleCheckMark";
+import { Link } from "@/navigation";
 
 const NotificationsPopover = () => {
   const [openPopNot, setOpenPopNot] = useState<boolean>(false);
+  const userType = getCookieClient("user-type") as Actors;
+
+  const fetchNotifications = async ({ pageParam = 0 }) =>
+    await NotificationService.make<NotificationService>(
+      userType
+    ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
+  const {
+    data: notifications,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ["Notifications"],
+    queryFn: fetchNotifications,
+    getNextPageParam: (lastPage, pages) =>
+      (lastPage.paginate?.currentPage ?? 0) + 1,
+    initialPageParam: 0,
+  });
+
+  const {
+    data: notificationsCount,
+    isFetching: isFetchingCount,
+    refetch: refetchCount,
+  } = useQuery({
+    queryKey: ["notifications_count"],
+    queryFn: async () =>
+      await NotificationService.make<NotificationService>(
+        userType
+      ).getUnreadCount(),
+  });
 
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -16,8 +56,16 @@ const NotificationsPopover = () => {
   return (
     <div
       ref={ref}
-      className={openPopNot ? " relative" : "overflow-clip relative"}
+      className={`${openPopNot ? " relative" : "overflow-clip relative"} max-h-72`}
     >
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.isNotification()) {
+            refetch();
+            refetchCount();
+          }
+        }}
+      />
       <NotificationsIcon
         onClick={() => OpenAndClose(openPopNot, setOpenPopNot)}
         className={
@@ -43,22 +91,89 @@ const NotificationsPopover = () => {
       >
         <div className="px-5 py-4">
           <h2>Notifications</h2>
-          <p className="opacity-[0.6]">You have 0 unread messages</p>
+          <p className="opacity-[0.6]">
+            {isFetchingCount ? (
+              <LoadingSpin />
+            ) : (
+              `You have ${notificationsCount?.data ?? 0} unread messages`
+            )}
+          </p>
         </div>
-        <div className="">
-          <div>
-            <h3 className="px-5 py-2 opacity-[0.6] text-xs">NEW</h3>
-            <div className="px-[20px] py-3"></div>
-          </div>
-          <div>
-            <h3 className="px-5 py-2 opacity-[0.6] text-xs">BEFORE THAT</h3>
-            <div className="px-5 py-3"></div>
-          </div>
+
+        <div className="max-h-72 overflow-y-scroll">
+          {isFetching && !isFetchingNextPage ? (
+            <p className="text-center">Loading notifications ...</p>
+          ) : (
+            notifications?.pages.map((item) =>
+              item?.data?.map((notification, index) => {
+                const n = new NotificationPayload(
+                  undefined,
+                  JSON.parse(notification.data),
+                  undefined,
+                  undefined,
+                  notification.message,
+                  notification.read_at,
+                  notification.created_at,
+                  notification.type,
+                  notification.id
+                );
+                return (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center mx-2"
+                  >
+                    <Link
+                      href={n.getUrl()}
+                      className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
+                      onClick={() => {
+                        NotificationService.make<NotificationService>(
+                          userType
+                        ).markAsRead(notification.id);
+                      }}
+                    >
+                      {n.getMessage()}
+                    </Link>
+                    <button
+                      className=" hover:bg-gray-300 p-3 rounded-md"
+                      onClick={(e) => {
+                        if (!n.read_at) {
+                          NotificationService.make<NotificationService>(
+                            userType
+                          ).markAsRead(notification.id);
+                          refetch();
+                          refetchCount();
+                        }
+                      }}
+                    >
+                      <CircleCheckMark
+                        className={`h-6 w-6 text-success ${n.read_at ? "fill-success cursor-not-allowed" : "cursor-pointer"}`}
+                        solid={n.read_at ? true : false}
+                      />
+                    </button>
+                  </div>
+                );
+              })
+            )
+          )}
+          {isFetchingNextPage ? (
+            <p className="text-center py-3">Loading notifications ...</p>
+          ) : (
+            ""
+          )}
         </div>
         <div className="px-8 py-6 text-center">
-          <Link href="/" className="text-[#1978f2] font-bold text-[0.875rem]">
-            View All
-          </Link>
+          {hasNextPage ? (
+            <button
+              className="text-[#1978f2] font-bold text-[0.875rem]"
+              onClick={() => {
+                fetchNextPage();
+              }}
+            >
+              Show More
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

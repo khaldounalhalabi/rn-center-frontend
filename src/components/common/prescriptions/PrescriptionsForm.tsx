@@ -14,25 +14,24 @@ import { Dialog, Transition } from "@headlessui/react";
 import HandleGetUserAndClinic from "@/hooks/HandleGetUserAndClinic";
 
 const PrescriptionsForm = ({
-    userType="admin",
+  userType = "admin",
   defaultValues = undefined,
   appointment,
   id,
-    customerId,
+  customerId,
   type = "store",
 }: {
-  userType?:"admin"|"doctor"
+  userType?: "admin" | "doctor";
   defaultValues?: Prescription;
   appointment?: Appointment;
   id?: number;
-  customerId?:number
+  customerId?: number;
   type?: "store" | "update";
 }) => {
-  const clinicId = HandleGetUserAndClinic()
+  const clinicId = HandleGetUserAndClinic();
   const handleSubmit = async (data: PrescriptionsDataSend) => {
-
-    const sendData: PrescriptionsDataSend = customerId?
-        {
+    const sendData: PrescriptionsDataSend = customerId
+      ? {
           clinic_id: clinicId?.clinic?.id,
           customer_id: customerId,
           physical_information: data.physical_information,
@@ -40,40 +39,35 @@ const PrescriptionsForm = ({
           next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
           test: data.test,
           medicines: data.medicines,
-    }:{
-      appointment_id: appointment?.id??0,
-      clinic_id: appointment?.clinic_id??0,
-      customer_id: appointment?.customer_id??0,
-      physical_information: data.physical_information,
-      problem_description: data.problem_description,
-      next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
-      test: data.test,
-      medicines: data.medicines,
-    }
+        }
+      : {
+          appointment_id: appointment?.id ?? 0,
+          clinic_id: appointment?.clinic_id ?? 0,
+          customer_id: appointment?.customer_id ?? 0,
+          physical_information: data.physical_information,
+          problem_description: data.problem_description,
+          next_visit: (data?.next ?? 0) + (data?.visit ?? ""),
+          test: data.test,
+          medicines: data.medicines,
+        };
     console.log(sendData);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PrescriptionService.make<PrescriptionService>(userType)
-        .update(defaultValues?.id ?? id, sendData)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await PrescriptionService.make<PrescriptionService>(
+        userType
+      ).update(defaultValues?.id ?? id, sendData);
     } else {
-      return await PrescriptionService.make<PrescriptionService>(userType)
-        .store(sendData)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await PrescriptionService.make<PrescriptionService>(
+        userType
+      ).store(sendData);
     }
   };
   const onSuccess = () => {
-    if(id){
+    if (customerId) {
       Navigate(`/${userType}/patients/${customerId}`);
-    }else {
+    } else {
       Navigate(`/${userType}/appointment/${appointment?.id}`);
     }
   };
@@ -124,7 +118,7 @@ const PrescriptionsForm = ({
                   <div className="p-4">
                     <h2 className="card-title">New Medicine</h2>
                     <MedicinesForm
-                        typePage={'doctor'}
+                      typePage={"doctor"}
                       type={"prescription"}
                       closeModal={closeModal}
                     />
@@ -152,7 +146,7 @@ const PrescriptionsForm = ({
             </button>
           </div>
           <MultiMedicinesInput
-              userType={userType}
+            userType={userType}
             defaultValues={defaultValues?.medicines_data ?? undefined}
             type={type}
             reloadSelect={reloadSelect}

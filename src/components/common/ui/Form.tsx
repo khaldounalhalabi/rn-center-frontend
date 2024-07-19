@@ -7,6 +7,8 @@ import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
 
 const Form = ({
+                className,
+    button=undefined,
   children,
   handleSubmit,
   onSuccess,
@@ -15,6 +17,8 @@ const Form = ({
   setLocale = undefined,
   showToastMessage = true,
 }: {
+  className?:string
+  button?:string
   children: React.ReactNode;
   handleSubmit: (data: any) => Promise<ApiResponse<any>>;
   defaultValues?: object | undefined | null;
@@ -51,6 +55,7 @@ const Form = ({
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
         encType="multipart/form-data"
+        className={`${className}`}
       >
         {setLocale ? (
           <div className="h-8 w-full flex-row flex justify-center items-center">
@@ -79,19 +84,34 @@ const Form = ({
             methods.clearErrors();
           }}
         >
-          <PrimaryButton
-            type="submit"
-            disabled={methods.formState.isSubmitting}
+          {button?
+          <button
+              type="submit"
+              disabled={methods.formState.isSubmitting}
+              className={`${button}`}
           >
             {buttonText}{" "}
             {methods.formState.isSubmitting ? (
-              <span className="mx-1">
+                <span className="mx-1">
                 <LoadingSpin className="w-6 h-6 text-white" />
               </span>
             ) : (
-              ""
+                ""
             )}
-          </PrimaryButton>
+          </button>:
+              <PrimaryButton
+                  type="submit"
+                  disabled={methods.formState.isSubmitting}
+              >
+                {buttonText}{" "}
+                {methods.formState.isSubmitting ? (
+                    <span className="mx-1">
+                <LoadingSpin className="w-6 h-6 text-white" />
+              </span>
+                ) : (
+                    ""
+                )}
+              </PrimaryButton>}
         </div>
       </form>
     </FormProvider>

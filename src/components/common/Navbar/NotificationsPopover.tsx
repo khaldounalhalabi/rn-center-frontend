@@ -31,10 +31,13 @@ const NotificationsPopover = () => {
   } = useInfiniteQuery({
     queryKey: ["Notifications"],
     queryFn: fetchNotifications,
-    getNextPageParam: (lastPage) =>
-      lastPage.paginate?.isLast
-        ? undefined
-        : (lastPage.paginate?.currentPage ?? 0) + 1,
+    getNextPageParam: (lastPage) => {
+      return !lastPage.paginate?.isLast
+        ? lastPage.paginate?.currentPage
+          ? lastPage.paginate?.currentPage + 1
+          : null
+        : null;
+    },
     initialPageParam: 0,
   });
 

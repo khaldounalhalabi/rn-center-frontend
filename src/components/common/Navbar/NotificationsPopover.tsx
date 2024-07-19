@@ -19,7 +19,7 @@ const NotificationsPopover = () => {
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
     await NotificationService.make<NotificationService>(
-      userType
+      userType,
     ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
     data: notifications,
@@ -31,8 +31,10 @@ const NotificationsPopover = () => {
   } = useInfiniteQuery({
     queryKey: ["Notifications"],
     queryFn: fetchNotifications,
-    getNextPageParam: (lastPage, pages) =>
-      (lastPage.paginate?.currentPage ?? 0) + 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.paginate?.isLast
+        ? undefined
+        : (lastPage.paginate?.currentPage ?? 0) + 1,
     initialPageParam: 0,
   });
 
@@ -44,7 +46,7 @@ const NotificationsPopover = () => {
     queryKey: ["notifications_count"],
     queryFn: async () =>
       await NotificationService.make<NotificationService>(
-        userType
+        userType,
       ).getUnreadCount(),
   });
 
@@ -115,7 +117,7 @@ const NotificationsPopover = () => {
                   notification.read_at,
                   notification.created_at,
                   notification.type,
-                  notification.id
+                  notification.id,
                 );
                 return (
                   <div
@@ -127,7 +129,7 @@ const NotificationsPopover = () => {
                       className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
                       onClick={() => {
                         NotificationService.make<NotificationService>(
-                          userType
+                          userType,
                         ).markAsRead(notification.id);
                       }}
                     >
@@ -135,10 +137,10 @@ const NotificationsPopover = () => {
                     </Link>
                     <button
                       className=" hover:bg-gray-300 p-3 rounded-md"
-                      onClick={(e) => {
+                      onClick={() => {
                         if (!n.read_at) {
                           NotificationService.make<NotificationService>(
-                            userType
+                            userType,
                           ).markAsRead(notification.id);
                           refetch();
                           refetchCount();
@@ -147,12 +149,12 @@ const NotificationsPopover = () => {
                     >
                       <CircleCheckMark
                         className={`h-6 w-6 text-success ${n.read_at ? "fill-success cursor-not-allowed" : "cursor-pointer"}`}
-                        solid={n.read_at ? true : false}
+                        solid={!!n.read_at}
                       />
                     </button>
                   </div>
                 );
-              })
+              }),
             )
           )}
           {isFetchingNextPage ? (
@@ -161,15 +163,16 @@ const NotificationsPopover = () => {
             ""
           )}
         </div>
-        <div className="px-8 py-6 text-center">
+        <div className="px-8 py-6 flex items-center justify-center w-full">
           {hasNextPage ? (
             <button
-              className="text-[#1978f2] font-bold text-[0.875rem]"
+              className="btn text-pom font-bold text-[0.875rem] flex items-center justify-between"
               onClick={() => {
                 fetchNextPage();
               }}
             >
               Show More
+              {isFetchingNextPage ? <LoadingSpin /> : ""}
             </button>
           ) : (
             ""

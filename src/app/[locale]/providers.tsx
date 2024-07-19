@@ -4,7 +4,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -27,7 +26,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <ToastContainer />
-          <NotificationHandler />
           {children}
         </LocalizationProvider>
       </QueryClientProvider>

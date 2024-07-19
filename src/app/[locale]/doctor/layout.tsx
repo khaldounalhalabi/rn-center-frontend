@@ -1,6 +1,7 @@
 import React from "react";
 import Providers from "@/app/[locale]/providers";
 import NavProvider from "@/app/[locale]/doctor/NavProvider";
+import NotificationHandler from "@/components/common/NotificationHandler";
 
 const Layout = ({
   children,
@@ -20,6 +21,7 @@ const Layout = ({
           <div
             className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}
           >
+            <NotificationHandler />
             <NavProvider> {children}</NavProvider>
           </div>
         </Providers>

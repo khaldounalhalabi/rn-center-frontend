@@ -29,7 +29,7 @@ export class NotificationPayload {
     read_at?: string,
     created_at?: string,
     type?: string,
-    id?: string
+    id?: string,
   ) {
     this.collapseKey = collapseKey;
     this.body = {
@@ -89,7 +89,7 @@ export class NotificationPayload {
   public isNotification() {
     if (this.getNotificationType() != undefined) {
       return (Object.values(NotificationsType) as Array<string>).includes(
-        String(this.getNotificationType())
+        String(this.getNotificationType()),
       );
     } else {
       return false;
@@ -99,7 +99,7 @@ export class NotificationPayload {
   public isRealTimeEvent() {
     if (this.getNotificationType() != undefined) {
       return (Object.values(RealTimeEvents) as Array<string>).includes(
-        this.getNotificationType() as string
+        this.getNotificationType() as string,
       );
     } else {
       return false;
@@ -120,8 +120,6 @@ export class NotificationPayload {
 
   public getUrl(): string {
     const type = this.getNotificationType();
-    console.log(type);
-
     switch (type) {
       case NotificationsType.ClinicNewOnlineAppointment:
         return `/doctor/appointment/${this.getFromData("appointment_id")}`;

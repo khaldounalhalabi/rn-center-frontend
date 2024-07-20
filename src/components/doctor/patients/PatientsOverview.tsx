@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
 import PrescriptionsTable from "@/components/common/Appointment/PrescriptionsTable";
+import AppointmentTable from "./AppointmentTable";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -66,7 +67,7 @@ const PatientsOverview = ({
             <PatientDetails patient={patient} typePage={"doctor"} />
           </Tab.Panel>
           <Tab.Panel>
-            <div></div>
+            <AppointmentTable customer={patient}/>
           </Tab.Panel>
           <Tab.Panel>
             <PrescriptionsTable patient={patient} userType={'customer'}/>

@@ -33,10 +33,12 @@ import PatientForm from "@/components/doctor/patients/PatientForm";
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
+  patientId,
   type = "store",
 }: {
   defaultValues?: Appointment;
   id?: number;
+  patientId?:number
   type?: "store" | "update";
 }) => {
   const clinic = HandleGetUserData();
@@ -77,12 +79,16 @@ const AppointmentForm = ({
 
   const lastAppointmentDate = lastVisitData?.data?.date;
   const handleSubmit = async (data: any) => {
+    const sendData = patientId?{
+      ...data,
+      customer_id:patientId,
+    }:data
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return AppointmentService.make<AppointmentService>("doctor")
-        .update(defaultValues?.id ?? id, data)
+        .update(defaultValues?.id ?? id, sendData)
         .then((res) => {
           console.log(res);
 
@@ -93,7 +99,7 @@ const AppointmentForm = ({
         });
     } else {
       return await AppointmentService.make<AppointmentService>("doctor")
-        .store(data)
+        .store(sendData)
         .then((res) => {
           console.log(res);
           if (res.code == 425) {
@@ -104,7 +110,11 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    Navigate(`/doctor/appointment`);
+    patientId?
+    Navigate(`/doctor/patients/${patientId}`)
+    :    
+    Navigate(`/doctor/appointment`)
+
   };
   const [getExtra, setExtra] = useState(0);
   const [getDiscount, setDiscount] = useState(0);
@@ -273,7 +283,7 @@ const AppointmentForm = ({
         defaultValues={defaultValues}
       >
         <Grid md={"2"}>
-          {type === "store" ? (
+          {!patientId && type === "store" ? (
             <>
               <div>
                 <ApiSelect

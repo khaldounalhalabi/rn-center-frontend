@@ -71,11 +71,38 @@ export class AppointmentService extends BaseService<Appointment> {
     );
     return await this.errorHandler(res);
   }
+
     public async exportExcel(){
         const res = await GET<any>(
             `${this.actor}/appointments/export`
         );
         return (await res);
     }
+
+    public async getCustomerAppointments(
+      customerId: number,
+      page: number = 0,
+      search?: string,
+      sortCol?: string,
+      sortDir?: string,
+      per_page?: number,
+      params?: object
+    ): Promise<ApiResponse<Appointment[]>> {
+      const res = await GET<Appointment[]>(
+        `${this.actor}/customers/${customerId}/appointments`,
+        {
+          page: page,
+          search: search,
+          sort_col: sortCol,
+          sort_dir: sortDir,
+          per_page: per_page,
+          ...params,
+        },
+        this.headers
+      );
+      return await this.errorHandler(res);
+    }
+   
+    
 
 }

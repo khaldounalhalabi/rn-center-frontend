@@ -2,6 +2,7 @@
 import React from "react";
 import SpeechIcon from "@/components/icons/SpeechIcon";
 import {swal} from "@/Helpers/UIHelpers";
+import { toast } from "react-toastify";
 
 
 const AppointmentSpeechButton = ({ message, language }:{ message:string, language:string })=>{
@@ -15,6 +16,7 @@ const AppointmentSpeechButton = ({ message, language }:{ message:string, languag
         utterance.lang = language;
         utterance.rate =0.8
         window.speechSynthesis.speak(utterance);
+        return toast("Called!")
     };
 
 

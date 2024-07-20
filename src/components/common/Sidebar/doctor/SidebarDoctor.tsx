@@ -163,14 +163,13 @@ const SidebarDoctor = ({
             Staff
           </SidebarItem>
           <SidebarItem link={"/doctor/appointment"}>Appointment</SidebarItem>
-          <SidebarItem link={"/doctor/transaction"}>Transaction</SidebarItem>
           <SidebarCompactItem title={"Accountant Management"}>
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/transaction"}>Transaction</SidebarItem>
               <SidebarItem link={"/doctor/appointment-deductions"}>Appointment Deductions</SidebarItem>
             </div>
           </SidebarCompactItem>
-          <SidebarItem link={"/doctor/subscription"}>Subscriptions</SidebarItem>
+          {/* <SidebarItem link={"/doctor/subscription"}>Subscriptions</SidebarItem> */}
 
         </ul>
       </div>
@@ -300,12 +299,12 @@ const SidebarDoctor = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-          <SidebarIcon
+          {/* <SidebarIcon
               link={"/doctor/subscription"}
               title={"Subscriptions"}
           >
             <SubscriptionIcon className={`h-7 w-7 mx-3`} />
-          </SidebarIcon>
+          </SidebarIcon> */}
         </ul>
       </div>
     </div>

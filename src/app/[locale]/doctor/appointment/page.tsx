@@ -1,9 +1,11 @@
 "use client";
-import React, {Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import ActionsButtons, {Buttons} from "@/components/common/Datatable/ActionsButtons";
+import ActionsButtons, {
+  Buttons,
+} from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
@@ -11,19 +13,16 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import AppointmentStatuses, {
   AppointmentStatusEnum,
 } from "@/enum/AppointmentStatus";
-import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
-import dayjs from "dayjs";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { getCookieClient } from "@/Actions/clientCookies";
 
 import ExportButton from "@/components/common/Appointment/ExportButton";
-import {Link} from "@/navigation";
+import { Link } from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
-import DocumentPlus from "@/components/icons/DocumentPlus";
-import {Dialog, Transition} from "@headlessui/react";
-import AllMonth, {MonthsEnum} from "@/enum/Month";
+import { Dialog, Transition } from "@headlessui/react";
+import AllMonth, { MonthsEnum } from "@/enum/Month";
 import ExcelIcon from "@/components/icons/ExcelIcon";
 
 interface filterExportType {
@@ -56,24 +55,20 @@ const Page = () => {
     setIsOpen(true);
   }
 
-
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/appointment/create`,
     title: "Appointment",
     extraButton: (
-     <>
-       <Link href={`/doctor/appointment/calender`} className={'mx-1'}>
-         <button className="btn btn-info btn-sm p-1 btn-square">
-           <CalenderIcon className={'w-6 h-6'}/>
-         </button>
-       </Link>
-       <button
-           className="btn btn-info btn-sm btn-square"
-           onClick={openModal}
-       >
-         <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
-       </button>
-     </>
+      <>
+        <Link href={`/doctor/appointment/calender`} className={"mx-1"}>
+          <button className="btn btn-info btn-sm p-1 btn-square">
+            <CalenderIcon className={"w-6 h-6"} />
+          </button>
+        </Link>
+        <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
+          <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
+        </button>
+      </>
     ),
     schema: [
       {
@@ -143,7 +138,7 @@ const Page = () => {
         label: "Actions",
         render: (_undefined, data, setHidden, revalidate) => {
           const sequence = data?.appointment_sequence
-            .toString()
+            ?.toString()
             .split("")
             .join(" ");
           const lang = locale == "en" ? "en-IN" : "ar-IQ";
@@ -151,7 +146,10 @@ const Page = () => {
             locale == "en"
               ? `The appointment number ${sequence} the doctor is waiting for you`
               : `الموعد رقم ${sequence}  الطبيبُ في انتظارك`;
-          const button:Buttons[]= data?.type == "online" && data.status == "checkout" ? ["show"]:["edit", "show"]
+          const button: Buttons[] =
+            data?.type == "online" && data.status == "checkout"
+              ? ["show"]
+              : ["edit", "show"];
           return (
             <ActionsButtons
               id={data?.id}
@@ -224,78 +222,78 @@ const Page = () => {
   };
 
   return (
-      <>
-        <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
-            <Transition.Child
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black/25" />
-            </Transition.Child>
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <div className={"w-full my-4 grid grid-cols-1"}>
+                    <label className={"label"}>Year :</label>
+                    <input
+                      className="input input-bordered w-full focus:outline-pom focus:border-pom"
+                      type={"number"}
+                      min={1900}
+                      max={2099}
+                      step={1}
+                      onChange={(e) =>
+                        setFilterExport({
+                          ...filterExport,
+                          year: e.target.value,
+                        })
+                      }
+                      defaultValue={filterExport.year}
+                    />
+                    <label className={"label"}>Month :</label>
+                    <SelectFilter
+                      data={AllMonth()}
+                      selected={MonthsEnum.NON}
+                      onChange={(e: any) => {
+                        if (e.target.value == MonthsEnum.NON) {
+                          setFilterExport({
+                            ...filterExport,
+                            month: "",
+                          });
+                        } else {
+                          setFilterExport({
+                            ...filterExport,
+                            month: e.target.value,
+                          });
+                        }
+                      }}
+                    />
+                  </div>
 
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <div className={"w-full my-4 grid grid-cols-1"}>
-                      <label className={"label"}>Year :</label>
-                      <input
-                          className="input input-bordered w-full focus:outline-pom focus:border-pom"
-                          type={"number"}
-                          min={1900}
-                          max={2099}
-                          step={1}
-                          onChange={(e) =>
-                              setFilterExport({
-                                ...filterExport,
-                                year: e.target.value,
-                              })
-                          }
-                          defaultValue={filterExport.year}
-                      />
-                      <label className={"label"}>Month :</label>
-                      <SelectFilter
-                          data={AllMonth()}
-                          selected={MonthsEnum.NON}
-                          onChange={(e: any) =>{
-                            if(e.target.value == MonthsEnum.NON){
-                              setFilterExport({
-                                ...filterExport,
-                                month: "",
-                              })
-                            }else {
-                              setFilterExport({
-                                ...filterExport,
-                                month: e.target.value,
-                              })
-                            }
-                          }}
-                      />
-                    </div>
-
-                    <ExportButton data={filterExport} close={closeModal} />
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                  <ExportButton data={filterExport} close={closeModal} />
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
-        <DataTable {...tableData} />
-      </>
+          </div>
+        </Dialog>
+      </Transition>
+      <DataTable {...tableData} />
+    </>
   );
 };
 

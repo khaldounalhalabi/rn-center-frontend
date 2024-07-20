@@ -40,7 +40,7 @@ const Overview = ({
           </p>
           <label className={"label"}>Appointment Sequence : </label>
           <p className={"badge badge-info"} suppressHydrationWarning>
-            {appointment?.appointment_sequence.toLocaleString()}
+            {appointment?.appointment_sequence?.toLocaleString()}
           </p>
         </div>
         <div className={"w-full"}>

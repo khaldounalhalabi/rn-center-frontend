@@ -12,7 +12,7 @@ function classNames(...classes: any[]) {
 const AppointmentOverview = ({
                                  appointment,
                              }: {
-    appointment?: Appointment | null | undefined;
+    appointment?: Appointment  | undefined;
 }) => {
     return (
         <div className={"w-full"}>

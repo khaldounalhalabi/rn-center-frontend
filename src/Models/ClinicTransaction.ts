@@ -13,6 +13,8 @@ export interface ClinicTransaction {
     "date": string,
     "appointment": Appointment
     clinic?:Clinic
+    before_balance:number,
+    after_balance:number
 }
 
 export interface ClinicSummary{

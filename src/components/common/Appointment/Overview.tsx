@@ -4,12 +4,13 @@ import Grid from "@/components/common/ui/Grid";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { Offers } from "@/Models/Offers";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
+import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 
 const Overview = ({
                       appointment,
                       userType = "admin"
                   }: {
-    appointment?: Appointment | undefined | null;
+    appointment?: Appointment | undefined ;
     userType?: "admin" | "doctor"
 
 }) => {
@@ -28,8 +29,10 @@ const Overview = ({
         <div className={"card p-5 bg-base-200 my-3 w-full"}>
             <Grid md={2} gap={5}>
                 <div className={"w-full"}>
-                    <label className={"label"}>Status : </label>
-                    <p className={"badge badge-warning"}>{appointment?.status}</p>
+                    <AppointmentStatusColumn
+                        userType={"doctor"}
+                        appointment={appointment}
+                    />
                     <label className={"label"}>Type : </label>
                     <p className={"badge badge-accent"}>{appointment?.type}</p>
                     <label className={"label"}>Extra Fees : </label>

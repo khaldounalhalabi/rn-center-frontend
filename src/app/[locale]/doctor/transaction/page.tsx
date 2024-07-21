@@ -51,7 +51,6 @@ const Page = () => {
       ).getSummary();
     },
   });
-
   const [filterExport, setFilterExport] = useState<filterExportType>({
     year: "",
     month: "",
@@ -134,6 +133,16 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "after_balance",
+        label: `After Balance`,
+        sortable: true,
+      },
+      {
+        name: "before_balance",
+        label: `Before Balance`,
+        sortable: true,
+      },
+      {
         name: "status",
         label: `Status`,
         sortable: true,
@@ -171,7 +180,7 @@ const Page = () => {
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show", "delete"]}
-            baseUrl={`/doctor/transactions`}
+            baseUrl={`/doctor/clinic-transactions`}
             editUrl={`/doctor/transaction/${data?.id}/edit`}
             showUrl={`/doctor/transaction/${data?.id}`}
             setHidden={setHidden}

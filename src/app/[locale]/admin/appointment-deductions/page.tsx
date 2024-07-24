@@ -82,27 +82,48 @@ const Page = () => {
         label: `id`,
         sortable: true,
       },
+
       {
         name: "appointment.clinic.user.first_name",
         sortable: true,
         label: `${"Clinic"}`,
         render: (_first_name, transaction) => {
           return (
-            <>
-              {transaction?.clinic?.id ? (
-                <div className={"btn btn-sm  cursor-pointer"}>
-                  <Link href={`/admin/clinics/${transaction?.clinic?.id}`}>
+              <>
+                {transaction?.clinic?.id ? (
+                    <div className={"btn btn-sm  cursor-pointer"}>
+                      <Link href={`/admin/clinics/${transaction?.clinic?.id}`}>
+                        <p>
+                          {TranslateClient(transaction?.clinic?.name)}{" "}
+                        </p>
+                      </Link>
+                    </div>
+                ) : (
+                    <span className={"badge badge-warning"}>No Data</span>
+                )}
+              </>
+          );
+        },
+      },
+      {
+        name: "appointment.clinic.user.first_name",
+        sortable: true,
+        label: `${"Doctor"}`,
+        render: (_first_name, transaction) => {
+          return (
+              <>
+                {transaction?.clinic?.id ? (
+
                     <p>
                       {TranslateClient(transaction?.clinic?.user?.first_name)}{" "}
                       {TranslateClient(transaction?.clinic?.user?.middle_name)}{" "}
                       {TranslateClient(transaction?.clinic?.user?.last_name)}
                     </p>
-                  </Link>
-                </div>
-              ) : (
-                <span className={"badge badge-warning"}>No Data</span>
-              )}
-            </>
+
+                ) : (
+                    <span className={"badge badge-warning"}>No Data</span>
+                )}
+              </>
           );
         },
       },

@@ -19,7 +19,7 @@ const page = async ({
       <PrescriptionsForm
           userType={'doctor'}
         type={"update"}
-        id={patientId}
+          customerId={patientId}
         defaultValues={{
           ...prescriptions,
         }}

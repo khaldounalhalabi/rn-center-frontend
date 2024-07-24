@@ -7,6 +7,7 @@ import { Appointment } from "@/Models/Appointment";
 import AppointmentOverview from "@/components/doctor/appointment/AppointmentOverview";
 import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import {AppointmentStatusEnum} from "@/enum/AppointmentStatus";
 
 const page = async ({
   params: { appointmentId },
@@ -22,7 +23,7 @@ const page = async ({
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Appointment Details</h2>
-        {res?.type == "online" && res?.status == "checkout" ? (
+        {res?.type == "online" && res?.status == AppointmentStatusEnum.CHECKOUT ? (
           ""
         ) : (
           <Link href={`/doctor/appointment/${res.id}/edit`}>

@@ -149,7 +149,7 @@ export enum NotificationsType {
 }
 
 export enum RealTimeEvents {
-  AppointmentStatusChange = "RealTime\\AppointmentStatusChangeNotification",
+  AppointmentStatusChange = "RealTime\\AppointmentChangeNotification",
   BalanceChange = "RealTime\\BalanceChangeNotification",
 }
 

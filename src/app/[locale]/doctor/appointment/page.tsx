@@ -24,6 +24,8 @@ import CalenderIcon from "@/components/icons/CalenderIcon";
 import { Dialog, Transition } from "@headlessui/react";
 import AllMonth, { MonthsEnum } from "@/enum/Month";
 import ExcelIcon from "@/components/icons/ExcelIcon";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 interface filterExportType {
   year: string;
@@ -141,7 +143,7 @@ const Page = () => {
             ?.toString()
             .split("")
             .join(" ");
-          const lang = locale == "en" ? "en-IN" : "ar-IQ";
+          const lang = locale == "en" ? "en-IN" : "ar-SA";
           const message =
             locale == "en"
               ? `The appointment number ${sequence} the doctor is waiting for you`
@@ -160,6 +162,18 @@ const Page = () => {
               setHidden={setHidden}
             >
               <>
+                <NotificationHandler
+                  handle={(payload) => {
+                    if (
+                      payload.getNotificationType() ==
+                      RealTimeEvents.AppointmentStatusChange
+                    ) {
+                      if (revalidate) {
+                        revalidate();
+                      }
+                    }
+                  }}
+                />
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
             </ActionsButtons>

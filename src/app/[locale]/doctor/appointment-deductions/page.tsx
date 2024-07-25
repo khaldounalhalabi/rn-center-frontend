@@ -23,6 +23,8 @@ import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsSe
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 interface filterExportType {
   year: string;
@@ -34,11 +36,12 @@ const Page = () => {
     data: balance,
     isLoading,
     isFetching,
+    refetch,
   } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).getDoctorSummary();
     },
   });
@@ -126,7 +129,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -197,7 +200,13 @@ const Page = () => {
   };
   return (
     <>
-      {/* TODO::handle realtime for summary here */}
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
+            refetch();
+          }
+        }}
+      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

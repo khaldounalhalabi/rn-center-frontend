@@ -32,6 +32,8 @@ import ExcelIcon from "@/components/icons/ExcelIcon";
 import AllMonth, { MonthsEnum } from "@/enum/Month";
 import ChartIcon from "@/components/icons/ChartIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 interface filterExportType {
   year: string;
@@ -43,11 +45,12 @@ const Page = () => {
     data: balance,
     isLoading,
     isFetching,
+    refetch,
   } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor"
+        "doctor",
       ).getSummary();
     },
   });
@@ -64,8 +67,9 @@ const Page = () => {
   function openModal() {
     setIsOpen(true);
   }
+
   const type = ClinicTransactionTypeArray().map((type) =>
-    type.replace(/_/g, " ")
+    type.replace(/_/g, " "),
   );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
@@ -104,13 +108,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name
+                        transaction?.appointment?.customer?.user?.first_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name
+                        transaction?.appointment?.customer?.user?.middle_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name
+                        transaction?.appointment?.customer?.user?.last_name,
                       )}
                     </p>
                   </Link>
@@ -131,11 +135,18 @@ const Page = () => {
         name: "amount",
         label: `Amount`,
         sortable: true,
-        render:(_amount, transaction)=>(
-            <span className={`${transaction?.type == "system_debt"?"badge badge-error":transaction?.type == "debt_to_me"?"badge badge-success":""}`}>
-              {transaction?.type == "income"?"+":transaction?.type == "outcome"?"-":""}{transaction?.amount}
-            </span>
-        )
+        render: (_amount, transaction) => (
+          <span
+            className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
+          >
+            {transaction?.type == "income"
+              ? "+"
+              : transaction?.type == "outcome"
+                ? "-"
+                : ""}
+            {transaction?.amount}
+          </span>
+        ),
       },
       {
         name: "after_balance",
@@ -181,7 +192,7 @@ const Page = () => {
       },
       {
         label: `Actions`,
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show", "delete"]}
@@ -189,7 +200,19 @@ const Page = () => {
             editUrl={`/doctor/transaction/${data?.id}/edit`}
             showUrl={`/doctor/transaction/${data?.id}`}
             setHidden={setHidden}
-          ></ActionsButtons>
+          >
+            <NotificationHandler
+              handle={(payload) => {
+                if (
+                  payload.getNotificationType() ==
+                    RealTimeEvents.BalanceChange &&
+                  revalidate
+                ) {
+                  revalidate();
+                }
+              }}
+            />
+          </ActionsButtons>
         ),
       },
     ],
@@ -200,7 +223,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     filter: (params, setParams) => {
       return (
@@ -307,6 +330,13 @@ const Page = () => {
   };
   return (
     <>
+      <NotificationHandler
+        handle={(payload) =>
+          payload.getNotificationType() == RealTimeEvents.BalanceChange
+            ? refetch()
+            : undefined
+        }
+      />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

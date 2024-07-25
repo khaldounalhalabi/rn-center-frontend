@@ -33,7 +33,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await TransactionService.make<TransactionService>(
-        "admin"
+        "admin",
       ).getSummary();
     },
   });
@@ -82,7 +82,7 @@ const Page = () => {
       },
       {
         label: `Actions`,
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show", "delete"]}
@@ -90,13 +90,25 @@ const Page = () => {
             editUrl={`/admin/transaction/${data?.id}/edit`}
             showUrl={`/admin/transaction/${data?.id}`}
             setHidden={setHidden}
-          ></ActionsButtons>
+          >
+            <NotificationHandler
+              handle={(payload) => {
+                if (
+                  payload.getNotificationType() ==
+                    RealTimeEvents.BalanceChange &&
+                  revalidate
+                ) {
+                  revalidate();
+                }
+              }}
+            />
+          </ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await TransactionService.make<TransactionService>(
-        "admin"
+        "admin",
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (

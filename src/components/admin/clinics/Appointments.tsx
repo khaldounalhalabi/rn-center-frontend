@@ -14,6 +14,9 @@ import AppointmentStatuses, {
 } from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
+import {Link} from "@/navigation";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import {RealTimeEvents} from "@/Models/NotificationPayload";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
@@ -38,6 +41,11 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         },
       },
       {
+        name: "total_cost",
+        label: "Total Cost",
+        render: (total_cost) => total_cost?.toLocaleString() + " IQD",
+      },
+      {
         name: "appointment_sequence",
         label: "Sequence",
       },
@@ -53,7 +61,6 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
           return (
             <AppointmentStatusColumn
               appointment={appointment}
-              revalidate={revalidate}
             />
           );
         },
@@ -73,7 +80,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
 
       {
         label: "Actions",
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show"]}
@@ -82,7 +89,14 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             showUrl={`/admin/appointment/${data?.id}`}
             setHidden={setHidden}
           >
-            <AppointmentLogModal appointmentId={data?.id} />
+            <>
+              <NotificationHandler handle={payload => {
+                if(payload.getNotificationType() == RealTimeEvents.AppointmentStatusChange && revalidate){
+                  revalidate();
+                }
+              }} />
+              <AppointmentLogModal appointmentId={data?.id} />
+            </>
           </ActionsButtons>
         ),
       },

@@ -9,12 +9,13 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import AppointmentStatuses, {
-  AppointmentStatusEnum,
-} from "@/enum/AppointmentStatus";
+import AppointmentStatuses from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
+import { Link } from "@/navigation";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 const Page = () => {
   const handleCopyLink = (id: number | undefined) => {
@@ -50,7 +51,6 @@ const Page = () => {
         label: "Clinic Name",
         translatable: true,
       },
-
       {
         name: "clinic.user.first_name",
         sortable: true,
@@ -72,11 +72,14 @@ const Page = () => {
         render: (_first_name, appointment) => {
           return (
             <div className={`flex flex-col items-start`}>
-              <p>
+              <Link
+                href={`/admin/patients/${appointment?.customer_id}`}
+                className={`btn`}
+              >
                 {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
                 {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
                 {TranslateClient(appointment?.customer?.user?.last_name)}
-              </p>
+              </Link>
             </div>
           );
         },
@@ -85,12 +88,7 @@ const Page = () => {
         name: "status",
         label: "Status",
         render: (_status, appointment, setHidden, revalidate) => {
-          return (
-            <AppointmentStatusColumn
-              appointment={appointment}
-              revalidate={revalidate}
-            />
-          );
+          return <AppointmentStatusColumn appointment={appointment} />;
         },
         sortable: true,
       },
@@ -105,22 +103,21 @@ const Page = () => {
           ),
         sortable: true,
       },
+      {
+        name: "total_cost",
+        label: "Total Cost",
+        render: (data) => data?.toLocaleString() + " IQD",
+      },
 
       {
         name: "appointment_sequence",
         label: "Sequence",
-        render: (data) => (
-          <p>
-            <span>{data}</span>
-          </p>
-        ),
       },
       {
         name: "date",
         label: "Date",
         sortable: true,
       },
-
       {
         label: "Actions",
         render: (_undefined, data, setHidden, revalidate) => (
@@ -132,23 +129,39 @@ const Page = () => {
             showUrl={`/admin/appointment/${data?.id}`}
             setHidden={setHidden}
           >
-            <AppointmentLogModal appointmentId={data?.id} />
+            <>
+              <NotificationHandler
+                handle={(payload) => {
+                  if (
+                    revalidate &&
+                    payload.getNotificationType() ==
+                      RealTimeEvents.AppointmentStatusChange
+                  ) {
+                    revalidate();
+                  }
+                }}
+              />
+              <AppointmentLogModal appointmentId={data?.id} />
+            </>
           </ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await AppointmentService.make<AppointmentService>(
-        "admin",
-      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      await AppointmentService.make<AppointmentService>("admin")
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
+        .then((res) => {
+          console.log(res);
+          return res;
+        }),
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
             Status :
             <SelectFilter
-              data={[...statusData, "all"]}
-              selected={params.status ?? AppointmentStatusEnum.PENDING}
+              data={["all", ...statusData]}
+              selected={params.status ?? "all"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}

@@ -18,6 +18,8 @@ import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { Customer } from "@/Models/Customer";
+import {RealTimeEvents} from "@/Models/NotificationPayload";
+import NotificationHandler from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;
@@ -131,6 +133,18 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
               setHidden={setHidden}
             >
               <>
+                <NotificationHandler
+                    handle={(payload) => {
+                      if (
+                          payload.getNotificationType() ==
+                          RealTimeEvents.AppointmentStatusChange
+                      ) {
+                        if (revalidate) {
+                          revalidate();
+                        }
+                      }
+                    }}
+                />
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
             </ActionsButtons>

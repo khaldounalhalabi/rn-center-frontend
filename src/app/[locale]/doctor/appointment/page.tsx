@@ -26,6 +26,7 @@ import AllMonth, { MonthsEnum } from "@/enum/Month";
 import ExcelIcon from "@/components/icons/ExcelIcon";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 
 interface filterExportType {
   year: string;
@@ -90,6 +91,24 @@ const Page = () => {
         },
       },
       {
+        name: "customer.first_name",
+        label: "Patient",
+        render: (_first_name, appointment) => {
+          return (
+            <div className={`flex flex-col items-start`}>
+              <Link
+                href={`/doctor/patients/${appointment?.customer_id}`}
+                className={`btn`}
+              >
+                {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
+                {TranslateClient(appointment?.customer?.user?.last_name)}
+              </Link>
+            </div>
+          );
+        },
+      },
+      {
         name: "service.name",
         label: "Service Name",
         sortable: true,
@@ -120,15 +139,9 @@ const Page = () => {
           ),
         sortable: true,
       },
-
       {
         name: "appointment_sequence",
         label: "Sequence",
-        render: (data) => (
-          <p>
-            <span>{data}</span>
-          </p>
-        ),
       },
       {
         name: "date",
@@ -143,11 +156,11 @@ const Page = () => {
             ?.toString()
             .split("")
             .join(" ");
-          const lang = locale == "en" ? "en-IN" : "ar-SA";
+          const lang = locale == "en" ? "en-US" : "ar-SA";
           const message =
             locale == "en"
               ? `The appointment number ${sequence} the doctor is waiting for you`
-              : `الموعد رقم ${sequence}  الطبيبُ في انتظارك`;
+              : ` الموعد رقم ${sequence}  الطبيبُ في انتظارك `;
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
               ? ["show"]
@@ -191,8 +204,8 @@ const Page = () => {
           <label className={"label"}>
             Status :
             <SelectFilter
-              data={[...statusData, "all"]}
-              selected={params.status ?? AppointmentStatusEnum.PENDING}
+              data={["all", ...statusData]}
+              selected={params.status ?? "all"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}

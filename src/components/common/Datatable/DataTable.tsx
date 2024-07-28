@@ -1,5 +1,11 @@
 "use client";
-import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
+import React, {
+  Fragment,
+  ReactNode,
+  ThHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import {
@@ -37,7 +43,7 @@ export interface DataTableSchema<T> {
 }
 
 export interface DataTableData<T> {
-  extraButton?:any,
+  extraButton?: any;
   title?: string;
   createUrl?: string;
   schema: DataTableSchema<T>[];
@@ -67,40 +73,38 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
-  const [isRevalidating, setIsRevalidating] = useState(false);
   const queryClient = useQueryClient();
 
   const revalidate = () => {
-    setIsRevalidating(true);
     queryClient.invalidateQueries({
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
 
-  const { isPending, data, isFetching, isPlaceholderData } = useQuery({
-    queryKey: [
-      `tableData_${tableData.createUrl}_${tableData.title}`,
-      page,
-      search,
-      sortDir,
-      sortCol,
-      perPage,
-      params,
-    ],
-    queryFn: async () => {
-      let s = !search || search == "" ? undefined : search;
-      let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
-      let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
-      return await tableData
-        .api(page, s, sortC, sortD, perPage, params)
-        .then((res) => {
-          setIsRevalidating(false);
-          return res;
-        });
-    },
-    placeholderData: keepPreviousData,
-    refetchOnWindowFocus: false,
-  });
+  const { isPending, data, isFetching, isPlaceholderData, isRefetching } =
+    useQuery({
+      queryKey: [
+        `tableData_${tableData.createUrl}_${tableData.title}`,
+        page,
+        search,
+        sortDir,
+        sortCol,
+        perPage,
+        params,
+      ],
+      queryFn: async () => {
+        let s = !search || search == "" ? undefined : search;
+        let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
+        let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
+        return await tableData
+          .api(page, s, sortC, sortD, perPage, params)
+          .then((res) => {
+            return res;
+          });
+      },
+      refetchOnWindowFocus: false,
+      retry: 10,
+    });
   return (
     <>
       {tableData.filter ? (
@@ -209,7 +213,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               ) : (
                 ""
               )}
-              {tableData.extraButton?<>{tableData.extraButton}</>:""}
+              {tableData.extraButton ? <>{tableData.extraButton}</> : ""}
             </div>
             <div className={"flex justify-between items-center gap-1"}>
               <select
@@ -244,7 +248,7 @@ const DataTable = (tableData: DataTableData<any>) => {
           </div>
           <div className="border-gray-200 border rounded-lg">
             <div className="rounded-t-lg overflow-x-auto relative">
-              {isPending || (isFetching && !isRevalidating) ? (
+              {isPending && !isRefetching ? (
                 <div className="top-1/2 left-1/2 z-10 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
                   <LoadingSpin className="w-8 h-8" />
                 </div>

@@ -79,6 +79,9 @@ function ApiSelect<TResponse, TData>({
           : null;
       },
       staleTime: Infinity,
+      refetchOnWindowFocus: false,
+      retry: 10,
+      retryDelay: 100,
     });
   useEffect(() => {
     refetch().then((r) => r);
@@ -313,6 +316,6 @@ function ApiSelect<TResponse, TData>({
 }
 
 const include = (option: Option, selected: Option[]): boolean =>
-    selected.filter((op) => isEqual(op, option)).length > 0;
+  selected.filter((op) => isEqual(op, option)).length > 0;
 
 export default ApiSelect;

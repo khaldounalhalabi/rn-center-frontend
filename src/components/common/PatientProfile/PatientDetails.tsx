@@ -2,6 +2,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import { Customer } from "@/Models/Customer";
+import Gallery from "@/components/common/ui/Gallery";
 
 const PatientDetails = ({
   patient,
@@ -116,6 +117,7 @@ const PatientDetails = ({
               patient?.currentClinicPatientProfile?.medical_condition
             }
           />
+          <Gallery media={patient?.currentClinicPatientProfile?.images ?? []} />
         </>
       )}
     </>

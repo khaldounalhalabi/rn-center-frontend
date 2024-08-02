@@ -27,7 +27,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}`);
   let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [""];
-
+  console.log(error)
   const [inputs, setInputs] = useState<any[]>(defaultValue);
   const handleInputChange = (index: number, value: any) => {
     const newInputs = [...inputs];
@@ -55,7 +55,12 @@ const MultiInput: React.FC<MultiInputProps> = ({
     <>
       {label ? (
         <label className={"label justify-start"}>
-          {label}
+          {label}{" "}
+          {typeof error === "object" && error !== null ? (
+            <p className={"text-error"}>{error.message}</p>
+          ) : (
+            ""
+          )}
           {required ? <span className="ml-1 text-red-600">*</span> : false}
         </label>
       ) : (

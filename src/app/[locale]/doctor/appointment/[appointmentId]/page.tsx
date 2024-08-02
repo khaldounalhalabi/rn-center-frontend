@@ -15,7 +15,7 @@ import {RealTimeEvents} from "@/Models/NotificationPayload";
 import {useTranslations} from "next-intl";
 
 
-const page =  ({
+const Show =  ({
   params: { appointmentId },
 }: {
   params: { appointmentId: number };
@@ -93,4 +93,4 @@ const page =  ({
   );
 };
 
-export default page;
+export default Show;

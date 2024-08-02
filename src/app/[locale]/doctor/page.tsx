@@ -17,12 +17,9 @@ import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { AppointmentService } from "@/services/AppointmentService";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import React from "react";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
-import PageCard from "@/components/common/ui/PageCard";
 import { useQuery } from "@tanstack/react-query";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import BalanceIcon from "@/components/icons/BalanceIcon";
@@ -200,7 +197,7 @@ const Home = () => {
   };
 
   return (
-    <div className={`flex mx-2 justify-center w-full h-screen`}>
+    <div className={`flex md:mx-2 justify-center w-full h-screen`}>
       <div className={`flex flex-col`}>
         <Grid sm={1} md={3} className={`items-baseline`}>
           <div className={`flex flex-col gap-1 justify-between`}>
@@ -252,14 +249,16 @@ const Home = () => {
               </div>
             </Card>
           </div>
-          <div className={`col-start-2 col-end-4`}>
+          <div className={`md:col-start-2 md:col-end-4`}>
             <DataTable {...tableData} />
           </div>
         </Grid>
         <div className={`grid grid-cols-2 gap-1 md:grid-cols-4`}>
           <Card>
             <div className={`flex justify-between text-sm items-center`}>
-              <p className={`w-1/2 text-wrap text-start`}>Total Appointments This Month</p>
+              <p className={`text-wrap text-start`}>
+                Total Appointments This Month
+              </p>
               {isLoadingStatistics || isFetchingStatistics ? (
                 <LoadingSpin />
               ) : (
@@ -271,7 +270,9 @@ const Home = () => {
           </Card>
           <Card>
             <div className={`flex justify-between text-sm items-center`}>
-              <p className={`w-1/2 text-wrap text-start`}>Total Online Appointments This Month</p>
+              <p className={`text-wrap text-start`}>
+                Total Online Appointments This Month
+              </p>
               {isLoadingStatistics || isFetchingStatistics ? (
                 <LoadingSpin />
               ) : (
@@ -283,7 +284,9 @@ const Home = () => {
           </Card>
           <Card>
             <div className={`flex justify-between text-sm items-center`}>
-              <p className={`w-1/2 text-wrap text-start`}>Total Appointments Cancelled This Month</p>
+              <p className={`text-wrap text-start`}>
+                Total Appointments Cancelled This Month
+              </p>
               {isLoadingStatistics || isFetchingStatistics ? (
                 <LoadingSpin />
               ) : (
@@ -295,7 +298,9 @@ const Home = () => {
           </Card>
           <Card>
             <div className={"flex justify-between text-sm items-center"}>
-              <p className={`w-1/2 text-wrap text-start`}>Upcoming Appointments This Month</p>
+              <p className={`text-wrap text-start`}>
+                Upcoming Appointments This Month
+              </p>
               {isLoadingStatistics || isFetchingStatistics ? (
                 <LoadingSpin />
               ) : (

@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Service } from "@/Models/Service";
+import {AllName, Service} from "@/Models/Service";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
@@ -31,4 +31,13 @@ export class ServiceService extends BaseService<Service> {
     );
     return await this.errorHandler(res);
   }
+
+    public async getAllName(): Promise<ApiResponse<AllName[]>> {
+        const res = await GET<AllName[]>(
+            `${this.actor}/services/names`,
+
+            this.headers
+        );
+        return await this.errorHandler(res);
+    }
 }

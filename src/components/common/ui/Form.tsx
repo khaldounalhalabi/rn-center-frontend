@@ -14,11 +14,13 @@ const Form = ({
   onSuccess,
   defaultValues = {},
   buttonText = "Submit",
+                NewButton,
   setLocale = undefined,
   showToastMessage = true,
 }: {
   className?:string
   button?:string
+  NewButton?:any
   children: React.ReactNode;
   handleSubmit: (data: any) => Promise<ApiResponse<any>>;
   defaultValues?: object | undefined | null;
@@ -84,34 +86,30 @@ const Form = ({
             methods.clearErrors();
           }}
         >
-          {button?
-          <button
+          {button ? (
+            <button
               type="submit"
               disabled={methods.formState.isSubmitting}
               className={`${button}`}
-          >
-            {buttonText}{" "}
-            {methods.formState.isSubmitting ? (
+            >
+              {NewButton}
+              {buttonText}{" "}
+            </button>
+          ) : (
+            <PrimaryButton
+              type="submit"
+              disabled={methods.formState.isSubmitting}
+            >
+              {buttonText}{" "}
+              {methods.formState.isSubmitting ? (
                 <span className="mx-1">
-                <LoadingSpin className="w-6 h-6 text-white" />
-              </span>
-            ) : (
+                  <LoadingSpin className="w-6 h-6 text-white" />
+                </span>
+              ) : (
                 ""
-            )}
-          </button>:
-              <PrimaryButton
-                  type="submit"
-                  disabled={methods.formState.isSubmitting}
-              >
-                {buttonText}{" "}
-                {methods.formState.isSubmitting ? (
-                    <span className="mx-1">
-                <LoadingSpin className="w-6 h-6 text-white" />
-              </span>
-                ) : (
-                    ""
-                )}
-              </PrimaryButton>}
+              )}
+            </PrimaryButton>
+          )}
         </div>
       </form>
     </FormProvider>

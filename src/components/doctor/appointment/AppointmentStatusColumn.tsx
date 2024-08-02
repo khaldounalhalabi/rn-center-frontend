@@ -1,11 +1,5 @@
 "use client";
 import { Appointment } from "@/Models/Appointment";
-import {
-  NotificationPayload,
-  RealTimeEvents,
-} from "@/Models/NotificationPayload";
-import NotificationHandler from "@/components/common/NotificationHandler";
-
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { swal } from "@/Helpers/UIHelpers";
@@ -14,7 +8,7 @@ import { useRouter } from "@/navigation";
 import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import AppointmentStatuses, {
+import  {
   AppointmentStatusEnum,
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
@@ -31,6 +25,12 @@ const AppointmentStatusColumn = ({
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
+
+  const [isPendingCheckout, setPendingCheckout] = useState<boolean>(false);
+  const [isTransitionStartedCheckout, startTransitionCheckout] =
+    useTransition();
+  const isMutatingCheckout: boolean =
+    isPendingCheckout || isTransitionStartedCheckout;
   let rot = useRouter();
 
   const handleSelectStatus = (
@@ -59,26 +59,26 @@ const AppointmentStatusColumn = ({
               });
           } else {
             setSelected(appointment?.status);
-            setPending(true);
-            startTransition(rot.refresh);
-            setPending(false);
+            setPendingCheckout(true);
+            startTransitionCheckout(rot.refresh);
+            setPendingCheckout(false);
           }
         });
     } else {
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
         .then((res) => {
+          console.log(status);
+            setSelected(status)
           toast.success("Status Changed!");
         });
     }
   };
   const [selected, setSelected] = useState(appointment?.status);
   const [isOpen, setIsOpen] = useState(false);
-  const [payload, setPayload] = useState<NotificationPayload>();
-
   useEffect(() => {
     setSelected(appointment?.status);
-  }, [revalidate, payload]);
+  }, [revalidate]);
 
   function closeModal() {
     setIsOpen(false);
@@ -130,20 +130,11 @@ const AppointmentStatusColumn = ({
           </div>
         </Dialog>
       </Transition>
-      <NotificationHandler
-        handle={(payload: NotificationPayload) => {
-          setPayload(payload);
-          if (
-            payload.getNotificationType() ===
-              RealTimeEvents.AppointmentStatusChange &&
-            revalidate
-          ) {
-            revalidate();
-          }
-        }}
-      />
-      {isMutating?"Loading...":(appointment?.status === AppointmentStatusEnum.CANCELLED ||
-      appointment?.status === AppointmentStatusEnum.CHECKOUT)&& appointment?.type == "online"  ? (
+      {isMutatingCheckout ? (
+        "Loading..."
+      ) : (appointment?.status === AppointmentStatusEnum.CANCELLED ||
+          appointment?.status === AppointmentStatusEnum.CHECKOUT) &&
+        appointment?.type == "online" ? (
         <div className={"w-full text-center"}>
           <span
             className={` badge  ${
@@ -154,7 +145,7 @@ const AppointmentStatusColumn = ({
                   : ""
             }`}
           >
-            {appointment?.status}
+            {selected}
           </span>
         </div>
       ) : (

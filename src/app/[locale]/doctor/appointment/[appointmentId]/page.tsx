@@ -1,3 +1,4 @@
+"use client"
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -6,59 +7,81 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentOverview from "@/components/doctor/appointment/AppointmentOverview";
 import Grid from "@/components/common/ui/Grid";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import {AppointmentStatusEnum} from "@/enum/AppointmentStatus";
+import {useQuery} from "@tanstack/react-query";
+import {TranslateClient} from "@/Helpers/TranslationsClient";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import {RealTimeEvents} from "@/Models/NotificationPayload";
+import {useTranslations} from "next-intl";
 
-const page = async ({
+
+const page =  ({
   params: { appointmentId },
 }: {
   params: { appointmentId: number };
 }) => {
-  const data =
-    await AppointmentService.make<AppointmentService>("doctor").show(
-      appointmentId,
-    );
-  const res: Appointment = data?.data;
+  const t = useTranslations("common.appointment.show")
+  const {data,refetch} = useQuery({
+    queryKey:['AppointmentService'],
+    queryFn:async ()=>{
+      return  await AppointmentService.make<AppointmentService>("doctor").show(appointmentId);
+    }
+  })
+
+
+
+  const res: Appointment|undefined = data?.data;
   return (
     <PageCard>
+      <NotificationHandler
+        handle={(payload) => {
+          if (
+            payload.getNotificationType() ==
+            RealTimeEvents.AppointmentStatusChange
+          ) {
+            refetch();
+          }
+        }}
+      />
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Appointment Details</h2>
-        {res?.type == "online" && res?.status == AppointmentStatusEnum.CHECKOUT ? (
+        <h2 className="card-title">{t("appointmentDetails")}</h2>
+        {res?.type == "online" &&
+        res?.status == AppointmentStatusEnum.CHECKOUT ? (
           ""
         ) : (
-          <Link href={`/doctor/appointment/${res.id}/edit`}>
-            <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <Link href={`/doctor/appointment/${res?.id}/edit`}>
+            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
           </Link>
         )}
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
           <label className="label justify-start text-xl">
-            Clinic Name :{" "}
+            {t("clinicName")} :{" "}
             <span className="ml-2 badge badge-success ">
-              {await TranslateServer(res?.clinic?.name)}
+              {TranslateClient(res?.clinic?.name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
-            Doctor Name :{" "}
+            {t("doctorName")} :{" "}
             <span className="ml-2 badge badge-accent  ">
-              {await TranslateServer(res?.clinic?.user?.first_name)}{" "}
-              {await TranslateServer(res?.clinic?.user?.middle_name)}{" "}
-              {await TranslateServer(res?.clinic?.user?.last_name)}
+              {TranslateClient(res?.clinic?.user?.first_name)}{" "}
+              {TranslateClient(res?.clinic?.user?.middle_name)}{" "}
+              {TranslateClient(res?.clinic?.user?.last_name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
-            Customer Name :{" "}
+            {t("customerName")} :{" "}
             <span className="ml-2 badge badge-neutral ">
-              {await TranslateServer(res?.customer?.user?.first_name)}{" "}
-              {await TranslateServer(res?.customer?.user?.middle_name)}{" "}
-              {await TranslateServer(res?.customer?.user?.last_name)}{" "}
+              {TranslateClient(res?.customer?.user?.first_name)}{" "}
+              {TranslateClient(res?.customer?.user?.middle_name)}{" "}
+              {TranslateClient(res?.customer?.user?.last_name)}{" "}
             </span>
           </label>
           <label className="label justify-start text-xl">
-            Service Name :{" "}
+            {t("serviceName")} :{" "}
             <span className="ml-2 badge badge-primary  ">
-              {await TranslateServer(res?.service?.name)}
+              {TranslateClient(res?.service?.name)}
             </span>
           </label>
         </Grid>

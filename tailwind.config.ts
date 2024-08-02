@@ -12,6 +12,15 @@ const config: Config = {
     themes: ["light"],
   },
   theme: {
+    letterSpacing: {
+      '1': '0em',
+      '2': '0.025em',
+      '3': '0.05em',
+      '4': '0.1em',
+      '5': '0.15em',
+      '6': '0.2em',
+      '7': '0.25em',
+    },
     extend: {
       keyframes: {
         marquee: {

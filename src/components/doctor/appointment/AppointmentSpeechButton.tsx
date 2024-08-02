@@ -1,4 +1,4 @@
-
+'use client'
 import React from "react";
 import SpeechIcon from "@/components/icons/SpeechIcon";
 import {swal} from "@/Helpers/UIHelpers";

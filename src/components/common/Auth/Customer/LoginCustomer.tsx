@@ -1,96 +1,164 @@
 "use client";
-import LogoIcon from "@/components/icons/logoIcon";
 import Form from "@/components/common/ui/Form";
-import Input from "@/components/common/ui/Inputs/Input";
-import React, {useState} from "react";
-import {POST} from "@/Http/Http";
-import {AuthResponse} from "@/Models/User";
-import {isArray} from "util";
-import {setCookieClient} from "@/Actions/clientCookies";
-import {Role} from "@/enum/Role";
-import {ApiResponse} from "@/Http/Response";
-import {Navigate} from "@/Actions/navigate";
-import {Link} from "@/navigation";
+import React, { useState } from "react";
+import { POST } from "@/Http/Http";
+import { AuthResponse } from "@/Models/User";
+import { isArray } from "util";
+import { setCookieClient } from "@/Actions/clientCookies";
+import { Role } from "@/enum/Role";
+import { ApiResponse } from "@/Http/Response";
+import { Navigate } from "@/Actions/navigate";
+import { Link } from "@/navigation";
+import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
+import ButtonSinSvg from "@/components/common/Auth/Customer/ButtonSin";
 
+const LoginCustomer = ({ url }: { url: string }) => {
+  const [error, setError] = useState(false);
+  const [errorBlocked, setErrorBlocked] = useState();
 
-const LoginCustomer = ({url}:{url:string}) => {
-    const [error, setError] = useState(false);
-    const [errorBlocked,setErrorBlocked] = useState()
+  const handleLogIn = (data: { email: string; password: string }) => {
+    console.log(data)
+    setError(false);
+    return POST<AuthResponse>(url, data).then((res: any) => {
+      console.log(res);
+      if (res.code == 401) {
+        setError(true);
+        return res;
+      } else if (res.code == 430 || res.code == 431) {
+        setErrorBlocked(res?.message);
+        return res;
+      } else {
+        isArray(res?.data?.user?.role)
+          ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
+              setCookieClient("role", e.name);
+              if (e.name == Role.CLINIC_EMPLOYEE) {
+                const permissions = res.data.user.permissions;
+                return setCookieClient("permissions", permissions.toString());
+              } else {
+                return setCookieClient("permissions", "dffds%2Cfdsf");
+              }
+            })
+          : false;
+        return res;
+      }
+    });
+  };
 
-    const handleLogIn = (data: { email: string; password: string }) => {
-        setError(false);
-        return POST<AuthResponse>(url, data).then((res: any) => {
-            console.log(res)
-            if (res.code == 401) {
-                setError(true);
-                return res;
-            }else if( res.code == 430 || res.code == 431){
-                setErrorBlocked(res?.message)
-                return res
-            } else {
-                isArray(res?.data?.user?.role)? res?.data?.user.role?.forEach((e:{id:number,name:string})=>{
-                    setCookieClient('role', e.name)
-                    if(e.name == Role.CLINIC_EMPLOYEE){
-
-                        const permissions = res.data.user.permissions
-                        return setCookieClient('permissions',permissions.toString())
-                    }else {
-                        return setCookieClient('permissions',"dffds%2Cfdsf")
-                    }
-                }):false
-                return res;
-            }
-        });
-    };
-
-    const handleSuccess = (data: ApiResponse<AuthResponse>) => {
-        window.localStorage.setItem("user",JSON.stringify(data?.data?.user??undefined))
-        setCookieClient("token", data?.data?.token ?? "");
-        setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
-        setCookieClient("user-type", "customer");
-        Navigate(`/customer`);
-    };
+  const handleSuccess = (data: ApiResponse<AuthResponse>) => {
+    window.localStorage.setItem(
+      "user",
+      JSON.stringify(data?.data?.user ?? undefined),
+    );
+    setCookieClient("token", data?.data?.token ?? "");
+    setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
+    setCookieClient("user-type", "customer");
+    Navigate(`/customer`);
+  };
   return (
-    <div className={"min-h-screen flex flex-col items-center"}>
-      <div className="navbar hidden md:block bg-base-100 border-b-2 border-gray-400 shadow-md shadow-gray-500">
-        <LogoIcon className={"w-24 mx-4 h-full"} />
-      </div>
-
-      <div className={"  w-full md:card md:bg-white md:p-20 p-10 shadow-gray-500 md:shadow-xl h-full flex flex-col items-center  justify-center mt-20 md:mt-28 md:max-w-[50%]"}>
-        <Form handleSubmit={handleLogIn} onSuccess={handleSuccess} className={'md:w-2/3 w-full h-full '} button={'w-full h-12 font-bold text-xl hover:bg-[#F0F5F5] badge bg-[#12C7D4]'} buttonText={"logIn"}>
-          <div className={"flex w-full flex-col items-center justify-center "}>
-            <h1  className={"md:text-[32px] text-[28px] my-4"}>Log in to your account</h1>
-              <LogoIcon className={"md:w-24 w-36 md:hidden mx-4 h-full"} />
-            <div className={"w-full my-4 hidden md:block"}>
-                <Input name={"email"} type={"text"} label={"Email :"} />
-            </div>
-            <div className={"w-full my-4 hidden md:block"}>
-                <Input name={"password"} type={"text"} label={"Password :"} />
-            </div>
-              <div className={"w-full my-4 block md:hidden"}>
-                  <Input name={"email"} type={"text"} placeholder={"Email ..."} className={`input placeholder:text-[#61878A] input-bordered bg-[#F0F5F5] w-full  focus:outline-pom focus:border-pom`}/>
-              </div>
-              <div className={"w-full my-4 block md:hidden"}>
-                  <Input name={"password"} type={"text"} placeholder={"Password ..."} className={`input placeholder:text-[#61878A] input-bordered bg-[#F0F5F5] w-full  focus:outline-pom focus:border-pom`}/>
-              </div>
-          </div>
-            {error && (
-                <p className="my-3 p-2 w-full text-error text-sm">
+    <div
+      className={
+        "min-w-full kodchasan tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
+      }
+    >
+      <div
+        className={
+          "w-full md:w-[60%] max-w-[900px] md:h-full h-[85vh] flex flex-col  items-center "
+        }
+      >
+        <h1
+          className={
+            "kodchasan text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
+          }
+        >
+          Welcome back
+        </h1>
+        <div
+          className={
+            "mt-[15vh] md:mt-10 bg-[#FFFFFF] opacity-90  md:opacity-[70%] rounded-t-[30px] md:rounded-[30px] w-full h-full"
+          }
+        >
+          <div className={"card "}>
+            <div
+              className={
+                "card-body className={'flex flex-col md:px-40 md:py-20 items-center"
+              }
+            >
+              <Form
+                  handleSubmit={handleLogIn}
+                  onSuccess={handleSuccess}
+                  className={"w-full"}
+                button={"w-fit h-fit"}
+                buttonText={""}
+                NewButton={
+                  <button className={"w-52 h-16 relative group hover:border-2 border-[#1FB8B9]  rounded-[30px]"}>
+                    <ButtonSinSvg className={"w-full h-full group-hover:hidden"} />
+                    <p
+                      className={
+                        "absolute tracking-5 top-1/2 right-1/2 group-hover:text-black -translate-y-1/2 translate-x-1/2 font-bold kodchasan text-[16px] text-white"
+                      }
+                    >
+                      Log In
+                    </p>
+                  </button>
+                }
+              >
+                <InputLoginCustomer
+                  name={"number"}
+                  label={"Phone Number"}
+                  type={"number"}
+                  labelClass={
+                    "text-[#013567] font-light text-[16px] md:text-[20px]"
+                  }
+                  conClass={"my-8"}
+                />
+                <InputLoginCustomer
+                  name={"password"}
+                  label={"Password"}
+                  type={"text"}
+                  labelClass={
+                    "text-[#2e5b83] font-light text-[16px] md:text-[20px]"
+                  }
+                  conClass={"my-8"}
+                />
+                <div className={'w-full flex justify-end'}>
+                  <Link
+                      href={"/auth/customer/reset-password"}
+                      className={
+                        " tracking-5 font-light text-[#1FB8B9] md:text-[16px] text-[14px]"
+                      }
+                  >
+                    Forget password?
+                  </Link>
+                </div>
+              </Form>
+              <hr className={"h-[2px] w-full bg-[#bcdfe6]"} />
+              {error && (
+                  <p className="my-3 p-2 w-full text-error text-sm">
                     The email or password is incorrect. Try again or click Forgot
                     Password.
-                </p>
-            )}
-            {errorBlocked?
-                <p className="my-3 p-2 w-full text-error text-sm">
-                    {errorBlocked}
-                </p>
-                :""
-            }
-        </Form>
-          <Link href={'/auth/customer/reset-password'} className={' w-full md:w-2/3 h-12  md:text-lg text-md  badge bg-[#c5efef] '}>Forgot password ...</Link>
+                  </p>
+              )}
+              {errorBlocked ? (
+                  <p className="my-3 p-2 w-full text-error text-sm">{errorBlocked}</p>
+              ) : (
+                  ""
+              )}
+              <p
+                className={
+                  " md:text-[16px] text-[14px] mt-4 opacity-60 text-[#013567]"
+                }
+              >
+                Don’t have an account?{" "}
+                <Link href={"/auth/customer/register"} className={"text-[#1FB8B9] "}>
+                  sign up
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LoginCustomer
+export default LoginCustomer;

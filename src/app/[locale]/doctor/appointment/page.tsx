@@ -10,14 +10,11 @@ import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import AppointmentStatuses, {
-  AppointmentStatusEnum,
-} from "@/enum/AppointmentStatus";
+import AppointmentStatuses from "@/enum/AppointmentStatus";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { getCookieClient } from "@/Actions/clientCookies";
-
 import ExportButton from "@/components/common/Appointment/ExportButton";
 import { Link } from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
@@ -27,6 +24,8 @@ import ExcelIcon from "@/components/icons/ExcelIcon";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {useQuery} from "@tanstack/react-query";
+import {ServiceService} from "@/services/ServiceService";
 
 interface filterExportType {
   year: string;
@@ -34,6 +33,18 @@ interface filterExportType {
 }
 
 const Page = () => {
+
+  const [serviceSelected,setServiceSelected] = useState<string>("all")
+  const {data:service} = useQuery({
+    queryKey:['service'],
+    queryFn:async ()=>{
+
+      return await ServiceService.make<ServiceService>("doctor").getAllName()
+    }
+  })
+  const nameServiceArray =service?.data? service?.data?.map(item => TranslateClient(item.name)):[""]
+
+
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
@@ -154,12 +165,10 @@ const Page = () => {
         render: (_undefined, data, setHidden, revalidate) => {
           const sequence = data?.appointment_sequence
             ?.toString()
-            .split("")
-            .join(" ");
           const lang = locale == "en" ? "en-US" : "ar-SA";
           const message =
             locale == "en"
-              ? `The appointment number ${sequence} the doctor is waiting for you`
+              ? `The   appointment    number    ${sequence}   the   doctor   is   waiting   for   you`
               : ` الموعد رقم ${sequence}  الطبيبُ في انتظارك `;
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
@@ -199,8 +208,24 @@ const Page = () => {
         .setHeaders({ filtered: true })
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
+
       return (
         <div className={"w-full grid grid-cols-1"}>
+          <label className="label">
+            Service :
+            <SelectFilter
+                data={nameServiceArray}
+                selected={serviceSelected}
+                onChange={(event: any) => {
+                  service?.data.forEach((e)=>{
+                    if(event.target.value == TranslateClient(e.name)){
+                      setServiceSelected(event.target.value)
+                      setParams({ ...params, service_id: e.id });
+                    }
+                  })
+                }}
+            />
+          </label>
           <label className={"label"}>
             Status :
             <SelectFilter
@@ -250,6 +275,7 @@ const Page = () => {
 
   return (
     <>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

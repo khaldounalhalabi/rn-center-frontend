@@ -5,6 +5,7 @@ import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
 import PrescriptionsTable from "@/components/common/Appointment/PrescriptionsTable";
 import AppointmentTable from "./AppointmentTable";
+import {useTranslations} from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -17,6 +18,7 @@ const PatientsOverview = ({
   patient: Customer;
   id: number;
 }) => {
+  const t = useTranslations('doctor.patients.show')
   console.log(patient)
   return (
     <div className={"w-full"}>
@@ -33,7 +35,7 @@ const PatientsOverview = ({
               )
             }
           >
-            {"Overview"}
+            {t("overview")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -46,7 +48,7 @@ const PatientsOverview = ({
               )
             }
           >
-            Appointment
+            {t("appointment")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -59,7 +61,7 @@ const PatientsOverview = ({
               )
             }
           >
-            Prescriptions
+            {t("prescriptions")}
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
@@ -67,10 +69,10 @@ const PatientsOverview = ({
             <PatientDetails patient={patient} typePage={"doctor"} />
           </Tab.Panel>
           <Tab.Panel>
-            <AppointmentTable customer={patient}/>
+            <AppointmentTable customer={patient} />
           </Tab.Panel>
           <Tab.Panel>
-            <PrescriptionsTable patient={patient} userType={'customer'}/>
+            <PrescriptionsTable patient={patient} userType={"customer"} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

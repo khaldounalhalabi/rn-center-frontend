@@ -18,6 +18,7 @@ import OffersArray from "@/enum/OfferType";
 import { Navigate } from "@/Actions/navigate";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
+import {useTranslations} from "next-intl";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -30,6 +31,7 @@ const OfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('doctor.offer.create')
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -74,13 +76,12 @@ const OfferForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
-                page,
-                search,
-              )
+              ClinicsService.make<ClinicsService>()
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
             }
             defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-            label={"Clinic Name"}
+            label={t("clinicName")}
             optionValue={"id"}
             getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
           />
@@ -92,7 +93,7 @@ const OfferForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Title :`}
+          label={t("title")}
           name={"title"}
           locale={locale}
         />
@@ -104,12 +105,12 @@ const OfferForm = ({
           status={defaultValues?.type ?? "percentage"}
           ArraySelect={OffersArray()}
           required={true}
-          label={"Type :"}
+          label={t("type")}
         />
         <Input
           placeholder={"Price : "}
           name={"value"}
-          label={"Value"}
+          label={t("value")}
           required={true}
           type="number"
           unit={typeOffers == "percentage" ? "%" : "IQD"}
@@ -117,11 +118,11 @@ const OfferForm = ({
         {typePage == "doctor" ? (
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
-              {"Status"}
+              {t("status")}
             </label>
             <Input
               name={"is_active"}
-              label={"Active"}
+              label={t("active")}
               type="radio"
               className="radio radio-info"
               value={"active"}
@@ -129,7 +130,7 @@ const OfferForm = ({
             />
             <Input
               name={"is_active"}
-              label={"in Active"}
+              label={t("not-active")}
               type="radio"
               className="radio radio-info"
               value={"in-active"}
@@ -145,33 +146,31 @@ const OfferForm = ({
           }}
           required={true}
           name={"start_at"}
-          label={"Start At"}
+          label={t("startDate")}
         />
-        <Datepicker required={true} name={"end_at"} label={"End At"} />
+        <Datepicker required={true} name={"end_at"} label={t("endDate")} />
       </Grid>
       <TranslatableTextArea
-        name={"note"}
+        name={t("note")}
         locale={locale}
         defaultValue={defaultValues?.note ?? ""}
       />
       {type == "update" ? (
-          <div className={"col-span-2"}>
-            {defaultValues?.image?.length != 0 ? (
-                <Gallery
-                    media={defaultValues?.image ? defaultValues?.image : []}
-                />
-            ) : (
-                <div className="flex items-center">
-                  <label className="label"> Image : </label>
-                  <span className="text-lg badge badge-neutral">No Data</span>
-                </div>
-            )}
-          </div>
+        <div className={"col-span-2"}>
+          {defaultValues?.image?.length != 0 ? (
+            <Gallery media={defaultValues?.image ? defaultValues?.image : []} />
+          ) : (
+            <div className="flex items-center">
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
+          )}
+        </div>
       ) : (
-          ""
+        ""
       )}
 
-      <ImageUploader name={"image"} label={'Images'}/>
+      <ImageUploader name={"image"} label={t("image")} />
     </Form>
   );
 };

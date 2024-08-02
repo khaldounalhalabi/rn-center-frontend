@@ -19,6 +19,7 @@ import BloodArray from "@/enum/blood";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
+import {useTranslations} from "next-intl";
 
 const PatientForm = ({
   defaultValues = undefined,
@@ -33,6 +34,7 @@ const PatientForm = ({
   appointment?: boolean,
   close?: () => void
 }) => {
+  const t = useTranslations("doctor.patients.create")
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (

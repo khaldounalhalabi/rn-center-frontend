@@ -1,19 +1,10 @@
-'use Client'
-
-
-
-
+"use Client";
 
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 
-const ChangeAllStatusSelector = ({status}:{status:number[]})=>{
+const ChangeAllStatusSelector = ({ status }: { status: number[] }) => {
+  return <SelectFilter data={AppointmentDeductionsStatusArray()} />;
+};
 
-
-
-    return (
-        <SelectFilter data={AppointmentDeductionsStatusArray()} />
-    )
-}
-
-export default ChangeAllStatusSelector
+export default ChangeAllStatusSelector;

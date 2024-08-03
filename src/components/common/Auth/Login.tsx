@@ -27,7 +27,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
       if (res.code == 401) {
         setError(true);
         return res;
-      }else if( res.code == 430 || res.code == 431){
+      }else if( res.code == 430 || res.code == 431 || res.code == 432){
         setErrorBlocked(res?.message)
         return res
       } else {

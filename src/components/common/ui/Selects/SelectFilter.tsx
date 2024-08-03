@@ -24,10 +24,11 @@ const SelectFilter = ({
       {label ?? ""}
       <select
         className={"select select-bordered w-full"}
-        defaultValue={selected}
+        defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
         onChange={onChange ?? false}
       >
+        <option value={undefined}>Select an item</option>
         {data.map((item, index) => (
           <option value={item == "all" ? "" : item} key={index}>
             {item}

@@ -50,6 +50,7 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
+  const [date,setDate] = useState(defaultValues??{})
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
     appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
@@ -137,7 +138,13 @@ const AppointmentForm = ({
     return await AppointmentService.make<AppointmentService>().updateDate(
       defaultValues?.id ?? 0,
       data,
-    );
+    ).then((res)=>{
+      setDate({
+        ...defaultValues,
+        date:res?.data?.date
+      })
+      return res
+    })
   };
 
   const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
@@ -196,7 +203,7 @@ const AppointmentForm = ({
                   <Form
                     handleSubmit={handleSubmitAppointmentDate}
                     onSuccess={() => closeModal()}
-                    defaultValues={defaultValues}
+                    defaultValues={date}
                   >
                     <h1 className={"card-title"}>Set Date : </h1>
                     <Datepicker

@@ -39,7 +39,9 @@ const ScheduleForm = ({
   method: "store" | "update";
   appointment_gap: number | undefined;
 }) => {
-  const [schedule, setSchedule] = useState<SchedulesTimes>({
+    const t = useTranslations("doctor.schedules.edit")
+
+    const [schedule, setSchedule] = useState<SchedulesTimes>({
     saturday:
       defaultValues?.saturday || method == "update"
         ? defaultValues?.saturday ?? []
@@ -177,7 +179,7 @@ const ScheduleForm = ({
 
     return await ScheduleService.make<ScheduleService>("doctor").store(data);
   };
-  const t = useTranslations("admin.schedules.create");
+
   return (
     <PageCard>
       <Form
@@ -192,7 +194,7 @@ const ScheduleForm = ({
             name={"appointment_gap"}
             type={"number"}
             unit={"min"}
-            label={"Appointment Gap"}
+            label={t("appointmentGap")}
             placeholder={"appointment gap ..."}
             defaultValue={appointment_gap ?? undefined}
           />

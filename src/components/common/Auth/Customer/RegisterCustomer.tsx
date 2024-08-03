@@ -1,35 +1,25 @@
 'use client'
-import LogoIcon from "@/components/icons/logoIcon";
 import React, { useState } from "react";
 import { Link, useRouter } from "@/navigation";
 import Form from "@/components/common/ui/Form";
-import Input from "@/components/common/ui/Inputs/Input";
-import ImageUploader from "@/components/common/ui/ImageUploader";
-import Grid from "@/components/common/ui/Grid";
-import ApiSelect from "../../ui/Selects/ApiSelect";
-import { CityService } from "@/services/CityService";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { City } from "@/Models/City";
-import TranslatableInput from "../../ui/Inputs/TranslatableInput";
 import { POST } from "@/Http/Http";
 import { setCookieClient } from "@/Actions/clientCookies";
 import { Navigate } from "@/Actions/navigate";
-import MultiInput from "../../ui/Inputs/MultiInput";
+import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
+import ButtonSinSvg from "@/components/common/Auth/Customer/ButtonSin";
 
 
-const RegisterCustomer = ({ url }: { url: string }) => {
 
-    const history = useRouter();
 
+const RegisterCustomer = ({ url }: { url: string })=>{
+    const [privacy,setPrivacy] = useState<boolean>()
+    console.log(privacy)
     const handleRegister = async (data: any) => {
         console.log(data)
         return await POST(url, data).then((res) => {
             return res;
         })
     }
-
-
-    const [locale, setLocale] = useState<"en" | "ar">("en");
 
     const handleSuccess = (data: any) => {
         console.log(data)
@@ -41,120 +31,133 @@ const RegisterCustomer = ({ url }: { url: string }) => {
         Navigate(`/customer`);
     };
 
+
+
     return (
-        <div className={"min-h-screen flex flex-col items-center"}>
-            <div className="navbar flex justify-between bg-base-100 border-b-2 border-gray-400 shadow-md shadow-gray-500">
-                <LogoIcon className={"w-24 mx-4 h-full"} />
-                <div className="w-32 mx-4 ">
-                    <Link href={'/auth/customer/login'} className="btn w-full btn-square btn-ghost text-xl">
-                        Log In
-                    </Link>
-                </div>
-            </div>
-            <div className={"w-full md:card md:bg-white md:p-20 p-10 shadow-gray-500 md:shadow-xl h-full flex flex-col items-center  justify-center my-10 md:my-16 md:max-w-[60%]"}>
-            <h1 className={"md:text-[32px] text-[28px] my-4"}>Create new account</h1>
-
-                <Form setLocale={setLocale} onSuccess={handleSuccess}
-                    handleSubmit={handleRegister} className={' w-full h-full '} button={'w-full h-12 font-bold text-xl hover:bg-[#F0F5F5] badge bg-[#12C7D4]'} buttonText={"Register"}>
-                    <div className={"flex w-full flex-col items-center justify-center "}>
-                        <LogoIcon className={"md:w-24 w-36 md:hidden mx-4 h-full"} />
-                        <div className={'w-full'}>
-                            <Grid md={3}>
-                                <TranslatableInput
-                                    locale={locale}
-                                    locales={["en", "ar"]}
-                                    label={"First Name :"}
-                                    name="first_name"
-                                    type="text"
-                                    placeholder="First Name"
-                                />
-                                <TranslatableInput
-                                    locale={locale}
-                                    locales={["en", "ar"]}
-                                    label={"Middle Name :"}
-                                    name="middle_name"
-                                    type="text"
-                                    placeholder="Middle Name"
-                                />
-                                <TranslatableInput
-                                    locale={locale}
-                                    locales={["en", "ar"]}
-                                    label={"Last Name :"}
-                                    name="last_name"
-                                    type="text"
-                                    placeholder="Last Name"
-                                />
-
-                            </Grid>
-
-                            <label className="col-span-6 label">Email :</label>
-                            <Input name="email" type="email" placeholder="Enter Your Email" />
-                            <Grid md={2}>
-                                <Input label='Password :' name="password" type="text" placeholder="Enter Password" />
-                                <Input
-                                    label='Password Confirmation :'
-                                    name="password_confirmation"
-                                    type="text"
-                                    placeholder="Confirm Password"
-                                />
-                                <TranslatableInput
-                                    locale={locale}
-                                    locales={["en", "ar"]}
-                                    label={"Address :"}
-                                    name="address.name"
-                                    type="text"
-                                    placeholder="address"
-                                />
-
-                                <ApiSelect
-                                    required={true}
-                                    name={"address.city_id"}
-                                    label={"city"}
-                                    placeHolder={"Select City Name ..."}
-                                    api={(page?: number | undefined, search?: string | undefined) =>
-                                        CityService.make<CityService>().getAllCities(page, search)
+        <div
+            className={
+                "min-w-full kodchasan tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
+            }
+        >
+            <div
+                className={
+                    "w-full md:w-[60%] max-w-[900px] md:h-full h-[90vh] flex flex-col  items-center "
+                }
+            >
+                <h1
+                    className={
+                        "kodchasan text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
+                    }
+                >
+                    Join PoM family
+                </h1>
+                <div
+                    className={
+                        "mt-[5vh] md:mt-10 bg-[#FFFFFF] opacity-90  md:opacity-[70%] rounded-t-[30px] md:rounded-[30px] w-full h-full"
+                    }
+                >
+                    <div className={"card "}>
+                        <div
+                            className={
+                                "card-body className={'flex flex-col md:px-40 md:py-20 items-center"
+                            }
+                        >
+                            <Form
+                                handleSubmit={handleRegister}
+                                onSuccess={handleSuccess}
+                                className={"w-full"}
+                                button={"w-fit h-fit"}
+                                buttonText={""}
+                                NewButton={
+                                    <button className={"w-52 h-16 relative group hover:border-2 border-[#1FB8B9]  rounded-[30px]"}>
+                                        <ButtonSinSvg className={"w-full h-full group-hover:hidden"} />
+                                        <p
+                                            className={
+                                                "absolute tracking-5 top-1/2 right-1/2 group-hover:text-black -translate-y-1/2 translate-x-1/2 font-bold kodchasan text-[16px] text-white"
+                                            }
+                                        >
+                                            Create
+                                        </p>
+                                    </button>
+                                }
+                            >
+                                <InputLoginCustomer
+                                    name={"first-name"}
+                                    label={"First name"}
+                                    type={"text"}
+                                    labelClass={
+                                        "text-[#013567] font-light text-[16px] md:text-[20px]"
                                     }
-                                    getOptionLabel={(item: City) => TranslateClient(item?.name)}
-                                    optionValue={"id"}
-
+                                    conClass={"my-8"}
                                 />
-                            </Grid>
-                            <div className={`flex gap-5 p-2 items-center`}>
-                                <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
-                                <Input
-                                    name={"gender"}
-                                    label="Male"
-                                    type="radio"
-                                    className="radio radio-info"
-                                    value={"male"}
-
+                                <InputLoginCustomer
+                                    name={"middle-name"}
+                                    label={"Middle name"}
+                                    type={"text"}
+                                    labelClass={
+                                        "text-[#2e5b83] font-light text-[16px] md:text-[20px]"
+                                    }
+                                    conClass={"my-8"}
                                 />
-
-                                <Input
-                                    name={"gender"}
-                                    label={"Female"}
-                                    type="radio"
-                                    className="radio radio-info"
-                                    value={"female"}
+                                <InputLoginCustomer
+                                    name={"last-name"}
+                                    label={"Last name"}
+                                    type={"text"}
+                                    labelClass={
+                                        "text-[#2e5b83] font-light text-[16px] md:text-[20px]"
+                                    }
+                                    conClass={"my-8"}
                                 />
-                            </div>
-                            <div className={'w-full'}>
-                                <MultiInput
-                                    type={"tel"}
-                                    name={"phone_number"}
-                                    placeholder={"Enter Clinic Phone Number"}
-                                    label={("Phones")}
-                                    required={true}
+                                <InputLoginCustomer
+                                    name={"number"}
+                                    label={"Phone Number"}
+                                    type={"number"}
+                                    labelClass={
+                                        "text-[#013567] font-light text-[16px] md:text-[20px]"
+                                    }
+                                    conClass={"my-8"}
                                 />
-                            </div>
+                                <InputLoginCustomer
+                                    name={"password"}
+                                    label={"Password"}
+                                    type={"text"}
+                                    labelClass={
+                                        "text-[#2e5b83] font-light text-[16px] md:text-[20px]"
+                                    }
+                                    conClass={"my-8"}
+                                />
+                                    <div className={'flex justify-start w-fit items-center mt-4'}>
+                                        <p
+                                            className={
+                                                " md:text-[15px] w-fit text-[14px]   text-[#013567]"
+                                            }
+                                        >
+                                            i have agree to{" "}
+                                            <Link href={"/"} className={"text-[#1FB8B9] "}>
+                                                privacy policy
+                                            </Link> {" "}
+                                        </p>
+                                        <input  type="checkbox" className="checkbox ml-2" onChange={(e)=>setPrivacy(e.target.checked)}/>
+                                    </div>
+                            </Form>
+                            <hr className={"h-[2px] w-full bg-[#bcdfe6]"} />
 
-                            <ImageUploader name={"image"} />
+                            <p
+                                className={
+                                    " md:text-[16px] text-[14px] mt-4  text-[#013567]"
+                                }
+                            >
+                                Already have an account?{" "}
+                                <Link href={"/auth/customer/login"} className={"text-[#1FB8B9] "}>
+                                    sign in
+                                </Link>
+                            </p>
                         </div>
                     </div>
-
-                </Form>
+                </div>
             </div>
         </div>
+
     )
 }
 

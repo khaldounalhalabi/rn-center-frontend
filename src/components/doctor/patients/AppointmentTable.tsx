@@ -20,6 +20,7 @@ import { getCookieClient } from "@/Actions/clientCookies";
 import { Customer } from "@/Models/Customer";
 import {RealTimeEvents} from "@/Models/NotificationPayload";
 import NotificationHandler from "@/components/common/NotificationHandler";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -37,12 +38,12 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
   const statusData = AppointmentStatuses();
   const typeData = ["online", "manual", "all"];
 
-
+  const t = useTranslations('common.appointment.table')
 
 
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/patients/${customer.id}/appointment/create`,
-    title: "Appointment",
+    title: `${t("appointment")}`,
     schema: [
       {
         name: "id",
@@ -62,13 +63,13 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
       },
       {
         name: "service.name",
-        label: "Service Name",
+        label: `${t("serviceName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
             <AppointmentStatusColumn
@@ -82,19 +83,19 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
       },
       {
         name: "type",
-        label: "Type",
+        label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>Online</span>
+            <span className={`badge badge-success`}>{t("online")}</span>
           ) : (
-            <span className={`badge badge-neutral`}>Manual</span>
+            <span className={`badge badge-neutral`}>{t("manual")}</span>
           ),
         sortable: true,
       },
 
       {
         name: "appointment_sequence",
-        label: "Sequence",
+        label: `${t("sequence")}`,
         render: (data) => (
           <p>
             <span>{data}</span>
@@ -103,12 +104,12 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
       },
       {
         name: "date",
-        label: "Date",
+        label: `${t("date")}`,
         sortable: true,
       },
 
       {
-        label: "Actions",
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => {
           const sequence = data?.appointment_sequence
             ?.toString()
@@ -134,16 +135,16 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
             >
               <>
                 <NotificationHandler
-                    handle={(payload) => {
-                      if (
-                          payload.getNotificationType() ==
-                          RealTimeEvents.AppointmentStatusChange
-                      ) {
-                        if (revalidate) {
-                          revalidate();
-                        }
+                  handle={(payload) => {
+                    if (
+                      payload.getNotificationType() ==
+                      RealTimeEvents.AppointmentStatusChange
+                    ) {
+                      if (revalidate) {
+                        revalidate();
                       }
-                    }}
+                    }
+                  }}
                 />
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
@@ -153,13 +154,22 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await AppointmentService.make<AppointmentService>("doctor")
-    .getCustomerAppointments(customer?.id,page, search, sortCol, sortDir, perPage, params),
+      await AppointmentService.make<AppointmentService>(
+        "doctor",
+      ).getCustomerAppointments(
+        customer?.id,
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            Status :
+            {t("status")} :
             <SelectFilter
               data={[...statusData, "all"]}
               selected={params.status ?? AppointmentStatusEnum.PENDING}
@@ -169,7 +179,7 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
             />
           </label>
           <label className="label">
-            Type :
+            {t("type")} :
             <SelectFilter
               data={typeData}
               selected={params.type ?? "online"}
@@ -178,7 +188,7 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
               }}
             />
           </label>
-          <label className="label">Start Date :</label>
+          <label className="label">{t("startDate")} :</label>
           <DatepickerFilter
             onChange={(time: any) => {
               setStartDate(time?.format("YYYY-MM-DD"));
@@ -189,7 +199,7 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
             }}
             defaultValue={startDate ?? ""}
           />
-          <label className="label">End Date :</label>
+          <label className="label">{t("endDate")} :</label>
           <DatepickerFilter
             onChange={(time: any) => {
               setEndDate(time?.format("YYYY-MM-DD"));

@@ -3,13 +3,21 @@
     "dashboard": "Dashboard",
     "clinicsManagement": "Clinics Management",
     "clinics": "Clinics",
+    "clinicDetails": "Clinic Details",
     "clinicsSchedules": "Clinics Schedules",
     "clinicsHolidays": "Clinics Holidays",
     "specialties": "Specialties",
     "hospitals": "Hospitals",
     "serviceCategories": "Service Categories",
     "services": "Services",
-    "appointment": "Appointment"
+    "appointment": "Appointment",
+    "patients": "patients",
+    "medicines": "Medicines",
+    "staff": "Staff",
+    "offers": "Offers",
+    "accountantManagement": "Accountant Management",
+    "transaction": "Transaction",
+    "appointmentDeductions": "Appointment Deductions"
   },
   "admin": {
     "clinic": {
@@ -240,6 +248,228 @@
         "tags": "Tags",
         "description": "Description"
       }
+    }
+  },
+  "doctor": {
+    "clinic-details": {
+      "show": {
+        "editBtn": "Edit",
+        "totalAppointments": "Total Appointments",
+        "todayAppointments": "Today Appointments",
+        "upcomingAppointments": "Upcoming Appointments",
+        "specializations": "Specializations",
+        "approximateAppointmentTime": "Approximate Appointment Time",
+        "status": "Status",
+        "experienceYear": "Experience Year",
+        "address": "Address",
+        "cost": "Cost",
+        "maxAppointmentsPerDay": "Max Appointments Per Day",
+        "appointmentDayRange": "Appointment Day Range",
+        "hospital": "Hospital",
+        "registeredAt": "Registered at",
+        "lastUpdatedAt": "last Updated At",
+        "subscription": "Subscription",
+        "subscriptionType": "Subscription Type",
+        "subscriptionCost": "Subscription Cost",
+        "deductionCost": "Deduction Cost",
+        "subscriptionStartTime": "Subscription Start Time",
+        "endTime": "End Time",
+        "subscriptionDescription": "Subscription Description",
+        "experienceY": "Experience Years",
+        "about": "About",
+        "image": "Image"
+      },
+      "edit": {
+        "editClinicDetails": "Edit Clinic Details",
+        "clinicName": "Clinic Name",
+        "maxAppointmentsPerDay": "Max Appointments Per Day",
+        "approximateAppointmentTime": "Approximate Appointment Time (min)",
+        "appointmentDayRange": "Appointment Day Range",
+        "experience": "Experience",
+        "workingStartYear": "Working Start Year",
+        "phones": "Phones",
+        "status": "Status",
+        "hospital": "Hospital",
+        "specialities": "Specialities",
+        "address": "Address",
+        "city": "City",
+        "map": "Map",
+        "about": "About",
+        "image": "Image",
+        "ourWork": "Our Work"
+      }
+    },
+    "schedules": {
+      "show": {
+        "schedulesDetails": "Schedules Details",
+        "editBtn": "Edit",
+        "appointmentGap": "Appointment Gap",
+        "startTime": "Start Time",
+        "endTime": "End Time"
+      },
+      "edit": {
+        "appointmentGap": "Appointment Gap"
+      }
+    },
+    "holidays": {
+      "table": {
+        "clinicsHolidays": "Clinic Holidays",
+        "start": "Start At",
+        "end": "End At",
+        "reason": "Reason",
+        "actions": "Actions",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "create": {
+        "addHolidays": "Add Holidays",
+        "startHoliday": "Start Holiday in",
+        "endHoliday": "End Holiday in",
+        "reason": "Reason"
+      }
+    },
+    "service": {
+      "show": {
+        "serviceDetails": "Service Details",
+        "serviceName": "Service Name",
+        "category": "Category",
+        "clinicName": "Clinic Names",
+        "approximateDuration": "Approximate Duration",
+        "price": "Price",
+        "status": "Status",
+        "description": "Description",
+        "noData": "No Data",
+        "editBtn": "Edit",
+        "image": "Image"
+      }
+    },
+    "offer": {
+      "table": {
+        "offers": "Offers",
+        "title": "Title",
+        "value": "Value",
+        "type": "Type",
+        "isActive": "is Active",
+        "active": "Active",
+        "not-active": "not-active",
+        "actions": "Actions"
+      },
+      "create": {
+        "editOffer": "Edit Offer",
+        "addOffer": "Add Offer",
+        "clinicName": "Clinic Name",
+        "title": "Title",
+        "type": "Type",
+        "value": "Value",
+        "status": "Status",
+        "not-active": "not-active",
+        "active": "Active",
+        "startDate": "Start At",
+        "endDate": "End At",
+        "note": "Note",
+        "image": "Images"
+      },
+      "show": {
+        "offerDetails": "Offer Details",
+        "editBtn": "Edit",
+        "cost": "Appointment Cost",
+        "title": "Title",
+        "isActive": "is Active",
+        "not-active": "not-active",
+        "active": "Active",
+        "type": "Type",
+        "value": "Value",
+        "startDate": "Start At",
+        "endDate": "End At",
+        "note": "Note"
+      }
+    },
+    "patients": {
+      "table": {
+        "patients": "patients",
+        "patientName": "Patient Name",
+        "email": "Email",
+        "age": "Age",
+        "isBlocked": "is Blocked",
+        "blocked": "Blocked",
+        "notBlocked": "Not Blocked",
+        "isArchived": "is Archived",
+        "archived": "Archived",
+        "notArchived": "Not Archived",
+        "actions": "Actions"
+      },
+      "show": {
+        "patientDetails": "Patient Details",
+        "editBtn": "Edit",
+        "phone": "Phone",
+        "overview": "Overview",
+        "appointment": "Appointment",
+        "prescriptions": "Prescriptions",
+        "birthDate": "Birth Date",
+        "age": "Age",
+        "address": "Address",
+        "city": "City",
+        "gender": "Gender",
+        "blood": "Blood Group",
+        "isBlocked": "is Blocked",
+        "blocked": "Blocked",
+        "notBlocked": "Not Blocked",
+        "isArchived": "is Archived",
+        "archived": "Archived",
+        "notArchived": "Not Archived",
+        "tags": "Tags",
+        "otherData": "Other Data",
+        "note": "Note",
+        "medicalCondition": "Medical Condition"
+
+      }
+    }
+  },
+  "common": {
+    "appointment": {
+      "table": {
+        "appointment": "Appointment",
+        "serviceName": "Service Name",
+        "status": "Status",
+        "type": "Type",
+        "online": "Online",
+        "manual": "Manual",
+        "sequence": "Sequence",
+        "date": "Date",
+        "actions": "Actions",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "create": {
+        "editAppointment": "Edit Appointment",
+        "createAppointment": "Create Appointment",
+        "newPatient": "New Patient",
+        "setDate": "Set Date",
+        "date": "Date",
+        "customerName": "Customer Name",
+        "lastVisit": "Last Visit",
+        "serviceName": "Service Name",
+        "offers": "Offers",
+        "extraFees": "Extra Fees",
+        "status": "Status",
+        "discount": "Discount",
+        "updateDate": "Update Date",
+        "note": "Note",
+        "service": "Service",
+        "cost": "Appointment Cost",
+        "totalCost": "Total Cost",
+        "price": "Price",
+        "name": "Name"
+      },
+      "show": {
+        "appointmentDetails": "Appointment Details",
+        "editBtn": "Edit",
+        "clinicName": "Clinic Name",
+        "doctorName": "Doctor Name",
+        "customerName": "Customer Name",
+        "serviceName": "Service Name"
+      }
+
     }
   }
 }

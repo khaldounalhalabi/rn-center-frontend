@@ -7,11 +7,13 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations('doctor.holidays.table')
   const tableData: DataTableData<ClinicHoliday> = {
     createUrl: `/doctor/clinic/holidays/create`,
-    title: `${"Clinics Holidays"}`,
+    title: `${t("clinicsHolidays")}`,
     schema: [
       {
         name: "id",
@@ -20,22 +22,22 @@ const Page = () => {
       },
       {
         name: "start_date",
-        label: `${"Start"}`,
+        label: `${t("start")}`,
         sortable: true,
       },
       {
         name: "end_date",
-        label: `${"End"}`,
+        label: `${t("end")}`,
         sortable: true,
       },
       {
         name: "reason",
-        label: `${"Reason"}`,
+        label: `${t("reason")}`,
         translatable: true,
         render: (data) => <p className={`overflow-ellipsis`}>{data}</p>,
       },
       {
-        label: `${"Actions"}`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -57,7 +59,7 @@ const Page = () => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            {"Start Date"} :
+            {t("startDate")} :
             <DatepickerFilter
               onChange={(event): void => {
                 setParams({
@@ -69,7 +71,7 @@ const Page = () => {
             />
           </label>
           <label className={`label`}>
-            {"End Date"} :
+            {t("endDate")} :
             <DatepickerFilter
               onChange={(event): void => {
                 setParams({ ...params, end_date: event?.format("YYYY-MM-DD") });

@@ -10,3 +10,7 @@ export async function getCookieServer(
 ): Promise<string | undefined> {
   return cookies().get(key)?.value;
 }
+
+export async function deleteCookieServer(key:string){
+  return cookies().delete(key);
+}

@@ -11,10 +11,12 @@ import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Gallery from "@/components/common/ui/Gallery";
+import {getTranslations} from "next-intl/server";
 
 const page = async () => {
   const data = await AuthService.make<AuthService>("doctor").GetClinicDetails();
   const res: Clinic = data.data;
+  const t = await getTranslations("doctor.clinic-details.show")
   console.log(res);
   return (
     <PageCard>
@@ -49,7 +51,7 @@ const page = async () => {
           </div>
           <div>
             <Link href={`/doctor/clinic-details/edit`}>
-              <PrimaryButton type={"button"}>Edit</PrimaryButton>
+              <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
             </Link>
           </div>
         </div>
@@ -62,7 +64,7 @@ const page = async () => {
             <h1 suppressHydrationWarning>
               {res?.total_appointments?.toLocaleString()}
             </h1>
-            <h2>{"Total Appointments"}</h2>
+            <h2>{t("totalAppointments")}</h2>
           </div>
           <div
             className={
@@ -72,7 +74,7 @@ const page = async () => {
             <h1 suppressHydrationWarning>
               {res?.today_appointments_count.toLocaleString()}
             </h1>
-            <h2>{"Today Appointments"}</h2>
+            <h2>{t("todayAppointments")}</h2>
           </div>
           <div
             className={
@@ -82,14 +84,14 @@ const page = async () => {
             <h1 suppressHydrationWarning>
               {res?.upcoming_appointments_count.toLocaleString()}
             </h1>
-            <h2 className={""}>{"Upcoming Appointments"}</h2>
+            <h2 className={""}>{t("upcomingAppointments")}</h2>
           </div>
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3 w-full"}>
         <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
           <div className={"w-full"}>
-            <label className={"label"}>{"Specializations"} :</label>
+            <label className={"label"}>{t("specializations")} :</label>
             <div className={"flex flex-wrap w-full gap-3"}>
               {res?.specialities?.map((spec) => {
                 return (
@@ -101,21 +103,23 @@ const page = async () => {
             </div>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>Approximate Appointment Time : </label>
+            <label className={"label"}>
+              {t("approximateAppointmentTime")} :{" "}
+            </label>
             <div className={"badge badge-neutral"}>
               {res?.approximate_appointment_time} min
             </div>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Status"} : </label>
+            <label className={"label"}>{t("status")} : </label>
             <p className={"badge badge-warning"}>{res?.status}</p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Experience Year"} : </label>
+            <label className={"label"}>{t("experienceYear")} : </label>
             <p className={"badge badge-accent"}>{res?.experience_years}</p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Address"} :</label>
+            <label className={"label"}>{t("address")} :</label>
             <div className={"flex flex-col"}>
               <p>{TranslateClient(res?.user?.address?.name)}</p>
               <p>{TranslateClient(res?.user?.address?.city?.name)}</p>
@@ -124,72 +128,72 @@ const page = async () => {
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>{"Cost"} :</label>
+            <label className={"label"}>{t("cost")} :</label>
             <p className={"badge badge-primary"} suppressHydrationWarning>
               {res?.appointment_cost.toLocaleString()} IQD
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Max Appointments Per Day"} :</label>
+            <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
             <p className={"badge badge-warning"} suppressHydrationWarning>
               {res?.max_appointments.toLocaleString()}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Appointment Day Range"} :</label>
+            <label className={"label"}>{t("appointmentDayRange")} :</label>
             <p className={"badge badge-neutral"}>
               {res?.appointment_day_range}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Hospital"} :</label>
+            <label className={"label"}>{t("hospital")} :</label>
             <p className={"badge badge-error"}>
               {TranslateClient(res?.hospital?.name) ?? "No Hospital"}
             </p>
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>{"Registered at"} :</label>
+            <label className={"label"}>{t("registeredAt")} :</label>
             <p className={"badge badge-secondary"}>{res?.created_at}</p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"last Updated At"} :</label>
+            <label className={"label"}>{t("lastUpdatedAt")} :</label>
             <p className={"badge badge-accent"}>{res?.updated_at}</p>
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>Subscription :</label>
+            <label className={"label"}>{t("subscription")} :</label>
             <p className={"badge badge-warning"}>
               {res?.active_subscription?.subscription?.name}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Subscription Type"} :</label>
+            <label className={"label"}>{t("subscriptionType")} :</label>
             <p className={"badge badge-primary"}>
               {res?.active_subscription?.type}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Subscription Cost"} :</label>
+            <label className={"label"}>{t("subscriptionCost")} :</label>
             <p className={"badge badge-success"}>
               {res?.active_subscription?.subscription?.cost ?? 0}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Deduction Cost"} :</label>
+            <label className={"label"}>{t("deductionCost")} :</label>
             <p className={"badge badge-success"}>
               {res?.active_subscription?.deduction_cost ?? 0}
             </p>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{"Subscription Start Time"} :</label>
+            <label className={"label"}>{t("subscriptionStartTime")} :</label>
             <p className={"badge badge-neutral"}>
               {res?.active_subscription?.start_time}
             </p>
           </div>
           {(res?.active_subscription?.subscription?.period ?? 0) >= 0 && (
             <div className={"w-full"}>
-              <label className={"label"}>{"End Time"} :</label>
+              <label className={"label"}>{t("endTime")} :</label>
               <p className={"badge badge-accent"}>
                 {res?.active_subscription?.end_time}
               </p>
@@ -197,7 +201,7 @@ const page = async () => {
           )}
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Subscription Description"} :</label>
+          <label className={"label"}>{t("subscriptionDescription")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
@@ -205,7 +209,7 @@ const page = async () => {
           ></textarea>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Experience"} :</label>
+          <label className={"label"}>{t("experienceY")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
@@ -213,7 +217,7 @@ const page = async () => {
           ></textarea>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"About"} :</label>
+          <label className={"label"}>{t("about")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
@@ -222,12 +226,12 @@ const page = async () => {
         </div>
         <div className={"w-full"}>
           {res?.work_gallery?.length != 0 ? (
-              <Gallery media={res?.work_gallery ? res?.work_gallery : [""]} />
+            <Gallery media={res?.work_gallery ? res?.work_gallery : [""]} />
           ) : (
-              <div className="flex justify-between items-center">
-                <label className="label"> {("Image")} : </label>
-                <span className="text-lg badge badge-neutral">{("No Data")}</span>
-              </div>
+            <div className="flex justify-between items-center">
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{"No Data"}</span>
+            </div>
           )}
         </div>
         <MapIFrame iframe={res?.user?.address?.map_iframe} />

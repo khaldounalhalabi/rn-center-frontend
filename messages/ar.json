@@ -3,13 +3,21 @@
     "dashboard": "لوحة القيادة",
     "clinicsManagement": "إدارة العيادات",
     "clinics": "عيادات",
+    "clinicDetails": "تفاصيل العيادة",
     "clinicsSchedules": "مواعيد العيادات",
-    "clinicsHolidays": "عيادات العطل",
+    "clinicsHolidays": "عطل العيادات ",
     "specialties": "التخصصات",
     "hospitals": "المستشفيات",
     "serviceCategories": "فئات الخدمة",
     "services": "خدمات",
-    "appointment": "ميعاد"
+    "appointment": "ميعاد",
+    "patients": "المرضى",
+    "medicines": "الدواء",
+    "staff": "الطاقم",
+    "offers": "العروض",
+    "accountantManagement": "إدارة المحاسبة",
+    "transaction": "التحويلات",
+    "appointmentDeductions": "خصومات المواعيد"
   },
   "admin": {
     "clinic": {
@@ -123,12 +131,12 @@
         "day": "يوم"
       },
       "show": {
-        "holidayDetails": "Holiday Details",
-        "editBtn": "Edit",
-        "clinicName": "Clinic Name",
-        "startHoliday": "Start Holiday in",
-        "endHoliday": "End Holiday in",
-        "reason": "Reason"
+        "holidayDetails": "تفاصيل العطلة",
+        "editBtn": "يحرر",
+        "clinicName": "اسم العيادة",
+        "startHoliday": "بداية العطلة",
+        "endHoliday": "نهاية العطلة",
+        "reason": "السبب"
       },
       "create": {
         "clinicName": "اسم العيادة"
@@ -239,6 +247,233 @@
         "specialityName": "اسم التخصص",
         "tags": "العلامات",
         "description": "وصف"
+      }
+    }
+  },
+  "doctor": {
+    "clinic-details": {
+      "show": {
+        "editBtn": "تعديل",
+        "totalAppointments": "اجمالي المواعيد",
+        "todayAppointments": "مواعيد اليوم",
+        "upcomingAppointments": "المواعيد القادمة",
+        "specializations": "التخصصات",
+        "approximateAppointmentTime": "الوقت التقريبي للموعد",
+        "status": "الحالة",
+        "experienceYear": "سنوات الخبرة",
+        "address": "العنوان",
+        "cost": "تكلفة ",
+        "maxAppointmentsPerDay": "الحد الأقصى للمواعيد في اليوم الواحد",
+        "appointmentDayRange": "عدد المواعيد في اليوم",
+        "hospital": "مستشفى",
+        "registeredAt": "تاريخ النضمام",
+        "lastUpdatedAt": "اخر تعديل في ",
+        "subscription": "الاشتراك",
+        "subscriptionType": "نوع الاشتراك",
+        "subscriptionCost": "قيمة الاشتراك",
+        "deductionCost": "قيمة المستقطعة",
+        "subscriptionStartTime": "وقت بدأ الاشتراك",
+        "endTime": "وقت النهاية",
+        "subscriptionDescription": "خصم الاشتراك",
+        "experienceY": "سنوات الخبرة",
+        "about": "عن",
+        "image": "صورة"
+      },
+      "edit": {
+        "editClinicDetails": "تعديل تفاصيل العيادة",
+        "clinicName": "اسم العيادة",
+        "maxAppointmentsPerDay": "الحد الأقصى للمواعيد في اليوم الواحد",
+        "approximateAppointmentTime": "الوقت التقريبي للموعد (دقيقة)",
+        "appointmentDayRange": "عدد المواعيد في اليوم",
+        "experience": "خبرة",
+        "workingStartYear": "سنة بدأ العمل",
+        "phones": "الهواتف",
+        "status": "حالة",
+        "hospital": "مستشفى",
+        "specialities": "التخصصات",
+        "address": "العنوان",
+        "city": "المدينة",
+        "map": "خريطة",
+        "about": "عن",
+        "image": "صورة",
+        "ourWork": "اعمالنا"
+
+      }
+    },
+    "schedules": {
+      "show": {
+        "schedulesDetails": "تفاصيل الدوام",
+        "editBtn": "يحرر",
+        "appointmentGap": "الفاصل الزمني بين الواعيد",
+        "startTime": "وقت البدء",
+        "endTime": "وقت النهاية"
+      },
+      "edit": {
+        "appointmentGap": "الفاصل الزمني بين الواعيد"
+      }
+
+    },
+    "holidays": {
+      "table": {
+        "clinicsHolidays": " عطل العيادة",
+        "start": "تبدأ في",
+        "end": "ينتهي في",
+        "reason": "سبب",
+        "actions": "أجراءات",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء"
+      },
+      "show": {
+
+      },
+      "create": {
+        "addHolidays": "أضف الإجازات",
+        "startHoliday": "ابدأ العطلة في",
+        "endHoliday": "نهاية العطلة في",
+        "reason": "سبب"
+      }
+    },
+    "service": {
+      "show": {
+        "serviceDetails": "تفاصيل الخدمة",
+        "serviceName": "اسم الخدمة",
+        "category": "فئة",
+        "clinicName": "اسماء العيادات",
+        "approximateDuration": "المدة التقريبية",
+        "price": "سعر",
+        "status": "حالة",
+        "description": "وصف",
+        "noData": "لايوجد بيانات",
+        "editBtn": "يحرر",
+        "image": "صورة"
+      }
+    },
+    "offer": {
+      "table": {
+        "offers": "العروض",
+        "title": "العنوان",
+        "value": "القيمة",
+        "type": "النوع",
+        "isActive": "التحقق من النشاط",
+        "active": "نشط",
+        "not-active": "خامل",
+        "actions": "أجراءات"
+      },
+      "create": {
+        "editOffer": "تعديل العرض",
+        "addOffer": "اضافة عرض",
+        "clinicName": "اسم العيادة",
+        "title": "العنوان",
+        "type": "النوع",
+        "value": "القيمة",
+        "status": "حالة",
+        "not-active": "خامل",
+        "active": "نشط",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة",
+        "image": "صور"
+      },
+      "show": {
+        "isActive": "التحقق من النشاط",
+        "offerDetails": "تفاصيل العرض",
+        "editBtn": "يحرر",
+        "cost": "تكلفة التعيين",
+        "title": "العنوان",
+        "not-active": "خامل",
+        "active": "نشط",
+        "type": "النوع",
+        "value": "القيمة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة"
+      }
+    },
+    "patients": {
+      "table": {
+        "patients": "المرضى",
+        "patientName": "اسم المريض",
+        "email": "الايميل",
+        "age": "عمر",
+        "isBlocked": "هل هو محظور",
+        "blocked": "محظور",
+        "notBlocked": "ليس محظور",
+        "isArchived": "هل هو مأرشف",
+        "archived": "مؤرشف",
+        "notArchived": "غير مؤرشفة",
+        "actions": "أجراءات"
+      },
+      "show": {
+        "patientDetails": "تفاصيل المريض",
+        "editBtn": "يحرر",
+        "phone": "هاتف",
+        "overview": "ملخص",
+        "appointment": "ميعاد",
+        "prescriptions": "الوصفات الطبية",
+        "birthDate": "تاريخ الميلاد",
+        "age": "عمر",
+        "address": "عنوان",
+        "city": "المدينة",
+        "gender": "جنس",
+        "blood": "فصيلة الدم",
+        "isBlocked": "هل هو محظور",
+        "blocked": "محظور",
+        "notBlocked": "ليس محظور",
+        "isArchived": "هل هو مأرشف",
+        "archived": "مؤرشف",
+        "notArchived": "غير مؤرشفة",
+        "tags": "العلامات",
+        "otherData": "بيانات اخرى",
+        "note": "ملاحظة",
+        "medicalCondition": "الحالة الطبية"
+
+      }
+    }
+
+  },
+  "common": {
+    "appointment": {
+      "table": {
+        "appointment": "ميعاد",
+        "serviceName": "اسم الخدمة",
+        "status": "حالة",
+        "type": "النوع",
+        "online": "متصل",
+        "manual": "يدوي",
+        "sequence": "تسلسل",
+        "date": "التاريخ",
+        "actions": "أجراءات",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء"
+      },
+      "create": {
+        "editAppointment": "تعديل الميعاد",
+        "createAppointment": "اضافة الميعاد",
+        "newPatient": "مريض جديد",
+        "setDate": "اختيار تاريخ",
+        "date": "التاريخ",
+        "customerName": "اسم المريض",
+        "lastVisit": "اخر زيارة",
+        "serviceName": "اسم الخدمة",
+        "offers": "العروض",
+        "extraFees": "رسوم إضافية",
+        "status": "حالة",
+        "discount": "الخصم",
+        "updateDate": "تحديث الميعاد",
+        "note": "ملاحظة",
+        "service": "قيمة الخدمة",
+        "cost": "تكلفة التعيين",
+        "totalCost": "المجموع",
+        "price": "سعر",
+        "name": "الصنف"
+      },
+      "show": {
+        "appointmentDetails": "تفاصيل الموعد",
+        "editBtn": "تعديل",
+        "clinicName": "اسم العيادة",
+        "doctorName": "اسم الدكتور",
+        "customerName": "اسم المريض",
+        "serviceName": "اسم الخدمة"
       }
     }
   }

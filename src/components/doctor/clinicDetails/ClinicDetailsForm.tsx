@@ -20,8 +20,10 @@ import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
+import {useTranslations} from "next-intl";
 
 const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
+  const t = useTranslations("doctor.clinic-details.edit")
 
   const handleSubmit = async (data: any) => {
     console.log(data);
@@ -59,7 +61,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`Clinic Name :`}
+            label={`${t("clinicName")} :`}
             name={"name"}
             locale={locale}
           />
@@ -69,7 +71,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             type={"number"}
             step={"any"}
             placeholder={"Doctor Max Appointments Per Day Are ?"}
-            label={"Max Appointments Per Day"}
+            label={t("maxAppointmentsPerDay")}
             required={true}
           />
           <Input
@@ -78,37 +80,37 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             type={"number"}
             step={"any"}
             placeholder={"Doctor Approximate Appointment Time Are ?"}
-            label={"Approximate Appointment Time"}
+            label={t("approximateAppointmentTime")}
             required={true}
           />
           <Input
             placeholder={"Appointment Day Range ...  "}
             name={"appointment_day_range"}
-            label={"Appointment Day Range"}
+            label={t("appointmentDayRange")}
             type="text"
           />
           <Input
             placeholder={"Experience ...  "}
             name={"experience"}
-            label={"Experience"}
+            label={t("experience")}
             type="text"
           />
           <Datepicker
             name={"working_start_year"}
-            label={"Working Start Year"}
+            label={t("workingStartYear")}
           />
         </Grid>
         <MultiInput
           type={"tel"}
           name={"phone_numbers"}
           placeholder={"Enter Clinic Phone Number"}
-          label={"Phones"}
+          label={t("phones")}
           required={true}
         />
         <Grid md={"2"}>
           <div className={`flex gap-5  p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
-              Status:
+              {t("status")}:
             </label>
             <Input
               name={"status"}
@@ -130,7 +132,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             />
           </div>
           <ApiSelect
-            label={"Hospital"}
+            label={t("hospital")}
             name="hospital_id"
             placeHolder={"Select Hospital Name ..."}
             api={(page, search): Promise<ApiResponse<Hospital>> =>
@@ -149,7 +151,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           <ApiSelect
             required={true}
             name={"speciality_ids"}
-            label={"Specialities"}
+            label={t("specialities")}
             placeHolder={"Select Speciality Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
@@ -166,14 +168,14 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`Address :`}
+            label={`${t("address")} :`}
             name={"address.name"}
             locale={locale}
           />
           <ApiSelect
             required={true}
             name={"address.city_id"}
-            label={"City"}
+            label={t("city")}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               CityService.make<CityService>("doctor").getAllCities(page, search)
@@ -190,10 +192,10 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
         <TextAreaMap
           className={"col-span-2"}
           name="address.map_iframe"
-          label={"Map"}
+          label={t("map")}
           required={true}
         />
-        <Textarea name="about_us" label={"About Us"} required={true} />
+        <Textarea name="about_us" label={t("about")} required={true} />
         <div className={"col-span-2"}>
           {defaultValues?.work_gallery?.length != 0 ? (
             <Gallery
@@ -203,12 +205,16 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             />
           ) : (
             <div className="flex items-center">
-              <label className="label"> Image : </label>
+              <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">No Data</span>
             </div>
           )}
         </div>
-        <ImageUploader name={"work_gallery"} isMultiple={true} label={'Our Work'}/>
+        <ImageUploader
+          name={"work_gallery"}
+          isMultiple={true}
+          label={t("ourWork")}
+        />
       </Form>
     </>
   );

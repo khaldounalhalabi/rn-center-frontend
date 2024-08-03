@@ -29,6 +29,7 @@ import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import PageCard from "@/components/common/ui/PageCard";
 import PatientForm from "@/components/doctor/patients/PatientForm";
+import {useTranslations} from "next-intl";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -41,8 +42,9 @@ const AppointmentForm = ({
   patientId?:number
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('common.appointment.create')
   const clinic = HandleGetUserData();
-
+  const [date ,setDate ] = useState(defaultValues??{})
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const { data: availableTimes } = useQuery({
@@ -142,7 +144,13 @@ const AppointmentForm = ({
   const handleSubmitAppointmentDate = async (data: any) => {
     return await AppointmentService.make<AppointmentService>(
       "doctor",
-    ).updateDate(defaultValues?.id ?? 0, data);
+    ).updateDate(defaultValues?.id ?? 0, data).then((res)=>{
+      setDate({
+        ...defaultValues,
+        date:res.data.date
+      })
+      return res
+    })
   };
 
   const appointmentCostOffer = HandleCalcOffers(
@@ -182,26 +190,32 @@ const AppointmentForm = ({
 
   return (
     <PageCard>
-       <div className={'flex justify-between'}>
-         <h2 className="card-title">{type=="store"?"Add":"Edit"} Appointment</h2>
-         <button
-             type={"button"}
-             className="btn btn-info"
-             onClick={openModalPatient}
-         >
-           New Patient
-         </button>
-       </div>
+      <div className={"flex justify-between"}>
+        <h2 className="card-title">
+          {type == "store" ? t("editAppointment") : t("createAppointment")}
+        </h2>
+        <button
+          type={"button"}
+          className="btn btn-info"
+          onClick={openModalPatient}
+        >
+          {t("newPatient")}
+        </button>
+      </div>
       <Transition appear show={isOpenPatient} as={Fragment}>
-        <Dialog as="div" className="relative z-[1000]" onClose={closeModalPatient}>
+        <Dialog
+          as="div"
+          className="relative z-[1000]"
+          onClose={closeModalPatient}
+        >
           <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
             <div className="fixed inset-0 bg-black/25" />
           </Transition.Child>
@@ -209,25 +223,22 @@ const AppointmentForm = ({
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-[70vw] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <PatientForm appointment={true} close={closeModalPatient}/>
+                  <PatientForm appointment={true} close={closeModalPatient} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
         </Dialog>
       </Transition>
-
-
-
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[1000]" onClose={closeModal}>
@@ -258,12 +269,12 @@ const AppointmentForm = ({
                   <Form
                     handleSubmit={handleSubmitAppointmentDate}
                     onSuccess={() => closeModal()}
-                    defaultValues={defaultValues}
+                    defaultValues={date}
                   >
-                    <h1 className={"card-title"}>Set Date : </h1>
+                    <h1 className={"card-title"}>{t("setDate")} : </h1>
                     <Datepicker
                       name={"date"}
-                      label={"Date"}
+                      label={t("date")}
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
@@ -291,14 +302,14 @@ const AppointmentForm = ({
                   name={"customer_id"}
                   placeHolder={"Select Customer name ..."}
                   api={(page, search) =>
-                    CustomerService.make<CustomerService>(
-                      "doctor",
-                    ).setHeaders({ filtered: true }).indexWithPagination(page, search)
+                    CustomerService.make<CustomerService>("doctor")
+                      .setHeaders({ filtered: true })
+                      .indexWithPagination(page, search)
                   }
                   onSelect={(selectedItem) => {
                     setCustomerId(selectedItem?.id ?? 0);
                   }}
-                  label={"Customer Name"}
+                  label={t("customerName")}
                   optionValue={"id"}
                   getOptionLabel={(data: Customer) => {
                     return (
@@ -313,7 +324,9 @@ const AppointmentForm = ({
                 />
 
                 {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
-                  <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
+                  <p className={"label"}>
+                    {t("lastVisit")} : {lastAppointmentDate}
+                  </p>
                 ) : (
                   ""
                 )}
@@ -335,7 +348,7 @@ const AppointmentForm = ({
             defaultValues={
               defaultValues?.service ? [defaultValues?.service] : []
             }
-            label={"Service Name"}
+            label={t("serviceName")}
             onSelect={async (selectedItem) => {
               setServicePrice(selectedItem?.price);
             }}
@@ -359,7 +372,7 @@ const AppointmentForm = ({
             }
             closeOnSelect={false}
             defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
-            label={"Offers"}
+            label={t("offers")}
             onSelect={async (selectedItem) => {
               if (selectedItem) {
                 setOffer((prevOffers) => [...prevOffers, selectedItem]);
@@ -384,16 +397,16 @@ const AppointmentForm = ({
             step={"any"}
             unit={"IQD"}
             placeholder={"Extra Fees : 5"}
-            label={"Extra Fees"}
+            label={t("extraFees")}
             setWatch={setExtra}
           />
           {type == "update" ? (
             <SelectPopOverFrom
-                required={true}
+              required={true}
               name={"status"}
               ArraySelect={statusData}
               status={status}
-              label={"Status"}
+              label={t("status")}
               handleSelect={(select: string) => setStatus(select)}
             />
           ) : (
@@ -403,7 +416,7 @@ const AppointmentForm = ({
           {type == "store" ? (
             <Datepicker
               name={"date"}
-              label={"Date"}
+              label={t("date")}
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
@@ -418,7 +431,7 @@ const AppointmentForm = ({
             type={"number"}
             step={"any"}
             placeholder={"Discount ..."}
-            label={"Discount"}
+            label={t("discount")}
             setWatch={setDiscount}
           />
         </Grid>
@@ -428,14 +441,14 @@ const AppointmentForm = ({
             onClick={openModal}
             className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
           >
-            Update Date
+            {t("updateDate")}
           </button>
         ) : (
           ""
         )}
         <Textarea
           name={"note"}
-          label={"Notes"}
+          label={t("note")}
           defaultValue={defaultValues?.note ?? ""}
         />
         {status == AppointmentStatusEnum.CANCELLED ? (
@@ -450,31 +463,33 @@ const AppointmentForm = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <th>{t("name")}</th>
+                <th>{t("price")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Clinic Appointment Cost</td>
+                <td>{t("cost")}</td>
                 <td>{range?.appointment_cost ?? 0} IQD</td>
               </tr>
               <tr>
-                <td>Service</td>
+                <td>{t("service")}</td>
                 <td>{getServicePrice ?? 0} IQD</td>
               </tr>
               <tr>
-                <td>Extra Fees</td>
+                <td>{t("extraFees")}</td>
                 <td>{Number(getExtra) ?? 0} IQD</td>
               </tr>
               <tr>
-                <td>Discount</td>
+                <td>{t("discount")}</td>
                 <td>{Number(getDiscount) ?? 0} IQD</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
                     <tr key={index}>
-                      <td>Offer [{index}]</td>
+                      <td>
+                        {t("offers")} [{index}]
+                      </td>
                       <td>
                         {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
@@ -482,7 +497,7 @@ const AppointmentForm = ({
                   ))
                 : ""}
               <tr>
-                <td className="text-lg">Total Cost</td>
+                <td className="text-lg">{t("totalCost")}</td>
                 <td className="text-lg">{totalCost.toFixed(1)} IQD</td>
               </tr>
             </tbody>

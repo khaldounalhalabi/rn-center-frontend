@@ -22,6 +22,10 @@ import {AppointmentDeductions} from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 
 import {Clinic} from "@/Models/Clinic";
+import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentStatusColumn";
+import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
+import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
+import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 
 interface filterExportType {
     year: string;
@@ -29,6 +33,29 @@ interface filterExportType {
 }
 
 const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
+    const [selectAll , setSelectAll] = useState<number[]>([])
+    const [selectedItems, setSelectedItems] = useState<number[]>([]);
+    const [typeSelectAll , setTypeSelectAll] = useState(false)
+    console.log(selectedItems)
+    const handleCheckboxChange = (id: number, checked: boolean) => {
+        if (checked) {
+            setSelectedItems((prev) => [...prev, id]);
+        } else {
+            setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
+        }
+    };
+    const handleSelectAll = ()=>{
+        setTypeSelectAll(!typeSelectAll)
+        if(typeSelectAll){
+            setSelectedItems(selectAll)
+        }else {
+            setSelectedItems([])
+        }
+    }
+
+
+
+
     const [filterExport, setFilterExport] = useState<filterExportType>({
         year: "",
         month: "",
@@ -42,6 +69,17 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
     function openModal() {
         setIsOpen(true);
     }
+
+    let [isOpenStatus, setIsOpenStatus] = useState(false);
+
+    function closeModalStatus() {
+        setIsOpenStatus(false);
+    }
+
+    function openModalStatus() {
+        setIsOpenStatus(true);
+    }
+
 
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
@@ -57,6 +95,12 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                 >
                     <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
                 </button>
+                <button className={'btn btn-info  btn-sm btn-square'} disabled={selectedItems.length == 0}>
+                    <ChangeStatusIcon className={`w-6 h-6 cursor-pointer `} onClick={openModalStatus}/>
+                </button>
+                <button className={'btn btn-info  btn-sm btn-square'} >
+                    <CheckMarkIcon className={`w-6 h-6 cursor-pointer `} onClick={handleSelectAll}/>
+                </button>
             </>
         ),
         schema: [
@@ -66,13 +110,36 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                 sortable: true,
             },
             {
+                label:'Change Status',
+                render:(_id,translatable)=>{
+                    return (
+                        <div className={'flex justify-center'}>
+                            <input
+                                type="checkbox"
+                                className="checkbox "
+                                checked={selectedItems.includes(translatable?.id??0)}
+                                onChange={(e) => handleCheckboxChange(translatable?.id??0, e.target.checked)}
+                            />
+                        </div>
+                    );
+                },
+            },
+            {
                 name: "amount",
                 label: `Amount`,
                 sortable: true,
             },
             {
                 name: "status",
-                label: `Status`,
+                label: "Status",
+                render: (_status, transaction, _setHidden, revalidate) => {
+                    return (
+                        <AppointmentDeductionStatusColumn
+                            transaction={transaction}
+                            revalidate={revalidate}
+                        />
+                    );
+                },
                 sortable: true,
             },
             {
@@ -124,7 +191,11 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                 sortDir,
                 perPage,
                 params,
-            ),
+            ).then((res)=>{
+                const allId = res?.data?.map(item => item.id)
+                setSelectAll(allId)
+                return res
+            }),
         filter: (params, setParams) => {
             return (
                 <div className={"w-full  grid grid-cols-1"}>
@@ -259,7 +330,40 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                     </div>
                 </Dialog>
             </Transition>
+            <Transition appear show={isOpenStatus} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModalStatus}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black/25" />
+                    </Transition.Child>
 
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <h1 className={'card-title'}>Change All Status :</h1>
+                                    <ChangeAllStatusSelector status={selectedItems}/>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
             <DataTable {...tableData} />
         </>
     );

@@ -7,38 +7,40 @@ import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { serviceId },
 }: {
   params: { serviceId: number };
 }) => {
+  const t = await getTranslations('doctor.service.show')
   const data =
     await ServiceService.make<ServiceService>("doctor").show(serviceId);
   const res: Service = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">{"Service Details"}</h2>
+        <h2 className="card-title">{t("serviceDetails")}</h2>
         <Link href={`/doctor/service/${res.id}/edit`}>
-          <PrimaryButton type={"button"}>{"Edit"}</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          {"Service Name"} En:{" "}
+          {t("serviceName")} En:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true))?.en}
           </span>
         </label>
         <label className="label">
-          {"Service Name"} Ar:{" "}
+          {t("serviceName")} Ar:{" "}
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {(await TranslateServer(res?.name, true)).ar}
           </span>
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Category"} :
+          {t("category")} :
           {res?.serviceCategory?.name ? (
             <span className="badge badge-error">
               {await TranslateServer(res?.serviceCategory.name)}
@@ -48,7 +50,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Clinic Name"} :
+          {t("clinicName")} :
           {res?.clinic?.name ? (
             <span className="badge badge-primary">
               {`${await TranslateServer(res?.clinic?.name)}`}
@@ -58,7 +60,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Approximate Duration"} :
+          {t("approximateDuration")} :
           {res?.approximate_duration ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.approximate_duration.toLocaleString()}
@@ -69,7 +71,7 @@ const page = async ({
         </label>
 
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Price"} :
+          {t("price")} :
           {res?.price ? (
             <span className="badge badge-accent" suppressHydrationWarning>
               {res?.price.toLocaleString()} IQD
@@ -79,7 +81,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-1 w-full label">
-          {"Status"} :
+          {t("status")} :
           {res?.status ? (
             <span className="badge badge-success">{res?.status}</span>
           ) : (
@@ -89,7 +91,7 @@ const page = async ({
       </Grid>
       <Grid md={1}>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Description"} EN :
+          {t("description")} EN :
           {res?.status ? (
             <textarea
               rows={4}
@@ -102,7 +104,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {"Description"} AR :
+          {t("description")} AR :
           {res?.status ? (
             <textarea
               rows={4}
@@ -118,7 +120,7 @@ const page = async ({
           <Gallery media={res?.icon ? res?.icon : [""]} />
         ) : (
           <div className="flex justify-between items-center">
-            <label className="label"> {"Image"} : </label>
+            <label className="label"> {t("image")} : </label>
             <span className="text-lg badge badge-neutral">{"No Image"}</span>
           </div>
         )}

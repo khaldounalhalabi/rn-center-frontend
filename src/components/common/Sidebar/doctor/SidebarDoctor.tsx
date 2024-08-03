@@ -25,7 +25,6 @@ import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
 import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
-import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -77,11 +76,11 @@ const SidebarDoctor = ({
         <ul
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem link={"/doctor"}> {"Dashboard"}</SidebarItem>
-          <SidebarCompactItem title={"Clinic Management"}>
+          <SidebarItem link={"/doctor"}> {t("dashboard")}</SidebarItem>
+          <SidebarCompactItem title={t("clinicsManagement")}>
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/clinic-details"}>
-                {"Clinic Details"}
+                {t("clinicDetails")}
               </SidebarItem>
               <SidebarItem
                 className={
@@ -92,7 +91,7 @@ const SidebarDoctor = ({
                 }
                 link={"/doctor/clinic/schedules"}
               >
-                {"Clinics Schedules"}
+                {t("clinicsSchedules")}
               </SidebarItem>
               <SidebarItem
                 link={"/doctor/clinic/holidays"}
@@ -103,7 +102,7 @@ const SidebarDoctor = ({
                     : ""
                 }
               >
-                {"Clinic Holidays"}
+                {t("clinicsHolidays")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
@@ -127,7 +126,7 @@ const SidebarDoctor = ({
                 : ""
             }
           >
-            Offers
+            {t("offers")}
           </SidebarItem>
           <SidebarItem
             link={"/doctor/patients"}
@@ -138,7 +137,7 @@ const SidebarDoctor = ({
                 : ""
             }
           >
-            Patients
+            {t("patients")}
           </SidebarItem>
           <SidebarItem
             link={"/doctor/medicines"}
@@ -149,7 +148,7 @@ const SidebarDoctor = ({
                 : ""
             }
           >
-            Medicines
+            {t("medicines")}
           </SidebarItem>
           <SidebarItem
             link={"/doctor/staff"}
@@ -160,17 +159,22 @@ const SidebarDoctor = ({
                 : ""
             }
           >
-            Staff
+            {t("staff")}
           </SidebarItem>
-          <SidebarItem link={"/doctor/appointment"}>Appointment</SidebarItem>
-          <SidebarCompactItem title={"Accountant Management"}>
+          <SidebarItem link={"/doctor/appointment"}>
+            {t("appointment")}
+          </SidebarItem>
+          <SidebarCompactItem title={t("accountantManagement")}>
             <div className="flex flex-col">
-              <SidebarItem link={"/doctor/transaction"}>Transaction</SidebarItem>
-              <SidebarItem link={"/doctor/appointment-deductions"}>Appointment Deductions</SidebarItem>
+              <SidebarItem link={"/doctor/transaction"}>
+                {t("transaction")}
+              </SidebarItem>
+              <SidebarItem link={"/doctor/appointment-deductions"}>
+                {t("appointmentDeductions")}
+              </SidebarItem>
             </div>
           </SidebarCompactItem>
           {/* <SidebarItem link={"/doctor/subscription"}>Subscriptions</SidebarItem> */}
-
         </ul>
       </div>
       <div
@@ -277,23 +281,20 @@ const SidebarDoctor = ({
           >
             <StaffIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/doctor/appointment"} title={("Appointment")}>
+          <SidebarIcon link={"/doctor/appointment"} title={"Appointment"}>
             <AppointmentIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={"Accountant Management"}
-              icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
+            title={"Accountant Management"}
+            icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
-              <SidebarIcon
-                  link={"/doctor/transaction"}
-                  title={"Transaction"}
-              >
+              <SidebarIcon link={"/doctor/transaction"} title={"Transaction"}>
                 <TransactionIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
               <SidebarIcon
-                  link={"/doctor/appointment-deductions"}
-                  title={"Appointment Deductions"}
+                link={"/doctor/appointment-deductions"}
+                title={"Appointment Deductions"}
               >
                 <AppointmentDeductionstIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>

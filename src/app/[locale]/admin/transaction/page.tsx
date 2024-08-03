@@ -70,11 +70,23 @@ const Page = () => {
         label: `Type`,
         sortable: true,
       },
-      {
-        name: "amount",
-        label: `Amount`,
-        sortable: true,
-      },
+        {
+            name: "amount",
+            label: `Amount`,
+            sortable: true,
+            render: (_amount, transaction) => (
+                <span
+                    className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
+                >
+            {transaction?.type == "income"
+                ? "+"
+                : transaction?.type == "outcome"
+                    ? "-"
+                    : ""}
+                    {transaction?.amount}
+          </span>
+            ),
+        },
       {
         name: "date",
         label: `Date`,

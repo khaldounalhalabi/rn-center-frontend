@@ -36,14 +36,15 @@ const Page = () => {
         name: "period",
         label: `Period`,
         sortable: true,
-        render: (data) =>
-          data <= 0 ? (
+        render: (_period, subscription) =>
+            subscription?.period &&  subscription?.period <= 0 ? (
             <p className="text-center flex justify-evenly">
               <span className={"badge-success badge "}>Life Time</span>
             </p>
           ) : (
             <p className="text-center flex justify-evenly">
-              {data} <span className={"badge-success badge "}>month</span>
+              {subscription?.period}{" "}
+              <span className={"badge-success badge "}>{subscription?.period_unit}</span>
             </p>
           ),
       },
@@ -62,7 +63,7 @@ const Page = () => {
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "delete", "show"]}
+            buttons={["delete", "show"]}
             baseUrl={`/admin/subscriptions`}
             showUrl={`/admin/subscriptions/${data?.id}`}
             setHidden={setHidden}

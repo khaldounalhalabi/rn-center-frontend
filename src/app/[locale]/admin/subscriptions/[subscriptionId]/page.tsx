@@ -22,9 +22,6 @@ const page = async ({
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">Subscription Details</h2>
-        <Link href={`/admin/subscriptions/${subscriptionId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
-        </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
@@ -35,9 +32,13 @@ const page = async ({
         </label>
         <label className="label">
           Period :
-          <span className="badge badge-success px-2 rounded-xl text-lg">
-            {res?.period && res?.period <= 0 ? "life time" : res?.period}
-          </span>
+
+            {res?.period && res?.period <= 0 ?
+                <span className="badge badge-success px-2 rounded-xl text-lg">life time</span>
+                : <div><span className="badge badge-outline px-2 rounded-xl text-lg">{res?.period}</span> <span className="badge badge-success px-2 rounded-xl text-lg">{res?.period_unit}</span></div>
+
+            }
+
         </label>
         <label className="label">
           Allow Period :

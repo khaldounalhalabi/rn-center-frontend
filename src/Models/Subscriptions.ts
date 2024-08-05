@@ -5,4 +5,5 @@ export interface Subscriptions {
   period: number;
   allow_period: number;
   cost: number;
+  period_unit:string
 }

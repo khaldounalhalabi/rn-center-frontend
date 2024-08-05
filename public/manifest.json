@@ -1,0 +1,29 @@
+{
+  "id": "2",
+  "name": "My awesome PWA app",
+  "short_name": "PWA App",
+  "description": "hh",
+  "icons": [
+    {
+      "src": "https://dc737.4shared.com/img/vSKWk-2vjq/s24/18de1c9eaf8/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.5501168326216448",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://dc737.4shared.com/img/WBlgXxSVge/s24/18de1cb2f30/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.10608544343159143",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "https://dc737.4shared.com/img/jwjRoN1Mge/s24/18de1cbd728/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.5347107602388061",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

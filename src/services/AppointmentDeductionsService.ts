@@ -5,7 +5,7 @@ import {
 } from "@/Models/AppointmentDeductions";
 import { ApiResponse } from "@/Http/Response";
 import { ClinicAppointmentDeductionSummary } from "@/Models/AppointmentDeductions";
-import { GET } from "@/Http/Http";
+import {GET, POST} from "@/Http/Http";
 import { Appointment } from "@/Models/Appointment";
 
 export class AppointmentDeductionsService extends BaseService<AppointmentDeductions> {
@@ -60,6 +60,15 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
         ...params,
       },
       this.headers
+    );
+    return await this.errorHandler(res);
+  }
+  public async bulkToggleStatus(
+      data: { status: number, ids:number[] }
+  ): Promise<ApiResponse<any>> {
+    const res = await POST<any>(
+        `${this.actor}/appointment-deductions/bulk/toggle-status`,
+        data
     );
     return await this.errorHandler(res);
   }

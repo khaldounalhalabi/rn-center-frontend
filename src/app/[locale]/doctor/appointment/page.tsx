@@ -26,6 +26,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import {useQuery} from "@tanstack/react-query";
 import {ServiceService} from "@/services/ServiceService";
+import dayjs from "dayjs";
 
 interface filterExportType {
   year: string;
@@ -56,8 +57,8 @@ const Page = () => {
   const typeData = ["online", "manual", "all"];
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: "",
-    month: "",
+    year: dayjs().format('YYYY'),
+    month: dayjs().format('MMMM'),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -320,21 +321,14 @@ const Page = () => {
                     />
                     <label className={"label"}>Month :</label>
                     <SelectFilter
-                      data={AllMonth()}
-                      selected={MonthsEnum.NON}
-                      onChange={(e: any) => {
-                        if (e.target.value == MonthsEnum.NON) {
-                          setFilterExport({
-                            ...filterExport,
-                            month: "",
-                          });
-                        } else {
-                          setFilterExport({
-                            ...filterExport,
-                            month: e.target.value,
-                          });
-                        }
-                      }}
+                        data={AllMonth()}
+                        selected={filterExport.month}
+                        onChange={(e: any) => {
+                            setFilterExport({
+                              ...filterExport,
+                              month: e.target.value,
+                            });
+                        }}
                     />
                   </div>
 

@@ -80,7 +80,6 @@ const DataTable = (tableData: DataTableData<any>) => {
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
-
   const { isPending, data, isFetching, isPlaceholderData, isRefetching } =
     useQuery({
       queryKey: [

@@ -26,6 +26,7 @@ import AppointmentDeductionStatusColumn from "@/components/admin/appointment-ded
 import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
+import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 
 interface filterExportType {
     year: string;
@@ -57,8 +58,8 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
 
 
     const [filterExport, setFilterExport] = useState<filterExportType>({
-        year: "",
-        month: "",
+        year: dayjs().format('YYYY'),
+        month: dayjs().format('MMMM'),
     });
     let [isOpen, setIsOpen] = useState(false);
 
@@ -230,26 +231,30 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                     {showCustomDate ? (
                         <>
                             <label className="label">Start Date :</label>
-                            <DatepickerFilter
+                            <DateTimePickerRangFilter
                                 onChange={(time: any) => {
-                                    setStartDate(time?.format("YYYY-MM-DD hh:mm"));
                                     setParams({
                                         ...params,
-                                        date: [time?.format("YYYY-MM-DD hh:mm"), endDate],
+                                        date: [
+                                            time?.format("YYYY-MM-DD hh:mm"),
+                                            params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                                        ],
                                     });
                                 }}
-                                defaultValue={startDate ?? ""}
+                                defaultValue={params?.date?.[0] ?? ""}
                             />
                             <label className="label">End Date :</label>
-                            <DatepickerFilter
+                            <DateTimePickerRangFilter
                                 onChange={(time: any) => {
-                                    setEndDate(time?.format("YYYY-MM-DD hh:mm"));
                                     setParams({
                                         ...params,
-                                        date: [startDate, time?.format("YYYY-MM-DD hh:mm")],
+                                        date: [
+                                            params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                                            time?.format("YYYY-MM-DD hh:mm"),
+                                        ],
                                     });
                                 }}
-                                defaultValue={endDate ?? ""}
+                                defaultValue={params?.date?.[1] ?? ""}
                             />
                         </>
                     ) : (
@@ -306,19 +311,12 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                                         <label className={"label"}>Month :</label>
                                         <SelectFilter
                                             data={AllMonth()}
-                                            selected={MonthsEnum.NON}
+                                            selected={filterExport.month}
                                             onChange={(e: any) =>{
-                                                if(e.target.value == MonthsEnum.NON){
-                                                    setFilterExport({
-                                                        ...filterExport,
-                                                        month: "",
-                                                    })
-                                                }else {
                                                     setFilterExport({
                                                         ...filterExport,
                                                         month: e.target.value,
                                                     })
-                                                }
                                             }}
                                         />
                                     </div>
@@ -357,7 +355,7 @@ const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <h1 className={'card-title'}>Change All Status :</h1>
-                                    <ChangeAllStatusSelector status={selectedItems}/>
+                                    <ChangeAllStatusSelector ids={selectedItems} closeModalStatus={closeModalStatus}/>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

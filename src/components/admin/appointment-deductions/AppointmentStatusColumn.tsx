@@ -1,9 +1,11 @@
 "use client";
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import {NotificationPayload, RealTimeEvents} from "@/Models/NotificationPayload";
 
 const AppointmentDeductionStatusColumn = ({
   transaction,
@@ -14,6 +16,7 @@ const AppointmentDeductionStatusColumn = ({
   revalidate?: () => void;
   userType?: "admin" | "doctor";
 }) => {
+    const [paylod,setPaylod] = useState<NotificationPayload>()
   const [selected, setSelected] = useState(transaction?.status);
   const handleSelectStatus = (status: string, id: number) => {
     return AppointmentDeductionsService.make<AppointmentDeductionsService>(
@@ -26,8 +29,23 @@ const AppointmentDeductionStatusColumn = ({
       });
   };
 
+  useEffect(()=>{
+      setSelected(transaction?.status)
+  },[revalidate,paylod])
+
   return (
     <>
+        <NotificationHandler
+            handle={(payload) => {
+                if (
+                    revalidate &&
+                    payload.title =="POM"
+                ) {
+                    setPaylod(payload)
+                    revalidate();
+                }
+            }}
+        />
       <select
         className={`select select-bordered text-sm font-medium w-fit `}
         value={selected}

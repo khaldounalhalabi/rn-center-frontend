@@ -16,10 +16,10 @@ const LoginCustomer = ({ url }: { url: string }) => {
   const [error, setError] = useState(false);
   const [errorBlocked, setErrorBlocked] = useState();
 
-  const handleLogIn = (data: { email: string; password: string }) => {
+  const handleLogIn =async (data: { email: string; password: string }) => {
     console.log(data)
     setError(false);
-    return POST<AuthResponse>(url, data).then((res: any) => {
+    return await POST<AuthResponse>(url, data).then((res: any) => {
       console.log(res);
       if (res.code == 401) {
         setError(true);
@@ -27,7 +27,10 @@ const LoginCustomer = ({ url }: { url: string }) => {
       } else if (res.code == 430 || res.code == 431) {
         setErrorBlocked(res?.message);
         return res;
-      } else {
+      } else if(res.code == 433){
+        setCookieClient("unverified-email", data.email);
+        Navigate(`/auth/customer/verification-email-code`);
+      } {
         isArray(res?.data?.user?.role)
           ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
               setCookieClient("role", e.name);
@@ -62,7 +65,7 @@ const LoginCustomer = ({ url }: { url: string }) => {
     >
       <div
         className={
-          "w-full md:w-[60%] max-w-[900px] md:h-full h-[85vh] flex flex-col  items-center "
+          "w-full md:w-[50%] max-w-[900px] md:h-full h-[85vh] flex flex-col  items-center "
         }
       >
         <h1

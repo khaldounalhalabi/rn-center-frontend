@@ -1,4 +1,4 @@
-'use client'
+
 
 
 import ButtonSinSvg from "@/components/common/Auth/Customer/ButtonSin";

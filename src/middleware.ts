@@ -53,9 +53,9 @@ async function authenticationMiddleware(req: NextRequest) {
     return NextResponse.redirect(absolutURL.toString());
   }
 
-  if (access == "doctor" && role == "clinic-employee") {
-    return await handleStaffRole(req);
-  }
+  // if (access == "doctor" && role == "clinic-employee") {
+  //   return await handleStaffRole(req);
+  // }
 
   return translationMiddleware(req);
 }

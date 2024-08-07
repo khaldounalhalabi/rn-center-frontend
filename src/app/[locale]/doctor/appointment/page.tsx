@@ -24,8 +24,8 @@ import ExcelIcon from "@/components/icons/ExcelIcon";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import {useQuery} from "@tanstack/react-query";
-import {ServiceService} from "@/services/ServiceService";
+import { useQuery } from "@tanstack/react-query";
+import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
 
 interface filterExportType {
@@ -34,17 +34,16 @@ interface filterExportType {
 }
 
 const Page = () => {
-
-  const [serviceSelected,setServiceSelected] = useState<string>("all")
-  const {data:service} = useQuery({
-    queryKey:['service'],
-    queryFn:async ()=>{
-
-      return await ServiceService.make<ServiceService>("doctor").getAllName()
-    }
-  })
-  const nameServiceArray =service?.data? service?.data?.map(item => TranslateClient(item.name)):[""]
-
+  const [serviceSelected, setServiceSelected] = useState<string>("all");
+  const { data: service } = useQuery({
+    queryKey: ["service"],
+    queryFn: async () => {
+      return await ServiceService.make<ServiceService>("doctor").getAllName();
+    },
+  });
+  const nameServiceArray = service?.data
+    ? service?.data?.map((item) => TranslateClient(item.name))
+    : [""];
 
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -57,8 +56,8 @@ const Page = () => {
   const typeData = ["online", "manual", "all"];
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: dayjs().format('YYYY'),
-    month: dayjs().format('MMMM'),
+    year: dayjs().format("YYYY"),
+    month: dayjs().format("MMMM"),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -164,8 +163,7 @@ const Page = () => {
       {
         label: "Actions",
         render: (_undefined, data, setHidden, revalidate) => {
-          const sequence = data?.appointment_sequence
-            ?.toString()
+          const sequence = data?.appointment_sequence?.toString();
           const lang = locale == "en" ? "en-US" : "ar-SA";
           const message =
             locale == "en"
@@ -207,24 +205,26 @@ const Page = () => {
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentService.make<AppointmentService>("doctor")
         .setHeaders({ filtered: true })
-        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, {
+          date: dayjs().format("YYYY-MM-DD"),
+          ...params,
+        }),
     filter: (params, setParams) => {
-
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className="label">
             Service :
             <SelectFilter
-                data={nameServiceArray}
-                selected={serviceSelected}
-                onChange={(event: any) => {
-                  service?.data.forEach((e)=>{
-                    if(event.target.value == TranslateClient(e.name)){
-                      setServiceSelected(event.target.value)
-                      setParams({ ...params, service_id: e.id });
-                    }
-                  })
-                }}
+              data={nameServiceArray}
+              selected={serviceSelected}
+              onChange={(event: any) => {
+                service?.data.forEach((e) => {
+                  if (event.target.value == TranslateClient(e.name)) {
+                    setServiceSelected(event.target.value);
+                    setParams({ ...params, service_id: e.id });
+                  }
+                });
+              }}
             />
           </label>
           <label className={"label"}>
@@ -276,7 +276,6 @@ const Page = () => {
 
   return (
     <>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -321,14 +320,14 @@ const Page = () => {
                     />
                     <label className={"label"}>Month :</label>
                     <SelectFilter
-                        data={AllMonth()}
-                        selected={filterExport.month}
-                        onChange={(e: any) => {
-                            setFilterExport({
-                              ...filterExport,
-                              month: e.target.value,
-                            });
-                        }}
+                      data={AllMonth()}
+                      selected={filterExport.month}
+                      onChange={(e: any) => {
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
+                      }}
                     />
                   </div>
 

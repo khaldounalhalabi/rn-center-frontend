@@ -2,7 +2,6 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { getCookieServer } from "./Actions/serverCookies";
 import { locales } from "./navigation";
-import handleStaffRole from "@/hooks/handleStaffRole";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -16,7 +15,6 @@ export const config = {
 
 async function authenticationMiddleware(req: NextRequest) {
   const path = `${req.nextUrl.pathname}`;
-  const role = await getCookieServer("role");
   const access = await getCookieServer("user-type");
   const locale = await getCookieServer("NEXT_LOCALE");
   if (

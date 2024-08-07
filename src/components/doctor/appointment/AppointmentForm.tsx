@@ -59,6 +59,7 @@ const AppointmentForm = ({
     id: clinic?.clinic_id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
     range: clinic?.clinic?.appointment_day_range ?? 0,
+    maxAppointment:clinic?.clinic?.max_appointments,
     data: {
       booked_times: availableTimes?.data?.booked_times ?? [],
       clinic_schedule: availableTimes?.data?.clinic_schedule ?? {},
@@ -278,7 +279,7 @@ const AppointmentForm = ({
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
-                        return HandleDatePicker(data, day, range.range);
+                        return HandleDatePicker(data, day, range.range,range.maxAppointment);
                       }}
                     />
                   </Form>
@@ -420,7 +421,7 @@ const AppointmentForm = ({
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
-                return HandleDatePicker(data, day, range.range);
+                return HandleDatePicker(data, day, range.range,range.maxAppointment);
               }}
             />
           ) : (

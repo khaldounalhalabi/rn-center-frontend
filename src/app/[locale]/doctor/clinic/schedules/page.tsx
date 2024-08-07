@@ -7,8 +7,11 @@ const page = async () => {
     await ScheduleService.make<ScheduleService>("doctor").getDoctorSchedules();
 
   return (
-    // @ts-ignore
-    <ShowSchedulePage days={data?.data} gap={data.data.appointment_gap ?? 0} />
+    <ShowSchedulePage
+      // @ts-ignore
+      days={data?.data}
+      gap={data?.data?.appointment_gap ?? 0}
+    />
   );
 };
 

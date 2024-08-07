@@ -10,6 +10,7 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import {ClinicTransactionService} from "@/services/ClinicTransactionService";
 import {ClinicTransaction} from "@/Models/ClinicTransaction";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
+import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 
 const OfferForm = ({
                        defaultValues = undefined,
@@ -69,7 +70,7 @@ const OfferForm = ({
                     type="number"
                     unit={"IQD"}
                 />
-                <Datepicker required={true} name={"date"} label={"Date :"} />
+                <DateTimePickerRang required={true} name={"date"} label={"Date :"} />
             </Grid>
             <Textarea
                 label={"Notes"}

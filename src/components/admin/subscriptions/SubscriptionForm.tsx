@@ -7,6 +7,8 @@ import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
+import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import SubscriptionPeriodUnitArray from "@/enum/SubscriptionPeriodUnit";
 
 const SubscriptionForm = ({
   defaultValues = undefined,
@@ -80,6 +82,7 @@ const SubscriptionForm = ({
           label={`Cost`}
           name={"cost"}
         />
+        <SelectPopOverFrom status={'day'} name={'period_unit'} ArraySelect={SubscriptionPeriodUnitArray()} handleSelect={()=>undefined} label={'Period Unit'} required={true}/>
       </Grid>
       <Textarea name={"description"} required={true} label={"Description"} />
     </Form>

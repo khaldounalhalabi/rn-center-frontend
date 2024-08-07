@@ -36,6 +36,7 @@ interface Range {
   appointment_cost?: number;
   range: number;
   limit: number | undefined;
+  maxAppointment: number;
   data: AvailableTime;
 }
 
@@ -50,43 +51,45 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
-  const [date,setDate] = useState(defaultValues??{})
+  const [date, setDate] = useState(defaultValues ?? {});
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
     appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
     range: defaultValues?.clinic?.appointment_day_range ?? 0,
     limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
+    maxAppointment: defaultValues?.clinic?.max_appointments ?? 0,
     data: {
       booked_times: availableTimes?.booked_times ?? [],
       clinic_schedule: availableTimes?.clinic_schedule ?? {},
       clinic_holidays: availableTimes?.clinic_holidays ?? [],
     },
   });
-  const [customer_id,setCustomerId] = useState(0)
+  const [customer_id, setCustomerId] = useState(0);
 
   const [systemOffer, setSystemOffer] = useState(
     defaultValues?.system_offers ?? [],
   );
-  const [offer,setOffer] = useState(defaultValues?.offers??[])
-  const [clinicId, setClinicId] = useState<number | undefined>(defaultValues?.clinic_id);
+  const [offer, setOffer] = useState(defaultValues?.offers ?? []);
+  const [clinicId, setClinicId] = useState<number | undefined>(
+    defaultValues?.clinic_id,
+  );
   const { data } = useQuery({
-    queryKey: ["getLastVisit" , customer_id,range.id],
+    queryKey: ["getLastVisit", customer_id, range.id],
     queryFn: async () => {
-      if (range.id != 0 && customer_id ) {
+      if (range.id != 0 && customer_id) {
         return await CustomerService.make<CustomerService>().getCustomerLastVisit(
           customer_id ?? 0,
           range.id ?? 0,
         );
-      }else {
-        return {data:{date:""}}
+      } else {
+        return { data: { date: "" } };
       }
-
     },
   });
-
-
-  const lastAppointmentDate = data?.data?.date
+  console.log(range);
+  const lastAppointmentDate = data?.data?.date;
   const handleSubmit = async (data: any) => {
+    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -119,7 +122,9 @@ const AppointmentForm = ({
   const [getExtra, setExtra] = useState(0);
   const [getDiscount, setDiscount] = useState(0);
 
-  const [getServicePrice, setServicePrice] = useState<number | undefined>(defaultValues?.service?.price);
+  const [getServicePrice, setServicePrice] = useState<number | undefined>(
+    defaultValues?.service?.price,
+  );
 
   const [status, setStatus] = useState(defaultValues?.status);
   const statusData = AppointmentStatuses();
@@ -135,24 +140,38 @@ const AppointmentForm = ({
   }
 
   const handleSubmitAppointmentDate = async (data: any) => {
-    return await AppointmentService.make<AppointmentService>().updateDate(
-      defaultValues?.id ?? 0,
-      data,
-    ).then((res)=>{
-      setDate({
-        ...defaultValues,
-        date:res?.data?.date
-      })
-      return res
-    })
+    return await AppointmentService.make<AppointmentService>()
+      .updateDate(defaultValues?.id ?? 0, data)
+      .then((res) => {
+        setDate({
+          ...defaultValues,
+          date: res?.data?.date,
+        });
+        return res;
+      });
   };
 
   const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
 
-
-  const appointmentCostSystem = HandleCalcOffers(defaultValues?.system_offers ? defaultValues?.system_offers : systemOffer ? systemOffer : [], range?.appointment_cost ?? 0,"system");
-  const appointmentCostOffer = HandleCalcOffers(defaultValues?.offers ? defaultValues?.offers : offer ? offer : [], appointmentCostSystem ?? 0,"offer");
-  const appointmentCostOfferOnly = HandleCalcOffers(defaultValues?.offers ? defaultValues?.offers : offer ? offer : [], range?.appointment_cost ?? 0,"offer");
+  const appointmentCostSystem = HandleCalcOffers(
+    defaultValues?.system_offers
+      ? defaultValues?.system_offers
+      : systemOffer
+        ? systemOffer
+        : [],
+    range?.appointment_cost ?? 0,
+    "system",
+  );
+  const appointmentCostOffer = HandleCalcOffers(
+    defaultValues?.offers ? defaultValues?.offers : offer ? offer : [],
+    appointmentCostSystem ?? 0,
+    "offer",
+  );
+  const appointmentCostOfferOnly = HandleCalcOffers(
+    defaultValues?.offers ? defaultValues?.offers : offer ? offer : [],
+    range?.appointment_cost ?? 0,
+    "offer",
+  );
 
   const [totalCost, setTotalCost] = useState(0);
 
@@ -161,15 +180,38 @@ const AppointmentForm = ({
   }, [getServicePrice, getExtra, range, getDiscount, offer]);
 
   const handleTotalCost = (): number => {
-   if((systemOffer && offer) || (defaultValues?.system_offers && defaultValues?.offers)){
-     return  appointmentCostOffer + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
-   }else if(systemOffer || defaultValues?.system_offers){
-     return  appointmentCostSystem + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
-   }else if(offer || defaultValues?.offers){
-     return  appointmentCostOfferOnly + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
-   }else {
-     return  Number(range?.appointment_cost ?? 0) + Number(getServicePrice??0) + Number(getExtra??0) - Number(getDiscount??0)
-   }
+    if (
+      (systemOffer && offer) ||
+      (defaultValues?.system_offers && defaultValues?.offers)
+    ) {
+      return (
+        appointmentCostOffer +
+        Number(getServicePrice ?? 0) +
+        Number(getExtra ?? 0) -
+        Number(getDiscount ?? 0)
+      );
+    } else if (systemOffer || defaultValues?.system_offers) {
+      return (
+        appointmentCostSystem +
+        Number(getServicePrice ?? 0) +
+        Number(getExtra ?? 0) -
+        Number(getDiscount ?? 0)
+      );
+    } else if (offer || defaultValues?.offers) {
+      return (
+        appointmentCostOfferOnly +
+        Number(getServicePrice ?? 0) +
+        Number(getExtra ?? 0) -
+        Number(getDiscount ?? 0)
+      );
+    } else {
+      return (
+        Number(range?.appointment_cost ?? 0) +
+        Number(getServicePrice ?? 0) +
+        Number(getExtra ?? 0) -
+        Number(getDiscount ?? 0)
+      );
+    }
   };
 
   return (
@@ -212,7 +254,7 @@ const AppointmentForm = ({
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
-                        return HandleDatePicker(data, day, range.range);
+                        return HandleDatePicker(data, day, range.range,range.maxAppointment);
                       }}
                     />
                   </Form>
@@ -255,6 +297,7 @@ const AppointmentForm = ({
                         appointment_cost: selectedItem?.appointment_cost,
                         range: selectedItem?.appointment_day_range ?? 0,
                         limit: selectedItem?.approximate_appointment_time,
+                        maxAppointment: selectedItem?.max_appointments ?? 0,
                         data: res.data,
                       });
                     });
@@ -263,12 +306,13 @@ const AppointmentForm = ({
                   setOffer([]);
                   setSystemOffer([]);
                   setServicePrice(0);
-                  setCustomerId(0)
+                  setCustomerId(0);
                   return setRange({
                     id: 0,
                     appointment_cost: 0,
                     range: 0,
                     limit: 0,
+                    maxAppointment: 0,
                     data: {
                       booked_times: [],
                       clinic_schedule: {},
@@ -280,12 +324,13 @@ const AppointmentForm = ({
                   setOffer([]);
                   setSystemOffer([]);
                   setServicePrice(0);
-                  setCustomerId(0)
+                  setCustomerId(0);
                   return setRange({
                     id: 0,
                     appointment_cost: 0,
                     range: 0,
                     limit: 0,
+                    maxAppointment: 0,
                     data: {
                       booked_times: [],
                       clinic_schedule: {},
@@ -304,21 +349,20 @@ const AppointmentForm = ({
                   placeHolder={"Select Customer name ..."}
                   api={(page, search) =>
                     CustomerService.make<CustomerService>().getClinicCustomer(
-                        clinicId,
+                      clinicId,
                       page,
                       search,
                     )
                   }
                   revalidate={`${clinicId}`}
-
                   onSelect={(selectedItem) => {
-                    setCustomerId(selectedItem?.id??0)
+                    setCustomerId(selectedItem?.id ?? 0);
                   }}
-                  onRemoveSelected={()=>{
-                    setCustomerId(0)
+                  onRemoveSelected={() => {
+                    setCustomerId(0);
                   }}
-                  onClear={()=>{
-                    setCustomerId(0)
+                  onClear={() => {
+                    setCustomerId(0);
                   }}
                   label={"Customer Name"}
                   optionValue={"id"}
@@ -332,7 +376,9 @@ const AppointmentForm = ({
                     );
                   }}
                 />
-                {lastAppointmentDate && lastAppointmentDate?.length > 0 && customer_id != 0? (
+                {lastAppointmentDate &&
+                lastAppointmentDate?.length > 0 &&
+                customer_id != 0 ? (
                   <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
                 ) : (
                   ""
@@ -356,7 +402,6 @@ const AppointmentForm = ({
             defaultValues={
               defaultValues?.service ? [defaultValues?.service] : []
             }
-
             label={"Service Name"}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
@@ -385,8 +430,8 @@ const AppointmentForm = ({
               closeOnSelect={false}
               label={"System Offers"}
               revalidate={`${clinicId}`}
-              onSelect={ (selectedItem) => {
-                if (selectedItem){
+              onSelect={(selectedItem) => {
+                if (selectedItem) {
                   setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
                 }
               }}
@@ -394,7 +439,9 @@ const AppointmentForm = ({
                 setSystemOffer([]);
               }}
               onRemoveSelected={(selectedItem) => {
-                setSystemOffer(prev => prev.filter(item => item.id != selectedItem.value));
+                setSystemOffer((prev) =>
+                  prev.filter((item) => item.id != selectedItem.value),
+                );
               }}
               isMultiple={true}
               optionValue={"id"}
@@ -414,12 +461,11 @@ const AppointmentForm = ({
               )
             }
             closeOnSelect={false}
-
             defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
             label={"Offers"}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
-              if (selectedItem){
+              if (selectedItem) {
                 setOffer((prevOffers) => [...prevOffers, selectedItem]);
               }
             }}
@@ -427,7 +473,9 @@ const AppointmentForm = ({
               setOffer([]);
             }}
             onRemoveSelected={(selectedItem) => {
-              setOffer(prev => prev.filter(item => item.id != selectedItem.value));
+              setOffer((prev) =>
+                prev.filter((item) => item.id != selectedItem.value),
+              );
             }}
             isMultiple={true}
             optionValue={"id"}
@@ -474,12 +522,12 @@ const AppointmentForm = ({
             setWatch={setExtra}
           />
           <SelectPopOverFrom
-              required={true}
-              name={"status"}
-              ArraySelect={statusData}
-              status={status}
-              label={"Status"}
-              handleSelect={(select: string) => setStatus(select)}
+            required={true}
+            name={"status"}
+            ArraySelect={statusData}
+            status={status}
+            label={"Status"}
+            handleSelect={(select: string) => setStatus(select)}
           />
 
           {type == "store" ? (
@@ -489,7 +537,7 @@ const AppointmentForm = ({
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
-                return HandleDatePicker(data, day, range.range);
+                return HandleDatePicker(data, day, range.range,range.maxAppointment);
               }}
             />
           ) : (
@@ -554,15 +602,15 @@ const AppointmentForm = ({
                 <td>{Number(getDiscount) ?? 0} IQD</td>
               </tr>
               {offer.length != 0
-                  ? offer?.map((e: Offers, index) => (
-                      <tr key={index}>
-                        <td>Offer [{index}]</td>
-                        <td>
-                          {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
-                        </td>
-                      </tr>
+                ? offer?.map((e: Offers, index) => (
+                    <tr key={index}>
+                      <td>Offer [{index}]</td>
+                      <td>
+                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                      </td>
+                    </tr>
                   ))
-                  : ""}
+                : ""}
               {systemOffer.length != 0
                 ? systemOffer?.map((e: SystemOffers, index) => (
                     <tr key={index}>
@@ -586,3 +634,14 @@ const AppointmentForm = ({
 };
 
 export default AppointmentForm;
+
+
+const appointmentDate = {
+    "2024-08-05 00:00:00": 4,
+    "2024-08-06 00:00:00": 3,
+    "2024-08-07 00:00:00": 1,
+    "2024-08-08 00:00:00": 10,
+    "2024-08-09 00:00:00": 5,
+    "2024-08-10 00:00:00": 4,
+    "2024-08-11 00:00:00": 10,
+}

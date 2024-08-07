@@ -25,6 +25,7 @@ import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
+import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 
 interface filterExportType {
   year: string;
@@ -47,8 +48,8 @@ const Page = () => {
   });
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: "",
-    month: "",
+    year: dayjs().format('YYYY'),
+    month: dayjs().format('MMMM'),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -165,30 +166,30 @@ const Page = () => {
           {showCustomDate ? (
             <>
               <label className="label">Start Date :</label>
-              <DatepickerFilter
-                onChange={(time: any) => {
-                  setParams({
-                    ...params,
-                    date: [
-                      time?.format("YYYY-MM-DD"),
-                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD"),
-                    ],
-                  });
-                }}
-                defaultValue={params?.date?.[0] ?? ""}
+              <DateTimePickerRangFilter
+                  onChange={(time: any) => {
+                    setParams({
+                      ...params,
+                      date: [
+                        time?.format("YYYY-MM-DD hh:mm"),
+                        params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      ],
+                    });
+                  }}
+                  defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
-              <DatepickerFilter
-                onChange={(time: any) => {
-                  setParams({
-                    ...params,
-                    date: [
-                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD"),
-                      time?.format("YYYY-MM-DD"),
-                    ],
-                  });
-                }}
-                defaultValue={params?.date?.[1] ?? ""}
+              <DateTimePickerRangFilter
+                  onChange={(time: any) => {
+                    setParams({
+                      ...params,
+                      date: [
+                        params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                        time?.format("YYYY-MM-DD hh:mm"),
+                      ],
+                    });
+                  }}
+                  defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (
@@ -251,21 +252,14 @@ const Page = () => {
                     />
                     <label className={"label"}>Month :</label>
                     <SelectFilter
-                      data={AllMonth()}
-                      selected={MonthsEnum.NON}
-                      onChange={(e: any) => {
-                        if (e.target.value == MonthsEnum.NON) {
-                          setFilterExport({
-                            ...filterExport,
-                            month: "",
-                          });
-                        } else {
-                          setFilterExport({
-                            ...filterExport,
-                            month: e.target.value,
-                          });
-                        }
-                      }}
+                        data={AllMonth()}
+                        selected={filterExport.month}
+                        onChange={(e: any) => {
+                            setFilterExport({
+                              ...filterExport,
+                              month: e.target.value,
+                            });
+                        }}
                     />
                   </div>
 

@@ -27,8 +27,8 @@ const RegisterCustomer = ({ url }: { url: string })=>{
         setCookieClient("token", data?.data?.token ?? "");
         setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
         setCookieClient("user-type", "customer");
-        setCookieClient("email", data.data.user.email);
-        Navigate(`/customer`);
+        setCookieClient("unverified-email", data.data.user.email);
+        Navigate(`/auth/customer/verification-email-code`);
     };
 
 

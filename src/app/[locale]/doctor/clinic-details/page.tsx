@@ -12,8 +12,14 @@ import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Gallery from "@/components/common/ui/Gallery";
 import {getTranslations} from "next-intl/server";
+import {getCookieServer} from "@/Actions/serverCookies";
+import {Role} from "@/enum/Role";
+import {PermissionsDoctor} from "@/enum/Permissions";
 
 const page = async () => {
+  const role = await getCookieServer("role");
+  const permissions: string | undefined = await getCookieServer("permissions");
+  const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const data = await AuthService.make<AuthService>("doctor").GetClinicDetails();
   const res: Clinic = data.data;
   const t = await getTranslations("doctor.clinic-details.show")
@@ -50,7 +56,12 @@ const page = async () => {
             </div>
           </div>
           <div>
-            <Link href={`/doctor/clinic-details/edit`}>
+            <Link href={`/doctor/clinic-details/edit`}  className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE)
+                  ? "hidden"
+                  : ""
+            }>
               <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
             </Link>
           </div>

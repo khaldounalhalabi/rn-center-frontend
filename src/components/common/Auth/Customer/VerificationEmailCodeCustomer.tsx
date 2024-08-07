@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 
 
 const VerificationEmailCodeCustomer = ({ url, urlResendCode }: { url: string, urlResendCode: string }) => {
-    const emailCoc = getCookieClient('email')
+    const emailCoc = getCookieClient('unverified-email')
 
     const handleSubmit = (data: { verificationCode: string }) => {
         const dataSend = {

@@ -57,8 +57,8 @@ const Page = () => {
           clinic?.user?.phones ? clinic?.user?.phones[0]?.phone : "",
       },
       {
-        label: `${t("status")}`,
-        name: "status",
+        label: `${t("subscriptionStatus")}`,
+        name: "subscription_status",
         sortable: true,
         render: (data) =>
           data == "active" ? (

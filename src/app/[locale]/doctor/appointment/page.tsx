@@ -56,8 +56,8 @@ const Page = () => {
   const typeData = ["online", "manual", "all"];
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: "",
-    month: "",
+    year: dayjs().format("YYYY"),
+    month: dayjs().format("MMMM"),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -206,7 +206,7 @@ const Page = () => {
       await AppointmentService.make<AppointmentService>("doctor")
         .setHeaders({ filtered: true })
         .indexWithPagination(page, search, sortCol, sortDir, perPage, {
-          date: [dayjs().format("YYYY-MM-DD"), dayjs().format("YYYY-MM-DD")],
+          date: dayjs().format("YYYY-MM-DD"),
           ...params,
         }),
     filter: (params, setParams) => {
@@ -256,7 +256,7 @@ const Page = () => {
                 date: [time?.format("YYYY-MM-DD"), endDate],
               });
             }}
-            defaultValue={startDate ?? dayjs().format("YYYY-MM-DD")}
+            defaultValue={startDate ?? ""}
           />
           <label className="label">End Date :</label>
           <DatepickerFilter
@@ -267,7 +267,7 @@ const Page = () => {
                 date: [startDate, time?.format("YYYY-MM-DD")],
               });
             }}
-            defaultValue={endDate ?? dayjs().format("YYYY-MM-DD")}
+            defaultValue={endDate ?? ""}
           />
         </div>
       );
@@ -321,19 +321,12 @@ const Page = () => {
                     <label className={"label"}>Month :</label>
                     <SelectFilter
                       data={AllMonth()}
-                      selected={MonthsEnum.NON}
+                      selected={filterExport.month}
                       onChange={(e: any) => {
-                        if (e.target.value == MonthsEnum.NON) {
-                          setFilterExport({
-                            ...filterExport,
-                            month: "",
-                          });
-                        } else {
-                          setFilterExport({
-                            ...filterExport,
-                            month: e.target.value,
-                          });
-                        }
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
                       }}
                     />
                   </div>

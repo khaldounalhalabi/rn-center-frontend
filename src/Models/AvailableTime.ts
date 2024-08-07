@@ -16,13 +16,10 @@ export interface TimeSlot {
   to: string;
 }
 
-export interface BookedDate {
-  date: string;
-  times?: TimeSlot[];
-}
+
 
 export interface AvailableTime {
-  booked_times: BookedDate[];
-  clinic_schedule: Record<string, ClinicScheduleEntry[]>; // Record<string, T> represents an object with string keys and values of type T
+  booked_times: any;
+  clinic_schedule: Record<string, ClinicScheduleEntry[]>;
   clinic_holidays: ClinicHoliday[];
 }

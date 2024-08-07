@@ -32,11 +32,11 @@ const AppointmentStatusColumn = ({
   const isMutatingCheckout: boolean =
     isPendingCheckout || isTransitionStartedCheckout;
   let rot = useRouter();
+    const [selected, setSelected] = useState(appointment?.status);
 
   const handleSelectStatus = (
     status: string,
     id: number,
-    setSelected: React.Dispatch<string | undefined>,
   ) => {
     if (status === AppointmentStatusEnum.CHECKIN) {
       swal
@@ -64,21 +64,28 @@ const AppointmentStatusColumn = ({
             setPendingCheckout(false);
           }
         });
-    } else {
+    } else if(status === AppointmentStatusEnum.BOOKED){
+        return AppointmentService.make<AppointmentService>(userType)
+            .toggleStatus(id, { status: status })
+            .then((res) => {
+                setSelected(AppointmentStatusEnum.BOOKED)
+                toast.success("Status Changed!");
+            });
+    }else {
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
         .then((res) => {
-          console.log(status);
+
             setSelected(status)
+            console.log(selected);
           toast.success("Status Changed!");
         });
     }
   };
-  const [selected, setSelected] = useState(appointment?.status);
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setSelected(appointment?.status);
-  }, [revalidate]);
+  }, [revalidate,appointment?.status,selected]);
 
   function closeModal() {
     setIsOpen(false);
@@ -157,10 +164,9 @@ const AppointmentStatusColumn = ({
               : handleSelectStatus(
                   e.target.value,
                   appointment?.id ?? 0,
-                  setSelected,
                 )
           }
-          defaultValue={selected}
+          value={selected}
         >
           {isMutating ? (
             <option>Loading...</option>

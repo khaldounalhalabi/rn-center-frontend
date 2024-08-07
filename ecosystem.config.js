@@ -7,6 +7,8 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
+      instances: 4,
+      watch: true,
     },
   ],
 };

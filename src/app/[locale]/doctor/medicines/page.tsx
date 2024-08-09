@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations('common.medicine.table')
   const tableData: DataTableData<Medicine> = {
     createUrl: `/doctor/medicines/create`,
-    title: `Medicines`,
+    title: `${t("medicines")}`,
     schema: [
       {
         name: "id",
@@ -19,10 +21,10 @@ const Page = () => {
       },
       {
         name: "name",
-        label: "Medicine",
+        label: `${t("medicineName")}`,
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

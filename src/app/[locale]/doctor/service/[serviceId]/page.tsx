@@ -50,16 +50,6 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("clinicName")} :
-          {res?.clinic?.name ? (
-            <span className="badge badge-primary">
-              {`${await TranslateServer(res?.clinic?.name)}`}
-            </span>
-          ) : (
-            <span className="text-lg badge badge-neutral">{"No Data"}</span>
-          )}
-        </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
           {t("approximateDuration")} :
           {res?.approximate_duration ? (
             <span className="badge badge-accent" suppressHydrationWarning>

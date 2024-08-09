@@ -13,7 +13,7 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import {useTranslations} from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('doctor.patients.table')
+  const t = useTranslations('common.patient.table')
   const tableData: DataTableData<Customer> = {
     createUrl: `/doctor/patients/create`,
     title: `${t("patients")}`,

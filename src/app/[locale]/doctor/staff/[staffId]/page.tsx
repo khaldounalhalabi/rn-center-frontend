@@ -10,6 +10,7 @@ import { StaffService } from "@/services/StaffService";
 import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
+import {getTranslations} from "next-intl/server";
 
 function formatPermission(permission: string): string {
   return permission
@@ -27,15 +28,16 @@ const page = async ({
 }: {
   params: { staffId: number };
 }) => {
+  const t = await getTranslations('doctor.staff.show')
   const data = await StaffService.make<StaffService>("doctor").show(staffId);
   const res: User | undefined = data.data.user;
   const permission = formatPermissions(res?.permissions ?? []);
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Patient Details</h2>
+        <h2 className="card-title">{t("staffDetails")}</h2>
         <Link href={`/doctor/staff/${staffId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
@@ -55,7 +57,7 @@ const page = async ({
             </h2>
             <h3>{res?.email}</h3>
             <div className={"flex gap-1"}>
-              Phone :{" "}
+              {t("phones")} :{" "}
               {res?.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (
                   <span className="ml-2 badge badge-accent  " key={item.id}>
@@ -70,50 +72,51 @@ const page = async ({
       </div>
       <Grid md={2} gap={5}>
         <label className="label justify-start text-xl">
-          Birth Date :{" "}
+          {t("birth-date")} :{" "}
           <span className="ml-2 badge badge-outline  ">{res?.birth_date}</span>
         </label>
         <label className="label justify-start text-xl">
-          Age : <span className="ml-2 badge badge-accent  ">{res?.age}</span>
+          {t("age")} :{" "}
+          <span className="ml-2 badge badge-accent  ">{res?.age}</span>
         </label>
         <label className="label justify-start text-xl">
-          Address :{" "}
+          {t("address")} :{" "}
           <span className="ml-2 badge badge-success  ">
             {TranslateClient(res?.address?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          City :{" "}
+          {t("city")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
             {TranslateClient(res?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          gender :{" "}
+          {t("gender")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.gender}</span>
         </label>
         <label className="label justify-start text-xl">
-          blood_group :{" "}
+          {t("blood")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.blood_group}</span>
         </label>
         <label className="label justify-start text-xl">
-          Is Blocked :{" "}
+          {t("isBlocked")} :{" "}
           {res?.is_blocked ? (
-            <span className="ml-2 badge badge-error">Blocked</span>
+            <span className="ml-2 badge badge-error">{t("blocked")}</span>
           ) : (
-            <span className="ml-2 badge badge-success">Not Blocked</span>
+            <span className="ml-2 badge badge-success">{t("notBlocked")}</span>
           )}
         </label>
         <label className="label justify-start text-xl">
-          Is Archived :{" "}
+          {t("isArchived")} :{" "}
           {res?.is_archived ? (
-            <span className="ml-2 badge badge-neutral">Archived</span>
+            <span className="ml-2 badge badge-neutral">{t("archived")}</span>
           ) : (
-            <span className="ml-2 badge badge-warning">Not Archived</span>
+            <span className="ml-2 badge badge-warning">{t("notArchived")}</span>
           )}
         </label>
       </Grid>
-      <label className={"label"}>Permission : </label>
+      <label className={"label"}>{t("permission")} : </label>
       <Grid md={3}>
         {" "}
         {permission.map((e, index) => (

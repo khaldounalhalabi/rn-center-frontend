@@ -12,7 +12,7 @@ const PatientDetails = ({
   patient: Customer;
   typePage?: "admin" | "doctor";
 }) => {
-  const t = useTranslations('doctor.patients.show')
+  const t = useTranslations('common.patient.show')
 
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));

@@ -587,24 +587,24 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>Clinic Appointment Cost</td>
-                <td>{range?.appointment_cost ?? 0} IQD</td>
+                <td>{Number(range?.appointment_cost ??0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>Service</td>
-                <td>{getServicePrice ?? 0} IQD</td>
+                <td>{Number(getServicePrice ??0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>Extra Fees</td>
-                <td>{Number(getExtra) ?? 0} IQD</td>
+                <td>{Number(getExtra).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>Discount</td>
-                <td>{Number(getDiscount) ?? 0} IQD</td>
+                <td>{Number(getDiscount ??0).toLocaleString()} IQD</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
                     <tr key={index}>
-                      <td>Offer [{index}]</td>
+                      <td>Offer [{TranslateClient(e.title)}]</td>
                       <td>
                         {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
@@ -614,7 +614,7 @@ const AppointmentForm = ({
               {systemOffer.length != 0
                 ? systemOffer?.map((e: SystemOffers, index) => (
                     <tr key={index}>
-                      <td>System Offer [{index}]</td>
+                      <td>System Offer [{TranslateClient(e.title)}]</td>
                       <td>
                         {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>

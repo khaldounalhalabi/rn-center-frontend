@@ -18,7 +18,7 @@ const PatientsOverview = ({
   patient: Customer;
   id: number;
 }) => {
-  const t = useTranslations('doctor.patients.show')
+  const t = useTranslations('common.patient.show')
   console.log(patient)
   return (
     <div className={"w-full"}>

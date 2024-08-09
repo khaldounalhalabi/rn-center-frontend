@@ -3,37 +3,43 @@ import Input from "@/components/common/ui/Inputs/Input";
 import React from "react";
 import { Prescription } from "@/Models/Prescriptions";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import {useTranslations} from "next-intl";
 
 const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
-  const SelectDate = ["day", "week", "yar"];
-  return (
-    <>
-      <h2 className="card-title">Test</h2>
+  const SelectDate = ["day", "week", "year"];
+    const t = useTranslations('common.prescription.create')
 
-      <Textarea name="test" label="Test" />
-      <Textarea name="problem_description" label="Problem Description" />
-      <div className="flex gap-4">
-        <div className="w-24 h-[45px]">
-          <Input
-            type={"number"}
-            label={"Next Visit:"}
-            name={"next"}
-            step={"any"}
-            defaultValue={
-              defaultValue?.next_visit?.replace(/\D/g, "") ?? undefined
-            }
+    return (
+      <>
+        <h2 className="card-title">{t("notes")}</h2>
+
+        <Textarea name="test" label={t("test")} />
+        <Textarea
+          name="problem_description"
+          label={`${t("problemDescription")}`}
+        />
+        <div className="flex gap-4">
+          <div className="w-24 h-[45px]">
+            <Input
+              type={"number"}
+              label={t("nextVisit")}
+              name={"next"}
+              step={"any"}
+              defaultValue={
+                defaultValue?.next_visit?.replace(/\D/g, "") ?? undefined
+              }
+            />
+          </div>
+
+          <SelectPopOverFrom
+            status={defaultValue?.next_visit?.replace(/\d/g, "") ?? ""}
+            label={t("date")}
+            ArraySelect={SelectDate}
+            name={"visit"}
+            handleSelect={() => undefined}
           />
         </div>
-
-        <SelectPopOverFrom
-          status={defaultValue?.next_visit?.replace(/\d/g, "") ?? ""}
-          label={"Date :"}
-          ArraySelect={SelectDate}
-          name={"visit"}
-          handleSelect={()=>undefined}
-        />
-      </div>
-    </>
-  );
+      </>
+    );
 };
 export default TestForm;

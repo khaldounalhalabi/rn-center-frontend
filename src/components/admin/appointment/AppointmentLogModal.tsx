@@ -44,7 +44,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex justify-center items-center  p-4 min-h-full text-center">
+            <div className="flex justify-center items-center   p-4 min-h-full text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -54,7 +54,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
+                <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-[50vw] text-left transform transition-all overflow-hidden align-middle">
                   <Dialog.Title
                     as="h3"
                     className="font-medium text-gray-900 text-lg leading-6"

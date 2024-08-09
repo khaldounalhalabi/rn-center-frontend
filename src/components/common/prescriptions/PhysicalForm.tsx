@@ -1,6 +1,7 @@
 import Grid from "@/components/common/ui/Grid";
 import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import {useTranslations} from "next-intl";
 
 export interface Stringify {
   blood: string;
@@ -37,6 +38,8 @@ const defaultStringify: Stringify = {
 };
 
 const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
+  const t = useTranslations('common.prescription.create')
+
   const initialStringify = defaultValue
     ? JSON.parse(defaultValue)
     : defaultStringify;
@@ -58,10 +61,10 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
 
   return (
     <>
-      <h2 className="card-title">Physical Information</h2>
+      <h2 className="card-title">{t("physicalInformation")}</h2>
       <Grid md={4}>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>High Blood Pressure:</label>
+          <label className={"label"}>{t("highBloodPressure")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -73,7 +76,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Food Allergies:</label>
+          <label className={"label"}>{t("foodAllergies")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -85,7 +88,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Tendency Bleed:</label>
+          <label className={"label"}>{t("tendencyBleed")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -97,7 +100,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Heart Disease:</label>
+          <label className={"label"}>{t("heartDisease")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -109,7 +112,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Diabetic:</label>
+          <label className={"label"}>{t("diabetic")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -121,7 +124,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Medical History:</label>
+          <label className={"label"}>{t("medicalHistory")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -133,7 +136,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Female Pregnancy:</label>
+          <label className={"label"}>{t("femalePregnancy")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -145,7 +148,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Breast Feeding:</label>
+          <label className={"label"}>{t("breastFeeding")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -157,7 +160,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Current Medication:</label>
+          <label className={"label"}>{t("currentMedication")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -169,7 +172,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Surgery:</label>
+          <label className={"label"}>{t("surgery")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -181,7 +184,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Accident:</label>
+          <label className={"label"}>{t("accident")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -193,7 +196,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Others:</label>
+          <label className={"label"}>{t("others")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -205,7 +208,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Pulse Rate:</label>
+          <label className={"label"}>{t("pulseRate")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
@@ -217,7 +220,7 @@ const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
           />
         </div>
         <div className={`flex flex-col items-start w-full`}>
-          <label className={"label"}>Temperature:</label>
+          <label className={"label"}>{t("temperature")}:</label>
           <input
             step={"any"}
             className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}

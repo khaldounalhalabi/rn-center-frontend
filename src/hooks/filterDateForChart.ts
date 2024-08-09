@@ -1,5 +1,6 @@
 import {ClinicTransaction} from "@/Models/ClinicTransaction";
 import {AppointmentDeductions} from "@/Models/AppointmentDeductions";
+import dayjs from "dayjs";
 
 
 interface FilteredData {
@@ -26,7 +27,7 @@ const filterDataForChart = (data?: ClinicTransaction[] |AppointmentDeductions[])
         dataAll[itemType].push({
             amount: item.amount,
             type: item.type,
-            date: item.date
+            date: dayjs(item.date).format("YYYY-MM-DD")
         });
     });
 

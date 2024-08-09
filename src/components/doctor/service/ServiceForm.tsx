@@ -26,7 +26,7 @@ const ServiceForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("admin.service.create-edit");
+  const t = useTranslations("doctor.service.create-edit");
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -141,13 +141,13 @@ const ServiceForm = ({
         ) : (
           <div className="flex justify-between items-center">
             <label className="label"> {t("image")} : </label>
-            <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+            <span className="text-lg badge badge-neutral">{t("noData")}</span>
           </div>
         )
       ) : (
         ""
       )}
-      <ImageUploader name={"icon"} label={'Icon'}/>
+      <ImageUploader name={"icon"} label={t("icon")}/>
     </Form>
   );
 };

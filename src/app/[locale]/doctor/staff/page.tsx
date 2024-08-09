@@ -7,11 +7,13 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import {StaffService} from "@/services/StaffService";
 import {Staff} from "@/Models/Staff";
 import {TranslateClient} from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+    const t = useTranslations("doctor.staff.table")
     const tableData: DataTableData<Staff> = {
         createUrl: `/doctor/staff/create`,
-        title: `Staff`,
+        title: `${t("staff")}`,
         schema: [
             {
                 name: "id",
@@ -20,7 +22,7 @@ const Page = () => {
             },
             {
                 name: "user.full_name",
-                label: `Name`,
+                label: `${t("name")}`,
                 sortable: true,
                 render: (_first_name, staff) => {
                     return (
@@ -34,7 +36,7 @@ const Page = () => {
             },
 
             {
-                label: `Actions`,
+                label: `${t("actions")}`,
                 render: (_undefined, data, setHidden) => (
                     <ActionsButtons
                         id={data?.id}

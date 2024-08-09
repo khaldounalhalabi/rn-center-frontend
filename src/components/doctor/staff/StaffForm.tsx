@@ -17,6 +17,7 @@ import { User } from "@/Models/User";
 import { Dialog, Transition } from "@headlessui/react";
 import PermissionsDoctorArray, { PermissionsDoctor } from "@/enum/Permissions";
 import { getCookieClient, setCookieClient } from "@/Actions/clientCookies";
+import {useTranslations} from "next-intl";
 
 interface PermissionsType {
   "edit-clinic-profile": boolean;
@@ -69,6 +70,7 @@ const StaffForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('doctor.staff.create')
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -162,9 +164,11 @@ const StaffForm = ({
                     onSuccess={() => closeModal()}
                     defaultValues={defPermissions}
                   >
-                    <h1 className={"card-title"}>Set Permissions : </h1>
+                    <h1 className={"card-title"}>{t("setPermissions")} : </h1>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Edit Clinic Profile</label>
+                      <label className={"w-2/3"}>
+                        {t("editClinicProfile")}
+                      </label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.EDIT_CLINIC_PROFILE}
@@ -174,7 +178,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Medicines</label>
+                      <label className={"w-2/3"}>{t("manageMedicines")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_MEDICINES}
@@ -184,7 +188,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Patients</label>
+                      <label className={"w-2/3"}>{t("managePatients")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_PATIENTS}
@@ -194,7 +198,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Offers</label>
+                      <label className={"w-2/3"}>{t("manageOffers")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_OFFERS}
@@ -204,7 +208,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Services</label>
+                      <label className={"w-2/3"}>{t("manageServices")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_SERVICE}
@@ -214,7 +218,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Schedules</label>
+                      <label className={"w-2/3"}>{t("manageSchedules")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANGE_SCHEDULES}
@@ -224,7 +228,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Holidays</label>
+                      <label className={"w-2/3"}>{t("manageHolidays")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_HOLIDAYS}
@@ -234,7 +238,7 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Employees</label>
+                      <label className={"w-2/3"}>{t("manageEmployees")}</label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_EMPLOYEES}
@@ -244,7 +248,9 @@ const StaffForm = ({
                       </div>
                     </div>
                     <div className={"flex w-full pl-2 my-3 justify-around"}>
-                      <label className={"w-2/3"}>Manage Appointments</label>
+                      <label className={"w-2/3"}>
+                        {t("manageAppointments")}
+                      </label>
                       <div className={"w-1/3"}>
                         <Input
                           name={PermissionsDoctor.MANAGE_APPOINTMENTS}
@@ -272,7 +278,7 @@ const StaffForm = ({
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={"First Name"}
+            label={t("first-Name")}
             name={"first_name"}
             locale={locale}
           />
@@ -281,7 +287,7 @@ const StaffForm = ({
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={"Middle Name"}
+            label={t("middle-name")}
             name={"middle_name"}
             locale={locale}
           />
@@ -290,7 +296,7 @@ const StaffForm = ({
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={"Last Name"}
+            label={t("last-name")}
             name={"last_name"}
             locale={locale}
           />
@@ -301,7 +307,7 @@ const StaffForm = ({
             type={"text"}
             step={"any"}
             placeholder={`Email ...`}
-            label={"Email"}
+            label={t("email")}
           />
           <Input
             required={true}
@@ -309,7 +315,7 @@ const StaffForm = ({
             type={"text"}
             step={"any"}
             placeholder={"password : "}
-            label={"Password"}
+            label={t("password")}
           />
           <Input
             required={true}
@@ -317,20 +323,20 @@ const StaffForm = ({
             type={"text"}
             step={"any"}
             placeholder={"password confirmation : "}
-            label={"Password Confirmation"}
+            label={t("confirm-password")}
           />
           <Datepicker
             name={"birth_date"}
-            label={"Birth Date"}
+            label={t("birth-date")}
             required={true}
           />
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
-              Gender:
+              {t("gender")}:
             </label>
             <Input
               name={"gender"}
-              label={"Male"}
+              label={t("male")}
               type="radio"
               className="radio radio-info"
               value={"male"}
@@ -343,7 +349,7 @@ const StaffForm = ({
 
             <Input
               name={"gender"}
-              label={"Female"}
+              label={t("female")}
               type="radio"
               className="radio radio-info"
               value={"female"}
@@ -354,7 +360,7 @@ const StaffForm = ({
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={"Address"}
+            label={t("address")}
             name={"address.name"}
             required={true}
             locale={locale}
@@ -362,7 +368,7 @@ const StaffForm = ({
           <ApiSelect
             required={true}
             name={"address.city_id"}
-            label={"City"}
+            label={t("city")}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               CityService.make<CityService>().getAllCities(page, search)
@@ -381,7 +387,7 @@ const StaffForm = ({
           type={"tel"}
           name={"phone_numbers"}
           placeholder={"Enter Clinic Phone Number"}
-          label={"Phones"}
+          label={t("phones")}
           required={true}
         />
 
@@ -395,21 +401,21 @@ const StaffForm = ({
             />
           ) : (
             <div className="flex justify-between items-center">
-              <label className="label"> {"Image"} : </label>
+              <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">{"No Image"}</span>
             </div>
           )
         ) : (
           ""
         )}
-        <ImageUploader name={"image"} label={"Icon"} />
+        <ImageUploader name={"image"} label={t("icon")} />
         {type == "update" && role != "clinic-employee" ? (
           <button
             type="button"
             onClick={openModal}
             className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
           >
-            Set Permissions
+            {t("setPermissions")}
           </button>
         ) : (
           ""

@@ -16,7 +16,7 @@ const page = async ({
 }: {
   params: { patientId: number };
 }) => {
-  const t = await getTranslations('doctor.patients.show')
+  const t = await getTranslations('common.patient.show')
   const data =
     await PatientsService.make<PatientsService>("doctor").show(patientId);
   const user: User | undefined = data?.data?.user;

@@ -71,6 +71,7 @@ const Page = () => {
         "admin",
       ).getAdminSummary();
     },
+    refetchOnWindowFocus:false
   });
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
@@ -100,6 +101,7 @@ const Page = () => {
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<AppointmentDeductions> = {
+
     title: `Appointment Deductions`,
     extraButton: (
       <>
@@ -190,6 +192,11 @@ const Page = () => {
         name: "amount",
         label: `Amount`,
         sortable: true,
+        render:(data)=>{
+          return (
+              <span>{data.toLocaleString()}</span>
+          )
+        }
       },
       {
         name: "status",
@@ -327,7 +334,7 @@ const Page = () => {
       <NotificationHandler
         handle={(payload: NotificationPayload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            refetch();
+           return refetch();
           }
         }}
       />
@@ -442,13 +449,13 @@ const Page = () => {
             <label className="label">
               Balance :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.balance).toFixed(1)}
+                {Number(balance?.data?.balance).toFixed(1).toLocaleString()}
               </span>
             </label>
             <label className="label">
               Done Appointment Deductions :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.done_appointment_deductions).toFixed(1)}
+                {Number(balance?.data?.done_appointment_deductions).toFixed(1).toLocaleString()}
               </span>
             </label>
 
@@ -457,7 +464,7 @@ const Page = () => {
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.pending_appointment_deductions).toFixed(
                   1,
-                )}
+                ).toLocaleString()}
               </span>
             </label>
           </Grid>

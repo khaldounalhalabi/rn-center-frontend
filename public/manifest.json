@@ -1,22 +1,22 @@
 {
   "id": "2",
-  "name": "My awesome PWA app",
-  "short_name": "PWA App",
-  "description": "hh",
+  "name": "Planet of Medicine",
+  "short_name": "POM",
+  "description": "An integrated platform for managing medical clinics and booking online appointments easily. Distinctive services that will provide you with a professional and comfortable experience",
   "icons": [
     {
-      "src": "https://dc737.4shared.com/img/vSKWk-2vjq/s24/18de1c9eaf8/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.5501168326216448",
+      "src": "./pom12.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://dc737.4shared.com/img/WBlgXxSVge/s24/18de1cb2f30/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.10608544343159143",
+      "src": "./pom25.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "https://dc737.4shared.com/img/jwjRoN1Mge/s24/18de1cbd728/Cjdowner-Cryptocurrency-Flat-I?async&rand=0.5347107602388061",
+      "src": "./pom51.png",
       "sizes": "512x512",
       "type": "image/png"
     }

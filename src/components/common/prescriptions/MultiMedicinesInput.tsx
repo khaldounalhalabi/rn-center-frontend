@@ -10,6 +10,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { MedicineData } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { swal } from "@/Helpers/UIHelpers";
+import {useTranslations} from "next-intl";
 
 const MultiMedicinesInput = ({
                                userType="admin",
@@ -23,6 +24,7 @@ const MultiMedicinesInput = ({
   type: string;
   reloadSelect: string;
 }) => {
+  const t = useTranslations("common.prescription.create")
   const dataDefault = Array.isArray(defaultValues)
     ? defaultValues?.map(({ id, prescription_id, medicine, ...rest }) => rest)
     : [];
@@ -102,7 +104,7 @@ const MultiMedicinesInput = ({
           className="btn btn-accent"
           onClick={addMedicine}
         >
-          Add
+          {t("add")}
         </button>
       </div>
       {isMutating ? (
@@ -119,12 +121,11 @@ const MultiMedicinesInput = ({
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}
                 api={(page, search) =>
-                  MedicineService.make<MedicineService>(userType).indexWithPagination(
-                    page,
-                    search,
-                  )
+                  MedicineService.make<MedicineService>(
+                    userType,
+                  ).indexWithPagination(page, search)
                 }
-                label={"Medicine Name"}
+                label={t("medicineName")}
                 optionValue={"id"}
                 defaultValues={
                   defaultValues?.[index]?.medicine
@@ -142,7 +143,7 @@ const MultiMedicinesInput = ({
                 getOptionLabel={(data: Medicine) => data.name}
               />
               <div className={`flex flex-col items-start w-full`}>
-                <label className={"label"}>Dosage</label>
+                <label className={"label"}>{t("dosage")}</label>
                 <input
                   className={`input input-bordered w-full  focus:outline-pom focus:border-pom`}
                   type={"text"}
@@ -159,7 +160,7 @@ const MultiMedicinesInput = ({
               </div>
               <SelectPopOver
                 id={1}
-                label={"Duration"}
+                label={t("duration")}
                 status={
                   medicines?.[index].duration
                     ? medicines?.[index].duration
@@ -172,7 +173,7 @@ const MultiMedicinesInput = ({
               />
               <SelectPopOver
                 id={2}
-                label={"Time"}
+                label={t("time")}
                 status={
                   medicines?.[index].time
                     ? medicines?.[index].time
@@ -185,7 +186,7 @@ const MultiMedicinesInput = ({
               />
               <SelectPopOver
                 id={3}
-                label={"Dose Interval"}
+                label={t("doseInterval")}
                 status={
                   medicines?.[index].dose_interval
                     ? medicines?.[index].dose_interval
@@ -199,7 +200,7 @@ const MultiMedicinesInput = ({
             </div>
             <div className="flex justify-between items-center w-full">
               <div className="mr-5 w-full">
-                <label className="label">COMMENT :</label>
+                <label className="label">{t("comment")} :</label>
                 <textarea
                   className={"text-sm textarea textarea-bordered w-full"}
                   placeholder={"comment ..."}
@@ -234,7 +235,7 @@ const MultiMedicinesInput = ({
                           console.log(id);
                           if (id != 0) {
                             return PrescriptionService.make<PrescriptionService>(
-                                userType,
+                              userType,
                             )
                               .deleteMedicine(id ?? 0)
                               .then(() => {

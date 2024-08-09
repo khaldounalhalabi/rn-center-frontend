@@ -82,6 +82,9 @@ const Page = () => {
         name: "amount",
         label: `Amount`,
         sortable: true,
+        render:(data)=>{
+          return<span>{data.toLocaleString()}</span>
+        }
       },
       {
         name: "status",
@@ -286,7 +289,7 @@ const Page = () => {
             <label className="label">
               Total Cost :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {balance?.data?.total_cost}
+                {Number(balance?.data?.total_cost ??0).toLocaleString()}
               </span>
             </label>
 
@@ -299,20 +302,20 @@ const Page = () => {
             <label className="label">
               Subscription Cost :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {balance?.data?.subscription_cost}
+                {Number(balance?.data?.subscription_cost??0).toLocaleString()}
               </span>
             </label>
             <label className="label">
               Clinic Balance :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {balance?.data?.clinic_balance}
+                {Number(balance?.data?.clinic_balance??0).toLocaleString()}
               </span>
             </label>
 
             <label className="label">
               Appointments Deductions :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {balance?.data?.appointments_deductions}
+                {Number(balance?.data?.appointments_deductions??0).toLocaleString()}
               </span>
             </label>
           </Grid>

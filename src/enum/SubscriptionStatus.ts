@@ -1,6 +1,6 @@
 export enum SubscriptionStatusEnum {
     true = "active",
-    false = "in-active",
+    false = "in_active",
 }
 
 const SubscriptionStatuses = (): string[] => {

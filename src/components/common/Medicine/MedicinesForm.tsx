@@ -11,6 +11,7 @@ import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
+import {useTranslations} from "next-intl";
 
 const MedicinesForm = ({
   defaultValues = undefined,
@@ -25,6 +26,7 @@ const MedicinesForm = ({
   type?: "store" | "update" | "prescription";
   closeModal?: any;
 }) => {
+  const t = useTranslations('common.medicine.create')
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -69,7 +71,7 @@ const MedicinesForm = ({
                 search,
               )
             }
-            label={"Clinic Name"}
+            label={t("clinicName")}
             optionValue={"id"}
             defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
             getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
@@ -79,14 +81,14 @@ const MedicinesForm = ({
         )}
         <Input
           name={"name"}
-          label={"Medicine Name :"}
+          label={t("medicineName")}
           placeholder={"name ...."}
           type="text"
           defaultValue={defaultValues ? defaultValues?.name : undefined}
         />
       </Grid>
       <Textarea
-        label={"Description "}
+        label={t("description")}
         name={"description"}
         defaultValue={defaultValues ? defaultValues?.description : undefined}
       />

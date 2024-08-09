@@ -15,7 +15,7 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
-import { useQuery } from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import { Link } from "@/navigation";
 import ClinicTransactionTypeArray, {
   TransactionType,
@@ -42,6 +42,12 @@ interface filterExportType {
 }
 
 const Page = () => {
+  const queryClient = useQueryClient();
+  const revalidate = () => {
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_/doctor/transaction/create_Transactions`],
+    });
+  };
   const {
     data: balance,
     isLoading,
@@ -138,14 +144,14 @@ const Page = () => {
         sortable: true,
         render: (_amount, transaction) => (
           <span
-            className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
           >
             {transaction?.type == "income"
               ? "+"
               : transaction?.type == "outcome"
                 ? "-"
-                : ""}
-            {transaction?.amount}
+                : transaction?.type == "system_debt" ?
+             "-":"+"}
+            {transaction?.amount.toLocaleString()}
           </span>
         ),
       },
@@ -153,11 +159,17 @@ const Page = () => {
         name: "after_balance",
         label: `After Balance`,
         sortable: true,
+          render:(data)=>{
+            return<span>{data.toLocaleString()}</span>
+          }
       },
       {
         name: "before_balance",
         label: `Before Balance`,
         sortable: true,
+          render:(data)=>{
+              return<span>{data.toLocaleString()}</span>
+          }
       },
       {
         name: "status",
@@ -202,17 +214,6 @@ const Page = () => {
             showUrl={`/doctor/transaction/${data?.id}`}
             setHidden={setHidden}
           >
-            <NotificationHandler
-              handle={(payload) => {
-                if (
-                  payload.getNotificationType() ==
-                    RealTimeEvents.BalanceChange &&
-                  revalidate
-                ) {
-                  revalidate();
-                }
-              }}
-            />
           </ActionsButtons>
         ),
       },
@@ -297,29 +298,29 @@ const Page = () => {
             <>
               <label className="label">Start Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        time?.format("YYYY-MM-DD hh:mm"),
-                        params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[0] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                        time?.format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[1] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (
@@ -332,10 +333,12 @@ const Page = () => {
   return (
     <>
       <NotificationHandler
-        handle={(payload) =>
-          payload.getNotificationType() == RealTimeEvents.BalanceChange
-            ? refetch()
-            : undefined
+        handle={(payload) => {
+          if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
+            revalidate()
+            refetch()
+          }
+        }
         }
       />
       <Transition appear show={isOpen} as={Fragment}>

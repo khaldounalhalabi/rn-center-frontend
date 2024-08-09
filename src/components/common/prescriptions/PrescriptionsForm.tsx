@@ -12,6 +12,7 @@ import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
 import HandleGetUserAndClinic from "@/hooks/HandleGetUserAndClinic";
+import {useTranslations} from "next-intl";
 
 const PrescriptionsForm = ({
   userType = "admin",
@@ -28,6 +29,7 @@ const PrescriptionsForm = ({
   customerId?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('common.prescription.create')
   const clinicId = HandleGetUserAndClinic();
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = customerId
@@ -116,7 +118,7 @@ const PrescriptionsForm = ({
               >
                 <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
                   <div className="p-4">
-                    <h2 className="card-title">New Medicine</h2>
+                    <h2 className="card-title">{t("newMedicine")}</h2>
                     <MedicinesForm
                       typePage={"doctor"}
                       type={"prescription"}
@@ -136,13 +138,13 @@ const PrescriptionsForm = ({
       >
         <PageCard>
           <div className="flex flex-row justify-between my-4">
-            <h2 className="card-title">Medicines</h2>
+            <h2 className="card-title">{t("medicines")}</h2>
             <button
               type={"button"}
               className="btn btn-info"
               onClick={openModal}
             >
-              New Medicines
+              {t("newMedicine")}
             </button>
           </div>
           <MultiMedicinesInput

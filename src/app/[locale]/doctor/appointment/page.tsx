@@ -151,6 +151,13 @@ const Page = () => {
         sortable: true,
       },
       {
+        name:"total_cost",
+        label:"Total Cost",
+        render:(data)=>{
+          return<span>{data.toLocaleString()}</span>
+        }
+      },
+      {
         name: "appointment_sequence",
         label: "Sequence",
       },
@@ -167,8 +174,8 @@ const Page = () => {
           const lang = locale == "en" ? "en-US" : "ar-SA";
           const message =
             locale == "en"
-              ? `The   appointment    number    ${sequence}   the   doctor   is   waiting   for   you`
-              : ` الموعد رقم ${sequence}  الطبيبُ في انتظارك `;
+              ? `The   appointment    number ----------------   ${sequence}----------------the   doctor   is   waiting   for   you`
+                : ` الموعد رقم${sequence} الطبيبُ في انتظارك`;
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
               ? ["show"]

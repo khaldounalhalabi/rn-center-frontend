@@ -83,7 +83,7 @@ const Page = () => {
                 : transaction?.type == "outcome"
                     ? "-"
                     : ""}
-                    {transaction?.amount}
+                    {transaction?.amount.toLocaleString()}
           </span>
             ),
         },

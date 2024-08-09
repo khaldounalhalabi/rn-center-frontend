@@ -51,7 +51,6 @@ const Page: React.FC = () => {
             }
         },
     });
-
     const res: ClinicTransaction[] | undefined = data?.data;
     const filterData = res ? filterDataForChart(res) : { income: [], outcome: [] };
 
@@ -88,6 +87,7 @@ const Page: React.FC = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
+    console.log(data)
 
     return (
         <>

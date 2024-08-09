@@ -151,7 +151,7 @@ const OfferForm = ({
         <Datepicker required={true} name={"end_at"} label={t("endDate")} />
       </Grid>
       <TranslatableTextArea
-        name={t("note")}
+        name={"note"}
         locale={locale}
         defaultValue={defaultValues?.note ?? ""}
       />

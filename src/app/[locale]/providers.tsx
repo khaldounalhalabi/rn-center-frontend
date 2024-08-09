@@ -18,7 +18,13 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions:{
+      queries:{
+        refetchOnWindowFocus:false,
+      }
+    }
+  });
   const [reFetch, setReFetch] = useState(false);
 
   return (

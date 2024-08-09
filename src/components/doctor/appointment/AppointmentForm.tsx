@@ -193,7 +193,7 @@ const AppointmentForm = ({
     <PageCard>
       <div className={"flex justify-between"}>
         <h2 className="card-title">
-          {type == "store" ? t("editAppointment") : t("createAppointment")}
+          {type == "store" ? t("createAppointment") : t("editAppointment")}
         </h2>
         <button
           type={"button"}
@@ -471,25 +471,25 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>{t("cost")}</td>
-                <td>{range?.appointment_cost ?? 0} IQD</td>
+                <td>{Number(range?.appointment_cost ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>{t("service")}</td>
-                <td>{getServicePrice ?? 0} IQD</td>
+                <td>{Number(getServicePrice ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>{t("extraFees")}</td>
-                <td>{Number(getExtra) ?? 0} IQD</td>
+                <td>{Number(getExtra).toLocaleString() ?? 0} IQD</td>
               </tr>
               <tr>
                 <td>{t("discount")}</td>
-                <td>{Number(getDiscount) ?? 0} IQD</td>
+                <td>{Number(getDiscount).toLocaleString() ?? 0} IQD</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
                     <tr key={index}>
                       <td>
-                        {t("offers")} [{index}]
+                        {t("offers")} [{TranslateClient(e.title)}]
                       </td>
                       <td>
                         {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}

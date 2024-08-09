@@ -9,7 +9,7 @@ const page = async ({
 }: {
   params: { staffId: number };
 }) => {
-  const t = await getTranslations("admin.service.create-edit");
+    const t = await getTranslations("doctor.staff.create");
 
   const staff = (await StaffService.make<StaffService>("doctor").show(staffId))
     .data;
@@ -21,7 +21,7 @@ const page = async ({
 
   return (
     <PageCard>
-      <h2 className="card-title">{"Edit Staff"}</h2>
+      <h2 className="card-title">{t("editStaff")}</h2>
       <StaffForm
         id={staff.id}
         type={"update"}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Trash from "@/components/icons/Trash";
 import { useFormContext } from "react-hook-form";
+import {useTranslations} from "next-intl";
 
 interface InputField {
   key: string;
@@ -57,22 +58,24 @@ const OtherDataInput = ({ defaultValues }: { defaultValues?: string }) => {
     const stringifyValue = JSON.stringify(result);
     setValue("other_data", stringifyValue);
   }, [result, setValue]);
+  const t = useTranslations("common.patient.create")
+
   return (
     <div>
       <div className="flex justify-between">
-        <h1 className="content-center card-title">Other Data :</h1>
+        <h1 className="content-center card-title">{t("otherData")} :</h1>
         <button
           type={"button"}
           className="btn btn-accent"
           onClick={handleAddFields}
         >
-          Add
+          {t("add")}
         </button>
       </div>
       {inputs.map((input, index) => (
         <div className="w-full flex justify-between my-3" key={index}>
           <div className="flex flex-col items-start w-5/12">
-            <label className="label">Input Type:</label>
+            <label className="label">{t("inputType")} :</label>
             <input
               className="input input-bordered w-full focus:outline-pom focus:border-pom"
               type="text"
@@ -83,7 +86,7 @@ const OtherDataInput = ({ defaultValues }: { defaultValues?: string }) => {
             />
           </div>
           <div className="flex flex-col w-5/12 items-start">
-            <label className="label">Input Value:</label>
+            <label className="label">{t("inputValue")} :</label>
             <input
               className="input input-bordered w-full focus:outline-pom focus:border-pom"
               type="text"

@@ -24,7 +24,7 @@ const page = async ({
         <label className="label">
           Amount :
           <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {res?.amount}
+            {res?.amount?.toLocaleString()}
           </span>
         </label>
         <label className="label">
@@ -42,7 +42,7 @@ const page = async ({
         <label className="label">
           Total Cost :
           <span className="badge-warning px-2 rounded-xl text-lg">
-            {res?.appointment?.total_cost}
+            {res?.appointment?.total_cost?.toLocaleString()}
           </span>
         </label>
         <label className="label">

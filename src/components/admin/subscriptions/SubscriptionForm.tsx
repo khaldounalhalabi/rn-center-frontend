@@ -60,7 +60,6 @@ const SubscriptionForm = ({
             placeholder={"12"}
             label={`Period`}
             name={"period"}
-            unit={"month"}
             min={-1}
           />
           <p className={"text-sm my-1"}>for lifetime period put -1</p>

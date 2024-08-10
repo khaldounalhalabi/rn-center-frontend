@@ -81,14 +81,13 @@ const Page = () => {
       },
       {
         label: `${t("actions")}`,
-        render: (_undefined, data, setHidden, revalidate) => (
+        render: (_undefined, data, undefined, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
             baseUrl={`/doctor/customers`}
             editUrl={`/doctor/patients/${data?.id}/edit`}
             showUrl={`/doctor/patients/${data?.id}`}
-            setHidden={setHidden}
             deleteMessage={'Deleting this record will delete just the stored medical details of this patient not his entire profile'}
           ></ActionsButtons>
         ),

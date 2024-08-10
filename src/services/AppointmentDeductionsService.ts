@@ -30,6 +30,14 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     );
     return await this.errorHandler(res);
   }
+  public async getSummaryByClinicId(clinicId: number): Promise<
+      ApiResponse<ClinicAppointmentDeductionSummary>
+  > {
+    const res = await GET<ClinicAppointmentDeductionSummary>(
+        `${this.actor}/clinics/${clinicId}/appointment-deductions/summary`
+    );
+    return await this.errorHandler(res);
+  }
 
   public async toggleStatus(
     clinicId: number

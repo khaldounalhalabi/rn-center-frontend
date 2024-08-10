@@ -254,6 +254,7 @@ const PatientForm = ({
               placeholder={"Enter Clinic Phone Number"}
               label={t("phone")}
               required={true}
+              maxFields={2}
             />
           ) : (
             <label className="label justify-start text-xl">

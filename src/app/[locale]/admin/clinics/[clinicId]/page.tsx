@@ -11,6 +11,9 @@ import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import {AppointmentDeductionsService} from "@/services/AppointmentDeductionsService";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import Grid from "@/components/common/ui/Grid";
 
 const Page = async ({
   params: { clinicId },
@@ -20,6 +23,7 @@ const Page = async ({
   const data: ApiResponse<Clinic> =
     await ClinicsService.make<ClinicsService>().show(clinicId);
   const clinic = data.data;
+  const summary = await AppointmentDeductionsService.make<AppointmentDeductionsService>("admin").getSummaryByClinicId(clinicId)
   const t = await getTranslations("admin.clinic.show");
   return (
     <PageCard>
@@ -92,8 +96,49 @@ const Page = async ({
           </div>
         </div>
       </div>
+            <div className={'p-6 border-gray-400 border-2 rounded-2xl'}>
+              <Grid md={2}>
+                <label className="label">
+                  Subscription Start :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {summary?.data?.subscription_start}
+              </span>
+                </label>
+                <label className="label">
+                  Total Cost :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {Number(summary?.data?.total_cost ??0).toLocaleString()}
+              </span>
+                </label>
 
-      <div className="px-2 sm:px-0 py-16 w-full">
+                <label className="label">
+                  Subscription End :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {summary?.data?.subscription_end}
+              </span>
+                </label>
+                <label className="label">
+                  Subscription Cost :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {Number(summary?.data?.subscription_cost??0).toLocaleString()}
+              </span>
+                </label>
+                <label className="label">
+                  Clinic Balance :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {Number(summary?.data?.clinic_balance??0).toLocaleString()}
+              </span>
+                </label>
+
+                <label className="label">
+                  Appointments Deductions :
+                  <span className="bg-base-200 px-2 rounded-xl text-lg">
+                {Number(summary?.data?.appointments_deductions??0).toLocaleString()}
+              </span>
+                </label>
+              </Grid>
+            </div>
+      <div className="px-2 sm:px-0 pb-16 pt-10 w-full">
         <ClinicOverview clinic={clinic} />
       </div>
     </PageCard>

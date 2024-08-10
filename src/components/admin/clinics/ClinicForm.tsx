@@ -171,6 +171,7 @@ const ClinicForm = ({
         placeholder={"Enter Clinic Phone Number"}
         label={t("phones")}
         required={true}
+        maxFields={2}
       />
 
       <Grid>

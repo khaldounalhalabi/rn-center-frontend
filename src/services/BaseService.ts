@@ -132,6 +132,9 @@ export class BaseService<T> {
   public async errorHandler(
     res: ApiResponse<T> | ApiResponse<T[]>
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
+    if(res.code == 401){
+
+    }
     if(res.code == 432  ){
       deleteCookieServer('token')
       deleteCookieServer('refresh_token')
@@ -148,7 +151,7 @@ export class BaseService<T> {
       deleteCookieServer('permissions')
       await Navigate(`/430`);
     }
-    if (res.code == 401 || res.code == 403 ||  res.code ==431 || res.code == 433) {
+    if (res.code == 403 ||  res.code ==431 || res.code == 433) {
       deleteCookieServer('token')
       deleteCookieServer('refresh_token')
       deleteCookieServer('user-type')

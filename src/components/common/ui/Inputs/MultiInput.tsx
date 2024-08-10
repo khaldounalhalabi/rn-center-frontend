@@ -10,6 +10,7 @@ import { useFormContext } from "react-hook-form";
 
 interface MultiInputProps extends InputProps {
   name: string;
+  maxFields?: number;
 }
 
 const MultiInput: React.FC<MultiInputProps> = ({
@@ -18,7 +19,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   name,
   type,
   required = false,
-
+  maxFields = Infinity,
   ...props
 }) => {
   const {
@@ -26,9 +27,10 @@ const MultiInput: React.FC<MultiInputProps> = ({
     formState: { errors, defaultValues },
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}`);
-  let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [""];
-  console.log(error)
+  let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [];
+
   const [inputs, setInputs] = useState<any[]>(defaultValue);
+
   const handleInputChange = (index: number, value: any) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
@@ -36,7 +38,9 @@ const MultiInput: React.FC<MultiInputProps> = ({
   };
 
   const addInput = () => {
-    setInputs([...inputs, undefined]);
+    if (inputs.length < maxFields) {
+      setInputs([...inputs, ""]);
+    }
   };
 
   const removeInput = (value: any) => {
@@ -51,6 +55,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   useEffect(() => {
     setValue(name, inputs);
   }, [inputs]);
+
   return (
     <>
       {label ? (
@@ -114,6 +119,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
           type={"button"}
           className={`btn btn-sm btn-neutral`}
           onClick={() => addInput()}
+          disabled={inputs.length >= maxFields}
         >
           Add New {label ?? sanitizeString(name ?? "")}
         </button>

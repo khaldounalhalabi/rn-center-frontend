@@ -328,7 +328,6 @@ const StaffForm = ({
           <Datepicker
             name={"birth_date"}
             label={t("birth-date")}
-            required={true}
           />
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
@@ -362,11 +361,9 @@ const StaffForm = ({
             placeholder={"John"}
             label={t("address")}
             name={"address.name"}
-            required={true}
             locale={locale}
           />
           <ApiSelect
-            required={true}
             name={"address.city_id"}
             label={t("city")}
             placeHolder={"Select City Name ..."}

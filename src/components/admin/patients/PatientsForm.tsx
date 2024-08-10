@@ -145,6 +145,7 @@ const PatientsForm = ({
         placeholder={"Enter Clinic Phone Number"}
         label={"Phones :"}
         required={true}
+        maxFields={2}
       />
       <Grid md={2}>
         <TranslatableInput
@@ -174,7 +175,6 @@ const PatientsForm = ({
         <Datepicker
           name={"birth_date"}
           label={"Birth Date :"}
-          required={true}
           shouldDisableDate={(day) => {
             return !day.isBefore(dayjs().subtract(20, "year"));
           }}

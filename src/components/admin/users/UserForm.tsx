@@ -184,7 +184,6 @@ const UserForm = ({
         <Datepicker
           name={"birth_date"}
           label={"Birth Date :"}
-          required={true}
           shouldDisableDate={(day) => {
             return !day.isBefore(dayjs().subtract(20, "year"));
           }}

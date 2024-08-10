@@ -30,7 +30,6 @@ export async function generateMetadata({
     icons: {
       icon: "/pom.ico",
     },
-    themeColor: "#fff",
   };
 }
 

@@ -12,7 +12,6 @@ import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import {AppointmentDeductionsService} from "@/services/AppointmentDeductionsService";
-import LoadingSpin from "@/components/icons/LoadingSpin";
 import Grid from "@/components/common/ui/Grid";
 
 const Page = async ({

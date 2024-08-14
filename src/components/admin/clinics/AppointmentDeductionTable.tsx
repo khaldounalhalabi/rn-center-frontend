@@ -1,7 +1,7 @@
 "use client";
 import React, { Fragment, useState } from "react";
 import DataTable, {
-    DataTableData,
+  DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
@@ -9,362 +9,389 @@ import dayjs from "dayjs";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import ClinicTransactionDate, {
-    DateFilter,
+  DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import ExportButton from "@/components/admin/appointment-deductions/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, {MonthsEnum} from "@/enum/Month";
-import {AppointmentDeductionsService} from "@/services/AppointmentDeductionsService";
-import {AppointmentDeductions} from "@/Models/AppointmentDeductions";
+import AllMonth, { MonthsEnum } from "@/enum/Month";
+import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
+import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 
-import {Clinic} from "@/Models/Clinic";
+import { Clinic } from "@/Models/Clinic";
 import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentStatusColumn";
 import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
+import { useQueryClient } from "@tanstack/react-query";
+import NotificationHandler from "@/components/common/NotificationHandler";
+import {
+  NotificationsType,
+  RealTimeEvents,
+} from "@/Models/NotificationPayload";
 
 interface filterExportType {
-    year: string;
-    month: string;
+  year: string;
+  month: string;
 }
 
-const AppointmentDeductionTable = ({clinicId}:{clinicId:number}) => {
-    const [selectAll , setSelectAll] = useState<number[]>([])
-    const [selectedItems, setSelectedItems] = useState<number[]>([]);
-    const [typeSelectAll , setTypeSelectAll] = useState(false)
-    console.log(selectedItems)
-    const handleCheckboxChange = (id: number, checked: boolean) => {
-        if (checked) {
-            setSelectedItems((prev) => [...prev, id]);
-        } else {
-            setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
-        }
-    };
-    const handleSelectAll = ()=>{
-        setTypeSelectAll(!typeSelectAll)
-        if(typeSelectAll){
-            setSelectedItems(selectAll)
-        }else {
-            setSelectedItems([])
-        }
-    }
-
-
-
-
-    const [filterExport, setFilterExport] = useState<filterExportType>({
-        year: dayjs().format('YYYY'),
-        month: dayjs().format('MMMM'),
+const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
+  const [selectAll, setSelectAll] = useState<number[]>([]);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [typeSelectAll, setTypeSelectAll] = useState(false);
+  const queryClient = useQueryClient();
+  const revalidateTable = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["tableData_undefined_Appointment Deductions"],
     });
-    let [isOpen, setIsOpen] = useState(false);
-
-    function closeModal() {
-        setIsOpen(false);
+  };
+  const handleCheckboxChange = (id: number, checked: boolean) => {
+    if (checked) {
+      setSelectedItems((prev) => [...prev, id]);
+    } else {
+      setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
     }
-
-    function openModal() {
-        setIsOpen(true);
+  };
+  const handleSelectAll = () => {
+    setTypeSelectAll(!typeSelectAll);
+    if (typeSelectAll) {
+      setSelectedItems(selectAll);
+    } else {
+      setSelectedItems([]);
     }
+  };
 
-    let [isOpenStatus, setIsOpenStatus] = useState(false);
+  const [filterExport, setFilterExport] = useState<filterExportType>({
+    year: dayjs().format("YYYY"),
+    month: dayjs().format("MMMM"),
+  });
+  let [isOpen, setIsOpen] = useState(false);
 
-    function closeModalStatus() {
-        setIsOpenStatus(false);
-    }
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-    function openModalStatus() {
-        setIsOpenStatus(true);
-    }
+  function openModal() {
+    setIsOpen(true);
+  }
 
+  let [isOpenStatus, setIsOpenStatus] = useState(false);
 
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-    const [showCustomDate, setShowCustomDate] = useState(true);
-    const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
-    const tableData: DataTableData<AppointmentDeductions> = {
-        title: `Appointment Deductions`,
-        extraButton: (
-            <>
-                <button
-                    className="btn btn-info btn-sm btn-square"
-                    onClick={openModal}
-                >
-                    <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
-                </button>
-                <button className={'btn btn-info  btn-sm btn-square'} disabled={selectedItems.length == 0}>
-                    <ChangeStatusIcon className={`w-6 h-6 cursor-pointer `} onClick={openModalStatus}/>
-                </button>
-                <button className={'btn btn-info  btn-sm btn-square'} >
-                    <CheckMarkIcon className={`w-6 h-6 cursor-pointer `} onClick={handleSelectAll}/>
-                </button>
-            </>
-        ),
-        schema: [
-            {
-                name: "id",
-                label: `id`,
-                sortable: true,
-            },
-            {
-                label:'Change Status',
-                render:(_id,translatable)=>{
-                    return (
-                        <div className={'flex justify-center'}>
-                            <input
-                                type="checkbox"
-                                className="checkbox "
-                                checked={selectedItems.includes(translatable?.id??0)}
-                                onChange={(e) => handleCheckboxChange(translatable?.id??0, e.target.checked)}
-                            />
-                        </div>
-                    );
-                },
-            },
-            {
-                name: "amount",
-                label: `Amount`,
-                sortable: true,
-            },
-            {
-                name: "status",
-                label: "Status",
-                render: (_status, transaction, _setHidden, revalidate) => {
-                    return (
-                        <AppointmentDeductionStatusColumn
-                            transaction={transaction}
-                            revalidate={revalidate}
-                        />
-                    );
-                },
-                sortable: true,
-            },
-            {
-                name: "date",
-                label: `Date`,
-                sortable: true,
-            },
-            {
-                name: "appointment.date",
-                label: `App Date`,
-                sortable: true,
-                render: (_id, transaction) => {
-                    return (
-                        <>
-                            {transaction?.appointment_id ? (
-                                <div className={"btn btn-sm  cursor-pointer"}>
-                                    <Link
-                                        href={`/admin/appointment/${transaction?.appointment_id}`}
-                                    >
-                                        {transaction?.appointment?.date}
-                                    </Link>
-                                </div>
-                            ) : (
-                                <span className={"badge badge-warning"}>No Data</span>
-                            )}
-                        </>
-                    );
-                },
-            },
-            {
-                label: `Actions`,
-                render: (_undefined, data, setHidden) => (
-                    <ActionsButtons
-                        id={data?.id}
-                        buttons={["show"]}
-                        baseUrl={`/admin/appointment-deductions`}
-                        showUrl={`/admin/appointment-deductions/${data?.id}`}
-                        setHidden={setHidden}
-                    ></ActionsButtons>
-                ),
-            },
-        ],
-        api: async (page, search, sortCol, sortDir, perPage, params) =>
-            await AppointmentDeductionsService.make<AppointmentDeductionsService>("admin").getClinicAppointmentDeductions(
-                clinicId,
-                page,
-                search,
-                sortCol,
-                sortDir,
-                perPage,
-                params,
-            ).then((res)=>{
-                const allId = res?.data?.map(item => item.id)
-                setSelectAll(allId)
-                return res
-            }),
-        filter: (params, setParams) => {
-            return (
-                <div className={"w-full  grid grid-cols-1"}>
-                    <label className="label">Status :</label>
-                    <SelectFilter
-                        data={AppointmentDeductionsStatusArray()}
-                        selected={params.type ?? ""}
-                        onChange={(event: any) => {
-                            setParams({ ...params, status: event.target.value });
-                        }}
-                    />
+  function closeModalStatus() {
+    setIsOpenStatus(false);
+  }
 
-                    <label className="label">Range :</label>
-                    <SelectFilter
-                        data={ClinicTransactionDate()}
-                        selected={customDate}
-                        onChange={(event: any) => {
-                            if (event.target.value == DateFilter.CUSTOM_DATE) {
-                                setShowCustomDate(true);
-                                setCustomDate(DateFilter.CUSTOM_DATE);
-                            } else {
-                                setCustomDate(event.target.value);
-                                setShowCustomDate(false);
-                                const date = HandleFormatArrayDateFilter(event.target.value);
-                                setParams({
-                                    ...params,
-                                    date: date,
-                                });
-                            }
-                        }}
-                    />
-                    {showCustomDate ? (
-                        <>
-                            <label className="label">Start Date :</label>
-                            <DateTimePickerRangFilter
-                                onChange={(time: any) => {
-                                    setParams({
-                                        ...params,
-                                        date: [
-                                            time?.format("YYYY-MM-DD hh:mm"),
-                                            params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                                        ],
-                                    });
-                                }}
-                                defaultValue={params?.date?.[0] ?? ""}
-                            />
-                            <label className="label">End Date :</label>
-                            <DateTimePickerRangFilter
-                                onChange={(time: any) => {
-                                    setParams({
-                                        ...params,
-                                        date: [
-                                            params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                                            time?.format("YYYY-MM-DD hh:mm"),
-                                        ],
-                                    });
-                                }}
-                                defaultValue={params?.date?.[1] ?? ""}
-                            />
-                        </>
-                    ) : (
-                        ""
-                    )}
-                </div>
-            );
+  function openModalStatus() {
+    setIsOpenStatus(true);
+  }
+
+  const [showCustomDate, setShowCustomDate] = useState(true);
+  const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
+  const tableData: DataTableData<AppointmentDeductions> = {
+    title: `Appointment Deductions`,
+    extraButton: (
+      <>
+        <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
+          <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
+        </button>
+        <button
+          className={"btn btn-info  btn-sm btn-square"}
+          disabled={selectedItems.length == 0}
+        >
+          <ChangeStatusIcon
+            className={`w-6 h-6 cursor-pointer `}
+            onClick={openModalStatus}
+          />
+        </button>
+        <button className={"btn btn-info  btn-sm btn-square"}>
+          <CheckMarkIcon
+            className={`w-6 h-6 cursor-pointer `}
+            onClick={handleSelectAll}
+          />
+        </button>
+      </>
+    ),
+    schema: [
+      {
+        name: "id",
+        label: `id`,
+        sortable: true,
+      },
+      {
+        label: "Change Status",
+        render: (_id, translatable) => {
+          return (
+            <div className={"flex justify-center"}>
+              <input
+                type="checkbox"
+                className="checkbox "
+                checked={selectedItems.includes(translatable?.id ?? 0)}
+                onChange={(e) =>
+                  handleCheckboxChange(translatable?.id ?? 0, e.target.checked)
+                }
+              />
+            </div>
+          );
         },
-    };
-    return (
-        <>
-            <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black/25" />
-                    </Transition.Child>
+      },
+      {
+        name: "amount",
+        label: `Amount`,
+        sortable: true,
+      },
+      {
+        name: "status",
+        label: "Status",
+        render: (_status, transaction, _setHidden, revalidate) => {
+          return (
+            <AppointmentDeductionStatusColumn
+              transaction={transaction}
+              revalidate={revalidate}
+            />
+          );
+        },
+        sortable: true,
+      },
+      {
+        name: "date",
+        label: `Date`,
+        sortable: true,
+      },
+      {
+        name: "appointment.date",
+        label: `App Date`,
+        sortable: true,
+        render: (_id, transaction) => {
+          return (
+            <>
+              {transaction?.appointment_id ? (
+                <div className={"btn btn-sm  cursor-pointer"}>
+                  <Link
+                    href={`/admin/appointment/${transaction?.appointment_id}`}
+                  >
+                    {transaction?.appointment?.date}
+                  </Link>
+                </div>
+              ) : (
+                <span className={"badge badge-warning"}>No Data</span>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        label: `Actions`,
+        render: (_undefined, data, setHidden) => (
+          <ActionsButtons
+            id={data?.id}
+            buttons={["show"]}
+            baseUrl={`/admin/appointment-deductions`}
+            showUrl={`/admin/appointment-deductions/${data?.id}`}
+            setHidden={setHidden}
+          />
+        ),
+      },
+    ],
+    api: async (page, search, sortCol, sortDir, perPage, params) =>
+      await AppointmentDeductionsService.make<AppointmentDeductionsService>(
+        "admin",
+      )
+        .getClinicAppointmentDeductions(
+          clinicId,
+          page,
+          search,
+          sortCol,
+          sortDir,
+          perPage,
+          params,
+        )
+        .then((res) => {
+          const allId = res?.data?.map((item) => item.id);
+          setSelectAll(allId);
+          return res;
+        }),
+    filter: (params, setParams) => {
+      return (
+        <div className={"w-full  grid grid-cols-1"}>
+          <label className="label">Status :</label>
+          <SelectFilter
+            data={AppointmentDeductionsStatusArray()}
+            selected={params.type ?? ""}
+            onChange={(event: any) => {
+              setParams({ ...params, status: event.target.value });
+            }}
+          />
 
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <div className={"w-full my-4 grid grid-cols-1"}>
-                                        <label className={"label"}>Year :</label>
-                                        <input
-                                            className="input input-bordered w-full focus:outline-pom focus:border-pom"
-                                            type={"number"}
-                                            min={1900}
-                                            max={2099}
-                                            step={1}
-                                            onChange={(e) =>
-                                                setFilterExport({
-                                                    ...filterExport,
-                                                    year: e.target.value,
-                                                })
-                                            }
-                                            defaultValue={filterExport.year}
-                                        />
-                                        <label className={"label"}>Month :</label>
-                                        <SelectFilter
-                                            data={AllMonth()}
-                                            selected={filterExport.month}
-                                            onChange={(e: any) =>{
-                                                    setFilterExport({
-                                                        ...filterExport,
-                                                        month: e.target.value,
-                                                    })
-                                            }}
-                                        />
-                                    </div>
+          <label className="label">Range :</label>
+          <SelectFilter
+            data={ClinicTransactionDate()}
+            selected={customDate}
+            onChange={(event: any) => {
+              if (event.target.value == DateFilter.CUSTOM_DATE) {
+                setShowCustomDate(true);
+                setCustomDate(DateFilter.CUSTOM_DATE);
+              } else {
+                setCustomDate(event.target.value);
+                setShowCustomDate(false);
+                const date = HandleFormatArrayDateFilter(event.target.value);
+                setParams({
+                  ...params,
+                  date: date,
+                });
+              }
+            }}
+          />
+          {showCustomDate ? (
+            <>
+              <label className="label">Start Date :</label>
+              <DateTimePickerRangFilter
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[0] ?? ""}
+              />
+              <label className="label">End Date :</label>
+              <DateTimePickerRangFilter
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[1] ?? ""}
+              />
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      );
+    },
+  };
+  return (
+    <>
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
+            revalidateTable();
+          }
+        }}
+      />
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
 
-                                    <ExportButton data={filterExport} close={closeModal} />
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
-            <Transition appear show={isOpenStatus} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModalStatus}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black/25" />
-                    </Transition.Child>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <div className={"w-full my-4 grid grid-cols-1"}>
+                    <label className={"label"}>Year :</label>
+                    <input
+                      className="input input-bordered w-full focus:outline-pom focus:border-pom"
+                      type={"number"}
+                      min={1900}
+                      max={2099}
+                      step={1}
+                      onChange={(e) =>
+                        setFilterExport({
+                          ...filterExport,
+                          year: e.target.value,
+                        })
+                      }
+                      defaultValue={filterExport.year}
+                    />
+                    <label className={"label"}>Month :</label>
+                    <SelectFilter
+                      data={AllMonth()}
+                      selected={filterExport.month}
+                      onChange={(e: any) => {
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
 
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <h1 className={'card-title'}>Change All Status :</h1>
-                                    <ChangeAllStatusSelector ids={selectedItems} closeModalStatus={closeModalStatus}/>
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
-            <DataTable {...tableData} />
-        </>
-    );
+                  <ExportButton data={filterExport} close={closeModal} />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={isOpenStatus} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModalStatus}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <h1 className={"card-title"}>Change All Status :</h1>
+                  <ChangeAllStatusSelector
+                    ids={selectedItems}
+                    closeModalStatus={closeModalStatus}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <DataTable {...tableData} />
+    </>
+  );
 };
 
 export default AppointmentDeductionTable;

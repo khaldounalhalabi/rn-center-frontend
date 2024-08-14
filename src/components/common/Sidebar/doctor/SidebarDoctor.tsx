@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
@@ -25,6 +26,7 @@ import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
 import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
+import SidebarArIcon from "@/components/icons/SidebarArIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -43,6 +45,8 @@ const SidebarDoctor = ({
   const permissions: string | undefined = getCookieClient("permissions");
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const role = getCookieClient("role");
+  const local = getCookieClient('NEXT_LOCALE')
+
   return (
     <div
       className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
@@ -55,19 +59,22 @@ const SidebarDoctor = ({
     >
       <div>
         <span
-          className={`flex justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+            className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
-          <SidebarEnIcon
-            className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}
+          {local == 'en'?
+              <SidebarEnIcon className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}/>
+              :
+              <SidebarArIcon className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}/>
+          }
+          <XMark
+              className={`h-8 w-8 md:hidden cursor-pointer`}
+              onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
           />
           <XMark
-            className={`h-8 w-8 md:hidden cursor-pointer`}
-            onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
+              className={`h-8 w-8 mx-3 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
+              onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
-          <XMark
-            className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
-            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
-          />
+
           <MenuIcon
             className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
             onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}

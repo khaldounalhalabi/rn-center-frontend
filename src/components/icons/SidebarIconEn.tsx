@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
@@ -5,7 +6,7 @@ const SidebarEnIcon: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg
         {...props}
-      viewBox="0 0 1150 388"
+      viewBox="0 0 1700 388"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

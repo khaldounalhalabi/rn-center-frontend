@@ -378,7 +378,7 @@
         "type": "Type",
         "isActive": "is Active",
         "active": "Active",
-        "not-active": "not-active",
+        "not-active": "Not Active",
         "actions": "Actions"
       },
       "create": {

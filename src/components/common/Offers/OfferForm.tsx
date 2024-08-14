@@ -122,20 +122,21 @@ const OfferForm = ({
             </label>
             <Input
               name={"is_active"}
-              label={t("active")}
-              type="radio"
-              className="radio radio-info"
-              value={"active"}
-              defaultChecked={defaultValues ? defaultValues?.is_active : true}
-            />
-            <Input
-              name={"is_active"}
               label={t("not-active")}
               type="radio"
               className="radio radio-info"
               value={"in-active"}
               defaultChecked={!defaultValues?.is_active}
             />
+            <Input
+                name={"is_active"}
+                label={t("active")}
+                type="radio"
+                className="radio radio-info"
+                value={"active"}
+                defaultChecked={defaultValues ? defaultValues?.is_active : true}
+            />
+
           </div>
         ) : (
           ""

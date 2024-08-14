@@ -197,7 +197,7 @@ const Home = () => {
   };
 
   return (
-    <div className={`flex md:mx-2 justify-center w-full h-screen`}>
+      <div className={`flex md:px-2 justify-center w-full h-screen`}>
       <div className={`flex flex-col`}>
         <Grid sm={1} md={3} className={`items-baseline`}>
           <div className={`flex flex-col gap-1 justify-between`}>

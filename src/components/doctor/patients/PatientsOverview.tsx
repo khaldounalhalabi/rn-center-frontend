@@ -3,7 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
-import PrescriptionsTable from "@/components/common/Appointment/PrescriptionsTable";
+import PrescriptionsTable from "@/components/doctor/patients/PrescriptionsTable";
 import AppointmentTable from "./AppointmentTable";
 import {useTranslations} from "next-intl";
 
@@ -72,7 +72,7 @@ const PatientsOverview = ({
             <AppointmentTable customer={patient} />
           </Tab.Panel>
           <Tab.Panel>
-            <PrescriptionsTable patient={patient} userType={"customer"} />
+            <PrescriptionsTable patient={patient} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

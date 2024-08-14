@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
@@ -35,6 +36,8 @@ import SidebarEnIcon from "@/components/icons/SidebarIconEn";
 import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
 import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionIcon";
 import SettingIcon from "@/components/icons/SettingIcon";
+import {getCookieClient} from "@/Actions/clientCookies";
+import SidebarArIcon from "@/components/icons/SidebarArIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -50,6 +53,7 @@ const SidebarAdmin = ({
   }>;
 }) => {
   const t = useTranslations("sideBar");
+  const local = getCookieClient('NEXT_LOCALE')
 
   return (
     <div
@@ -63,9 +67,12 @@ const SidebarAdmin = ({
     >
       <div>
         <div
-          className={`flex justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
-        >
-          <SidebarEnIcon className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}/>
+            className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}        >
+          {local == 'en'?
+              <SidebarEnIcon className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}/>
+              :
+              <SidebarArIcon className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}/>
+          }
           <XMark
             className={`h-8 w-8 md:hidden cursor-pointer`}
             onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}

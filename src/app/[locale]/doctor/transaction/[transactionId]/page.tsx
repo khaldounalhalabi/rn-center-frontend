@@ -52,7 +52,13 @@ const page = async ({
           <label className="label justify-start text-xl">
             Amount :{" "}
             <span className="ml-2 badge badge-warning" suppressHydrationWarning>
-            {res?.amount.toLocaleString()} IQD
+            {res?.type == "income"
+                ? "+"
+                : res?.type == "outcome"
+                    ? "-"
+                    : res?.type == "system_debt" ?
+                        "-":"+"}{res?.amount.toLocaleString()} IQD
+
           </span>
           </label>
 

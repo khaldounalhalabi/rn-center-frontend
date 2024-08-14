@@ -106,7 +106,6 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           placeholder={"Enter Clinic Phone Number"}
           label={t("phones")}
           required={true}
-          maxFields={2}
         />
         <Grid md={"2"}>
           <div className={`flex gap-5  p-2 items-center`}>

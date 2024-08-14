@@ -9,7 +9,7 @@ export enum Blood {
 
   AB_ = "AB-",
 
-  O = "O",
+  O = "O+",
 
   O_ = "O-",
 }

@@ -44,12 +44,13 @@ const page = async () => {
                 {await TranslateServer(res?.user?.last_name)}
               </h3>
               <p>{res?.user?.email}</p>
-              <div className={"flex gap-1"}>
+              <div className={"flex gap-1  my-2"}>
                 {res?.user?.phones?.slice(0, 2).map((item: Phone, index) => {
                   return (
-                    <p key={item.id}>
-                      {item.phone} {index != 0 && index != 2 ? "/" : ""}
-                    </p>
+                      <p key={item.id} className={'badge badge-outline'}>
+                        {item.phone}
+                      </p>
+
                   );
                 })}
               </div>

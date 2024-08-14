@@ -7,6 +7,9 @@ import NotificationsPopover from "@/components/common/Navbar/NotificationsPopove
 import ProfileOptionsPopover from "@/components/common/Navbar/ProfileOptionsPopover";
 import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
+import BackIcon from "@/components/icons/backIcon";
+import ChevronLeft from "@/components/icons/ChevronLeft";
+import {useRouter} from "next/navigation";
 
 const Navbar = ({
   openNavBar,
@@ -22,10 +25,11 @@ const Navbar = ({
   }>;
 }) => {
   const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
+  const rout = useRouter()
 
   return (
     <nav
-      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center px-10 py-4 col-span-4 md:col-span-3`}
+        className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center pl-2 pr-10 py-4 col-span-4 md:col-span-3`}
     >
       <div
         className={
@@ -41,6 +45,10 @@ const Navbar = ({
           className={`h-6 w-6 cursor-pointer md:hidden`}
           onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
         />
+        <div className={'p-2 hidden md:block  h-full rounded-full hover:bg-gray-300 cursor-pointer'} onClick={()=>rout.back()}>
+          <BackIcon className={'w-8 h-8'}/>
+        </div>
+
         <SearchIcon
           className={`h-6 w-6 cursor-pointer`}
           onClick={() => {

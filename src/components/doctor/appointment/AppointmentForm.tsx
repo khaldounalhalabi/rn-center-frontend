@@ -192,9 +192,13 @@ const AppointmentForm = ({
   return (
     <PageCard>
       <div className={"flex justify-between"}>
-        <h2 className="card-title">
-          {type == "store" ? t("createAppointment") : t("editAppointment")}
-        </h2>
+
+        <div className={'flex flex-col'}>
+          <h2 className="card-title">
+            {type == "store" ? t("createAppointment") : t("editAppointment")}
+          </h2>
+          <h3>Patient : <span className={'badge badge-outline'}>{TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}{TranslateClient(defaultValues?.customer?.user?.middle_name)} {" "}{TranslateClient(defaultValues?.customer?.user?.last_name)}</span></h3>
+        </div>
         <button
           type={"button"}
           className="btn btn-info"

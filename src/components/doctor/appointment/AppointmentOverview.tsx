@@ -3,7 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
-import PrescriptionsTable from "@/components/common/Appointment/PrescriptionsTable";
+import PrescriptionsTable from "@/components/doctor/appointment/PrescriptionsTable";
 import {useTranslations} from "next-intl";
 
 function classNames(...classes: any[]) {
@@ -55,7 +55,6 @@ const AppointmentOverview = ({
             <Tab.Panel className={"w-full"}>
               <PrescriptionsTable
                 appointment={appointment}
-                userType={"doctor"}
               />
             </Tab.Panel>
           </Tab.Panels>

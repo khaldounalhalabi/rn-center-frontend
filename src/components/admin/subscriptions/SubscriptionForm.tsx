@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, { useState } from "react";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
@@ -39,6 +39,8 @@ const SubscriptionForm = ({
   const onSuccess = () => {
     Navigate(`/admin/subscriptions`);
   };
+  const [unit, setUnit] = useState<"month" | "day">("day");
+
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -53,17 +55,6 @@ const SubscriptionForm = ({
           label={`Name`}
           name={"name"}
         />
-        <div>
-          <Input
-            required={true}
-            type={"number"}
-            placeholder={"12"}
-            label={`Period`}
-            name={"period"}
-            min={-1}
-          />
-          <p className={"text-sm my-1"}>for lifetime period put -1</p>
-        </div>
         <Input
           required={true}
           type={"number"}
@@ -73,6 +64,27 @@ const SubscriptionForm = ({
           defaultValue={defaultValues?.allow_period ?? 0}
           unit={"day"}
         />
+        <SelectPopOverFrom
+          status={"day"}
+          name={"period_unit"}
+          ArraySelect={SubscriptionPeriodUnitArray()}
+          handleSelect={(status: "month" | "day") => setUnit(status)}
+          label={"Period Unit"}
+          required={true}
+        />
+        <div>
+          <Input
+            required={true}
+            type={"number"}
+            placeholder={"12"}
+            label={`Period`}
+            name={"period"}
+            min={-1}
+            unit={unit}
+          />
+          <p className={"text-sm my-1"}>for lifetime period put -1</p>
+        </div>
+
         <Input
           required={true}
           unit={"IQD"}
@@ -81,7 +93,6 @@ const SubscriptionForm = ({
           label={`Cost`}
           name={"cost"}
         />
-        <SelectPopOverFrom status={'day'} name={'period_unit'} ArraySelect={SubscriptionPeriodUnitArray()} handleSelect={()=>undefined} label={'Period Unit'} required={true}/>
       </Grid>
       <Textarea name={"description"} required={true} label={"Description"} />
     </Form>

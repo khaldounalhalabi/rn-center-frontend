@@ -103,17 +103,6 @@ const Page = () => {
             showUrl={`/admin/transaction/${data?.id}`}
             setHidden={setHidden}
           >
-            <NotificationHandler
-              handle={(payload) => {
-                if (
-                  payload.getNotificationType() ==
-                    RealTimeEvents.BalanceChange &&
-                  revalidate
-                ) {
-                  revalidate();
-                }
-              }}
-            />
           </ActionsButtons>
         ),
       },
@@ -191,7 +180,7 @@ const Page = () => {
       <NotificationHandler
         handle={(payload: NotificationPayload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            refetch();
+            return refetch();
           }
         }}
       />

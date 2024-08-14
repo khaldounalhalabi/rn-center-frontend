@@ -6,7 +6,6 @@ import {
   NotificationPayload,
   NotificationPayloadData,
 } from "@/Models/NotificationPayload";
-import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { ReactNode, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -18,7 +17,6 @@ const NotificationHandler = ({
   handle?: (payload: NotificationPayload) => void;
   children?: ReactNode;
 }) => {
-  const { fcmToken } = useFcmToken();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {

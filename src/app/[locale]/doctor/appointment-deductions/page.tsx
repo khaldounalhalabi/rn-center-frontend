@@ -8,17 +8,16 @@ import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import dayjs from "dayjs";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@/navigation";
 import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import ExportButton from "@/components/doctor/appointment-deductions/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, { MonthsEnum } from "@/enum/Month";
+import AllMonth from "@/enum/Month";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
@@ -47,9 +46,16 @@ const Page = () => {
     },
   });
 
+  const queryClient = useQueryClient();
+  const revalidateTable = () => {
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_undefined_Appointment Deductions`],
+    });
+  };
+
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: dayjs().format('YYYY'),
-    month: dayjs().format('MMMM'),
+    year: dayjs().format("YYYY"),
+    month: dayjs().format("MMMM"),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -82,9 +88,9 @@ const Page = () => {
         name: "amount",
         label: `Amount`,
         sortable: true,
-        render:(data)=>{
-          return<span>{data.toLocaleString()}</span>
-        }
+        render: (data) => {
+          return <span>{data.toLocaleString()}</span>;
+        },
       },
       {
         name: "status",
@@ -127,7 +133,7 @@ const Page = () => {
             baseUrl={`/doctor/appointment-deductions`}
             showUrl={`/doctor/appointment-deductions/${data?.id}`}
             setHidden={setHidden}
-          ></ActionsButtons>
+          />
         ),
       },
     ],
@@ -170,29 +176,29 @@ const Page = () => {
             <>
               <label className="label">Start Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        time?.format("YYYY-MM-DD hh:mm"),
-                        params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[0] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                        time?.format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[1] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (
@@ -208,6 +214,7 @@ const Page = () => {
         handle={(payload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
             refetch();
+            revalidateTable();
           }
         }}
       />
@@ -255,14 +262,14 @@ const Page = () => {
                     />
                     <label className={"label"}>Month :</label>
                     <SelectFilter
-                        data={AllMonth()}
-                        selected={filterExport.month}
-                        onChange={(e: any) => {
-                            setFilterExport({
-                              ...filterExport,
-                              month: e.target.value,
-                            });
-                        }}
+                      data={AllMonth()}
+                      selected={filterExport.month}
+                      onChange={(e: any) => {
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
+                      }}
                     />
                   </div>
 
@@ -289,7 +296,7 @@ const Page = () => {
             <label className="label">
               Total Cost :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.total_cost ??0).toLocaleString()}
+                {Number(balance?.data?.total_cost ?? 0).toLocaleString()}
               </span>
             </label>
 
@@ -302,20 +309,22 @@ const Page = () => {
             <label className="label">
               Subscription Cost :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.subscription_cost??0).toLocaleString()}
+                {Number(balance?.data?.subscription_cost ?? 0).toLocaleString()}
               </span>
             </label>
             <label className="label">
               Clinic Balance :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.clinic_balance??0).toLocaleString()}
+                {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}
               </span>
             </label>
 
             <label className="label">
               Appointments Deductions :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.appointments_deductions??0).toLocaleString()}
+                {Number(
+                  balance?.data?.appointments_deductions ?? 0,
+                ).toLocaleString()}
               </span>
             </label>
           </Grid>

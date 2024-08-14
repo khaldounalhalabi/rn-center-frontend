@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/Helpers/Firebase";
 import { GET, POST } from "@/Http/Http";
-import { getCookieServer } from "@/Actions/serverCookies";
 import { getCookieClient } from "@/Actions/clientCookies";
 
 const useFcmToken = () => {

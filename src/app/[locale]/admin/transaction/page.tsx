@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -12,7 +12,7 @@ import TransactionTypeArray from "@/enum/TransactionType";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
@@ -37,6 +37,14 @@ const Page = () => {
       ).getSummary();
     },
   });
+
+  const queryClient = useQueryClient();
+  const revalidateTable = () => {
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_/admin/transaction/create_Transactions`],
+    });
+  };
+
   const tableData: DataTableData<Transactions> = {
     createUrl: `/admin/transaction/create`,
     title: `Transactions`,
@@ -49,7 +57,7 @@ const Page = () => {
       {
         name: "actor.first_name",
         sortable: true,
-        label: `${"Actor"}`,
+        label: `Actor`,
         render: (_first_name, data) => {
           return (
             <p>
@@ -70,23 +78,23 @@ const Page = () => {
         label: `Type`,
         sortable: true,
       },
-        {
-            name: "amount",
-            label: `Amount`,
-            sortable: true,
-            render: (_amount, transaction) => (
-                <span
-                    className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
-                >
+      {
+        name: "amount",
+        label: `Amount`,
+        sortable: true,
+        render: (_amount, transaction) => (
+          <span
+            className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
+          >
             {transaction?.type == "income"
-                ? "+"
-                : transaction?.type == "outcome"
-                    ? "-"
-                    : ""}
-                    {transaction?.amount.toLocaleString()}
+              ? "+"
+              : transaction?.type == "outcome"
+                ? "-"
+                : ""}
+            {transaction?.amount.toLocaleString()}
           </span>
-            ),
-        },
+        ),
+      },
       {
         name: "date",
         label: `Date`,
@@ -94,7 +102,7 @@ const Page = () => {
       },
       {
         label: `Actions`,
-        render: (_undefined, data, setHidden, revalidate) => (
+        render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show", "delete"]}
@@ -102,19 +110,7 @@ const Page = () => {
             editUrl={`/admin/transaction/${data?.id}/edit`}
             showUrl={`/admin/transaction/${data?.id}`}
             setHidden={setHidden}
-          >
-            <NotificationHandler
-              handle={(payload) => {
-                if (
-                  payload.getNotificationType() ==
-                    RealTimeEvents.BalanceChange &&
-                  revalidate
-                ) {
-                  revalidate();
-                }
-              }}
-            />
-          </ActionsButtons>
+          />
         ),
       },
     ],
@@ -192,6 +188,7 @@ const Page = () => {
         handle={(payload: NotificationPayload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
             refetch();
+            revalidateTable();
           }
         }}
       />

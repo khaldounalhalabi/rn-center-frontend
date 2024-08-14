@@ -8,7 +8,7 @@ import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@/navigation";
 import ClinicTransactionDate, {
   DateFilter,
@@ -17,7 +17,7 @@ import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
 import ExportButton from "@/components/admin/appointment-deductions/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, { MonthsEnum } from "@/enum/Month";
+import AllMonth from "@/enum/Month";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
@@ -43,6 +43,13 @@ const Page = () => {
   const [selectAll, setSelectAll] = useState<number[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [typeSelectAll, setTypeSelectAll] = useState(false);
+  const queryClient = useQueryClient();
+  const revalidateTable = () => {
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_undefined_Appointment Deductions`],
+    });
+  };
+
   const handleCheckboxChange = (id: number, checked: boolean) => {
     if (checked) {
       setSelectedItems((prev) => [...prev, id]);
@@ -71,7 +78,7 @@ const Page = () => {
         "admin",
       ).getAdminSummary();
     },
-    refetchOnWindowFocus:false
+    refetchOnWindowFocus: false,
   });
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
@@ -101,7 +108,6 @@ const Page = () => {
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<AppointmentDeductions> = {
-
     title: `Appointment Deductions`,
     extraButton: (
       <>
@@ -151,7 +157,7 @@ const Page = () => {
       {
         name: "appointment.clinic.user.first_name",
         sortable: true,
-        label: `${"Clinic"}`,
+        label: `Clinic`,
         render: (_first_name, transaction) => {
           return (
             <>
@@ -171,7 +177,7 @@ const Page = () => {
       {
         name: "appointment.clinic.user.first_name",
         sortable: true,
-        label: `${"Doctor"}`,
+        label: `Doctor`,
         render: (_first_name, transaction) => {
           return (
             <>
@@ -192,11 +198,9 @@ const Page = () => {
         name: "amount",
         label: `Amount`,
         sortable: true,
-        render:(data)=>{
-          return (
-              <span>{data.toLocaleString()}</span>
-          )
-        }
+        render: (data) => {
+          return <span>{data.toLocaleString()}</span>;
+        },
       },
       {
         name: "status",
@@ -297,29 +301,29 @@ const Page = () => {
             <>
               <label className="label">Start Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        time?.format("YYYY-MM-DD hh:mm"),
-                        params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[0] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">End Date :</label>
               <DateTimePickerRangFilter
-                  onChange={(time: any) => {
-                    setParams({
-                      ...params,
-                      date: [
-                        params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                        time?.format("YYYY-MM-DD hh:mm"),
-                      ],
-                    });
-                  }}
-                  defaultValue={params?.date?.[1] ?? ""}
+                onChange={(time: any) => {
+                  setParams({
+                    ...params,
+                    date: [
+                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD hh:mm"),
+                    ],
+                  });
+                }}
+                defaultValue={params?.date?.[1] ?? ""}
               />
             </>
           ) : (
@@ -334,7 +338,8 @@ const Page = () => {
       <NotificationHandler
         handle={(payload: NotificationPayload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-           return refetch();
+            refetch();
+            revalidateTable();
           }
         }}
       />
@@ -386,10 +391,10 @@ const Page = () => {
                       data={AllMonth()}
                       selected={filterExport.month}
                       onChange={(e: any) => {
-                          setFilterExport({
-                            ...filterExport,
-                            month: e.target.value,
-                          });
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
                       }}
                     />
                   </div>
@@ -455,16 +460,18 @@ const Page = () => {
             <label className="label">
               Done Appointment Deductions :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.done_appointment_deductions).toFixed(1).toLocaleString()}
+                {Number(balance?.data?.done_appointment_deductions)
+                  .toFixed(1)
+                  .toLocaleString()}
               </span>
             </label>
 
             <label className="label">
               Pending Appointment Deductions :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.pending_appointment_deductions).toFixed(
-                  1,
-                ).toLocaleString()}
+                {Number(balance?.data?.pending_appointment_deductions)
+                  .toFixed(1)
+                  .toLocaleString()}
               </span>
             </label>
           </Grid>

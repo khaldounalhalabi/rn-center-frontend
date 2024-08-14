@@ -4,7 +4,6 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { Transactions } from "@/Models/Transactions";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
@@ -25,11 +24,10 @@ import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import ExportButton from "@/components/doctor/transaction/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, { MonthsEnum } from "@/enum/Month";
+import AllMonth from "@/enum/Month";
 import ChartIcon from "@/components/icons/ChartIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationHandler from "@/components/common/NotificationHandler";
@@ -43,7 +41,7 @@ interface filterExportType {
 
 const Page = () => {
   const queryClient = useQueryClient();
-  const revalidate = () => {
+  const revalidateTable = () => {
     queryClient.invalidateQueries({
       queryKey: [`tableData_/doctor/transaction/create_Transactions`],
     });
@@ -205,7 +203,7 @@ const Page = () => {
       },
       {
         label: `Actions`,
-        render: (_undefined, data, setHidden, revalidate) => (
+        render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show", "delete"]}
@@ -335,7 +333,7 @@ const Page = () => {
       <NotificationHandler
         handle={(payload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            revalidate()
+            revalidateTable()
             refetch()
           }
         }

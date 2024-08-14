@@ -1,18 +1,8 @@
 "use client";
-import React, {
-  Fragment,
-  ReactNode,
-  ThHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
+import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {
-  keepPreviousData,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import SearchIcon from "@/components/icons/SearchIcon";
 import { Link } from "@/navigation";
@@ -80,30 +70,32 @@ const DataTable = (tableData: DataTableData<any>) => {
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
-  const { isPending, data, isFetching, isPlaceholderData, isRefetching } =
-    useQuery({
-      queryKey: [
-        `tableData_${tableData.createUrl}_${tableData.title}`,
-        page,
-        search,
-        sortDir,
-        sortCol,
-        perPage,
-        params,
-      ],
-      queryFn: async () => {
-        let s = !search || search == "" ? undefined : search;
-        let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
-        let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
-        return await tableData
-          .api(page, s, sortC, sortD, perPage, params)
-          .then((res) => {
-            return res;
-          });
-      },
-      refetchOnWindowFocus: false,
-      retry: 10,
-    });
+  console.log(
+    `table query key is : tableData_${tableData.createUrl}_${tableData.title}`,
+  );
+  const { isPending, data, isPlaceholderData, isRefetching } = useQuery({
+    queryKey: [
+      `tableData_${tableData.createUrl}_${tableData.title}`,
+      page,
+      search,
+      sortDir,
+      sortCol,
+      perPage,
+      params,
+    ],
+    queryFn: async () => {
+      let s = !search || search == "" ? undefined : search;
+      let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
+      let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
+      return await tableData
+        .api(page, s, sortC, sortD, perPage, params)
+        .then((res) => {
+          return res;
+        });
+    },
+    refetchOnWindowFocus: false,
+    retry: 10,
+  });
   return (
     <>
       {tableData.filter ? (

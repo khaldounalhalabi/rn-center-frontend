@@ -28,8 +28,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     },
   });
   const [reFetch, setReFetch] = useState(false);
-  const { fcmToken } = useFcmToken();
-  console.log(fcmToken);
+
 
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>

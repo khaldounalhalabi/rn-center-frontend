@@ -3,7 +3,7 @@ import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
-import { useTranslations } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
 import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
 import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
@@ -45,11 +45,11 @@ const SidebarDoctor = ({
   const permissions: string | undefined = getCookieClient("permissions");
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const role = getCookieClient("role");
-  const local = getCookieClient('NEXT_LOCALE')
+  const local = useLocale()
 
   return (
     <div
-      className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[35%] md:max-w-[400px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
+      className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[25%] md:max-w-[300px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
        ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
        ${
          openNavBar.sm

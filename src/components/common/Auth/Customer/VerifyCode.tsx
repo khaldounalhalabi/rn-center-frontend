@@ -131,3 +131,7 @@ const VerifyCode = ({
 };
 
 export default VerifyCode;
+
+/**
+ * Thanks to redeemer for cheer me up
+ */

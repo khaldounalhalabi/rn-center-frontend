@@ -8,8 +8,8 @@ import { Navigate } from "@/Actions/navigate";
 import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
-import {Role} from "@/enum/Role";
-import {isArray} from "util";
+import { Role } from "@/enum/Role";
+import { isArray } from "util";
 
 interface LoginProps {
   url: string;
@@ -18,36 +18,40 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
-  const [errorBlocked,setErrorBlocked] = useState()
+  const [errorBlocked, setErrorBlocked] = useState();
 
   const handleSubmit = (data: { email: string; password: string }) => {
     setError(false);
     return POST<AuthResponse>(url, data).then((res: any) => {
-      console.log(res)
+      console.log(res);
       if (res.code == 401) {
         setError(true);
         return res;
-      }else if( res.code == 430 || res.code == 431 || res.code == 432){
-        setErrorBlocked(res?.message)
-        return res
+      } else if (res.code == 430 || res.code == 431 || res.code == 432) {
+        setErrorBlocked(res?.message);
+        return res;
       } else {
-        isArray(res?.data?.user?.role)? res?.data?.user.role?.forEach((e:{id:number,name:string})=>{
-          setCookieClient('role', e.name)
-          if(e.name == Role.CLINIC_EMPLOYEE){
-
-            const permissions = res.data.user.permissions
-            return setCookieClient('permissions',permissions.toString())
-          }else {
-            return setCookieClient('permissions',"dffds%2Cfdsf")
-          }
-        }):false
+        isArray(res?.data?.user?.role)
+          ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
+              setCookieClient("role", e.name);
+              if (e.name == Role.CLINIC_EMPLOYEE) {
+                const permissions = res.data.user.permissions;
+                return setCookieClient("permissions", permissions.toString());
+              } else {
+                return setCookieClient("permissions", "dffds%2Cfdsf");
+              }
+            })
+          : false;
         return res;
       }
     });
   };
 
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
-    window.localStorage.setItem("user",JSON.stringify(data?.data?.user??undefined))
+    window.localStorage.setItem(
+      "user",
+      JSON.stringify(data?.data?.user ?? undefined)
+    );
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
@@ -56,7 +60,10 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
 
   return (
     <div className="relative w-full h-screen">
-      <div className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] " style={{transform: "translate(-50%, -50%);"}}>
+      <div
+        className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] "
+        style={{ transform: "translate(-50%, -50%);" }}
+      >
         <div className="flex flex-col items-center mb-4 w-full">
           <h1 className="font-bold text-2xl sm:text-3xl">Sign In</h1>
           <h4 className="mt-4 text-gray-500">Welcome Back!</h4>
@@ -87,12 +94,11 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
               Password.
             </p>
           )}
-          {errorBlocked?
-              <p className="my-3 p-2 w-full text-error text-sm">
-                {errorBlocked}
-              </p>
-              :""
-          }
+          {errorBlocked ? (
+            <p className="my-3 p-2 w-full text-error text-sm">{errorBlocked}</p>
+          ) : (
+            ""
+          )}
 
           <div className="flex justify-center opacity-80 mt-4">
             <h4>Forget Password?</h4>

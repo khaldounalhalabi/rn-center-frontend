@@ -7,20 +7,19 @@ import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
 
 const Form = ({
-                className,
-    button=undefined,
+  className,
   children,
   handleSubmit,
   onSuccess,
   defaultValues = {},
   buttonText = "Submit",
-                NewButton,
   setLocale = undefined,
   showToastMessage = true,
+  disabled = false,
+  defaultButton = true,
+  otherSubmitButton = undefined,
 }: {
-  className?:string
-  button?:string
-  NewButton?:any
+  className?: string;
   children: React.ReactNode;
   handleSubmit: (data: any) => Promise<ApiResponse<any>>;
   defaultValues?: object | undefined | null;
@@ -28,6 +27,9 @@ const Form = ({
   buttonText?: string;
   setLocale?: React.Dispatch<"en" | "ar">;
   showToastMessage?: boolean;
+  disabled?: boolean;
+  defaultButton?: boolean;
+  otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode
 }) => {
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
@@ -86,27 +88,17 @@ const Form = ({
             methods.clearErrors();
           }}
         >
-          {button ? (
-            <button
-              type="submit"
-              disabled={methods.formState.isSubmitting}
-              className={`${button}`}
-            >
-              {NewButton}
-              {buttonText}{" "}
-            </button>
-          ) : (
+          {otherSubmitButton ? otherSubmitButton(methods.formState.isSubmitting) : ""}
+          {defaultButton && (
             <PrimaryButton
               type="submit"
-              disabled={methods.formState.isSubmitting}
+              disabled={methods.formState.isSubmitting || disabled}
             >
               {buttonText}{" "}
-              {methods.formState.isSubmitting ? (
+              {methods.formState.isSubmitting && (
                 <span className="mx-1">
                   <LoadingSpin className="w-6 h-6 text-white" />
                 </span>
-              ) : (
-                ""
               )}
             </PrimaryButton>
           )}

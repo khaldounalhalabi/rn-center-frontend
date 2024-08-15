@@ -22,19 +22,19 @@ export interface User {
   address?: Address;
   password?: string;
   password_confirmation?: string;
-  role?: string | role[];
+  role?: Role[];
   clinic?: Clinic;
-  permissions?:string[]
+  permissions?: string[];
 }
 
 export interface AuthResponse {
   user: User;
-  clinic?:Clinic
+  clinic?: Clinic;
   token?: string;
   refresh_token?: string;
 }
 
-export interface role {
+export interface Role {
   id: number;
   name: string;
 }

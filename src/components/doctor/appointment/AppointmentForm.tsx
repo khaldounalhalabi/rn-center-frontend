@@ -16,7 +16,7 @@ import { CustomerService } from "@/services/CustomerService";
 import { Customer } from "@/Models/Customer";
 import { swal } from "@/Helpers/UIHelpers";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
-import  {
+import {
   AppointmentStatusEnum,
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
@@ -29,7 +29,7 @@ import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import PageCard from "@/components/common/ui/PageCard";
 import PatientForm from "@/components/doctor/patients/PatientForm";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -39,12 +39,12 @@ const AppointmentForm = ({
 }: {
   defaultValues?: Appointment;
   id?: number;
-  patientId?:number
+  patientId?: number
   type?: "store" | "update";
 }) => {
   const t = useTranslations('common.appointment.create')
   const clinic = HandleGetUserData();
-  const [date ,setDate ] = useState(defaultValues??{})
+  const [date, setDate] = useState(defaultValues ?? {})
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const { data: availableTimes } = useQuery({
@@ -59,7 +59,7 @@ const AppointmentForm = ({
     id: clinic?.clinic_id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
     range: clinic?.clinic?.appointment_day_range ?? 0,
-    maxAppointment:clinic?.clinic?.max_appointments,
+    maxAppointment: clinic?.clinic?.max_appointments,
     data: {
       booked_times: availableTimes?.data?.booked_times ?? [],
       clinic_schedule: availableTimes?.data?.clinic_schedule ?? {},
@@ -82,10 +82,10 @@ const AppointmentForm = ({
 
   const lastAppointmentDate = lastVisitData?.data?.date;
   const handleSubmit = async (data: any) => {
-    const sendData = patientId?{
+    const sendData = patientId ? {
       ...data,
-      customer_id:patientId,
-    }:data
+      customer_id: patientId,
+    } : data
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -113,10 +113,10 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    patientId?
-    Navigate(`/doctor/patients/${patientId}`)
-    :    
-    Navigate(`/doctor/appointment`)
+    patientId ?
+      Navigate(`/doctor/patients/${patientId}`)
+      :
+      Navigate(`/doctor/appointment`)
 
   };
   const [getExtra, setExtra] = useState(0);
@@ -145,10 +145,10 @@ const AppointmentForm = ({
   const handleSubmitAppointmentDate = async (data: any) => {
     return await AppointmentService.make<AppointmentService>(
       "doctor",
-    ).updateDate(defaultValues?.id ?? 0, data).then((res)=>{
+    ).updateDate(defaultValues?.id ?? 0, data).then((res) => {
       setDate({
         ...defaultValues,
-        date:res.data.date
+        date: res.data.date
       })
       return res
     })
@@ -197,7 +197,7 @@ const AppointmentForm = ({
           <h2 className="card-title">
             {type == "store" ? t("createAppointment") : t("editAppointment")}
           </h2>
-          <h3>Patient : <span className={'badge badge-outline'}>{TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}{TranslateClient(defaultValues?.customer?.user?.middle_name)} {" "}{TranslateClient(defaultValues?.customer?.user?.last_name)}</span></h3>
+          {type == "store" ? "" : (<h3>Patient : <span className={'badge badge-outline'}>{TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}{TranslateClient(defaultValues?.customer?.user?.middle_name)} {" "}{TranslateClient(defaultValues?.customer?.user?.last_name)}</span></h3>)}
         </div>
         <button
           type={"button"}
@@ -283,7 +283,7 @@ const AppointmentForm = ({
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
-                        return HandleDatePicker(data, day, range.range,range.maxAppointment);
+                        return HandleDatePicker(data, day, range.range, range.maxAppointment);
                       }}
                     />
                   </Form>
@@ -425,7 +425,7 @@ const AppointmentForm = ({
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
-                return HandleDatePicker(data, day, range.range,range.maxAppointment);
+                return HandleDatePicker(data, day, range.range, range.maxAppointment);
               }}
             />
           ) : (
@@ -491,15 +491,15 @@ const AppointmentForm = ({
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
-                    <tr key={index}>
-                      <td>
-                        {t("offers")} [{TranslateClient(e.title)}]
-                      </td>
-                      <td>
-                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
-                      </td>
-                    </tr>
-                  ))
+                  <tr key={index}>
+                    <td>
+                      {t("offers")} [{TranslateClient(e.title)}]
+                    </td>
+                    <td>
+                      {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                    </td>
+                  </tr>
+                ))
                 : ""}
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>

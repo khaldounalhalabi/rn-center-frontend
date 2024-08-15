@@ -2,7 +2,8 @@ import { Navigate } from "@/Actions/navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { Actors } from "@/types";
-import {deleteCookieServer} from "@/Actions/serverCookies";
+import { deleteCookieServer } from "@/Actions/serverCookies";
+import { CustomerAuthService } from "./CustomerAuthService";
 
 export class BaseService<T> {
   protected static instance?: BaseService<any>;
@@ -132,32 +133,40 @@ export class BaseService<T> {
   public async errorHandler(
     res: ApiResponse<T> | ApiResponse<T[]>
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
-    if(res.code == 401){
-
+    if (res.code == 401) {
     }
-    if(res.code == 432  ){
-      deleteCookieServer('token')
-      deleteCookieServer('refresh_token')
-      deleteCookieServer('user-type')
-      deleteCookieServer('role')
-      deleteCookieServer('permissions')
+    if (res.code == 432) {
+      deleteCookieServer("token");
+      deleteCookieServer("refresh_token");
+      deleteCookieServer("user-type");
+      deleteCookieServer("role");
+      deleteCookieServer("permissions");
       await Navigate(`/432`);
     }
-    if(res.code == 430){
-      deleteCookieServer('token')
-      deleteCookieServer('refresh_token')
-      deleteCookieServer('user-type')
-      deleteCookieServer('role')
-      deleteCookieServer('permissions')
+    if (res.code == 430) {
+      deleteCookieServer("token");
+      deleteCookieServer("refresh_token");
+      deleteCookieServer("user-type");
+      deleteCookieServer("role");
+      deleteCookieServer("permissions");
       await Navigate(`/430`);
     }
-    if (res.code == 403 ||  res.code ==431 || res.code == 433) {
-      deleteCookieServer('token')
-      deleteCookieServer('refresh_token')
-      deleteCookieServer('user-type')
-      deleteCookieServer('role')
-      deleteCookieServer('permissions')
+    if (res.code == 403 || res.code == 431) {
+      deleteCookieServer("token");
+      deleteCookieServer("refresh_token");
+      deleteCookieServer("user-type");
+      deleteCookieServer("role");
+      deleteCookieServer("permissions");
       await Navigate(`/auth/${this.actor}/login`);
+    }
+
+    if (res.code == 434) {
+      deleteCookieServer("token");
+      deleteCookieServer("refresh_token");
+      deleteCookieServer("user-type");
+      deleteCookieServer("role");
+      deleteCookieServer("permissions");
+      await Navigate("/auth/customer/verify-code");
     }
     return res;
   }

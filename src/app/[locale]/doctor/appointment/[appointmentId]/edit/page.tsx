@@ -3,8 +3,8 @@ import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
 
 const page = async ({
-                        params: { appointmentId },
-                    }: {
+    params: { appointmentId },
+}: {
     params: { appointmentId: number };
 }) => {
     const appointment = (
@@ -14,13 +14,12 @@ const page = async ({
     ).data;
 
     return (
-
-            <AppointmentForm
-                type={"update"}
-                defaultValues={{
-                    ...appointment,
-                }}
-            />
+        <AppointmentForm
+            type={"update"}
+            defaultValues={{
+                ...appointment,
+            }}
+        />
 
     );
 };

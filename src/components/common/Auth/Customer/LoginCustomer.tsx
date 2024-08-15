@@ -3,55 +3,50 @@ import Form from "@/components/common/ui/Form";
 import React, { useState } from "react";
 import { POST } from "@/Http/Http";
 import { AuthResponse } from "@/Models/User";
-import { isArray } from "util";
 import { setCookieClient } from "@/Actions/clientCookies";
-import { Role } from "@/enum/Role";
 import { ApiResponse } from "@/Http/Response";
 import { Navigate } from "@/Actions/navigate";
 import { Link } from "@/navigation";
 import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
-import ButtonSinSvg from "@/components/common/Auth/Customer/ButtonSin";
+import AuthSubmitButton from "./AuthSubmitButton";
+import { CustomerAuthService } from "@/services/CustomerAuthService";
 
-const LoginCustomer = ({ url }: { url: string }) => {
+const LoginCustomer = () => {
   const [error, setError] = useState(false);
-  const [errorBlocked, setErrorBlocked] = useState();
+  const [errorBlocked, setErrorBlocked] = useState<string>();
 
-  const handleLogIn =async (data: { email: string; password: string }) => {
-    console.log(data)
+  const handleLogIn = async (data: {
+    phone_number: string;
+    password: string;
+  }) => {
     setError(false);
-    return await POST<AuthResponse>(url, data).then((res: any) => {
-      console.log(res);
+    return await POST<AuthResponse>("customer/login", data).then((res) => {
       if (res.code == 401) {
         setError(true);
         return res;
       } else if (res.code == 430 || res.code == 431) {
-        setErrorBlocked(res?.message);
+        setErrorBlocked(res?.message as string);
         return res;
-      } else if(res.code == 433){
-        setCookieClient("unverified-email", data.email);
-        Navigate(`/auth/customer/verification-email-code`);
-      } {
-        isArray(res?.data?.user?.role)
-          ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
-              setCookieClient("role", e.name);
-              if (e.name == Role.CLINIC_EMPLOYEE) {
-                const permissions = res.data.user.permissions;
-                return setCookieClient("permissions", permissions.toString());
-              } else {
-                return setCookieClient("permissions", "dffds%2Cfdsf");
-              }
-            })
-          : false;
-        return res;
+      } else if (res.code == 434) {
+        setCookieClient("customer_phone_number", data.phone_number);
+        CustomerAuthService.make<CustomerAuthService>()
+          .requestVerificationCode({ phone_number: data.phone_number })
+          .then((response) => {
+            if (response.code == 200) {
+              Navigate("/auth/customer/verify-code");
+            }
+          });
       }
+      return res;
     });
   };
 
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined),
+      JSON.stringify(data?.data?.user ?? undefined)
     );
+    setCookieClient("role", data?.data?.user?.role?.[0]?.name ?? "");
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", "customer");
@@ -87,28 +82,20 @@ const LoginCustomer = ({ url }: { url: string }) => {
               }
             >
               <Form
-                  handleSubmit={handleLogIn}
-                  onSuccess={handleSuccess}
-                  className={"w-full"}
-                button={"w-fit h-fit"}
-                buttonText={""}
-                NewButton={
-                  <button className={"w-52 h-16 relative group hover:border-2 border-[#1FB8B9]  rounded-[30px]"}>
-                    <ButtonSinSvg className={"w-full h-full group-hover:hidden"} />
-                    <p
-                      className={
-                        "absolute tracking-5 top-1/2 right-1/2 group-hover:text-black -translate-y-1/2 translate-x-1/2 font-bold kodchasan text-[16px] text-white"
-                      }
-                    >
-                      Log In
-                    </p>
-                  </button>
-                }
+                handleSubmit={handleLogIn}
+                onSuccess={handleSuccess}
+                className={"w-full"}
+                otherSubmitButton={(isSubmitting) => (
+                  <AuthSubmitButton isSubmitting={isSubmitting}>
+                    Login
+                  </AuthSubmitButton>
+                )}
+                defaultButton={false}
               >
                 <InputLoginCustomer
-                  name={"number"}
+                  name={"phone_number"}
                   label={"Phone Number"}
-                  type={"number"}
+                  type={"tel"}
                   labelClass={
                     "text-[#013567] font-light text-[16px] md:text-[20px]"
                   }
@@ -117,42 +104,47 @@ const LoginCustomer = ({ url }: { url: string }) => {
                 <InputLoginCustomer
                   name={"password"}
                   label={"Password"}
-                  type={"text"}
+                  type={"password"}
                   labelClass={
                     "text-[#2e5b83] font-light text-[16px] md:text-[20px]"
                   }
                   conClass={"my-8"}
                 />
-                <div className={'w-full flex justify-end'}>
+                {error && (
+                  <p className="my-3 p-2 w-full text-error text-sm">
+                    The phone number or password is incorrect. Try again or
+                    click Forgot Password.
+                  </p>
+                )}
+                {errorBlocked ? (
+                  <p className="my-3 p-2 w-full text-error text-sm">
+                    {errorBlocked}
+                  </p>
+                ) : (
+                  ""
+                )}
+                <div className={"w-full flex justify-end"}>
                   <Link
-                      href={"/auth/customer/reset-password"}
-                      className={
-                        " tracking-5 font-light text-[#1FB8B9] md:text-[16px] text-[14px]"
-                      }
+                    href={"/auth/customer/request-reset-password"}
+                    className={
+                      " tracking-5 font-light text-[#1FB8B9] md:text-[16px] text-[14px]"
+                    }
                   >
                     Forget password?
                   </Link>
                 </div>
               </Form>
               <hr className={"h-[2px] w-full bg-[#bcdfe6]"} />
-              {error && (
-                  <p className="my-3 p-2 w-full text-error text-sm">
-                    The email or password is incorrect. Try again or click Forgot
-                    Password.
-                  </p>
-              )}
-              {errorBlocked ? (
-                  <p className="my-3 p-2 w-full text-error text-sm">{errorBlocked}</p>
-              ) : (
-                  ""
-              )}
               <p
                 className={
                   " md:text-[16px] text-[14px] mt-4 opacity-60 text-[#013567]"
                 }
               >
                 Don’t have an account?{" "}
-                <Link href={"/auth/customer/register"} className={"text-[#1FB8B9] "}>
+                <Link
+                  href={"/auth/customer/register"}
+                  className={"text-[#1FB8B9] "}
+                >
                   sign up
                 </Link>
               </p>

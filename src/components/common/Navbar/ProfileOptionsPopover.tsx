@@ -20,19 +20,16 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
   const actor = getCookieClient("user-type");
-  const {reFetch,setReFetch} = useContext(ReFetchPhoto)
+  const {reFetch} = useContext(ReFetchPhoto)
 
-  const { data, isLoading,refetch } = useQuery({
-    queryKey: ["user"],
+  const { data, isLoading } = useQuery({
+    queryKey: ["user" ,reFetch],
     queryFn: async () => {
       // @ts-ignore
-      return await AuthService.make<AuthService>(actor).GetUserDetails();
+      return await AuthService.make<AuthService>(actor).GetUserDetails()
     },
   });
-  if(reFetch){
-    refetch().then((r) => r)
-    setReFetch(false)
-  }
+
   const res: User | undefined = data?.data;
   const imageUrl = data?.data?.image?.[0]?.file_url;
   return (

@@ -28,3 +28,8 @@ export interface AdminAppointmentDeductionSummary {
   done_appointment_deductions: number;
   balance: number;
 }
+
+export interface Earning  {
+  "earnings": number,
+  "date": string
+}

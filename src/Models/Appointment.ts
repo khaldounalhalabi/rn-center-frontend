@@ -24,3 +24,9 @@ export interface Appointment {
   offers?: Offers[];
   discount: number;
 }
+
+
+export interface groupedByMonth{
+  "appointment_count": number,
+  "date": string
+}

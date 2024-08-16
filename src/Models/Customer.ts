@@ -32,3 +32,11 @@ export interface AddOrUpdateCustomer {
   images?: Media[] | string[];
   note?: string;
 }
+
+export interface Recent {
+  id: number;
+  user_id: number;
+  created_at: string;
+  total_appointments: number;
+  user: User;
+}

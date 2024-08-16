@@ -64,7 +64,7 @@ const SidebarAdmin = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div>
+      <div className={'overflow-hidden h-[inherit]'}>
         <div
             className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}        >
           {local == 'en'?
@@ -86,10 +86,10 @@ const SidebarAdmin = ({
           />
         </div>
         <ul
-          className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={` space-y-1 px-4 pt-3  h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
-          <SidebarCompactItem title={t("clinicsManagement")}>
+          <SidebarCompactItem title={t("clinicsManagement")} links={["/admin/clinics","/admin/clinics/schedules","/admin/clinics/holidays"]}>
             <div className="flex flex-col">
               <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
               <SidebarItem link={"/admin/clinics/schedules"}>
@@ -112,7 +112,7 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
-            <SidebarCompactItem title={"Hospitals Management"}>
+            <SidebarCompactItem title={"Hospitals Management"} links={["/admin/hospitals","/admin/hospital-departments"]}>
               <SidebarItem link={"/admin/hospitals"}>
                 {t("hospitals")}
               </SidebarItem>
@@ -123,7 +123,7 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
 
             <SidebarItem link={"/admin/user"}>Users</SidebarItem>
-            <SidebarCompactItem title={"Patients Management"}>
+            <SidebarCompactItem title={"Patients Management"} links={["/admin/patients","/admin/patient-profiles"]}>
               <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
               <SidebarItem link={"/admin/patient-profiles"}>
                 Patient Profiles
@@ -137,7 +137,7 @@ const SidebarAdmin = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-            <SidebarCompactItem title={"Accountant Management"}>
+            <SidebarCompactItem title={"Accountant Management"} links={["/admin/transaction","/admin/appointment-deductions"]}>
               <div className="flex flex-col">
                 <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
                 <SidebarItem link={"/admin/appointment-deductions"}>Appointment Deductions</SidebarItem>

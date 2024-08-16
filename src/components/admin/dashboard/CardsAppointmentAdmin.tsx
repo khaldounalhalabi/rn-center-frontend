@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/common/ui/Card";
 import React from "react";
-import {AdminStatistics} from "@/Models/DoctorStatistics";
+import {AdminStatistics} from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const CardsAppointmentAdmin = ({

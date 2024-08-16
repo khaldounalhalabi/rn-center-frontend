@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Customer } from "@/Models/Customer";
+import {Customer, Recent} from "@/Models/Customer";
 import {ApiResponse} from "@/Http/Response";
 import {GET} from "@/Http/Http";
 import {Appointment} from "@/Models/Appointment";
@@ -43,4 +43,27 @@ export class CustomerService extends BaseService<Customer> {
     );
     return await this.errorHandler(res);
   }
+    public async getRecent(
+        page: number = 0,
+        search?: string,
+        sortCol?: string,
+        sortDir?: string,
+        per_page?: number,
+        params?: object
+
+    ): Promise<ApiResponse<Recent>> {
+        const res = await GET<Recent>(
+            `${this.actor}/customers/recent`,
+            {
+                page: page,
+                search: search,
+                sort_col: sortCol,
+                sort_dir: sortDir,
+                per_page: per_page,
+                ...params,
+            },
+            this.headers,
+        );
+        return await this.errorHandler(res);
+    }
 }

@@ -6,7 +6,7 @@ import BackIcon from "@/components/icons/backIcon";
 import React from "react";
 import { User } from "@/Models/User";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
-import { DoctorStatistics } from "@/Models/DoctorStatistics";
+import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const UserDataDoctor = ({
@@ -14,7 +14,7 @@ const UserDataDoctor = ({
   isFetching,
   isLoading,
 }: {
-  statisticsRes: DoctorStatistics | undefined;
+  statisticsRes: Statistics | undefined;
   isFetching: boolean;
   isLoading: boolean;
 }) => {

@@ -1,17 +1,17 @@
 import { BaseService } from "@/services/BaseService";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
-import {AdminStatistics, DoctorStatistics} from "@/Models/DoctorStatistics";
+import {AdminStatistics, Statistics} from "@/Models/Statistics";
 
-export class StatisticService extends BaseService<DoctorStatistics> {
+export class StatisticService extends BaseService<Statistics> {
   getBaseUrl(): string {
     return `${this.actor}/statistics`;
   }
 
   public async doctorIndexPageStatistics(): Promise<
-    ApiResponse<DoctorStatistics>
+    ApiResponse<Statistics>
   > {
-    const res = await GET<DoctorStatistics>(`${this.actor}/statistics/index-page`);
+    const res = await GET<Statistics>(`${this.actor}/statistics/index-page`);
     return await this.errorHandler(res);
   }
   public async adminIndexPageStatistics(): Promise<

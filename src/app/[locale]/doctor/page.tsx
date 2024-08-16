@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Card from "@/components/common/ui/Card";
 import { StatisticService } from "@/services/StatisticService";
 import ChartDashboardDoctor from "@/components/doctor/dashboard/ChartDashboardDoctor";
-import { DoctorStatistics } from "@/Models/DoctorStatistics";
+import { Statistics } from "@/Models/Statistics";
 import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
@@ -20,7 +20,7 @@ const Home =  () => {
       ).doctorIndexPageStatistics();
     },
   });
-  const statisticsRes: DoctorStatistics | undefined = statistics?.data;
+  const statisticsRes: Statistics | undefined = statistics?.data;
   return (
     <>
       <div className={"flex flex-col justify-between md:flex-row my-6"}>

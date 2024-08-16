@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/common/ui/Card";
 import React from "react";
-import { DoctorStatistics } from "@/Models/DoctorStatistics";
+import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const CardsAppointmentDoctor = ({
@@ -9,7 +9,7 @@ const CardsAppointmentDoctor = ({
   isFetching,
   isLoading,
 }: {
-  statisticsRes: DoctorStatistics | undefined;
+  statisticsRes: Statistics | undefined;
   isFetching: boolean;
   isLoading: boolean;
 }) => {

@@ -17,40 +17,40 @@ async function authenticationMiddleware(req: NextRequest) {
   const path = `${req.nextUrl.pathname}`;
   const access = await getCookieServer("user-type");
   const locale = await getCookieServer("NEXT_LOCALE");
-  if (
-    (!access && path.includes(`${locale}/admin`)) ||
-    ((access == "customer" || access == "doctor") &&
-      path.includes(`${locale}/admin`))
-  ) {
-    const absolutURL = new URL(
-      `${locale}/auth/admin/login`,
-      req.nextUrl.origin,
-    );
-    return NextResponse.redirect(absolutURL.toString());
-  }
-  if (
-    (!access && path.includes(`${locale}/customer`)) ||
-    ((access == "admin" || access == "doctor") &&
-      path.includes(`${locale}/customer`))
-  ) {
-    const absolutURL = new URL(
-      `${locale}/auth/customer/login`,
-      req.nextUrl.origin,
-    );
-    return NextResponse.redirect(absolutURL.toString());
-  }
-  if (
-    (!access && path.includes(`${locale}/doctor`)) ||
-    ((access == "customer" || access == "admin") &&
-      path.includes(`${locale}/doctor`))
-  ) {
-    const absolutURL = new URL(
-      `${locale}/auth/doctor/login`,
-      req.nextUrl.origin,
-    );
-    return NextResponse.redirect(absolutURL.toString());
-  }
-
+  // if (
+  //   (!access && path.includes(`${locale}/admin`)) ||
+  //   ((access == "customer" || access == "doctor") &&
+  //     path.includes(`${locale}/admin`))
+  // ) {
+  //   const absolutURL = new URL(
+  //     `${locale}/auth/admin/login`,
+  //     req.nextUrl.origin,
+  //   );
+  //   return NextResponse.redirect(absolutURL.toString());
+  // }
+  // if (
+  //   (!access && path.includes(`${locale}/customer`)) ||
+  //   ((access == "admin" || access == "doctor") &&
+  //     path.includes(`${locale}/customer`))
+  // ) {
+  //   const absolutURL = new URL(
+  //     `${locale}/auth/customer/login`,
+  //     req.nextUrl.origin,
+  //   );
+  //   return NextResponse.redirect(absolutURL.toString());
+  // }
+  // if (
+  //   (!access && path.includes(`${locale}/doctor`)) ||
+  //   ((access == "customer" || access == "admin") &&
+  //     path.includes(`${locale}/doctor`))
+  // ) {
+  //   const absolutURL = new URL(
+  //     `${locale}/auth/doctor/login`,
+  //     req.nextUrl.origin,
+  //   );
+  //   return NextResponse.redirect(absolutURL.toString());
+  // }
+  //
 
 
   return translationMiddleware(req);

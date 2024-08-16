@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import {
   AdminAppointmentDeductionSummary,
-  AppointmentDeductions,
+  AppointmentDeductions, Earning,
 } from "@/Models/AppointmentDeductions";
 import { ApiResponse } from "@/Http/Response";
 import { ClinicAppointmentDeductionSummary } from "@/Models/AppointmentDeductions";
@@ -35,6 +35,14 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
   > {
     const res = await GET<ClinicAppointmentDeductionSummary>(
         `${this.actor}/clinics/${clinicId}/appointment-deductions/summary`
+    );
+    return await this.errorHandler(res);
+  }
+  public async getEarningsByYear(): Promise<
+      ApiResponse<Earning>
+  > {
+    const res = await GET<Earning>(
+        `${this.actor}/appointment-deductions/earnings`
     );
     return await this.errorHandler(res);
   }

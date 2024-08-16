@@ -14,14 +14,14 @@ import Gallery from "@/components/common/ui/Gallery";
 import {ReFetchPhoto} from "@/app/[locale]/providers";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
-  const {setReFetch} = useContext(ReFetchPhoto)
+  const {reFetch,setReFetch} = useContext(ReFetchPhoto)
 
   const handleSubmit = async (data: any) => {
     console.log(data);
     return await AuthService.make<AuthService>("doctor")
       .UpdateUserDetails(data)
       .then((res) => {
-        setReFetch(true)
+        setReFetch(!reFetch)
         console.log(res);
         return res;
       });

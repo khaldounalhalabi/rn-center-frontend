@@ -12,7 +12,7 @@ const SystemOfferCarousel = () => {
     queryKey: ["system_offers_carousel"],
     queryFn: async ({ pageParam }) =>
       await SystemOffersService.make<SystemOffersService>(
-        "public"
+        "public",
       ).indexWithPagination(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -74,7 +74,7 @@ const SystemOfferCarousel = () => {
             )}
             {data?.pages.map((page) =>
               page.data.map((offer) => (
-                <div className="embla__slide">
+                <div key={offer.id} className="embla__slide">
                   <div className="embla__slide__number">
                     <img
                       className="h-full w-full"
@@ -83,7 +83,7 @@ const SystemOfferCarousel = () => {
                     />
                   </div>
                 </div>
-              ))
+              )),
             )}
           </div>
         </div>

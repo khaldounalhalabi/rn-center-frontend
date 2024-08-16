@@ -17,7 +17,7 @@ const SpecialityHomePageSection = () => {
         undefined,
         undefined,
         undefined,
-        4
+        4,
       ),
   });
 
@@ -50,7 +50,7 @@ const SpecialityHomePageSection = () => {
           <div className="spec_embla__viewport" ref={emblaRef}>
             <div className="spec_embla__container h-full">
               {data?.data?.map((spec) => (
-                <div className="spec_embla__slide h-full">
+                <div key={spec.id} className="spec_embla__slide h-full">
                   <div className="spec_embla__slide__number">
                     <div className="card bg-base-100 shadow-xl">
                       <img

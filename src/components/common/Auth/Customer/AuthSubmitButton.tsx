@@ -1,5 +1,5 @@
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 interface ButtonAttr extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children?: ReactNode;

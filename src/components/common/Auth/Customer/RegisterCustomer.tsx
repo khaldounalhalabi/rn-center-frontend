@@ -46,7 +46,7 @@ const RegisterCustomer = () => {
             "mt-[5vh] md:mt-10 bg-[#FFFFFF] opacity-90  md:opacity-[70%] rounded-t-[30px] md:rounded-[30px] w-full h-full"
           }
         >
-          <div className={"card "}>
+          <div className={"card"}>
             <div
               className={
                 "card-body className={'flex flex-col md:px-40 md:py-20 items-center"

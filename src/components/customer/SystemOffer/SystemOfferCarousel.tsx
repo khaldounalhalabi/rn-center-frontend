@@ -1,9 +1,11 @@
 "use client";
-import OfferCard from "@/components/admin/OfferCard";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import { EmblaOptionsType } from "embla-carousel";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
+import "./embla.css";
+import { getMedia } from "@/Models/Media";
 
 const SystemOfferCarousel = () => {
   const { data, fetchNextPage, hasNextPage, isPending } = useInfiniteQuery({
@@ -21,85 +23,72 @@ const SystemOfferCarousel = () => {
         : null;
     },
   });
+  const options: EmblaOptionsType = {
+    align: "start",
+    dragFree: true,
+    loop: true,
+  };
+  const slides_count = 5;
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+
   return (
-    <Carousel
-      additionalTransfrom={0}
-      arrows={false}
-      autoPlaySpeed={3000}
-      centerMode={false}
-      className="w-full h-[30%]"
-      containerClass="w-full h-[30%]"
-      dotListClass=""
-      draggable
-      focusOnSelect={false}
-      infinite={false}
-      itemClass="mx-5"
-      keyBoardControl
-      minimumTouchDrag={80}
-      pauseOnHover
-      renderArrowsWhenDisabled={false}
-      renderButtonGroupOutside={false}
-      renderDotsOutside
-      responsive={{
-        desktop: {
-          breakpoint: {
-            max: 3000,
-            min: 720,
-          },
-          items: 2.5,
-        },
-        mobile: {
-          breakpoint: {
-            max: 464,
-            min: 0,
-          },
-          items: 1.3,
-        },
-        tablet: {
-          breakpoint: {
-            max: 719,
-            min: 464,
-          },
-          items: 1.3,
-        },
-      }}
-      rewind={false}
-      rewindWithAnimation={false}
-      rtl={false}
-      shouldResetAutoplay
-      showDots={false}
-      slidesToSlide={1}
-      swipeable
-      beforeChange={() => {
-        if (hasNextPage) {
-          fetchNextPage();
-        }
-      }}
-    >
-      {isPending && (
-        <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-          <div className="skeleton w-full h-52"></div>
+    <div className="md:max-h-[30vh] w-full !overflow-hidden">
+      <section className="embla md:max-h-[30vh]">
+        <div className="embla__viewport md:max-h-[30vh]" ref={emblaRef}>
+          <div className="embla__container">
+            {isPending && (
+              <div className="embla__slide">
+                <div className="embla__slide__number">
+                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
+                    <div className="skeleton w-full h-52"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isPending && (
+              <div className="embla__slide">
+                <div className="embla__slide__number">
+                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
+                    <div className="skeleton w-full h-52"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isPending && (
+              <div className="embla__slide">
+                <div className="embla__slide__number">
+                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
+                    <div className="skeleton w-full h-52"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isPending && (
+              <div className="embla__slide">
+                <div className="embla__slide__number">
+                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
+                    <div className="skeleton w-full h-52"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {data?.pages.map((page) =>
+              page.data.map((offer) => (
+                <div className="embla__slide">
+                  <div className="embla__slide__number">
+                    <img
+                      className="h-full w-full"
+                      src={getMedia(offer?.image?.[0])}
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
-      )}
-      {isPending && (
-        <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-          <div className="skeleton w-full h-52"></div>
-        </div>
-      )}
-      {isPending && (
-        <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-          <div className="skeleton w-full h-52"></div>
-        </div>
-      )}
-      {isPending && (
-        <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-          <div className="skeleton w-full h-52"></div>
-        </div>
-      )}
-      {data?.pages.map((page) =>
-        page.data.map((offer) => <OfferCard image={offer.image?.[0]} />)
-      )}
-    </Carousel>
+      </section>
+    </div>
   );
 };
 

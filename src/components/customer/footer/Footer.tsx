@@ -6,7 +6,7 @@ import AppointmentIcon from "@/components/customer/footer/icon/AppointmentIcon";
 
 const Footer = () => {
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center items-center relative">
       <div
         className={
           "h-1/12 p-2 fixed bottom-0 flex items-end w-full z-10 md:bg-[#5B5B5B] md:w-1/3 md:rounded-full md:bottom-5 md:bg-opacity-65"

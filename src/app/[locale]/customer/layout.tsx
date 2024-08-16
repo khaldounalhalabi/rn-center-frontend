@@ -3,7 +3,7 @@ import Providers from "@/app/[locale]/providers";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import Navbar from "@/components/customer/nav/Navbar";
 import Footer from "@/components/customer/footer/Footer";
-
+import "./../customer.css";
 const Layout = ({
   children,
 }: Readonly<{
@@ -11,7 +11,7 @@ const Layout = ({
 }>) => {
   return (
     <main
-      className={` min-h-screen kodchasan w-full max-w-screen overflow-x-auto-hidden`}
+      className={`px-3 max-h-screen kodchasan w-full max-w-screen overflow-x-auto-hidden`}
     >
       <Providers>
         <div className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}>

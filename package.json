@@ -38,6 +38,7 @@
     "react-dom": "^18",
     "react-filepond": "^7.1.2",
     "react-hook-form": "^7.50.1",
+    "react-multi-carousel": "^2.8.5",
     "react-speech": "^1.0.2",
     "react-speech-recognition": "^3.10.0",
     "react-tag-input-component": "^2.0.2",

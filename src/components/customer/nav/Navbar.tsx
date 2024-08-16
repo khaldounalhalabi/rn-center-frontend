@@ -24,7 +24,7 @@ const Navbar = () => {
         <img
           src={"/pom.png"}
           alt={".."}
-          className={"w-[64px] h-[64px] md:block hidden"}
+          className={"w-[5%] h-[5%] md:block hidden"}
         ></img>
       </div>
       <div className="flex-none md:mx-10 mx-6">

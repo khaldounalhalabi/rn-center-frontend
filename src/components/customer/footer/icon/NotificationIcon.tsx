@@ -1,7 +1,7 @@
 const NotificationIcon = ({ ...props }) => {
   return (
     <svg
-        {...props}
+      {...props}
       viewBox="0 0 23 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -14,4 +14,4 @@ const NotificationIcon = ({ ...props }) => {
   );
 };
 
-export default NotificationIcon
+export default NotificationIcon;

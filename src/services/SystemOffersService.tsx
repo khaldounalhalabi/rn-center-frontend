@@ -5,7 +5,11 @@ import { GET } from "@/Http/Http";
 
 export class SystemOffersService extends BaseService<SystemOffers> {
   public getBaseUrl(): string {
-    return `${this.actor}/system-offers`;
+    if (this.actor == "public") {
+      return `/system-offers`;
+    } else {
+      return `${this.actor}/system-offers`;
+    }
   }
 
   public async getSystemOffersByClinic(
@@ -15,7 +19,7 @@ export class SystemOffersService extends BaseService<SystemOffers> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<SystemOffers[]>> {
     const res = await GET<SystemOffers[]>(
       `clinics/${clinicId}/system-offers`,
@@ -27,7 +31,7 @@ export class SystemOffersService extends BaseService<SystemOffers> {
         per_page: per_page,
         ...params,
       },
-      this.headers,
+      this.headers
     );
     return await this.errorHandler(res);
   }

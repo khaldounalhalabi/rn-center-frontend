@@ -5,7 +5,11 @@ import { GET } from "@/Http/Http";
 
 export class SpecialityService extends BaseService<Speciality> {
   public getBaseUrl(): string {
-    return `${this.actor}/specialities`;
+    if (this.actor == "public") {
+      return `/specialities`;
+    } else {
+      return `${this.actor}/specialities`;
+    }
   }
 
   public async getAllSpecialities(

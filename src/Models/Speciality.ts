@@ -4,4 +4,5 @@ export interface Speciality {
   description: string;
   tags: string;
   image: any;
+  clinics_count?: number;
 }

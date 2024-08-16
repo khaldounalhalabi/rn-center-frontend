@@ -65,7 +65,7 @@ const LoginCustomer = ({ url }: { url: string }) => {
     >
       <div
         className={
-          "w-full md:w-[50%] max-w-[900px] md:h-full h-[85vh] flex flex-col  items-center "
+          "w-full md:w-[80%] lg:w-[65%] xl:w-[50%] max-w-[900px] md:h-full h-[85vh] flex flex-col  items-center "
         }
       >
         <h1

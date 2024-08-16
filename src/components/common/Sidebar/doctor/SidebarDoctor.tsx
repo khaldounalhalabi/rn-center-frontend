@@ -57,7 +57,7 @@ const SidebarDoctor = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div>
+      <div className={'overflow-hidden h-[inherit]'}>
         <span
             className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
@@ -84,7 +84,7 @@ const SidebarDoctor = ({
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           <SidebarItem link={"/doctor"}> {t("dashboard")}</SidebarItem>
-          <SidebarCompactItem title={t("clinicsManagement")}>
+          <SidebarCompactItem title={t("clinicsManagement")} links={["/doctor/clinic-details","/doctor/clinic/schedules","/doctor/clinic/holidays"]}>
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/clinic-details"}>
                 {t("clinicDetails")}
@@ -171,7 +171,7 @@ const SidebarDoctor = ({
           <SidebarItem link={"/doctor/appointment"}>
             {t("appointment")}
           </SidebarItem>
-          <SidebarCompactItem title={t("accountantManagement")}>
+          <SidebarCompactItem title={t("accountantManagement")} links={["/doctor/transaction","/doctor/appointment-deductions"]}>
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/transaction"}>
                 {t("transaction")}

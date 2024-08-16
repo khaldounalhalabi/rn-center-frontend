@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/navigation";
 import { Link } from "@/navigation";
 
 const SidebarItem = ({
@@ -16,10 +16,10 @@ const SidebarItem = ({
 }) => {
   const pathname = usePathname();
   let active: string;
-  if (pathname == link) {
-    active = "bg-blue-100 text-blue-500 hover:text-blue-600 hover:bg-blue-200";
+  if (pathname === link) {
+    active = "text-white bg-[#1fb8b9] border-l-4 border-[#013567] hover:text-gray-500 hover:bg-gray-200";
   } else {
-    active = "text-gray-500 hover:bg-gray-100 hover:text-gray-700";
+    active = "text-gray-500 hover:bg-[#1fb8b9] hover:text-white";
   }
   return (
     <li className={`${className}`}
@@ -31,7 +31,7 @@ const SidebarItem = ({
     >
       <Link
         href={link}
-        className={`block rounded-lg px-4 py-4 text-sm font-medium ${active}`}
+        className={`block rounded-lg px-4 py-4 my-1 text-sm font-medium ${active}`}
       >
         {children}
       </Link>

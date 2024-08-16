@@ -133,7 +133,7 @@ const UserDataAdmin = ({
               <p className="text-sm md:text-base">This Month</p>
             </div>
             <h2 className="text-lg md:text-xl font-semibold">
-              {isLoading || isFetching ? (
+              ${isLoading || isFetching ? (
                 <LoadingSpin />
               ) : (
                 statisticsRes?.total_deductions_current_month

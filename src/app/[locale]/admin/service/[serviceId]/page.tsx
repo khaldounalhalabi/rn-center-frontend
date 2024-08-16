@@ -119,8 +119,8 @@ const page = async ({
           <Gallery media={res?.icon ? res?.icon : [""]} />
         ) : (
           <div className="flex justify-between items-center">
-            <label className="label"> {("Image")} : </label>
-            <span className="text-lg badge badge-neutral">{("No Image")}</span>
+            <label className="label"> {"Image"} : </label>
+            <span className="text-lg badge badge-neutral">{"No Image"}</span>
           </div>
         )}
       </Grid>

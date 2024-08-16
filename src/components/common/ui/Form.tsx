@@ -29,7 +29,7 @@ const Form = ({
   showToastMessage?: boolean;
   disabled?: boolean;
   defaultButton?: boolean;
-  otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode
+  otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode;
 }) => {
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
@@ -88,7 +88,9 @@ const Form = ({
             methods.clearErrors();
           }}
         >
-          {otherSubmitButton ? otherSubmitButton(methods.formState.isSubmitting) : ""}
+          {otherSubmitButton
+            ? otherSubmitButton(methods.formState.isSubmitting)
+            : ""}
           {defaultButton && (
             <PrimaryButton
               type="submit"

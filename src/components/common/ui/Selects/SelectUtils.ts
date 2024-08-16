@@ -105,4 +105,4 @@ export const include = (option: Option, selected: Option[]): boolean =>
   selected.filter((op) => isEqual(op, option)).length > 0;
 
 export const isOption = (object: any): object is Option =>
-    "label" in object && "value" in object;
+  "label" in object && "value" in object;

@@ -18,7 +18,7 @@ import OffersArray from "@/enum/OfferType";
 import { Navigate } from "@/Actions/navigate";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -31,7 +31,7 @@ const OfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('doctor.offer.create')
+  const t = useTranslations("doctor.offer.create");
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -61,7 +61,7 @@ const OfferForm = ({
   const [typeOffers, setTypeOffers] = useState(
     defaultValues?.type ?? "percentage",
   );
-  const {image,...res} = defaultValues ??{image:[]}
+  const { image, ...res } = defaultValues ?? { image: [] };
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -129,14 +129,13 @@ const OfferForm = ({
               defaultChecked={!defaultValues?.is_active}
             />
             <Input
-                name={"is_active"}
-                label={t("active")}
-                type="radio"
-                className="radio radio-info"
-                value={"active"}
-                defaultChecked={defaultValues ? defaultValues?.is_active : true}
+              name={"is_active"}
+              label={t("active")}
+              type="radio"
+              className="radio radio-info"
+              value={"active"}
+              defaultChecked={defaultValues ? defaultValues?.is_active : true}
             />
-
           </div>
         ) : (
           ""

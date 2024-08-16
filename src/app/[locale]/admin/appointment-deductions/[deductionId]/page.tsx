@@ -11,9 +11,9 @@ const page = async ({
   params: { deductionId: number };
 }) => {
   const data =
-    await AppointmentDeductionsService.make<AppointmentDeductionsService>("admin").show(
-      deductionId,
-    );
+    await AppointmentDeductionsService.make<AppointmentDeductionsService>(
+      "admin",
+    ).show(deductionId);
   const res: AppointmentDeductions = data?.data;
 
   return (
@@ -62,9 +62,9 @@ const page = async ({
       <div className="w-full">
         <label className="label">note :</label>
         <textarea
-            className="w-full p-2"
-            disabled={true}
-            defaultValue={res?.appointment?.note ?? ""}
+          className="w-full p-2"
+          disabled={true}
+          defaultValue={res?.appointment?.note ?? ""}
         ></textarea>
       </div>
     </PageCard>

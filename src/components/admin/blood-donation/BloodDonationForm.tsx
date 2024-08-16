@@ -76,7 +76,7 @@ const BloodDonationForm = ({
         <DateTimePickerRang name={"can_wait_until"} label={"Can Wait Until"} />
         <SelectPopOverFrom
           label={"Blood Group"}
-          handleSelect={()=>undefined}
+          handleSelect={() => undefined}
           status={defaultValues?.blood_group ?? ""}
           ArraySelect={BloodArray()}
           name={"blood_group"}

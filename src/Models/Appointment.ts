@@ -25,8 +25,7 @@ export interface Appointment {
   discount: number;
 }
 
-
-export interface groupedByMonth{
-  "appointment_count": number,
-  "date": string
+export interface groupedByMonth {
+  appointment_count: number;
+  date: string;
 }

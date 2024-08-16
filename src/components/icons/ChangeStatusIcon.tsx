@@ -1,7 +1,10 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const ChangeStatusIcon: React.FC<IconAttributes> = ({ className, ...props }) => {
+const ChangeStatusIcon: React.FC<IconAttributes> = ({
+  className,
+  ...props
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

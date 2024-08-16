@@ -7,13 +7,10 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientsService } from "@/services/PatientsService";
 import { Customer } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import {AppointmentStatusEnum} from "@/enum/AppointmentStatus";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('common.patient.table')
+  const t = useTranslations("common.patient.table");
   const tableData: DataTableData<Customer> = {
     createUrl: `/doctor/patients/create`,
     title: `${t("patients")}`,
@@ -88,21 +85,17 @@ const Page = () => {
             baseUrl={`/doctor/customers`}
             editUrl={`/doctor/patients/${data?.id}/edit`}
             showUrl={`/doctor/patients/${data?.id}`}
-            deleteMessage={'Deleting this record will delete just the stored medical details of this patient not his entire profile'}
+            deleteMessage={
+              "Deleting this record will delete just the stored medical details of this patient not his entire profile"
+            }
           ></ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PatientsService.make<PatientsService>("doctor").setHeaders({ filtered: true }).indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
-
+      await PatientsService.make<PatientsService>("doctor")
+        .setHeaders({ filtered: true })
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
   return <DataTable {...tableData} />;
 };

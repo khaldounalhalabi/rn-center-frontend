@@ -7,16 +7,18 @@ import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { Stringify } from "@/components/common/prescriptions/PhysicalForm";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const Page = async ({
   params: { appointmentId, prescriptionsId },
 }: {
   params: { appointmentId: number; prescriptionsId: number };
 }) => {
-  const t = await getTranslations('common.prescription.show')
+  const t = await getTranslations("common.prescription.show");
   const data =
-    await PrescriptionService.make<PrescriptionService>("doctor").show(prescriptionsId);
+    await PrescriptionService.make<PrescriptionService>("doctor").show(
+      prescriptionsId,
+    );
   const res: Prescription = data?.data;
   const physicalInformation: Stringify = JSON.parse(
     res?.physical_information ?? "{}",

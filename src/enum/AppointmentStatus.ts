@@ -7,8 +7,10 @@ export enum AppointmentStatusEnum {
   ALL = "all",
 }
 
-
-export const AppointmentStatusesFilter = (type: string, status: string): string[] => {
+export const AppointmentStatusesFilter = (
+  type: string,
+  status: string,
+): string[] => {
   if (type === "online") {
     switch (status) {
       case AppointmentStatusEnum.PENDING:
@@ -34,10 +36,11 @@ export const AppointmentStatusesFilter = (type: string, status: string): string[
         return [];
     }
   } else {
-    return Object.values(AppointmentStatusEnum).filter((item) => item !== "all" && item !=="pending");
+    return Object.values(AppointmentStatusEnum).filter(
+      (item) => item !== "all" && item !== "pending",
+    );
   }
 };
-
 
 const AppointmentStatuses = (): string[] => {
   return Object.values(AppointmentStatusEnum).filter((item) => item != "all");

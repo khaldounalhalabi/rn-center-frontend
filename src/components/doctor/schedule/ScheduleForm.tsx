@@ -39,9 +39,9 @@ const ScheduleForm = ({
   method: "store" | "update";
   appointment_gap: number | undefined;
 }) => {
-    const t = useTranslations("doctor.schedules.edit")
+  const t = useTranslations("doctor.schedules.edit");
 
-    const [schedule, setSchedule] = useState<SchedulesTimes>({
+  const [schedule, setSchedule] = useState<SchedulesTimes>({
     saturday:
       defaultValues?.saturday || method == "update"
         ? defaultValues?.saturday ?? []

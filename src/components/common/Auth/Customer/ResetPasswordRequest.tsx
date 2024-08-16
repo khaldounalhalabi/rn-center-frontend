@@ -9,7 +9,7 @@ import AuthSubmitButton from "./AuthSubmitButton";
 const ResetPasswordRequest = () => {
   const handleSubmit = async (data: { phone_number: string }) => {
     return await CustomerAuthService.make<CustomerAuthService>().requestResetPasswordCode(
-      data
+      data,
     );
   };
 

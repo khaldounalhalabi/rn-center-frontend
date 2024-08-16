@@ -1,10 +1,10 @@
 export enum TransactionType {
   INCOME = "income",
-  OUTCOME = "outcome"
+  OUTCOME = "outcome",
 }
 
 const TransactionTypeArray = (): string[] => {
-  return Object.values(TransactionType)
+  return Object.values(TransactionType);
 };
 
 export default TransactionTypeArray;

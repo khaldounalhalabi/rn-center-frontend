@@ -83,7 +83,7 @@ const SystemOfferForm = ({
           ArraySelect={OffersArray()}
           required={true}
           label={"Type :"}
-          handleSelect={()=>undefined}
+          handleSelect={() => undefined}
         />
         <Input
           placeholder={"amount ... "}

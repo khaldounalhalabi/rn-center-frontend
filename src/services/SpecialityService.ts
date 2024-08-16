@@ -18,7 +18,7 @@ export class SpecialityService extends BaseService<Speciality> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Speciality>> {
     const res = await GET<Speciality>(
       `specialities`,
@@ -30,7 +30,7 @@ export class SpecialityService extends BaseService<Speciality> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

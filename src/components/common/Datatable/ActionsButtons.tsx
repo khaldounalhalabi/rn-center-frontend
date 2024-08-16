@@ -21,7 +21,7 @@ export interface ActionsButtonsProps<T> {
   archiveUrl?: string;
   showUrl?: string;
   setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void;
-  deleteMessage?:string
+  deleteMessage?: string;
 }
 
 const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
@@ -35,7 +35,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   archiveUrl,
   setHidden,
   children,
-                                                              deleteMessage,
+  deleteMessage,
 }) => {
   const dataId = id ?? data?.id ?? undefined;
   const dUrl = deleteUrl ?? `${baseUrl}/${dataId ?? ""}`; // delete url
@@ -107,7 +107,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
             onClick={() => {
               swal
                 .fire({
-                  title: deleteMessage??"Do you want to Delete this item ?",
+                  title: deleteMessage ?? "Do you want to Delete this item ?",
                   showDenyButton: true,
                   showCancelButton: true,
                   confirmButtonText: "Yes",

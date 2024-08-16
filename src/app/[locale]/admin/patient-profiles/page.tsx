@@ -57,9 +57,9 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PatientProfilesService.make<PatientProfilesService>(
-        "admin",
-      ).setHeaders({ filtered: true }).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      await PatientProfilesService.make<PatientProfilesService>("admin")
+        .setHeaders({ filtered: true })
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
   return <DataTable {...tableData} />;
 };

@@ -12,7 +12,7 @@ export class HospitalService extends BaseService<Hospital> {
     const res = await GET<any>(
       `${this.actor}/hospitals/${hospitaltId}/toggle-status`,
       undefined,
-      this.headers
+      this.headers,
     );
     return this.errorHandler(res);
   }
@@ -23,7 +23,7 @@ export class HospitalService extends BaseService<Hospital> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Hospital>> {
     const res = await GET<Hospital>(
       `hospitals`,
@@ -35,7 +35,7 @@ export class HospitalService extends BaseService<Hospital> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

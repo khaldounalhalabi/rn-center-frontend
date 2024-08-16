@@ -4,6 +4,7 @@ import NotificationHandler from "@/components/common/NotificationHandler";
 import Navbar from "@/components/customer/nav/Navbar";
 import Footer from "@/components/customer/footer/Footer";
 import "./../customer.css";
+
 const Layout = ({
   children,
 }: Readonly<{

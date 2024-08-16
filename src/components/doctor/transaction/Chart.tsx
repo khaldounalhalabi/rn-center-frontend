@@ -1,16 +1,9 @@
-"use client"
+"use client";
 
+import { ClinicTransaction } from "@/Models/ClinicTransaction";
 
-import {ClinicTransaction} from "@/Models/ClinicTransaction";
-import filterDataForChart from "@/hooks/filterDateForChart";
+const Chart = ({ data }: { data: ClinicTransaction[] | undefined }) => {
+  return <></>;
+};
 
-const Chart = ({data}:{data:ClinicTransaction[]|undefined})=>{
-
-
-
-    return (
-        <></>
-    )
-}
-
-export default Chart
+export default Chart;

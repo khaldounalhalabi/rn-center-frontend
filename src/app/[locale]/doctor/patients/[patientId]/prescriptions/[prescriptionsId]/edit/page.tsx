@@ -1,14 +1,14 @@
 import React from "react";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PrescriptionsForm from "@/components/common/prescriptions/PrescriptionsForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId, prescriptionsId },
 }: {
   params: { patientId: number; prescriptionsId: number };
 }) => {
-    const t = await getTranslations('common.prescription.create')
+  const t = await getTranslations("common.prescription.create");
   const prescriptions = (
     await PrescriptionService.make<PrescriptionService>("doctor").show(
       prescriptionsId,
@@ -19,9 +19,9 @@ const page = async ({
     <div>
       <h2 className="mt-8 ml-8 card-title">{t("editPrescription")}</h2>
       <PrescriptionsForm
-          userType={'doctor'}
+        userType={"doctor"}
         type={"update"}
-          customerId={patientId}
+        customerId={patientId}
         defaultValues={{
           ...prescriptions,
         }}

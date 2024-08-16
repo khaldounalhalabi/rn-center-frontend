@@ -3,7 +3,7 @@ import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import { Customer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const PatientDetails = ({
   patient,
@@ -12,7 +12,7 @@ const PatientDetails = ({
   patient: Customer;
   typePage?: "admin" | "doctor";
 }) => {
-  const t = useTranslations('common.patient.show')
+  const t = useTranslations("common.patient.show");
 
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));
@@ -127,4 +127,4 @@ const PatientDetails = ({
   );
 };
 
-export default PatientDetails
+export default PatientDetails;

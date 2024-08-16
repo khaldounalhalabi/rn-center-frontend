@@ -1,9 +1,5 @@
-
-
-
-export interface Setting{
-
-    "id": number,
-    "label": string,
-    "value": string
+export interface Setting {
+  id: number;
+  label: string;
+  value: string;
 }

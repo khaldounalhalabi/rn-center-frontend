@@ -69,4 +69,4 @@ const CardsAppointmentDoctor = ({
   );
 };
 
-export default CardsAppointmentDoctor
+export default CardsAppointmentDoctor;

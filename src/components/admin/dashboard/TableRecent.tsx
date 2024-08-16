@@ -5,7 +5,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import React from "react";
 import { CustomerService } from "@/services/CustomerService";
 import { Recent } from "@/Models/Customer";
-import {TranslateClient} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 
 const TableRecent = () => {
   const tableData: DataTableData<Recent> = {
@@ -22,11 +22,11 @@ const TableRecent = () => {
         sortable: true,
         render: (_first_name, patient) => {
           return (
-              <p>
-                {TranslateClient(patient?.user?.first_name)}{" "}
-                {TranslateClient(patient?.user?.middle_name)}{" "}
-                {TranslateClient(patient?.user?.last_name)}
-              </p>
+            <p>
+              {TranslateClient(patient?.user?.first_name)}{" "}
+              {TranslateClient(patient?.user?.middle_name)}{" "}
+              {TranslateClient(patient?.user?.last_name)}
+            </p>
           );
         },
       },
@@ -50,8 +50,7 @@ const TableRecent = () => {
             editUrl={`/admin/patients/${data?.id}/edit`}
             showUrl={`/admin/patients/${data?.id}`}
             setHidden={setHidden}
-          >
-          </ActionsButtons>
+          ></ActionsButtons>
         ),
       },
     ],
@@ -68,4 +67,4 @@ const TableRecent = () => {
   return <DataTable {...tableData} />;
 };
 
-export default TableRecent
+export default TableRecent;

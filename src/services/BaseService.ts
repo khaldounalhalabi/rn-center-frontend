@@ -3,7 +3,6 @@ import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { Actors } from "@/types";
 import { deleteCookieServer } from "@/Actions/serverCookies";
-import { CustomerAuthService } from "./CustomerAuthService";
 
 export class BaseService<T> {
   protected static instance?: BaseService<any>;
@@ -13,13 +12,8 @@ export class BaseService<T> {
 
   protected constructor() {}
 
-  public setHeaders(headers: Record<string, any> = {}): BaseService<T> {
-    this.headers = headers;
-    return this;
-  }
-
   public static make<Service extends BaseService<any>>(
-    actor: Actors = "admin"
+    actor: Actors = "admin",
   ): Service {
     if (!this.instance) {
       this.instance = new this();
@@ -29,6 +23,11 @@ export class BaseService<T> {
     this.instance.baseUrl = this.instance.getBaseUrl();
 
     return this.instance as Service;
+  }
+
+  public setHeaders(headers: Record<string, any> = {}): BaseService<T> {
+    this.headers = headers;
+    return this;
   }
 
   public getBaseUrl() {
@@ -44,7 +43,7 @@ export class BaseService<T> {
     const res: ApiResponse<T[]> = await GET<T[]>(
       this.baseUrl + "/all",
       undefined,
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
@@ -55,7 +54,7 @@ export class BaseService<T> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<T[]>> {
     const res: ApiResponse<T[]> = await GET<T[]>(
       this.baseUrl,
@@ -67,7 +66,7 @@ export class BaseService<T> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
 
     return await this.errorHandler(res);
@@ -87,7 +86,7 @@ export class BaseService<T> {
       res = await DELETE<boolean>(
         this.baseUrl + "/" + id,
         undefined,
-        this.headers
+        this.headers,
       );
     } else res = await DELETE<boolean>(this.baseUrl, undefined, this.headers);
     return await this.errorHandler(res);
@@ -107,7 +106,7 @@ export class BaseService<T> {
   public async update(
     id?: number,
     data?: any,
-    headers?: object
+    headers?: object,
   ): Promise<ApiResponse<T>> {
     if (!id) {
       await Navigate("/404");
@@ -123,15 +122,15 @@ export class BaseService<T> {
   }
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType>
+    res: ApiResponse<ResType>,
   ): Promise<Promise<ApiResponse<ResType>>>;
 
   public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>
+    res: ApiResponse<ResType[]>,
   ): Promise<Promise<ApiResponse<ResType[]>>>;
 
   public async errorHandler(
-    res: ApiResponse<T> | ApiResponse<T[]>
+    res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401) {
     }

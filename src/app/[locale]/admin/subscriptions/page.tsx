@@ -37,14 +37,16 @@ const Page = () => {
         label: `Period`,
         sortable: true,
         render: (_period, subscription) =>
-            subscription?.period &&  subscription?.period <= 0 ? (
+          subscription?.period && subscription?.period <= 0 ? (
             <p className="text-center flex justify-evenly">
               <span className={"badge-success badge "}>Life Time</span>
             </p>
           ) : (
             <p className="text-center flex justify-evenly">
               {subscription?.period}{" "}
-              <span className={"badge-success badge "}>{subscription?.period_unit}</span>
+              <span className={"badge-success badge "}>
+                {subscription?.period_unit}
+              </span>
             </p>
           ),
       },

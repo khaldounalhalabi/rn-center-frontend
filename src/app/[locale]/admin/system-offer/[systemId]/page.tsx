@@ -3,7 +3,6 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import Gallery from "@/components/common/ui/Gallery";

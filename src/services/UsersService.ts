@@ -12,7 +12,7 @@ export class UsersService extends BaseService<User> {
     const res = await DELETE<User>(
       `${this.actor}/users/${userId}/toggle-archive`,
       undefined,
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
@@ -21,7 +21,7 @@ export class UsersService extends BaseService<User> {
     const res = await GET<User>(
       `${this.actor}/users/${userId}/toggle-block`,
       undefined,
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

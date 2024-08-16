@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, {Fragment, useContext, useState} from "react";
+import React, { Fragment, useContext, useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -11,17 +11,17 @@ import ImageUploader from "@/components/common/ui/ImageUploader";
 import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
 import Gallery from "@/components/common/ui/Gallery";
-import {ReFetchPhoto} from "@/app/[locale]/providers";
+import { ReFetchPhoto } from "@/app/[locale]/providers";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
-  const {reFetch,setReFetch} = useContext(ReFetchPhoto)
+  const { reFetch, setReFetch } = useContext(ReFetchPhoto);
 
   const handleSubmit = async (data: any) => {
     console.log(data);
     return await AuthService.make<AuthService>("doctor")
       .UpdateUserDetails(data)
       .then((res) => {
-        setReFetch(!reFetch)
+        setReFetch(!reFetch);
         console.log(res);
         return res;
       });
@@ -159,17 +159,15 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         </Grid>
         <div className={"col-span-2"}>
           {defaultValues?.image?.length != 0 ? (
-              <Gallery
-                  media={defaultValues?.image ? defaultValues?.image : []}
-              />
+            <Gallery media={defaultValues?.image ? defaultValues?.image : []} />
           ) : (
-              <div className="flex items-center">
-                <label className="label"> Image : </label>
-                <span className="text-lg badge badge-neutral">No Data</span>
-              </div>
+            <div className="flex items-center">
+              <label className="label"> Image : </label>
+              <span className="text-lg badge badge-neutral">No Data</span>
+            </div>
           )}
         </div>
-        <ImageUploader name={"image"} label={'Image'}/>
+        <ImageUploader name={"image"} label={"Image"} />
         <button
           type="button"
           onClick={openModal}

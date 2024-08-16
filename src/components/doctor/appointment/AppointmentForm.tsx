@@ -39,12 +39,12 @@ const AppointmentForm = ({
 }: {
   defaultValues?: Appointment;
   id?: number;
-  patientId?: number
+  patientId?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('common.appointment.create')
+  const t = useTranslations("common.appointment.create");
   const clinic = HandleGetUserData();
-  const [date, setDate] = useState(defaultValues ?? {})
+  const [date, setDate] = useState(defaultValues ?? {});
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const { data: availableTimes } = useQuery({
@@ -82,10 +82,12 @@ const AppointmentForm = ({
 
   const lastAppointmentDate = lastVisitData?.data?.date;
   const handleSubmit = async (data: any) => {
-    const sendData = patientId ? {
-      ...data,
-      customer_id: patientId,
-    } : data
+    const sendData = patientId
+      ? {
+          ...data,
+          customer_id: patientId,
+        }
+      : data;
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -113,11 +115,9 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    patientId ?
-      Navigate(`/doctor/patients/${patientId}`)
-      :
-      Navigate(`/doctor/appointment`)
-
+    patientId
+      ? Navigate(`/doctor/patients/${patientId}`)
+      : Navigate(`/doctor/appointment`);
   };
   const [getExtra, setExtra] = useState(0);
   const [getDiscount, setDiscount] = useState(0);
@@ -143,15 +143,15 @@ const AppointmentForm = ({
   }
 
   const handleSubmitAppointmentDate = async (data: any) => {
-    return await AppointmentService.make<AppointmentService>(
-      "doctor",
-    ).updateDate(defaultValues?.id ?? 0, data).then((res) => {
-      setDate({
-        ...defaultValues,
-        date: res.data.date
-      })
-      return res
-    })
+    return await AppointmentService.make<AppointmentService>("doctor")
+      .updateDate(defaultValues?.id ?? 0, data)
+      .then((res) => {
+        setDate({
+          ...defaultValues,
+          date: res.data.date,
+        });
+        return res;
+      });
   };
 
   const appointmentCostOffer = HandleCalcOffers(
@@ -175,12 +175,11 @@ const AppointmentForm = ({
     );
   };
 
-
   let [isOpenPatient, setIsOpenPatient] = useState(false);
   let [reloadSelect, setReloadSelect] = useState("");
 
   function closeModalPatient() {
-    setReloadSelect("re")
+    setReloadSelect("re");
     setIsOpenPatient(false);
   }
 
@@ -188,16 +187,25 @@ const AppointmentForm = ({
     setIsOpenPatient(true);
   }
 
-
   return (
     <PageCard>
       <div className={"flex justify-between"}>
-
-        <div className={'flex flex-col'}>
+        <div className={"flex flex-col"}>
           <h2 className="card-title">
             {type == "store" ? t("createAppointment") : t("editAppointment")}
           </h2>
-          {type == "store" ? "" : (<h3>Patient : <span className={'badge badge-outline'}>{TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}{TranslateClient(defaultValues?.customer?.user?.middle_name)} {" "}{TranslateClient(defaultValues?.customer?.user?.last_name)}</span></h3>)}
+          {type == "store" ? (
+            ""
+          ) : (
+            <h3>
+              Patient :{" "}
+              <span className={"badge badge-outline"}>
+                {TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}
+                {TranslateClient(defaultValues?.customer?.user?.middle_name)}{" "}
+                {TranslateClient(defaultValues?.customer?.user?.last_name)}
+              </span>
+            </h3>
+          )}
         </div>
         <button
           type={"button"}
@@ -283,7 +291,12 @@ const AppointmentForm = ({
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
-                        return HandleDatePicker(data, day, range.range, range.maxAppointment);
+                        return HandleDatePicker(
+                          data,
+                          day,
+                          range.range,
+                          range.maxAppointment,
+                        );
                       }}
                     />
                   </Form>
@@ -425,7 +438,12 @@ const AppointmentForm = ({
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
-                return HandleDatePicker(data, day, range.range, range.maxAppointment);
+                return HandleDatePicker(
+                  data,
+                  day,
+                  range.range,
+                  range.maxAppointment,
+                );
               }}
             />
           ) : (
@@ -475,7 +493,9 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>{t("cost")}</td>
-                <td>{Number(range?.appointment_cost ?? 0).toLocaleString()} IQD</td>
+                <td>
+                  {Number(range?.appointment_cost ?? 0).toLocaleString()} IQD
+                </td>
               </tr>
               <tr>
                 <td>{t("service")}</td>
@@ -491,15 +511,15 @@ const AppointmentForm = ({
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
-                  <tr key={index}>
-                    <td>
-                      {t("offers")} [{TranslateClient(e.title)}]
-                    </td>
-                    <td>
-                      {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
-                    </td>
-                  </tr>
-                ))
+                    <tr key={index}>
+                      <td>
+                        {t("offers")} [{TranslateClient(e.title)}]
+                      </td>
+                      <td>
+                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                      </td>
+                    </tr>
+                  ))
                 : ""}
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>

@@ -2,7 +2,7 @@ export enum Role {
   ADMIN = "admin",
   CUSTOMER = "customer",
   DOCTOR = "doctor",
-  CLINIC_EMPLOYEE = "clinic-employee"
+  CLINIC_EMPLOYEE = "clinic-employee",
 }
 
 const Roles = (): string[] => {

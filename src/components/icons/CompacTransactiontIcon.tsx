@@ -1,7 +1,7 @@
 import React from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 
-const CompacTransactiontIcon: React.FC<IconAttributes> = ({  ...props }) => {
+const CompacTransactiontIcon: React.FC<IconAttributes> = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
       <path

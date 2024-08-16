@@ -19,7 +19,7 @@ import ExportButton from "@/components/common/Appointment/ExportButton";
 import { Link } from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
 import { Dialog, Transition } from "@headlessui/react";
-import AllMonth, { MonthsEnum } from "@/enum/Month";
+import AllMonth from "@/enum/Month";
 import ExcelIcon from "@/components/icons/ExcelIcon";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
@@ -151,11 +151,11 @@ const Page = () => {
         sortable: true,
       },
       {
-        name:"total_cost",
-        label:"Total Cost",
-        render:(data)=>{
-          return<span>{data.toLocaleString()}</span>
-        }
+        name: "total_cost",
+        label: "Total Cost",
+        render: (data) => {
+          return <span>{data.toLocaleString()}</span>;
+        },
       },
       {
         name: "appointment_sequence",
@@ -175,7 +175,7 @@ const Page = () => {
           const message =
             locale == "en"
               ? `The   appointment    number ----------------   ${sequence}----------------the   doctor   is   waiting   for   you`
-                : ` الموعد رقم${sequence} الطبيبُ في انتظارك`;
+              : ` الموعد رقم${sequence} الطبيبُ في انتظارك`;
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
               ? ["show"]

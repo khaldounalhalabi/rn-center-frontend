@@ -3,105 +3,104 @@
 @tailwind utilities;
 
 .kodchasan {
-  font-family: var(--font-kodchasan);
+    font-family: var(--font-kodchasan);
 }
 
 .slide-menu-bottom {
-  -webkit-animation: slide-menu-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    both;
-  animation: slide-menu-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    -webkit-animation: slide-menu-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-menu-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @-webkit-keyframes slide-menu-bottom {
-  0% {
-    -webkit-transform: translateY(-1000px);
-    transform: translateY(-1000px);
-  }
+    0% {
+        -webkit-transform: translateY(-1000px);
+        transform: translateY(-1000px);
+    }
 
-  100% {
-    -webkit-transform: translateY(0px);
-    transform: translateY(0px);
-  }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
 }
 
 @keyframes slide-menu-bottom {
-  0% {
-    -webkit-transform: translateY(-1000px);
-    transform: translateY(-1000px);
-  }
+    0% {
+        -webkit-transform: translateY(-1000px);
+        transform: translateY(-1000px);
+    }
 
-  100% {
-    -webkit-transform: translateY(0px);
-    transform: translateY(0px);
-  }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
 }
 
 .slider-control-centerleft button {
-  position: absolute;
-  top: 0;
-  left: 30%;
-  background-color: #3b82f6 !important;
-  color: white !important;
-  border-radius: 10px;
-  height: 30px !important;
-  text-align: center;
-  padding: 0 8px !important;
-  width: 100px !important;
+    position: absolute;
+    top: 0;
+    left: 30%;
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-radius: 10px;
+    height: 30px !important;
+    text-align: center;
+    padding: 0 8px !important;
+    width: 100px !important;
 
-  margin: 1rem 0 !important;
+    margin: 1rem 0 !important;
 }
 
 .slider-control-centerright button {
-  position: absolute;
-  top: 0;
-  right: 30%;
-  background-color: #3b82f6 !important;
-  border-radius: 10px;
-  height: 30px !important;
-  text-align: center;
-  padding: 0 8px !important;
-  width: 100px !important;
-  color: white !important;
-  margin: 1rem 0 !important;
+    position: absolute;
+    top: 0;
+    right: 30%;
+    background-color: #3b82f6 !important;
+    border-radius: 10px;
+    height: 30px !important;
+    text-align: center;
+    padding: 0 8px !important;
+    width: 100px !important;
+    color: white !important;
+    margin: 1rem 0 !important;
 }
 
 .slider-control-bottomcenter {
-  display: none;
+    display: none;
 }
 
 .slider-container {
-  overflow-y: scroll;
-  max-height: 78vh;
-  padding-right: 1rem;
+    overflow-y: scroll;
+    max-height: 78vh;
+    padding-right: 1rem;
 }
 
 @media (max-width: 890px) {
-  .slider-control-centerleft button {
-    left: 10%;
-  }
+    .slider-control-centerleft button {
+        left: 10%;
+    }
 
-  .slider-control-centerright button {
-    right: 10%;
-  }
+    .slider-control-centerright button {
+        right: 10%;
+    }
 }
 
 @media (max-width: 360px) {
-  .slider-control-centerleft button {
-    left: 2%;
-  }
+    .slider-control-centerleft button {
+        left: 2%;
+    }
 
-  .slider-control-centerright button {
-    right: 2%;
-  }
+    .slider-control-centerright button {
+        right: 2%;
+    }
 }
 
 .css-13cymwt-control,
 .css-t3ipsp-control {
-  height: 100% !important;
+    height: 100% !important;
 }
 
 iframe {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 /*
@@ -129,27 +128,28 @@ iframe {
 } */
 
 .eventContent {
-  background-color: transparent !important;
-  border-color: #ccc; /* لون الحدود الافتراضي */
+    background-color: transparent !important;
+    border-color: #ccc; /* لون الحدود الافتراضي */
 }
+
 .fc-event {
-  background-color: transparent !important; /* تعيين خلفية شفافة */
-  border-color: #ccc; /* لون الحدود الافتراضي */
+    background-color: transparent !important; /* تعيين خلفية شفافة */
+    border-color: #ccc; /* لون الحدود الافتراضي */
 }
 
 ::-webkit-scrollbar {
-  @apply w-[5px];
+    @apply w-[5px];
 }
 
 ::-webkit-scrollbar-track {
-  @apply shadow-md;
+    @apply shadow-md;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-md;
+    @apply bg-gray-300 rounded-md;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-pom;
+    @apply bg-pom;
 }
 

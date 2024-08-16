@@ -9,18 +9,18 @@ import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import PatientsOverview from "@/components/doctor/patients/PatientsOverview";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId },
 }: {
   params: { patientId: number };
 }) => {
-  const t = await getTranslations('common.patient.show')
+  const t = await getTranslations("common.patient.show");
   const data =
     await PatientsService.make<PatientsService>("doctor").show(patientId);
   const user: User | undefined = data?.data?.user;
-  console.log(patientId)
+  console.log(patientId);
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

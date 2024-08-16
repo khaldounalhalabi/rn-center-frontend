@@ -17,7 +17,7 @@ import { User } from "@/Models/User";
 import { Dialog, Transition } from "@headlessui/react";
 import PermissionsDoctorArray, { PermissionsDoctor } from "@/enum/Permissions";
 import { getCookieClient, setCookieClient } from "@/Actions/clientCookies";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface PermissionsType {
   "edit-clinic-profile": boolean;
@@ -70,7 +70,7 @@ const StaffForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('doctor.staff.create')
+  const t = useTranslations("doctor.staff.create");
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -128,9 +128,9 @@ const StaffForm = ({
     defaultValues?.user?.permissions ?? [""],
   );
   const formValues = {
-      phone_numbers:defaultValues?.phone_numbers ?? [],
-      ...defaultValues?.user
-  }
+    phone_numbers: defaultValues?.phone_numbers ?? [],
+    ...defaultValues?.user,
+  };
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -325,10 +325,7 @@ const StaffForm = ({
             placeholder={"password confirmation : "}
             label={t("confirm-password")}
           />
-          <Datepicker
-            name={"birth_date"}
-            label={t("birth-date")}
-          />
+          <Datepicker name={"birth_date"} label={t("birth-date")} />
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:

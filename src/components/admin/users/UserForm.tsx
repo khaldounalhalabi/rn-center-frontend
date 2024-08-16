@@ -95,8 +95,7 @@ const UserForm = ({
           name={"role"}
           status={"admin"}
           ArraySelect={Roles()}
-          handleSelect={()=>undefined}
-
+          handleSelect={() => undefined}
         />
       </Grid>
       <Input
@@ -205,7 +204,7 @@ const UserForm = ({
       ) : (
         ""
       )}
-      <ImageUploader name={"image"} label={'Image'}/>
+      <ImageUploader name={"image"} label={"Image"} />
     </Form>
   );
 };

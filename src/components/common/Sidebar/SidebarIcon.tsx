@@ -5,12 +5,12 @@ const SidebarIcon = ({
   link,
   title,
   children,
-    className = undefined
+  className = undefined,
 }: {
   link: string;
   title: string;
   children: React.ReactNode;
-  className?:string
+  className?: string;
 }) => {
   const path = usePathname();
   return (

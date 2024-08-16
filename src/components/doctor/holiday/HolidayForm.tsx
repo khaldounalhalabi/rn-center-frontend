@@ -7,7 +7,7 @@ import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -17,7 +17,7 @@ const HolidayForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('doctor.holidays.create')
+  const t = useTranslations("doctor.holidays.create");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>("doctor").update(

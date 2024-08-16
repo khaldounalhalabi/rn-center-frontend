@@ -1,12 +1,12 @@
 const BackIcon = ({ ...props }) => {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-            <path
-                fill="currentColor"
-                d="m6.921 12.5l5.793 5.792L12 19l-7-7l7-7l.714.708L6.92 11.5H19v1z"
-            ></path>
-        </svg>
-    );
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="m6.921 12.5l5.793 5.792L12 19l-7-7l7-7l.714.708L6.92 11.5H19v1z"
+      ></path>
+    </svg>
+  );
 };
 
 export default BackIcon;

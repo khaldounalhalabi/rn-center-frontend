@@ -11,6 +11,6 @@ export async function getCookieServer(
   return cookies().get(key)?.value;
 }
 
-export async function deleteCookieServer(key:string){
+export async function deleteCookieServer(key: string) {
   return cookies().delete(key);
 }

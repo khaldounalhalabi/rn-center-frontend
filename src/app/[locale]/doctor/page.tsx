@@ -9,10 +9,12 @@ import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
 
-
-
-const Home =  () => {
-  const { data: statistics ,isLoading,isFetching} = useQuery({
+const Home = () => {
+  const {
+    data: statistics,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["statistics"],
     queryFn: async () => {
       return await StatisticService.make<StatisticService>(
@@ -25,17 +27,25 @@ const Home =  () => {
     <>
       <div className={"flex flex-col justify-between md:flex-row my-6"}>
         <div className="md:w-[40%] w-full px-4">
-          <UserDataDoctor statisticsRes={statisticsRes} isLoading={isLoading} isFetching={isFetching}/>
+          <UserDataDoctor
+            statisticsRes={statisticsRes}
+            isLoading={isLoading}
+            isFetching={isFetching}
+          />
         </div>
 
         <div className={" md:max-w-[58%] pr-4 w-full"}>
-          <CardsAppointmentDoctor statisticsRes={statisticsRes} isLoading={isLoading} isFetching={isFetching}/>
+          <CardsAppointmentDoctor
+            statisticsRes={statisticsRes}
+            isLoading={isLoading}
+            isFetching={isFetching}
+          />
           <Card>
-            <div className={'flex justify-between'}>
+            <div className={"flex justify-between"}>
               <h2 className={"card-title mb-8"}>Monthly Appointments</h2>
               <div>
-                <p className={'text-[#8884d8]'}>Total Appointments</p>
-                <p className={'text-[#82ca9d]'}>Completed Appointments</p>
+                <p className={"text-[#8884d8]"}>Total Appointments</p>
+                <p className={"text-[#82ca9d]"}>Completed Appointments</p>
               </div>
             </div>
 

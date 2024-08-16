@@ -77,14 +77,12 @@ const page = async ({
       />
       <div className={"col-span-2"}>
         {res?.image?.length != 0 ? (
-            <Gallery
-                media={res?.image ? res?.image : []}
-            />
+          <Gallery media={res?.image ? res?.image : []} />
         ) : (
-            <div className="flex items-center">
-              <label className="label"> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
-            </div>
+          <div className="flex items-center">
+            <label className="label"> Image : </label>
+            <span className="text-lg badge badge-neutral">No Data</span>
+          </div>
         )}
       </div>
     </PageCard>

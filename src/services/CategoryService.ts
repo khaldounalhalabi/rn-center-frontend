@@ -14,7 +14,7 @@ export class CategoryService extends BaseService<ServiceCategory> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<ServiceCategory[]>> {
     const res = await GET<ServiceCategory[]>(
       `service-categories`,
@@ -26,7 +26,7 @@ export class CategoryService extends BaseService<ServiceCategory> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

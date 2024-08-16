@@ -16,8 +16,6 @@ export interface TimeSlot {
   to: string;
 }
 
-
-
 export interface AvailableTime {
   booked_times: any;
   clinic_schedule: Record<string, ClinicScheduleEntry[]>;

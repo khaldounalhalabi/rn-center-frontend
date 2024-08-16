@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
 import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
 import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
@@ -52,7 +52,7 @@ const SidebarAdmin = ({
   }>;
 }) => {
   const t = useTranslations("sideBar");
-  const local = useLocale()
+  const local = useLocale();
 
   return (
     <div
@@ -64,14 +64,19 @@ const SidebarAdmin = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div className={'overflow-hidden h-[inherit]'}>
+      <div className={"overflow-hidden h-[inherit]"}>
         <div
-            className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}        >
-          {local == 'en'?
-              <SidebarEnIcon className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}/>
-              :
-              <SidebarArIcon className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}/>
-          }
+          className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+        >
+          {local == "en" ? (
+            <SidebarEnIcon
+              className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}
+            />
+          ) : (
+            <SidebarArIcon
+              className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}
+            />
+          )}
           <XMark
             className={`h-8 w-8 md:hidden cursor-pointer`}
             onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
@@ -89,7 +94,14 @@ const SidebarAdmin = ({
           className={` space-y-1 px-4 pt-3  h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
-          <SidebarCompactItem title={t("clinicsManagement")} links={["/admin/clinics","/admin/clinics/schedules","/admin/clinics/holidays"]}>
+          <SidebarCompactItem
+            title={t("clinicsManagement")}
+            links={[
+              "/admin/clinics",
+              "/admin/clinics/schedules",
+              "/admin/clinics/holidays",
+            ]}
+          >
             <div className="flex flex-col">
               <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
               <SidebarItem link={"/admin/clinics/schedules"}>
@@ -112,7 +124,10 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
-            <SidebarCompactItem title={"Hospitals Management"} links={["/admin/hospitals","/admin/hospital-departments"]}>
+            <SidebarCompactItem
+              title={"Hospitals Management"}
+              links={["/admin/hospitals", "/admin/hospital-departments"]}
+            >
               <SidebarItem link={"/admin/hospitals"}>
                 {t("hospitals")}
               </SidebarItem>
@@ -123,7 +138,10 @@ const SidebarAdmin = ({
             <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
 
             <SidebarItem link={"/admin/user"}>Users</SidebarItem>
-            <SidebarCompactItem title={"Patients Management"} links={["/admin/patients","/admin/patient-profiles"]}>
+            <SidebarCompactItem
+              title={"Patients Management"}
+              links={["/admin/patients", "/admin/patient-profiles"]}
+            >
               <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
               <SidebarItem link={"/admin/patient-profiles"}>
                 Patient Profiles
@@ -137,10 +155,17 @@ const SidebarAdmin = ({
             </SidebarItem>
             <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
             <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
-            <SidebarCompactItem title={"Accountant Management"} links={["/admin/transaction","/admin/appointment-deductions"]}>
+            <SidebarCompactItem
+              title={"Accountant Management"}
+              links={["/admin/transaction", "/admin/appointment-deductions"]}
+            >
               <div className="flex flex-col">
-                <SidebarItem link={"/admin/transaction"}>Transactions</SidebarItem>
-                <SidebarItem link={"/admin/appointment-deductions"}>Appointment Deductions</SidebarItem>
+                <SidebarItem link={"/admin/transaction"}>
+                  Transactions
+                </SidebarItem>
+                <SidebarItem link={"/admin/appointment-deductions"}>
+                  Appointment Deductions
+                </SidebarItem>
               </div>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/blood-donation"}>
@@ -150,7 +175,6 @@ const SidebarAdmin = ({
               System Offers
             </SidebarItem>
             <SidebarItem link={"/admin/setting"}>Settings</SidebarItem>
-
           </div>
         </ul>
       </div>
@@ -248,19 +272,16 @@ const SidebarAdmin = ({
             <OfferIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={"Accountant Management"}
-              icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
+            title={"Accountant Management"}
+            icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
-              <SidebarIcon
-                  link={"/admin/transaction"}
-                  title={"Transaction"}
-              >
+              <SidebarIcon link={"/admin/transaction"} title={"Transaction"}>
                 <TransactionIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>
               <SidebarIcon
-                  link={"/admin/appointment-deductions"}
-                  title={"Appointment Deductions"}
+                link={"/admin/appointment-deductions"}
+                title={"Appointment Deductions"}
               >
                 <AppointmentDeductionstIcon className={`h-7 w-7 mx-3`} />
               </SidebarIcon>

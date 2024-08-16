@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import {Appointment, groupedByMonth} from "@/Models/Appointment";
+import { Appointment, groupedByMonth } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
 import { GET, POST, PUT } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
@@ -22,14 +22,24 @@ export class AppointmentService extends BaseService<Appointment> {
     const res = await GET<AvailableTime>(`${this.actor}/available-times`);
     return await this.errorHandler(res);
   }
-    public async allGroupedByMonth(year:string): Promise<ApiResponse<groupedByMonth>> {
-        const res = await GET<groupedByMonth>(`${this.actor}/appointments/all/group-by-month?year=${year}`);
-        return await this.errorHandler(res);
-    }
-    public async completedGroupedByMonthCopy(year:string): Promise<ApiResponse<groupedByMonth>> {
-        const res = await GET<groupedByMonth>(`${this.actor}/appointments/completed/group-by-month?year=${year}`);
-        return await this.errorHandler(res);
-    }
+
+  public async allGroupedByMonth(
+    year: string,
+  ): Promise<ApiResponse<groupedByMonth>> {
+    const res = await GET<groupedByMonth>(
+      `${this.actor}/appointments/all/group-by-month?year=${year}`,
+    );
+    return await this.errorHandler(res);
+  }
+
+  public async completedGroupedByMonthCopy(
+    year: string,
+  ): Promise<ApiResponse<groupedByMonth>> {
+    const res = await GET<groupedByMonth>(
+      `${this.actor}/appointments/completed/group-by-month?year=${year}`,
+    );
+    return await this.errorHandler(res);
+  }
 
   public async toggleStatus(
     appointmentId: number,

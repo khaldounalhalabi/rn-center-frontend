@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
@@ -7,30 +7,29 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentOverview from "@/components/doctor/appointment/AppointmentOverview";
 import Grid from "@/components/common/ui/Grid";
-import {AppointmentStatusEnum} from "@/enum/AppointmentStatus";
-import {useQuery} from "@tanstack/react-query";
-import {TranslateClient} from "@/Helpers/TranslationsClient";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
+import { useQuery } from "@tanstack/react-query";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import NotificationHandler from "@/components/common/NotificationHandler";
-import {RealTimeEvents} from "@/Models/NotificationPayload";
-import {useTranslations} from "next-intl";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
+import { useTranslations } from "next-intl";
 
-
-const Show =  ({
+const Show = ({
   params: { appointmentId },
 }: {
   params: { appointmentId: number };
 }) => {
-  const t = useTranslations("common.appointment.show")
-  const {data,refetch} = useQuery({
-    queryKey:['AppointmentService'],
-    queryFn:async ()=>{
-      return  await AppointmentService.make<AppointmentService>("doctor").show(appointmentId);
-    }
-  })
+  const t = useTranslations("common.appointment.show");
+  const { data, refetch } = useQuery({
+    queryKey: ["AppointmentService"],
+    queryFn: async () => {
+      return await AppointmentService.make<AppointmentService>("doctor").show(
+        appointmentId,
+      );
+    },
+  });
 
-
-
-  const res: Appointment|undefined = data?.data;
+  const res: Appointment | undefined = data?.data;
   return (
     <PageCard>
       <NotificationHandler

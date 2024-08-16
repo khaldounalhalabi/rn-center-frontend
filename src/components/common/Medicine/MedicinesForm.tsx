@@ -11,7 +11,7 @@ import { Clinic } from "@/Models/Clinic";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const MedicinesForm = ({
   defaultValues = undefined,
@@ -26,21 +26,20 @@ const MedicinesForm = ({
   type?: "store" | "update" | "prescription";
   closeModal?: any;
 }) => {
-  const t = useTranslations('common.medicine.create')
+  const t = useTranslations("common.medicine.create");
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return await MedicineService.make<MedicineService>(typePage).update(
-        defaultValues?.id ?? id,
-        data,
-      ).then((res)=>{
-        if (res.code == 200) {
+      return await MedicineService.make<MedicineService>(typePage)
+        .update(defaultValues?.id ?? id, data)
+        .then((res) => {
+          if (res.code == 200) {
             Navigate(`/${typePage}/medicines`);
-        }
-        return res
-      })
+          }
+          return res;
+        });
     } else {
       return await MedicineService.make<MedicineService>(typePage)
         .store(data)
@@ -58,7 +57,7 @@ const MedicinesForm = ({
   };
 
   return (
-    <Form handleSubmit={handleSubmit} defaultValues={defaultValues} >
+    <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
       <Grid md={"2"}>
         {typePage == "admin" ? (
           <ApiSelect
@@ -66,10 +65,9 @@ const MedicinesForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
-                page,
-                search,
-              )
+              ClinicsService.make<ClinicsService>()
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
             }
             label={t("clinicName")}
             optionValue={"id"}

@@ -44,7 +44,7 @@ const LoginCustomer = () => {
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined)
+      JSON.stringify(data?.data?.user ?? undefined),
     );
     setCookieClient("role", data?.data?.user?.role?.[0]?.name ?? "");
     setCookieClient("token", data?.data?.token ?? "");

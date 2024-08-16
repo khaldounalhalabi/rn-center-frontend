@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
 import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
 import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
@@ -45,7 +45,7 @@ const SidebarDoctor = ({
   const permissions: string | undefined = getCookieClient("permissions");
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const role = getCookieClient("role");
-  const local = useLocale()
+  const local = useLocale();
 
   return (
     <div
@@ -57,22 +57,26 @@ const SidebarDoctor = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div className={'overflow-hidden h-[inherit]'}>
+      <div className={"overflow-hidden h-[inherit]"}>
         <span
-            className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+          className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
-          {local == 'en'?
-              <SidebarEnIcon className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}/>
-              :
-              <SidebarArIcon className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}/>
-          }
+          {local == "en" ? (
+            <SidebarEnIcon
+              className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}
+            />
+          ) : (
+            <SidebarArIcon
+              className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}
+            />
+          )}
           <XMark
-              className={`h-8 w-8 md:hidden cursor-pointer`}
-              onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
+            className={`h-8 w-8 md:hidden cursor-pointer`}
+            onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
           />
           <XMark
-              className={`h-8 w-8 mx-3 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
-              onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
+            className={`h-8 w-8 mx-3 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
+            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
 
           <MenuIcon
@@ -84,7 +88,14 @@ const SidebarDoctor = ({
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           <SidebarItem link={"/doctor"}> {t("dashboard")}</SidebarItem>
-          <SidebarCompactItem title={t("clinicsManagement")} links={["/doctor/clinic-details","/doctor/clinic/schedules","/doctor/clinic/holidays"]}>
+          <SidebarCompactItem
+            title={t("clinicsManagement")}
+            links={[
+              "/doctor/clinic-details",
+              "/doctor/clinic/schedules",
+              "/doctor/clinic/holidays",
+            ]}
+          >
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/clinic-details"}>
                 {t("clinicDetails")}
@@ -171,7 +182,10 @@ const SidebarDoctor = ({
           <SidebarItem link={"/doctor/appointment"}>
             {t("appointment")}
           </SidebarItem>
-          <SidebarCompactItem title={t("accountantManagement")} links={["/doctor/transaction","/doctor/appointment-deductions"]}>
+          <SidebarCompactItem
+            title={t("accountantManagement")}
+            links={["/doctor/transaction", "/doctor/appointment-deductions"]}
+          >
             <div className="flex flex-col">
               <SidebarItem link={"/doctor/transaction"}>
                 {t("transaction")}

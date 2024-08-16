@@ -3,7 +3,6 @@ import { User } from "@/Models/User";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import RoundedImage from "@/components/common/RoundedImage";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { Link } from "@/navigation";
 import BackIcon from "@/components/icons/backIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
@@ -72,7 +71,7 @@ const UserDataAdmin = ({
           </div>
           <hr className={"w-full"} />
           <div className="p-4 w-full gap-2 flex justify-between">
-            <div className={'w-1/2'}>
+            <div className={"w-1/2"}>
               <h2>
                 Total Active Doctors{" "}
                 <p>
@@ -96,7 +95,7 @@ const UserDataAdmin = ({
                 </p>
               </h2>
             </div>
-            <div className={'w-1/2'}>
+            <div className={"w-1/2"}>
               <h2>
                 Total Patients{" "}
                 <p>
@@ -133,7 +132,8 @@ const UserDataAdmin = ({
               <p className="text-sm md:text-base">This Month</p>
             </div>
             <h2 className="text-lg md:text-xl font-semibold">
-              ${isLoading || isFetching ? (
+              $
+              {isLoading || isFetching ? (
                 <LoadingSpin />
               ) : (
                 statisticsRes?.total_deductions_current_month
@@ -170,4 +170,4 @@ const UserDataAdmin = ({
   );
 };
 
-export default UserDataAdmin
+export default UserDataAdmin;

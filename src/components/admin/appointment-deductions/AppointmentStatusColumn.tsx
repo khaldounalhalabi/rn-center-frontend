@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
-import {useQueryClient} from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AppointmentDeductionStatusColumn = ({
   transaction,
@@ -15,10 +15,12 @@ const AppointmentDeductionStatusColumn = ({
   revalidate?: () => void;
   userType?: "admin" | "doctor";
 }) => {
-    const queryClient = useQueryClient()
-    const revalidatee = () => {
-        return queryClient.invalidateQueries({ queryKey: ['tableData_undefined_Appointment Deductions'] })
-    };
+  const queryClient = useQueryClient();
+  const revalidatee = () => {
+    return queryClient.invalidateQueries({
+      queryKey: ["tableData_undefined_Appointment Deductions"],
+    });
+  };
   const [selected, setSelected] = useState(transaction?.status);
   const handleSelectStatus = (status: string, id: number) => {
     return AppointmentDeductionsService.make<AppointmentDeductionsService>(
@@ -34,7 +36,7 @@ const AppointmentDeductionStatusColumn = ({
 
   useEffect(() => {
     setSelected(transaction?.status);
-  }, [revalidate,revalidatee]);
+  }, [revalidate, revalidatee]);
 
   return (
     <>

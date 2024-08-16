@@ -1,7 +1,7 @@
 import Grid from "@/components/common/ui/Grid";
 import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 export interface Stringify {
   blood: string;
@@ -38,7 +38,7 @@ const defaultStringify: Stringify = {
 };
 
 const PhysicalForm = ({ defaultValue }: { defaultValue?: string }) => {
-  const t = useTranslations('common.prescription.create')
+  const t = useTranslations("common.prescription.create");
 
   const initialStringify = defaultValue
     ? JSON.parse(defaultValue)

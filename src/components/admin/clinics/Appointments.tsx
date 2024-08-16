@@ -14,9 +14,8 @@ import AppointmentStatuses, {
 } from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
-import {Link} from "@/navigation";
 import NotificationHandler from "@/components/common/NotificationHandler";
-import {RealTimeEvents} from "@/Models/NotificationPayload";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
@@ -58,11 +57,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         name: "status",
         label: "Status",
         render: (_status, appointment, setHidden, revalidate) => {
-          return (
-            <AppointmentStatusColumn
-              appointment={appointment}
-            />
-          );
+          return <AppointmentStatusColumn appointment={appointment} />;
         },
         sortable: true,
       },
@@ -90,11 +85,17 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             setHidden={setHidden}
           >
             <>
-              <NotificationHandler handle={payload => {
-                if(payload.getNotificationType() == RealTimeEvents.AppointmentStatusChange && revalidate){
-                  revalidate();
-                }
-              }} />
+              <NotificationHandler
+                handle={(payload) => {
+                  if (
+                    payload.getNotificationType() ==
+                      RealTimeEvents.AppointmentStatusChange &&
+                    revalidate
+                  ) {
+                    revalidate();
+                  }
+                }}
+              />
               <AppointmentLogModal appointmentId={data?.id} />
             </>
           </ActionsButtons>

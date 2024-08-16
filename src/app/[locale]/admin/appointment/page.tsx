@@ -71,16 +71,14 @@ const Page = () => {
         label: "Patient",
         render: (_first_name, appointment) => {
           return (
-            <div className={`flex flex-col items-start`}>
-              <Link
-                href={`/admin/patients/${appointment?.customer_id}`}
-                className={`btn`}
-              >
-                {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
-                {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
-                {TranslateClient(appointment?.customer?.user?.last_name)}
-              </Link>
-            </div>
+            <Link
+              href={`/admin/patients/${appointment?.customer_id}`}
+              className={`btn`}
+            >
+              {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
+              {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
+              {TranslateClient(appointment?.customer?.user?.last_name)}
+            </Link>
           );
         },
       },

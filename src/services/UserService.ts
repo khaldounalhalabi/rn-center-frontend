@@ -13,7 +13,7 @@ export class UserService extends BaseService<User | string> {
     const res: ApiResponse<string> = await DELETE(
       `${this.baseUrl}/${userId}/toggle-archive`,
       undefined,
-      this.headers
+      this.headers,
     );
     return this.errorHandler(res);
   };

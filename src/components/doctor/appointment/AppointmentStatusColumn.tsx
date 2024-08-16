@@ -8,7 +8,7 @@ import { useRouter } from "@/navigation";
 import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import  {
+import {
   AppointmentStatusEnum,
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
@@ -32,12 +32,9 @@ const AppointmentStatusColumn = ({
   const isMutatingCheckout: boolean =
     isPendingCheckout || isTransitionStartedCheckout;
   let rot = useRouter();
-    const [selected, setSelected] = useState(appointment?.status);
+  const [selected, setSelected] = useState(appointment?.status);
 
-  const handleSelectStatus = (
-    status: string,
-    id: number,
-  ) => {
+  const handleSelectStatus = (status: string, id: number) => {
     if (status === AppointmentStatusEnum.CHECKIN) {
       swal
         .fire({
@@ -64,20 +61,19 @@ const AppointmentStatusColumn = ({
             setPendingCheckout(false);
           }
         });
-    } else if(status === AppointmentStatusEnum.BOOKED){
-        return AppointmentService.make<AppointmentService>(userType)
-            .toggleStatus(id, { status: status })
-            .then((res) => {
-                setSelected(AppointmentStatusEnum.BOOKED)
-                toast.success("Status Changed!");
-            });
-    }else {
+    } else if (status === AppointmentStatusEnum.BOOKED) {
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
         .then((res) => {
-
-            setSelected(status)
-            console.log(selected);
+          setSelected(AppointmentStatusEnum.BOOKED);
+          toast.success("Status Changed!");
+        });
+    } else {
+      return AppointmentService.make<AppointmentService>(userType)
+        .toggleStatus(id, { status: status })
+        .then((res) => {
+          setSelected(status);
+          console.log(selected);
           toast.success("Status Changed!");
         });
     }
@@ -85,7 +81,7 @@ const AppointmentStatusColumn = ({
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setSelected(appointment?.status);
-  }, [revalidate,appointment?.status,selected]);
+  }, [revalidate, appointment?.status, selected]);
 
   function closeModal() {
     setIsOpen(false);
@@ -161,10 +157,7 @@ const AppointmentStatusColumn = ({
           onChange={(e) =>
             e.target.value === AppointmentStatusEnum.CANCELLED
               ? openModal()
-              : handleSelectStatus(
-                  e.target.value,
-                  appointment?.id ?? 0,
-                )
+              : handleSelectStatus(e.target.value, appointment?.id ?? 0)
           }
           value={selected}
         >

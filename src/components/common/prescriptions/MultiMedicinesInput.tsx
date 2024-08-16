@@ -10,21 +10,21 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { MedicineData } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { swal } from "@/Helpers/UIHelpers";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const MultiMedicinesInput = ({
-                               userType="admin",
+  userType = "admin",
 
-                               defaultValues,
+  defaultValues,
   type,
   reloadSelect,
 }: {
-  userType?:"admin"|"doctor"
+  userType?: "admin" | "doctor";
   defaultValues?: MedicineData[];
   type: string;
   reloadSelect: string;
 }) => {
-  const t = useTranslations("common.prescription.create")
+  const t = useTranslations("common.prescription.create");
   const dataDefault = Array.isArray(defaultValues)
     ? defaultValues?.map(({ id, prescription_id, medicine, ...rest }) => rest)
     : [];

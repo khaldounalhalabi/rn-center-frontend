@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import {AllName, Service} from "@/Models/Service";
+import { AllName, Service } from "@/Models/Service";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
@@ -15,7 +15,7 @@ export class ServiceService extends BaseService<Service> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Service[]>> {
     const res = await GET<Service[]>(
       `${this.actor}/clinics/${clinicId}/services`,
@@ -27,17 +27,17 @@ export class ServiceService extends BaseService<Service> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
 
-    public async getAllName(): Promise<ApiResponse<AllName[]>> {
-        const res = await GET<AllName[]>(
-            `${this.actor}/services/names`,
+  public async getAllName(): Promise<ApiResponse<AllName[]>> {
+    const res = await GET<AllName[]>(
+      `${this.actor}/services/names`,
 
-            this.headers
-        );
-        return await this.errorHandler(res);
-    }
+      this.headers,
+    );
+    return await this.errorHandler(res);
+  }
 }

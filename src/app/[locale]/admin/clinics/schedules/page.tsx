@@ -66,14 +66,9 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicsService.make<ClinicsService>("admin").setHeaders({ filtered: true }).indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await ClinicsService.make<ClinicsService>("admin")
+        .setHeaders({ filtered: true })
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     createUrl: `/admin/clinics/schedules/create`,
     title: `${t("clinicSchedules")}`,
     filter: (params, setParams) => {

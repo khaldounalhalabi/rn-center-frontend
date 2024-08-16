@@ -6,7 +6,7 @@ import AppointmentStatuses, {
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { swal } from "@/Helpers/UIHelpers";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";

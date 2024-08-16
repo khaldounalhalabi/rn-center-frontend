@@ -22,8 +22,6 @@ export default function SelectPopOverFrom({
   const { setValue } = useFormContext();
   setValue(name, selected);
 
-
-
   return (
     <div className=" w-full">
       {label ? (
@@ -59,7 +57,7 @@ export default function SelectPopOverFrom({
                     }`
                   }
                   onClick={() => {
-                      handleSelect(person);
+                    handleSelect(person);
                   }}
                   value={person}
                 >
@@ -83,7 +81,6 @@ export default function SelectPopOverFrom({
           </Transition>
         </div>
       </Listbox>
-
     </div>
   );
 }

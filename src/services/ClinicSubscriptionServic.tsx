@@ -15,7 +15,7 @@ export class ClinicSubscriptionService extends BaseService<ClinicSubscription> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<ClinicSubscription[]>> {
     const res = await GET<ClinicSubscription[]>(
       `${this.actor}/clinics/${clinicId}/subscriptions`,
@@ -27,7 +27,7 @@ export class ClinicSubscriptionService extends BaseService<ClinicSubscription> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

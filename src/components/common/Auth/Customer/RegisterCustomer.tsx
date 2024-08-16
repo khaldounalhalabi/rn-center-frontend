@@ -17,7 +17,7 @@ const RegisterCustomer = () => {
   const handleSuccess = (data: any) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined)
+      JSON.stringify(data?.data?.user ?? undefined),
     );
     setCookieClient("user-type", "customer");
     Navigate(`/auth/customer/verify-code`);

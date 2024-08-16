@@ -388,4 +388,4 @@ const ExpiredIcon = ({ ...props }) => {
   );
 };
 
-export default ExpiredIcon
+export default ExpiredIcon;

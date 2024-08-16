@@ -7,14 +7,14 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { offerId },
 }: {
   params: { offerId: number };
 }) => {
-  const t = await getTranslations('doctor.offer.show')
+  const t = await getTranslations("doctor.offer.show");
 
   const data = await OffersService.make<OffersService>("doctor").show(offerId);
   const res: Offers = data?.data;

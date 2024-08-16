@@ -11,10 +11,10 @@ import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Gallery from "@/components/common/ui/Gallery";
-import {getTranslations} from "next-intl/server";
-import {getCookieServer} from "@/Actions/serverCookies";
-import {Role} from "@/enum/Role";
-import {PermissionsDoctor} from "@/enum/Permissions";
+import { getTranslations } from "next-intl/server";
+import { getCookieServer } from "@/Actions/serverCookies";
+import { Role } from "@/enum/Role";
+import { PermissionsDoctor } from "@/enum/Permissions";
 
 const page = async () => {
   const role = await getCookieServer("role");
@@ -22,7 +22,7 @@ const page = async () => {
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const data = await AuthService.make<AuthService>("doctor").GetClinicDetails();
   const res: Clinic = data.data;
-  const t = await getTranslations("doctor.clinic-details.show")
+  const t = await getTranslations("doctor.clinic-details.show");
   console.log(res);
   return (
     <PageCard>
@@ -47,22 +47,26 @@ const page = async () => {
               <div className={"flex gap-1  my-2"}>
                 {res?.user?.phones?.slice(0, 2).map((item: Phone, index) => {
                   return (
-                      <p key={item.id} className={'badge badge-outline'}>
-                        {item.phone}
-                      </p>
-
+                    <p key={item.id} className={"badge badge-outline"}>
+                      {item.phone}
+                    </p>
                   );
                 })}
               </div>
             </div>
           </div>
           <div>
-            <Link href={`/doctor/clinic-details/edit`}  className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE)
+            <Link
+              href={`/doctor/clinic-details/edit`}
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(
+                  PermissionsDoctor.EDIT_CLINIC_PROFILE,
+                )
                   ? "hidden"
                   : ""
-            }>
+              }
+            >
               <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
             </Link>
           </div>
@@ -252,4 +256,4 @@ const page = async () => {
   );
 };
 
-export default page
+export default page;

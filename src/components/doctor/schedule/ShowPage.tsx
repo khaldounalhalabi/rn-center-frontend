@@ -3,7 +3,7 @@ import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import daysArray from "@/enum/days";
 import React from "react";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface Schedule {
   id: number;
@@ -25,8 +25,7 @@ const ShowSchedulePage = ({
   days: SchedulesDay;
   gap: number;
 }) => {
-
-    const t = useTranslations('doctor.schedules.show')
+  const t = useTranslations("doctor.schedules.show");
 
   return (
     <PageCard>
@@ -38,7 +37,7 @@ const ShowSchedulePage = ({
       </div>
       <div>
         <h1 className={"label text-xl font-semi bold w-fit"}>
-            {t("appointmentGap")} :{" "}
+          {t("appointmentGap")} :{" "}
           <span className={"mx-2 badge badge-success"}>{gap}</span>
         </h1>
       </div>
@@ -55,8 +54,12 @@ const ShowSchedulePage = ({
                   key={schedule.id}
                   className="mb-4 p-2 border border-gray-300 rounded-md"
                 >
-                  <p className="text-sm">{t("startTime")}: {schedule.start_time}</p>
-                  <p className="text-sm">{t("endTime")}: {schedule.end_time}</p>
+                  <p className="text-sm">
+                    {t("startTime")}: {schedule.start_time}
+                  </p>
+                  <p className="text-sm">
+                    {t("endTime")}: {schedule.end_time}
+                  </p>
                 </div>
               ))
             ) : (
@@ -69,4 +72,4 @@ const ShowSchedulePage = ({
   );
 };
 
-export default ShowSchedulePage
+export default ShowSchedulePage;

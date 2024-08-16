@@ -7,14 +7,14 @@ import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { serviceId },
 }: {
   params: { serviceId: number };
 }) => {
-  const t = await getTranslations('doctor.service.show')
+  const t = await getTranslations("doctor.service.show");
   const data =
     await ServiceService.make<ServiceService>("doctor").show(serviceId);
   const res: Service = data?.data;

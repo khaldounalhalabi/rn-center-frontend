@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
@@ -11,7 +11,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {ReFetchPhoto} from "@/app/[locale]/providers";
+import { ReFetchPhoto } from "@/app/[locale]/providers";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -20,13 +20,13 @@ const ProfileOptionsPopover = () => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
   const actor = getCookieClient("user-type");
-  const {reFetch} = useContext(ReFetchPhoto)
+  const { reFetch } = useContext(ReFetchPhoto);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["user" ,reFetch],
+    queryKey: ["user", reFetch],
     queryFn: async () => {
       // @ts-ignore
-      return await AuthService.make<AuthService>(actor).GetUserDetails()
+      return await AuthService.make<AuthService>(actor).GetUserDetails();
     },
   });
 
@@ -91,7 +91,7 @@ const ProfileOptionsPopover = () => {
         </Link>
         {actor == "doctor" ? (
           <Link
-              suppressHydrationWarning
+            suppressHydrationWarning
             onClick={() => setOpenPopProfile(false)}
             href={`/doctor/clinic-details`}
             className="opacity-[0.8]"

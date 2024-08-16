@@ -30,7 +30,7 @@ const VerifyCode = ({
         });
     } else {
       return await CustomerAuthService.make<CustomerAuthService>().validateResetPasswordCode(
-        data
+        data,
       );
     }
   };
@@ -104,7 +104,7 @@ const VerifyCode = ({
                         .then((res) => {
                           if (res.code == 200) {
                             setRequestVerificationCodeMessage(
-                              res.message as string
+                              res.message as string,
                             );
                           }
                         });

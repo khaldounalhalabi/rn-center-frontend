@@ -14,7 +14,7 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@/navigation";
 import ClinicTransactionTypeArray, {
   TransactionType,
@@ -60,8 +60,8 @@ const Page = () => {
     },
   });
   const [filterExport, setFilterExport] = useState<filterExportType>({
-    year: dayjs().format('YYYY'),
-    month: dayjs().format('MMMM'),
+    year: dayjs().format("YYYY"),
+    month: dayjs().format("MMMM"),
   });
   let [isOpen, setIsOpen] = useState(false);
 
@@ -141,14 +141,14 @@ const Page = () => {
         label: `Amount`,
         sortable: true,
         render: (_amount, transaction) => (
-          <span
-          >
+          <span>
             {transaction?.type == "income"
               ? "+"
               : transaction?.type == "outcome"
                 ? "-"
-                : transaction?.type == "system_debt" ?
-             "-":"+"}
+                : transaction?.type == "system_debt"
+                  ? "-"
+                  : "+"}
             {transaction?.amount.toLocaleString()}
           </span>
         ),
@@ -157,17 +157,17 @@ const Page = () => {
         name: "after_balance",
         label: `After Balance`,
         sortable: true,
-          render:(data)=>{
-            return<span>{data.toLocaleString()}</span>
-          }
+        render: (data) => {
+          return <span>{data.toLocaleString()}</span>;
+        },
       },
       {
         name: "before_balance",
         label: `Before Balance`,
         sortable: true,
-          render:(data)=>{
-              return<span>{data.toLocaleString()}</span>
-          }
+        render: (data) => {
+          return <span>{data.toLocaleString()}</span>;
+        },
       },
       {
         name: "status",
@@ -211,8 +211,7 @@ const Page = () => {
             editUrl={`/doctor/transaction/${data?.id}/edit`}
             showUrl={`/doctor/transaction/${data?.id}`}
             setHidden={setHidden}
-          >
-          </ActionsButtons>
+          ></ActionsButtons>
         ),
       },
     ],
@@ -333,11 +332,10 @@ const Page = () => {
       <NotificationHandler
         handle={(payload) => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            revalidateTable()
-            refetch()
+            revalidateTable();
+            refetch();
           }
-        }
-        }
+        }}
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -383,14 +381,14 @@ const Page = () => {
                     />
                     <label className={"label"}>Month :</label>
                     <SelectFilter
-                        data={AllMonth()}
-                        selected={filterExport.month}
-                        onChange={(e: any) => {
-                            setFilterExport({
-                              ...filterExport,
-                              month: e.target.value,
-                            });
-                        }}
+                      data={AllMonth()}
+                      selected={filterExport.month}
+                      onChange={(e: any) => {
+                        setFilterExport({
+                          ...filterExport,
+                          month: e.target.value,
+                        });
+                      }}
                     />
                   </div>
 

@@ -1,41 +1,38 @@
-import {ClinicTransaction} from "@/Models/ClinicTransaction";
-import {AppointmentDeductions} from "@/Models/AppointmentDeductions";
+import { ClinicTransaction } from "@/Models/ClinicTransaction";
+import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import dayjs from "dayjs";
 
-
 interface FilteredData {
-    [key: string]: {
-        amount: number;
-        type: string;
-        date: string;
-    }[];
+  [key: string]: {
+    amount: number;
+    type: string;
+    date: string;
+  }[];
 }
 
-const filterDataForChart = (data?: ClinicTransaction[] |AppointmentDeductions[]): FilteredData => {
-    const dataAll: FilteredData = {};
+const filterDataForChart = (
+  data?: ClinicTransaction[] | AppointmentDeductions[],
+): FilteredData => {
+  const dataAll: FilteredData = {};
 
-    if (!data) {
-        return dataAll;
+  if (!data) {
+    return dataAll;
+  }
+
+  data.forEach((item) => {
+    const itemType = item.type;
+    if (!dataAll[itemType]) {
+      dataAll[itemType] = [];
     }
 
-    data.forEach(item => {
-        const itemType = item.type;
-        if (!dataAll[itemType]) {
-            dataAll[itemType] = [];
-        }
-
-        dataAll[itemType].push({
-            amount: item.amount,
-            type: item.type,
-            date: dayjs(item.date).format("YYYY-MM-DD")
-        });
+    dataAll[itemType].push({
+      amount: item.amount,
+      type: item.type,
+      date: dayjs(item.date).format("YYYY-MM-DD"),
     });
+  });
 
-
-
-    return dataAll;
+  return dataAll;
 };
 
-
-
-export default filterDataForChart
+export default filterDataForChart;

@@ -1,11 +1,8 @@
 import { BaseService } from "@/services/BaseService";
-import {Setting} from "@/Models/setting";
-
+import { Setting } from "@/Models/setting";
 
 export class SettingService extends BaseService<Setting> {
-    public getBaseUrl(): string {
-        return `${this.actor}/settings`;
-    }
-
-
+  public getBaseUrl(): string {
+    return `${this.actor}/settings`;
+  }
 }

@@ -6,22 +6,18 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import dayjs from "dayjs";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import ExportButton from "@/components/admin/appointment-deductions/ExportButton";
 import { Dialog, Transition } from "@headlessui/react";
 import ExcelIcon from "@/components/icons/ExcelIcon";
-import AllMonth, { MonthsEnum } from "@/enum/Month";
+import AllMonth from "@/enum/Month";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
-
-import { Clinic } from "@/Models/Clinic";
 import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentStatusColumn";
 import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
@@ -29,10 +25,7 @@ import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/C
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useQueryClient } from "@tanstack/react-query";
 import NotificationHandler from "@/components/common/NotificationHandler";
-import {
-  NotificationsType,
-  RealTimeEvents,
-} from "@/Models/NotificationPayload";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 
 interface filterExportType {
   year: string;

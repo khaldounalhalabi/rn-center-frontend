@@ -16,14 +16,13 @@ export interface Service {
   icon?: Media[];
 }
 
-
 export interface AllName {
-  "id": number,
-  "name": string,
-  "approximate_duration": null,
-  "service_category_id": null,
-  "price": null,
-  "status": null,
-  "description": string,
-  "clinic_id": null
+  id: number;
+  name: string;
+  approximate_duration: null;
+  service_category_id: null;
+  price: null;
+  status: null;
+  description: string;
+  clinic_id: null;
 }

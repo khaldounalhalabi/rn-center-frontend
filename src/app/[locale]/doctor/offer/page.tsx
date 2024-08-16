@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("doctor.offer.table")
+  const t = useTranslations("doctor.offer.table");
   const tableData: DataTableData<Offers> = {
     createUrl: `/doctor/offer/create`,
     title: `${t("offers")}`,

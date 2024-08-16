@@ -2,14 +2,14 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PatientForm from "@/components/doctor/patients/PatientForm";
 import { PatientsService } from "@/services/PatientsService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId },
 }: {
   params: { patientId: number };
 }) => {
-  const t =await getTranslations('common.patient.create')
+  const t = await getTranslations("common.patient.create");
 
   const patient = (
     await PatientsService.make<PatientsService>("doctor").show(patientId)

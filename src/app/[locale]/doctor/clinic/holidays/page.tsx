@@ -7,10 +7,10 @@ import { ClinicHoliday } from "@/Models/ClinicHoliday";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('doctor.holidays.table')
+  const t = useTranslations("doctor.holidays.table");
   const tableData: DataTableData<ClinicHoliday> = {
     createUrl: `/doctor/clinic/holidays/create`,
     title: `${t("clinicsHolidays")}`,
@@ -51,9 +51,9 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicHolidayService.make<ClinicHolidayService>(
-        "doctor",
-      ).setHeaders({ filtered: true }).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      await ClinicHolidayService.make<ClinicHolidayService>("doctor")
+        .setHeaders({ filtered: true })
+        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
 
     filter: (params, setParams) => {
       return (

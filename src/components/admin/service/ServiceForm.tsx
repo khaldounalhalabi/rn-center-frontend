@@ -72,10 +72,9 @@ const ServiceForm = ({
           required={true}
           name={"clinic_id"}
           api={async (page, search) =>
-            await ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
-              page,
-              search,
-            )
+            await ClinicsService.make<ClinicsService>()
+              .setHeaders({ filtered: true })
+              .indexWithPagination(page, search)
           }
           getOptionLabel={(option: Clinic) => TranslateClient(option.name)}
           label={t("clinicName")}
@@ -168,7 +167,7 @@ const ServiceForm = ({
       ) : (
         ""
       )}
-      <ImageUploader name={"icon"} label={'Icon'}/>
+      <ImageUploader name={"icon"} label={"Icon"} />
     </Form>
   );
 };

@@ -53,8 +53,7 @@ const BlockedForm = ({
           ArraySelect={types}
           name={"type"}
           status={defaultValues?.type ?? "email"}
-          handleSelect={()=>undefined}
-
+          handleSelect={() => undefined}
         />
         <Input
           required={true}

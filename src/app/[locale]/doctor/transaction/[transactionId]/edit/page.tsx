@@ -2,7 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 
 import TransactionsForm from "@/components/doctor/transaction/TransactionsForm";
-import {ClinicTransactionService} from "@/services/ClinicTransactionService";
+import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 
 const page = async ({
   params: { transactionId },
@@ -10,9 +10,9 @@ const page = async ({
   params: { transactionId: number };
 }) => {
   const transaction = (
-    await ClinicTransactionService.make<ClinicTransactionService>("doctor").show(
-      transactionId,
-    )
+    await ClinicTransactionService.make<ClinicTransactionService>(
+      "doctor",
+    ).show(transactionId)
   ).data;
   return (
     <PageCard>

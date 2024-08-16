@@ -9,12 +9,12 @@ export class PrescriptionService extends BaseService<Prescription> {
   }
 
   public async deleteMedicine(
-    medicineId: number
+    medicineId: number,
   ): Promise<ApiResponse<MedicineData[]>> {
     const res = await DELETE<MedicineData[]>(
       `${this.actor}/prescriptions/medicine-data/${medicineId}`,
       undefined,
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
@@ -26,7 +26,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Prescription[]>> {
     const res = await GET<Prescription[]>(
       `${this.actor}/appointments/${appointmentId}/prescriptions`,
@@ -38,31 +38,32 @@ export class PrescriptionService extends BaseService<Prescription> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
-    public async getAllPatientPrescriptions(
-        patientId: number,
-        page: number = 0,
-        search?: string,
-        sortCol?: string,
-        sortDir?: string,
-        per_page?: number,
-        params?: object
-    ): Promise<ApiResponse<Prescription[]>> {
-        const res = await GET<Prescription[]>(
-            `${this.actor}/customers/${patientId}/prescriptions`,
-            {
-                page: page,
-                search: search,
-                sort_col: sortCol,
-                sort_dir: sortDir,
-                per_page: per_page,
-                ...params,
-            },
-            this.headers
-        );
-        return await this.errorHandler(res);
-    }
+
+  public async getAllPatientPrescriptions(
+    patientId: number,
+    page: number = 0,
+    search?: string,
+    sortCol?: string,
+    sortDir?: string,
+    per_page?: number,
+    params?: object,
+  ): Promise<ApiResponse<Prescription[]>> {
+    const res = await GET<Prescription[]>(
+      `${this.actor}/customers/${patientId}/prescriptions`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers,
+    );
+    return await this.errorHandler(res);
+  }
 }

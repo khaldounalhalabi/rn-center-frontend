@@ -4,8 +4,6 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 export class NotificationPayload {
   public collapseKey?: string;
   public data?: NotificationPayloadData;
-  private from?: string;
-  private messageId?: string;
   public id?: string;
   public type?: string;
   public message_en?: string;
@@ -19,6 +17,8 @@ export class NotificationPayload {
   public created_at?: string;
   public notificationData?: Record<string, any>;
   public title?: string;
+  private from?: string;
+  private messageId?: string;
 
   constructor(
     collapseKey?: string,

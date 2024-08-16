@@ -5,7 +5,7 @@ import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
 import PrescriptionsTable from "@/components/doctor/patients/PrescriptionsTable";
 import AppointmentTable from "./AppointmentTable";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -18,8 +18,8 @@ const PatientsOverview = ({
   patient: Customer;
   id: number;
 }) => {
-  const t = useTranslations('common.patient.show')
-  console.log(patient)
+  const t = useTranslations("common.patient.show");
+  console.log(patient);
   return (
     <div className={"w-full"}>
       <Tab.Group>

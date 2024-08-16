@@ -1,7 +1,7 @@
-const HomeIcon = ({...props}) => {
+const HomeIcon = ({ ...props }) => {
   return (
     <svg
-        {...props}
+      {...props}
       viewBox="0 0 23 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -14,4 +14,4 @@ const HomeIcon = ({...props}) => {
   );
 };
 
-export default HomeIcon
+export default HomeIcon;

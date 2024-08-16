@@ -254,7 +254,12 @@ const AppointmentForm = ({
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
-                        return HandleDatePicker(data, day, range.range,range.maxAppointment);
+                        return HandleDatePicker(
+                          data,
+                          day,
+                          range.range,
+                          range.maxAppointment,
+                        );
                       }}
                     />
                   </Form>
@@ -537,7 +542,12 @@ const AppointmentForm = ({
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
-                return HandleDatePicker(data, day, range.range,range.maxAppointment);
+                return HandleDatePicker(
+                  data,
+                  day,
+                  range.range,
+                  range.maxAppointment,
+                );
               }}
             />
           ) : (
@@ -587,11 +597,13 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>Clinic Appointment Cost</td>
-                <td>{Number(range?.appointment_cost ??0).toLocaleString()} IQD</td>
+                <td>
+                  {Number(range?.appointment_cost ?? 0).toLocaleString()} IQD
+                </td>
               </tr>
               <tr>
                 <td>Service</td>
-                <td>{Number(getServicePrice ??0).toLocaleString()} IQD</td>
+                <td>{Number(getServicePrice ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>Extra Fees</td>
@@ -599,7 +611,7 @@ const AppointmentForm = ({
               </tr>
               <tr>
                 <td>Discount</td>
-                <td>{Number(getDiscount ??0).toLocaleString()} IQD</td>
+                <td>{Number(getDiscount ?? 0).toLocaleString()} IQD</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
@@ -635,13 +647,12 @@ const AppointmentForm = ({
 
 export default AppointmentForm;
 
-
 const appointmentDate = {
-    "2024-08-05 00:00:00": 4,
-    "2024-08-06 00:00:00": 3,
-    "2024-08-07 00:00:00": 1,
-    "2024-08-08 00:00:00": 10,
-    "2024-08-09 00:00:00": 5,
-    "2024-08-10 00:00:00": 4,
-    "2024-08-11 00:00:00": 10,
-}
+  "2024-08-05 00:00:00": 4,
+  "2024-08-06 00:00:00": 3,
+  "2024-08-07 00:00:00": 1,
+  "2024-08-08 00:00:00": 10,
+  "2024-08-09 00:00:00": 5,
+  "2024-08-10 00:00:00": 4,
+  "2024-08-11 00:00:00": 10,
+};

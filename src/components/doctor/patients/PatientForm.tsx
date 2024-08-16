@@ -19,22 +19,22 @@ import BloodArray from "@/enum/blood";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const PatientForm = ({
   defaultValues = undefined,
   id,
   type = "store",
   appointment = false,
-  close = undefined
+  close = undefined,
 }: {
   defaultValues?: AddOrUpdateCustomer;
   id?: number;
   type?: "store" | "update";
-  appointment?: boolean,
-  close?: () => void
+  appointment?: boolean;
+  close?: () => void;
 }) => {
-  const t = useTranslations("common.patient.create")
+  const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -58,14 +58,14 @@ const PatientForm = ({
   };
   const onSuccess = () => {
     if (appointment && close) {
-      return close()
+      return close();
     } else {
       Navigate(`/doctor/patients`);
     }
   };
   console.log(defaultValues);
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const {images,...res} = defaultValues ??{images:[]}
+  const { images, ...res } = defaultValues ?? { images: [] };
   return (
     <div className={"mt-4"}>
       <Form

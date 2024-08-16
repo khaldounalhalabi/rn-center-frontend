@@ -51,7 +51,7 @@ const http = async <T>(
     "Access-Control-Allow-Origin": "*",
   };
 
-   const config = {
+  const config = {
     headers: { ...headers, ...h },
     params: params,
     baseURL: process.env.localApi,

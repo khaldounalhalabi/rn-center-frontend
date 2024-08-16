@@ -3,25 +3,24 @@ import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
 
 const page = async ({
-    params: { appointmentId },
+  params: { appointmentId },
 }: {
-    params: { appointmentId: number };
+  params: { appointmentId: number };
 }) => {
-    const appointment = (
-        await AppointmentService.make<AppointmentService>("doctor").show(
-            appointmentId,
-        )
-    ).data;
+  const appointment = (
+    await AppointmentService.make<AppointmentService>("doctor").show(
+      appointmentId,
+    )
+  ).data;
 
-    return (
-        <AppointmentForm
-            type={"update"}
-            defaultValues={{
-                ...appointment,
-            }}
-        />
-
-    );
+  return (
+    <AppointmentForm
+      type={"update"}
+      defaultValues={{
+        ...appointment,
+      }}
+    />
+  );
 };
 
 export default page;

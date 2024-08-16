@@ -1,10 +1,12 @@
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React, { ReactNode } from "react";
+
 interface ButtonAttr extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children?: ReactNode;
   isSubmitting?: boolean;
 }
+
 const AuthSubmitButton: React.FC<ButtonAttr> = ({
   children,
   isSubmitting = false,

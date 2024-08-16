@@ -199,10 +199,9 @@ const ClinicScheduleForm = ({
               required={true}
               name={"clinic_id"}
               api={(page, search) =>
-                ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
-                  page,
-                  search,
-                )
+                ClinicsService.make<ClinicsService>()
+                  .setHeaders({ filtered: true })
+                  .indexWithPagination(page, search)
               }
               label={t("clinicName")}
               optionValue={"id"}

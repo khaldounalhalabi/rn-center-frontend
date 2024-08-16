@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Trash from "@/components/icons/Trash";
 import { useFormContext } from "react-hook-form";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface InputField {
   key: string;
@@ -58,7 +58,7 @@ const OtherDataInput = ({ defaultValues }: { defaultValues?: string }) => {
     const stringifyValue = JSON.stringify(result);
     setValue("other_data", stringifyValue);
   }, [result, setValue]);
-  const t = useTranslations("common.patient.create")
+  const t = useTranslations("common.patient.create");
 
   return (
     <div>

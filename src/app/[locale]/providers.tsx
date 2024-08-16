@@ -4,8 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, createContext, Dispatch, SetStateAction } from "react";
-import useFcmToken from "@/hooks/FirebaseNotificationHook";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -28,7 +27,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     },
   });
   const [reFetch, setReFetch] = useState(false);
-
 
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>

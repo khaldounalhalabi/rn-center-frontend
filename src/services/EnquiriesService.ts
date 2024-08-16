@@ -10,12 +10,12 @@ export class EnquiriesService extends BaseService<Enquiries> {
 
   public async reply(
     enquiriesId: number,
-    data: { title: string; body: string }
+    data: { title: string; body: string },
   ): Promise<ApiResponse<boolean>> {
     const res = await POST<boolean>(
       `${this.actor}/enquiries/${enquiriesId}/reply`,
       data,
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

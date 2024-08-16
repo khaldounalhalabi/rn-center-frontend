@@ -8,21 +8,19 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Prescription } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { Appointment } from "@/Models/Appointment";
-import {Customer} from "@/Models/Customer";
-import {useTranslations} from "next-intl";
+import { Customer } from "@/Models/Customer";
+import { useTranslations } from "next-intl";
 
 const PrescriptionsTable = ({
   appointment,
-    userType="admin",
-                              patient
+  userType = "admin",
+  patient,
 }: {
   appointment?: Appointment | null | undefined;
-  userType?: "admin"|"doctor"|"customer"
-  patient?:Customer|undefined
+  userType?: "admin" | "doctor" | "customer";
+  patient?: Customer | undefined;
 }) => {
-
-  const t = useTranslations('common.prescription.table')
-
+  const t = useTranslations("common.prescription.table");
 
   const tableData: DataTableData<Prescription> =
     userType == "admin"

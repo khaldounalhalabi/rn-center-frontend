@@ -11,7 +11,7 @@ const Page = () => {
     password_confirmation: string;
   }) => {
     return await CustomerAuthService.make<CustomerAuthService>().resetPassword(
-      data
+      data,
     );
   };
 

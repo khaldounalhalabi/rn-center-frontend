@@ -18,16 +18,16 @@ import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { Customer } from "@/Models/Customer";
-import {RealTimeEvents} from "@/Models/NotificationPayload";
+import { RealTimeEvents } from "@/Models/NotificationPayload";
 import NotificationHandler from "@/components/common/NotificationHandler";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface filterExportType {
   year: string;
   month: string;
 }
 
-const AppointmentTable = ({customer}:{customer:Customer}) => {
+const AppointmentTable = ({ customer }: { customer: Customer }) => {
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
@@ -38,8 +38,7 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
   const statusData = AppointmentStatuses();
   const typeData = ["online", "manual", "all"];
 
-  const t = useTranslations('common.appointment.table')
-
+  const t = useTranslations("common.appointment.table");
 
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/patients/${customer.id}/appointment/create`,
@@ -216,7 +215,7 @@ const AppointmentTable = ({customer}:{customer:Customer}) => {
   };
 
   return (
-    <>   
+    <>
       <DataTable {...tableData} />
     </>
   );

@@ -1,28 +1,29 @@
 "use client";
 import React, { ReactNode } from "react";
-import { usePathname } from "@/navigation";
-import { Link } from "@/navigation";
+import { Link, usePathname } from "@/navigation";
 
 const SidebarItem = ({
   link = "#",
   children,
   onClick,
-    className = undefined
+  className = undefined,
 }: {
   link?: string;
   children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
-  className?:string
+  className?: string;
 }) => {
   const pathname = usePathname();
   let active: string;
   if (pathname === link) {
-    active = "text-white bg-[#1fb8b9] border-l-4 border-[#013567] hover:text-gray-500 hover:bg-gray-200";
+    active =
+      "text-white bg-[#1fb8b9] border-l-4 border-[#013567] hover:text-gray-500 hover:bg-gray-200";
   } else {
     active = "text-gray-500 hover:bg-[#1fb8b9] hover:text-white";
   }
   return (
-    <li className={`${className}`}
+    <li
+      className={`${className}`}
       onClick={(e) => {
         if (onClick) {
           onClick(e);

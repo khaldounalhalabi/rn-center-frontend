@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
-import {BloodBank, BloodDonation} from "@/Models/BloodDonation";
-import {ApiResponse} from "@/Http/Response";
-import {GET} from "@/Http/Http";
+import { BloodBank, BloodDonation } from "@/Models/BloodDonation";
+import { ApiResponse } from "@/Http/Response";
+import { GET } from "@/Http/Http";
 
 export class BloodDonationService extends BaseService<BloodDonation> {
   public getBaseUrl(): string {

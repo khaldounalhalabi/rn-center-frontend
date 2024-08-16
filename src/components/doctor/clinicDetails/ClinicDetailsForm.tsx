@@ -20,10 +20,10 @@ import { HospitalService } from "@/services/HospitalService";
 import { SpecialityService } from "@/services/SpecialityService";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
-  const t = useTranslations("doctor.clinic-details.edit")
+  const t = useTranslations("doctor.clinic-details.edit");
 
   const handleSubmit = async (data: any) => {
     console.log(data);
@@ -47,7 +47,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
     phone_numbers: defaultValues?.user?.phones?.map((ph) => ph.phone),
     ...defaultValues,
   };
-  const {work_gallery,...res} = defaultRes
+  const { work_gallery, ...res } = defaultRes;
   return (
     <>
       <Form

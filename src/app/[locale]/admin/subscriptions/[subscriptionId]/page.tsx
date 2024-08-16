@@ -1,7 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
-import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
@@ -32,13 +30,20 @@ const page = async ({
         </label>
         <label className="label">
           Period :
-
-            {res?.period && res?.period <= 0 ?
-                <span className="badge badge-success px-2 rounded-xl text-lg">life time</span>
-                : <div><span className="badge badge-outline px-2 rounded-xl text-lg">{res?.period}</span> <span className="badge badge-success px-2 rounded-xl text-lg">{res?.period_unit}</span></div>
-
-            }
-
+          {res?.period && res?.period <= 0 ? (
+            <span className="badge badge-success px-2 rounded-xl text-lg">
+              life time
+            </span>
+          ) : (
+            <div>
+              <span className="badge badge-outline px-2 rounded-xl text-lg">
+                {res?.period}
+              </span>{" "}
+              <span className="badge badge-success px-2 rounded-xl text-lg">
+                {res?.period_unit}
+              </span>
+            </div>
+          )}
         </label>
         <label className="label">
           Allow Period :

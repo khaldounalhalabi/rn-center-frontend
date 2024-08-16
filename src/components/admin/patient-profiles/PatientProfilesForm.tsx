@@ -77,10 +77,9 @@ const PatientProfilesForm = ({
             placeHolder={"Select Clinic name ..."}
             name={"clinic_id"}
             api={(page, search) =>
-              ClinicsService.make<ClinicsService>().setHeaders({ filtered: true }).indexWithPagination(
-                page,
-                search,
-              )
+              ClinicsService.make<ClinicsService>()
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
             }
             defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
             label={"Clinic Name"}
@@ -145,7 +144,7 @@ const PatientProfilesForm = ({
         ) : (
           ""
         )}
-        <ImageUploader name={"images"} isMultiple={true} label={'Images'}/>
+        <ImageUploader name={"images"} isMultiple={true} label={"Images"} />
       </PageCard>
     </Form>
   );

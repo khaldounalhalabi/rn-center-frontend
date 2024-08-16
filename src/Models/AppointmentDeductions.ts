@@ -29,7 +29,7 @@ export interface AdminAppointmentDeductionSummary {
   balance: number;
 }
 
-export interface Earning  {
-  "earnings": number,
-  "date": string
+export interface Earning {
+  earnings: number;
+  date: string;
 }

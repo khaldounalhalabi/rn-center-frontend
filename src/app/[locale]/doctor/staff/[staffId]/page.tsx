@@ -10,7 +10,7 @@ import { StaffService } from "@/services/StaffService";
 import { Phone } from "@/Models/Phone";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 function formatPermission(permission: string): string {
   return permission
@@ -28,7 +28,7 @@ const page = async ({
 }: {
   params: { staffId: number };
 }) => {
-  const t = await getTranslations('doctor.staff.show')
+  const t = await getTranslations("doctor.staff.show");
   const data = await StaffService.make<StaffService>("doctor").show(staffId);
   const res: User | undefined = data.data.user;
   const permission = formatPermissions(res?.permissions ?? []);

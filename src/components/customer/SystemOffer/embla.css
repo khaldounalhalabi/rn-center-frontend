@@ -1,44 +1,48 @@
 .embla {
-  @apply w-full m-auto;
+    @apply w-full m-auto;
 }
+
 .embla {
-  --slide-height: 100%;
-  --slide-spacing: 1rem;
-  --slide-size: 40%;
+    --slide-height: 100%;
+    --slide-spacing: 1rem;
+    --slide-size: 40%;
 }
 
 @media (max-width: 1359px) {
-  .embla {
-    --slide-size: 65%;
-  }
+    .embla {
+        --slide-size: 65%;
+    }
 }
 
 .embla__viewport {
-  height: 30vh;
-  width: 100%;
+    height: 30vh;
+    width: 100%;
 }
+
 .embla__container {
-  display: flex;
-  touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--slide-spacing) * -1);
-  height: 100%;
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+    height: 100%;
 }
+
 .embla__slide {
-  transform: translate3d(0, 0, 0);
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  padding-left: var(--slide-spacing);
-  height: 100%;
+    transform: translate3d(0, 0, 0);
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+    height: 100%;
 }
+
 .embla__slide__number {
-  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-  border-radius: 1.8rem;
-  height: 75%;
-  user-select: none;
-  object-fit: fill;
-  max-height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  object-fit: contain;
+    box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+    border-radius: 1.8rem;
+    height: 75%;
+    user-select: none;
+    object-fit: fill;
+    max-height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
 }

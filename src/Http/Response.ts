@@ -39,8 +39,8 @@ export class ApiResponse<T> {
   public code: number;
   public message: string | ValidationError | undefined | null;
   public paginate: ApiResponsePagination | undefined | null;
- public blob?:any
-  public headers?:any
+  public blob?: any;
+  public headers?: any;
 
   constructor(
     data: T,

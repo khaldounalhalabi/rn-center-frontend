@@ -1,5 +1,4 @@
 export enum daysType {
-
   SATURDAY = "saturday",
   SUNDAY = "sunday",
   MONDAY = "monday",

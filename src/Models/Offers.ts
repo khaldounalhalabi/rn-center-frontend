@@ -1,5 +1,5 @@
 import { Clinic } from "@/Models/Clinic";
-import {Media} from "@/Models/Media";
+import { Media } from "@/Models/Media";
 
 export interface Offers {
   id: number;
@@ -12,5 +12,5 @@ export interface Offers {
   type: string;
   clinic_id: number;
   clinic?: Clinic;
-  "image"?: Media[],
+  image?: Media[];
 }

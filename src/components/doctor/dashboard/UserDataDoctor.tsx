@@ -128,4 +128,4 @@ const UserDataDoctor = ({
   );
 };
 
-export default UserDataDoctor
+export default UserDataDoctor;

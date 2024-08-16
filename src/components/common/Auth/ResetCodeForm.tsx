@@ -39,7 +39,10 @@ const ResetCodeForm = ({
           "linear-gradient(to bottom, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.9)), url(https://dc621.4shared.com/img/GqP7JQWBjq/s24/18e1e7686a0/overlay_4?async&rand=0.9085352286261172)",
       }}
     >
-      <div className="top-1/2 left-1/2 absolute bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] " style={{transform: "translate(-50%, -50%);"}}>
+      <div
+        className="top-1/2 left-1/2 absolute bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] "
+        style={{ transform: "translate(-50%, -50%);" }}
+      >
         <div className="flex flex-col items-center mb-4 w-full">
           <h1 className="font-bold text-2xl sm:text-3xl">
             Reset Password Code

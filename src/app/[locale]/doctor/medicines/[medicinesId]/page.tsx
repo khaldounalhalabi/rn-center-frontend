@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import Grid from "@/components/common/ui/Grid";
 
 const page = async ({
@@ -12,9 +12,9 @@ const page = async ({
 }: {
   params: { medicinesId: number };
 }) => {
-    const t = await getTranslations('common.medicine.show')
+  const t = await getTranslations("common.medicine.show");
 
-    const data =
+  const data =
     await MedicineService.make<MedicineService>("doctor").show(medicinesId);
   const res: Medicine = data?.data;
   return (
@@ -25,12 +25,14 @@ const page = async ({
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
-     <Grid md={2}>
-         <label className="label">
-             {t("medicineName")}
-             <span className="bg-base-200 px-2 rounded-xl text-lg">{res?.name}</span>
-         </label>
-     </Grid>
+      <Grid md={2}>
+        <label className="label">
+          {t("medicineName")}
+          <span className="bg-base-200 px-2 rounded-xl text-lg">
+            {res?.name}
+          </span>
+        </label>
+      </Grid>
       <div className="w-full">
         <label className="label">{t("description")} :</label>
         <textarea

@@ -2,15 +2,11 @@ import React from "react";
 import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 
 const page = async ({
-    params: { patientId},
+  params: { patientId },
 }: {
-params: { patientId:number};
+  params: { patientId: number };
 }) => {
-    return (
-
-            <AppointmentForm type="store" patientId={patientId}/>
-
-    );
+  return <AppointmentForm type="store" patientId={patientId} />;
 };
 
 export default page;

@@ -14,7 +14,7 @@ export class SubscriptionsService extends BaseService<Subscriptions> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Subscriptions>> {
     const res = await GET<Subscriptions>(
       `subscriptions`,
@@ -26,7 +26,7 @@ export class SubscriptionsService extends BaseService<Subscriptions> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

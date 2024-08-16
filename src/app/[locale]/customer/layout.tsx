@@ -11,7 +11,7 @@ const Layout = ({
 }>) => {
   return (
     <main
-      className={`px-3 max-h-screen kodchasan w-full max-w-screen overflow-x-auto-hidden`}
+      className={` max-h-screen kodchasan w-full max-w-screen overflow-x-auto-hidden`}
     >
       <Providers>
         <div className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}>

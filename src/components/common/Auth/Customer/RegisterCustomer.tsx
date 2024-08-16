@@ -31,7 +31,7 @@ const RegisterCustomer = () => {
     >
       <div
         className={
-          "w-full md:w-[60%] max-w-[900px] md:h-full h-[90vh] flex flex-col  items-center "
+          "w-full md:w-[80%] lg:w-[70%] xl:w-[60%] max-w-[900px] md:h-full h-[90vh] flex flex-col  items-center "
         }
       >
         <h1

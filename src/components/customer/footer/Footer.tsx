@@ -52,14 +52,14 @@ const Footer = () => {
               <p>Home</p>
             </Link>
             <Link
-              href={"/notifications"}
+              href={"/customer/notifications"}
               className={"flex h-full  flex-col items-center"}
             >
-              {isActive("/notifications") && (
+              {isActive("/customer/notifications") && (
                 <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1FB8B9] "></div>
               )}
               <NotificationIcon
-                className={`w-8 h-8 ${!isActive("/notifications") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
+                className={`w-8 h-8 ${!isActive("/customer/notifications") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
               />
               <p>Notification</p>
             </Link>
@@ -92,6 +92,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+
       <div
         className={
           "hidden md:flex h-24 fixed bottom-0 items-center justify-center w-full z-10"
@@ -105,15 +107,18 @@ const Footer = () => {
           <div
             className={"flex  text-white items-center justify-around w-[40%]"}
           >
-            <Link href={"/"} className={`flex  flex-col items-center `}>
+            <Link href={"/customer"} className={`flex  flex-col items-center `}>
               <HomeIcon
-                className={`w-7 h-7 ${!isActive("/account") ? "" : "fill-[#1FB8B9]"} fill-white`}
+                className={`w-7 h-7 ${!isActive("/customer") ? "fill-white" : "fill-[#1FB8B9]"} `}
               />
               <p>Home</p>
             </Link>
-            <Link href={"/"} className={`flex  flex-col items-center `}>
+            <Link
+              href={"/customer/notifications"}
+              className={`flex  flex-col items-center `}
+            >
               <NotificationIcon
-                className={`w-7 h-7 ${!isActive("/account") ? "" : "fill-[#1FB8B9]"} fill-white`}
+                className={`w-7 h-7 ${!isActive("/customer/notifications") ? "fill-white" : "fill-[#1FB8B9]"} `}
               />
               <p>Notification</p>
             </Link>
@@ -133,14 +138,17 @@ const Footer = () => {
               href={"/customer/blood-bank"}
               className={`flex flex-col items-center  `}
             >
+              {isActive("/blood-bank") && (
+                <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1FB8B9] "></div>
+              )}
               <BloodIcon
-                className={`w-7 h-7 ${!isActive("/customer/blood-bank") ? "" : "fill-[#1FB8B9]"} fill-white`}
+                className={`w-7 h-7 ${!isActive("/customer/blood-bank") ? "fill-white" : "fill-[#1FB8B9]"}  `}
               />
               <p>Blood Bank</p>
             </Link>
             <Link href={"/"} className={`flex  flex-col items-center `}>
               <UserIcon
-                className={`w-7 h-7 ${!isActive("/account") ? "" : "fill-[#1FB8B9]"} fill-white`}
+                className={`w-7 h-7 ${!isActive("/account") ? "fill-white" : "fill-[#1FB8B9]"} `}
               />
               <p>Account</p>
             </Link>

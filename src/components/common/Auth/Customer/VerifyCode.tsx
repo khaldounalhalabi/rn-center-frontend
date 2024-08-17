@@ -6,6 +6,7 @@ import Form from "@/components/common/ui/Form";
 import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
 import { CustomerAuthService } from "@/services/CustomerAuthService";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const VerifyCode = ({
   successUrl,
@@ -90,26 +91,32 @@ const VerifyCode = ({
                 />
               </Form>
               <div
+                onClick={() => {
+                  if (customerPhoneNumber) {
+                    CustomerAuthService.make<CustomerAuthService>()
+                      .requestVerificationCode({
+                        phone_number: customerPhoneNumber,
+                      })
+                      .then((res) => {
+                        if (res.code == 200) {
+                          setRequestVerificationCodeMessage(
+                            res.message as string,
+                          );
+                        }
+                      });
+                  } else {
+                    toast(
+                      "There is been an error please enter your number here",
+                      { autoClose: false, type: "error" },
+                    );
+                    Navigate("/auth/customer/request-verification-code");
+                  }
+                }}
                 className={
                   "cursor-pointer w-full flex flex-col items-center justify-center"
                 }
               >
                 <a
-                  onClick={() => {
-                    if (customerPhoneNumber) {
-                      CustomerAuthService.make<CustomerAuthService>()
-                        .requestVerificationCode({
-                          phone_number: customerPhoneNumber,
-                        })
-                        .then((res) => {
-                          if (res.code == 200) {
-                            setRequestVerificationCodeMessage(
-                              res.message as string,
-                            );
-                          }
-                        });
-                    }
-                  }}
                   className={
                     "tracking-5 font-light text-[#1FB8B9] md:text-[16px] text-[14px]"
                   }

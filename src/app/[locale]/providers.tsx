@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
+import useFcmToken from "@/hooks/FirebaseNotificationHook";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -17,8 +18,9 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
   setReFetch: () => {},
 };
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
-
 const Providers = ({ children }: { children: React.ReactNode }) => {
+  const { fcmToken } = useFcmToken();
+  console.log(fcmToken);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

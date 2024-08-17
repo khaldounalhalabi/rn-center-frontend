@@ -1,15 +1,28 @@
 import { BaseService } from "@/services/BaseService";
-import { BloodBank, BloodDonation } from "@/Models/BloodDonation";
+import { BloodDonation } from "@/Models/BloodDonation";
 import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
 
 export class BloodDonationService extends BaseService<BloodDonation> {
   public getBaseUrl(): string {
     return `${this.actor}/blood-donation-requests`;
   }
 
-  public async getBloodBank(): Promise<ApiResponse<BloodBank[]>> {
-    const res = await GET<BloodBank[]>(`/blood-donations`);
-    return await this.errorHandler(res);
+  public async getAvailable(
+    page: number = 0,
+    search?: string,
+    sortCol?: string,
+    sortDir?: string,
+    per_page?: number,
+    params?: object,
+  ): Promise<ApiResponse<BloodDonation[]>> {
+    this.setBaseUrl("/blood-donations");
+    return await this.indexWithPagination(
+      page,
+      search,
+      sortCol,
+      sortDir,
+      per_page,
+      params,
+    );
   }
 }

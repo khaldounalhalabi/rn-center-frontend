@@ -3,7 +3,7 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 
 export class NotificationPayload {
   public collapseKey?: string;
-  public data?: NotificationPayloadData;
+  public data?: NotificationPayloadData | Record<string, any>;
   public id?: string;
   public type?: string;
   public message_en?: string;
@@ -83,7 +83,10 @@ export class NotificationPayload {
    */
   public getFromData(key: string): string | undefined {
     const data = JSON.parse(this.data?.data ?? "{}");
-    return getNestedPropertyValue(data, key);
+    return (
+      getNestedPropertyValue(data, key) ??
+      getNestedPropertyValue(this.data, key)
+    );
   }
 
   public isNotification() {
@@ -123,6 +126,10 @@ export class NotificationPayload {
     switch (type) {
       case NotificationsType.ClinicNewOnlineAppointment:
         return `/doctor/appointment/${this.getFromData("appointment_id")}`;
+      case NotificationsType.CustomerAppointmentChange:
+        return `/customer/appointments/${this.getFromData("appointment_id")}`;
+      case NotificationsType.CustomerAppointmentRemainingTime:
+        return `/customer/appointments/${this.getFromData("appointment_id")}`;
       default:
         return "#";
     }

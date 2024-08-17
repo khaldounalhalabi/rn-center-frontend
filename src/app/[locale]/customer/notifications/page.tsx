@@ -103,7 +103,7 @@ const Page = () => {
         ) : (
           data?.pages.map(
             (page) =>
-              page?.data?.map((not) => {
+              page?.data?.map((not, index) => {
                 const notification = new NotificationPayload(
                   undefined,
                   JSON.parse(not.data),
@@ -118,6 +118,7 @@ const Page = () => {
 
                 return (
                   <ListCards
+                    key={index}
                     containerClass={`${notification.read_at ? "" : "bg-[#F6F9FF]"}`}
                     image={
                       <BillIcon className={`w-full md:w-1/2 h-full md:h-1/2`} />

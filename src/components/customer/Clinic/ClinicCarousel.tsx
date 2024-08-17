@@ -28,7 +28,7 @@ const ClinicCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
   return (
-    <div className={"my-6"}>
+    <div className={"mt-6 mb-24"}>
       <div className={"flex flex-col"}>
         <div className={"flex  px-6 justify-between"}>
           <h2 className={" text-[#151D48] text-[21px]"}>Clinics</h2>
@@ -37,7 +37,7 @@ const ClinicCarousel = () => {
           </Link>
         </div>
 
-        <div className="h-[24vh] sm:h-[34vh]">
+        <div className="h-[24vh] sm:h-[34vh] xl:h-[40vh]">
           <div className="embla h-full" ref={emblaRef}>
             <div className="embla__container py-6">
               {data?.data.map((e:Clinic, index) => (

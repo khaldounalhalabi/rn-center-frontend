@@ -1,3 +1,4 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Link } from "@/navigation";
@@ -6,7 +7,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import LocationIcon from "@/components/icons/LocationIcon";
 import { Clinic } from "@/Models/Clinic";
-import { isArray } from "util";
 import FireIcon from "@/components/icons/FireIcon";
 import { getMedia } from "@/Models/Media";
 
@@ -42,9 +42,10 @@ const ClinicCarousel = () => {
           <div className="embla h-full" ref={emblaRef}>
             <div className="embla__container py-6">
               {data?.data.map((e: Clinic, index) => (
-                <div
+                <Link
+                  href={`/customer/clinics/${e.id}`}
                   className={
-                    "w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl relative mx-4"
+                    "w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl relative mx-4 cursor-pointer"
                   }
                   key={index}
                   style={{ boxShadow: "5px 7.5px 11.5px -5.5px #dddddd" }}
@@ -99,7 +100,7 @@ const ClinicCarousel = () => {
                         }
                       >
                         <h2 className={"font-semibold text-white text-[9px]"}>
-                          {"Medicine"}
+                          {TranslateClient(e.specialities?.[0]?.name)}
                         </h2>
                       </div>
                     </div>
@@ -113,7 +114,7 @@ const ClinicCarousel = () => {
                   <div className={"absolute top-3 left-3"}>
                     <FireIcon />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

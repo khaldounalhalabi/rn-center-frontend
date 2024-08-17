@@ -1,9 +1,7 @@
-import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
+"use client";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { getMedia } from "@/Models/Media";
 import { SpecialityService } from "@/services/SpecialityService";
 import { useQuery } from "@tanstack/react-query";
-import { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import "./embla.css";
@@ -29,7 +27,7 @@ const SpecialityHomePageSection = () => {
       <div className={"my-8 hidden md:flex"}>
         <div
           className={
-            "w-[40%] md:max-h-[250px] px-20 lg:px-24 xl:pl-32   flex  justify-center items-center"
+            "w-[40%] md:max-h-[250px] flex  justify-center items-center"
           }
         >
           <div className={"flex flex-col gap-5"}>
@@ -124,14 +122,14 @@ const SpecialityHomePageSection = () => {
                         "w-[24vw] h-[50%] flex flex-col justify-center items-center"
                       }
                     >
-                      <p
-                        className={
-                          "text-xs text-[#737791] text-center"
-                        }
-                      >
+                      <p className={"text-xs text-[#737791] text-center"}>
                         {e.clinics_count} Doctors
                       </p>
-                      <h2 className={"max-h-[40%] overflow-y-hidden text-xs text-center text-[#151D48]"}>
+                      <h2
+                        className={
+                          "max-h-[40%] overflow-y-hidden text-xs text-center text-[#151D48]"
+                        }
+                      >
                         {TranslateClient(e.name)}
                       </h2>
                     </div>

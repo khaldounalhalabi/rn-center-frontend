@@ -42,12 +42,12 @@ const Footer = () => {
           }}
         >
           <div className={"flex items-center justify-around w-[40%]"}>
-            <Link href={"/"} className={"flex flex-col h-full items-center"}>
-              {isActive("/") && (
+            <Link href={"/customer"} className={"flex flex-col h-full items-center"}>
+              {isActive("/customer") && (
                 <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1FB8B9] "></div>
               )}
               <HomeIcon
-                className={`w-8 h-8 ${!isActive("/") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
+                className={`w-8 h-8 ${!isActive("/customer") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
               />
               <p>Home</p>
             </Link>
@@ -96,12 +96,12 @@ const Footer = () => {
 
       <div
         className={
-          "hidden md:flex h-24 fixed bottom-0 items-center justify-center w-full z-10"
+          "hidden md:flex h-20 w-[70vw] max-w-[600px] fixed bottom-4 items-center justify-center  z-10 left-1/2 -translate-x-1/2"
         }
       >
         <div
           className={
-            "h-[80%]  w-[70%] font-bold py-10 max-w-[600px] flex justify-around items-center bg-[#9d9d9d]  rounded-2xl"
+            "h-full  w-full font-bold py-10 max-w-[600px] flex justify-around items-center bg-[#9d9d9d]  rounded-2xl"
           }
         >
           <div

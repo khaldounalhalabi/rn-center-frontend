@@ -55,7 +55,7 @@ export default async function RootLayout({
       lang={locale == "ar" ? "ar" : "en"}
       dir={locale == "ar" ? "rtl" : "ltr"}
     >
-      <body className={`${inter.className} ${kodChasan.variable}`}>
+      <body className={`${inter.className} ${kodChasan.variable} min-h-screen`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>
             <NextTopLoader showSpinner={false} />

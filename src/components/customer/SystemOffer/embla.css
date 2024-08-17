@@ -4,7 +4,7 @@
 
 .embla {
     --slide-height: 100%;
-    --slide-spacing: 1rem;
+    --slide-spacing: -1rem;
     --slide-size: 40%;
 }
 
@@ -29,8 +29,8 @@
 .embla__slide {
     transform: translate3d(0, 0, 0);
     flex: 0 0 var(--slide-size);
-    min-width: 0;
-    padding-left: var(--slide-spacing);
+    min-width: 40vw;
+    padding: 0px 20px;
     height: 100%;
 }
 

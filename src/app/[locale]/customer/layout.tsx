@@ -15,7 +15,7 @@ const Layout = ({
       className={` max-h-screen kodchasan w-full max-w-screen overflow-x-auto-hidden`}
     >
       <Providers>
-        <div className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}>
+        <div className={`min-h-screen col-start-1 col-span-4 md:col-start-2 md:col-span-4`}>
           <NotificationHandler />
           <Navbar />
           {children}

@@ -1,5 +1,12 @@
 import { Navigate } from "@/Actions/navigate";
+import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
+import RoundedImage from "@/components/common/RoundedImage";
+import Grid from "@/components/common/ui/Grid";
 import MakeAppointmentForm from "@/components/customer/Appointment/MakeAppointmentForm";
+import LocationPinIcon from "@/components/icons/LovationPinIcon";
+import TranslateServer from "@/Helpers/TranslationsServer";
+import { getMedia } from "@/Models/Media";
+import { Link } from "@/navigation";
 import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
 
@@ -12,20 +19,74 @@ const Page = async ({
     await ClinicsService.make<ClinicsService>("public").show(clinicId)
   )?.data;
 
-  console.log(clinic);
-
-  if (!clinic) {
-    await Navigate("/404");
-  }
-
-  const availableTimes = (
-    await AppointmentService.make<AppointmentService>(
-      "customer"
-    ).getAvailableTimes(clinic.id)
-  )?.data;
-
   return (
-    <MakeAppointmentForm availableTimes={availableTimes} clinic={clinic} />
+    <div className="p-10">
+      <div className="w-full flex md:flex-row flex-col justify-between items-center border-b pb-2">
+        <div className="flex md:flex-row flex-col items-center justify-center md:justify-start gap-2">
+          <RoundedImage
+            className={"hidden md:block"}
+            src={getMedia(clinic?.user?.image?.[0])}
+            alt={"clinic image"}
+          />
+          <div className="max-h-[45vh]">
+            <img
+              className="md:hidden w-full h-full"
+              src={getMedia(clinic?.user?.image?.[0])}
+            />
+          </div>
+          <div className="hidden md:flex flex-col items-start justify-start">
+            <h1 className="text-title text-lg">
+              {TranslateServer(clinic.name)}
+            </h1>
+            <p className="text-gray-400 text-sm md:text-md">
+              Dr. {TranslateServer(clinic?.user?.full_name)}
+            </p>
+            <div className="flex items-center gap-2">
+              <LocationPinIcon className="h-6 w-6 text-error" />
+              {TranslateServer(clinic?.user?.address?.name)}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex md:hidden flex-col items-start justify-start">
+            <h1 className="text-title text-sm md:text-lg">
+              {TranslateServer(clinic.name)}
+            </h1>
+            <p className="text-gray-400 text-xs md:text-md">
+              Dr. {TranslateServer(clinic?.user?.full_name)}
+            </p>
+            <div className="flex items-center gap-2 text-xs md:text">
+              <LocationPinIcon className="h-6 w-6 text-error" />
+              {TranslateServer(clinic?.user?.address?.name)}
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-start">
+            <h1 className="text-brand-primary md:text-lg">
+              {clinic.appointment_cost} IQD
+            </h1>
+            <Link href={`/customer/clinics/${clinic.id}/make-appointment`}>
+              <AuthSubmitButton className="md:px-10 md:py-3 px-3 py-1">
+                Book
+              </AuthSubmitButton>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <Grid gap={5}>
+        <label className="text-title">
+          Specialitites :
+          {clinic.specialities?.map((spec) => (
+            <span key={spec.id} className="badge badge-brand-primary">
+              {TranslateServer(spec?.name)}
+            </span>
+          ))}
+        </label>
+        <label className="text-title">
+          Experience :{" "}
+          <span className="text-brand-primary">{clinic?.experience}</span>
+        </label>
+      </Grid>
+    </div>
   );
 };
 

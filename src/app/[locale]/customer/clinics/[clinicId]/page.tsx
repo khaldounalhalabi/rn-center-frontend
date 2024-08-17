@@ -3,9 +3,13 @@ import MakeAppointmentForm from "@/components/customer/Appointment/MakeAppointme
 import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
 
-const Page = async ({ params: { clId } }: { params: { clId: number } }) => {
+const Page = async ({
+  params: { clinicId },
+}: {
+  params: { clinicId: number };
+}) => {
   const clinic = (
-    await ClinicsService.make<ClinicsService>("public").show(clId)
+    await ClinicsService.make<ClinicsService>("public").show(clinicId)
   )?.data;
 
   console.log(clinic);

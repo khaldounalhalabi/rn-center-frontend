@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <SystemOfferCarousel />
       <SpecialityHomePageSection />
-        <ClinicCarousel />
+      <ClinicCarousel />
     </>
   );
 };

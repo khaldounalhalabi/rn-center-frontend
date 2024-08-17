@@ -5,9 +5,10 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import LocationIcon from "@/components/icons/LocationIcon";
-import {Clinic} from "@/Models/Clinic";
-import {isArray} from "util";
+import { Clinic } from "@/Models/Clinic";
+import { isArray } from "util";
 import FireIcon from "@/components/icons/FireIcon";
+import { getMedia } from "@/Models/Media";
 
 const ClinicCarousel = () => {
   const { data, isPending } = useQuery({
@@ -18,7 +19,7 @@ const ClinicCarousel = () => {
         undefined,
         undefined,
         undefined,
-        4,
+        4
       ),
   });
 
@@ -40,52 +41,76 @@ const ClinicCarousel = () => {
         <div className="h-[24vh] sm:h-[34vh] xl:h-[40vh]">
           <div className="embla h-full" ref={emblaRef}>
             <div className="embla__container py-6">
-              {data?.data.map((e:Clinic, index) => (
+              {data?.data.map((e: Clinic, index) => (
                 <div
-                  className={"w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl relative mx-4"}
+                  className={
+                    "w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl relative mx-4"
+                  }
                   key={index}
                   style={{ boxShadow: "5px 7.5px 11.5px -5.5px #dddddd" }}
                 >
                   <div className={"w-[63vw] sm:w-[33vw] lg:w-[30vw] h-[50%]"}>
                     <img
                       className={"w-full h-full rounded-t-xl"}
-                      src={
-                        "https://dc613.4shared.com/img/T_vFxLhdfa/s24/190c769d828/bgLogIn?async&rand=0.737498839733479"
-                      }
+                      src={getMedia(e.user?.image?.[0])}
                       alt={".."}
                     />
                   </div>
-                  <div
-                    className={
-                      "w-full h-[50%] flex "
-                    }
-                  >
-                    <div className={"w-[60%] pl-2 text-nowrap flex flex-col justify-around"}>
+                  <div className={"w-full h-[50%] flex "}>
+                    <div
+                      className={
+                        "w-[60%] pl-2 text-nowrap flex flex-col justify-around"
+                      }
+                    >
                       <h2
-                        className={"overflow-hidden h-[30%] text-[17px] text-[#151D48] w-full"}
+                        className={
+                          "overflow-hidden h-[30%] text-[17px] text-[#151D48] w-full"
+                        }
                       >
                         {TranslateClient(e.name)}
                       </h2>
-                      <h3 className={'overflow-hidden h-[30%] text-[12px] text-[#737791] w-full'}>
+                      <h3
+                        className={
+                          "overflow-hidden h-[30%] text-[12px] text-[#737791] w-full"
+                        }
+                      >
                         Dr.{TranslateClient(e?.user?.first_name)}{" "}
                         {TranslateClient(e?.user?.middle_name)}
                       </h3>
-                      <div className={'h-[30%] text-ellipsis overflow-hidden flex gap-1'}>
+                      <div
+                        className={
+                          "h-[30%] text-ellipsis overflow-hidden flex gap-1"
+                        }
+                      >
                         <LocationIcon />
-                        <span className={'text-[11px] w-0 text-[#737791]'}>{TranslateClient(e?.user?.address?.name)}</span>
+                        <span className={"text-[11px] w-0 text-[#737791]"}>
+                          {TranslateClient(e?.user?.address?.name)}
+                        </span>
                       </div>
                     </div>
-                    <div className={'w-[40%] flex flex-col justify-around items-center'}>
-                      <div className={'bg-[#2ECBCC] rounded-xl w-[60%] h-[20px] flex justify-center items-center'}>
-                        <h2 className={'font-semibold text-white text-[9px]'}>{'Medicine'}</h2>
+                    <div
+                      className={
+                        "w-[40%] flex flex-col justify-around items-center"
+                      }
+                    >
+                      <div
+                        className={
+                          "bg-[#2ECBCC] rounded-xl w-[60%] h-[20px] flex justify-center items-center"
+                        }
+                      >
+                        <h2 className={"font-semibold text-white text-[9px]"}>
+                          {"Medicine"}
+                        </h2>
                       </div>
                     </div>
                   </div>
-                  <div className='absolute flex text-[#30ACC2] gap-1 justify-center items-center w-[30%] h-10 bg-white rounded-2xl top-1/2 right-[20%] transform translate-x-1/2 -translate-y-1/2'>
-                    <h2 className={'text-[14px]'}>{e.appointment_cost.toLocaleString()}</h2>
-                    <span className={'text-[9px]'}>IQD</span>
+                  <div className="absolute flex text-[#30ACC2] gap-1 justify-center items-center w-[30%] h-10 bg-white rounded-2xl top-1/2 right-[20%] transform translate-x-1/2 -translate-y-1/2">
+                    <h2 className={"text-[14px]"}>
+                      {e.appointment_cost.toLocaleString()}
+                    </h2>
+                    <span className={"text-[9px]"}>IQD</span>
                   </div>
-                  <div className={'absolute top-3 left-3'}>
+                  <div className={"absolute top-3 left-3"}>
                     <FireIcon />
                   </div>
                 </div>
@@ -97,4 +122,4 @@ const ClinicCarousel = () => {
     </div>
   );
 };
-export default ClinicCarousel
+export default ClinicCarousel;

@@ -1,94 +1,34 @@
 "use client";
 import { SystemOffersService } from "@/services/SystemOffersService";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { EmblaOptionsType } from "embla-carousel";
-import Autoplay from "embla-carousel-autoplay";
+import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import "./embla.css";
-import { getMedia } from "@/Models/Media";
 
 const SystemOfferCarousel = () => {
-  const { data, fetchNextPage, hasNextPage, isPending } = useInfiniteQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["system_offers_carousel"],
-    queryFn: async ({ pageParam }) =>
-      await SystemOffersService.make<SystemOffersService>(
-        "public",
-      ).indexWithPagination(pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      return !lastPage.paginate?.isLast
-        ? lastPage.paginate?.currentPage
-          ? lastPage.paginate?.currentPage + 1
-          : null
-        : null;
-    },
+    queryFn: async () => {
+      return await SystemOffersService.make<SystemOffersService>("public").indexWithPagination(1, undefined, undefined, undefined, 5)
+    }
   });
-  const options: EmblaOptionsType = {
-    align: "start",
-    dragFree: true,
-    loop: true,
-  };
-  const slides_count = 5;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
   return (
-    <div className="md:max-h-[30vh] w-full !overflow-hidden">
-      <section className="embla md:max-h-[30vh]">
-        <div className="embla__viewport md:max-h-[30vh]" ref={emblaRef}>
+      <div className="my-4  h-[23vh] md:h-[25vh] xl:h-[28vh]  ">
+        <div className="embla h-full" ref={emblaRef}>
           <div className="embla__container">
-            {isPending && (
-              <div className="embla__slide">
-                <div className="embla__slide__number">
-                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-                    <div className="skeleton w-full h-52"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isPending && (
-              <div className="embla__slide">
-                <div className="embla__slide__number">
-                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-                    <div className="skeleton w-full h-52"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isPending && (
-              <div className="embla__slide">
-                <div className="embla__slide__number">
-                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-                    <div className="skeleton w-full h-52"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isPending && (
-              <div className="embla__slide">
-                <div className="embla__slide__number">
-                  <div className="card cursor-pointer bg-base-100 w-52 md:w-full h-full shadow-xl">
-                    <div className="skeleton w-full h-52"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {data?.pages.map((page) =>
-              page.data.map((offer) => (
-                <div key={offer.id} className="embla__slide">
-                  <div className="embla__slide__number">
-                    <img
-                      className="h-full w-full"
-                      src={getMedia(offer?.image?.[0])}
-                      draggable={false}
-                    />
-                  </div>
-                </div>
-              )),
-            )}
+            {data?.data.map((offer,index) => (
+                    <div className="mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]" key={index}>
+                      <div className={'  w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]               h-[23vh] md:h-[25vh] xl:h-[28vh] '}>
+                        <img className={'rounded-3xl h-full w-full'} src={offer.image[0].file_url} alt={offer.title} />
+                      </div>
+                    </div>
+                ))
+            }
           </div>
         </div>
-      </section>
-    </div>
+      </div>
   );
 };
 

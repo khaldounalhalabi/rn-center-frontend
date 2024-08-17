@@ -4,10 +4,13 @@ import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
 export class ClinicsService extends BaseService<Clinic> {
-  getBaseUrl(): string {
-    return `${this.actor}/clinics`;
-  }
-
+    public getBaseUrl(): string {
+        if (this.actor == "public") {
+            return `clinics`;
+        } else {
+            return `${this.actor}/clinics`;
+        }
+    }
   public async getClinicsBySubscription(
     subscriptionId: number,
     page: number = 0,

@@ -7,6 +7,7 @@ import { EmblaOptionsType } from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import "./embla.css";
+import {Link} from "@/navigation";
 
 const SpecialityHomePageSection = () => {
   const { data, isPending } = useQuery({
@@ -21,57 +22,92 @@ const SpecialityHomePageSection = () => {
       ),
   });
 
-  const options: EmblaOptionsType = {
-    align: "start",
-    dragFree: true,
-    loop: true,
-  };
-  const slides_count = 5;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+  const arrayData = Array.isArray(data?.data)
+      ? data.data
+      : [];
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
   return (
-    <div className="w-full flex items-center">
-      <div className="hidden lg:flex flex-col items-start h-full w-1/3 max-w-[30%]">
-        <h2 className="text-3xl text-[#013567] mb-1">Medical</h2>
-        <h2 className="text-3xl text-[#013567] mb-1">Specialities</h2>
-        <p className="mb-1 text-lg text-[#013567]">
-          Lorem ipsum dolor sit amet conse adipisicing elit. Expedita
-        </p>
-        <AuthSubmitButton className="my-1">View All</AuthSubmitButton>
-      </div>
-      {isPending ? (
-        <div className="my-10 w-full flex items-center gap-1 justify-between">
-          <div className="skeleton lg:h-52 h-[35%] w-[25%]"></div>
-          <div className="skeleton lg:h-52 h-[35%] w-[25%]"></div>
-          <div className="skeleton lg:h-52 h-[35%] w-[25%]"></div>
-          <div className="skeleton lg:h-52 h-[35%] w-[25%]"></div>
+    <>
+      <div className={"my-8 hidden md:flex"}>
+        <div className={"w-[40%] md:max-h-[250px] px-20 lg:px-24 xl:pl-32   flex  justify-center items-center"}>
+          <div className={"flex flex-col gap-5"}>
+            <h2 className={"font-bold md:text-[30px] lg:text-[35px]  text-[#013567]"}>
+              Medical Specialties
+            </h2>
+            <p
+                className={
+                  "font-extralight opacity-60 lg:text-[20px] md:text-[16px] text-[#013567]"
+                }
+            >
+              Lorem ipsum dolor sit amet conse adipisicing elit. Expedita
+            </p>
+
+              <Link href={'/'} className={'bg-[#56d5d8] text-white w-[60%] lg:h-12 md:h-7 text-center  flex justify-center items-center  rounded-2xl shadow-lg transition transform hover:brightness-105'}>View All</Link>
+
+          </div>
         </div>
-      ) : (
-        <section className="spec_embla">
-          <div className="spec_embla__viewport" ref={emblaRef}>
-            <div className="spec_embla__container h-full">
-              {data?.data?.map((spec) => (
-                <div key={spec.id} className="spec_embla__slide h-full">
-                  <div className="spec_embla__slide__number">
-                    <div className="card bg-base-100 shadow-xl">
-                      <img
-                        src={getMedia(spec.image?.[0])}
-                        className="h-2/3 w-full"
-                      />
-                      <div className="card-body">
-                        <h2 className="card-title">
-                          {TranslateClient(spec.name)}
-                        </h2>
-                        <p>{spec.clinics_count ?? 0}</p>
+        <div className={'w-[60%] flex justify-around gap-1 px-2'}>
+          {arrayData?.map((e,index)=>{
+
+            return (
+              <div key={index} style={{boxShadow: "5px 7.5px 11.5px -5.5px #dddddd"}}
+                className={
+                  "w-[22%] h-full rounded-xl "
+                }
+              >
+                <div className={"w-full h-[70%]"}>
+                  <img
+                    className={"w-full h-full rounded-t-xl"}
+                    src={e.image[0].file_url}
+                    alt={".."}
+                  />
+                </div>
+                <div
+                  className={"w-full h-[30%] gap-2 flex flex-col justify-center items-center"}
+                >
+                  <h2 className={'text-[#151D48] text-[17px]'}>{TranslateClient(e.name)}</h2>
+                  <p className={'text-[#737791] text-[12px]'}>{e.clinics_count} Doctor</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className={'md:hidden my-6 block'}>
+        <div className={'flex flex-col'}>
+          <div className={'flex  px-6 justify-between'}>
+            <h2 className={' text-[#151D48] text-[21px]'}>Specialties</h2>
+            <Link href={'/'} className={'text-[#737791] text-[18px]'}>View All</Link>
+          </div>
+          <div className="  h-[23vh]">
+            <div className="embla h-full" ref={emblaRef}>
+              <div className="embla__container py-6">
+                {data?.data.map((e,index) => (
+                    <div className={'w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4'} key={index} >
+                      <div className={"w-[23vw] h-[50%]"}>
+                        <img
+                            className={"w-full h-full rounded-t-xl"}
+                            src={e.image[0].file_url}
+                            alt={".."}
+                        />
+                      </div>
+                      <div
+                          className={"w-[24vw] h-[50%] flex flex-col justify-center items-center"}
+                      >
+                        <p className={'text-[11px] text-[#737791]'}>{e.clinics_count} Doctor</p>
+                        <h2 className={'text-[14px] text-[#151D48]'}>{TranslateClient(e.name)}</h2>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+
+                ))
+                }
+              </div>
             </div>
           </div>
-        </section>
-      )}
-    </div>
+        </div>
+
+      </div>
+    </>
   );
 };
 

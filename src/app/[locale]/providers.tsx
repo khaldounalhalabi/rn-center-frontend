@@ -20,7 +20,6 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const { fcmToken } = useFcmToken();
-  console.log(fcmToken);
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

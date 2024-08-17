@@ -153,3 +153,13 @@ iframe {
     @apply bg-pom;
 }
 
+
+.embla {
+    overflow: hidden;
+}
+.embla__container {
+    display: flex;
+}
+.embla__slide {
+    position: relative;
+}

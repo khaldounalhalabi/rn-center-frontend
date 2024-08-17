@@ -1,7 +1,7 @@
 "use client";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import React from "react";
+import React, { useState } from "react";
 import ListCards from "@/components/customer/ListCards";
 import dayjs from "dayjs";
 import { AppointmentService } from "@/services/AppointmentService";
@@ -11,15 +11,27 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import AppointmentStatusValue from "@/components/customer/Appointment/AppointmentStatusValue";
 
 const AppointmentList = () => {
+  const [params, setParams] = useState<object | undefined>({
+    date: [
+      dayjs().format("YYYY-MM-DD"),
+      dayjs().add(1, "year").format("YYYY-MM-DD"),
+    ],
+  });
+
   const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ["next_appointments_list"],
+      queryKey: ["next_appointments_list", params],
       queryFn: async ({ pageParam }) =>
         await AppointmentService.make<AppointmentService>(
           "customer"
-        ).indexWithPagination(pageParam, undefined, undefined, undefined, 6, {
-          date: [dayjs().format("YYYY-MM-DD")],
-        }),
+        ).indexWithPagination(
+          pageParam,
+          undefined,
+          undefined,
+          undefined,
+          6,
+          params
+        ),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         return !lastPage.paginate?.isLast
@@ -33,7 +45,7 @@ const AppointmentList = () => {
 
   return (
     <div
-      className={`p-5 max-h-screen md:p-10 overflow-y-scroll`}
+      className={`py-5 px-1 max-h-screen md:p-10 overflow-y-scroll`}
       onScroll={(e: any) => {
         const { scrollTop, clientHeight, scrollHeight } = e.target;
         if (scrollHeight - scrollTop === clientHeight && hasNextPage) {
@@ -49,8 +61,20 @@ const AppointmentList = () => {
         </h1>
         <button
           className={`text-lg md:text-2xl text-title font-bold hover:underline`}
+          onClick={() => {
+            setParams((prev) =>
+              prev
+                ? undefined
+                : {
+                    date: [
+                      dayjs().format("YYYY-MM-DD"),
+                      dayjs().add(1, "year").format("YYYY-MM-DD"),
+                    ],
+                  }
+            );
+          }}
         >
-          History
+          {params ? "History" : "Upcoming"}
         </button>
       </div>
 
@@ -73,7 +97,7 @@ const AppointmentList = () => {
                   }
                   url={`/customer/appointments/${appointment.id}`}
                   info={
-                    <label>
+                    <label className="text-xs md:text-lg">
                       sequence :
                       <span className={`text-brand-primary`}>
                         {appointment.appointment_sequence}
@@ -81,12 +105,16 @@ const AppointmentList = () => {
                     </label>
                   }
                 >
-                  <div className={"flex flex-col items-start justify-center"}>
-                    <h1 className={`text-lg text-title`}>
+                  <div
+                    className={
+                      "flex flex-col items-start justify-center text-sm md:text-lg"
+                    }
+                  >
+                    <h1 className={`md:text-lg text-title`}>
                       Dr.{" "}
                       {TranslateClient(appointment?.clinic?.user?.full_name)}
                     </h1>
-                    <p className={"text-title"}>
+                    <p className={"text-title text-xs md:text-md"}>
                       {TranslateClient(appointment.clinic?.name)}
                     </p>
                     <p className={`text-lg text-brand-primary`}>

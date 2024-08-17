@@ -24,13 +24,14 @@ const Footer = () => {
             boxShadow: "-1px -3.5px 7px -2px #dddddd",
           }}
         >
-          <div
+          <Link
+            href={"/customer/appointments"}
             className={
               "h-full rounded-full bg-[#1FB8B9] text-white flex justify-center items-center"
             }
           >
             <AppointmentIcon className={"w-8 h-8"} />
-          </div>
+          </Link>
         </div>
 
         <div
@@ -93,7 +94,7 @@ const Footer = () => {
         </div>
       </div>
 
-
+      {/* when re-make it as was mohammad made it just replace block with flex and remove the left positioning */}
       <div
         className={
           "hidden md:flex h-24 fixed bottom-0 items-center justify-center w-full z-10"
@@ -124,7 +125,7 @@ const Footer = () => {
             </Link>
           </div>
           <Link
-            href={"/"}
+            href={"/customer/appointments"}
             className={
               "flex w-fit h-fit p-2  justify-center items-center bg-white rounded-full"
             }

@@ -11,12 +11,13 @@ const AuthSubmitButton: React.FC<ButtonAttr> = ({
   children,
   isSubmitting = false,
   disabled = false,
+  className = "px-10 py-3",
   ...props
 }) => {
   return (
     <button
       {...props}
-      className="flex relative px-10 py-3 bg-[#56d5d8] text-white text-lg font-medium rounded-full shadow-lg transition transform hover:brightness-105"
+      className={`cursor-pointer flex justify-center relative bg-[#56d5d8] text-white text-lg font-medium rounded-full shadow-lg transition transform hover:brightness-105 ${className}`}
       disabled={disabled || isSubmitting}
     >
       {children}

@@ -23,17 +23,17 @@ const ListCards = ({
           <div className={"w-[15%] h-full flex justify-center items-center"}>
             {image}
           </div>
-          <div className={"w-[65%] h-full"}>{children}</div>
+          <div className={"w-[55%] h-full"}>{children}</div>
         </Link>
       ) : (
         <div className={"flex items-center w-full"}>
           <div className={"w-[15%] h-full flex justify-center items-center"}>
             {image}
           </div>
-          <div className={"w-[65%] h-full"}>{children}</div>
+          <div className={"w-[55%] h-full"}>{children}</div>
         </div>
       )}
-      <div className={"w-[15%] h-full"}>{info}</div>
+      <div className={"w-[30%] h-full"}>{info}</div>
     </div>
   );
 };

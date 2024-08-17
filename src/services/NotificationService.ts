@@ -14,7 +14,7 @@ export class NotificationService extends BaseService<Notification> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<Notification[]>> {
     let response = await GET<Notification[]>(
       this.baseUrl,
@@ -26,7 +26,7 @@ export class NotificationService extends BaseService<Notification> {
         per_page: per_page,
         ...params,
       },
-      this.headers,
+      this.headers
     );
 
     return this.errorHandler(response);
@@ -34,7 +34,7 @@ export class NotificationService extends BaseService<Notification> {
 
   public async markAsRead(notificationId: string | number) {
     const response = await GET<boolean>(
-      `${this.baseUrl}/${notificationId}/mark-as-read`,
+      `${this.baseUrl}/${notificationId}/mark-as-read`
     );
 
     return this.errorHandler(response);
@@ -42,5 +42,11 @@ export class NotificationService extends BaseService<Notification> {
 
   public async getUnreadCount() {
     return this.errorHandler(await GET<number>(`${this.baseUrl}/unread/count`));
+  }
+
+  public async markAllAsRead() {
+    return this.errorHandler(
+      await GET<boolean>(`${this.baseUrl}/mark-all-as-read`)
+    );
   }
 }

@@ -81,6 +81,14 @@ const NotificationsList = () => {
         </h1>
         <button
           className={`text-lg md:text-2xl text-title font-bold hover:underline`}
+          onClick={() => {
+            NotificationService.make<NotificationService>("customer")
+              .markAllAsRead()
+              .then(() => {
+                refetch();
+                refetchCount();
+              });
+          }}
         >
           mark all as read
         </button>
@@ -146,7 +154,11 @@ const NotificationsList = () => {
                     )
                   }
                 >
-                  <div className={"flex flex-col items-start justify-center"}>
+                  <div
+                    className={
+                      "flex flex-col items-start justify-center text-xs md:text-md"
+                    }
+                  >
                     <p>{notification.getMessage()}</p>
                     <p className={"text-error"}>
                       {dayjs(notification.created_at).fromNow()}

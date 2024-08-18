@@ -47,7 +47,7 @@ const SpecialityHomePageSection = () => {
             </p>
 
             <Link
-              href={"/"}
+              href={"/customer/specialitities"}
               className={
                 "bg-[#56d5d8] text-white w-[60%] lg:h-12 md:h-7 text-center  flex justify-center items-center  rounded-2xl shadow-lg transition transform hover:brightness-105"
               }
@@ -96,7 +96,10 @@ const SpecialityHomePageSection = () => {
         <div className={"flex flex-col"}>
           <div className={"flex  px-6 justify-between"}>
             <h2 className={" text-[#151D48] text-[21px]"}>Specialties</h2>
-            <Link href={"/"} className={"text-[#737791] text-[18px]"}>
+            <Link
+              href={"/customer/specialitities"}
+              className={"text-[#737791] text-[18px]"}
+            >
               View All
             </Link>
           </div>

@@ -43,7 +43,10 @@ const Footer = () => {
           }}
         >
           <div className={"flex items-center justify-around w-[40%]"}>
-            <Link href={"/customer"} className={"flex flex-col h-full items-center"}>
+            <Link
+              href={"/customer"}
+              className={"flex flex-col h-full items-center"}
+            >
               {isActive("/customer") && (
                 <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1FB8B9] "></div>
               )}
@@ -79,14 +82,14 @@ const Footer = () => {
               <p>Blood Bank</p>
             </Link>
             <Link
-              href={"/account"}
+              href={"/customer/user-details"}
               className={"flex flex-col h-full items-center"}
             >
-              {isActive("/account") && (
+              {isActive("/customer/user-details") && (
                 <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-[#1FB8B9] "></div>
               )}
               <UserIcon
-                className={`w-8 h-8 ${!isActive("/account") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
+                className={`w-8 h-8 ${!isActive("/customer/user-details") ? "mt-2" : "fill-[#1FB8B9]"} fill-[#9eb3cf]`}
               />
               <p>Account</p>
             </Link>
@@ -147,9 +150,12 @@ const Footer = () => {
               />
               <p>Blood Bank</p>
             </Link>
-            <Link href={"/"} className={`flex  flex-col items-center `}>
+            <Link
+              href={"/customer/user-details"}
+              className={`flex  flex-col items-center `}
+            >
               <UserIcon
-                className={`w-7 h-7 ${!isActive("/account") ? "fill-white" : "fill-[#1FB8B9]"} `}
+                className={`w-7 h-7 ${!isActive("/customer/user-details") ? "fill-white" : "fill-[#1FB8B9]"} `}
               />
               <p>Account</p>
             </Link>

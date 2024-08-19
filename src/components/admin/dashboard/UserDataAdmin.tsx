@@ -23,22 +23,29 @@ const UserDataAdmin = ({
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);
 
   function calculatePercentageChange(
-    incomeLastMonth: number,
-    incomeThisMonth: number,
-  ) {
+      incomeLastMonth: number,
+      incomeThisMonth: number,
+  ):number {
     if (incomeLastMonth === 0 && incomeThisMonth === 0) {
       return 0;
-    } else if (incomeThisMonth === 0) {
+    } else if (incomeLastMonth === 0 && incomeThisMonth < 0) {
       return -100;
-    } else if (incomeLastMonth === 0) {
+    } else if (incomeLastMonth === 0 && incomeThisMonth > 0) {
       return 100;
-    } else {
-      return (
-        ((Number(incomeThisMonth) - Number(incomeLastMonth)) /
-          Number(incomeLastMonth)) *
-        100
-      );
+    } else if (incomeThisMonth === 0 && incomeLastMonth < 0) {
+      return 100;
+    } else if (incomeThisMonth === 0 && incomeLastMonth > 0) {
+      return -100;
+    } else if (incomeThisMonth < 0 && incomeLastMonth < 0) {
+      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
+    } else if (incomeThisMonth > 0 && incomeLastMonth > 0) {
+      return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
+    } else if (incomeThisMonth < 0 && incomeLastMonth > 0) {
+      return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
+    } else if (incomeThisMonth > 0 && incomeLastMonth < 0) {
+      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
     }
+    return 0;
   }
 
   const calc = calculatePercentageChange(
@@ -136,9 +143,7 @@ const UserDataAdmin = ({
               {isLoading || isFetching ? (
                 <LoadingSpin />
               ) : (
-                statisticsRes?.total_deductions_current_month
-                  .toFixed(1)
-                  .toLocaleUpperCase()
+                  ((statisticsRes?.total_deductions_current_month ?? 0).toFixed(1)).toLocaleString()
               )}
             </h2>
           </div>

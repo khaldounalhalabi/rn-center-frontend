@@ -37,8 +37,7 @@ const SetNewPassword = ({
       }}
     >
       <div
-        className="w-full md:w-6/12 max-w-[455px] p-8 absolute bg-white rounded-2xl  top-1/2 left-1/2"
-        style={{ transform: "translate(-50%, -50%);" }}
+        className="w-full md:w-6/12 max-w-[455px] p-8 absolute bg-white rounded-2xl  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         <div className="w-full mb-4 flex flex-col items-center">
           <h1 className="text-2xl font-bold sm:text-3xl">Reset Password</h1>

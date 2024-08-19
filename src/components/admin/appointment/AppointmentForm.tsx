@@ -635,7 +635,7 @@ const AppointmentForm = ({
                 : ""}
               <tr>
                 <td className="text-lg">Total Cost</td>
-                <td className="text-lg">{Number(totalCost).toFixed(1)} IQD</td>
+                <td className="text-lg">{Number(totalCost.toFixed(1)).toLocaleString()} IQD</td>
               </tr>
             </tbody>
           </table>

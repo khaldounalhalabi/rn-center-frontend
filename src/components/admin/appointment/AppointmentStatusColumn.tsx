@@ -116,7 +116,7 @@ const AppointmentStatusColumn = ({
         </Dialog>
       </Transition>
       <select
-        defaultValue={selected}
+        value={selected}
         className={`select select-bordered text-sm font-medium w-fit `}
         onChange={(e) => {
           setSelected(e.target?.value);

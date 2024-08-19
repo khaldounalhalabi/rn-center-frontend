@@ -64,7 +64,7 @@ const SidebarAdmin = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div className={"overflow-hidden h-[inherit]"}>
+      <div className={"overflow-hidden "}>
         <div
           className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >

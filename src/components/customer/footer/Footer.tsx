@@ -17,10 +17,9 @@ const Footer = () => {
       >
         <div
           className={
-            "w-[70px] h-[70px] p-2 rounded-full bg-white absolute top-0 left-1/2"
+            "w-[70px] h-[70px] p-2 rounded-full bg-white absolute top-0 left-1/2 -translate-x-1/2"
           }
           style={{
-            transform: "translate(-50%,0)",
             boxShadow: "-1px -3.5px 7px -2px #dddddd",
           }}
         >

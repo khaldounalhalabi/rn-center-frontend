@@ -57,6 +57,7 @@ const page = async ({
         </Grid>
         <div className="px-2 sm:px-0 py-16 w-full">
           <AppointmentOverview appointment={res} />
+
         </div>
       </div>
     </PageCard>

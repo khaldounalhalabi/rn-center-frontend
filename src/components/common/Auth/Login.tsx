@@ -61,8 +61,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   return (
     <div className="relative w-full h-screen">
       <div
-        className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] "
-        style={{ transform: "translate(-50%, -50%);" }}
+        className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] -translate-x-1/2 -translate-y-1/2"
       >
         <div className="flex flex-col items-center mb-4 w-full">
           <h1 className="font-bold text-2xl sm:text-3xl">Sign In</h1>

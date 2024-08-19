@@ -383,7 +383,7 @@ const AppointmentForm = ({
             name={"offers"}
             placeHolder={"Select offer ..."}
             api={(page, search) =>
-              OffersService.make<OffersService>("doctor").indexWithPagination(
+              OffersService.make<OffersService>("doctor").setHeaders({ filtered: true }).indexWithPagination(
                 page,
                 search,
               )
@@ -523,7 +523,7 @@ const AppointmentForm = ({
                 : ""}
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>
-                <td className="text-lg">{totalCost.toFixed(1)} IQD</td>
+                <td className="text-lg">{Number(totalCost.toFixed(1)).toLocaleString()} IQD</td>
               </tr>
             </tbody>
           </table>

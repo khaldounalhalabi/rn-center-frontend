@@ -3,7 +3,6 @@ import React from "react";
 import SpeechIcon from "@/components/icons/SpeechIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 
 const AppointmentSpeechButton = ({
   message,
@@ -40,7 +39,7 @@ const AppointmentSpeechButton = ({
     }
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = language;
-    utterance.rate = 0.8;
+    utterance.rate = 0.6;
     window.speechSynthesis.speak(utterance);
     return toast("Called!");
   };

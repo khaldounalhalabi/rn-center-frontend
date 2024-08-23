@@ -16,6 +16,7 @@ const Page = async ({
 
   const defaultValues: AddOrUpdateClinicForm = {
     ...clinic,
+    // @ts-ignore
     user: {
       ...clinic?.user,
       photo: clinic?.user?.image,

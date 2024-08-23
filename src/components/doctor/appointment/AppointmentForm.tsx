@@ -34,12 +34,12 @@ import { useTranslations } from "next-intl";
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
-  patientId,
+  patient,
   type = "store",
 }: {
   defaultValues?: Appointment;
   id?: number;
-  patientId?: number;
+  patient?: Customer;
   type?: "store" | "update";
 }) => {
   const t = useTranslations("common.appointment.create");
@@ -82,10 +82,10 @@ const AppointmentForm = ({
 
   const lastAppointmentDate = lastVisitData?.data?.date;
   const handleSubmit = async (data: any) => {
-    const sendData = patientId
+    const sendData = patient?.id
       ? {
           ...data,
-          customer_id: patientId,
+          customer_id: patient?.id,
         }
       : data;
     if (
@@ -115,8 +115,8 @@ const AppointmentForm = ({
     }
   };
   const onSuccess = () => {
-    patientId
-      ? Navigate(`/doctor/patients/${patientId}`)
+    patient?.id
+      ? Navigate(`/doctor/patients/${patient?.id}`)
       : Navigate(`/doctor/appointment`);
   };
   const [getExtra, setExtra] = useState(0);
@@ -194,15 +194,22 @@ const AppointmentForm = ({
           <h2 className="card-title">
             {type == "store" ? t("createAppointment") : t("editAppointment")}
           </h2>
-          {type == "store" ? (
+          {type == "store" || !patient ? (
             ""
           ) : (
             <h3>
               Patient :{" "}
               <span className={"badge badge-outline"}>
-                {TranslateClient(defaultValues?.customer?.user?.first_name)}{" "}
-                {TranslateClient(defaultValues?.customer?.user?.middle_name)}{" "}
-                {TranslateClient(defaultValues?.customer?.user?.last_name)}
+                {TranslateClient(defaultValues?.customer?.user?.full_name)}{" "}
+              </span>
+            </h3>
+          )}
+
+          {patient && type != "update" && (
+            <h3>
+              Patient :{" "}
+              <span className={"badge badge-outline"}>
+                {TranslateClient(patient?.user?.full_name)}{" "}
               </span>
             </h3>
           )}
@@ -312,7 +319,7 @@ const AppointmentForm = ({
         defaultValues={defaultValues}
       >
         <Grid md={"2"}>
-          {!patientId && type === "store" ? (
+          {!patient?.id && type === "store" ? (
             <>
               <div>
                 <ApiSelect
@@ -383,10 +390,9 @@ const AppointmentForm = ({
             name={"offers"}
             placeHolder={"Select offer ..."}
             api={(page, search) =>
-              OffersService.make<OffersService>("doctor").setHeaders({ filtered: true }).indexWithPagination(
-                page,
-                search,
-              )
+              OffersService.make<OffersService>("doctor")
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
             }
             closeOnSelect={false}
             defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
@@ -479,9 +485,7 @@ const AppointmentForm = ({
             label={"Cancellation Reason"}
             name={"cancellation_reason"}
           />
-        ) : (
-          false
-        )}
+        ) : ""}
         <div className="overflow-x-auto border-2 rounded-2xl">
           <table className="table">
             <thead>
@@ -523,7 +527,9 @@ const AppointmentForm = ({
                 : ""}
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>
-                <td className="text-lg">{Number(totalCost.toFixed(1)).toLocaleString()} IQD</td>
+                <td className="text-lg">
+                  {Number(totalCost.toFixed(1)).toLocaleString()} IQD
+                </td>
               </tr>
             </tbody>
           </table>

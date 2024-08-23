@@ -47,6 +47,7 @@ export interface AddOrUpdateClinicForm {
     gender?: string;
     image?: File | any | Media[];
     photo?: Media[];
+    tags: string[] | string;
   };
   phone_numbers?: string[];
   status?: string;

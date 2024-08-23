@@ -25,6 +25,8 @@ import { SubscriptionsService } from "@/services/SubscriptionsService";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 import dayjs from "dayjs";
+import InputTags from "@/components/common/ui/InputTags";
+import { isArray } from "util";
 
 const ClinicForm = ({
   type = "store",
@@ -275,6 +277,17 @@ const ClinicForm = ({
           type={"text"}
           label={t("address")}
           locale={locale}
+        />
+        <InputTags
+          name={"user.tags"}
+          label={"Tags :"}
+          defaultValue={
+            isArray(defaultValues?.user?.tags)
+              ? defaultValues?.user?.tags
+              : defaultValues?.user?.tags
+                ? [defaultValues?.user?.tags]
+                : undefined
+          }
         />
 
         <TextAreaMap

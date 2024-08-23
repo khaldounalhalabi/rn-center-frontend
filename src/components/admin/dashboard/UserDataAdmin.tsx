@@ -23,9 +23,9 @@ const UserDataAdmin = ({
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);
 
   function calculatePercentageChange(
-      incomeLastMonth: number,
-      incomeThisMonth: number,
-  ):number {
+    incomeLastMonth: number,
+    incomeThisMonth: number,
+  ): number {
     if (incomeLastMonth === 0 && incomeThisMonth === 0) {
       return 0;
     } else if (incomeLastMonth === 0 && incomeThisMonth < 0) {
@@ -37,13 +37,17 @@ const UserDataAdmin = ({
     } else if (incomeThisMonth === 0 && incomeLastMonth > 0) {
       return -100;
     } else if (incomeThisMonth < 0 && incomeLastMonth < 0) {
-      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
+      return (
+        ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100
+      );
     } else if (incomeThisMonth > 0 && incomeLastMonth > 0) {
       return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
     } else if (incomeThisMonth < 0 && incomeLastMonth > 0) {
       return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
     } else if (incomeThisMonth > 0 && incomeLastMonth < 0) {
-      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
+      return (
+        ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100
+      );
     }
     return 0;
   }
@@ -139,12 +143,15 @@ const UserDataAdmin = ({
               <p className="text-sm md:text-base">This Month</p>
             </div>
             <h2 className="text-lg md:text-xl font-semibold">
-              $
               {isLoading || isFetching ? (
                 <LoadingSpin />
               ) : (
-                  ((statisticsRes?.total_deductions_current_month ?? 0).toFixed(1)).toLocaleString()
+                (statisticsRes?.total_deductions_current_month ?? 0)
+                  .toFixed(2)
+                  .toLocaleString()
               )}
+              {" "}
+              IQD
             </h2>
           </div>
 

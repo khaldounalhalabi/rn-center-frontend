@@ -22,7 +22,7 @@ export interface AddOrUpdateCustomer {
   birth_date?: string;
   gender?: string;
   blood_group?: string;
-  tags?: string;
+  tags?: string | string[];
   image?: Media[];
   phone_numbers?: string[];
   address?: Address;

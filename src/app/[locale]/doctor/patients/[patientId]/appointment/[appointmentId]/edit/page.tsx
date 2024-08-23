@@ -15,7 +15,7 @@ const page = async ({
 
   return (
     <AppointmentForm
-      patient={patientId}
+      patient={appointment.customer}
       type={"update"}
       defaultValues={{
         ...appointment,

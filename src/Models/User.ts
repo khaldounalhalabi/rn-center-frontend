@@ -15,7 +15,7 @@ export interface User {
   gender: string;
   blood_group: string;
   is_blocked: boolean;
-  tags: string | string[];
+  tags: string;
   fcm_token?: null | string;
   is_archived: boolean;
   image?: Media[];

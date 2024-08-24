@@ -106,12 +106,6 @@ const page = async () => {
               </span>
             </h2>
           </Grid>
-          <h2>
-            tags :{" "}
-            <span className="badge ml-3 mt-1 badge-outline">
-              {res?.tags ?? "No Data"}
-            </span>
-          </h2>
         </div>
 
         <div className={"h-1/3"}>

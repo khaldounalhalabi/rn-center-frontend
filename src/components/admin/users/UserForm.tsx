@@ -145,7 +145,9 @@ const UserForm = ({
         <InputTags
           name={"tags"}
           label={"Tags :"}
-          defaultValue={defaultValues?.tags ? [defaultValues.tags] : []}
+          defaultValue={
+            defaultValues?.tags ? defaultValues?.tags?.split(",") ?? [] : []
+          }
         />
       </Grid>
       <MultiInput

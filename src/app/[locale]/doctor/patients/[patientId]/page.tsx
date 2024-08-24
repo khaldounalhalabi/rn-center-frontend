@@ -20,7 +20,6 @@ const page = async ({
   const data =
     await PatientsService.make<PatientsService>("doctor").show(patientId);
   const user: User | undefined = data?.data?.user;
-  console.log(patientId);
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

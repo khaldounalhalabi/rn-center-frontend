@@ -17,7 +17,6 @@ const PatientDetails = ({
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));
   };
-  const tagsArray = patient?.user?.tags ? patient?.user?.tags.split(",") : [];
   const otherData = patient?.currentClinicPatientProfile?.other_data
     ? convertObjectToArray(
         JSON.parse(patient?.currentClinicPatientProfile?.other_data),
@@ -80,21 +79,7 @@ const PatientDetails = ({
         </label>
       </Grid>
       {typePage == "admin" ? (
-        <label className="label justify-start text-xl">
-          {t("tags")} :{" "}
-          {tagsArray ? (
-            tagsArray.map((e, index) => (
-              <span
-                key={index}
-                className="rtl:mr-1 ltr:ml-1 text-lg badge badge-neutral"
-              >
-                {e}
-              </span>
-            ))
-          ) : (
-            <span className="text-lg badge badge-neutral">No Data</span>
-          )}
-        </label>
+        ""
       ) : (
         <>
           <h2 className="card-title">{t("otherData")} :</h2>

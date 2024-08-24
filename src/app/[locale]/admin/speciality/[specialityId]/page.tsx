@@ -17,7 +17,7 @@ const page = async ({
   const data =
     await SpecialityService.make<SpecialityService>().show(specialityId);
   const res: Speciality = data?.data;
-  const tagsArray = res?.tags.split(",");
+  const tagsArray = res?.tags?.split(",") ?? [];
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">

@@ -281,7 +281,7 @@ const ClinicForm = ({
           name={"user.tags"}
           label={"Tags :"}
           defaultValue={
-            defaultValues?.user?.tags ? defaultValues?.user.tags.split(",") : []
+            defaultValues?.user?.tags ? (defaultValues?.user?.tags?.split(",") ?? []) : []
           }
         />
 

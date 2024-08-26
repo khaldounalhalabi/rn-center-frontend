@@ -91,4 +91,14 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     );
     return await this.errorHandler(res);
   }
+
+  public async collectDeductionsForThisMonth(clinicId: number) {
+    return this.errorHandler(
+      await GET<boolean>(
+        `admin/clinics/${clinicId}/appointment-deductions/current-month/collect`,
+        undefined,
+        this.headers,
+      ),
+    );
+  }
 }

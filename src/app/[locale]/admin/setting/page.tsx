@@ -26,6 +26,7 @@ const Page = () => {
         name: "value",
         label: `Value`,
         sortable: true,
+        render: (data) => <div className={"max-w-[200px] overflow-x-hidden"}>{data}</div>
       },
       {
         label: `Actions`,

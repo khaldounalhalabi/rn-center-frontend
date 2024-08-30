@@ -320,12 +320,13 @@ const AppointmentForm = ({
       >
         <Grid md={"2"}>
           {!patient?.id && type === "store" ? (
-            <>
-              <div>
+            <div className={"col-span-2"}>
+              <h2 className={"text-xl font-bold border-b"}>Patient Details:</h2>
+              <div className={"w-full md:w-1/2"}>
                 <ApiSelect
                   required={true}
                   name={"customer_id"}
-                  placeHolder={"Select Customer name ..."}
+                  placeHolder={"Select Patient Name ..."}
                   api={(page, search) =>
                     CustomerService.make<CustomerService>("doctor")
                       .setHeaders({ filtered: true })
@@ -356,11 +357,59 @@ const AppointmentForm = ({
                   ""
                 )}
               </div>
-            </>
+            </div>
           ) : (
             ""
           )}
 
+          <h2 className={"text-xl font-bold border-b col-span-2 w-full"}>Offers & Additions:</h2>
+          <ApiSelect
+              name={"offers"}
+              placeHolder={"Select offer ..."}
+              api={(page, search) =>
+                  OffersService.make<OffersService>("doctor")
+                      .setHeaders({ filtered: true })
+                      .indexWithPagination(page, search)
+              }
+              closeOnSelect={false}
+              defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
+              label={t("offers")}
+              onSelect={async (selectedItem) => {
+                if (selectedItem) {
+                  setOffer((prevOffers) => [...prevOffers, selectedItem]);
+                }
+              }}
+              onClear={() => {
+                setOffer([]);
+              }}
+              onRemoveSelected={(selectedItem) => {
+                setOffer((prev) =>
+                    prev.filter((item) => item.id != selectedItem.value),
+                );
+              }}
+              isMultiple={true}
+              optionValue={"id"}
+              getOptionLabel={(data: Offers) => TranslateClient(data.title)}
+          />
+
+          <Input
+              name={"extra_fees"}
+              type={"number"}
+              step={"any"}
+              unit={"IQD"}
+              placeholder={"Extra Fees : 5"}
+              label={t("extraFees")}
+              setWatch={setExtra}
+          />
+          <Input
+              name={"discount"}
+              type={"number"}
+              step={"any"}
+              placeholder={"Discount ..."}
+              label={t("discount")}
+              setWatch={setDiscount}
+          />
+          <h2 className={"col-span-2 w-full text-xl font-bold border-b"}>Booking details:</h2>
           <ApiSelect
             name={"service_id"}
             placeHolder={"Select Service name ..."}
@@ -386,44 +435,7 @@ const AppointmentForm = ({
             optionValue={"id"}
             getOptionLabel={(data: Service) => TranslateClient(data.name)}
           />
-          <ApiSelect
-            name={"offers"}
-            placeHolder={"Select offer ..."}
-            api={(page, search) =>
-              OffersService.make<OffersService>("doctor")
-                .setHeaders({ filtered: true })
-                .indexWithPagination(page, search)
-            }
-            closeOnSelect={false}
-            defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
-            label={t("offers")}
-            onSelect={async (selectedItem) => {
-              if (selectedItem) {
-                setOffer((prevOffers) => [...prevOffers, selectedItem]);
-              }
-            }}
-            onClear={() => {
-              setOffer([]);
-            }}
-            onRemoveSelected={(selectedItem) => {
-              setOffer((prev) =>
-                prev.filter((item) => item.id != selectedItem.value),
-              );
-            }}
-            isMultiple={true}
-            optionValue={"id"}
-            getOptionLabel={(data: Offers) => TranslateClient(data.title)}
-          />
 
-          <Input
-            name={"extra_fees"}
-            type={"number"}
-            step={"any"}
-            unit={"IQD"}
-            placeholder={"Extra Fees : 5"}
-            label={t("extraFees")}
-            setWatch={setExtra}
-          />
           {type == "update" ? (
             <SelectPopOverFrom
               required={true}
@@ -455,14 +467,7 @@ const AppointmentForm = ({
           ) : (
             ""
           )}
-          <Input
-            name={"discount"}
-            type={"number"}
-            step={"any"}
-            placeholder={"Discount ..."}
-            label={t("discount")}
-            setWatch={setDiscount}
-          />
+
         </Grid>
         {type == "update" ? (
           <button

@@ -29,7 +29,7 @@ const CKTextEditor = ({
   } = useFormContext();
   return (
     <>
-      <input {...register(`${name}`)} />
+      <input className={"hidden"} {...register(`${name}`)} />
       {label && <label className={"label w-fit"}>{label}</label>}
       <CKEditor
         // @ts-ignore

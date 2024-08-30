@@ -283,74 +283,76 @@ const AppointmentForm = ({
                 </h2>
                 <div className={"w-full md:w-1/2"}>
                   <ApiSelect
-                      required={true}
-                      placeHolder={"Select Clinic name ..."}
-                      name={"clinic_id"}
-                      api={(page, search) =>
-                          ClinicsService.make<ClinicsService>()
-                              .setHeaders({ filtered: true })
-                              .indexWithPagination(page, search)
-                      }
-                      onSelect={async (selectedItem) => {
-                        setClinicId(selectedItem?.id ?? 0);
-                        setRange((prevState) => ({
-                          ...prevState,
-                          appointment_cost: selectedItem?.appointment_cost,
-                        }));
-                        return await AppointmentService.make<AppointmentService>(
-                            "admin",
-                        )
-                            .getAvailableTimes(selectedItem?.id ?? 0)
-                            .then((res) => {
-                              return setRange({
-                                id: selectedItem?.id,
-                                appointment_cost: selectedItem?.appointment_cost,
-                                range: selectedItem?.appointment_day_range ?? 0,
-                                limit: selectedItem?.approximate_appointment_time,
-                                maxAppointment: selectedItem?.max_appointments ?? 0,
-                                data: res.data,
-                              });
-                            });
-                      }}
-                      onRemoveSelected={() => {
-                        setOffer([]);
-                        setSystemOffer([]);
-                        setServicePrice(0);
-                        setCustomerId(0);
-                        return setRange({
-                          id: 0,
-                          appointment_cost: 0,
-                          range: 0,
-                          limit: 0,
-                          maxAppointment: 0,
-                          data: {
-                            booked_times: [],
-                            clinic_schedule: {},
-                            clinic_holidays: [],
-                          },
+                    required={true}
+                    placeHolder={"Select Clinic name ..."}
+                    name={"clinic_id"}
+                    api={(page, search) =>
+                      ClinicsService.make<ClinicsService>()
+                        .setHeaders({ filtered: true })
+                        .indexWithPagination(page, search)
+                    }
+                    onSelect={async (selectedItem) => {
+                      setClinicId(selectedItem?.id ?? 0);
+                      setRange((prevState) => ({
+                        ...prevState,
+                        appointment_cost: selectedItem?.appointment_cost,
+                      }));
+                      return await AppointmentService.make<AppointmentService>(
+                        "admin",
+                      )
+                        .getAvailableTimes(selectedItem?.id ?? 0)
+                        .then((res) => {
+                          return setRange({
+                            id: selectedItem?.id,
+                            appointment_cost: selectedItem?.appointment_cost,
+                            range: selectedItem?.appointment_day_range ?? 0,
+                            limit: selectedItem?.approximate_appointment_time,
+                            maxAppointment: selectedItem?.max_appointments ?? 0,
+                            data: res.data,
+                          });
                         });
-                      }}
-                      onClear={() => {
-                        setOffer([]);
-                        setSystemOffer([]);
-                        setServicePrice(0);
-                        setCustomerId(0);
-                        return setRange({
-                          id: 0,
-                          appointment_cost: 0,
-                          range: 0,
-                          limit: 0,
-                          maxAppointment: 0,
-                          data: {
-                            booked_times: [],
-                            clinic_schedule: {},
-                            clinic_holidays: [],
-                          },
-                        });
-                      }}
-                      label={"Clinic Name"}
-                      optionValue={"id"}
-                      getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
+                    }}
+                    onRemoveSelected={() => {
+                      setOffer([]);
+                      setSystemOffer([]);
+                      setServicePrice(0);
+                      setCustomerId(0);
+                      return setRange({
+                        id: 0,
+                        appointment_cost: 0,
+                        range: 0,
+                        limit: 0,
+                        maxAppointment: 0,
+                        data: {
+                          booked_times: [],
+                          clinic_schedule: {},
+                          clinic_holidays: [],
+                        },
+                      });
+                    }}
+                    onClear={() => {
+                      setOffer([]);
+                      setSystemOffer([]);
+                      setServicePrice(0);
+                      setCustomerId(0);
+                      return setRange({
+                        id: 0,
+                        appointment_cost: 0,
+                        range: 0,
+                        limit: 0,
+                        maxAppointment: 0,
+                        data: {
+                          booked_times: [],
+                          clinic_schedule: {},
+                          clinic_holidays: [],
+                        },
+                      });
+                    }}
+                    label={"Clinic Name"}
+                    optionValue={"id"}
+                    getOptionLabel={(data: Clinic) =>
+                      TranslateClient(data.name)
+                    }
                   />
                 </div>
               </div>
@@ -623,7 +625,7 @@ const AppointmentForm = ({
             name={"cancellation_reason"}
           />
         ) : (
-          false
+          ""
         )}
         <div className="overflow-x-auto border-2 rounded-2xl">
           <table className="table">

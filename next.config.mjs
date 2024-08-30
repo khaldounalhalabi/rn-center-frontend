@@ -19,17 +19,7 @@ const withPWA = withPWAInit({
       /_middleware.js$/,
       /_middleware.js.map$/,
     ],
-    excludeChunks: [
-      /middleware-manifest\.json$/,
-      /_middleware.js$/,
-      /_middleware.js.map$/,
-    ],
   },
-  publicExcludes: [
-    /middleware-manifest\.json$/,
-    /_middleware.js$/,
-    /_middleware.js.map$/,
-  ],
 });
 const nextConfig = {
   env: {

@@ -13,4 +13,5 @@ export interface ClinicSubscription {
   type: string;
   clinic?: Clinic;
   subscription?: Subscriptions;
+  is_paid: boolean;
 }

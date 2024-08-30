@@ -13,6 +13,7 @@ import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import Grid from "@/components/common/ui/Grid";
+import CollectSubscriptionButton from "@/components/admin/clinicSubscription/CollectSubscriptionButton";
 
 const Page = async ({
   params: { clinicId },
@@ -31,10 +32,12 @@ const Page = async ({
     <PageCard>
       <div className={"flex justify-between items-center"}>
         <h1 className={"card-title "}>{t("name")}</h1>
-        <div className={"flex"}>
+        <div className={"flex gap-1 items-center"}>
           <Link href={`${clinicId}/edit`}>
             <PrimaryButton>{t("editBtn")}</PrimaryButton>
           </Link>
+
+          <CollectSubscriptionButton clinicId={clinicId} clinicSubscription={clinic?.active_subscription} />
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3 "}>

@@ -14,8 +14,8 @@ const withPWA = withPWAInit({
   disable: false,
   workboxOptions: {
     disableDevLogs: true,
-    exclude: [({ asset, compilation }) => true],
-  },  
+    exclude: [/middleware-manifest.json$/],
+  },
 });
 const nextConfig = {
   env: {

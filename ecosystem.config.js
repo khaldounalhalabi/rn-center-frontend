@@ -8,8 +8,12 @@ module.exports = {
         NODE_ENV: "production",
       },
       exec_mode: "cluster",
-      instances: 2,
-      watch: true,
+      instances: "max",
+      watch: false,
+      output: "./logs/out.log",
+      error: "./logs/error.log",
+      log_date_format: "YYYY-MM-DD HH:mm Z",
+      max_memory_restart: "1G"
     },
   ],
 };

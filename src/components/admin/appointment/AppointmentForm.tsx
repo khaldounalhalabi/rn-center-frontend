@@ -277,123 +277,245 @@ const AppointmentForm = ({
         <Grid md={"2"}>
           {type === "store" ? (
             <>
-              <ApiSelect
-                required={true}
-                placeHolder={"Select Clinic name ..."}
-                name={"clinic_id"}
-                api={(page, search) =>
-                  ClinicsService.make<ClinicsService>()
-                    .setHeaders({ filtered: true })
-                    .indexWithPagination(page, search)
-                }
-                onSelect={async (selectedItem) => {
-                  setClinicId(selectedItem?.id ?? 0);
-                  setRange((prevState) => ({
-                    ...prevState,
-                    appointment_cost: selectedItem?.appointment_cost,
-                  }));
-                  return await AppointmentService.make<AppointmentService>(
-                    "admin",
-                  )
-                    .getAvailableTimes(selectedItem?.id ?? 0)
-                    .then((res) => {
-                      return setRange({
-                        id: selectedItem?.id,
-                        appointment_cost: selectedItem?.appointment_cost,
-                        range: selectedItem?.appointment_day_range ?? 0,
-                        limit: selectedItem?.approximate_appointment_time,
-                        maxAppointment: selectedItem?.max_appointments ?? 0,
-                        data: res.data,
-                      });
-                    });
-                }}
-                onRemoveSelected={() => {
-                  setOffer([]);
-                  setSystemOffer([]);
-                  setServicePrice(0);
-                  setCustomerId(0);
-                  return setRange({
-                    id: 0,
-                    appointment_cost: 0,
-                    range: 0,
-                    limit: 0,
-                    maxAppointment: 0,
-                    data: {
-                      booked_times: [],
-                      clinic_schedule: {},
-                      clinic_holidays: [],
-                    },
-                  });
-                }}
-                onClear={() => {
-                  setOffer([]);
-                  setSystemOffer([]);
-                  setServicePrice(0);
-                  setCustomerId(0);
-                  return setRange({
-                    id: 0,
-                    appointment_cost: 0,
-                    range: 0,
-                    limit: 0,
-                    maxAppointment: 0,
-                    data: {
-                      booked_times: [],
-                      clinic_schedule: {},
-                      clinic_holidays: [],
-                    },
-                  });
-                }}
-                label={"Clinic Name"}
-                optionValue={"id"}
-                getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
-              />
-              <div>
-                <ApiSelect
-                  required={true}
-                  name={"customer_id"}
-                  placeHolder={"Select Customer name ..."}
-                  api={(page, search) =>
-                    CustomerService.make<CustomerService>().getClinicCustomer(
-                      clinicId,
-                      page,
-                      search,
-                    )
-                  }
-                  revalidate={`${clinicId}`}
-                  onSelect={(selectedItem) => {
-                    setCustomerId(selectedItem?.id ?? 0);
-                  }}
-                  onRemoveSelected={() => {
-                    setCustomerId(0);
-                  }}
-                  onClear={() => {
-                    setCustomerId(0);
-                  }}
-                  label={"Customer Name"}
-                  optionValue={"id"}
-                  getOptionLabel={(data: Customer) => {
-                    return (
-                      <p>
-                        {TranslateClient(data?.user?.first_name)}{" "}
-                        {TranslateClient(data?.user?.middle_name)}{" "}
-                        {TranslateClient(data?.user?.last_name)}
-                      </p>
-                    );
-                  }}
-                />
-                {lastAppointmentDate &&
-                lastAppointmentDate?.length > 0 &&
-                customer_id != 0 ? (
-                  <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
-                ) : (
-                  ""
-                )}
+              <div className={"col-span-2"}>
+                <h2 className={"font-bold text-xl border-b w-full"}>
+                  Clinic Details :{" "}
+                </h2>
+                <div className={"w-1/2"}>
+                  <ApiSelect
+                      required={true}
+                      placeHolder={"Select Clinic name ..."}
+                      name={"clinic_id"}
+                      api={(page, search) =>
+                          ClinicsService.make<ClinicsService>()
+                              .setHeaders({ filtered: true })
+                              .indexWithPagination(page, search)
+                      }
+                      onSelect={async (selectedItem) => {
+                        setClinicId(selectedItem?.id ?? 0);
+                        setRange((prevState) => ({
+                          ...prevState,
+                          appointment_cost: selectedItem?.appointment_cost,
+                        }));
+                        return await AppointmentService.make<AppointmentService>(
+                            "admin",
+                        )
+                            .getAvailableTimes(selectedItem?.id ?? 0)
+                            .then((res) => {
+                              return setRange({
+                                id: selectedItem?.id,
+                                appointment_cost: selectedItem?.appointment_cost,
+                                range: selectedItem?.appointment_day_range ?? 0,
+                                limit: selectedItem?.approximate_appointment_time,
+                                maxAppointment: selectedItem?.max_appointments ?? 0,
+                                data: res.data,
+                              });
+                            });
+                      }}
+                      onRemoveSelected={() => {
+                        setOffer([]);
+                        setSystemOffer([]);
+                        setServicePrice(0);
+                        setCustomerId(0);
+                        return setRange({
+                          id: 0,
+                          appointment_cost: 0,
+                          range: 0,
+                          limit: 0,
+                          maxAppointment: 0,
+                          data: {
+                            booked_times: [],
+                            clinic_schedule: {},
+                            clinic_holidays: [],
+                          },
+                        });
+                      }}
+                      onClear={() => {
+                        setOffer([]);
+                        setSystemOffer([]);
+                        setServicePrice(0);
+                        setCustomerId(0);
+                        return setRange({
+                          id: 0,
+                          appointment_cost: 0,
+                          range: 0,
+                          limit: 0,
+                          maxAppointment: 0,
+                          data: {
+                            booked_times: [],
+                            clinic_schedule: {},
+                            clinic_holidays: [],
+                          },
+                        });
+                      }}
+                      label={"Clinic Name"}
+                      optionValue={"id"}
+                      getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
+                  />
+                </div>
+              </div>
+              <div className={"col-span-2"}>
+                <h2 className={"font-bold text-xl border-b w-full"}>
+                  Patient Details:{" "}
+                </h2>
+                <div className={"w-1/2"}>
+                  <ApiSelect
+                    required={true}
+                    name={"customer_id"}
+                    placeHolder={"Select Patient name ..."}
+                    api={(page, search) =>
+                      CustomerService.make<CustomerService>().getClinicCustomer(
+                        clinicId,
+                        page,
+                        search,
+                      )
+                    }
+                    revalidate={`${clinicId}`}
+                    onSelect={(selectedItem) => {
+                      setCustomerId(selectedItem?.id ?? 0);
+                    }}
+                    onRemoveSelected={() => {
+                      setCustomerId(0);
+                    }}
+                    onClear={() => {
+                      setCustomerId(0);
+                    }}
+                    label={"Patient Name"}
+                    optionValue={"id"}
+                    getOptionLabel={(data: Customer) => {
+                      return (
+                        <p>
+                          {TranslateClient(data?.user?.first_name)}{" "}
+                          {TranslateClient(data?.user?.middle_name)}{" "}
+                          {TranslateClient(data?.user?.last_name)}
+                        </p>
+                      );
+                    }}
+                  />
+                  {lastAppointmentDate &&
+                  lastAppointmentDate?.length > 0 &&
+                  customer_id != 0 ? (
+                    <p className={"label"}>
+                      Last Visit : {lastAppointmentDate}
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
             </>
           ) : (
             ""
           )}
 
+          <div className={"col-span-2"}>
+            <h2 className={"text-xl font-bold w-full border-b"}>
+              Offers & Additions:
+            </h2>
+            <div
+              className={"flex items-center justify-between w-full flex-wrap"}
+            >
+              {type == "store" && typeAppointment == "online" ? (
+                <div className={"w-full md:w-[49%]"}>
+                  <ApiSelect
+                    name={"system_offers"}
+                    placeHolder={"Select system offer ..."}
+                    api={(page, search) =>
+                      SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
+                        clinicId,
+                        page,
+                        search,
+                      )
+                    }
+                    closeOnSelect={false}
+                    label={"System Offers"}
+                    revalidate={`${clinicId}`}
+                    onSelect={(selectedItem) => {
+                      if (selectedItem) {
+                        setSystemOffer((prevOffers) => [
+                          ...prevOffers,
+                          selectedItem,
+                        ]);
+                      }
+                    }}
+                    onClear={() => {
+                      setSystemOffer([]);
+                    }}
+                    onRemoveSelected={(selectedItem) => {
+                      setSystemOffer((prev) =>
+                        prev.filter((item) => item.id != selectedItem.value),
+                      );
+                    }}
+                    isMultiple={true}
+                    optionValue={"id"}
+                    getOptionLabel={(data: SystemOffers) => data.title}
+                  />
+                </div>
+              ) : (
+                ""
+              )}
+              <div className={"w-full md:w-[49%]"}>
+                <ApiSelect
+                  name={"offers"}
+                  placeHolder={"Select offer ..."}
+                  api={(page, search) =>
+                    OffersService.make<OffersService>().getOffersByClinic(
+                      clinicId,
+                      page,
+                      search,
+                    )
+                  }
+                  closeOnSelect={false}
+                  defaultValues={
+                    defaultValues?.offers ? defaultValues?.offers : []
+                  }
+                  label={"Offers"}
+                  revalidate={`${clinicId}`}
+                  onSelect={async (selectedItem) => {
+                    if (selectedItem) {
+                      setOffer((prevOffers) => [...prevOffers, selectedItem]);
+                    }
+                  }}
+                  onClear={() => {
+                    setOffer([]);
+                  }}
+                  onRemoveSelected={(selectedItem) => {
+                    setOffer((prev) =>
+                      prev.filter((item) => item.id != selectedItem.value),
+                    );
+                  }}
+                  isMultiple={true}
+                  optionValue={"id"}
+                  getOptionLabel={(data: Offers) => TranslateClient(data.title)}
+                />
+              </div>
+              <div className={"w-full md:w-[49%]"}>
+                <Input
+                  name={"extra_fees"}
+                  type={"number"}
+                  step={"any"}
+                  unit={"IQD"}
+                  placeholder={"Extra Fees : 5"}
+                  label={"Extra Fees"}
+                  setWatch={setExtra}
+                />
+              </div>
+              <div className={"w-full md:w-[49%]"}>
+                <Input
+                  name={"discount"}
+                  type={"number"}
+                  step={"any"}
+                  placeholder={"Discount ..."}
+                  label={"Discount"}
+                  setWatch={setDiscount}
+                />
+              </div>
+            </div>
+          </div>
+
+          <h1 className={"col-span-2 w-full text-xl font-bold border-b"}>
+            Booking details
+          </h1>
           <ApiSelect
             name={"service_id"}
             placeHolder={"Select Service name ..."}
@@ -420,71 +542,6 @@ const AppointmentForm = ({
             }}
             optionValue={"id"}
             getOptionLabel={(data: Service) => TranslateClient(data.name)}
-          />
-          {type == "store" && typeAppointment == "online" ? (
-            <ApiSelect
-              name={"system_offers"}
-              placeHolder={"Select system offer ..."}
-              api={(page, search) =>
-                SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
-                  clinicId,
-                  page,
-                  search,
-                )
-              }
-              closeOnSelect={false}
-              label={"System Offers"}
-              revalidate={`${clinicId}`}
-              onSelect={(selectedItem) => {
-                if (selectedItem) {
-                  setSystemOffer((prevOffers) => [...prevOffers, selectedItem]);
-                }
-              }}
-              onClear={() => {
-                setSystemOffer([]);
-              }}
-              onRemoveSelected={(selectedItem) => {
-                setSystemOffer((prev) =>
-                  prev.filter((item) => item.id != selectedItem.value),
-                );
-              }}
-              isMultiple={true}
-              optionValue={"id"}
-              getOptionLabel={(data: SystemOffers) => data.title}
-            />
-          ) : (
-            ""
-          )}
-          <ApiSelect
-            name={"offers"}
-            placeHolder={"Select offer ..."}
-            api={(page, search) =>
-              OffersService.make<OffersService>().getOffersByClinic(
-                clinicId,
-                page,
-                search,
-              )
-            }
-            closeOnSelect={false}
-            defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
-            label={"Offers"}
-            revalidate={`${clinicId}`}
-            onSelect={async (selectedItem) => {
-              if (selectedItem) {
-                setOffer((prevOffers) => [...prevOffers, selectedItem]);
-              }
-            }}
-            onClear={() => {
-              setOffer([]);
-            }}
-            onRemoveSelected={(selectedItem) => {
-              setOffer((prev) =>
-                prev.filter((item) => item.id != selectedItem.value),
-              );
-            }}
-            isMultiple={true}
-            optionValue={"id"}
-            getOptionLabel={(data: Offers) => TranslateClient(data.title)}
           />
           {type != "update" ? (
             <div className={`flex gap-5 p-2 items-end`}>
@@ -514,18 +571,8 @@ const AppointmentForm = ({
               />
             </div>
           ) : (
-            false
+            ""
           )}
-
-          <Input
-            name={"extra_fees"}
-            type={"number"}
-            step={"any"}
-            unit={"IQD"}
-            placeholder={"Extra Fees : 5"}
-            label={"Extra Fees"}
-            setWatch={setExtra}
-          />
           <SelectPopOverFrom
             required={true}
             name={"status"}
@@ -553,14 +600,6 @@ const AppointmentForm = ({
           ) : (
             ""
           )}
-          <Input
-            name={"discount"}
-            type={"number"}
-            step={"any"}
-            placeholder={"Discount ..."}
-            label={"Discount"}
-            setWatch={setDiscount}
-          />
         </Grid>
         {type == "update" ? (
           <button
@@ -635,7 +674,9 @@ const AppointmentForm = ({
                 : ""}
               <tr>
                 <td className="text-lg">Total Cost</td>
-                <td className="text-lg">{Number(totalCost.toFixed(1)).toLocaleString()} IQD</td>
+                <td className="text-lg">
+                  {Number(totalCost.toFixed(1)).toLocaleString()} IQD
+                </td>
               </tr>
             </tbody>
           </table>

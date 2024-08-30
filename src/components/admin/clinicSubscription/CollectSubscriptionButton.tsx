@@ -15,9 +15,9 @@ const CollectSubscriptionButton = ({
   const [isLoading, setLoading] = useState(false);
   const [isPaid, setPaid] = useState(clinicSubscription?.is_paid ?? true);
   return (
-    <div className={"tooltip"} dat-tip={"Collect subscription for this month"}>
+    <div className={"tooltip"} data-tip={"Collect subscription for this month"}>
       <button
-        className={"btn btn-secondary text-black"}
+        className={"btn btn-active text-black"}
         disabled={(isPaid ?? true) || isLoading}
         onClick={() => {
           if (!clinicSubscription?.is_paid) {

@@ -23,6 +23,7 @@ import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
+import {useTranslations} from "next-intl";
 
 interface ChartData {
   date: string;
@@ -31,6 +32,7 @@ interface ChartData {
 }
 
 const Page: React.FC = () => {
+  const t = useTranslations("common.transaction.chart")
   const [dataRange, setDataRange] = useState([
     dayjs().startOf("month").format("YYYY-MM-DD"),
     dayjs().format("YYYY-MM-DD"),
@@ -100,7 +102,7 @@ const Page: React.FC = () => {
     <>
       <PageCard>
         <div suppressHydrationWarning className={"md:w-1/2"}>
-          <h1 className={"card-title"}>Filter :</h1>
+          <h1 className={"card-title"}>{t("filter")} :</h1>
           <div className={"w-full items-center"}>
             <SelectFilter
               data={ClinicTransactionDate()}
@@ -122,7 +124,7 @@ const Page: React.FC = () => {
             {showCustomDate ? (
               <>
                 <div>
-                  <label className="label">Start Date :</label>
+                  <label className="label">{t("startDate")} :</label>
                   <DatepickerFilter
                     onChange={(time) => {
                       setDataRange([
@@ -134,7 +136,7 @@ const Page: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="label">End Date :</label>
+                  <label className="label">{t("endDate")} :</label>
                   <DatepickerFilter
                     onChange={(time) => {
                       setDataRange([
@@ -152,7 +154,7 @@ const Page: React.FC = () => {
           </Grid>
         </div>
 
-        <h1 className={"card-title"}>Chart Income & Outcome :</h1>
+        <h1 className={"card-title"}>{t("chartName")} :</h1>
 
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={chartData}>

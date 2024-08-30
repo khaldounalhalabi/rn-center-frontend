@@ -125,56 +125,62 @@ const SidebarAdmin = ({
               {t("appointment")}
             </SidebarItem>
             <SidebarCompactItem
-              title={"Hospitals Management"}
+              title={t("hospitalsManagement")}
               links={["/admin/hospitals", "/admin/hospital-departments"]}
             >
               <SidebarItem link={"/admin/hospitals"}>
                 {t("hospitals")}
               </SidebarItem>
               <SidebarItem link={"/admin/hospital-departments"}>
-                Available Departments
+                {t("availableDepartments")}
               </SidebarItem>
             </SidebarCompactItem>
-            <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
+            <SidebarItem link={"/admin/medicines"}>
+              {t("medicines")}
+            </SidebarItem>
 
-            <SidebarItem link={"/admin/user"}>Users</SidebarItem>
+            <SidebarItem link={"/admin/user"}>{t("users")}</SidebarItem>
             <SidebarCompactItem
-              title={"Patients Management"}
+              title={t("patientsManagement")}
               links={["/admin/patients", "/admin/patient-profiles"]}
             >
-              <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
+              <SidebarItem link={"/admin/patients"}>
+                {t("patients")}
+              </SidebarItem>
               <SidebarItem link={"/admin/patient-profiles"}>
-                Patient Profiles
+                {t("patientProfiles")}
               </SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/subscriptions"}>
-              Subscriptions
+              {t("subscriptions")}
             </SidebarItem>
             <SidebarItem link={"/admin/blocked-item"}>
-              Blocked Items
+              {t("blockedItems")}
             </SidebarItem>
-            <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
-            <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
+            <SidebarItem link={"/admin/enquiries"}>
+              {t("enquiries")}
+            </SidebarItem>
+            <SidebarItem link={"/admin/offer"}>{t("offers")}</SidebarItem>
             <SidebarCompactItem
-              title={"Accountant Management"}
+              title={t("accountantManagement")}
               links={["/admin/transaction", "/admin/appointment-deductions"]}
             >
               <div className="flex flex-col">
                 <SidebarItem link={"/admin/transaction"}>
-                  Transactions
+                  {t("transaction")}
                 </SidebarItem>
                 <SidebarItem link={"/admin/appointment-deductions"}>
-                  Appointment Deductions
+                  {t("appointmentDeductions")}
                 </SidebarItem>
               </div>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/blood-donation"}>
-              Blood Donation
+              {t("bloodDonation")}
             </SidebarItem>
             <SidebarItem link={"/admin/system-offer"}>
-              System Offers
+              {t("systemOffers")}
             </SidebarItem>
-            <SidebarItem link={"/admin/setting"}>Settings</SidebarItem>
+            <SidebarItem link={"/admin/setting"}>{t("settings")}</SidebarItem>
           </div>
         </ul>
       </div>

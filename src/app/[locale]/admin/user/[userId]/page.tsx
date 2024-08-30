@@ -9,18 +9,20 @@ import { Phone } from "@/Models/Phone";
 import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
+  const t = await getTranslations("admin.users")
   const data = await UsersService.make<UsersService>().show(userId);
   const res: User = data?.data;
-  const tagsArray = res?.tags?.split(",") ?? [];
+  const tagsArray = typeof res?.tags == "string" ?res?.tags?.split(",") :[];
 
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">User Details</h2>
+        <h2 className="card-title">{t("userDetails")}</h2>
         <Link href={`/admin/user/${userId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
@@ -40,7 +42,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
             </h2>
             <h3>{res.email}</h3>
             <div className={"flex gap-1"}>
-              Phone :{" "}
+              {t("phones")} :{" "}
               {res.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (
                   <span className="ml-2 badge badge-accent  " key={item.id}>
@@ -56,51 +58,52 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
 
       <Grid md={2} gap={5}>
         <label className="label justify-start text-xl">
-          Birth Date :{" "}
+          {t("birth-date")} :{" "}
           <span className="ml-2 badge badge-outline  ">{res?.birth_date}</span>
         </label>
         <label className="label justify-start text-xl">
-          Age : <span className="ml-2 badge badge-accent  ">{res?.age}</span>
+          {t("age")} :{" "}
+          <span className="ml-2 badge badge-accent  ">{res?.age}</span>
         </label>
         <label className="label justify-start text-xl">
-          Address :{" "}
+          {t("address")} :{" "}
           <span className="ml-2 badge badge-success  ">
             {await TranslateServer(res?.address?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          City :{" "}
+          {t("city")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
             {await TranslateServer(res?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          gender :{" "}
+          {t("gender")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.gender}</span>
         </label>
         <label className="label justify-start text-xl">
-          Blood group :{" "}
+          {t("blood")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.blood_group}</span>
         </label>
         <label className="label justify-start text-xl">
-          Is Blocked :{" "}
+          {t("isBlocked")}:{" "}
           {res?.is_blocked ? (
-            <span className="ml-2 badge badge-error">Blocked</span>
+            <span className="ml-2 badge badge-error">{t("blocked")}</span>
           ) : (
-            <span className="ml-2 badge badge-success">Not Blocked</span>
+            <span className="ml-2 badge badge-success">{t("notBlocked")}</span>
           )}
         </label>
         <label className="label justify-start text-xl">
-          Is Archived :{" "}
+          {t("isArchived")} :{" "}
           {res?.is_archived ? (
-            <span className="ml-2 badge badge-neutral">Archived</span>
+            <span className="ml-2 badge badge-neutral">{t("archived")}</span>
           ) : (
-            <span className="ml-2 badge badge-warning">Not Archived</span>
+            <span className="ml-2 badge badge-warning">{t("notArchived")}</span>
           )}
         </label>
       </Grid>
       <label className="label justify-start text-xl">
-        Tags :{" "}
+        {t("tags")} :{" "}
         {tagsArray ? (
           tagsArray.map((e, index) => (
             <span
@@ -111,7 +114,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
             </span>
           ))
         ) : (
-          <span className="text-lg badge badge-neutral">No Data</span>
+          <span className="text-lg badge badge-neutral">{t("noData")}</span>
         )}
       </label>
     </PageCard>

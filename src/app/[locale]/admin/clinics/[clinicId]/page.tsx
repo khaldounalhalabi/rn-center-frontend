@@ -101,39 +101,39 @@ const Page = async ({
       <div className={"p-6 border-gray-400 border-2 rounded-2xl"}>
         <Grid md={2}>
           <label className="label">
-            Subscription Start :
+            {t("subscriptionStart")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {summary?.data?.subscription_start}
             </span>
           </label>
           <label className="label">
-            Total Cost :
+            {t("totalCost")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(summary?.data?.total_cost ?? 0).toLocaleString()}
             </span>
           </label>
 
           <label className="label">
-            Subscription End :
+            {t("subscriptionEnd")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {summary?.data?.subscription_end}
             </span>
           </label>
           <label className="label">
-            Subscription Cost :
+            {t("subscriptionCost")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(summary?.data?.subscription_cost ?? 0).toLocaleString()}
             </span>
           </label>
           <label className="label">
-            Clinic Balance :
+            {t("clinicBalance")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(summary?.data?.clinic_balance ?? 0).toLocaleString()}
             </span>
           </label>
 
           <label className="label">
-            Appointments Deductions :
+            {t("appointmentDeductions")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(
                 summary?.data?.appointments_deductions ?? 0,

@@ -12,6 +12,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import {useTranslations} from "next-intl";
 
 const ClinicSubscriptionForm = ({
   defaultValues = undefined,
@@ -22,6 +23,8 @@ const ClinicSubscriptionForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('admin.subscription.create')
+
   const [typeSelect, setType] = useState("");
   const handleSubmit = async (data: any) => {
     const dataSend = {
@@ -83,7 +86,7 @@ const ClinicSubscriptionForm = ({
             )
           }
           placeHolder={"Select Subscription Name ..."}
-          label={`Subscription :`}
+          label={t("subscriptionName")}
           getOptionLabel={(item) => item.name}
           optionValue={"id"}
           name={"subscription_id"}
@@ -94,7 +97,7 @@ const ClinicSubscriptionForm = ({
         <SelectPopOverFrom
           required={true}
           name={"type"}
-          label={"Type :"}
+          label={t("type")}
           status={defaultValues?.type ?? ""}
           ArraySelect={SubscriptionArray()}
           handleSelect={(e: any) => {
@@ -108,7 +111,7 @@ const ClinicSubscriptionForm = ({
             unit={"%"}
             type={"number"}
             placeholder={"John"}
-            label={`Deduction Cost`}
+            label={t("deductionCost")}
             name={"deduction_cost"}
           />
         ) : (

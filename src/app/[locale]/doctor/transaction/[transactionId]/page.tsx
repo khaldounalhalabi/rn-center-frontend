@@ -6,12 +6,14 @@ import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { transactionId },
 }: {
   params: { transactionId: number };
 }) => {
+  const t =await getTranslations("common.transaction.show")
   const data =
     await ClinicTransactionService.make<ClinicTransactionService>(
       "doctor",
@@ -21,14 +23,14 @@ const page = async ({
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Transaction Details</h2>
+        <h2 className="card-title">{t("transactionDetails")}</h2>
         <Link href={`/doctor/transaction/${transactionId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label justify-start text-xl">
-          Patient Name :{" "}
+          {t("patientName")} :{" "}
           <span className="ml-2 badge badge-outline">
             {res?.appointment?.customer?.user?.first_name ? (
               <>
@@ -48,7 +50,7 @@ const page = async ({
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Doctor Name :{" "}
+          {t("doctorName")} :{" "}
           <span className="ml-2 badge badge-outline">
             {res?.clinic?.user?.first_name ? (
               <>
@@ -62,14 +64,15 @@ const page = async ({
           </span>
         </label>
         <label className="label justify-start text-xl">
-          type : <span className="ml-2 badge badge-primary  ">{res.type}</span>
+          {t("type")} :{" "}
+          <span className="ml-2 badge badge-primary  ">{res.type}</span>
         </label>
         <label className="label justify-start text-xl">
-          Status :{" "}
+          {t("status")} :{" "}
           <span className="ml-2 badge badge-success  ">{res.status}</span>
         </label>
         <label className="label justify-start text-xl">
-          Amount :{" "}
+          {t("amount")} :{" "}
           <span className="ml-2 badge badge-warning" suppressHydrationWarning>
             {res?.type == "income"
               ? "+"
@@ -83,25 +86,25 @@ const page = async ({
         </label>
 
         <label className="label justify-start text-xl">
-          Date :{" "}
+          {t("date")} :{" "}
           <span className="ml-2 badge badge-accent  ">
             {res?.date ?? "No Data"}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Appointment Date :{" "}
+          {t("appointmentDate")} :{" "}
           <span className="ml-2 badge badge-neutral  ">
             {res?.appointment?.date ?? "No Data"}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Appointment Total Const :{" "}
+          {t("totalCost")} :{" "}
           <span className="ml-2 badge badge-info  ">
             {res?.appointment?.total_cost ?? "No Data"}
           </span>
         </label>
       </Grid>
-      <label className={"label text-xl"}>Description :</label>
+      <label className={"label text-xl"}>{t("notes")} :</label>
       <textarea
         className="textarea textarea-bordered h-24 w-full"
         disabled={true}

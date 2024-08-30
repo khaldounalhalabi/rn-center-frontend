@@ -6,11 +6,14 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations('admin.subscription.table')
+
   const tableData: DataTableData<Subscriptions> = {
     createUrl: `/admin/subscriptions/create`,
-    title: `Subscriptions`,
+    title: `${t("subscriptions")}`,
     schema: [
       {
         name: "id",
@@ -19,12 +22,12 @@ const Page = () => {
       },
       {
         name: "name",
-        label: `Name`,
+        label: `${t("subscriptionName")}`,
         sortable: true,
       },
       {
         name: "cost",
-        label: `Cost`,
+        label: `${t("cost")}`,
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
@@ -34,7 +37,7 @@ const Page = () => {
       },
       {
         name: "period",
-        label: `Period`,
+        label: `${t("period")}`,
         sortable: true,
         render: (_period, subscription) =>
           subscription?.period && subscription?.period <= 0 ? (
@@ -52,16 +55,16 @@ const Page = () => {
       },
       {
         name: "allow_period",
-        label: `Allow Period`,
+        label: `${t("allowPeriod")}`,
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>days</span>
+            {data} <span className={"badge-success badge "}>{t("days")}</span>
           </p>
         ),
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

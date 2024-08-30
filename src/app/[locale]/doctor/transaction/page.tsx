@@ -33,6 +33,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -40,6 +41,7 @@ interface filterExportType {
 }
 
 const Page = () => {
+  const t= useTranslations('common.transaction.table')
   const queryClient = useQueryClient();
   const revalidateTable = () => {
     queryClient.invalidateQueries({
@@ -80,7 +82,7 @@ const Page = () => {
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<ClinicTransaction> = {
     createUrl: `/doctor/transaction/create`,
-    title: `Transactions`,
+    title: `${t("transactions")}`,
     extraButton: (
       <>
         <Link href={`/doctor/transaction/chart`} className={"mx-1"}>
@@ -102,7 +104,7 @@ const Page = () => {
       {
         name: "appointment.customer.first_name",
         sortable: true,
-        label: `${"Patient"}`,
+        label: `${t("patientName")}`,
         render: (_first_name, transaction) => {
           return (
             <>
@@ -133,12 +135,12 @@ const Page = () => {
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
         render: (_amount, transaction) => (
           <span>
@@ -155,7 +157,7 @@ const Page = () => {
       },
       {
         name: "after_balance",
-        label: `After Balance`,
+        label: `${t("afterBalance")}`,
         sortable: true,
         render: (data) => {
           return <span>{data.toLocaleString()}</span>;
@@ -163,7 +165,7 @@ const Page = () => {
       },
       {
         name: "before_balance",
-        label: `Before Balance`,
+        label: `${t("beforeBalance")}`,
         sortable: true,
         render: (data) => {
           return <span>{data.toLocaleString()}</span>;
@@ -171,17 +173,17 @@ const Page = () => {
       },
       {
         name: "status",
-        label: `Status`,
+        label: `${t("status")}`,
         sortable: true,
       },
       {
         name: "date",
-        label: `Date`,
+        label: `${t("date")}`,
         sortable: true,
       },
       {
         name: "appointment.date",
-        label: `Appointment Date`,
+        label: `${t("appointmentDate")}`,
         sortable: true,
         render: (_id, transaction) => {
           return (
@@ -202,7 +204,7 @@ const Page = () => {
         },
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -227,7 +229,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full  grid grid-cols-1"}>
-          <label className={"label"}>Amount from :</label>
+          <label className={"label"}>{t("amountFrom")} :</label>
           <InputFilter
             type="number"
             defaultValue={params?.amount?.[0] ?? 0}
@@ -238,7 +240,7 @@ const Page = () => {
               setParams({ ...params, amount: data });
             }}
           />
-          <label className={"label"}>Amount To :</label>
+          <label className={"label"}>{t("amountTo")} :</label>
           <InputFilter
             type="number"
             defaultValue={params?.amount?.[1] ?? 999999999}
@@ -249,7 +251,7 @@ const Page = () => {
               setParams({ ...params, amount: data });
             }}
           />
-          <label className="label">Type :</label>
+          <label className="label">{t("type")} :</label>
           <SelectFilter
             data={type}
             selected={params.type ?? ""}
@@ -263,7 +265,7 @@ const Page = () => {
               }
             }}
           />
-          <label className="label">Status :</label>
+          <label className="label">{t("status")} :</label>
           <SelectFilter
             data={ClinicTransactionStatusArray()}
             selected={params.status ?? ""}
@@ -272,7 +274,7 @@ const Page = () => {
             }}
           />
 
-          <label className="label">Range :</label>
+          <label className="label">{t("range")} :</label>
           <SelectFilter
             data={ClinicTransactionDate()}
             selected={customDate}
@@ -293,7 +295,7 @@ const Page = () => {
           />
           {showCustomDate ? (
             <>
-              <label className="label">Start Date :</label>
+              <label className="label">{t("startDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -306,7 +308,7 @@ const Page = () => {
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
-              <label className="label">End Date :</label>
+              <label className="label">{t("endDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -364,7 +366,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <label className={"label"}>Year :</label>
+                    <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
                       type={"number"}
@@ -379,7 +381,7 @@ const Page = () => {
                       }
                       defaultValue={filterExport.year}
                     />
-                    <label className={"label"}>Month :</label>
+                    <label className={"label"}>{t("month")} :</label>
                     <SelectFilter
                       data={AllMonth()}
                       selected={filterExport.month}
@@ -401,7 +403,7 @@ const Page = () => {
       </Transition>
       <Grid>
         <PageCard>
-          <label className={"card-title"}>Clinic Balance</label>
+          <label className={"card-title"}>{t("clinicBalance")}</label>
           <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-green-100"}>
               <BalanceIcon
@@ -419,7 +421,7 @@ const Page = () => {
           </div>
         </PageCard>
         <PageCard>
-          <label className={"card-title"}>Pending Amount</label>
+          <label className={"card-title"}>{t("pendingAmount")}</label>
           <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-indigo-100"}>
               <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />

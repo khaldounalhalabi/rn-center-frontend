@@ -17,7 +17,18 @@
     "offers": "Offers",
     "accountantManagement": "Accountant Management",
     "transaction": "Transaction",
-    "appointmentDeductions": "Appointment Deductions"
+    "appointmentDeductions": "Appointment Deductions",
+    "availableDepartments": "Available Departments",
+    "hospitalsManagement": "Hospitals Management",
+    "users": "Users",
+    "patientsManagement": "Patients Management",
+    "patientProfiles": "Patient Profiles",
+    "subscriptions": "Subscriptions",
+    "blockedItems": "Blocked Items",
+    "enquiries": "Enquiries",
+    "bloodDonation": "Blood Donation",
+    "systemOffers": "System Offers",
+    "settings": "Settings"
   },
   "admin": {
     "clinic": {
@@ -45,9 +56,23 @@
         "lastUpdatedAt": "Last Updated At",
         "experience": "Experience",
         "about": "About",
-        "map": "Map"
+        "map": "Map",
+        "subscriptionStart": "Subscription Start",
+        "totalCost": "Total Cost",
+        "subscriptionEnd": "Subscription End",
+        "subscriptionCost": "Subscription Cost",
+        "clinicBalance": "Clinic Balance",
+        "pendingAmount": "Pending Amount",
+        "appointmentDeductions": "Appointment Deductions",
+        "clinicSubscription": "Clinic Subscriptions",
+        "approximateAppointmentTime": "Approximate Appointment Time",
+        "subscription": "Subscription",
+        "subscriptionType": "Subscription Type",
+        "deductionCost": "Deduction Cost",
+        "subscriptionDescription": "Subscription Description"
       },
       "create-edit": {
+        "approximateAppointmentTime": "Approximate Appointment Time",
         "newClinic": "New Clinic",
         "first-Name": "Doctor First Name",
         "middle-name": "Doctor Middle Name",
@@ -73,7 +98,13 @@
         "mapIframe": "Map iframe",
         "image": "Image",
         "noImage": "No Image",
-        "btn": "Submit"
+        "btn": "Submit",
+        "status": "Status",
+        "gender": "Gender",
+        "tags": "Tags",
+        "subscription": "Subscription",
+        "subscriptionType": "Subscription Type",
+        "deductionCost": "Deduction Cost"
       },
       "table": {
         "clinics": "Clinics",
@@ -88,6 +119,7 @@
         "archived?": "Archived ?",
         "actions": "Actions",
         "archived": "Archived",
+        "approximateAppointmentTime": "Approximate Appointment Time",
         "total-appointments": "Total Appointments",
         "subscriptionStatus": "Subscription Status"
       }
@@ -140,7 +172,8 @@
         "reason": "Reason"
       },
       "create": {
-        "clinicName": "Clinic Name"
+        "clinicName": "Clinic Name",
+        "appointmentGap": "Appointment Gap"
       }
     },
     "category": {
@@ -176,7 +209,8 @@
         "address": "Address",
         "city": "City",
         "image": "Image",
-        "noData": "No Data"
+        "noData": "No Data",
+        "status": "Status"
       },
       "create-edit": {
         "addHospital": "Add Hospital",
@@ -213,7 +247,9 @@
         "status": "Status",
         "description": "Description",
         "noData": "No Data",
-        "editBtn": "Edit"
+        "editBtn": "Edit",
+        "image": "Image"
+
       },
       "create-edit": {
         "addService": "Add Service",
@@ -240,7 +276,9 @@
         "tags": "Tags",
         "noData": "No Data",
         "editBtn": "Edit",
-        "description": "Description"
+        "description": "Description",
+        "image": "Image"
+
       },
       "create-edit": {
         "addSpeciality": "Add Speciality",
@@ -249,6 +287,143 @@
         "tags": "Tags",
         "description": "Description"
       }
+    },
+    "subscription": {
+      "table": {
+        "subscriptions": "Subscriptions",
+        "clinicSubscriptions": "Clinic Subscriptions",
+        "status": "Status",
+        "active": "Active",
+        "in-active": "In-Active",
+        "subscriptionName": "Subscription Name",
+        "remaining": "Remaining",
+        "type": "Type",
+        "deductionCost": "Deduction Cost",
+        "cost": "Cost",
+        "actions": "Actions",
+        "period": "Period",
+        "allowPeriod": "Allow Period",
+        "days": "Days"
+      },
+      "create": {
+        "addClinicSubscription": "Add Clinic Subscription",
+        "editClinicSubscription": "Edit Clinic Subscription",
+        "subscriptionName": "Subscription Name",
+        "type": "Type",
+        "deductionCost": "Deduction Cost",
+        "period": "Period",
+        "allowPeriod": "Allow Period",
+        "days": "Days",
+        "cost": "Cost",
+        "periodUnit": "Period Unit",
+        "description": "Description",
+        "forLifetime": "for lifetime period put -1"
+      },
+      "show": {
+        "subscriptionDetails": "Subscription Details",
+        "subscriptionName": "Subscription Name",
+        "type": "Type",
+        "cost": "Cost",
+        "period": "Period",
+        "lifeTime": "life time",
+        "remaining": "Remaining",
+        "description": "Description",
+        "editBtn": "Edit",
+        "allowPeriod": "Allow Period"
+      }
+    },
+    "departments": {
+      "availableDepartment": "Available Department",
+      "addHospitalDepartment": "Add Department",
+      "editDepartment": "Edit Department",
+      "name": "Name",
+      "actions": "Actions",
+      "description": "Description",
+      "editBtn": "Edit",
+      "availableDepartmentDetails": "Available Department Details"
+    },
+    "users": {
+      "users": "Users",
+      "userName": "User Name",
+      "email": "Email",
+      "age": "Age",
+      "role": "Role",
+      "isBlocked": "is Blocked",
+      "blocked": "Blocked",
+      "notBlocked": "Not Blocked",
+      "isArchived": "is Archived",
+      "archived": "Archived",
+      "notArchived": "Not Archived",
+      "actions": "Actions",
+      "editUser": "Edit User",
+
+      "first-Name": " First Name",
+      "middle-name": " Middle Name",
+      "last-name": " Last Name",
+      "password": "Password",
+      "confirm-password": "Confirm Password",
+      "birth-date": "BirthDate",
+      "male": "Male",
+      "female": "Female",
+      "gender": "Gender",
+      "phones": "Clinic Phones",
+      "tags": "Tags",
+      "city": "City",
+      "address": " Address",
+      "image": "Image",
+      "noData": "No Data",
+
+     "userDetails": "User Detail",
+      "editBtn": "Edit",
+      "blood": "Blood Group"
+    },
+    "patientsProfiles": {
+      "table": {
+        "patientsProfiles": "Patient Profiles",
+        "clinicName": "Clinic Name",
+        "customerName": "Customer Name",
+        "lastModify": "Last Modify",
+        "actions": "Actions"
+      },
+      "create": {
+        "add": "Add",
+        "edit": "Edit",
+        "patientsProfiles": "Patient Profiles",
+        "clinicName": "Clinic Name",
+        "customerName": "Customer Name",
+        "description": "Description",
+        "medicalCondition": "Medical Condition",
+        "image": "Image",
+        "note": "Note"
+      },
+      "show": {
+        "patientProfileDetails": "Patient Profile Details",
+        "editBtn": "Edit",
+        "clinicName": "Clinic Name",
+        "customerName": "Customer Name",
+        "description": "Description",
+        "medicalCondition": "Medical Condition",
+        "image": "Image",
+        "note": "Note",
+        "otherData": "Other Data"
+      }
+    },
+    "block": {
+      "blockedItems": "Blocked Items",
+      "value": "Value",
+      "type": "Type",
+      "actions": "Actions",
+      "addBlockedItem": "Add Blocked Item",
+      "editBlockedItem": "Edit Blocked Item"
+    },
+    "enquiries": {
+      "enquiries": "Enquiries",
+      "name": " Name",
+      "email": "Email",
+      "readAt": "Read At",
+      "actions": "Actions",
+      "enquiriesDetails": "Enquiries Details",
+      "message": "Message"
     }
   },
   "doctor": {
@@ -454,10 +629,9 @@
         "image": "Image",
         "gender": "Gender",
         "icon": "Icon"
-
       },
       "show": {
-          "staffDetails": "Staff Details",
+        "staffDetails": "Staff Details",
         "editBtn": "Edit",
         "email": " Email",
         "password": "Password",
@@ -488,28 +662,45 @@
   "common": {
     "appointment": {
       "table": {
+        "appointments": "Appointments",
+        "clinicName": "Clinic Name",
+        "doctorName": "Doctor Name",
         "appointment": "Appointment",
+        "patientName": "Patient Name",
         "serviceName": "Service Name",
         "status": "Status",
         "type": "Type",
+        "totalCost": "Total Cost",
         "online": "Online",
         "manual": "Manual",
         "sequence": "Sequence",
         "date": "Date",
         "actions": "Actions",
         "startDate": "Start Date",
-        "endDate": "End Date"
+        "endDate": "End Date",
+        "year": "Year",
+        "month": "Month",
+        "logs": "Logs",
+        "happenIn": "Happen In",
+        "actor": "Actor",
+        "event": "Event"
       },
       "create": {
         "editAppointment": "Edit Appointment",
         "createAppointment": "Create Appointment",
+        "patientName": "Patient Name",
         "newPatient": "New Patient",
         "setDate": "Set Date",
         "date": "Date",
+        "clinicName": "Clinic Name",
+        "type": "Type",
+        "online": "Online",
+        "manual": "Manual",
         "customerName": "Customer Name",
         "lastVisit": "Last Visit",
         "serviceName": "Service Name",
         "offers": "Offers",
+        "systemOffers": "System Offers",
         "extraFees": "Extra Fees",
         "status": "Status",
         "discount": "Discount",
@@ -519,7 +710,8 @@
         "cost": "Appointment Cost",
         "totalCost": "Total Cost",
         "price": "Price",
-        "name": "Name"
+        "name": "Name",
+        "cancellationReason": "Cancellation Reason"
       },
       "show": {
         "appointmentDetails": "Appointment Details",
@@ -529,6 +721,7 @@
         "customerName": "Customer Name",
         "serviceName": "Service Name",
         "overview": "Overview",
+        "logs": "Logs",
         "prescriptions": "Prescriptions",
         "type": "Type",
         "extraFees": "Extra Fees",
@@ -544,12 +737,20 @@
         "discount": "Discount",
         "offers": "Offers",
         "systemOffer": "System Offer",
-        "status": "Status"
+        "status": "Status",
+        "happenIn": "Happen In",
+        "actor": "Actor",
+        "event": "Event",
+        "actions": "Actions"
       }
-
     },
     "patient": {
       "create": {
+        "birth-date": "BirthDate",
+        "noData": "No Data",
+        "email": "Email",
+        "password": "Password",
+        "confirm-password": "Confirm Password",
         "addPatient": "Add Patient",
         "editPatient": "Edit Patient",
         "firstName": "First Name",
@@ -592,6 +793,7 @@
         "overview": "Overview",
         "appointment": "Appointment",
         "prescriptions": "Prescriptions",
+        "patientsProfiles": "Patients Profiles",
         "birthDate": "Birth Date",
         "age": "Age",
         "address": "Address",
@@ -608,7 +810,6 @@
         "otherData": "Other Data",
         "note": "Note",
         "medicalCondition": "Medical Condition"
-
       }
     },
     "prescription": {
@@ -659,7 +860,7 @@
         "clinicName": "Clinic Name",
         "doctorName": "Doctor Name",
         "customerName": "Customer Name",
-"customerAge": "Customer Age",
+        "customerAge": "Customer Age",
         "medicines": "Medicines",
         "medicineName": "Medicine Name",
         "dosage": "Dosage",
@@ -691,9 +892,11 @@
     },
     "medicine": {
       "table": {
-        "Medicines": "Medicines",
+        "medicines": "Medicines",
         "medicineName": "Medicine Name",
-        "actions": "Actions"
+        "actions": "Actions",
+        "clinicName": "Clinic Name",
+        "doctorName": "Doctor Name"
       },
       "create": {
         "addMedicines": "Add Medicine",
@@ -706,9 +909,126 @@
         "medicinesDetails": "Medicines Details",
         "editBtn": "Edit",
         "medicineName": "Medicine Name",
+        "clinicName": "Clinic Name",
+        "doctorName": "Doctor Name",
         "description": "Description"
-
       }
+    },
+    "transaction": {
+      "table": {
+        "transactions": "Transactions",
+        "patientName": "Patient Name",
+        "type": "Type",
+        "amount": "Amount",
+        "afterBalance": "After Balance",
+        "beforeBalance": "Before Balance",
+        "status": "Status",
+        "date": "Date",
+        "appointmentDate": "Appointment Date",
+        "actions": "Actions",
+        "amountFrom": "Amount from",
+        "amountTo": "Amount To",
+        "range": "Range",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "year": "Year",
+        "month": "Month",
+        "clinicBalance": "Clinic Balance",
+        "pendingAmount": "Pending Amount"
+      },
+      "create": {
+        "addTransaction": "Add Transaction",
+        "editTransaction": "Edit Transaction",
+        "type": "Type",
+        "amount": "Amount",
+        "date": "Date",
+        "notes": "Notes"
+      },
+      "show": {
+        "transactionDetails": "Transaction Details",
+        "editBtn": "Edit",
+        "patientName": "Patient Name",
+        "doctorName": "Doctor Name",
+        "type": "Type",
+        "amount": "Amount",
+        "date": "Date",
+        "notes": "Notes",
+        "appointmentDate": "Appointment Date",
+        "status": "Status",
+        "totalCost": "Total Cost"
+      },
+      "chart": {
+        "filter": "Filter",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "chartName": "Chart Income & Outcome"
+      }
+    },
+    "deductions": {
+      "table": {
+        "changeStatus": "Change Status",
+        "changeAllStatus": "Change All Status",
+        "appointmentDeductions": "Appointment Deductions",
+        "amount": "Amount",
+        "appointmentDate": "Appointment Date",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions",
+        "range": "Range",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "year": "Year",
+        "month": "Month",
+        "subscriptionStart": "Subscription Start",
+        "totalCost": "Total Cost",
+        "subscriptionEnd": "Subscription End",
+        "subscriptionCost": "Subscription Cost",
+        "clinicBalance": "Clinic Balance",
+        "pendingAmount": "Pending Amount"
+      },
+      "show": {
+        "appointmentDeductionDetails": "Appointment Deduction Details",
+        "date": "Date",
+        "status": "Status",
+        "amount": "Amount",
+        "appointmentDate": "Appointment Date",
+        "totalCost": "Total Cost",
+        "note": "Note"
+      }
+    },
+    "dashboard": {
+      "welcomeBack": "Welcome Back",
+      "dashBoard": "DashBoard",
+      "editProfile": "Edit Profile",
+      "profile": "Profile",
+      "monthlyEarning": "Monthly Earning",
+      "thisMonth": "This Month",
+      "fromPreviousMonth": "From Previous Month",
+      "totalActiveDoctors": "Total Active Doctors",
+      "totalPatients": "Total Patients",
+      "todayRegisteredPatients": "Today Registered Patients",
+      "totalAppointments": "Total Appointments",
+      "todayAppointments": "Today Appointments",
+      "nextAppointments": "Next Appointments",
+      "monthlyAppointments": "Monthly Appointments",
+      "earningsFromAppointments": "Earnings From Appointments",
+      "completedAppointments": "Completed Appointments",
+      "recentPatientsRegistration": "Recent Patients Registration",
+      "registeredOn": "Registered On",
+      "patientName": "Patient Name",
+      "serviceName": "Service Name",
+      "sequence": "Sequence",
+      "status": "Status",
+      "type": "Type",
+      "actions": "Actions"
     }
+  },
+  "table": {
+    "filters": "Filters",
+    "apply": "Apply",
+    "resetFilters": "Reset Filters",
+    "totalRecords": "Total Records",
+    "prevPage": "Prev Page",
+    "nextPage": "Next Page"
   }
 }

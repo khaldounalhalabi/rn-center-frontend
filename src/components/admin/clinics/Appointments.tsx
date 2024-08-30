@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -16,17 +16,19 @@ import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogMo
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
+import {useTranslations} from "next-intl";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
 
 const Appointments = ({ clinicId }: { clinicId: number }) => {
+  const t = useTranslations('common.appointment.table')
   const tableData: DataTableData<Appointment> = {
     schema: [
       {
         name: "customer.user.first_name",
         sortable: true,
-        label: "Patient",
+        label: `${t("patientName")}`,
         render: (_first_name, appointment) => {
           return (
             <div className={`flex flex-col items-start`}>
@@ -41,21 +43,21 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "total_cost",
-        label: "Total Cost",
+        label: `${t("totalCost")}`,
         render: (total_cost) => total_cost?.toLocaleString() + " IQD",
       },
       {
         name: "appointment_sequence",
-        label: "Sequence",
+        label: `${t("sequence")}`,
       },
       {
         name: "date",
-        label: "Date",
+        label: `${t("date")}`,
         sortable: true,
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return <AppointmentStatusColumn appointment={appointment} />;
         },
@@ -63,18 +65,18 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "type",
-        label: "Type",
+        label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>Online</span>
+            <span className={`badge badge-success`}>{t("online")}</span>
           ) : (
-            <span className={`badge badge-neutral`}>Manual</span>
+            <span className={`badge badge-neutral`}>{t("manual")}</span>
           ),
         sortable: true,
       },
 
       {
-        label: "Actions",
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
@@ -118,7 +120,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            Status :
+            {t("status")} :
             <SelectFilter
               data={[...statusData, "all"]}
               selected={params.status ?? AppointmentStatusEnum.PENDING}
@@ -128,7 +130,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             />
           </label>
           <label className="label">
-            Type :
+            {t("type")} :
             <SelectFilter
               data={typeData}
               selected={params.type ?? "online"}
@@ -138,7 +140,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
             />
           </label>
           <label className="label">
-            Date :
+            {t("date")} :
             <DatepickerFilter
               onChange={(time: any) => {
                 setParams({ ...params, date: time?.format("YYYY-MM-DD") });

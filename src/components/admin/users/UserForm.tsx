@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import Roles from "@/enum/Role";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import {useTranslations} from "next-intl";
 
 const UserForm = ({
   defaultValues = undefined,
@@ -28,6 +29,7 @@ const UserForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations('admin.users')
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -67,7 +69,7 @@ const UserForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`First Name :`}
+          label={t("first-Name")}
           name={"first_name"}
           locale={locale}
         />
@@ -76,7 +78,7 @@ const UserForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Middle Name :`}
+          label={t("middle-name")}
           name={"middle_name"}
           locale={locale}
         />
@@ -85,13 +87,13 @@ const UserForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Last Name :`}
+          label={t("last-name")}
           name={"last_name"}
           locale={locale}
         />
         <SelectPopOverFrom
           required={true}
-          label={"Role :"}
+          label={t("role")}
           name={"role"}
           status={"admin"}
           ArraySelect={Roles()}
@@ -101,7 +103,7 @@ const UserForm = ({
       <Input
         name={"email"}
         type={"text"}
-        label={"Email :"}
+        label={t("email")}
         required={true}
         defaultValue={defaultValues?.email ?? ""}
       />
@@ -109,22 +111,24 @@ const UserForm = ({
         <Input
           name={"password"}
           type={"text"}
-          label={"Password :"}
+          label={t("password")}
           required={true}
           defaultValue={defaultValues?.password ?? ""}
         />
         <Input
           name={"password_confirmation"}
           type={"text"}
-          label={"Password Confirmation :"}
+          label={t("confirm-password")}
           required={true}
           defaultValue={defaultValues?.password_confirmation ?? ""}
         />
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            {t("gender")}:
+          </label>
           <Input
             name={"gender"}
-            label="Male"
+            label={t("male")}
             type="radio"
             className="radio radio-info"
             value={"male"}
@@ -138,15 +142,17 @@ const UserForm = ({
             label={"Female"}
             type="radio"
             className="radio radio-info"
-            value={"female"}
+            value={t("female")}
             defaultChecked={defaultValues?.gender == "female"}
           />
         </div>
         <InputTags
           name={"tags"}
-          label={"Tags :"}
+          label={t("tags")}
           defaultValue={
-            defaultValues?.tags ? defaultValues?.tags?.split(",") ?? [] : []
+            typeof defaultValues?.tags == "string"
+              ? defaultValues?.tags?.split(",") ?? []
+              : []
           }
         />
       </Grid>
@@ -154,7 +160,7 @@ const UserForm = ({
         type={"tel"}
         name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
-        label={"Phones :"}
+        label={t("phones")}
         required={true}
       />
       <Grid md={2}>
@@ -163,7 +169,7 @@ const UserForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Address :`}
+          label={t("address")}
           name={"address.name"}
           locale={locale}
           defaultValue={defaultValues?.address?.name ?? ""}
@@ -171,7 +177,7 @@ const UserForm = ({
         <ApiSelect
           required={true}
           name={"address.city_id"}
-          label={"City :"}
+          label={t("city")}
           placeHolder={"Select City Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
@@ -184,7 +190,7 @@ const UserForm = ({
         />
         <Datepicker
           name={"birth_date"}
-          label={"Birth Date :"}
+          label={t("birth-date")}
           shouldDisableDate={(day) => {
             return !day.isBefore(dayjs().subtract(20, "year"));
           }}
@@ -198,15 +204,15 @@ const UserForm = ({
             />
           ) : (
             <div className="flex items-center">
-              <label className="label"> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{t("noData")}</span>
             </div>
           )}
         </div>
       ) : (
         ""
       )}
-      <ImageUploader name={"image"} label={"Image"} />
+      <ImageUploader name={"image"} label={t("image")} />
     </Form>
   );
 };

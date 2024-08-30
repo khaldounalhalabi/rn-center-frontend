@@ -14,6 +14,7 @@ import AppointmentSpeechButton from "@/components/doctor/appointment/Appointment
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
+import {useTranslations} from "next-intl";
 
 const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -22,9 +23,11 @@ const handleCopyLink = (id: number | undefined) => {
 const locale = getCookieClient("NEXT_LOCALE");
 
 const TableTodayAppointment = () => {
+  const t = useTranslations("common.dashboard")
+
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/appointment/create`,
-    title: "Today Appointments",
+    title: `${t("todayAppointments")}`,
     schema: [
       {
         name: "id",
@@ -44,7 +47,7 @@ const TableTodayAppointment = () => {
       },
       {
         name: "customer.first_name",
-        label: "Patient",
+        label: `${t("patientName")}`,
         render: (_first_name, appointment) => {
           return (
             <div className={`flex flex-col items-start`}>
@@ -62,13 +65,13 @@ const TableTodayAppointment = () => {
       },
       {
         name: "service.name",
-        label: "Service Name",
+        label: `${t("serviceName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
             <AppointmentStatusColumn
@@ -82,7 +85,7 @@ const TableTodayAppointment = () => {
       },
       {
         name: "type",
-        label: "Type",
+        label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
             <span className={`badge badge-success`}>Online</span>
@@ -93,10 +96,10 @@ const TableTodayAppointment = () => {
       },
       {
         name: "appointment_sequence",
-        label: "Sequence",
+        label: `${t("sequence")}`,
       },
       {
-        label: "Actions",
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => {
           const sequence = data?.appointment_sequence
             ?.toString()

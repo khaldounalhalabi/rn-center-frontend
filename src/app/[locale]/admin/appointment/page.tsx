@@ -16,8 +16,10 @@ import { toast } from "react-toastify";
 import { Link } from "@/navigation";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("common.appointment.table")
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
@@ -27,7 +29,7 @@ const Page = () => {
   const typeData = ["online", "manual", "all"];
   const tableData: DataTableData<Appointment> = {
     createUrl: `/admin/appointment/create`,
-    title: "Appointment",
+    title: `${t("appointments")}`,
     schema: [
       {
         name: "id",
@@ -48,13 +50,13 @@ const Page = () => {
       {
         name: "clinic.name",
         sortable: true,
-        label: "Clinic Name",
+        label: `${t("clinicName")}`,
         translatable: true,
       },
       {
         name: "clinic.user.first_name",
         sortable: true,
-        label: "Doctor Name",
+        label: `${t("doctorName")}`,
         render: (_first_name, appointment) => {
           return (
             <p>
@@ -68,7 +70,7 @@ const Page = () => {
       {
         name: "customer.user.first_name",
         sortable: true,
-        label: "Patient",
+        label: `${t("patientName")}`,
         render: (_first_name, appointment) => {
           return (
             <Link
@@ -84,7 +86,7 @@ const Page = () => {
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return <AppointmentStatusColumn appointment={appointment} />;
         },
@@ -92,32 +94,32 @@ const Page = () => {
       },
       {
         name: "type",
-        label: "Type",
+        label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>Online</span>
+            <span className={`badge badge-success`}>{t("online")}</span>
           ) : (
-            <span className={`badge badge-neutral`}>Manual</span>
+            <span className={`badge badge-neutral`}>{t("manual")}</span>
           ),
         sortable: true,
       },
       {
         name: "total_cost",
-        label: "Total Cost",
+        label: `${t("totalCost")}`,
         render: (data) => data?.toLocaleString() + " IQD",
       },
 
       {
         name: "appointment_sequence",
-        label: "Sequence",
+        label: `${t("sequence")}`,
       },
       {
         name: "date",
-        label: "Date",
+        label: `${t("date")}`,
         sortable: true,
       },
       {
-        label: "Actions",
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
@@ -156,7 +158,7 @@ const Page = () => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            Status :
+            {t("status")} :
             <SelectFilter
               data={["all", ...statusData]}
               selected={params.status ?? "all"}
@@ -166,7 +168,7 @@ const Page = () => {
             />
           </label>
           <label className="label">
-            Type :
+            {t("type")} :
             <SelectFilter
               data={typeData}
               selected={params.type ?? "online"}
@@ -176,7 +178,7 @@ const Page = () => {
             />
           </label>
           <label className="label">
-            Date :
+            {t("date")} :
             <DatepickerFilter
               onChange={(time: any) => {
                 setParams({ ...params, date: time?.format("YYYY-MM-DD") });

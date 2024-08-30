@@ -81,7 +81,7 @@ const SubscriptionClinicsTable = ({
       },
       {
         name: "approximate_appointment_time",
-        label: `Approximate Appointment Time`,
+        label: `${t("approximateAppointmentTime")}`,
         render: (_undefined, clinic, setHidden, revalidate) => {
           return (
             <span className="badge-neutral badge">

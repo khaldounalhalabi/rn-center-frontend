@@ -6,10 +6,13 @@ import React from "react";
 import { CustomerService } from "@/services/CustomerService";
 import { Recent } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
 
 const TableRecent = () => {
+  const t = useTranslations('common.dashboard')
+
   const tableData: DataTableData<Recent> = {
-    title: `Recent Patients Registration`,
+    title: `${t("recentPatientsRegistration")}`,
     schema: [
       {
         name: "id",
@@ -18,7 +21,7 @@ const TableRecent = () => {
       },
       {
         name: "user",
-        label: `Patient Name`,
+        label: `${t("patientName")}`,
         sortable: true,
         render: (_first_name, patient) => {
           return (
@@ -32,16 +35,16 @@ const TableRecent = () => {
       },
       {
         name: "total_appointments",
-        label: `Total Appointments`,
+        label: `${t("totalAppointments")}`,
         sortable: true,
       },
       {
         name: "created_at",
-        label: `Registered On`,
+        label: `${t("registeredOn")}`,
         sortable: true,
       },
       {
-        label: `${"Actions"}`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

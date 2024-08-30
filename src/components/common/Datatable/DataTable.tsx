@@ -11,6 +11,7 @@ import TableBody from "@/components/common/Datatable/TableBody";
 import TablePaginator from "@/components/common/Datatable/TablePaginator";
 import FilterIcon from "@/components/icons/FilterIcon";
 import { Dialog, Transition } from "@headlessui/react";
+import {useTranslations} from "next-intl";
 
 export interface FilterParam {
   [key: string]: any;
@@ -54,6 +55,7 @@ export interface DataTableData<T> {
 }
 
 const DataTable = (tableData: DataTableData<any>) => {
+  const t = useTranslations("table")
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [hideCols, setHideCols] = useState<number[]>([]);
@@ -70,7 +72,6 @@ const DataTable = (tableData: DataTableData<any>) => {
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
-
   const { isPending, data, isPlaceholderData, isRefetching } = useQuery({
     queryKey: [
       `tableData_${tableData.createUrl}_${tableData.title}`,
@@ -94,6 +95,7 @@ const DataTable = (tableData: DataTableData<any>) => {
     refetchOnWindowFocus: false,
     retry: 10,
   });
+  console.log(data)
   return (
     <>
       {tableData.filter ? (
@@ -131,7 +133,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                       as="h3"
                       className="font-medium text-gray-900 text-lg leading-6"
                     >
-                      Filters
+                      {t("filters")}
                     </Dialog.Title>
                     <div className="mt-2">
                       {tableData.filter(tempParams, setTempParams)}
@@ -146,7 +148,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                           setOpenFilter(false);
                         }}
                       >
-                        Apply
+                        {t("apply")}
                       </button>
 
                       <button
@@ -158,7 +160,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                           setOpenFilter(false);
                         }}
                       >
-                        Reset Filters
+                        {t("resetFilters")}
                       </button>
                     </div>
                   </Dialog.Panel>

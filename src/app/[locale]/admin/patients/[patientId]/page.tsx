@@ -10,19 +10,22 @@ import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";
 import { Customer } from "@/Models/Customer";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { patientId },
 }: {
   params: { patientId: number };
 }) => {
+  const t = await getTranslations("common.patient.show");
+
   const data = await PatientsService.make<PatientsService>().show(patientId);
   const user: User | undefined = data?.data.user;
   const patient: Customer = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Patient Details</h2>
+        <h2 className="card-title">{t("patientDetails")}</h2>
         <Link href={`/admin/patients/${patientId}/edit`}>
           <PrimaryButton type={"button"}>Edit</PrimaryButton>
         </Link>
@@ -44,7 +47,7 @@ const page = async ({
             </h2>
             <h3>{user?.email}</h3>
             <div className={"flex gap-1"}>
-              Phone :{" "}
+              {t("phone")} :{" "}
               {user?.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (
                   <span className="ml-2 badge badge-accent  " key={item.id}>

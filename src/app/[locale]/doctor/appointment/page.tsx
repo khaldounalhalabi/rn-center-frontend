@@ -27,6 +27,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useQuery } from "@tanstack/react-query";
 import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -34,6 +35,8 @@ interface filterExportType {
 }
 
 const Page = () => {
+
+  const t = useTranslations("common.appointment.table")
   const [serviceSelected, setServiceSelected] = useState<string>("all");
   const { data: service } = useQuery({
     queryKey: ["service"],
@@ -71,7 +74,7 @@ const Page = () => {
 
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/appointment/create`,
-    title: "Appointment",
+    title: `${t("appointments")}`,
     extraButton: (
       <>
         <Link href={`/doctor/appointment/calender`} className={"mx-1"}>
@@ -103,7 +106,7 @@ const Page = () => {
       },
       {
         name: "customer.first_name",
-        label: "Patient",
+        label: `${t("patientName")}`,
         render: (_first_name, appointment) => {
           return (
             <div className={`flex flex-col items-start`}>
@@ -121,27 +124,41 @@ const Page = () => {
       },
       {
         name: "service.name",
-        label: "Service Name",
+        label: `${t("serviceName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
-            <AppointmentStatusColumn
-              userType={"doctor"}
-              appointment={appointment}
-              revalidate={revalidate}
-            />
+              <NotificationHandler
+                  handle={(payload) => {
+                    if (
+                        payload.getNotificationType() ==
+                        RealTimeEvents.AppointmentStatusChange
+                    ) {
+                      if (revalidate) {
+                        revalidate();
+                      }
+                    }
+                  }}
+              >
+                <AppointmentStatusColumn
+                    userType={"doctor"}
+                    appointment={appointment}
+                    revalidate={revalidate}
+                />
+              </NotificationHandler>
+
           );
         },
         sortable: true,
       },
       {
         name: "type",
-        label: "Type",
+        label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
             <span className={`badge badge-success`}>Online</span>
@@ -152,23 +169,23 @@ const Page = () => {
       },
       {
         name: "total_cost",
-        label: "Total Cost",
+        label: `${t("totalCost")}`,
         render: (data) => {
           return <span>{data.toLocaleString()}</span>;
         },
       },
       {
         name: "appointment_sequence",
-        label: "Sequence",
+        label: `${t("sequence")}`,
       },
       {
         name: "date",
-        label: "Date",
+        label: `${t("date")}`,
         sortable: true,
       },
 
       {
-        label: "Actions",
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => {
           const sequence = data?.appointment_sequence?.toString();
           const lang = locale == "en" ? "en-US" : "ar-SA";
@@ -190,18 +207,7 @@ const Page = () => {
               setHidden={setHidden}
             >
               <>
-                <NotificationHandler
-                  handle={(payload) => {
-                    if (
-                      payload.getNotificationType() ==
-                      RealTimeEvents.AppointmentStatusChange
-                    ) {
-                      if (revalidate) {
-                        revalidate();
-                      }
-                    }
-                  }}
-                />
+
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
             </ActionsButtons>
@@ -235,7 +241,7 @@ const Page = () => {
             />
           </label>
           <label className={"label"}>
-            Status :
+            {t("serviceName")} :
             <SelectFilter
               data={["all", ...statusData]}
               selected={params.status ?? "all"}
@@ -245,7 +251,7 @@ const Page = () => {
             />
           </label>
           <label className="label">
-            Type :
+            {t("type")} :
             <SelectFilter
               data={typeData}
               selected={params.type ?? "online"}
@@ -254,7 +260,7 @@ const Page = () => {
               }}
             />
           </label>
-          <label className="label">Start Date :</label>
+          <label className="label">{t("startDate")} :</label>
           <DatepickerFilter
             onChange={(time: any) => {
               setStartDate(time?.format("YYYY-MM-DD"));
@@ -265,7 +271,7 @@ const Page = () => {
             }}
             defaultValue={startDate ?? ""}
           />
-          <label className="label">End Date :</label>
+          <label className="label">{t("endDate")} :</label>
           <DatepickerFilter
             onChange={(time: any) => {
               setEndDate(time?.format("YYYY-MM-DD"));
@@ -310,7 +316,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <label className={"label"}>Year :</label>
+                    <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
                       type={"number"}
@@ -325,7 +331,7 @@ const Page = () => {
                       }
                       defaultValue={filterExport.year}
                     />
-                    <label className={"label"}>Month :</label>
+                    <label className={"label"}>{t("month")} :</label>
                     <SelectFilter
                       data={AllMonth()}
                       selected={filterExport.month}

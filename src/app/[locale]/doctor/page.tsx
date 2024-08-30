@@ -8,6 +8,7 @@ import { Statistics } from "@/Models/Statistics";
 import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
+import {useTranslations} from "next-intl";
 
 const Home = () => {
   const {
@@ -23,6 +24,8 @@ const Home = () => {
     },
   });
   const statisticsRes: Statistics | undefined = statistics?.data;
+  const t = useTranslations("common.dashboard")
+
   return (
     <>
       <div className={"flex flex-col justify-between md:flex-row my-6"}>
@@ -42,10 +45,10 @@ const Home = () => {
           />
           <Card>
             <div className={"flex justify-between"}>
-              <h2 className={"card-title mb-8"}>Monthly Appointments</h2>
+              <h2 className={"card-title mb-8"}>{t("monthlyAppointments")}</h2>
               <div>
-                <p className={"text-[#8884d8]"}>Total Appointments</p>
-                <p className={"text-[#82ca9d]"}>Completed Appointments</p>
+                <p className={"text-[#8884d8]"}>{t("totalAppointments")}</p>
+                <p className={"text-[#82ca9d]"}>{t("completedAppointments")}</p>
               </div>
             </div>
 

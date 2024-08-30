@@ -6,6 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
+import {getTranslations} from "next-intl/server";
 import Gallery from "@/components/common/ui/Gallery";
 
 const page = async ({
@@ -13,6 +14,7 @@ const page = async ({
 }: {
   params: { profiles: number };
 }) => {
+  const t = await getTranslations("admin.patientsProfiles.show")
   const data =
     await PatientProfilesService.make<PatientProfilesService>().show(profiles);
   const res: PatientProfiles = data?.data;
@@ -27,20 +29,20 @@ const page = async ({
     <>
       <PageCard>
         <div className="flex justify-between items-center w-full h-24">
-          <h2 className="card-title">Patient Profile Details</h2>
+          <h2 className="card-title">{t("patientProfileDetails")}</h2>
           <Link href={`/admin/patient-profiles/${profiles}/edit`}>
-            <PrimaryButton type={"button"}>Edit</PrimaryButton>
+            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
           </Link>
         </div>
         <Grid md={2} gap={5}>
           <label className="label justify-start text-xl">
-            Clinic Name :{" "}
+            {t("clinicName")} :{" "}
             <span className="ml-2 badge badge-neutral">
               {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
           <label className="label justify-start text-xl">
-            Customer Name :{" "}
+            {t("customerName")} :{" "}
             <span className="ml-2 badge badge-secondary">
               {await TranslateServer(res?.customer?.user?.first_name)}{" "}
               {await TranslateServer(res?.customer?.user?.middle_name)}{" "}
@@ -50,7 +52,7 @@ const page = async ({
         </Grid>
       </PageCard>
       <PageCard>
-        <h2 className="card-title">Other Data :</h2>
+        <h2 className="card-title">{t("otherData")} :</h2>
         <Grid md={2}>
           {otherData?.map((data, index) => (
             <label key={index} className="label justify-start text-xl">
@@ -61,14 +63,14 @@ const page = async ({
         </Grid>
       </PageCard>
       <PageCard>
-        <h2 className="card-title">Description :</h2>
-        <label className={"label text-xl"}>Medical Condition :</label>
+        <h2 className="card-title">{t("description")} :</h2>
+        <label className={"label text-xl"}>{t("medicalCondition")} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}
           defaultValue={res?.medical_condition ?? ""}
         />
-        <label className={"label text-xl"}>Note :</label>
+        <label className={"label text-xl"}>{t("note")} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}
@@ -80,7 +82,7 @@ const page = async ({
             <Gallery media={res?.images ? res?.images : []} />
           ) : (
             <div className="flex items-center">
-              <label className="label"> {"Image"} : </label>
+              <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">{"No Data"}</span>
             </div>
           )}

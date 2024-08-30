@@ -6,6 +6,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import BackIcon from "@/components/icons/backIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
+import {useLocale, useTranslations} from "next-intl";
 
 const UserDataAdmin = ({
   statisticsRes,
@@ -17,7 +18,7 @@ const UserDataAdmin = ({
   isFetching: boolean;
 }) => {
   const user: User = HandleGetUserData();
-
+  const t = useTranslations('common.dashboard')
   console.log(user);
   const thisMonth = Number(statisticsRes?.total_deductions_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);
@@ -56,17 +57,21 @@ const UserDataAdmin = ({
     Number(lastMonth ?? 0),
     Number(thisMonth ?? 0),
   );
+  const local = useLocale();
+
   return (
     <>
       <div className="w-full min-h-[230px] flex flex-col rounded-2xl relative">
         <div className="h-1/2 bg-[#1fb8b9] text-white p-4 rounded-t-xl">
-          <h2 className="text-lg md:text-xl font-semibold">Welcome Back !</h2>
-          <p className="text-sm md:text-base mb-4">DashBoard</p>
+          <h2 className="text-lg md:text-xl font-semibold">
+            {t("welcomeBack")} !
+          </h2>
+          <p className="text-sm md:text-base mb-4">{t("dashBoard")}</p>
         </div>
 
         <div className="h-1/2 flex flex-col justify-between  xl:items-end bg-white rounded-b-xl">
           <div className="p-4 w-full ">
-            <div className="relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px] left-[10%]">
+            <div className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px] left-[10%] ${local == "en" ? "left-[10%]" : "right-[10%]"}`}>
               <RoundedImage
                 src={user.image?.[0]?.file_url ?? "/user.png"}
                 alt={"user-profile"}
@@ -84,7 +89,7 @@ const UserDataAdmin = ({
           <div className="p-4 w-full gap-2 flex justify-between">
             <div className={"w-1/2"}>
               <h2>
-                Total Active Doctors{" "}
+                {t("totalActiveDoctors")}{" "}
                 <p>
                   {" "}
                   {isLoading || isFetching ? (
@@ -95,7 +100,7 @@ const UserDataAdmin = ({
                 </p>
               </h2>
               <h2>
-                Today Appointments{" "}
+                {t("todayAppointments")}{" "}
                 <p>
                   {" "}
                   {isLoading || isFetching ? (
@@ -108,7 +113,7 @@ const UserDataAdmin = ({
             </div>
             <div className={"w-1/2"}>
               <h2>
-                Total Patients{" "}
+                {t("totalPatients")}{" "}
                 <p>
                   {" "}
                   {isLoading || isFetching ? (
@@ -119,7 +124,7 @@ const UserDataAdmin = ({
                 </p>
               </h2>
               <h2>
-                Today Registered Patients{" "}
+                {t("todayRegisteredPatients")}{" "}
                 <p>
                   {" "}
                   {isLoading || isFetching ? (
@@ -138,9 +143,9 @@ const UserDataAdmin = ({
           <div className="flex flex-col justify-between">
             <div>
               <h2 className="text-lg md:text-xl font-semibold">
-                Monthly Earning !
+                {t("monthlyEarning")} !
               </h2>
-              <p className="text-sm md:text-base">This Month</p>
+              <p className="text-sm md:text-base">{t("thisMonth")}</p>
             </div>
             <h2 className="text-lg md:text-xl font-semibold">
               {isLoading || isFetching ? (
@@ -149,8 +154,7 @@ const UserDataAdmin = ({
                 (statisticsRes?.total_deductions_current_month ?? 0)
                   .toFixed(2)
                   .toLocaleString()
-              )}
-              {" "}
+              )}{" "}
               IQD
             </h2>
           </div>
@@ -174,7 +178,7 @@ const UserDataAdmin = ({
                 )}
               </>
             )}
-            <p className="text-sm md:text-base">From Previous Month</p>
+            <p className="text-sm md:text-base">{t("fromPreviousMonth")}</p>
           </div>
         </div>
       </div>

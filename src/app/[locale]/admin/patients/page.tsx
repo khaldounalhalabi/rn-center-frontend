@@ -10,11 +10,13 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import { UsersService } from "@/services/UsersService";
 import BlockButton from "@/components/common/BlockButton";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("common.patient.table")
   const tableData: DataTableData<Customer> = {
     createUrl: `/admin/patients/create`,
-    title: `Patients`,
+    title: `${t("patients")}`,
     schema: [
       {
         name: "id",
@@ -23,7 +25,7 @@ const Page = () => {
       },
       {
         name: "user",
-        label: `Patient Name`,
+        label: `${t("patientName")}`,
         sortable: true,
         render: (_first_name, patient) => {
           return (
@@ -37,25 +39,25 @@ const Page = () => {
       },
       {
         name: "user.email",
-        label: `Email`,
+        label: `${t("email")}`,
         sortable: true,
       },
       {
         name: "user.age",
-        label: `Age`,
+        label: `${t("age")}`,
         sortable: true,
       },
       {
         name: "is_blocked",
         sortable: true,
-        label: "is Blocked",
+        label: `${t("isBlocked")}`,
         render: (_is_blocked, user) => {
           return (
             <div className={`flex flex-col items-start`}>
               {user?.user?.is_blocked ? (
-                <span className="badge badge-error">Blocked</span>
+                <span className="badge badge-error">{t("blocked")}</span>
               ) : (
-                <span className="badge badge-success">Not Blocked</span>
+                <span className="badge badge-success">{t("notBlocked")}</span>
               )}
             </div>
           );
@@ -64,21 +66,21 @@ const Page = () => {
       {
         name: "is_archived",
         sortable: true,
-        label: "is Archived",
+        label: `${t("isArchived")}`,
         render: (_is_archived, user) => {
           return (
             <div className={`flex flex-col items-start`}>
               {user?.user?.is_archived ? (
-                <span className="badge badge-neutral">Archived</span>
+                <span className="badge badge-neutral">{t("archived")}</span>
               ) : (
-                <span className="badge badge-warning">Not Archived</span>
+                <span className="badge badge-warning">{t("notArchived")}</span>
               )}
             </div>
           );
         },
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}

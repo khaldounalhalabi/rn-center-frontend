@@ -3,6 +3,7 @@ import Card from "@/components/common/ui/Card";
 import React from "react";
 import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {useTranslations} from "next-intl";
 
 const CardsAppointmentDoctor = ({
   statisticsRes,
@@ -13,6 +14,8 @@ const CardsAppointmentDoctor = ({
   isFetching: boolean;
   isLoading: boolean;
 }) => {
+  const t = useTranslations("common.dashboard")
+
   return (
     <div className={"flex pl-4 md:pl-0 flex-wrap mb-6 gap-5"}>
       <Card>
@@ -22,7 +25,7 @@ const CardsAppointmentDoctor = ({
           }
         >
           <div className={"flex flex-col justify-between "}>
-            <p>Total Appointments</p>
+            <p>{t("totalAppointments")}</p>
             <p>
               {isLoading || isFetching ? (
                 <LoadingSpin />
@@ -38,7 +41,7 @@ const CardsAppointmentDoctor = ({
           className={"flex justify-between gap-4 items-center min-w-[210px]"}
         >
           <div className={"flex flex-col justify-between "}>
-            <p>Today Appointments</p>
+            <p>{t("todayAppointments")}</p>
             <p>
               {isLoading || isFetching ? (
                 <LoadingSpin />
@@ -54,7 +57,7 @@ const CardsAppointmentDoctor = ({
           className={"flex justify-between gap-4 items-center min-w-[210px]"}
         >
           <div className={"flex flex-col justify-between "}>
-            <p>Next Appointments</p>
+            <p>{t("nextAppointments")}</p>
             <p>
               {isLoading || isFetching ? (
                 <LoadingSpin />

@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
+import {useTranslations} from "next-intl";
 
 const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
+  const t = useTranslations('admin.subscription.table')
   const tableData: DataTableData<ClinicSubscription> = {
     createUrl: `/admin/clinics/${clinicId}/subscription/create`,
-    title: `Clinic Subscriptions`,
+    title: `${t("clinicSubscriptions")}`,
     schema: [
       {
         name: "id",
@@ -19,33 +21,33 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "status",
-        label: `Status`,
+        label: `${t("status")}`,
         sortable: true,
         render: (data) =>
           data == "active" ? (
-            <span className={`badge badge-success`}>Active</span>
+            <span className={`badge badge-success`}>{t("active")}</span>
           ) : (
-            <span className={`badge badge-error`}>In Active</span>
+            <span className={`badge badge-error`}>{t("in-active")}</span>
           ),
       },
       {
         name: "subscription.name",
-        label: `Name`,
+        label: `${t("subscriptionName")}`,
         sortable: true,
       },
       {
         name: "remaining",
-        label: `Remaining`,
+        label: `${t("remaining")}`,
         sortable: true,
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
       },
       {
         name: "deduction_cost",
-        label: `Deduction Cost`,
+        label: `${t("deductionCost")}`,
         sortable: true,
         render: (data) => (
           <span className={`badge badge-success`}>{data} %</span>
@@ -53,7 +55,7 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "subscription.cost",
-        label: `Cost`,
+        label: `${t("cost")}`,
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
@@ -62,7 +64,7 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
         ),
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

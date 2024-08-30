@@ -7,10 +7,12 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { EnquiriesService } from "@/services/EnquiriesService";
 import { Enquiries } from "@/Models/Enquiries";
 import ReplyButton from "@/components/admin/enquiries/ReplyButton";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.enquiries")
   const tableData: DataTableData<Enquiries> = {
-    title: `Enquiries`,
+    title: `${t("enquiries")}`,
     schema: [
       {
         name: "id",
@@ -19,21 +21,21 @@ const Page = () => {
       },
       {
         name: "name",
-        label: `Name`,
+        label: `${t("name")}`,
         sortable: true,
       },
       {
         name: "email",
-        label: `Email`,
+        label: `${t("email")}`,
         sortable: true,
       },
       {
         name: "read_at",
-        label: "Read At",
+        label: `${t("readAt")}`,
         sortable: true,
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

@@ -5,9 +5,12 @@ import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { Dialog, Transition } from "@headlessui/react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
 
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
-  const [openLogs, setOpenLogs] = useState(false);
+    const t = useTranslations("common.appointment.table")
+
+    const [openLogs, setOpenLogs] = useState(false);
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (
@@ -59,7 +62,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                     as="h3"
                     className="font-medium text-gray-900 text-lg leading-6"
                   >
-                    Logs
+                    {t("logs")}
                   </Dialog.Title>
                   {logs ? (
                     <div className="overflow-x-auto bg-white rounded-xl mt-4">
@@ -67,10 +70,10 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                         <thead>
                           <tr>
                             <th>id</th>
-                            <th>status</th>
-                            <th>Happen In</th>
-                            <th>Actor</th>
-                            <th>Event</th>
+                            <th>{t("status")}</th>
+                            <th>{t("happenIn")}</th>
+                            <th>{t("actor")}</th>
+                            <th>{t("event")}</th>
                           </tr>
                         </thead>
                         <tbody>

@@ -10,7 +10,7 @@ const RoundedImage = ({
   alt: string | undefined | null;
 }) => {
   return (
-    <div className={`rounded-full ${className}`}>
+    <div className={`rounded-full h-full ${className}`}>
       <img
         className={`size-fit w-full cursor-pointer`}
         src={src}

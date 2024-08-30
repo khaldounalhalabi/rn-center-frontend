@@ -30,6 +30,7 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import {useTranslations} from "next-intl";
 
 interface Range {
   id: number | undefined;
@@ -213,7 +214,7 @@ const AppointmentForm = ({
       );
     }
   };
-
+  const t = useTranslations('common.appointment.create')
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -247,10 +248,10 @@ const AppointmentForm = ({
                     onSuccess={() => closeModal()}
                     defaultValues={date}
                   >
-                    <h1 className={"card-title"}>Set Date : </h1>
+                    <h1 className={"card-title"}>{t("setDate")} : </h1>
                     <Datepicker
                       name={"date"}
-                      label={"Date"}
+                      label={t("date")}
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
@@ -343,7 +344,7 @@ const AppointmentForm = ({
                     },
                   });
                 }}
-                label={"Clinic Name"}
+                label={t("clinicName")}
                 optionValue={"id"}
                 getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
               />
@@ -369,7 +370,7 @@ const AppointmentForm = ({
                   onClear={() => {
                     setCustomerId(0);
                   }}
-                  label={"Customer Name"}
+                  label={t("customerName")}
                   optionValue={"id"}
                   getOptionLabel={(data: Customer) => {
                     return (
@@ -384,7 +385,9 @@ const AppointmentForm = ({
                 {lastAppointmentDate &&
                 lastAppointmentDate?.length > 0 &&
                 customer_id != 0 ? (
-                  <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
+                  <p className={"label"}>
+                    {t("lastVisit")} : {lastAppointmentDate}
+                  </p>
                 ) : (
                   ""
                 )}
@@ -407,7 +410,7 @@ const AppointmentForm = ({
             defaultValues={
               defaultValues?.service ? [defaultValues?.service] : []
             }
-            label={"Service Name"}
+            label={t("serviceName")}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
               setServicePrice(selectedItem?.price);
@@ -433,7 +436,7 @@ const AppointmentForm = ({
                 )
               }
               closeOnSelect={false}
-              label={"System Offers"}
+              label={t("systemOffers")}
               revalidate={`${clinicId}`}
               onSelect={(selectedItem) => {
                 if (selectedItem) {
@@ -467,7 +470,7 @@ const AppointmentForm = ({
             }
             closeOnSelect={false}
             defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
-            label={"Offers"}
+            label={t("offers")}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
               if (selectedItem) {
@@ -489,12 +492,12 @@ const AppointmentForm = ({
           {type != "update" ? (
             <div className={`flex gap-5 p-2 items-end`}>
               <label className={`bg-pom p-2 rounded-md text-white`}>
-                Type:
+                {t("type")}:
               </label>
               <Input
                 onClick={() => setSystemOffer([])}
                 name={"type"}
-                label={"manual"}
+                label={t("manual")}
                 type="radio"
                 className="radio radio-info"
                 value={"manual"}
@@ -505,7 +508,7 @@ const AppointmentForm = ({
               />
               <Input
                 name={"type"}
-                label={"online"}
+                label={t("online")}
                 type="radio"
                 className="radio radio-info"
                 value={"online"}
@@ -523,7 +526,7 @@ const AppointmentForm = ({
             step={"any"}
             unit={"IQD"}
             placeholder={"Extra Fees : 5"}
-            label={"Extra Fees"}
+            label={t("extraFees")}
             setWatch={setExtra}
           />
           <SelectPopOverFrom
@@ -531,14 +534,14 @@ const AppointmentForm = ({
             name={"status"}
             ArraySelect={statusData}
             status={status}
-            label={"Status"}
+            label={t("status")}
             handleSelect={(select: string) => setStatus(select)}
           />
 
           {type == "store" ? (
             <Datepicker
               name={"date"}
-              label={"Date"}
+              label={t("date")}
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
@@ -558,7 +561,7 @@ const AppointmentForm = ({
             type={"number"}
             step={"any"}
             placeholder={"Discount ..."}
-            label={"Discount"}
+            label={t("discount")}
             setWatch={setDiscount}
           />
         </Grid>
@@ -568,19 +571,19 @@ const AppointmentForm = ({
             onClick={openModal}
             className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
           >
-            Update Date
+            {t("updateDate")}
           </button>
         ) : (
           ""
         )}
         <Textarea
           name={"note"}
-          label={"Notes"}
+          label={t("note")}
           defaultValue={defaultValues?.note ?? ""}
         />
         {status == AppointmentStatusEnum.CANCELLED ? (
           <Textarea
-            label={"Cancellation Reason"}
+            label={t("cancellationReason")}
             name={"cancellation_reason"}
           />
         ) : (
@@ -590,33 +593,35 @@ const AppointmentForm = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <th>{t("name")}</th>
+                <th>{t("price")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Clinic Appointment Cost</td>
+                <td>{t("cost")}</td>
                 <td>
                   {Number(range?.appointment_cost ?? 0).toLocaleString()} IQD
                 </td>
               </tr>
               <tr>
-                <td>Service</td>
+                <td>{t("service")}</td>
                 <td>{Number(getServicePrice ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
-                <td>Extra Fees</td>
+                <td>{t("extraFees")}</td>
                 <td>{Number(getExtra).toLocaleString()} IQD</td>
               </tr>
               <tr>
-                <td>Discount</td>
+                <td>{t("discount")}</td>
                 <td>{Number(getDiscount ?? 0).toLocaleString()} IQD</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
                     <tr key={index}>
-                      <td>Offer [{TranslateClient(e.title)}]</td>
+                      <td>
+                        {t("offers")} [{TranslateClient(e.title)}]
+                      </td>
                       <td>
                         {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
@@ -626,7 +631,7 @@ const AppointmentForm = ({
               {systemOffer.length != 0
                 ? systemOffer?.map((e: SystemOffers, index) => (
                     <tr key={index}>
-                      <td>System Offer [{TranslateClient(e.title)}]</td>
+                      <td>{t("systemOffers")} [{TranslateClient(e.title)}]</td>
                       <td>
                         {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
@@ -634,8 +639,10 @@ const AppointmentForm = ({
                   ))
                 : ""}
               <tr>
-                <td className="text-lg">Total Cost</td>
-                <td className="text-lg">{Number(totalCost.toFixed(1)).toLocaleString()} IQD</td>
+                <td className="text-lg">{t("totalCost")}</td>
+                <td className="text-lg">
+                  {Number(totalCost.toFixed(1)).toLocaleString()} IQD
+                </td>
               </tr>
             </tbody>
           </table>

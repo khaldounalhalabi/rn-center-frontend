@@ -163,7 +163,7 @@ const HospitalsForm = ({
         )}
       </Grid>
 
-      <ImageUploader name={"images"} isMultiple={true} label={"Images"} />
+      <ImageUploader name={"images"} isMultiple={true} label={t("image")} />
       <TextAreaMap
         required={true}
         className={"col-span-2"}

@@ -2,6 +2,7 @@ import { ApiResponse } from "@/Http/Response";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";
+import {useTranslations} from "next-intl";
 
 const TablePaginator = ({
   data,
@@ -14,11 +15,13 @@ const TablePaginator = ({
   page: number;
   setPage: (value: ((prevState: number) => number) | number) => void;
 }) => {
+  const t = useTranslations("table")
+
   const paginationArray = [...Array(data?.paginate?.total_pages ?? 0)];
   return (
     <div className="flex justify-between border-gray-200 px-4 py-2 border-t rounded-b-lg">
       <div className={"justify-start"}>
-        Total Records : {data?.paginate?.total}
+        {t("totalRecords")} : {data?.paginate?.total}
       </div>
       <ol className="flex justify-end items-center gap-1 font-medium text-xs">
         <li>
@@ -27,7 +30,7 @@ const TablePaginator = ({
             disabled={data?.paginate?.isFirst ?? true}
             className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 size-8 rtl:rotate-180"
           >
-            <span className="sr-only">Prev Page</span>
+            <span className="sr-only">{t("prevPage")}</span>
             <ChevronLeft />
           </button>
         </li>
@@ -78,7 +81,7 @@ const TablePaginator = ({
             disabled={data?.paginate?.isLast ?? true}
             className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 size-8 rtl:rotate-180"
           >
-            <span className="sr-only">Next Page</span>
+            <span className="sr-only">{t("nextPage")}</span>
             <ChevronRight />
           </button>
         </li>

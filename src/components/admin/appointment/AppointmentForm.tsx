@@ -281,7 +281,7 @@ const AppointmentForm = ({
                 <h2 className={"font-bold text-xl border-b w-full"}>
                   Clinic Details :{" "}
                 </h2>
-                <div className={"w-1/2"}>
+                <div className={"w-full md:w-1/2"}>
                   <ApiSelect
                       required={true}
                       placeHolder={"Select Clinic name ..."}
@@ -358,7 +358,7 @@ const AppointmentForm = ({
                 <h2 className={"font-bold text-xl border-b w-full"}>
                   Patient Details:{" "}
                 </h2>
-                <div className={"w-1/2"}>
+                <div className={"w-full md:w-1/2"}>
                   <ApiSelect
                     required={true}
                     name={"customer_id"}

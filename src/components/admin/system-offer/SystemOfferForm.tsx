@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
@@ -9,7 +9,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import OffersArray from "@/enum/OfferType";
+import OffersArray, { OfferType } from "@/enum/OfferType";
 import { Navigate } from "@/Actions/navigate";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
@@ -27,12 +27,13 @@ const SystemOfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const [unit, setUnit] = useState<"%"|"IQD">("%");
+
   const handleSubmit = async (data: any) => {
     const sendData = {
       ...data,
       allow_reuse: Number(data.allow_reuse),
     };
-    console.log(sendData);
 
     if (
       type === "update" &&
@@ -83,7 +84,13 @@ const SystemOfferForm = ({
           ArraySelect={OffersArray()}
           required={true}
           label={"Type :"}
-          handleSelect={() => undefined}
+          handleSelect={(unit: string) => {
+            if (unit == OfferType.FIXED) {
+              setUnit("IQD");
+            } else {
+              setUnit("%");
+            }
+          }}
         />
         <Input
           placeholder={"amount ... "}
@@ -91,7 +98,7 @@ const SystemOfferForm = ({
           label={"Amount"}
           required={true}
           type="number"
-          unit={"IQD"}
+          unit={unit}
         />
         <Input
           placeholder={"allowed uses ... "}

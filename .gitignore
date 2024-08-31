@@ -43,3 +43,5 @@ certificates
 scripts.sh
 
 /public
+
+server.conf

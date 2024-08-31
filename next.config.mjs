@@ -14,6 +14,7 @@ const withPWA = withPWAInit({
   disable: false,
   workboxOptions: {
     disableDevLogs: true,
+    exclude: [/middleware-manifest.json$/],
   },
 });
 const nextConfig = {
@@ -25,4 +26,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl((nextConfig));
+export default withNextIntl(withPWA(nextConfig));

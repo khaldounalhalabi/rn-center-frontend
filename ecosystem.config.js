@@ -7,7 +7,7 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
-      instances: 2,
+      instances: 1,
       watch: false,
       output: "./logs/out.log",
       error: "./logs/error.log",

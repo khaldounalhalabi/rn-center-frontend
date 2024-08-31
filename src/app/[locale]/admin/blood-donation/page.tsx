@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { BloodDonationService } from "@/services/BloodDonationService";
 import { BloodDonation } from "@/Models/BloodDonation";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.blood")
   const tableData: DataTableData<BloodDonation> = {
     createUrl: `/admin/blood-donation/create`,
-    title: `Blood Donation Requests`,
+    title: `${t("bloodDonationRequests")}`,
     schema: [
       {
         name: "id",
@@ -19,28 +21,28 @@ const Page = () => {
       },
       {
         name: "full_name",
-        label: `Name`,
+        label: `${t("name")}`,
         sortable: true,
       },
       {
         name: "blood_group",
-        label: `Blood Group`,
+        label: `${t("blood")}`,
         sortable: true,
       },
       {
         name: "city.name",
-        label: `City`,
+        label: `${t("city")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "can_wait_until",
-        label: `Can Wait`,
+        label: `${t("canWait")} ?`,
         sortable: true,
       },
 
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

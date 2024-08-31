@@ -12,6 +12,7 @@ import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
+import {useTranslations} from "next-intl";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const ProfileOptionsPopover = () => {
       return await AuthService.make<AuthService>(actor).GetUserDetails();
     },
   });
-
+  const t = useTranslations("nav")
   const res: User | undefined = data?.data;
   const imageUrl = data?.data?.image?.[0]?.file_url;
   return (
@@ -86,7 +87,7 @@ const ProfileOptionsPopover = () => {
           className="opacity-[0.8]"
         >
           <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>{"Profile"}</h3>
+            <h3>{t("profile")}</h3>
           </div>
         </Link>
         {actor == "doctor" ? (
@@ -97,7 +98,7 @@ const ProfileOptionsPopover = () => {
             className="opacity-[0.8]"
           >
             <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-              <h3>Clinic Profile</h3>
+              <h3>{t("clinicProfile")}</h3>
             </div>
           </Link>
         ) : (
@@ -114,7 +115,7 @@ const ProfileOptionsPopover = () => {
               return Navigate("/");
             }}
           >
-            Logout
+            {t("logout")}
           </h3>
         </div>
       </div>

@@ -8,8 +8,10 @@ import { Setting } from "@/Models/setting";
 import { SettingService } from "@/services/SettingService";
 import { SettingKeysEnum } from "@/enum/SettingKeysEnum";
 import CKTextEditor from "@/components/common/ui/CKEditor";
+import {useTranslations} from "next-intl";
 
 const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
+    const t = useTranslations("admin.setting")
   const handleSubmit = async (data: any) => {
     return await SettingService.make<SettingService>("admin")
       .update(defaultValues?.id, data)

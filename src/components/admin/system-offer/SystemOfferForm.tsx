@@ -17,6 +17,7 @@ import { ApiResponse } from "@/Http/Response";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
+import {useTranslations} from "next-intl";
 
 const SystemOfferForm = ({
   defaultValues = undefined,
@@ -27,6 +28,7 @@ const SystemOfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.system.create")
   const handleSubmit = async (data: any) => {
     const sendData = {
       ...data,
@@ -70,7 +72,7 @@ const SystemOfferForm = ({
           }
           closeOnSelect={false}
           placeHolder={"Select Clinic Name ..."}
-          label={`${"Clinic Name"} :`}
+          label={`${t("clinicName")} :`}
           getOptionLabel={(item) => TranslateClient(item.name)}
           optionValue={"id"}
           defaultValues={defaultValues?.clinics ?? []}
@@ -82,13 +84,13 @@ const SystemOfferForm = ({
           status={defaultValues?.type ?? "percentage"}
           ArraySelect={OffersArray()}
           required={true}
-          label={"Type :"}
+          label={t("type")}
           handleSelect={() => undefined}
         />
         <Input
           placeholder={"amount ... "}
           name={"amount"}
-          label={"Amount"}
+          label={t("amount")}
           required={true}
           type="number"
           unit={"IQD"}
@@ -96,16 +98,16 @@ const SystemOfferForm = ({
         <Input
           placeholder={"allowed uses ... "}
           name={"allowed_uses"}
-          label={"Allowed Uses"}
+          label={t("alowedUses")}
           required={true}
           type="number"
         />
 
-        <Datepicker required={true} name={"from"} label={"Start At"} />
-        <Datepicker required={true} name={"to"} label={"End At"} />
+        <Datepicker required={true} name={"from"} label={t("startDate")} />
+        <Datepicker required={true} name={"to"} label={t("endDate")} />
         <div className={"flex w-full pl-2 my-3 justify-around"}>
           <label className={"w-2/3"}>
-            Allow Reuse : <span className="ml-1 text-red-600">*</span>
+            {t("alowedUses")} : <span className="ml-1 text-red-600">*</span>
           </label>
           <div className={"w-1/3"}>
             <Input
@@ -117,13 +119,13 @@ const SystemOfferForm = ({
         </div>
       </Grid>
       <Textarea
-        label={"Title"}
+        label={t("title")}
         name={"title"}
         required={true}
         defaultValue={defaultValues?.title ?? ""}
       />
       <Textarea
-        label={"Description"}
+        label={t("description")}
         name={"description"}
         defaultValue={defaultValues?.description ?? ""}
       />
@@ -133,7 +135,7 @@ const SystemOfferForm = ({
             <Gallery media={defaultValues?.image ? defaultValues?.image : []} />
           ) : (
             <div className="flex items-center">
-              <label className="label"> Image : </label>
+              <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">No Data</span>
             </div>
           )}
@@ -142,7 +144,7 @@ const SystemOfferForm = ({
         ""
       )}
 
-      <ImageUploader name={"image"} label={"Images"} />
+      <ImageUploader name={"image"} label={t("image")} />
     </Form>
   );
 };

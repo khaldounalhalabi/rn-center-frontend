@@ -6,11 +6,14 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.system.table")
+
   const tableData: DataTableData<SystemOffers> = {
     createUrl: `/admin/system-offer/create`,
-    title: `System Offers`,
+    title: `${t("systemOffers")}`,
     schema: [
       {
         name: "id",
@@ -19,42 +22,42 @@ const Page = () => {
       },
       {
         name: "title",
-        label: `Title`,
+        label: `${t("title")}`,
         sortable: true,
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
       },
       {
-        label: `${"Status"}`,
+        label: `${t("status")}`,
         name: "status",
         sortable: true,
         render: (data) =>
           data == "active" ? (
-            <span className={`badge badge-success`}>{"Active"}</span>
+              <span className="badge badge-neutral">{t("active")}</span>
           ) : (
-            <span className={`badge badge-error`}>{"in Active"}</span>
+              <span className="badge badge-warning">{t("not-active")}</span>
           ),
       },
       {
         name: "from",
-        label: `Start`,
+        label: `${t("startDate")}`,
         sortable: true,
       },
       {
         name: "to",
-        label: `End`,
+        label: `${t("endDate")}`,
         sortable: true,
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

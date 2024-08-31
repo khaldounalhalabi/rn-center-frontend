@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.offer.table")
   const tableData: DataTableData<Offers> = {
     createUrl: `/admin/offer/create`,
-    title: `Offers`,
+    title: `${t("offers")}`,
     schema: [
       {
         name: "id",
@@ -19,19 +21,19 @@ const Page = () => {
       },
       {
         name: "clinic.name",
-        label: `Clinic`,
+        label: `${t("clinicName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "title",
-        label: `Title`,
+        label: `${t("title")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "value",
-        label: `Value`,
+        label: `${t("value")}`,
         sortable: true,
         render: (_value, offer) => {
           return (
@@ -54,27 +56,27 @@ const Page = () => {
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
       },
       {
         name: "is_active",
         sortable: true,
-        label: "is Active",
+        label: `${t("isActive")}`,
         render: (_is_active, offer) => {
           return (
             <div className={`flex flex-col items-start`}>
               {offer?.is_active ? (
-                <span className="badge badge-neutral">Active</span>
+                <span className="badge badge-neutral">{t("active")}</span>
               ) : (
-                <span className="badge badge-warning">Not Active</span>
+                <span className="badge badge-warning">{t("not-active")}</span>
               )}
             </div>
           );
         },
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

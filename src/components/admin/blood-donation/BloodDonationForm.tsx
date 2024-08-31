@@ -13,6 +13,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import BloodArray from "@/enum/blood";
 import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import { BloodDonation } from "@/Models/BloodDonation";
+import {useTranslations} from "next-intl";
 
 const BloodDonationForm = ({
   defaultValues = undefined,
@@ -23,6 +24,8 @@ const BloodDonationForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.blood")
+
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -55,14 +58,14 @@ const BloodDonationForm = ({
           required={true}
           type={"text"}
           placeholder={"John"}
-          label={`Full Name`}
+          label={t("name")}
           name={"full_name"}
         />
         <Input
           required={true}
           type={"tel"}
           placeholder={"John"}
-          label={`Phone`}
+          label={t("phone")}
           name={"contact_phone"}
         />
 
@@ -70,12 +73,12 @@ const BloodDonationForm = ({
           required={true}
           type={"text"}
           placeholder={"John"}
-          label={`Nearest Hospital`}
+          label={t("nearestHospital")}
           name={"nearest_hospital"}
         />
-        <DateTimePickerRang name={"can_wait_until"} label={"Can Wait Until"} />
+        <DateTimePickerRang name={"can_wait_until"} label={t("canWait")} />
         <SelectPopOverFrom
-          label={"Blood Group"}
+          label={t("blood")}
           handleSelect={() => undefined}
           status={defaultValues?.blood_group ?? ""}
           ArraySelect={BloodArray()}
@@ -85,13 +88,13 @@ const BloodDonationForm = ({
           required={true}
           type={"text"}
           placeholder={"John"}
-          label={`Address`}
+          label={t("address")}
           name={"address"}
         />
         <ApiSelect
           required={true}
           name={"city_id"}
-          label={"City"}
+          label={t("city")}
           placeHolder={"Select City Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
@@ -101,7 +104,7 @@ const BloodDonationForm = ({
           defaultValues={defaultValues?.city ? [defaultValues?.city] : []}
         />
       </Grid>
-      <Textarea name={"notes"} label={"Notes"} />
+      <Textarea name={"notes"} label={t("notes")} />
     </Form>
   );
 };

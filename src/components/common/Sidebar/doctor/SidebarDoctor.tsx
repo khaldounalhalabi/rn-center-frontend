@@ -49,8 +49,8 @@ const SidebarDoctor = ({
 
   return (
     <div
-      className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[25%] md:max-w-[300px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
-       ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
+      className={`lg:block w-full !overflow-visible  min-h-screen overflow-y-hidden lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
+       ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
        ${
          openNavBar.sm
            ? "absolute  translate-y-0 ease-in-out duration-500"

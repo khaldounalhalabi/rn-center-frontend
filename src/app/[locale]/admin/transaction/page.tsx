@@ -23,9 +23,12 @@ import {
   RealTimeEvents,
 } from "@/Models/NotificationPayload";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
-  const {
+    const t= useTranslations('common.transaction.table')
+
+    const {
     data: balance,
     isLoading,
     refetch,
@@ -47,7 +50,7 @@ const Page = () => {
 
   const tableData: DataTableData<Transactions> = {
     createUrl: `/admin/transaction/create`,
-    title: `Transactions`,
+    title: `${t("transactions")}`,
     schema: [
       {
         name: "id",
@@ -57,7 +60,7 @@ const Page = () => {
       {
         name: "actor.first_name",
         sortable: true,
-        label: `Actor`,
+        label: `${t("sender")}`,
         render: (_first_name, data) => {
           return (
             <p>
@@ -70,17 +73,17 @@ const Page = () => {
       },
       {
         name: "actor.email",
-        label: `Email`,
+        label: `${t("email")}`,
         sortable: true,
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
         render: (_amount, transaction) => (
           <span
@@ -97,11 +100,11 @@ const Page = () => {
       },
       {
         name: "date",
-        label: `Date`,
+        label: `${t("date")}`,
         sortable: true,
       },
       {
-        label: `Actions`,
+          label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -121,7 +124,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full  grid grid-cols-1"}>
-          <label className={"label"}>Amount from :</label>
+          <label className={"label"}>{t("amountFrom")} :</label>
           <InputFilter
             type="number"
             defaultValue={params?.amount?.[0] ?? 0}
@@ -132,7 +135,7 @@ const Page = () => {
               setParams({ ...params, amount: data });
             }}
           />
-          <label className={"label"}>Amount To :</label>
+          <label className={"label"}>{t("amountTo")} :</label>
           <InputFilter
             type="number"
             defaultValue={params?.amount?.[1] ?? 99999}
@@ -143,7 +146,7 @@ const Page = () => {
               setParams({ ...params, amount: data });
             }}
           />
-          <label className="label">Type :</label>
+          <label className="label">{t("type")} :</label>
           <SelectFilter
             data={TransactionTypeArray()}
             selected={params.type ?? "income"}
@@ -152,7 +155,7 @@ const Page = () => {
             }}
           />
 
-          <label className="label">Start Date :</label>
+            <label className="label">{t("startDate")} :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
               setParams({
@@ -165,7 +168,7 @@ const Page = () => {
             }}
             defaultValue={params?.date?.[0] ?? ""}
           />
-          <label className="label">End Date :</label>
+            <label className="label">{t("endDate")} :</label>
           <DateTimePickerRangFilter
             onChange={(time: any) => {
               setParams({
@@ -194,7 +197,7 @@ const Page = () => {
       />
       <Grid>
         <PageCard>
-          <label className={"card-title"}>Balance</label>
+          <label className={"card-title"}>{t("clinicBalance")}</label>
           <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-green-100"}>
               <BalanceIcon
@@ -211,7 +214,7 @@ const Page = () => {
           </div>
         </PageCard>
         <PageCard>
-          <label className={"card-title"}>Pending Amount</label>
+          <label className={"card-title"}>{t("pendingAmount")}</label>
           <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-indigo-100"}>
               <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />

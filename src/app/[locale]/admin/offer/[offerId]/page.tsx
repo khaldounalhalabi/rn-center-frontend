@@ -7,69 +7,73 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { offerId },
 }: {
   params: { offerId: number };
 }) => {
+  const t = await getTranslations("admin.offer.show");
+
   const data = await OffersService.make<OffersService>().show(offerId);
   const res: Offers = data?.data;
 
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Offer Details</h2>
+        <h2 className="card-title">{t("offerDetails")}</h2>
         <Link href={`/admin/offer/${offerId}/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <Grid md={2} gap={5}>
         <label className="label justify-start text-xl">
-          Clinic Name :{" "}
+          {t("clinicName")} :{" "}
           <span className="ml-2 badge badge-error">
             {await TranslateServer(res?.clinic?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Appointment Cost :{" "}
+          {t("cost")} :{" "}
           <span className="ml-2 badge badge-error" suppressHydrationWarning>
             {res?.clinic?.appointment_cost.toLocaleString()} IQD
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Title :{" "}
+          {t("title")} :{" "}
           <span className="ml-2 badge badge-outline  ">
             {await TranslateServer(res?.title)}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Is Active :{" "}
+          {t("isActive")} :{" "}
           {res?.is_active ? (
-            <span className="ml-2 badge badge-neutral">Active</span>
+            <span className="ml-2 badge badge-neutral">{t("active")}</span>
           ) : (
-            <span className="ml-2 badge badge-warning">Not Active</span>
+            <span className="ml-2 badge badge-warning">{t("not-active")}</span>
           )}
         </label>
         <label className="label justify-start text-xl">
-          Type : <span className="ml-2 badge badge-success  ">{res?.type}</span>
+          {t("type")} :{" "}
+          <span className="ml-2 badge badge-success  ">{res?.type}</span>
         </label>
         <label className="label justify-start text-xl">
-          value :{" "}
+          {t("value")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
             {res?.value} {res?.type == "percentage" ? "%" : "IQD"}
           </span>
         </label>
         <label className="label justify-start text-xl">
-          Start At :{" "}
+          {t("startDate")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.start_at}</span>
         </label>
         <label className="label justify-start text-xl">
-          End At :{" "}
+          {t("endDate")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.end_at}</span>
         </label>
       </Grid>
-      <label className={"label text-xl"}>Note :</label>
+      <label className={"label text-xl"}>{t("note")} :</label>
       <textarea
         className="textarea textarea-bordered h-24 w-full"
         disabled={true}

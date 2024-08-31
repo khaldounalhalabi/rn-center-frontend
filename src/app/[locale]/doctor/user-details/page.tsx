@@ -8,8 +8,11 @@ import RoundedImage from "@/components/common/RoundedImage";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
+import {getTranslations} from "next-intl/server";
 
 const page = async () => {
+  const t = await getTranslations("details")
+
   const data = await AuthService.make<AuthService>("doctor").GetUserDetails();
   const res: User = data.data;
   console.log(res);
@@ -31,28 +34,29 @@ const page = async () => {
         </div>
 
         <Link href={`/doctor/user-details/edit`}>
-          <PrimaryButton type={"button"}>Edit</PrimaryButton>
+          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
       <hr />
       <div className="w-full flex my-4 h-40">
         <Grid md={2}>
           <h2>
-            Birth Date :{" "}
+            {t("birthDate")} :{" "}
             <span className="badge badge-outline">{res?.birth_date}</span>
           </h2>
           <h2>
-            Gender :{" "}
+            {t("gender")} :{" "}
             <span className="badge ml-3 mt-1 badge-warning">{res?.gender}</span>
           </h2>
           <h2>
-            Email : <span className="badge badge-accent">{res?.email}</span>
+            {t("email")} :{" "}
+            <span className="badge badge-accent">{res?.email}</span>
           </h2>
           <h2>
-            Age : <span className="badge badge-info">{res?.age}</span>
+            {t("age")} : <span className="badge badge-info">{res?.age}</span>
           </h2>
           <h2>
-            Blood Group :{" "}
+            {t("blood")} :{" "}
             <span className="badge ml-3 mt-1 badge-warning">
               {res?.blood_group ?? "No Data"}
             </span>

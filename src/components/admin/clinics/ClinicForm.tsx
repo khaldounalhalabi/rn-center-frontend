@@ -37,6 +37,8 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   const [typeSelect, setType] = useState("");
+  console.log(defaultValues?.user?.tags);
+  
 
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
     const { deduction_cost, ...subscriptionData } = data;

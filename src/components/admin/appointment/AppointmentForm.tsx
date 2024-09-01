@@ -87,7 +87,6 @@ const AppointmentForm = ({
       }
     },
   });
-  console.log(range);
   const lastAppointmentDate = data?.data?.date;
   const handleSubmit = async (data: any) => {
     console.log(data);

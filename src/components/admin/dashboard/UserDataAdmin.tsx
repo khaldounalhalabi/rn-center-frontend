@@ -19,7 +19,6 @@ const UserDataAdmin = ({
 }) => {
   const user: User = HandleGetUserData();
   const t = useTranslations('common.dashboard')
-  console.log(user);
   const thisMonth = Number(statisticsRes?.total_deductions_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);
 

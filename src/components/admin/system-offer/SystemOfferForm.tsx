@@ -58,7 +58,6 @@ const SystemOfferForm = ({
   const onSuccess = () => {
     Navigate(`/admin/system-offer`);
   };
-  console.log(defaultValues);
   const { image, ...res } = defaultValues ?? { image: [] };
   return (
     <Form handleSubmit={handleSubmit} onSuccess={onSuccess} defaultValues={res}>

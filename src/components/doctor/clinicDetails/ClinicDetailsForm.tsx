@@ -40,7 +40,6 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   };
 
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  console.log(defaultValues);
 
   const defaultRes = {
     address: defaultValues?.user?.address,

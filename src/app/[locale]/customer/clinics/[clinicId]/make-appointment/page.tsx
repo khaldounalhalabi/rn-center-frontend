@@ -12,7 +12,6 @@ const Page = async ({
     await ClinicsService.make<ClinicsService>("public").show(clinicId)
   )?.data;
 
-  console.log(clinic);
 
   if (!clinic) {
     await Navigate("/404");

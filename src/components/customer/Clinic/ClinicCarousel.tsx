@@ -25,7 +25,6 @@ const ClinicCarousel = () => {
 
   const arrayData = Array.isArray(data?.data) ? data.data : [];
 
-  console.log(arrayData);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
   return (

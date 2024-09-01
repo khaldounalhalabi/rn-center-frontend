@@ -24,6 +24,11 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
       .then((res) => {
         setReFetch(!reFetch);
         console.log(res);
+        window.localStorage.setItem(
+            "user",
+            // @ts-ignore
+            JSON.stringify(res?.data.user ?? undefined),
+        );
         return res;
       });
   };

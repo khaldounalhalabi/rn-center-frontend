@@ -18,7 +18,6 @@ const page = async ({
   const data =
     await PatientProfilesService.make<PatientProfilesService>().show(profiles);
   const res: PatientProfiles = data?.data;
-  console.log(data);
   const convertObjectToArray = (obj: { [key: string]: string }) => {
     return Object.entries(obj).map(([key, value]) => ({ key, value }));
   };

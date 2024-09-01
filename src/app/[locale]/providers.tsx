@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
+import {usePathname} from "@/navigation";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -28,6 +29,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     },
   });
   const [reFetch, setReFetch] = useState(false);
+
 
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>

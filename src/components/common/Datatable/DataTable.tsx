@@ -95,7 +95,6 @@ const DataTable = (tableData: DataTableData<any>) => {
     refetchOnWindowFocus: false,
     retry: 10,
   });
-  console.log(data)
   return (
     <>
       {tableData.filter ? (
@@ -222,7 +221,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                 <option value={75}>75</option>
                 <option value={500}>500</option>
               </select>
-              <label className="flex items-center gap-2 w-full">
+              <label className="flex items-center relative gap-2 w-full">
                 <input
                   type="text"
                   className="input-bordered input input-sm"
@@ -233,7 +232,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                     setPage(1);
                   }}
                 />
-                <SearchIcon className={`w-4 h-4 opacity-70`} />
+                <SearchIcon className={`w-4 h-4 opacity-70 absolute top-2 right-2`} />
               </label>
             </div>
           </div>

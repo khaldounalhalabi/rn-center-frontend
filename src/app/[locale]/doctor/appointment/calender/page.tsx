@@ -83,7 +83,6 @@ const CalendarComponent = () => {
             type="button"
             className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             onClick={() => {
-              console.log(params);
               setStartFilter(startFilter + 1);
               setOpenFilter(false);
             }}
@@ -132,7 +131,6 @@ const CalendarComponent = () => {
     },
   }));
 
-  console.log(startDate);
   const renderEventContent = (eventInfo: any) => {
     const { customer, appointment } = eventInfo.event.extendedProps;
     const firstName = TranslateClient(customer?.user?.first_name);

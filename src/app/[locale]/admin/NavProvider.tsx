@@ -1,7 +1,8 @@
 "use client";
 import SidebarAdmin from "@/components/common/Sidebar/admin/SidebarAdmin";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "@/components/common/Navbar/Navbar";
+import {usePathname} from "@/navigation";
 
 const NavProvider = ({ children }: { children: React.ReactNode }) => {
   const [openNavBar, setOpenNavBar] = useState<{
@@ -11,6 +12,7 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
     sm: false,
     md: false,
   });
+
 
   return (
     <div className="flex flex-row ">

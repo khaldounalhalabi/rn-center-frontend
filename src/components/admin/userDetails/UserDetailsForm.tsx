@@ -28,7 +28,12 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
       .UpdateUserDetails(data)
       .then((res) => {
         setReFetch(!reFetch);
-        console.log(res);
+        console.log(res?.data);
+        window.localStorage.setItem(
+            "user",
+            // @ts-ignore
+            JSON.stringify(res?.data.user ?? undefined),
+        );
         return res;
       });
   };

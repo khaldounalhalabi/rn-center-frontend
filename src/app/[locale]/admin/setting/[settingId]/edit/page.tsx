@@ -12,7 +12,6 @@ const page = async ({
     const t = await getTranslations("admin.setting")
   const setting =
     await SettingService.make<SettingService>("admin").show(settingId);
-  console.log(setting);
   return (
     <PageCard>
       <h2 className="card-title">{t("editSetting")}</h2>

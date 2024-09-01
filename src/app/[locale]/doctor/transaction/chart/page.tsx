@@ -96,7 +96,6 @@ const Page: React.FC = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(data);
 
   return (
     <>

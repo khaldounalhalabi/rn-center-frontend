@@ -74,7 +74,6 @@ const AppointmentStatusColumn = ({
         .toggleStatus(id, { status: status })
         .then((res) => {
           setSelected(status);
-          console.log(selected);
           toast.success("Status Changed!");
         });
     }

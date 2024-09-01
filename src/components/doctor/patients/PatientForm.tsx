@@ -63,7 +63,6 @@ const PatientForm = ({
       Navigate(`/doctor/patients`);
     }
   };
-  console.log(defaultValues);
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { images, ...res } = defaultValues ?? { images: [] };
   return (

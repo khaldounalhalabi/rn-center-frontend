@@ -19,7 +19,6 @@ const PatientsOverview = ({
   id: number;
 }) => {
   const t = useTranslations("common.patient.show");
-  console.log(patient);
   return (
     <div className={"w-full"}>
       <Tab.Group>

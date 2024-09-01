@@ -22,7 +22,6 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         return res;
       });
   };
-  console.log(defaultValues);
   return (
     <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
       {defaultValues.label != SettingKeysEnum.TermsAndServices ? (

@@ -133,6 +133,7 @@ export class BaseService<T> {
     res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401) {
+      await Navigate(`/auth/${this.actor}/login`);
     }
     if (res.code == 432) {
       deleteCookieServer("token");

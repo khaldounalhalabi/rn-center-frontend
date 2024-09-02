@@ -19,7 +19,7 @@ import CategoryIcon from "@/components/icons/CategoryIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
-import UserIcon from "@/components/icons/UserIcon";
+import UsersIcon from "@/components/icons/UsersIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
 import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
@@ -246,7 +246,7 @@ const SidebarAdmin = ({
             <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarIcon link={"/admin/user"} title={"Users"}>
-            <UserIcon className={`h-8 w-8`} />
+            <UsersIcon className={`h-8 w-8`} />
           </SidebarIcon>
 
           <SidebarCompactIcon

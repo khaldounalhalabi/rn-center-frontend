@@ -321,7 +321,7 @@ const AppointmentForm = ({
         <Grid md={"2"}>
           {!patient?.id && type === "store" ? (
             <div className={"col-span-2"}>
-              <h2 className={"text-xl font-bold border-b"}>Patient Details:</h2>
+              <h2 className={"text-xl font-bold border-b my-5"}>Patient Details:</h2>
               <div className={"w-full md:w-1/2"}>
                 <ApiSelect
                   required={true}
@@ -362,7 +362,7 @@ const AppointmentForm = ({
             ""
           )}
 
-          <h2 className={"text-xl font-bold border-b col-span-2 w-full"}>Offers & Additions:</h2>
+          <h2 className={"text-xl font-bold border-b col-span-2 w-full my-5"}>Offers & Additions:</h2>
           <ApiSelect
               name={"offers"}
               placeHolder={"Select offer ..."}
@@ -409,7 +409,7 @@ const AppointmentForm = ({
               label={t("discount")}
               setWatch={setDiscount}
           />
-          <h2 className={"col-span-2 w-full text-xl font-bold border-b"}>Booking details:</h2>
+          <h2 className={"col-span-2 w-full text-xl font-bold border-b my-5"}>Booking details:</h2>
           <ApiSelect
             name={"service_id"}
             placeHolder={"Select Service name ..."}

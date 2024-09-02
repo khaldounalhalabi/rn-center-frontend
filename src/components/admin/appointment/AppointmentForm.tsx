@@ -278,7 +278,7 @@ const AppointmentForm = ({
           {type === "store" ? (
             <>
               <div className={"col-span-2"}>
-                <h2 className={"font-bold text-xl border-b w-full"}>
+                <h2 className={"font-bold text-xl border-b w-full my-5"}>
                   Clinic Details :{" "}
                 </h2>
                 <div className={"w-full md:w-1/2"}>
@@ -357,7 +357,7 @@ const AppointmentForm = ({
                 </div>
               </div>
               <div className={"col-span-2"}>
-                <h2 className={"font-bold text-xl border-b w-full"}>
+                <h2 className={"font-bold text-xl border-b w-full my-5"}>
                   Patient Details:{" "}
                 </h2>
                 <div className={"w-full md:w-1/2"}>
@@ -411,7 +411,7 @@ const AppointmentForm = ({
           )}
 
           <div className={"col-span-2"}>
-            <h2 className={"text-xl font-bold w-full border-b"}>
+            <h2 className={"text-xl font-bold w-full border-b my-5"}>
               Offers & Additions:
             </h2>
             <div
@@ -515,7 +515,7 @@ const AppointmentForm = ({
             </div>
           </div>
 
-          <h1 className={"col-span-2 w-full text-xl font-bold border-b"}>
+          <h1 className={"col-span-2 w-full text-xl font-bold border-b my-5"}>
             Booking details
           </h1>
           <ApiSelect

@@ -30,7 +30,14 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
     return await AuthService.make<AuthService>("doctor")
       .UpdateClinicDetails(data)
       .then((res) => {
-        console.log(res);
+         AuthService.make<AuthService>("doctor").GetUserDetails().then((ress)=>{
+           console.log(ress)
+           window.localStorage.setItem(
+               "user",
+               JSON.stringify(ress?.data ?? undefined),
+           );
+           return res
+         })
         return res;
       });
   };
@@ -75,7 +82,6 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           />
           <Input
             name={"approximate_appointment_time"}
-            unit={"min"}
             type={"number"}
             step={"any"}
             placeholder={"Doctor Approximate Appointment Time Are ?"}

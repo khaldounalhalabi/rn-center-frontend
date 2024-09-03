@@ -9,8 +9,11 @@ import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
 import {useTranslations} from "next-intl";
+import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 
 const Home = () => {
+  const clinic = HandleGetUserData();
+
   const {
     data: statistics,
     isLoading,
@@ -25,7 +28,7 @@ const Home = () => {
   });
   const statisticsRes: Statistics | undefined = statistics?.data;
   const t = useTranslations("common.dashboard")
-
+  console.log(clinic)
   return (
     <>
       <div className={"flex flex-col justify-between md:flex-row my-6"}>

@@ -135,15 +135,11 @@ const AppointmentStatusColumn = ({
       </Transition>
       {isMutatingCheckout ? (
         "Loading..."
-      ) : (appointment?.status === AppointmentStatusEnum.CANCELLED ||
-          appointment?.status === AppointmentStatusEnum.CHECKOUT) &&
+      ) : (appointment?.status === AppointmentStatusEnum.CANCELLED) &&
         appointment?.type == "online" ? (
         <div className={"w-full text-center"}>
           <span
-            className={` badge  ${
-              appointment?.status === AppointmentStatusEnum.CHECKOUT
-                ? "badge-warning"
-                : appointment?.status === AppointmentStatusEnum.CANCELLED
+            className={` badge  ${ appointment?.status === AppointmentStatusEnum.CANCELLED
                   ? "badge-error"
                   : ""
             }`}

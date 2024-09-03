@@ -6,7 +6,7 @@ import {getTranslations} from "next-intl/server";
 
 const page = async () => {
   const UserDetails = (
-    await AuthService.make<AuthService>("admin").GetUserDetails()
+    await AuthService.make<AuthService>("doctor").GetUserDetails()
   ).data;
   const t = await getTranslations("details")
   return (

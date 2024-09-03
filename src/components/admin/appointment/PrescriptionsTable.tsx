@@ -16,7 +16,6 @@ const PrescriptionsTable = ({
   appointment?: Appointment | null | undefined;
 }) => {
   const t = useTranslations("common.prescription.table");
-  console.log(appointment?.id);
 
   const tableData: DataTableData<Prescription> = {
     createUrl: `/admin/appointment/${appointment?.id}/prescriptions/create`,

@@ -7,11 +7,9 @@ module.exports = {
       env: {
         NODE_ENV: "production",
       },
-      instances: 1,
-      watch: false,
-      output: "./logs/out.log",
-      error: "./logs/error.log",
-      log_date_format: "YYYY-MM-DD HH:mm Z",
+      exec_mode: "cluster",
+      instances: 4,
+      watch: true,
     },
   ],
 };

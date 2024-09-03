@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
+import {useTranslations} from "next-intl";
 
 const PatientProfilesTable = ({ id }: { id?: number }) => {
+  const t = useTranslations('admin.patientsProfiles.table')
   const tableData: DataTableData<PatientProfiles> = {
     createUrl: `/admin/patients/${id}/patient-profiles/create`,
-    title: `Patient Profiles`,
+    title: `${t("patientsProfiles")}`,
     schema: [
       {
         name: "id",
@@ -19,18 +21,18 @@ const PatientProfilesTable = ({ id }: { id?: number }) => {
       },
       {
         name: "clinic.name",
-        label: `Clinic`,
+        label: `${t("clinicName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "updated_at",
-        label: `Last Modify`,
+        label: `${t("lastModify")}`,
         sortable: true,
       },
 
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

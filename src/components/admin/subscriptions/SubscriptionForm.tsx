@@ -9,6 +9,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import SubscriptionPeriodUnitArray from "@/enum/SubscriptionPeriodUnit";
+import { useTranslations } from "next-intl";
 
 const SubscriptionForm = ({
   defaultValues = undefined,
@@ -19,7 +20,10 @@ const SubscriptionForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.subscription.create");
+
   const handleSubmit = async (data: any) => {
+
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -52,14 +56,14 @@ const SubscriptionForm = ({
           required={true}
           type={"text"}
           placeholder={"Subscription Name"}
-          label={`Name`}
+          label={t("subscriptionName")}
           name={"name"}
         />
         <Input
           required={true}
           type={"number"}
           placeholder={"John"}
-          label={`Allow Period`}
+          label={t("allowPeriod")}
           name={"allow_period"}
           defaultValue={defaultValues?.allow_period ?? 0}
           unit={"day"}
@@ -69,7 +73,7 @@ const SubscriptionForm = ({
           name={"period_unit"}
           ArraySelect={SubscriptionPeriodUnitArray()}
           handleSelect={(status: "month" | "day") => setUnit(status)}
-          label={"Period Unit"}
+          label={t("periodUnit")}
           required={true}
         />
         <div>
@@ -77,12 +81,12 @@ const SubscriptionForm = ({
             required={true}
             type={"number"}
             placeholder={"12"}
-            label={`Period`}
+            label={t("period")}
             name={"period"}
             min={-1}
             unit={unit}
           />
-          <p className={"text-sm my-1"}>for lifetime period put -1</p>
+          <p className={"text-sm my-1"}>{t("forLifetime")}</p>
         </div>
 
         <Input
@@ -90,11 +94,11 @@ const SubscriptionForm = ({
           unit={"IQD"}
           type={"number"}
           placeholder={"John"}
-          label={`Cost`}
+          label={t("cost")}
           name={"cost"}
         />
       </Grid>
-      <Textarea name={"description"} required={true} label={"Description"} />
+      <Textarea name={"description"} required={true} label={t("description")} />
     </Form>
   );
 };

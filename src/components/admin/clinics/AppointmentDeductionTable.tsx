@@ -26,6 +26,7 @@ import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePicker
 import { useQueryClient } from "@tanstack/react-query";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -33,6 +34,7 @@ interface filterExportType {
 }
 
 const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
+  const t = useTranslations("common.deductions.table")
   const [selectAll, setSelectAll] = useState<number[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [typeSelectAll, setTypeSelectAll] = useState(false);
@@ -85,7 +87,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<AppointmentDeductions> = {
-    title: `Appointment Deductions`,
+    title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
         <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
@@ -115,7 +117,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
         sortable: true,
       },
       {
-        label: "Change Status",
+        label: `${t("changeStatus")}`,
         render: (_id, translatable) => {
           return (
             <div className={"flex justify-center"}>
@@ -133,12 +135,12 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, transaction, _setHidden, revalidate) => {
           return (
             <AppointmentDeductionStatusColumn
@@ -151,12 +153,12 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
       },
       {
         name: "date",
-        label: `Date`,
+        label: `${t("date")}`,
         sortable: true,
       },
       {
         name: "appointment.date",
-        label: `App Date`,
+        label: `${t("appointmentDate")}`,
         sortable: true,
         render: (_id, transaction) => {
           return (
@@ -177,7 +179,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
         },
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -210,7 +212,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full  grid grid-cols-1"}>
-          <label className="label">Status :</label>
+          <label className="label">{t("status")} :</label>
           <SelectFilter
             data={AppointmentDeductionsStatusArray()}
             selected={params.type ?? ""}
@@ -219,7 +221,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
             }}
           />
 
-          <label className="label">Range :</label>
+          <label className="label">{t("range")} :</label>
           <SelectFilter
             data={ClinicTransactionDate()}
             selected={customDate}
@@ -240,7 +242,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
           />
           {showCustomDate ? (
             <>
-              <label className="label">Start Date :</label>
+              <label className="label">{t("startDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -253,7 +255,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
-              <label className="label">End Date :</label>
+              <label className="label">{t("endDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -310,7 +312,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <label className={"label"}>Year :</label>
+                    <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
                       type={"number"}
@@ -325,7 +327,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
                       }
                       defaultValue={filterExport.year}
                     />
-                    <label className={"label"}>Month :</label>
+                    <label className={"label"}>{t("month")} :</label>
                     <SelectFilter
                       data={AllMonth()}
                       selected={filterExport.month}
@@ -371,7 +373,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <h1 className={"card-title"}>Change All Status :</h1>
+                  <h1 className={"card-title"}>{t("changeAllStatus")} :</h1>
                   <ChangeAllStatusSelector
                     ids={selectedItems}
                     closeModalStatus={closeModalStatus}

@@ -9,6 +9,7 @@ import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import BackIcon from "@/components/icons/backIcon";
 import { useRouter } from "next/navigation";
+import {usePathname} from "@/navigation";
 
 const Navbar = ({
   openNavBar,
@@ -25,15 +26,15 @@ const Navbar = ({
 }) => {
   const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
   const rout = useRouter();
-
+  const path = usePathname()
   return (
     <nav
-      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center pl-2 pr-10 py-4 col-span-4 md:col-span-3`}
+      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center pl-2 pr-10 py-4 col-span-4 lg:col-span-3`}
     >
       <div
         className={
           showSearchForm
-            ? "w-full h-16 md:w-full md:right-0 md:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-200"
+            ? "w-full h-16 lg:w-full md:right-0 lg:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-200"
             : "w-full h-0 absolute overflow-clip translate-y-[-200px] ease-in-out duration-300"
         }
       >
@@ -41,17 +42,17 @@ const Navbar = ({
       </div>
       <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
         <MenuIcon
-          className={`h-6 w-6 cursor-pointer md:hidden`}
+          className={`h-6 w-6 cursor-pointer lg:hidden`}
           onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
         />
-        <div
+        <button type='button' disabled={path === "/admin" || path === "/doctor"}
           className={
-            "p-2 hidden md:block  h-full rounded-full hover:bg-gray-300 cursor-pointer"
+            `p-2 hidden  ${path == "/admin" || path == "/doctor" ? "hidden" : "lg:block"} h-full rounded-full hover:bg-gray-300 cursor-pointer`
           }
           onClick={() => rout.back()}
         >
           <BackIcon className={"w-8 h-8"} />
-        </div>
+        </button>
 
         <SearchIcon
           className={`h-6 w-6 cursor-pointer`}

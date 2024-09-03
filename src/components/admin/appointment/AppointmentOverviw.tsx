@@ -5,6 +5,7 @@ import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
 import PrescriptionsTable from "@/components/admin/appointment/PrescriptionsTable";
+import {useTranslations} from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,6 +16,7 @@ const AppointmentOverview = ({
 }: {
   appointment?: Appointment | undefined;
 }) => {
+  const t = useTranslations('common.appointment.show')
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -30,7 +32,7 @@ const AppointmentOverview = ({
               )
             }
           >
-            Overview
+            {t("overview")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -43,7 +45,7 @@ const AppointmentOverview = ({
               )
             }
           >
-            Logs
+            {t("logs")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -56,7 +58,7 @@ const AppointmentOverview = ({
               )
             }
           >
-            Prescriptions
+            {t("prescriptions")}
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">

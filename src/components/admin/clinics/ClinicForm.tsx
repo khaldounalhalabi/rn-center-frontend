@@ -163,7 +163,7 @@ const ClinicForm = ({
           type={"number"}
           step={"any"}
           placeholder={"Doctor Approximate Appointment Time Are ?"}
-          label={"Approximate Appointment Time"}
+          label={t("approximateAppointmentTime")}
           required={true}
         />
       </Grid>
@@ -176,9 +176,11 @@ const ClinicForm = ({
         required={true}
       />
 
-      <Grid>
+      <Grid >
         <div className={`flex gap-5  p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Status:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            {t("status")}:
+          </label>
           <Input
             name={"status"}
             label={t("active")}
@@ -200,7 +202,9 @@ const ClinicForm = ({
         </div>
 
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            {t("gender")}:
+          </label>
           <Input
             name={"user.gender"}
             label={t("male")}
@@ -281,18 +285,15 @@ const ClinicForm = ({
         />
         <InputTags
           name={"user.tags"}
-          label={"Tags :"}
+          label={t("tags")}
           defaultValue={
-            defaultValues?.user?.tags ? (defaultValues?.user?.tags?.split(",") ?? []) : []
+            typeof defaultValues?.user?.tags == "string"
+              ? defaultValues?.user?.tags?.split(",")
+              : []
           }
         />
 
-        <TextAreaMap
-          className={"col-span-2"}
-          name="address.map_iframe"
-          label={t("mapIframe")}
-          required={true}
-        />
+
         {type != "update" ? (
           <>
             <ApiSelect
@@ -304,7 +305,7 @@ const ClinicForm = ({
                 )
               }
               placeHolder={"Select Subscription Name ..."}
-              label={`Subscription :`}
+              label={t("subscription")}
               optionLabel={"name"}
               optionValue={"id"}
               name={"subscription_id"}
@@ -312,7 +313,7 @@ const ClinicForm = ({
             <SelectPopOverFrom
               required={true}
               name={"subscription_type"}
-              label={"Subscription Type :"}
+              label={t("subscriptionType")}
               status={""}
               ArraySelect={SubscriptionArray()}
               handleSelect={(e: any) => {
@@ -325,7 +326,7 @@ const ClinicForm = ({
                 unit={"%"}
                 type={"number"}
                 placeholder={"John"}
-                label={`Deduction Cost`}
+                label={t("deductionCost")}
                 name={"deduction_cost"}
               />
             ) : (
@@ -355,7 +356,13 @@ const ClinicForm = ({
           ""
         )}
       </Grid>
-      <ImageUploader name={"user.image"} label={"Image"} />
+      <TextAreaMap
+          className={"col-span-2"}
+          name="address.map_iframe"
+          label={t("mapIframe")}
+          required={true}
+      />
+      <ImageUploader name={"user.image"} label={t("image")} />
     </Form>
   );
 };

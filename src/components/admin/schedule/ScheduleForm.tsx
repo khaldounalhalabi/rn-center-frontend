@@ -214,7 +214,7 @@ const ClinicScheduleForm = ({
             name={"appointment_gap"}
             type={"number"}
             unit={"min"}
-            label={"Appointment Gap"}
+            label={t("appointmentGap")}
             placeholder={"appointment gap ..."}
             defaultValue={appointment_gap ?? undefined}
           />

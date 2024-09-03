@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
+import {useTranslations} from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,6 +17,7 @@ const PatientsOverview = ({
   patient: Customer;
   id: number;
 }) => {
+  const t = useTranslations("common.patient.show");
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -31,7 +33,7 @@ const PatientsOverview = ({
               )
             }
           >
-            {"Overview"}
+            {t("overview")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -44,7 +46,7 @@ const PatientsOverview = ({
               )
             }
           >
-            Patients Profiles
+            {t("patientsProfiles")}
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">

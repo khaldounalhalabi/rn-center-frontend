@@ -25,6 +25,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -32,6 +33,7 @@ interface filterExportType {
 }
 
 const Page = () => {
+  const t = useTranslations("common.deductions.table")
   const {
     data: balance,
     isLoading,
@@ -70,7 +72,7 @@ const Page = () => {
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<AppointmentDeductions> = {
-    title: `Appointment Deductions`,
+    title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
         <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
@@ -86,7 +88,7 @@ const Page = () => {
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
         render: (data) => {
           return <span>{data.toLocaleString()}</span>;
@@ -94,17 +96,17 @@ const Page = () => {
       },
       {
         name: "status",
-        label: `Status`,
+        label: `${t("status")}`,
         sortable: true,
       },
       {
         name: "date",
-        label: `Date`,
+        label: `${t("date")}`,
         sortable: true,
       },
       {
         name: "appointment.date",
-        label: `Appointment Date`,
+        label: `${t("appointmentDate")}`,
         sortable: true,
         render: (_id, transaction) => {
           return (
@@ -125,7 +127,7 @@ const Page = () => {
         },
       },
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -144,7 +146,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full  grid grid-cols-1"}>
-          <label className="label">Status :</label>
+          <label className="label">{t("status")} :</label>
           <SelectFilter
             data={AppointmentDeductionsStatusArray()}
             selected={params.status ?? ""}
@@ -153,7 +155,7 @@ const Page = () => {
             }}
           />
 
-          <label className="label">Range :</label>
+          <label className="label">{t("range")} :</label>
           <SelectFilter
             data={ClinicTransactionDate()}
             selected={customDate}
@@ -174,7 +176,7 @@ const Page = () => {
           />
           {showCustomDate ? (
             <>
-              <label className="label">Start Date :</label>
+              <label className="label">{t("startDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -187,7 +189,7 @@ const Page = () => {
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
-              <label className="label">End Date :</label>
+              <label className="label">{t("endDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -245,7 +247,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <label className={"label"}>Year :</label>
+                    <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
                       type={"number"}
@@ -260,7 +262,7 @@ const Page = () => {
                       }
                       defaultValue={filterExport.year}
                     />
-                    <label className={"label"}>Month :</label>
+                    <label className={"label"}>{t("month")} :</label>
                     <SelectFilter
                       data={AllMonth()}
                       selected={filterExport.month}
@@ -288,39 +290,39 @@ const Page = () => {
         ) : (
           <Grid md={2}>
             <label className="label">
-              Subscription Start :
+              {t("subscriptionStart")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {balance?.data?.subscription_start}
               </span>
             </label>
             <label className="label">
-              Total Cost :
+              {t("totalCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.total_cost ?? 0).toLocaleString()}
               </span>
             </label>
 
             <label className="label">
-              Subscription End :
+              {t("subscriptionEnd")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {balance?.data?.subscription_end}
               </span>
             </label>
             <label className="label">
-              Subscription Cost :
+              {t("subscriptionCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.subscription_cost ?? 0).toLocaleString()}
               </span>
             </label>
             <label className="label">
-              Clinic Balance :
+              {t("clinicBalance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}
               </span>
             </label>
 
             <label className="label">
-              Appointments Deductions :
+              {t("appointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
                   balance?.data?.appointments_deductions ?? 0,

@@ -4,13 +4,16 @@ import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import SubscriptionClinicsTable from "@/components/admin/subscriptions/SubscriptionClinicsTable";
+import {getTranslations} from "next-intl/server";
 
 const page = async ({
   params: { subscriptionId },
 }: {
   params: { subscriptionId: number };
 }) => {
-  const data =
+    const t = await getTranslations('admin.subscription.show')
+
+    const data =
     await SubscriptionsService.make<SubscriptionsService>().show(
       subscriptionId,
     );
@@ -19,20 +22,20 @@ const page = async ({
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
-        <h2 className="card-title">Subscription Details</h2>
+        <h2 className="card-title">{t("subscriptionDetails")}</h2>
       </div>
       <Grid md={2} gap={5}>
         <label className="label">
-          Name :
+          {t("subscriptionName")} :
           <span className="bg-base-200 px-2 rounded-xl text-lg">
             {res?.name}
           </span>
         </label>
         <label className="label">
-          Period :
+          {t("period")} :
           {res?.period && res?.period <= 0 ? (
             <span className="badge badge-success px-2 rounded-xl text-lg">
-              life time
+              {t("lifeTime")}
             </span>
           ) : (
             <div>
@@ -46,19 +49,19 @@ const page = async ({
           )}
         </label>
         <label className="label">
-          Allow Period :
+            {t("allowPeriod")} :
           <span className="badge badge-accent px-2 rounded-xl text-lg">
             {res?.allow_period}
           </span>
         </label>
         <label className="label">
-          Cost :
+          {t("cost")} :
           <span className="badge badge-neutral px-2 rounded-xl text-lg">
             {res?.cost}
           </span>
         </label>
       </Grid>
-      <label className="label">Description</label>
+      <label className="label">{t("description")}</label>
       <textarea
         defaultValue={res?.description}
         className={"textarea"}

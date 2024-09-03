@@ -10,6 +10,7 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
 import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
+import {useTranslations} from "next-intl";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -20,6 +21,8 @@ const OfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("common.transaction.create")
+
   const handleSubmit = async (data: any) => {
     console.log(data);
 
@@ -61,20 +64,20 @@ const OfferForm = ({
           status={defaultValues?.type ?? TransactionType.INCOME}
           ArraySelect={TransactionTypeArray()}
           required={true}
-          label={"Type :"}
+          label={`${t("type")} :`}
         />
         <Input
           placeholder={"amount ... "}
           name={"amount"}
-          label={"Amount"}
+          label={t("amount")}
           required={true}
           type="number"
           unit={"IQD"}
         />
-        <DateTimePickerRang required={true} name={"date"} label={"Date :"} />
+        <DateTimePickerRang required={true} name={"date"} label={`${t("date")} :`} />
       </Grid>
       <Textarea
-        label={"Notes"}
+        label={t("notes")}
         name={"notes"}
         defaultValue={defaultValues?.notes ?? ""}
       />

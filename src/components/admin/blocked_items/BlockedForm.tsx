@@ -7,6 +7,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { BlockedItemService } from "@/services/BlockedItemService";
 import { BlockedItem } from "@/Models/BlockedItem";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import {useTranslations} from "next-intl";
 
 const BlockedForm = ({
   defaultValues = undefined,
@@ -17,6 +18,8 @@ const BlockedForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("admin.block")
+
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -48,7 +51,7 @@ const BlockedForm = ({
     >
       <Grid md={"2"}>
         <SelectPopOverFrom
-          label={"Type"}
+          label={t("type")}
           required={true}
           ArraySelect={types}
           name={"type"}
@@ -59,7 +62,7 @@ const BlockedForm = ({
           required={true}
           type={"text"}
           placeholder={"John"}
-          label={`Value`}
+          label={t("value")}
           name={"value"}
         />
       </Grid>

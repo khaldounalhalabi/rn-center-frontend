@@ -75,7 +75,7 @@ const ClinicTable = ({ id }: { id: number }) => {
       },
       {
         name: "approximate_appointment_time",
-        label: `Approximate Appointment Time`,
+        label: `${t("approximateAppointmentTime")}`,
         render: (_undefined, clinic, setHidden, revalidate) => {
           return (
             <span className="badge-neutral badge">
@@ -144,7 +144,7 @@ const ClinicTable = ({ id }: { id: number }) => {
               ))}
             </select>
           </label>
-          <label className="label">Status :</label>
+          <label className="label">{t("status")} :</label>
           <SelectFilter
             data={SubscriptionStatuses()}
             selected={params.subscription_status ?? ""}

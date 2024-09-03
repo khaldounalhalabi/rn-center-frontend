@@ -19,7 +19,7 @@ import CategoryIcon from "@/components/icons/CategoryIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
-import UserIcon from "@/components/icons/UserIcon";
+import UsersIcon from "@/components/icons/UsersIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
 import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
 import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
@@ -56,8 +56,8 @@ const SidebarAdmin = ({
 
   return (
     <div
-      className={`md:block w-full !overflow-visible  h-screen overflow-y-hidden md:w-[25%] md:max-w-[300px]  md:translate-y-0 z-20 md:sticky md:top-0 bg-white  md:flex-col md:justify-between md:border-e ease-in-out duration-300 md:bg-white
-       ${openNavBar.md ? " !w-16 " : " md:w-[35%]"}
+      className={`lg:block w-full !overflow-visible  min-h-screen overflow-y-hidden lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
+       ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
        ${
          openNavBar.sm
            ? "absolute  translate-y-0 ease-in-out duration-500"
@@ -125,56 +125,62 @@ const SidebarAdmin = ({
               {t("appointment")}
             </SidebarItem>
             <SidebarCompactItem
-              title={"Hospitals Management"}
+              title={t("hospitalsManagement")}
               links={["/admin/hospitals", "/admin/hospital-departments"]}
             >
               <SidebarItem link={"/admin/hospitals"}>
                 {t("hospitals")}
               </SidebarItem>
               <SidebarItem link={"/admin/hospital-departments"}>
-                Available Departments
+                {t("availableDepartments")}
               </SidebarItem>
             </SidebarCompactItem>
-            <SidebarItem link={"/admin/medicines"}>Medicines</SidebarItem>
+            <SidebarItem link={"/admin/medicines"}>
+              {t("medicines")}
+            </SidebarItem>
 
-            <SidebarItem link={"/admin/user"}>Users</SidebarItem>
+            <SidebarItem link={"/admin/user"}>{t("users")}</SidebarItem>
             <SidebarCompactItem
-              title={"Patients Management"}
+              title={t("patientsManagement")}
               links={["/admin/patients", "/admin/patient-profiles"]}
             >
-              <SidebarItem link={"/admin/patients"}>Patients</SidebarItem>
+              <SidebarItem link={"/admin/patients"}>
+                {t("patients")}
+              </SidebarItem>
               <SidebarItem link={"/admin/patient-profiles"}>
-                Patient Profiles
+                {t("patientProfiles")}
               </SidebarItem>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/subscriptions"}>
-              Subscriptions
+              {t("subscriptions")}
             </SidebarItem>
             <SidebarItem link={"/admin/blocked-item"}>
-              Blocked Items
+              {t("blockedItems")}
             </SidebarItem>
-            <SidebarItem link={"/admin/enquiries"}>Enquiries</SidebarItem>
-            <SidebarItem link={"/admin/offer"}>Offers</SidebarItem>
+            <SidebarItem link={"/admin/enquiries"}>
+              {t("enquiries")}
+            </SidebarItem>
+            <SidebarItem link={"/admin/offer"}>{t("offers")}</SidebarItem>
             <SidebarCompactItem
-              title={"Accountant Management"}
+              title={t("accountantManagement")}
               links={["/admin/transaction", "/admin/appointment-deductions"]}
             >
               <div className="flex flex-col">
                 <SidebarItem link={"/admin/transaction"}>
-                  Transactions
+                  {t("transaction")}
                 </SidebarItem>
                 <SidebarItem link={"/admin/appointment-deductions"}>
-                  Appointment Deductions
+                  {t("appointmentDeductions")}
                 </SidebarItem>
               </div>
             </SidebarCompactItem>
             <SidebarItem link={"/admin/blood-donation"}>
-              Blood Donation
+              {t("bloodDonation")}
             </SidebarItem>
             <SidebarItem link={"/admin/system-offer"}>
-              System Offers
+              {t("systemOffers")}
             </SidebarItem>
-            <SidebarItem link={"/admin/setting"}>Settings</SidebarItem>
+            <SidebarItem link={"/admin/setting"}>{t("settings")}</SidebarItem>
           </div>
         </ul>
       </div>
@@ -240,7 +246,7 @@ const SidebarAdmin = ({
             <MedicineIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarIcon link={"/admin/user"} title={"Users"}>
-            <UserIcon className={`h-8 w-8`} />
+            <UsersIcon className={`h-8 w-8`} />
           </SidebarIcon>
 
           <SidebarCompactIcon

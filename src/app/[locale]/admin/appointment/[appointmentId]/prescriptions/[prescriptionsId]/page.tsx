@@ -7,12 +7,14 @@ import { PrescriptionService } from "@/services/PrescriptionsServise";
 import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { Stringify } from "@/components/common/prescriptions/PhysicalForm";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import { getTranslations } from "next-intl/server";
 
 const Page = async ({
   params: { appointmentId, prescriptionsId },
 }: {
   params: { appointmentId: number; prescriptionsId: number };
 }) => {
+  const t = await getTranslations("common.prescription.show");
   const data =
     await PrescriptionService.make<PrescriptionService>().show(prescriptionsId);
   const res: Prescription = data?.data;
@@ -24,22 +26,22 @@ const Page = async ({
     <>
       <PageCard>
         <div className="flex justify-between items-center w-full h-24">
-          <h2 className="card-title">Prescriptions Details</h2>
+          <h2 className="card-title">{t("prescriptionsDetails")}</h2>
           <Link
             href={`/admin/appointment/${appointmentId}/prescriptions/${prescriptionsId}/edit`}
           >
-            <PrimaryButton type={"button"}>Edit</PrimaryButton>
+            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
           </Link>
         </div>
         <Grid md={2} gap={5}>
           <label className="label">
-            {"Clinic Name :"}
+            {t("clinicName")}
             <span className="px-2 rounded-xl text-lg badge-neutral">
               {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
           <label className="label">
-            {"Doctor Name :"}
+            {t("doctorName")}
             <span className="px-2 rounded-xl text-lg badge-success">
               <h3>
                 {await TranslateServer(res.clinic?.user?.first_name)}{" "}
@@ -49,7 +51,7 @@ const Page = async ({
             </span>
           </label>
           <label className="label">
-            {"Customer Name :"}
+            {t("customerName")}
             <span className="px-2 rounded-xl text-lg badge-info">
               <h3>
                 {await TranslateServer(res.customer?.user?.first_name)}{" "}
@@ -60,7 +62,7 @@ const Page = async ({
           </label>
 
           <label className="label">
-            {"Customer Age :"}
+            {t("customerAge")}
             <span className="px-2 rounded-xl text-lg badge-primary">
               {res?.customer?.user?.age}
             </span>
@@ -69,37 +71,37 @@ const Page = async ({
       </PageCard>
       <hr />
       <PageCard>
-        <h2 className="card-title">Medicines</h2>
+        <h2 className="card-title">{t("medicines")}</h2>
         {medicines.map((e, index) => (
           <div key={index}>
             <Grid md={2} gap={5} key={index}>
               <label className="label">
-                {"Medicine Name :"}
+                {t("medicineName")} :
                 <span className="bg-base-200 px-2 rounded-xl text-lg">
                   {e.medicine?.name}
                 </span>
               </label>
               <label className="label">
-                {"Dosage :"}
+                {t("dosage")} :
                 <span className="bg-base-200 px-2 rounded-xl text-lg">
                   {e.dosage}
                 </span>
               </label>
               <label className="label">
-                {"dose Interval :"}
+                {t("doseInterval")} :
                 <span className="bg-base-200 px-2 rounded-xl text-lg">
                   {e.dose_interval}
                 </span>
               </label>
               <label className="label">
-                {"duration :"}
+                {t("duration")} :
                 <span className="bg-base-200 px-2 rounded-xl text-lg">
                   {e.duration}
                 </span>
               </label>
             </Grid>
             <div className={"w-full"}>
-              <label className={"label"}>Comment :</label>
+              <label className={"label"}>{t("comment")} :</label>
               <textarea
                 className="textarea-bordered w-full h-24 textarea"
                 disabled={true}
@@ -112,88 +114,88 @@ const Page = async ({
       </PageCard>
       <hr />
       <PageCard>
-        <h2 className="card-title">Physical Information</h2>
+        <h2 className="card-title">{t("physicalInformation")}</h2>
         <Grid md={2} gap={5}>
           <label className="label">
-            {"Pulse Rate:"}
+            {t("pulseRate")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.pulse}
             </span>
           </label>
           <label className="label">
-            {"Surgery:"}
+            {t("surgery")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.surgery}
             </span>
           </label>
           <label className="label">
-            {"Breast Feeding:"}
+            {t("breastFeeding")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.breast}
             </span>
           </label>
           <label className="label">
-            {"Current Medication:"}
+            {t("currentMedication")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.current}
             </span>
           </label>
           <label className="label">
-            {"Accident:"}
+            {t("accident")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.accident}
             </span>
           </label>
           <label className="label">
-            {"Female Pregnancy:"}
+            {t("femalePregnancy")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.female}
             </span>
           </label>
           <label className="label">
-            {"Medical History:"}
+            {t("medicalHistory")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.medical}
             </span>
           </label>
           <label className="label">
-            {"Diabetic:"}
+            {t("diabetic")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.diabetic}
             </span>
           </label>
           <label className="label">
-            {"Heart Disease:"}
+            {t("heartDisease")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.heart}
             </span>
           </label>
           <label className="label">
-            {"Tendency Bleed:"}
+            {t("tendencyBleed")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.tendency}
             </span>
           </label>
           <label className="label">
-            {"Food Allergies:"}
+            {t("foodAllergies")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.food}
             </span>
           </label>
           <label className="label">
-            {"Temperature:"}
+            {t("temperature")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.temperature}
             </span>
           </label>
           <label className="label">
-            {"High Blood Pressure:"}
+            {t("highBloodPressure")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.blood}
             </span>
           </label>
           <label className="label">
-            {"Others:"}
+            {t("others")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {physicalInformation.others}
             </span>
@@ -204,7 +206,7 @@ const Page = async ({
       <PageCard>
         <Grid md={2} gap={5}>
           <div className={"w-full"}>
-            <label className={"label"}>Test :</label>
+            <label className={"label"}>{t("test")} :</label>
             <textarea
               className="textarea-bordered w-full h-24 textarea"
               disabled={true}
@@ -212,7 +214,7 @@ const Page = async ({
             ></textarea>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>Problem Description :</label>
+            <label className={"label"}>{t("problemDescription")} :</label>
             <textarea
               className="textarea-bordered w-full h-24 textarea"
               disabled={true}
@@ -220,7 +222,7 @@ const Page = async ({
             ></textarea>
           </div>
           <label className="label">
-            {"Next Visit :"}
+            {t("nextVisit")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {res.next_visit?.replace(/\D/g, "")}{" "}
               {res.next_visit?.replace(/\d/g, "")}

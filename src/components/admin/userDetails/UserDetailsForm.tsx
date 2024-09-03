@@ -17,6 +17,7 @@ import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
 import Gallery from "@/components/common/ui/Gallery";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
+import {useTranslations} from "next-intl";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { reFetch, setReFetch } = useContext(ReFetchPhoto);
@@ -27,7 +28,12 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
       .UpdateUserDetails(data)
       .then((res) => {
         setReFetch(!reFetch);
-        console.log(res);
+        console.log(res?.data);
+        window.localStorage.setItem(
+            "user",
+            // @ts-ignore
+            JSON.stringify(res?.data.user ?? undefined),
+        );
         return res;
       });
   };
@@ -44,7 +50,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const onSuccess = () => {
     Navigate(`/admin/user-details`);
   };
-
+  const t = useTranslations("details")
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { image, ...rest } = defaultValues;
   // @ts-ignore
@@ -77,17 +83,17 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Form handleSubmit={handleSubmit} onSuccess={onSuccess}>
-                    <h1 className={"label"}>Reset Password</h1>
+                    <h1 className={"label"}>{t("resetPassword")}</h1>
                     <Input
                       placeholder={"Password...  "}
                       name={"password"}
-                      label={"Password"}
+                      label={t("password")}
                       type="password"
                     />
                     <Input
                       placeholder={"Confirmation...  "}
                       name={"password_confirmation"}
-                      label={"Password Confirmation"}
+                      label={t("confirm-password")}
                       type="password"
                     />
                   </Form>
@@ -108,7 +114,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`First Name :`}
+            label={t("first-Name")}
             name={"first_name"}
             locale={locale}
           />
@@ -116,7 +122,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`Middle Name :`}
+            label={t("middle-name")}
             name={"middle_name"}
             locale={locale}
           />
@@ -124,36 +130,36 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`Last Name :`}
+            label={t("last-name")}
             name={"last_name"}
             locale={locale}
           />
-          <Datepicker name={"birth_date"} label={"Birth Date"} />
+          <Datepicker name={"birth_date"} label={t("birthDate")} />
         </Grid>
         <Input
           placeholder={"email...  "}
           name={"email"}
-          label={"Email"}
+          label={t("email")}
           type="text"
         />
         <MultiInput
           type={"tel"}
           name={"phone_numbers"}
           placeholder={"Enter Clinic Phone Number"}
-          label={"Phones"}
+          label={t("phone")}
         />
         <Grid md={"2"}>
           <TranslatableInput
             locales={["en", "ar"]}
             type={"text"}
             placeholder={"John"}
-            label={`Address :`}
+            label={t("address")}
             name={"address.name"}
             locale={locale}
           />
           <ApiSelect
             name={"address.city_id"}
-            label={"City"}
+            label={t("city")}
             placeHolder={"Select City Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               CityService.make<CityService>().indexWithPagination(page, search)
@@ -166,11 +172,11 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
           />
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
-              Gender:
+              {t("gender")}:
             </label>
             <Input
               name={"gender"}
-              label={"Male"}
+              label={t("male")}
               type="radio"
               className="radio radio-info"
               value={"male"}
@@ -181,7 +187,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
 
             <Input
               name={"gender"}
-              label={"Female"}
+              label={t("female")}
               type="radio"
               className="radio radio-info"
               value={"female"}
@@ -189,7 +195,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             />
           </div>
         </Grid>
-        <Textarea name={"address.map_iframe"} label={"Map"} />
+        <Textarea name={"address.map_iframe"} label={t("map")} />
         <div className={"col-span-2"}>
           {defaultValues?.image?.length != 0 ? (
             <Gallery
@@ -197,18 +203,18 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             />
           ) : (
             <div className="flex items-center">
-              <label className="label"> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{t("noImage")}</span>
             </div>
           )}
         </div>
-        <ImageUploader name={"image"} label={"Image"} />
+        <ImageUploader name={"image"} label={t("image")} />
         <button
           type="button"
           onClick={openModal}
           className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
         >
-          Reset Password
+          {t("resetPassword")}
         </button>
       </Form>
     </>

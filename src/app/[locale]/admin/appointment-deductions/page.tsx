@@ -33,6 +33,7 @@ import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
+import {useTranslations} from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -40,6 +41,8 @@ interface filterExportType {
 }
 
 const Page = () => {
+  const t = useTranslations("common.deductions.table")
+
   const [selectAll, setSelectAll] = useState<number[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [typeSelectAll, setTypeSelectAll] = useState(false);
@@ -108,7 +111,7 @@ const Page = () => {
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
   const tableData: DataTableData<AppointmentDeductions> = {
-    title: `Appointment Deductions`,
+    title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
         <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
@@ -138,7 +141,7 @@ const Page = () => {
         sortable: true,
       },
       {
-        label: "Change Status",
+        label: `${t("changeAllStatus")}`,
         render: (_id, translatable) => {
           return (
             <div className={"flex justify-center"}>
@@ -157,7 +160,7 @@ const Page = () => {
       {
         name: "appointment.clinic.user.first_name",
         sortable: true,
-        label: `Clinic`,
+        label: `${t("clinicName")}`,
         render: (_first_name, transaction) => {
           return (
             <>
@@ -177,7 +180,7 @@ const Page = () => {
       {
         name: "appointment.clinic.user.first_name",
         sortable: true,
-        label: `Doctor`,
+        label: `${t("doctor")}`,
         render: (_first_name, transaction) => {
           return (
             <>
@@ -196,7 +199,7 @@ const Page = () => {
       },
       {
         name: "amount",
-        label: `Amount`,
+        label: `${t("amount")}`,
         sortable: true,
         render: (data) => {
           return <span>{data.toLocaleString()}</span>;
@@ -204,7 +207,7 @@ const Page = () => {
       },
       {
         name: "status",
-        label: "Status",
+        label: `${t("status")}`,
         render: (_status, transaction, _setHidden, revalidate) => {
           return (
             <AppointmentDeductionStatusColumn
@@ -217,12 +220,12 @@ const Page = () => {
       },
       {
         name: "date",
-        label: `Date`,
+        label: `${t("date")}`,
         sortable: true,
       },
       {
         name: "appointment.date",
-        label: `Appointment Date`,
+        label: `${t("appointmentDate")}`,
         sortable: true,
         render: (_id, transaction) => {
           return (
@@ -244,7 +247,7 @@ const Page = () => {
       },
 
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -269,7 +272,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full  grid grid-cols-1"}>
-          <label className="label">Status :</label>
+          <label className="label">{t("status")} :</label>
           <SelectFilter
             data={AppointmentDeductionsStatusArray()}
             selected={params.status ?? ""}
@@ -278,7 +281,7 @@ const Page = () => {
             }}
           />
 
-          <label className="label">Range :</label>
+          <label className="label">{t("range")} :</label>
           <SelectFilter
             data={ClinicTransactionDate()}
             selected={customDate}
@@ -299,7 +302,7 @@ const Page = () => {
           />
           {showCustomDate ? (
             <>
-              <label className="label">Start Date :</label>
+              <label className="label">{t("startDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -312,7 +315,7 @@ const Page = () => {
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
-              <label className="label">End Date :</label>
+              <label className="label">{t("endDate")} :</label>
               <DateTimePickerRangFilter
                 onChange={(time: any) => {
                   setParams({
@@ -371,7 +374,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <label className={"label"}>Year :</label>
+                    <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
                       type={"number"}
@@ -386,7 +389,7 @@ const Page = () => {
                       }
                       defaultValue={filterExport.year}
                     />
-                    <label className={"label"}>Month :</label>
+                    <label className={"label"}>{t("month")} :</label>
                     <SelectFilter
                       data={AllMonth()}
                       selected={filterExport.month}
@@ -452,13 +455,13 @@ const Page = () => {
         ) : (
           <Grid md={2}>
             <label className="label">
-              Balance :
+              {t("balance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.balance).toFixed(1).toLocaleString()}
               </span>
             </label>
             <label className="label">
-              Done Appointment Deductions :
+              {t("doneAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.done_appointment_deductions)
                   .toFixed(1)
@@ -467,7 +470,7 @@ const Page = () => {
             </label>
 
             <label className="label">
-              Pending Appointment Deductions :
+              {t("pendingAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.pending_appointment_deductions)
                   .toFixed(1)

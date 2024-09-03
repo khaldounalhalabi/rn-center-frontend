@@ -16,6 +16,7 @@ import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
+import {useTranslations} from "next-intl";
 
 const PatientProfilesForm = ({
   defaultValues = undefined,
@@ -28,6 +29,8 @@ const PatientProfilesForm = ({
   type?: "store" | "update";
   patientId?: number;
 }) => {
+  const t = useTranslations('admin.patientsProfiles.create')
+
   const handleSubmit = async (data: any) => {
     const dataSend = patientId
       ? {
@@ -69,7 +72,7 @@ const PatientProfilesForm = ({
     >
       <PageCard>
         <h2 className="card-title">
-          {type == "update" ? "Edit" : "Add"} Patient Profiles
+          {type == "update" ? t("edit") : t("add")} {t("patientsProfiles")}
         </h2>
         <Grid md={"2"}>
           <ApiSelect
@@ -82,7 +85,7 @@ const PatientProfilesForm = ({
                 .indexWithPagination(page, search)
             }
             defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-            label={"Clinic Name"}
+            label={t("clinicName")}
             optionValue={"id"}
             getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
           />
@@ -100,7 +103,7 @@ const PatientProfilesForm = ({
               defaultValues={
                 defaultValues?.customer ? [defaultValues?.customer] : []
               }
-              label={"Customer Name"}
+              label={t("customerName")}
               optionValue={"id"}
               getOptionLabel={(data: Customer) => (
                 <p>
@@ -121,13 +124,13 @@ const PatientProfilesForm = ({
         />
       </PageCard>
       <PageCard>
-        <h2 className="card-title">Description :</h2>
+        <h2 className="card-title">{t("description")} :</h2>
         <Textarea
           name={"medical_condition"}
           required={true}
-          label={"Medical Condition"}
+          label={t("medicalCondition")}
         />
-        <Textarea name={"note"} label={"Note"} />
+        <Textarea name={"note"} label={t("note")} />
         {type == "update" ? (
           <div className={"col-span-2"}>
             {defaultValues?.images?.length != 0 ? (
@@ -136,7 +139,7 @@ const PatientProfilesForm = ({
               />
             ) : (
               <div className="flex items-center">
-                <label className="label"> {"Image"} : </label>
+                <label className="label"> {t("image")} : </label>
                 <span className="text-lg badge badge-neutral">{"No Data"}</span>
               </div>
             )}
@@ -144,7 +147,7 @@ const PatientProfilesForm = ({
         ) : (
           ""
         )}
-        <ImageUploader name={"images"} isMultiple={true} label={"Images"} />
+        <ImageUploader name={"images"} isMultiple={true} label={t("image")} />
       </PageCard>
     </Form>
   );

@@ -12,6 +12,8 @@ import {
 import "ckeditor5/ckeditor5.css";
 import { useFormContext } from "react-hook-form";
 import React from "react";
+import {SettingKeysEnum} from "@/enum/SettingKeysEnum";
+import {useTranslations} from "next-intl";
 
 const CKTextEditor = ({
   label,
@@ -22,6 +24,7 @@ const CKTextEditor = ({
   name: string;
   defaultValue?: string;
 }) => {
+    const t  = useTranslations("admin.setting")
   const {
     register,
     formState: { errors },
@@ -29,8 +32,14 @@ const CKTextEditor = ({
   } = useFormContext();
   return (
     <>
-      <input className={"hidden"} {...register(`${name}`)} />
-      {label && <label className={"label w-fit"}>{label}</label>}
+      <input {...register(`${name}`)} />
+      {label && <label className={"label w-fit"}>
+          {label == SettingKeysEnum.ContactNumber1 ? t("ContactNumber1") :
+              label  == SettingKeysEnum.ContactNumber2 ? t("ContactNumber2") :
+          label == SettingKeysEnum.TermsAndServices ? t("TermsAndServices") :
+          label == SettingKeysEnum.DaysBeforeExpirationNotification ? t("DaysBefore") :
+              t("ZainCashNumber")}
+      </label>}
       <CKEditor
         // @ts-ignore
         editor={ClassicEditor}

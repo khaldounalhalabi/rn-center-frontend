@@ -23,7 +23,9 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
           </div>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>Approximate Appointment Time : </label>
+          <label className={"label"}>
+            {t("approximateAppointmentTime")} :{" "}
+          </label>
           <div className={"badge badge-neutral"}>
             {clinic?.approximate_appointment_time} min
           </div>
@@ -98,38 +100,38 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         </div>
 
         <div className={"w-full"}>
-          <label className={"label"}>Subscription :</label>
+          <label className={"label"}>{t("subscription")} :</label>
           <p className={"badge badge-warning"}>
             {clinic?.active_subscription?.subscription?.name}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Subscription Type"} :</label>
+          <label className={"label"}>{t("subscriptionType")} :</label>
           <p className={"badge badge-primary"}>
             {clinic?.active_subscription?.type}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Subscription Cost"} :</label>
+          <label className={"label"}>{t("subscriptionCost")} :</label>
           <p className={"badge badge-success"}>
             {clinic?.active_subscription?.subscription?.cost ?? 0}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Deduction Cost"} :</label>
+          <label className={"label"}>{t("deductionCost")} :</label>
           <p className={"badge badge-success"}>
             {clinic?.active_subscription?.deduction_cost ?? 0}
           </p>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{"Subscription Start Time"} :</label>
+          <label className={"label"}>{t("subscriptionStart")} :</label>
           <p className={"badge badge-neutral"}>
             {clinic?.active_subscription?.start_time}
           </p>
         </div>
         {(clinic?.active_subscription?.subscription?.period ?? 0) >= 0 && (
           <div className={"w-full"}>
-            <label className={"label"}>{"End Time"} :</label>
+            <label className={"label"}>{t("subscriptionEnd")} :</label>
             <p className={"badge badge-accent"}>
               {clinic?.active_subscription?.end_time}
             </p>
@@ -137,7 +139,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         )}
       </div>
       <div className={"w-full"}>
-        <label className={"label"}>{"Subscription Description"} :</label>
+        <label className={"label"}>{t("subscriptionDescription")} :</label>
         <textarea
           className="textarea textarea-bordered h-24 w-full"
           disabled={true}

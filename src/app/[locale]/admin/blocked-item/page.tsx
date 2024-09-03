@@ -6,11 +6,13 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { BlockedItemService } from "@/services/BlockedItemService";
 import { BlockedItem } from "@/Models/BlockedItem";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("admin.block")
   const tableData: DataTableData<BlockedItem> = {
     createUrl: `/admin/blocked-item/create`,
-    title: `Blocked Items`,
+    title: `${t("blockedItems")}`,
     schema: [
       {
         name: "id",
@@ -19,18 +21,18 @@ const Page = () => {
       },
       {
         name: "type",
-        label: `Type`,
+        label: `${t("type")}`,
         sortable: true,
         render: (type) => type?.replace("_", " "),
       },
       {
         name: "value",
-        label: `Value`,
+        label: `${t("value")}`,
         sortable: true,
       },
 
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

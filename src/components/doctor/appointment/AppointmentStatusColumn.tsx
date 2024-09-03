@@ -22,6 +22,7 @@ const AppointmentStatusColumn = ({
   revalidate?: () => void;
   userType?: "admin" | "doctor";
 }) => {
+
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
@@ -73,7 +74,6 @@ const AppointmentStatusColumn = ({
         .toggleStatus(id, { status: status })
         .then((res) => {
           setSelected(status);
-          console.log(selected);
           toast.success("Status Changed!");
         });
     }
@@ -81,7 +81,7 @@ const AppointmentStatusColumn = ({
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setSelected(appointment?.status);
-  }, [revalidate, appointment?.status, selected]);
+  }, [revalidate, appointment?.status]);
 
   function closeModal() {
     setIsOpen(false);

@@ -55,7 +55,7 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
               )
             }
           >
-            Clinic Subscription
+            {t("clinicSubscription")}
           </Tab>
           <Tab
             className={({ selected }) =>
@@ -68,7 +68,7 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
               )
             }
           >
-            Appointment Deductions
+            {t("appointmentDeductions")}
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">

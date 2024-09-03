@@ -7,11 +7,14 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
 
 const Page = () => {
+  const t = useTranslations('admin.patientsProfiles.table')
+
   const tableData: DataTableData<PatientProfiles> = {
     createUrl: `/admin/patient-profiles/create`,
-    title: `Patient Profiles`,
+    title: `${t("patientsProfiles")}`,
     schema: [
       {
         name: "id",
@@ -20,13 +23,13 @@ const Page = () => {
       },
       {
         name: "clinic.name",
-        label: `Clinic`,
+        label: `${t("clinicName")}`,
         sortable: true,
         translatable: true,
       },
       {
         name: "customer.user.first_name",
-        label: "Patient Name",
+        label: `${t("customerName")}`,
         sortable: true,
         render: (firstName, profile) => (
           <p>
@@ -38,12 +41,12 @@ const Page = () => {
       },
       {
         name: "updated_at",
-        label: `Last Modify`,
+        label: `${t("lastModify")}`,
         sortable: true,
       },
 
       {
-        label: `Actions`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}

@@ -91,7 +91,7 @@ const page = async ({
           )}
         </label>
         <label className="flex flex-wrap items-center gap-2 w-full label">
-          Status :
+          {t("status")} :
           {res?.status ? (
             <span className="badge badge-accent">{res.status}</span>
           ) : (

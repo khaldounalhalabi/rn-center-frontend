@@ -17,6 +17,7 @@ import { AddOrUpdateCustomer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
+import {useTranslations} from "next-intl";
 
 const PatientsForm = ({
   defaultValues = undefined,
@@ -27,6 +28,7 @@ const PatientsForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
     console.log(data);
     if (
@@ -65,7 +67,7 @@ const PatientsForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`First Name :`}
+          label={t("firstName")}
           name={"first_name"}
           locale={locale}
         />
@@ -74,7 +76,7 @@ const PatientsForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Middle Name :`}
+          label={t("middleName")}
           name={"middle_name"}
           locale={locale}
         />
@@ -83,7 +85,7 @@ const PatientsForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Last Name :`}
+          label={t("lastName")}
           locale={locale}
           name={"last_name"}
         />
@@ -91,30 +93,31 @@ const PatientsForm = ({
           name={"blood_group"}
           handleSelect={() => undefined}
           required={true}
-          label={"Blood Group"}
+          label={t("blood")}
           ArraySelect={BloodArray()}
           status={defaultValues?.blood_group ?? ""}
         />
       </Grid>
-      <Input name={"email"} type={"text"} label={"Email :"} required={true} />
+      <Input name={"email"} type={"text"} label={t("email")} required={true} />
       <Grid md={2} gap={5}>
         <Input
           name={"password"}
           type={"text"}
-          label={"Password :"}
+          label={t("password")}
           required={true}
         />
         <Input
           name={"password_confirmation"}
           type={"text"}
-          label={"Password Confirmation :"}
+          label={t("confirm-password")}
           required={true}
         />
         <div className={`flex gap-5 p-2 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>Gender:</label>
-          <Input
+          <label className={`bg-pom p-2 rounded-md text-white`}>
+            {t("gender")}:
+          </label>          <Input
             name={"gender"}
-            label="Male"
+            label={t("male")}
             type="radio"
             className="radio radio-info"
             value={"male"}
@@ -125,7 +128,7 @@ const PatientsForm = ({
 
           <Input
             name={"gender"}
-            label={"Female"}
+            label={t("female")}
             type="radio"
             className="radio radio-info"
             value={"female"}
@@ -137,7 +140,7 @@ const PatientsForm = ({
         type={"tel"}
         name={"phone_numbers"}
         placeholder={"Enter Clinic Phone Number"}
-        label={"Phones :"}
+        label={t("phone")}
         required={true}
         maxFields={2}
       />
@@ -147,7 +150,7 @@ const PatientsForm = ({
           locales={["en", "ar"]}
           type={"text"}
           placeholder={"John"}
-          label={`Address :`}
+          label={t("address")}
           name={"address.name"}
           locale={locale}
           defaultValue={defaultValues ? defaultValues?.address?.name : ""}
@@ -155,7 +158,7 @@ const PatientsForm = ({
         <ApiSelect
           required={true}
           name={"address.city_id"}
-          label={"City :"}
+          label={t("city")}
           placeHolder={"Select City Name ..."}
           api={(page?: number | undefined, search?: string | undefined) =>
             CityService.make<CityService>().indexWithPagination(page, search)
@@ -168,7 +171,7 @@ const PatientsForm = ({
         />
         <Datepicker
           name={"birth_date"}
-          label={"Birth Date :"}
+          label={t("birth-date")}
           shouldDisableDate={(day) => {
             return !day.isBefore(dayjs().subtract(20, "year"));
           }}
@@ -182,15 +185,15 @@ const PatientsForm = ({
             />
           ) : (
             <div className="flex items-center">
-              <label className="label"> Image : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <label className="label"> {t("image")} : </label>
+              <span className="text-lg badge badge-neutral">{t("noData")}</span>
             </div>
           )}
         </div>
       ) : (
         ""
       )}
-      <ImageUploader name={"image"} label={"Image"} />
+      <ImageUploader name={"image"} label={t("image")} />
     </Form>
   );
 };

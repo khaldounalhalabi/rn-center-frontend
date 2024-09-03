@@ -15,9 +15,20 @@
     "medicines": "الدواء",
     "staff": "الطاقم",
     "offers": "العروض",
-    "accountantManagement": "إدارة المحاسبة",
+    "accountantManagement": "إدارة الحسابات",
     "transaction": "التحويلات",
-    "appointmentDeductions": "خصومات المواعيد"
+    "appointmentDeductions": "خصومات المواعيد",
+    "availableDepartments": "الاقسام المتاحة",
+    "hospitalsManagement": "ادارة المستشفيات",
+    "users": "المستخدمين",
+    "patientsManagement": "ادارة المرضى",
+    "patientProfiles": "بيانات المرضى",
+    "subscriptions": "الاشتراكات",
+    "blockedItems": "العناصر المحظورة",
+    "enquiries": "الاستفسارات",
+    "bloodDonation": "التبرع بالدم",
+    "systemOffers": "عروض النظام",
+    "settings": "الاعدادات"
   },
   "admin": {
     "clinic": {
@@ -28,7 +39,7 @@
         "today-appointments": "مواعيد اليوم",
         "upcoming-appointments": "المواعيد القادمة",
         "overview": "ملخص",
-        "appointments": "تعيينات",
+        "appointments": "المواعيد",
         "specializations": "التخصصات",
         "blood": "فصيلة الدم",
         "gender": "جنس",
@@ -45,9 +56,23 @@
         "lastUpdatedAt": "آخر تحديث في",
         "experience": "خبرة",
         "about": "عن",
-        "map": "خريطة"
+        "map": "خريطة",
+        "subscriptionStart": "بدأ الاشتراك",
+        "totalCost": "المجموع",
+        "subscriptionEnd": "إنتهاء الإشتراك",
+        "subscriptionCost": "تكلفة الاشتراك",
+        "clinicBalance": "موازنة العيادة",
+        "pendingAmount": "الاموال المعلقة",
+        "appointmentDeductions": "خصومات المواعيد",
+        "clinicSubscription": "اشتراكات العيادة",
+        "approximateAppointmentTime": "الوقت المقدر للموعد",
+        "subscription": "الاشتراك",
+        "subscriptionType": "نوع الاشتراك",
+        "deductionCost": "قيمة المستقطعة",
+        "subscriptionDescription": "خصم الاشتراك"
       },
       "create-edit": {
+        "approximateAppointmentTime": "الوقت المقدر للموعد",
         "newClinic": "عيادة جديدة",
         "first-Name": "اسم الدكتور الأول",
         "middle-name": "اسم الدكتور الأوسط",
@@ -73,7 +98,13 @@
         "mapIframe": "خريطة",
         "image": "صورة",
         "noImage": "لا توجد صورة",
-        "btn": "حفظ"
+        "btn": "حفظ",
+        "status": "حالة",
+        "gender": "جنس",
+        "tags": "الاشارات",
+        "subscription": "الاشتراك",
+        "subscriptionType": "نوع الاشتراك",
+        "deductionCost": "قيمة المستقطعة"
       },
       "table": {
         "clinics": "عيادات",
@@ -89,7 +120,8 @@
         "actions": "أجراءات",
         "archived": "مؤرشف",
         "total-appointments": "إجمالي المواعيد",
-        "subscriptionStatus": "حالة الاشتراك"
+        "subscriptionStatus": "حالة الاشتراك",
+        "approximateAppointmentTime": "الوقت المقدر للموعد"
       }
     },
     "holidays": {
@@ -140,7 +172,8 @@
         "reason": "السبب"
       },
       "create": {
-        "clinicName": "اسم العيادة"
+        "clinicName": "اسم العيادة",
+        "appointmentGap": "مدة الموعد"
       }
     },
     "category": {
@@ -176,7 +209,8 @@
         "address": "عنوان",
         "city": "مدينة",
         "image": "صورة",
-        "noData": "لايوجد بيانات"
+        "noData": "لايوجد بيانات",
+        "status": "حالة"
       },
       "create-edit": {
         "addHospital": "أضف مستشفى",
@@ -213,7 +247,9 @@
         "status": "حالة",
         "description": "وصف",
         "noData": "لايوجد بيانات",
-        "editBtn": "يحرر"
+        "editBtn": "يحرر",
+        "image": "صورة"
+
       },
       "create-edit": {
         "addService": "أضف الخدمة",
@@ -240,7 +276,8 @@
         "tags": "العلامات",
         "noData": "لايوجد بيانات",
         "editBtn": "يحرر",
-        "description": "وصف"
+        "description": "وصف",
+        "image": "صورة"
       },
       "create-edit": {
         "addSpeciality": "أضف التخصص",
@@ -249,6 +286,275 @@
         "tags": "العلامات",
         "description": "وصف"
       }
+    },
+    "subscription": {
+      "table": {
+        "subscriptions": "الاشتراكات",
+        "clinicSubscriptions": "اشتراكات العيادة",
+        "status": "الحالة",
+        "active": "نشط",
+        "in-active": "خامل",
+        "subscriptionName": "اسم الاشتراك",
+        "remaining": "الوقت الفائت",
+        "type": "النوع",
+        "deductionCost": "قيمة المستقطعة",
+        "cost": "تكلفة ",
+        "actions": "أجراءات",
+        "period": "الفترة",
+        "allowPeriod": "فترة السماح",
+        "days": "ايام"
+      },
+      "create": {
+        "addClinicSubscription": "اضافة اشتراك للعيادات",
+        "editClinicSubscription": "تعديل اشتراك العيادة",
+        "subscriptionName": "اسم الاشتراك",
+        "type": "النوع",
+        "deductionCost": "قيمة المستقطعة",
+        "period": "الفترة",
+        "allowPeriod": "فترة السماح",
+        "days": "ايام",
+        "cost": "تكلفة ",
+        "periodUnit": "وحدة الفترة",
+        "description": "الوصف",
+        "forLifetime": "لفترة العمر ضع -1"
+      },
+      "show": {
+        "subscriptionDetails": "تفاصيل الاشتراك",
+        "subscriptionName": "اسم الاشتراك",
+        "type": "النوع",
+        "cost": "تكلفة ",
+        "period": "الفترة",
+        "lifeTime": "مدى الحياة",
+        "remaining": "الوقت الفائت",
+        "description": "الوصف",
+        "editBtn": "يحرر",
+        "allowPeriod": "فترة السماح"
+      }
+    },
+    "departments": {
+      "availableDepartment": "الاقسام المتاحة",
+      "addHospitalDepartment": "اضافة قسم ",
+      "editDepartment": "تعديل القسم",
+      "name": "اسم",
+      "actions": "أجراءات",
+      "description": "وصف",
+      "editBtn": "تعديل",
+      "availableDepartmentDetails": "تفاصيل القسم المتاحة"
+    },
+    "users": {
+      "users": "المستخدمون",
+      "userName": "اسم المستخدم",
+      "email": "الايميل",
+      "age": "العمر",
+      "role": "القواعد",
+      "isBlocked": "هل هو محظور",
+      "blocked": "محظور",
+      "notBlocked": "ليس محظور",
+      "isArchived": "هل هو مأرشف",
+      "archived": "مؤرشف",
+      "notArchived": "غير مؤرشفة",
+      "actions": "أجراءات",
+      "editUser": "تعديل المستخدم",
+
+      "first-Name": "اسم  الأول",
+      "middle-name": "اسم  الأوسط",
+      "last-name": "اسم  الاخير",
+      "password": "كلمة السر",
+      "confirm-password": "تأكيد كلمة السر",
+      "birth-date": "تاريخ ميلاد ",
+      "phones": "رقم العيادة",
+      "gender": "جنس",
+      "male": "رجل",
+      "female": "مرأة",
+      "city": "المدينة",
+      "address": "موقع العيادة",
+      "image": "صورة",
+      "noData": "لايوجد بيانات",
+      "tags": "العلامات",
+
+      "userDetails": "تفاصيل المستخدم",
+      "editBtn": "تعديل",
+      "blood": "فصيلة الدم"
+    },
+    "patientsProfiles": {
+      "table": {
+          "patientsProfiles": "ملفات تعريف المرضى",
+        "clinicName": "اسم العيادة",
+        "customerName": "اسم المريض",
+        "lastModify": "تم التعديل الأخير",
+        "actions": "أجراءات"
+      },
+      "create": {
+        "add": "اضافة",
+        "edit": "تعديل",
+        "patientsProfiles": "ملفات تعريف المرضى",
+        "clinicName": "اسم العيادة",
+        "customerName": "اسم المريض",
+        "description": "وصف",
+        "medicalCondition": "الحالة الطبية",
+        "image": "صورة",
+        "note": "ملاحظة"
+      },
+      "show": {
+        "patientProfileDetails": "تفاصيل بيانات المريض",
+        "editBtn": "تعديل",
+        "clinicName": "اسم العيادة",
+        "customerName": "اسم المريض",
+        "description": "وصف",
+        "medicalCondition": "الحالة الطبية",
+        "image": "صورة",
+        "note": "ملاحظة",
+        "otherData": "بيانات اخرى"
+      }
+    },
+    "block": {
+      "blockedItems": "العناصر المحظورة",
+      "value": "القيمة",
+      "type": "النوع",
+      "actions": "أجراءات",
+      "addBlockedItem": "اضافة عنصر للحظر",
+      "editBlockedItem": "تعديل عنصر محظور "
+    },
+    "enquiries": {
+      "enquiries": "الاستفسارات",
+      "name": "الاسم",
+      "email": "الايميل",
+      "readAt": "اقرأ في",
+      "actions": "أجراءات",
+      "enquiriesDetails": "تفاصيل الاستفسار",
+      "message": "الرسالة"
+    },
+    "offer": {
+      "table": {
+        "offers": "العروض",
+        "email": "ايميل ",
+        "clinicName": "اسم العيادة",
+        "title": "العنوان",
+        "value": "القيمة",
+        "type": "النوع",
+        "isActive": "التحقق من النشاط",
+        "active": "نشط",
+        "not-active": "خامل",
+        "actions": "أجراءات"
+      },
+      "create": {
+        "editOffer": "تعديل العرض",
+        "addOffer": "اضافة عرض",
+        "clinicName": "اسم العيادة",
+        "title": "العنوان",
+        "type": "النوع",
+        "value": "القيمة",
+        "status": "حالة",
+        "not-active": "خامل",
+        "active": "نشط",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة",
+        "image": "صور"
+      },
+      "show": {
+        "isActive": "التحقق من النشاط",
+        "offerDetails": "تفاصيل العرض",
+        "editBtn": "يحرر",
+        "clinicName": "اسم العيادة",
+        "cost": "تكلفة التعيين",
+        "title": "العنوان",
+        "not-active": "خامل",
+        "active": "نشط",
+        "type": "النوع",
+        "value": "القيمة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة"
+      }
+    },
+    "blood": {
+        "bloodDonationRequests": "طلبات التبرع بالدم",
+      "addBloodDonationRequest": "إضافة طلب التبرع بالدم",
+      "editBloodDonationRequest": "تعديل طلب التبرع بالدم",
+      "bloodDonationRequestDetails": "تفاصيل طلب التبرع بالدم",
+        "name": "الاسم",
+        "blood": "فصيلة الدم",
+        "city": "المدينة",
+        "canWait": "هل يمكن الانتظار",
+      "actions": "أجراءات",
+      "phone": "هاتف",
+      "nearestHospital": "أقرب مستشفى",
+      "address": "العنوان",
+      "notes": "الملاحظات",
+      "editBtn": "تعديل"
+    },
+    "system": {
+      "table": {
+        "systemOffers": "عروض النظام",
+        "email": "ايميل ",
+        "amount": "الكمية",
+        "clinicName": "اسم العيادة",
+        "title": "العنوان",
+        "status": "حالة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "value": "القيمة",
+        "type": "النوع",
+        "isActive": "التحقق من النشاط",
+        "active": "نشط",
+        "not-active": "خامل",
+        "actions": "أجراءات"
+      },
+      "create": {
+        "amount": "الكمية",
+        "description": "وصف",
+        "editSystemOffer": "تعديل عرض النظام",
+        "addSystemOffer": "اضافة عرض من النظام",
+        "clinicName": "اسم العيادة",
+        "title": "العنوان",
+        "type": "النوع",
+        "value": "القيمة",
+        "status": "حالة",
+        "not-active": "خامل",
+        "active": "نشط",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة",
+        "image": "صور",
+        "alowedUses": "الاستخدامات المسموح بها"
+      },
+      "show": {
+        "amount": "الكمية",
+
+        "isActive": "التحقق من النشاط",
+        "offerDetails": "تفاصيل عرض النظام",
+        "editBtn": "يحرر",
+        "clinicName": "اسم العيادة",
+        "cost": "تكلفة التعيين",
+        "title": "العنوان",
+        "not-active": "خامل",
+        "active": "نشط",
+        "type": "النوع",
+        "value": "القيمة",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "note": "ملاحظة",
+        "alowedUses": "الاستخدامات المسموح بها",
+        "description": "وصف",
+        "image": "صور",
+        "reuse": "إعادة الاستخدام",
+        "allowReuse": "السماح بإعادة الاستخدام",
+        "notAllowReuse": "عدم السماح بإعادة الاستخدام"
+      }
+    },
+    "setting": {
+      "settings": "الاعدادات",
+      "editSetting": "تعديل الاعداد",
+      "label": "الوصف",
+      "value": "القيمة",
+      "actions": "أجراءات",
+      "ContactNumber1": "رقم الاتصال 1",
+      "ContactNumber2": "رقم الاتصال 2",
+      "TermsAndServices": "الشروط والخدمات",
+      "DaysBefore": "إشعار قبل أيام من انتهاء الصلاحية",
+      "ZainCashNumber": "رقم زين كاش"
+
     }
   },
   "doctor": {
@@ -486,24 +792,37 @@
         "isArchived": "هل هو مأرشف",
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشفة",
-        "permission": "الاذونات"
+        "permission": "الاذونات",
+        "tags": "العلامات"
       }
     }
   },
   "common": {
     "appointment": {
       "table": {
+        "appointments": "المواعيد",
         "appointment": "ميعاد",
+        "clinicName": "اسم العيادة",
+        "doctorName": "اسم الدكتور",
+        "patientName": "اسم المريض",
         "serviceName": "اسم الخدمة",
         "status": "حالة",
         "type": "النوع",
         "online": "متصل",
+        "totalCost": "المجموع",
         "manual": "يدوي",
         "sequence": "تسلسل",
         "date": "التاريخ",
         "actions": "أجراءات",
         "startDate": "تاريخ البدء",
-        "endDate": "تاريخ الانتهاء"
+        "endDate": "تاريخ الانتهاء",
+        "year": "السنة",
+        "month": "الشهر",
+        "logs": "سجلات",
+        "happenIn": "حدث في ",
+        "actor": "المنفذ",
+        "event": "الحدث"
+
       },
       "create": {
         "editAppointment": "تعديل الميعاد",
@@ -511,10 +830,18 @@
         "newPatient": "مريض جديد",
         "setDate": "اختيار تاريخ",
         "date": "التاريخ",
+        "patientName": "اسم المريض",
+
+        "clinicName": "اسم العيادة",
+        "type": "النوع",
+        "online": "متصل",
+        "manual": "يدوي",
+        "cancellationReason": "سبب الالغاء",
         "customerName": "اسم المريض",
         "lastVisit": "اخر زيارة",
         "serviceName": "اسم الخدمة",
         "offers": "العروض",
+        "systemOffers": "عروض النظام",
         "extraFees": "رسوم إضافية",
         "status": "حالة",
         "discount": "الخصم",
@@ -534,6 +861,7 @@
         "customerName": "اسم المريض",
         "serviceName": "اسم الخدمة",
         "overview": "ملخص",
+        "logs": "سجلات",
         "prescriptions": "الوصفات الطبية",
         "type": "النوع",
         "extraFees": "رسوم إضافية",
@@ -549,11 +877,20 @@
         "discount": "الخصم",
         "offers": "العروض",
         "systemOffer": "عروض النظام",
-        "status": "حالة"
+        "status": "حالة",
+        "happenIn": "حدث في ",
+        "actor": "المنفذ",
+        "event": "الحدث",
+        "actions": "أجراءات"
       }
     },
     "patient": {
       "create": {
+        "birth-date": "تاريخ ميلاد ",
+        "email": "الايميل",
+        "noData": "لايوجد بيانات",
+        "password": "كلمة السر",
+        "confirm-password": "تأكيد كلمة السر",
         "addPatient": "اضافة مريض",
         "editPatient": "تعديل المريض",
         "firstName": "الاسم الأول",
@@ -597,6 +934,7 @@
         "overview": "ملخص",
         "appointment": "ميعاد",
         "prescriptions": "الوصفات الطبية",
+        "patientsProfiles": "بيانات المريض",
         "birthDate": "تاريخ الميلاد",
         "age": "عمر",
         "address": "عنوان",
@@ -652,7 +990,7 @@
         "others": "حالات اخرى",
         "pulseRate": "معدل النبض",
         "temperature": "درجة حرارة",
-        "notes": "Notes",
+        "notes": "الملاحظات",
         "test": "اختبار",
         "problemDescription": "وصف المشكلة",
         "nextVisit": "الزيارة التالية",
@@ -698,8 +1036,9 @@
       "table": {
         "medicines": "الدواء",
         "medicineName": "اسم الدواء",
-        "actions": "أجراءات"
-
+        "actions": "أجراءات",
+        "clinicName": "اسم العيادة",
+        "doctorName": "اسم الدكتور"
       },
       "create": {
         "addMedicines": "اضافة دواء",
@@ -712,9 +1051,191 @@
         "medicinesDetails": "تفاصيل الدواء",
         "editBtn": "تعديل",
         "medicineName": "اسم الدواء",
+        "clinicName": "اسم العيادة",
+        "doctorName": "اسم الدكتور",
         "description": "وصف"
 
       }
+    },
+    "transaction": {
+      "table": {
+        "transactions": "التحويلات",
+        "patientName": "اسم المريض",
+        "email": "ايميل ",
+        "type": "النوع",
+        "sender": "المرسل",
+        "amount": "الكمية",
+        "afterBalance": "بعد التوازن",
+        "beforeBalance": "قبل التوازن",
+        "status": "حالة",
+        "date": "التاريخ",
+        "appointmentDate": "تاريخ الموعد",
+        "actions": "أجراءات",
+        "amountFrom": "الكمية من ",
+        "amountTo": "الكمية الى",
+        "range": "المدى",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "year": "السنة",
+        "month": "الشهر",
+        "clinicBalance": "موازنة العيادة",
+        "pendingAmount": "الاموال المعلقة"
+      },
+      "create": {
+        "addTransaction": "اضافة تحويل",
+        "editTransaction": "تعديل التحويل",
+        "type": "النوع",
+        "amount": "الكمية",
+        "date": "التاريخ",
+        "notes": "الملاحظات"
+      },
+      "show": {
+        "transactionDetails": "تفاصيل التحويل",
+        "editBtn": "تعديل",
+        "patientName": "اسم المريض",
+        "doctorName": "اسم الدكتور",
+        "type": "النوع",
+        "amount": "الكمية",
+        "date": "التاريخ",
+        "notes": "الملاحظات",
+        "appointmentDate": "تاريخ الموعد",
+        "status": "حالة",
+        "totalCost": "المجموع"
+      },
+      "chart": {
+        "filter": "الفلتر",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "chartName": "جدول الصادرات و الواردات"
+      }
+    },
+    "deductions": {
+      "table": {
+        "changeStatus": "تغير الحالة",
+        "changeAllStatus": "تغير حالة الجميع",
+        "clinicName": "اسم العيادة",
+        "doctor": "طبيب",
+
+        "appointmentDeductions": "خصومات المواعيد",
+        "amount": "الكمية",
+        "appointmentDate": "تاريخ الموعد",
+        "date": "التاريخ",
+        "status": "حالة",
+        "actions": "أجراءات",
+        "range": "المدى",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "year": "السنة",
+        "month": "الشهر",
+        "subscriptionStart": "بدأ الاشتراك",
+        "totalCost": "المجموع",
+        "subscriptionEnd": "إنتهاء الإشتراك",
+        "subscriptionCost": "تكلفة الاشتراك",
+        "clinicBalance": "موازنة العيادة",
+        "pendingAmount": "الاموال المعلقة",
+        "balance": "التوازن",
+        "doneAppointmentDeductions": "خصومات المواعيد المنتهية",
+        "pendingAppointmentDeductions": "خصومات المواعيد المعلقة"
+      },
+      "show": {
+        "clinicName": "اسم العيادة",
+
+        "appointmentDeductionDetails": "تفاصيل خصومات الموعد",
+        "totalCost": "المجموع",
+        "amount": "الكمية",
+        "appointmentDate": "تاريخ الموعد",
+        "date": "التاريخ",
+        "status": "حالة",
+        "note": "ملاحظة"
+      }
+    },
+    "dashboard": {
+      "welcomeBack": "مرحبا بعودتك",
+      "dashBoard": "لوحة التحكم",
+      "editProfile": "تعديل البيانات",
+      "profile": "الملف الشخصية",
+      "monthlyEarning": "المكاسب الشهرية",
+      "thisMonth": "هاذا الشهر",
+      "fromPreviousMonth": "من الشهر الفائت",
+      "totalActiveDoctors": "مجموع الاطباء النشطين",
+      "totalPatients": "مجموع المرضى",
+      "todayRegisteredPatients": "المرضى المسجلين اليوم",
+      "totalAppointments": "مجموع المواعيد",
+      "todayAppointments": "مواعيد اليوم",
+      "nextAppointments": "الماعيد القادمة",
+      "monthlyAppointments": "المواعيد الشهرية",
+      "earningsFromAppointments": "المكتسبات من المواعيد",
+      "recentPatientsRegistration": "المرضى المسلين مؤخرا",
+      "registeredOn": "تاريخ الانضمام",
+      "completedAppointments": "المواعيد المكتملة",
+      "patientName": "اسم المريض",
+      "serviceName": "اسم الخدمة",
+      "status": "حالة",
+      "type": "النوع",
+      "sequence": "تسلسل",
+      "actions": "أجراءات"
     }
+  },
+  "table": {
+    "filters": "التصفية",
+    "apply": "تصفية",
+    "resetFilters": "اعادة ضبط التصفية",
+    "totalRecords": "مجموع السجلات",
+    "prevPage": "الصفحة السابقة",
+    "nextPage": "الصفحة التالية"
+  },
+  "nav": {
+     "clinicProfile": "الملف التعريفي للعيادة",
+    "profile": "الملف التعريفي",
+    "logout": "تسجيل الخروج"
+  },
+  "details": {
+    "name": "الاسم",
+    "editBtn": "تعديل",
+    "email": "الايميل",
+    "birthDate": "تاريخ الميلاد",
+    "phone": "هاتف",
+    "gender": "جنس",
+    "isBlocked": "هل هو محظور",
+    "blocked": "محظور",
+    "notBlocked": "ليس محظور",
+    "age": "عمر",
+    "blood": "فصيلة الدم",
+    "isArchived": "هل هو مأرشف",
+    "archived": "مؤرشف",
+    "notArchived": "غير مؤرشفة",
+    "city": "المدينة",
+    "address": "موقع ",
+    "editUserDetails": "تعديل تفاصيل الحساب",
+    "resetPassword": "اعادة تعين كلمة المرور",
+    "password": "كلمة السر",
+    "confirm-password": "تأكيد كلمة السر",
+    "first-Name": "اسم الأول",
+    "middle-name": "اسم الأوسط",
+    "last-name": "اسم الاخير",
+    "male": "رجل",
+    "female": "مرأة",
+    "map": "خريطة",
+    "image": "صورة",
+    "noImage": "لا توجد صورة"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "welcomeBack": "مرحبا بعودتك",
+    "email": "ايميل ",
+    "password": "كلمة السر",
+    "confirm-password": "تأكيد كلمة السر",
+    "err": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى أو انقر فوق نسيت كلمة المرور",
+    "forgetPassword": "نسيت كلمة المرور",
+    "resetPassword": "اعادة تعين كلمة المرور",
+    "Login": "تسجيل الدخول",
+    "enteryourEmailAddress": "أدخل عنوان بريدك الإلكتروني",
+    "sendResetPasswordEmail": "إرسال بريد إلكتروني",
+    "resetPasswordCode": "رمز إعادة تعيين كلمة المرور",
+    "enterResetPasswordCode": "أدخل رمز إعادة تعيين كلمة المرور",
+    "code": "الرمز",
+    "resendThecode": "اعادة ارسال الرمز",
+    "send": "ارسال",
+    "save": "حفظ"
   }
 }

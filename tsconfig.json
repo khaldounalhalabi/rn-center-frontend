@@ -26,7 +26,7 @@
         "./src/*"
       ]
     },
-    "types": ["node", "@types/ckeditor__ckeditor5-react"]
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",

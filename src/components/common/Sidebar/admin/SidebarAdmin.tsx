@@ -93,7 +93,7 @@ const SidebarAdmin = ({
         <ul
           className={` space-y-1 px-4 pt-3  h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem link={"/admin"}> {t("dashboard")}</SidebarItem>
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin"}> {t("dashboard")}</SidebarItem>
           <SidebarCompactItem
             title={t("clinicsManagement")}
             links={[
@@ -103,84 +103,84 @@ const SidebarAdmin = ({
             ]}
           >
             <div className="flex flex-col">
-              <SidebarItem link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
-              <SidebarItem link={"/admin/clinics/schedules"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/clinics"}> {t("clinics")}</SidebarItem>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/clinics/schedules"}>
                 {t("clinicsSchedules")}
               </SidebarItem>
-              <SidebarItem link={"/admin/clinics/holidays"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/clinics/holidays"}>
                 {t("clinicsHolidays")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
           <div className="flex flex-col">
-            <SidebarItem link={"/admin/speciality"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/speciality"}>
               {t("specialties")}
             </SidebarItem>
 
-            <SidebarItem link={"/admin/category"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/category"}>
               {t("serviceCategories")}
             </SidebarItem>
-            <SidebarItem link={"/admin/service"}>{t("services")}</SidebarItem>
-            <SidebarItem link={"/admin/appointment"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/service"}>{t("services")}</SidebarItem>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/appointment"}>
               {t("appointment")}
             </SidebarItem>
             <SidebarCompactItem
               title={t("hospitalsManagement")}
               links={["/admin/hospitals", "/admin/hospital-departments"]}
             >
-              <SidebarItem link={"/admin/hospitals"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/hospitals"}>
                 {t("hospitals")}
               </SidebarItem>
-              <SidebarItem link={"/admin/hospital-departments"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/hospital-departments"}>
                 {t("availableDepartments")}
               </SidebarItem>
             </SidebarCompactItem>
-            <SidebarItem link={"/admin/medicines"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/medicines"}>
               {t("medicines")}
             </SidebarItem>
 
-            <SidebarItem link={"/admin/user"}>{t("users")}</SidebarItem>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/user"}>{t("users")}</SidebarItem>
             <SidebarCompactItem
               title={t("patientsManagement")}
               links={["/admin/patients", "/admin/patient-profiles"]}
             >
-              <SidebarItem link={"/admin/patients"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/patients"}>
                 {t("patients")}
               </SidebarItem>
-              <SidebarItem link={"/admin/patient-profiles"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/patient-profiles"}>
                 {t("patientProfiles")}
               </SidebarItem>
             </SidebarCompactItem>
-            <SidebarItem link={"/admin/subscriptions"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/subscriptions"}>
               {t("subscriptions")}
             </SidebarItem>
-            <SidebarItem link={"/admin/blocked-item"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/blocked-item"}>
               {t("blockedItems")}
             </SidebarItem>
-            <SidebarItem link={"/admin/enquiries"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/enquiries"}>
               {t("enquiries")}
             </SidebarItem>
-            <SidebarItem link={"/admin/offer"}>{t("offers")}</SidebarItem>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/offer"}>{t("offers")}</SidebarItem>
             <SidebarCompactItem
               title={t("accountantManagement")}
               links={["/admin/transaction", "/admin/appointment-deductions"]}
             >
               <div className="flex flex-col">
-                <SidebarItem link={"/admin/transaction"}>
+                <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/transaction"}>
                   {t("transaction")}
                 </SidebarItem>
-                <SidebarItem link={"/admin/appointment-deductions"}>
+                <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/appointment-deductions"}>
                   {t("appointmentDeductions")}
                 </SidebarItem>
               </div>
             </SidebarCompactItem>
-            <SidebarItem link={"/admin/blood-donation"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/blood-donation"}>
               {t("bloodDonation")}
             </SidebarItem>
-            <SidebarItem link={"/admin/system-offer"}>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/system-offer"}>
               {t("systemOffers")}
             </SidebarItem>
-            <SidebarItem link={"/admin/setting"}>{t("settings")}</SidebarItem>
+            <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/admin/setting"}>{t("settings")}</SidebarItem>
           </div>
         </ul>
       </div>

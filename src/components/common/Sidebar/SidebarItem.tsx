@@ -7,7 +7,17 @@ const SidebarItem = ({
   children,
   onClick,
   className = undefined,
+  openNavBar,
+  setOpenNavBar,
 }: {
+  openNavBar: {
+    sm: boolean;
+    md: boolean;
+  };
+  setOpenNavBar: React.Dispatch<{
+    sm: boolean;
+    md: boolean;
+  }>;
   link?: string;
   children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
@@ -23,8 +33,11 @@ const SidebarItem = ({
   }
   return (
     <li
-      className={`${className}`}
+      className={`${className}}`}
       onClick={(e) => {
+        if(openNavBar.sm) {
+         setOpenNavBar({sm:!openNavBar.sm,md:false})
+        }
         if (onClick) {
           onClick(e);
         }

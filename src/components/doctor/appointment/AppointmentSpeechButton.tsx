@@ -12,7 +12,7 @@ const AppointmentSpeechButton = ({
   language: string;
 }) => {
   useEffect(() => {}, []);
-  const voices = new SpeechSynthesis().getVoices();
+  const voices = window.speechSynthesis.getVoices();
 
   const speak = () => {
     const hasArabicVoice = voices.some((voice) =>

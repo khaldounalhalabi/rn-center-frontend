@@ -68,15 +68,15 @@ const ProfileOptionsPopover = () => {
         }}
       >
         <div className="px-4 my-3">
-          <h2 className="text-sm ">
+          <div className="text-sm ">
             {TranslateClient(res?.first_name)}{" "}
             {TranslateClient(res?.middle_name)}{" "}
             {TranslateClient(res?.last_name)}
-          </h2>
+          </div>
           <div className="overflow-hidden whitespace-nowrap">
-            <h1 className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
+            <div className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
               {res?.email}
-            </h1>
+            </div>
           </div>
         </div>
 
@@ -86,9 +86,9 @@ const ProfileOptionsPopover = () => {
           href={`/${actor}/user-details`}
           className="opacity-[0.8]"
         >
-          <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-            <h3>{t("profile")}</h3>
-          </div>
+          <button className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
+            {t("profile")}
+          </button>
         </Link>
         {actor == "doctor" ? (
           <Link
@@ -97,15 +97,15 @@ const ProfileOptionsPopover = () => {
             href={`/doctor/clinic-details`}
             className="opacity-[0.8]"
           >
-            <div className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-              <h3>{t("clinicProfile")}</h3>
-            </div>
+            <button className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
+              {t("clinicProfile")}
+            </button>
           </Link>
         ) : (
           ""
         )}
         <div className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
-          <h3
+          <button
             onClick={() => {
               deleteCookieClient("token");
               deleteCookieClient("user-type");
@@ -116,7 +116,7 @@ const ProfileOptionsPopover = () => {
             }}
           >
             {t("logout")}
-          </h3>
+          </button>
         </div>
       </div>
     </div>

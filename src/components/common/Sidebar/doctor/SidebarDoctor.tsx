@@ -87,7 +87,7 @@ const SidebarDoctor = ({
         <ul
           className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem link={"/doctor"}> {t("dashboard")}</SidebarItem>
+          <SidebarItem link={"/doctor"} setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}> {t("dashboard")}</SidebarItem>
           <SidebarCompactItem
             title={t("clinicsManagement")}
             links={[
@@ -97,10 +97,10 @@ const SidebarDoctor = ({
             ]}
           >
             <div className="flex flex-col">
-              <SidebarItem link={"/doctor/clinic-details"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/clinic-details"}>
                 {t("clinicDetails")}
               </SidebarItem>
-              <SidebarItem
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANGE_SCHEDULES)
@@ -111,7 +111,7 @@ const SidebarDoctor = ({
               >
                 {t("clinicsSchedules")}
               </SidebarItem>
-              <SidebarItem
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
                 link={"/doctor/clinic/holidays"}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
@@ -124,7 +124,7 @@ const SidebarDoctor = ({
               </SidebarItem>
             </div>
           </SidebarCompactItem>
-          <SidebarItem
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
             link={"/doctor/service"}
             className={
               role == Role.CLINIC_EMPLOYEE &&
@@ -135,7 +135,7 @@ const SidebarDoctor = ({
           >
             {t("services")}
           </SidebarItem>
-          <SidebarItem
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
             link={"/doctor/offer"}
             className={
               role == Role.CLINIC_EMPLOYEE &&
@@ -146,7 +146,7 @@ const SidebarDoctor = ({
           >
             {t("offers")}
           </SidebarItem>
-          <SidebarItem
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
             link={"/doctor/patients"}
             className={
               role == Role.CLINIC_EMPLOYEE &&
@@ -157,7 +157,7 @@ const SidebarDoctor = ({
           >
             {t("patients")}
           </SidebarItem>
-          <SidebarItem
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
             link={"/doctor/medicines"}
             className={
               role == Role.CLINIC_EMPLOYEE &&
@@ -168,7 +168,7 @@ const SidebarDoctor = ({
           >
             {t("medicines")}
           </SidebarItem>
-          <SidebarItem
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar}
             link={"/doctor/staff"}
             className={
               role == Role.CLINIC_EMPLOYEE &&
@@ -179,7 +179,7 @@ const SidebarDoctor = ({
           >
             {t("staff")}
           </SidebarItem>
-          <SidebarItem link={"/doctor/appointment"}>
+          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/appointment"}>
             {t("appointment")}
           </SidebarItem>
           <SidebarCompactItem
@@ -187,15 +187,14 @@ const SidebarDoctor = ({
             links={["/doctor/transaction", "/doctor/appointment-deductions"]}
           >
             <div className="flex flex-col">
-              <SidebarItem link={"/doctor/transaction"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/transaction"}>
                 {t("transaction")}
               </SidebarItem>
-              <SidebarItem link={"/doctor/appointment-deductions"}>
+              <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/appointment-deductions"}>
                 {t("appointmentDeductions")}
               </SidebarItem>
             </div>
           </SidebarCompactItem>
-          {/* <SidebarItem link={"/doctor/subscription"}>Subscriptions</SidebarItem> */}
         </ul>
       </div>
       <div

@@ -11,7 +11,7 @@ import TableBody from "@/components/common/Datatable/TableBody";
 import TablePaginator from "@/components/common/Datatable/TablePaginator";
 import FilterIcon from "@/components/icons/FilterIcon";
 import { Dialog, Transition } from "@headlessui/react";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 export interface FilterParam {
   [key: string]: any;
@@ -55,7 +55,7 @@ export interface DataTableData<T> {
 }
 
 const DataTable = (tableData: DataTableData<any>) => {
-  const t = useTranslations("table")
+  const t = useTranslations("table");
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [hideCols, setHideCols] = useState<number[]>([]);
@@ -232,7 +232,9 @@ const DataTable = (tableData: DataTableData<any>) => {
                     setPage(1);
                   }}
                 />
-                <SearchIcon className={`w-4 h-4 opacity-70 absolute top-2 right-2`} />
+                <SearchIcon
+                  className={`w-4 h-4 opacity-70 absolute top-2 right-2`}
+                />
               </label>
             </div>
           </div>

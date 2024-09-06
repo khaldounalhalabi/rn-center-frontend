@@ -36,14 +36,14 @@ const page = () => {
       ></div>
       <div
         className={
-          "absolute top-1/2 right-1/2 md:w-[43%] w-[80%]  h-fit transform translate-x-1/2 md:-translate-y-[80%] -translate-y-[100%] "
+          "absolute top-1/2 right-1/2 md:w-[43%] w-[80%] h-[50vh]  transform translate-x-1/2 md:-translate-y-[80%] -translate-y-[100%] "
         }
       >
         <ExpiredIcon className={'w-full h-full'}/>
       </div>
       <div
         className={
-          "flex flex-col items-center absolute top-1/2 left-1/2 md:w-[43%] w-[80%] h-fit kodchasan transform -translate-x-1/2 md:translate-y-[60%] translate-y-0"
+          "flex flex-col items-center absolute h-fit top-1/2 left-1/2 md:w-[43%] w-[80%] kodchasan transform -translate-x-1/2 md:translate-y-[50%] translate-y-0"
         }
       >
         <h3 className={"font-bold text-[30px] text-[#013567]  text-center"}>

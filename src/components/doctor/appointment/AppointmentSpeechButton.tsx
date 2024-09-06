@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import SpeechIcon from "@/components/icons/SpeechIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { toast } from "react-toastify";
@@ -11,7 +11,8 @@ const AppointmentSpeechButton = ({
   message: string;
   language: string;
 }) => {
-  const voices = window.speechSynthesis.getVoices();
+  useEffect(() => {}, []);
+  const voices = new SpeechSynthesis().getVoices();
 
   const speak = () => {
     const hasArabicVoice = voices.some((voice) =>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const HandleExportExcel = () => {
   const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {});
 
   const handleExportData = async (api: any) => {
     setIsLoading(true);

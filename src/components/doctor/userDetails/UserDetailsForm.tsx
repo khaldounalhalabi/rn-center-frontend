@@ -26,7 +26,6 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         console.log(res);
         window.localStorage.setItem(
             "user",
-            // @ts-ignore
             JSON.stringify(res?.data.user ?? undefined),
         );
         return res;

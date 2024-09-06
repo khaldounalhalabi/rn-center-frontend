@@ -357,7 +357,6 @@ const ClinicForm = ({
         )}
       </Grid>
       <TextAreaMap
-          className={"col-span-2"}
           name="address.map_iframe"
           label={t("mapIframe")}
           required={true}

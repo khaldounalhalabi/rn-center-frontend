@@ -1,5 +1,14 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const HandleGetUserData = () => {
-  if (window) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (isClient) {
     const data = window.localStorage.getItem("user");
     return data ? JSON.parse(data) : undefined;
   } else {

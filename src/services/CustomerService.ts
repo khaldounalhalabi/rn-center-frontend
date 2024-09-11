@@ -9,12 +9,21 @@ export class CustomerService extends BaseService<Customer> {
     return `${this.actor}/customers`;
   }
 
-  public async getCustomerLastVisit(
+  public async getAdminCustomerLastVisit(
     customerId: number,
     clinicId: number,
   ): Promise<ApiResponse<Appointment>> {
     const res = await GET<Appointment>(
       `${this.actor}/customers/${customerId}/clinics/${clinicId}/last-appointment`,
+    );
+    return await this.errorHandler(res);
+  }
+
+  public async getDoctorCustomerLastVisit(
+    customerId: number,
+  ): Promise<ApiResponse<Appointment>> {
+    const res = await GET<Appointment>(
+      `${this.actor}/customers/${customerId}/last-appointment`,
     );
     return await this.errorHandler(res);
   }
@@ -26,6 +35,7 @@ export class CustomerService extends BaseService<Customer> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
+    headers?: Record<string,any>,
     params?: object,
   ): Promise<ApiResponse<Customer[]>> {
     const res = await GET<Customer[]>(
@@ -38,7 +48,7 @@ export class CustomerService extends BaseService<Customer> {
         per_page: per_page,
         ...params,
       },
-      this.headers,
+        headers,
     );
     return await this.errorHandler(res);
   }

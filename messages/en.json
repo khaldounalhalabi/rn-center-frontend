@@ -516,6 +516,7 @@
         "note": "Note",
         "image": "Images",
         "alowedUses": "Allowed Uses",
+        "allowReuse": "Allow Reuse",
         "description": "Description"
       },
       "show": {
@@ -718,7 +719,7 @@
     "staff": {
       "table": {
         "staff": "Staff",
-        "mame": "Name",
+        "name": "Name",
         "actions": "Actions"
       },
       "create": {
@@ -734,6 +735,7 @@
         "manageHolidays": "Manage Holidays",
         "manageEmployees": "Manage Employees",
         "manageAppointments": "Manage Appointments",
+        "accountantManagement":"Accountant Management",
         "first-Name": " First Name",
         "middle-name": " Middle Name",
         "last-name": " Last Name",

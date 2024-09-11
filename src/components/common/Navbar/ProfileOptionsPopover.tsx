@@ -4,7 +4,7 @@ import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { User } from "@/Models/User";
-import { deleteCookieClient, getCookieClient } from "@/Actions/clientCookies";
+import {deleteCookieClient, getCookieClient, setCookieClient} from "@/Actions/clientCookies";
 import { Navigate } from "@/Actions/navigate";
 import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
@@ -13,6 +13,7 @@ import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
 import {useTranslations} from "next-intl";
+import {Role} from "@/enum/Role";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -27,9 +28,21 @@ const ProfileOptionsPopover = () => {
     queryKey: ["user", reFetch],
     queryFn: async () => {
       // @ts-ignore
-      return await AuthService.make<AuthService>(actor).GetUserDetails();
+      return await AuthService.make<AuthService>(actor).GetUserDetails().then((res)=>{
+        // @ts-ignore
+        if (res?.data?.role[0]?.name == Role.CLINIC_EMPLOYEE) {
+          const permissions = res?.data?.permissions ?? [''];
+           setCookieClient("permissions", permissions?.toString());
+        } else {
+           setCookieClient("permissions", "dffds%2Cfdsf");
+        }
+        return res
+      });
     },
   });
+
+  // To Do create not
+
   const t = useTranslations("nav")
   const res: User | undefined = data?.data;
   const imageUrl = data?.data?.image?.[0]?.file_url;

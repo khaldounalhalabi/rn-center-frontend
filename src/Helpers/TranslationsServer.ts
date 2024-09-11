@@ -11,25 +11,25 @@ const TranslateServer = async (
   const noDataObj = JSON.parse(noData ?? "{}");
 
   if (!val && object) {
-    return noDataObj;
+    return await noDataObj;
   }
 
   if (!val && !object) {
     if (locale == "en") {
-      return noDataObj.en;
+      return await noDataObj.en;
     } else {
-      return noDataObj.ar;
+      return await noDataObj.ar;
     }
   }
-  const tr = JSON.parse(val ?? "{}");
+  const tr = await JSON.parse(val ?? "{}");
   if (val && !object) {
     if (locale == "en") {
-      return tr.en;
+      return await tr.en;
     } else {
-      return tr.ar;
+      return await tr.ar;
     }
   } else if (val && object) {
-    return tr;
+     return await tr;
   }
 };
 export default TranslateServer;

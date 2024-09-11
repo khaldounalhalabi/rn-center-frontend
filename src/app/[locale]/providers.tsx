@@ -6,14 +6,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
-import {usePathname} from "@/navigation";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
   setReFetch: Dispatch<SetStateAction<boolean>>;
 }
 
-// Define the default value for the context
 const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
   reFetch: false,
   setReFetch: () => {},

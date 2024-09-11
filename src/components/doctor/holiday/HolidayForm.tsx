@@ -23,16 +23,22 @@ const HolidayForm = ({
       return ClinicHolidayService.make<ClinicHolidayService>("doctor").update(
         defaultValues.id,
         data,
-      );
+      ).then((res)=>{
+        console.log(res)
+        return res
+      });
     } else {
       return await ClinicHolidayService.make<ClinicHolidayService>(
         "doctor",
-      ).store(data);
+      ).store(data).then((res)=>{
+        console.log(res)
+        return res
+      });
     }
   };
 
   const onSuccess = () => {
-    Navigate(`/doctor/clinic/holidays`);
+    // Navigate(`/doctor/clinic/holidays`);
   };
   return (
     <Form

@@ -8,7 +8,10 @@ import { User } from "@/Models/User";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Role } from "@/enum/Role";
+import { PermissionsDoctor } from "@/enum/Permissions";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 const UserDataDoctor = ({
   statisticsRes,
@@ -19,14 +22,14 @@ const UserDataDoctor = ({
   isFetching: boolean;
   isLoading: boolean;
 }) => {
-  const t = useTranslations("common.dashboard")
+  const t = useTranslations("common.dashboard");
   const user: User = HandleGetUserData();
   const thisMonth = Number(statisticsRes?.total_income_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_income_prev_month ?? 0);
 
   function calculatePercentageChange(
-      incomeLastMonth: number,
-      incomeThisMonth: number,
+    incomeLastMonth: number,
+    incomeThisMonth: number,
   ) {
     if (incomeLastMonth === 0 && incomeThisMonth === 0) {
       return 0;
@@ -39,13 +42,17 @@ const UserDataDoctor = ({
     } else if (incomeThisMonth === 0 && incomeLastMonth > 0) {
       return -100;
     } else if (incomeThisMonth < 0 && incomeLastMonth < 0) {
-      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
+      return (
+        ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100
+      );
     } else if (incomeThisMonth > 0 && incomeLastMonth > 0) {
       return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
     } else if (incomeThisMonth < 0 && incomeLastMonth > 0) {
       return ((incomeThisMonth - incomeLastMonth) / incomeLastMonth) * 100;
     } else if (incomeThisMonth > 0 && incomeLastMonth < 0) {
-      return ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100;
+      return (
+        ((incomeThisMonth - incomeLastMonth) / Math.abs(incomeLastMonth)) * 100
+      );
     }
     return 0;
   }
@@ -55,6 +62,9 @@ const UserDataDoctor = ({
     Number(thisMonth ?? 0),
   );
   const local = useLocale();
+  const role = getCookieClient("role");
+  const permissions: string | undefined = getCookieClient("permissions");
+  const permissionsArray: string[] = permissions?.split(",") ?? [""];
 
   return (
     <>
@@ -84,16 +94,22 @@ const UserDataDoctor = ({
             </h2>
             <p className="text-sm md:text-base">{user.email}</p>
           </div>
-
-          <div className="p-4 text-center">
-            <h2 className=" font-semibold">{t("editProfile")}</h2>
-            <Link
-              href={"/doctor/clinic-details/edit"}
-              className="flex rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white"
-            >
-              {t("profile")} <BackIcon className="w-8 h-5 ml-1 mt-1 rotate-180" />
-            </Link>
-          </div>
+          {role == Role.CLINIC_EMPLOYEE &&
+          !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE) ? (
+            false
+          ) : (
+            <div className={`p-4 text-center `}>
+              <h2 className=" font-semibold">{t("editProfile")}</h2>
+              <Link
+                href={"/doctor/clinic-details/edit"}
+                className={`
+                 flex rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
+              >
+                {t("profile")}{" "}
+                <BackIcon className="w-8 h-5 ml-1 mt-1 rotate-180" />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <div className="my-6 h-[140px] card bg-base-100 p-4">

@@ -517,7 +517,8 @@
         "endDate": "تاريخ الانتهاء",
         "note": "ملاحظة",
         "image": "صور",
-        "alowedUses": "الاستخدامات المسموح بها"
+        "alowedUses": "الاستخدامات المسموح بها",
+        "allowReuse": "السماح بأعادة الاسستخدام"
       },
       "show": {
         "amount": "الكمية",
@@ -742,6 +743,7 @@
         "manageHolidays": "ادارة العطل",
         "manageEmployees": "ادارة الموظفين",
         "manageAppointments": "ادارة المواعيد",
+        "accountantManagement":"ادارة الحسابات",
         "first-Name": "اسم  الأول",
         "middle-name": "اسم  الأوسط",
         "last-name": "اسم  الاخير",

@@ -5,10 +5,12 @@ import { usePathname } from "@/navigation";
 const SidebarCompactItem = ({
   links,
   title,
+    className=undefined,
   children,
 }: {
   links: string[];
   title: string;
+  className?:string
   children: ReactNode;
 }) => {
   const path = usePathname();
@@ -20,7 +22,7 @@ const SidebarCompactItem = ({
   }
 
   return (
-    <li>
+    <li className={`${className}`}>
       <details className="group [&_summary::-webkit-details-marker]:hidden">
         <summary
           className={`flex cursor-pointer items-center justify-between rounded-lg  px-4 py-4  ${active}`}

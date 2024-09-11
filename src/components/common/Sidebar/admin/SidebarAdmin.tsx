@@ -197,24 +197,24 @@ const SidebarAdmin = ({
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/clinics"} title={t("clinics")}>
-                <ClinicsShowIcon className={`h-8 w-8 mx-3`} />
+                <ClinicsShowIcon className={`h-6 w-6 mx-2`} />
               </SidebarIcon>
               <SidebarIcon
                 link={"/admin/clinics/schedules"}
                 title={t("clinicsSchedules")}
               >
-                <SchedulesIcon className={`h-7 w-7 mx-3`} />
+                <SchedulesIcon className={`h-6 w-6 mx-2`} />
               </SidebarIcon>
               <SidebarIcon
                 link={"/admin/clinics/holidays"}
                 title={t("clinicsHolidays")}
               >
-                <HolidaysIcon className={`h-7 w-7 mx-3`} />
+                <HolidaysIcon className={`h-6 w-6 mx-2`} />
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
           <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
-            <SpecialitiesIcon className={`h-7 w-7`} />
+            <SpecialitiesIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarCompactIcon
             title={"Hospitals Management"}

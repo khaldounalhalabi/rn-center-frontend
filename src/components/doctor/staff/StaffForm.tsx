@@ -30,6 +30,7 @@ interface PermissionsType {
   "manage-employees": boolean;
   "show-clinic-profile"?: boolean;
   "manage-appointments": boolean;
+  "accountant-management":boolean;
 }
 
 function comparePermissions(a: string[], b: string[]): PermissionsType {
@@ -44,6 +45,7 @@ function comparePermissions(a: string[], b: string[]): PermissionsType {
     "edit-clinic-profile": false,
     "show-clinic-profile": false,
     "manage-employees": false,
+    "accountant-management":false
   };
   a.forEach((item: string) => {
     if (b.includes(item)) {
@@ -104,7 +106,7 @@ const StaffForm = ({
   function openModal() {
     setIsOpen(true);
   }
-
+  const [errorPermissions,setErrorPermissions] = useState("")
   const handleSubmitPermissions = async (data: PermissionsType) => {
     // @ts-ignore
     const permissions = Object.keys(data).filter((key) => data[key]);
@@ -116,6 +118,10 @@ const StaffForm = ({
       .updateEmployeePermissions(id ?? 0, dataSend)
       .then((res) => {
         console.log(res);
+        if(res.code == 405){
+          // @ts-ignore
+          setErrorPermissions(res?.message?.errors?.permissions)
+        }
         setCookieClient("permissions", permissions.toString());
         return res;
       });
@@ -259,6 +265,21 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
+                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                      <label className={"w-2/3"}>
+                        {t("accountantManagement")}
+                      </label>
+                      <div className={"w-1/3"}>
+                        <Input
+                            name={PermissionsDoctor.ACCOUNTANT_MANAGEMENT}
+                            type="checkbox"
+                            className="checkbox checkbox-info"
+                        />
+                      </div>
+                    </div>
+                    {errorPermissions?
+                        <p className={'p-4 text-error'}>{errorPermissions}</p>:""
+                    }
                   </Form>
                 </Dialog.Panel>
               </Transition.Child>

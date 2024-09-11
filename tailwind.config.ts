@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+const plugin = require("tailwindcss/plugin");
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,7 +9,9 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/common/ui/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui")
+  ],
   daisyui: {
     themes: ["light"],
   },
@@ -34,7 +38,7 @@ const config: Config = {
       colors: {
         pom: "#007BFF",
         title: "#151D48",
-        "brand-primary" : "#1FB8B9"
+        "brand-primary": "#1FB8B9",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

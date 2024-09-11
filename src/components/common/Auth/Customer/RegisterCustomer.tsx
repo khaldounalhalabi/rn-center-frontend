@@ -7,11 +7,20 @@ import { setCookieClient } from "@/Actions/clientCookies";
 import { Navigate } from "@/Actions/navigate";
 import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
 import AuthSubmitButton from "./AuthSubmitButton";
+import {swal} from "@/Helpers/UIHelpers";
 
 const RegisterCustomer = () => {
   const [privacy, setPrivacy] = useState<boolean>(false);
   const handleRegister = async (data: any) => {
-    return await POST("/customer/register", data);
+    if(privacy){
+      return await POST("/customer/register", data)
+    }else {
+     return swal.fire({
+        title: "We Apologize",
+        text: "You do not agree to the privacy policies.",
+        icon: "question"
+      });
+    }
   };
 
   const handleSuccess = (data: any) => {
@@ -23,7 +32,7 @@ const RegisterCustomer = () => {
     Navigate(`/auth/customer/verify-code`);
   };
 
-  return (
+    return (
     <div
       className={
         "min-w-full kodchasan tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
@@ -53,12 +62,12 @@ const RegisterCustomer = () => {
               }
             >
               <Form
-                handleSubmit={handleRegister}
+                  // @ts-ignore
+                  handleSubmit={handleRegister}
                 onSuccess={handleSuccess}
                 className={"w-full"}
                 otherSubmitButton={(isSubmitting) => (
                   <AuthSubmitButton
-                    disabled={!privacy}
                     isSubmitting={isSubmitting}
                   >
                     Create
@@ -94,7 +103,7 @@ const RegisterCustomer = () => {
                   conClass={"my-8"}
                 />
                 <InputLoginCustomer
-                  name={"phone_number[0]"}
+                  name={"phone_number"}
                   label={"Phone Number"}
                   type={"tel"}
                   labelClass={

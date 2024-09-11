@@ -137,6 +137,28 @@ iframe {
     border-color: #ccc; /* لون الحدود الافتراضي */
 }
 
+
+
+
+
+.embla {
+    overflow: hidden;
+}
+.embla__container {
+    display: flex;
+}
+.embla__slide {
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
 ::-webkit-scrollbar {
     @apply w-[5px];
 }
@@ -151,15 +173,4 @@ iframe {
 
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-pom;
-}
-
-
-.embla {
-    overflow: hidden;
-}
-.embla__container {
-    display: flex;
-}
-.embla__slide {
-    position: relative;
 }

@@ -14,7 +14,7 @@ const useFcmToken = () => {
     setIsClient(true)
     const retrieveToken = async () => {
       try {
-        if (isClient && "serviceWorker" in navigator) {
+        if (typeof window !== "undefined" && "serviceWorker" in navigator) {
           const messaging = getMessaging(firebaseApp);
 
           const permission = await Notification.requestPermission();

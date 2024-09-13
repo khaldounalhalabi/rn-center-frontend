@@ -155,6 +155,7 @@ export enum NotificationsType {
 export enum RealTimeEvents {
   AppointmentStatusChange = "RealTime\\AppointmentChangeNotification",
   BalanceChange = "RealTime\\BalanceChangeNotification",
+  NewAppointment = "RealTime\\NewAppointmentNotification",
 }
 
 export interface Notification {

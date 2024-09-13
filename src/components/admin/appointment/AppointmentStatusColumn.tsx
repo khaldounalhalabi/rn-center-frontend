@@ -6,7 +6,7 @@ import AppointmentStatuses, {
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { swal } from "@/Helpers/UIHelpers";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
@@ -26,7 +26,7 @@ const AppointmentStatusColumn = ({
   const handleSelectStatus = (
     status: string,
     id: number,
-    setSelected: React.Dispatch<string | undefined>,
+    setSelected: React.Dispatch<string | undefined>
   ) => {
     if (status == AppointmentStatusEnum.CHECKIN) {
       swal
@@ -73,6 +73,19 @@ const AppointmentStatusColumn = ({
     setIsOpen(true);
   }
 
+  useEffect(() => {
+    setAppointment(appointment);
+  }, [appointment]);
+
+  useEffect(() => {
+    if (appointmentState?.status) {
+      setAppointment({
+        ...appointmentState,
+        status: selected ?? appointmentState.status,
+      });
+    }
+  }, [selected]);
+
   const HandleCancel = async (data: { cancellation_reason: string }) => {
     const sendData = {
       status: AppointmentStatusEnum.CANCELLED,
@@ -116,7 +129,7 @@ const AppointmentStatusColumn = ({
         </Dialog>
       </Transition>
       <select
-        value={selected}
+        value={appointmentState?.status}
         className={`select select-bordered text-sm font-medium w-fit `}
         onChange={(e) => {
           setSelected(e.target?.value);
@@ -125,7 +138,7 @@ const AppointmentStatusColumn = ({
             : handleSelectStatus(
                 e.target.value,
                 appointmentState?.id ?? 0,
-                setSelected,
+                setSelected
               );
         }}
       >

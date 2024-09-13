@@ -16,10 +16,10 @@ import { toast } from "react-toastify";
 import { Link } from "@/navigation";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("common.appointment.table")
+  const t = useTranslations("common.appointment.table");
   const handleCopyLink = (id: number | undefined) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
@@ -134,10 +134,13 @@ const Page = () => {
                 handle={(payload) => {
                   if (
                     revalidate &&
-                    payload.getNotificationType() ==
-                      RealTimeEvents.AppointmentStatusChange
+                    (payload.getNotificationType() ==
+                      RealTimeEvents.AppointmentStatusChange ||
+                      payload.getNotificationType() ==
+                        RealTimeEvents.NewAppointment)
                   ) {
                     revalidate();
+                    console.log("revalidated");
                   }
                 }}
               />

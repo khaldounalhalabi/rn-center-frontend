@@ -23,6 +23,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        staleTime:0,
+        refetchOnReconnect:true,
+        retry:true,
+        retryDelay:1
       },
     },
   });

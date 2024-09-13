@@ -29,7 +29,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -44,13 +44,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -72,29 +72,30 @@ const DataTable = (tableData: DataTableData<any>) => {
       queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
     });
   };
-  const { isPending, data, isPlaceholderData, isRefetching } = useQuery({
-    queryKey: [
-      `tableData_${tableData.createUrl}_${tableData.title}`,
-      page,
-      search,
-      sortDir,
-      sortCol,
-      perPage,
-      params,
-    ],
-    queryFn: async () => {
-      let s = !search || search == "" ? undefined : search;
-      let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
-      let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
-      return await tableData
-        .api(page, s, sortC, sortD, perPage, params)
-        .then((res) => {
-          return res;
-        });
-    },
-    refetchOnWindowFocus: false,
-    retry: 10,
-  });
+  const { isPending, data, isPlaceholderData, isRefetching, refetch } =
+    useQuery({
+      queryKey: [
+        `tableData_${tableData.createUrl}_${tableData.title}`,
+        page,
+        search,
+        sortDir,
+        sortCol,
+        perPage,
+        params,
+      ],
+      queryFn: async () => {
+        let s = !search || search == "" ? undefined : search;
+        let sortD = !sortDir || sortDir == "" ? undefined : sortDir;
+        let sortC = !sortCol || sortCol == "" ? undefined : sortCol;
+        return await tableData
+          .api(page, s, sortC, sortD, perPage, params)
+          .then((res) => {
+            return res;
+          });
+      },
+      refetchOnWindowFocus: false,
+      retry: 10,
+    });
   return (
     <>
       {tableData.filter ? (
@@ -259,7 +260,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   tableData={tableData}
                   hidden={hideCols}
                   setHidden={setHideCols}
-                  revalidate={revalidate}
+                  revalidate={refetch}
                 />
               </table>
             </div>

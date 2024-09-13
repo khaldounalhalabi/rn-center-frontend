@@ -33,7 +33,7 @@ const SidebarItem = ({
   }
   return (
     <li
-      className={`${className}}`}
+      className={`${className}`}
       onClick={(e) => {
         if(openNavBar.sm) {
          setOpenNavBar({sm:!openNavBar.sm,md:false})

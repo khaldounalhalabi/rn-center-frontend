@@ -30,20 +30,22 @@ import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm"
 import PageCard from "@/components/common/ui/PageCard";
 import PatientForm from "@/components/doctor/patients/PatientForm";
 import { useTranslations } from "next-intl";
+import {User} from "@/Models/User";
 
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
   patient,
   type = "store",
+                           clinic = undefined
 }: {
   defaultValues?: Appointment;
   id?: number;
   patient?: Customer;
   type?: "store" | "update";
+  clinic?:User | undefined
 }) => {
   const t = useTranslations("common.appointment.create");
-  const clinic = HandleGetUserData();
   const [date, setDate] = useState(defaultValues ?? {});
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
@@ -56,10 +58,10 @@ const AppointmentForm = ({
     },
   });
   const range = {
-    id: clinic?.clinic_id ?? 0,
+    id: clinic?.clinic?.id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
     range: clinic?.clinic?.appointment_day_range ?? 0,
-    maxAppointment: clinic?.clinic?.max_appointments,
+    maxAppointment: clinic?.clinic?.max_appointments ?? 0,
     data: {
       booked_times: availableTimes?.data?.booked_times ?? [],
       clinic_schedule: availableTimes?.data?.clinic_schedule ?? {},
@@ -70,16 +72,15 @@ const AppointmentForm = ({
   const { data: lastVisitData } = useQuery({
     queryKey: ["getLastVisit", customer_id, range.id],
     queryFn: async () => {
-      if (range.id != 0 && customer_id) {
+      if (customer_id) {
         return await CustomerService.make<CustomerService>(
           "doctor",
-        ).getCustomerLastVisit(customer_id ?? 0, range.id ?? 0);
+        ).getDoctorCustomerLastVisit(customer_id ?? 0);
       } else {
         return { data: { date: "" } };
       }
     },
   });
-
   const lastAppointmentDate = lastVisitData?.data?.date;
   const handleSubmit = async (data: any) => {
     const sendData = patient?.id
@@ -302,7 +303,7 @@ const AppointmentForm = ({
                           data,
                           day,
                           range.range,
-                          range.maxAppointment,
+                          range?.maxAppointment,
                         );
                       }}
                     />
@@ -418,7 +419,7 @@ const AppointmentForm = ({
                 name={"service_id"}
                 placeHolder={"Select Service name ..."}
                 api={(page, search) =>
-                    ServiceService.make<ServiceService>("doctor").indexWithPagination(
+                    ServiceService.make<ServiceService>("doctor").setHeaders({filtered: true }).indexWithPagination(
                         page,
                         search,
                     )

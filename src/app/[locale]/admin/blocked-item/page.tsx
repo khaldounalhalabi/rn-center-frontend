@@ -37,7 +37,7 @@ const Page = () => {
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
-            baseUrl={`/admin/blocked_items`}
+            baseUrl={`/admin/blocked-items`}
             editUrl={`/admin/blocked-item/${data?.id}/edit`}
             showUrl={`/admin/blocked-item/${data?.id}`}
             setHidden={setHidden}

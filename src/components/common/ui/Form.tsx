@@ -37,7 +37,11 @@ const Form = ({
   const onSubmit = async (data: any) => {
     const res = await handleSubmit(data);
 
-    if (!res.hasValidationErrors() && res.code == 200) {
+    if (!res) {
+      return;
+    }
+
+    if (!res?.hasValidationErrors() && res.code == 200) {
       if (showToastMessage) {
         toast.success((res?.message as string) ?? "success");
       }

@@ -77,7 +77,7 @@ const AppointmentForm = ({
     queryKey: ["getLastVisit", customer_id, range.id],
     queryFn: async () => {
       if (range.id != 0 && customer_id) {
-        return await CustomerService.make<CustomerService>().getCustomerLastVisit(
+        return await CustomerService.make<CustomerService>().getAdminCustomerLastVisit(
           customer_id ?? 0,
           range.id ?? 0,
         );
@@ -177,7 +177,7 @@ const AppointmentForm = ({
 
   useEffect(() => {
     setTotalCost(handleTotalCost());
-  }, [getServicePrice, getExtra, range, getDiscount, offer]);
+  }, [getServicePrice, getExtra, range, getDiscount, offer, systemOffer]);
 
   const handleTotalCost = (): number => {
     if (
@@ -190,14 +190,20 @@ const AppointmentForm = ({
         Number(getExtra ?? 0) -
         Number(getDiscount ?? 0)
       );
-    } else if (systemOffer || defaultValues?.system_offers) {
+    } else if (
+      systemOffer ||
+      (defaultValues?.system_offers && (!offer || !defaultValues?.offers))
+    ) {
       return (
         appointmentCostSystem +
         Number(getServicePrice ?? 0) +
         Number(getExtra ?? 0) -
         Number(getDiscount ?? 0)
       );
-    } else if (offer || defaultValues?.offers) {
+    } else if (
+      offer ||
+      (defaultValues?.offers && (!systemOffer || !defaultValues?.system_offers))
+    ) {
       return (
         appointmentCostOfferOnly +
         Number(getServicePrice ?? 0) +
@@ -363,10 +369,16 @@ const AppointmentForm = ({
                   name={"customer_id"}
                   placeHolder={"Select Patient name ..."}
                   api={(page, search) =>
-                    CustomerService.make<CustomerService>().getClinicCustomer(
+                    CustomerService.make<CustomerService>(
+                      "admin",
+                    ).getClinicCustomer(
                       clinicId,
                       page,
                       search,
+                      undefined,
+                      undefined,
+                      undefined,
+                      { filtered: true },
                     )
                   }
                   revalidate={`${clinicId}`}
@@ -520,6 +532,10 @@ const AppointmentForm = ({
                 clinicId,
                 page,
                 search,
+                undefined,
+                undefined,
+                undefined,
+                { filtered: true },
               )
             }
             defaultValues={
@@ -685,11 +701,11 @@ const AppointmentForm = ({
 export default AppointmentForm;
 
 const appointmentDate = {
-  "2024-08-05 00:00:00": 4,
-  "2024-08-06 00:00:00": 3,
-  "2024-08-07 00:00:00": 1,
-  "2024-08-08 00:00:00": 10,
-  "2024-08-09 00:00:00": 5,
-  "2024-08-10 00:00:00": 4,
-  "2024-08-11 00:00:00": 10,
+    "2024-08-05 00:00:00": 4,
+    "2024-08-06 00:00:00": 3,
+    "2024-08-07 00:00:00": 1,
+    "2024-08-08 00:00:00": 10,
+    "2024-08-09 00:00:00": 5,
+    "2024-08-10 00:00:00": 4,
+    "2024-08-11 00:00:00": 10,
 };

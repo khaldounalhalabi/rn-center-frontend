@@ -179,10 +179,23 @@ const SidebarDoctor = ({
           >
             {t("staff")}
           </SidebarItem>
-          <SidebarItem setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/appointment"}>
+          <SidebarItem
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS)
+                    ? "hidden"
+                    : ""
+              }
+              setOpenNavBar={setOpenNavBar} openNavBar={openNavBar} link={"/doctor/appointment"}>
             {t("appointment")}
           </SidebarItem>
           <SidebarCompactItem
+              className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.ACCOUNTANT_MANAGEMENT)
+                      ? "hidden"
+                      : ""
+              }
             title={t("accountantManagement")}
             links={["/doctor/transaction", "/doctor/appointment-deductions"]}
           >
@@ -301,10 +314,23 @@ const SidebarDoctor = ({
           >
             <StaffIcon className={`h-8 w-8`} />
           </SidebarIcon>
-          <SidebarIcon link={"/doctor/appointment"} title={"Appointment"}>
+          <SidebarIcon
+              className={
+                role == Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS)
+                    ? "hidden"
+                    : ""
+              }
+              link={"/doctor/appointment"} title={"Appointment"}>
             <AppointmentIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarCompactIcon
+              className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.ACCOUNTANT_MANAGEMENT)
+                      ? "hidden"
+                      : ""
+              }
             title={"Accountant Management"}
             icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
           >
@@ -320,12 +346,7 @@ const SidebarDoctor = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-          {/* <SidebarIcon
-              link={"/doctor/subscription"}
-              title={"Subscriptions"}
-          >
-            <SubscriptionIcon className={`h-7 w-7 mx-3`} />
-          </SidebarIcon> */}
+
         </ul>
       </div>
     </div>

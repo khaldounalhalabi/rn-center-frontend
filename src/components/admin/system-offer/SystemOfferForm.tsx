@@ -106,7 +106,7 @@ const SystemOfferForm = ({
         <Datepicker required={true} name={"to"} label={t("endDate")} />
         <div className={"flex w-full pl-2 my-3 justify-around"}>
           <label className={"w-2/3"}>
-            {t("alowedUses")} : <span className="ml-1 text-red-600">*</span>
+            {t("allowReuse")} : <span className="ml-1 text-red-600">*</span>
           </label>
           <div className={"w-1/3"}>
             <Input

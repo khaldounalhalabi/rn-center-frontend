@@ -40,7 +40,7 @@ const ClinicCarousel = () => {
         <div className="h-[24vh] sm:h-[34vh] xl:h-[40vh]">
           <div className="embla h-full" ref={emblaRef}>
             <div className="embla__container py-6">
-              {data?.data.map((e: Clinic, index) => (
+              {data?.data?.map((e: Clinic, index) => (
                 <Link
                   href={`/customer/clinics/${e.id}`}
                   className={

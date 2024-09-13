@@ -116,7 +116,7 @@ const Overview = ({
                       {t("offers")} [{TranslateClient(e.title)}]
                     </td>
                     <td>
-                      {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                      {e?.value.toLocaleString() ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                     </td>
                   </tr>
                 ))
@@ -129,7 +129,7 @@ const Overview = ({
                         {t("systemOffer")} [{TranslateClient(e.title)}]
                       </td>
                       <td>
-                        {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {e?.amount.toLocaleString() ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
                     </tr>
                   ))
@@ -137,7 +137,7 @@ const Overview = ({
               : ""}
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
-              <td className="text-lg">{handleTotalCost()} IQD</td>
+              <td className="text-lg">{handleTotalCost().toLocaleString()} IQD</td>
             </tr>
           </tbody>
         </table>

@@ -67,7 +67,7 @@ const SpecialityHomePageSection = () => {
                 <div className={"w-full h-[70%]"}>
                   <img
                     className={"w-full h-full rounded-t-xl"}
-                    src={e.image[0].file_url}
+                    src={e?.image[0]?.file_url}
                     alt={".."}
                   />
                 </div>
@@ -106,7 +106,7 @@ const SpecialityHomePageSection = () => {
           <div className="  h-[23vh]">
             <div className="embla h-full" ref={emblaRef}>
               <div className="embla__container py-6">
-                {data?.data.map((e, index) => (
+                {data?.data?.map((e, index) => (
                   <div
                     className={
                       "w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4"
@@ -116,7 +116,7 @@ const SpecialityHomePageSection = () => {
                     <div className={"w-[23vw] h-[50%]"}>
                       <img
                         className={"w-full h-full rounded-t-xl"}
-                        src={e.image[0].file_url}
+                        src={e?.image[0]?.file_url}
                         alt={".."}
                       />
                     </div>

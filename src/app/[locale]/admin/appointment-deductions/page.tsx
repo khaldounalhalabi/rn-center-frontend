@@ -211,7 +211,7 @@ const Page = () => {
         render: (_status, transaction, _setHidden, revalidate) => {
           return (
             <AppointmentDeductionStatusColumn
-              transaction={transaction}
+              appointmentDeduction={transaction}
               revalidate={revalidate}
             />
           );

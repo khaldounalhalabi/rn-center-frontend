@@ -33,3 +33,20 @@ export interface Earning {
   earnings: number;
   date: string;
 }
+
+interface X {
+  xx: (prev: AppointmentDeductions | undefined) => {
+    status: string;
+    id?: number | undefined;
+    amount?: number | undefined;
+    clinic_transaction_id?: number | undefined;
+  };
+
+  xxx: (prev: AppointmentDeductions | undefined) => {
+    status: string;
+    id?: number | undefined;
+    amount?: number | undefined;
+    clinic_transaction_id?: number | undefined;
+    clinic?: Clinic | undefined;
+  };
+}

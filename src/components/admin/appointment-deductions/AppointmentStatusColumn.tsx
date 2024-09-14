@@ -4,39 +4,29 @@ import React, { useEffect, useState } from "react";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
-import { useQueryClient } from "@tanstack/react-query";
 
 const AppointmentDeductionStatusColumn = ({
-  transaction,
-  revalidate,
-  userType = "admin",
+  appointmentDeduction,
 }: {
-  transaction?: AppointmentDeductions;
+  appointmentDeduction?: AppointmentDeductions;
   revalidate?: () => void;
-  userType?: "admin" | "doctor";
 }) => {
-  const queryClient = useQueryClient();
-  const revalidatee = () => {
-    return queryClient.invalidateQueries({
-      queryKey: ["tableData_undefined_Appointment Deductions"],
-    });
-  };
-  const [selected, setSelected] = useState(transaction?.status);
+  const [selected, setSelected] = useState(appointmentDeduction?.status);
   const handleSelectStatus = (status: string, id: number) => {
+    setSelected(status);
     return AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      userType,
+      "admin"
     )
       .toggleStatus(id)
       .then((res) => {
         setSelected(status);
         toast.success("Status Changed!");
-        return revalidate;
       });
   };
 
   useEffect(() => {
-    setSelected(transaction?.status);
-  }, [revalidate, revalidatee]);
+    setSelected(appointmentDeduction?.status);
+  }, [appointmentDeduction]);
 
   return (
     <>
@@ -44,7 +34,7 @@ const AppointmentDeductionStatusColumn = ({
         className={`select select-bordered text-sm font-medium w-fit `}
         value={selected}
         onChange={(e) =>
-          handleSelectStatus(e.target.value, transaction?.id ?? 0)
+          handleSelectStatus(e.target.value, appointmentDeduction?.id ?? 0)
         }
       >
         {AppointmentDeductionsStatusArray().map((e, index) => (

@@ -22,6 +22,9 @@ const AppointmentStatusColumn = ({
   revalidate?: () => void;
   userType?: "admin" | "doctor";
 }) => {
+  const [appointmentState, setAppointment] = useState<Appointment | undefined>(
+    appointment
+  );
 
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
@@ -107,6 +110,19 @@ const AppointmentStatusColumn = ({
       });
   };
 
+  useEffect(() => {
+    setAppointment(appointment);
+  }, [appointment]);
+
+  useEffect(() => {
+    if (appointmentState?.status) {
+      setAppointment({
+        ...appointmentState,
+        status: selected ?? appointmentState.status,
+      });
+    }
+  }, [selected]);
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -135,13 +151,14 @@ const AppointmentStatusColumn = ({
       </Transition>
       {isMutatingCheckout ? (
         "Loading..."
-      ) : (appointment?.status === AppointmentStatusEnum.CANCELLED) &&
-        appointment?.type == "online" ? (
+      ) : appointmentState?.status === AppointmentStatusEnum.CANCELLED &&
+        appointmentState?.type == "online" ? (
         <div className={"w-full text-center"}>
           <span
-            className={` badge  ${ appointment?.status === AppointmentStatusEnum.CANCELLED
-                  ? "badge-error"
-                  : ""
+            className={` badge  ${
+              appointmentState?.status === AppointmentStatusEnum.CANCELLED
+                ? "badge-error"
+                : ""
             }`}
           >
             {selected}
@@ -150,19 +167,21 @@ const AppointmentStatusColumn = ({
       ) : (
         <select
           className={`select select-bordered text-sm font-medium w-fit `}
-          onChange={(e) =>
+          onChange={(e) => {
             e.target.value === AppointmentStatusEnum.CANCELLED
               ? openModal()
-              : handleSelectStatus(e.target.value, appointment?.id ?? 0)
-          }
-          value={selected}
+              : handleSelectStatus(e.target.value, appointment?.id ?? 0);
+
+            setSelected(e.target.value);
+          }}
+          value={appointmentState?.status}
         >
           {isMutating ? (
             <option>Loading...</option>
           ) : (
             AppointmentStatusesFilter(
               appointment?.type ?? "",
-              appointment?.status ?? "",
+              appointment?.status ?? ""
             ).map((e, index) => (
               <option
                 key={index}

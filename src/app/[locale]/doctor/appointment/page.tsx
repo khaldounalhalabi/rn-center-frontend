@@ -27,7 +27,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useQuery } from "@tanstack/react-query";
 import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -35,8 +35,7 @@ interface filterExportType {
 }
 
 const Page = () => {
-
-  const t = useTranslations("common.appointment.table")
+  const t = useTranslations("common.appointment.table");
   const [serviceSelected, setServiceSelected] = useState<string>("all");
   const { data: service } = useQuery({
     queryKey: ["service"],
@@ -133,25 +132,25 @@ const Page = () => {
         label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
-              <NotificationHandler
-                  handle={(payload) => {
-                    if (
-                        payload.getNotificationType() ==
-                        RealTimeEvents.AppointmentStatusChange
-                    ) {
-                      if (revalidate) {
-                        revalidate();
-                      }
-                    }
-                  }}
-              >
-                <AppointmentStatusColumn
-                    userType={"doctor"}
-                    appointment={appointment}
-                    revalidate={revalidate}
-                />
-              </NotificationHandler>
-
+            <NotificationHandler
+              handle={(payload) => {
+                if (
+                  payload.getNotificationType() ==
+                    RealTimeEvents.AppointmentStatusChange ||
+                  payload.getNotificationType() == RealTimeEvents.NewAppointment
+                ) {
+                  if (revalidate) {
+                    revalidate();
+                  }
+                }
+              }}
+            >
+              <AppointmentStatusColumn
+                userType={"doctor"}
+                appointment={appointment}
+                revalidate={revalidate}
+              />
+            </NotificationHandler>
           );
         },
         sortable: true,
@@ -207,7 +206,6 @@ const Page = () => {
               setHidden={setHidden}
             >
               <>
-
                 <AppointmentSpeechButton message={message} language={lang} />
               </>
             </ActionsButtons>

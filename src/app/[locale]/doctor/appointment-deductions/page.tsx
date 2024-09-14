@@ -25,7 +25,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface filterExportType {
   year: string;
@@ -33,7 +33,7 @@ interface filterExportType {
 }
 
 const Page = () => {
-  const t = useTranslations("common.deductions.table")
+  const t = useTranslations("common.deductions.table");
   const {
     data: balance,
     isLoading,
@@ -43,7 +43,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor",
+        "doctor"
       ).getDoctorSummary();
     },
   });
@@ -141,7 +141,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor",
+        "doctor"
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -217,6 +217,7 @@ const Page = () => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
             refetch();
             revalidateTable();
+            console.log("asdasdasd");
           }
         }}
       />
@@ -325,7 +326,7 @@ const Page = () => {
               {t("appointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.appointments_deductions ?? 0,
+                  balance?.data?.appointments_deductions ?? 0
                 ).toLocaleString()}
               </span>
             </label>

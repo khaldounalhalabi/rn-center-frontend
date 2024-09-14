@@ -9,7 +9,6 @@ import { AuthService } from "@/services/AuthService";
 import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import { Phone } from "@/Models/Phone";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Gallery from "@/components/common/ui/Gallery";
 import { getTranslations } from "next-intl/server";
 import { getCookieServer } from "@/Actions/serverCookies";
@@ -112,7 +111,7 @@ const page = async () => {
               {res?.specialities?.map((spec) => {
                 return (
                   <div key={spec.id} className={"badge badge-info"}>
-                    {TranslateClient(spec.name)}
+                    {TranslateServer(spec.name)}
                   </div>
                 );
               })}
@@ -137,8 +136,8 @@ const page = async () => {
           <div className={"w-full"}>
             <label className={"label"}>{t("address")} :</label>
             <div className={"flex flex-col"}>
-              <p>{TranslateClient(res?.user?.address?.name)}</p>
-              <p>{TranslateClient(res?.user?.address?.city?.name)}</p>
+              <p>{await TranslateServer(res?.user?.address?.name)}</p>
+              <p>{await TranslateServer(res?.user?.address?.city?.name)}</p>
               <p>{res?.user?.address?.country}</p>
             </div>
           </div>
@@ -164,7 +163,7 @@ const page = async () => {
           <div className={"w-full"}>
             <label className={"label"}>{t("hospital")} :</label>
             <p className={"badge badge-error"}>
-              {TranslateClient(res?.hospital?.name) ?? "No Hospital"}
+              {await TranslateServer(res?.hospital?.name) ?? "No Hospital"}
             </p>
           </div>
 

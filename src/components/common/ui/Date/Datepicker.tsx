@@ -40,7 +40,7 @@ const Datepicker = ({
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}
       />
-      {error ? <p className="text-error text-sm">{error}</p> : ""}
+      <p className="text-error text-sm min-h-5">{error}</p>
     </label>
   );
 };

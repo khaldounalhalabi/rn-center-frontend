@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import ClosedEye from "@/components/icons/ClosedEye";
 import Eye from "@/components/icons/Eye";
-import {useLocale} from "next-intl";
+import { useLocale } from "next-intl";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
@@ -45,7 +45,7 @@ const Input: React.FC<InputProps> = ({
   if (setWatch) {
     setWatch(watch(name ?? ""));
   }
-  const locale = useLocale()
+  const locale = useLocale();
   const [hidden, setHidden] = useState(true);
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
@@ -79,24 +79,24 @@ const Input: React.FC<InputProps> = ({
           />
           {!hidden ? (
             <ClosedEye
-              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" :""}`}
+              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
               onClick={() => setHidden((prevState) => !prevState)}
             />
           ) : (
             <Eye
-              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" :""}`}
+              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
               onClick={() => setHidden((prevState) => !prevState)}
             />
           )}
         </div>
 
-        {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+        <p className={`text-error text-sm min-h-5`}>{error}</p>
       </div>
     );
   } else
     return (
       <div
-        className={`flex ${type == `radio` ? `` : "flex-col"} items-start w-full`}
+        className={`flex ${type == `radio` ? `items-center` : "flex-col"} items-start w-full`}
       >
         {label ? (
           <label className={"label text-nowrap"}>
@@ -124,7 +124,7 @@ const Input: React.FC<InputProps> = ({
           type={type == "password" && hidden ? "password" : type}
           step={"any"}
         />
-        {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+        <p className={`text-error text-sm min-h-5`}>{error}</p>
       </div>
     );
 };

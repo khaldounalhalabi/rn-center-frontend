@@ -310,7 +310,7 @@ function ApiSelect<TResponse, TData>({
           )}
         </div>
       </div>
-      {validationError ? <p className="text-error">{validationError}</p> : ""}
+      <p className="text-error min-h-5">{validationError}</p>
     </div>
   );
 }

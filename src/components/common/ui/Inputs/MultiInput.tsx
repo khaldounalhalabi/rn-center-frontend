@@ -14,14 +14,14 @@ interface MultiInputProps extends InputProps {
 }
 
 const MultiInput: React.FC<MultiInputProps> = ({
-                                                 className,
-                                                 label,
-                                                 name,
-                                                 type,
-                                                 required = false,
-                                                 maxFields = Infinity,
-                                                 ...props
-                                               }) => {
+  className,
+  label,
+  name,
+  type,
+  required = false,
+  maxFields = Infinity,
+  ...props
+}) => {
   const {
     setValue,
     formState: { errors, defaultValues },
@@ -30,7 +30,9 @@ const MultiInput: React.FC<MultiInputProps> = ({
   let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [];
 
   // Ensure there's always at least one input field
-  const [inputs, setInputs] = useState<any[]>(defaultValue.length ? defaultValue : [""]);
+  const [inputs, setInputs] = useState<any[]>(
+    defaultValue.length ? defaultValue : [""],
+  );
 
   const handleInputChange = (index: number, value: any) => {
     const newInputs = [...inputs];
@@ -58,74 +60,76 @@ const MultiInput: React.FC<MultiInputProps> = ({
   }, [inputs]);
 
   return (
-      <>
-        {label ? (
-            <label className={"label justify-start"}>
-              {label}{" "}
-              {typeof error === "object" && error !== null ? (
-                  <p className={"text-error"}>{error.message}</p>
-              ) : (
-                  ""
-              )}
-              {required ? <span className="ml-1 text-red-600">*</span> : false}
-            </label>
-        ) : (
+    <>
+      {label ? (
+        <label className={"label justify-start"}>
+          {label}{" "}
+          {typeof error === "object" && error !== null ? (
+            <p className={"text-error"}>{error.message}</p>
+          ) : (
             ""
-        )}
+          )}
+          {required ? <span className="ml-1 text-red-600">*</span> : false}
+        </label>
+      ) : (
+        ""
+      )}
 
-        <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
-          {inputs.map((field: any, index: number) => {
-            return (
-                <div className={"flex flex-col items-start"} key={index}>
-                  <div className={`flex justify-between items-center w-full gap-2`}>
-                    <input
-                        key={`a-${index}`}
-                        type={type}
-                        className={
-                            className ??
-                            `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
-                        }
-                        {...props}
-                        defaultValue={field ?? ""}
-                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleInputChange(index, e.target.value);
-                        }}
-                    />
+      <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
+        {inputs.map((field: any, index: number) => {
+          return (
+            <div className={"flex flex-col items-start"} key={index}>
+              <div className={`flex justify-between items-center w-full gap-2`}>
+                <input
+                  key={`a-${index}`}
+                  type={type}
+                  className={
+                    className ??
+                    `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+                  }
+                  {...props}
+                  defaultValue={field ?? ""}
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleInputChange(index, e.target.value);
+                  }}
+                />
 
-                    <button
-                        type={"button"}
-                        className={"btn btn-square btn-sm"}
-                        onClick={() => {
-                          removeInput(field);
-                        }}
-                    >
-                      <Trash className={"h-6 w-6 text-error"} />
-                    </button>
-                  </div>
-                  {error &&
-                  Array.isArray(error) &&
-                  error?.length > 0 &&
-                  error[index] ? (
-                      <p className={"text-error"}>{error[index].message}</p>
-                  ) : (
-                      ""
-                  )}
-                </div>
-            );
-          })}
-        </div>
+                <button
+                  type={"button"}
+                  className={"btn btn-square btn-sm"}
+                  onClick={() => {
+                    removeInput(field);
+                  }}
+                >
+                  <Trash className={"h-6 w-6 text-error"} />
+                </button>
+              </div>
+              <div className={"min-h-5"}>
+                {error &&
+                Array.isArray(error) &&
+                error?.length > 0 &&
+                error[index] ? (
+                  <p className={"text-error"}>{error[index].message}</p>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
-        <div className={`flex items-center m-3`}>
-          <button
-              type={"button"}
-              className={`btn btn-sm btn-neutral`}
-              onClick={() => addInput()}
-              disabled={inputs.length >= maxFields}
-          >
-            Add New {label ?? sanitizeString(name ?? "")}
-          </button>
-        </div>
-      </>
+      <div className={`flex items-center m-3`}>
+        <button
+          type={"button"}
+          className={`btn btn-sm btn-neutral`}
+          onClick={() => addInput()}
+          disabled={inputs.length >= maxFields}
+        >
+          Add New {label ?? sanitizeString(name ?? "")}
+        </button>
+      </div>
+    </>
   );
 };
 

@@ -126,7 +126,7 @@ const AppointmentForm = ({
     defaultValues?.service?.price,
   );
 
-  const [status, setStatus] = useState(defaultValues?.status);
+  const [status, setStatus] = useState(defaultValues?.status??"pending");
   const statusData = AppointmentStatuses();
 
   let [isOpen, setIsOpen] = useState(false);

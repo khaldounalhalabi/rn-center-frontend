@@ -6,6 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import "./embla.css";
 import { Link } from "@/navigation";
+import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 
 const SpecialityHomePageSection = () => {
   const { data, isPending } = useQuery({
@@ -27,7 +28,7 @@ const SpecialityHomePageSection = () => {
       <div className={"my-8 hidden md:flex"}>
         <div
           className={
-            "w-[40%] md:max-h-[250px] flex  justify-center items-center"
+            "w-[40%] md:max-h-[250px] flex ml-6  justify-center items-center"
           }
         >
           <div className={"flex flex-col gap-5"}>
@@ -46,14 +47,12 @@ const SpecialityHomePageSection = () => {
               Lorem ipsum dolor sit amet conse adipisicing elit. Expedita
             </p>
 
-            <Link
-              href={"/customer/specialitities"}
-              className={
-                "bg-[#56d5d8] text-white w-[60%] lg:h-12 md:h-7 text-center  flex justify-center items-center  rounded-2xl shadow-lg transition transform hover:brightness-105"
-              }
+            <AuthSubmitButton
+                className={'w-1/2 px-10 py-3'}
+
             >
               View All
-            </Link>
+            </AuthSubmitButton>
           </div>
         </div>
         <div className={"w-[60%] flex justify-around gap-1 px-2"}>

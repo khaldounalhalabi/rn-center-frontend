@@ -18,7 +18,7 @@ const Nav= ()=>{
                     />
                 </div>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden md:flex">
                 <ul className="menu menu-horizontal px-1 font-semibold text-[15px]">
                     <li><Link href={'/'}>Home</Link></li>
                     <li><Link href={'/'}>About</Link></li>

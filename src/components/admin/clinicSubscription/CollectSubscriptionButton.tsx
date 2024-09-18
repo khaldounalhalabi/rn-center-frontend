@@ -4,6 +4,7 @@ import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServise";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
 
 const CollectSubscriptionButton = ({
   clinicId,
@@ -12,33 +13,44 @@ const CollectSubscriptionButton = ({
   clinicId: number;
   clinicSubscription?: ClinicSubscription;
 }) => {
-  const [isLoading, setLoading] = useState(false);
   const [isPaid, setPaid] = useState(clinicSubscription?.is_paid ?? true);
+  const mutation = useMutation({
+    mutationFn: (clinicId: number) =>
+      ClinicSubscriptionService.make<ClinicSubscriptionService>(
+        "admin"
+      ).collectForThisMonth(clinicId),
+    onSuccess: (data) => {
+      toast.success(data.message as string);
+      if (data.code == 200) {
+        setPaid(true);
+      }
+    },
+    onError: (error) => {
+      toast.error("An error occurred " + `(${error.message})`);
+      setPaid(false);
+    },
+  });
+
   return (
-    <div className={"tooltip"} data-tip={"Collect subscription for this month"}>
+    <div
+      className={`tooltip w-full flex items-center ${(isPaid ?? true) || mutation.isPending ? ` cursor-not-allowed` : ""}`}
+      data-tip={"Collect subscription for this month"}
+    >
       <button
-        className={"btn btn-active text-black"}
-        disabled={(isPaid ?? true) || isLoading}
+        className={
+          "btn btn-active disabled:text-white disabled:cursor-not-allowed text-black w-full flex items-center"
+        }
+        disabled={(isPaid ?? true) || mutation.isPending}
         onClick={() => {
           if (!clinicSubscription?.is_paid) {
-            setLoading(true);
-            ClinicSubscriptionService.make<ClinicSubscriptionService>("admin")
-              .collectForThisMonth(clinicId)
-              .then((res) => {
-                setLoading(false);
-                if (res.data) {
-                  toast.success(res.message as string);
-                  setPaid(true);
-                } else {
-                  toast.error("Failed");
-                  setPaid(false);
-                }
-              });
+            mutation.mutate(clinicId);
           }
         }}
       >
-        Collect Subscription{" "}
-        {isLoading && <LoadingSpin className={"h-6 w-6"} />}
+        {" "}
+        Collect Subscription
+        {` ${clinicSubscription?.subscription?.cost?.toFixed(2) ?? 0} IQD`}
+        {mutation.isPending && <LoadingSpin className={"h-6 w-6"} />}
       </button>
     </div>
   );

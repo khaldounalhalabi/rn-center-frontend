@@ -33,18 +33,24 @@ import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface filterExportType {
   year: string;
   month: string;
 }
 
-const Page = () => {
-  const t = useTranslations("common.deductions.table")
+interface SelectedItems {
+  id?: number;
+  status?: string;
+  amount?: number;
+}
 
-  const [selectAll, setSelectAll] = useState<number[]>([]);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+const Page = () => {
+  const t = useTranslations("common.deductions.table");
+
+  const [selectAll, setSelectAll] = useState<SelectedItems[]>([]);
+  const [selectedItems, setSelectedItems] = useState<SelectedItems[]>([]);
   const [typeSelectAll, setTypeSelectAll] = useState(false);
   const queryClient = useQueryClient();
   const revalidateTable = () => {
@@ -53,11 +59,11 @@ const Page = () => {
     });
   };
 
-  const handleCheckboxChange = (id: number, checked: boolean) => {
+  const handleCheckboxChange = (item: SelectedItems, checked: boolean) => {
     if (checked) {
-      setSelectedItems((prev) => [...prev, id]);
+      setSelectedItems((prev) => [...prev, item]);
     } else {
-      setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
+      setSelectedItems((prev) => prev.filter((itemId) => itemId !== item));
     }
   };
   const handleSelectAll = () => {
@@ -78,7 +84,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       ).getAdminSummary();
     },
     refetchOnWindowFocus: false,
@@ -142,15 +148,25 @@ const Page = () => {
       },
       {
         label: `${t("changeAllStatus")}`,
-        render: (_id, translatable) => {
+        render: (_id, deduction) => {
           return (
             <div className={"flex justify-center"}>
               <input
                 type="checkbox"
                 className="checkbox "
-                checked={selectedItems.includes(translatable?.id ?? 0)}
+                checked={
+                  selectedItems.filter((item) => item.id == deduction?.id)
+                    .length > 0
+                }
                 onChange={(e) =>
-                  handleCheckboxChange(translatable?.id ?? 0, e.target.checked)
+                  handleCheckboxChange(
+                    {
+                      id: deduction?.id,
+                      status: deduction?.status,
+                      amount: deduction?.amount,
+                    },
+                    e.target.checked
+                  )
                 }
               />
             </div>
@@ -261,11 +277,15 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       )
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
-          const allId = res?.data?.map((item) => item.id);
+          const allId = res?.data?.map((item) => ({
+            id: item.id,
+            status: item.status,
+            amount: item.amount,
+          }));
           setSelectAll(allId);
           return res;
         }),
@@ -438,7 +458,7 @@ const Page = () => {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <h1 className={"card-title"}>Change All Status :</h1>
                   <ChangeAllStatusSelector
-                    ids={selectedItems}
+                    items={selectedItems}
                     closeModalStatus={closeModalStatus}
                   />
                 </Dialog.Panel>

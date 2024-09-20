@@ -13,9 +13,6 @@ import { useTranslations } from "next-intl";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import SubscriptionStatuses from "@/enum/SubscriptionStatus";
-import DollarCircle from "@/components/icons/DollarCircle";
-import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
-import { toast } from "react-toastify";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -111,36 +108,13 @@ const Page = () => {
             buttons={["edit", "show"]}
             baseUrl={`/admin/clinics`}
           >
-            <>
-              <div
-                className="tooltip"
-                data-tip="collect deductions for this clinic"
-              >
-                <button
-                  className={`btn btn-sm btn-square`}
-                  onClick={() => {
-                    if (clinic?.id) {
-                      AppointmentDeductionsService.make<AppointmentDeductionsService>(
-                        "admin",
-                      )
-                        .collectDeductionsForThisMonth(clinic?.id)
-                        .then((res) => {
-                          toast.success(res.message as string);
-                        });
-                    }
-                  }}
-                >
-                  <DollarCircle />
-                </button>
-              </div>
-              <ArchiveButton
-                data={clinic}
-                id={clinic?.user_id}
-                api={UserService}
-                revalidate={revalidate}
-                user={"admin"}
-              />
-            </>
+            <ArchiveButton
+              data={clinic}
+              id={clinic?.user_id}
+              api={UserService}
+              revalidate={revalidate}
+              user={"admin"}
+            />
           </ActionsButtons>
         ),
       },

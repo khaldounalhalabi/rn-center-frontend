@@ -101,4 +101,14 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
       ),
     );
   }
+
+  public async getCurrentMonthTotalByClinic(clinicId: number) {
+    return this.errorHandler(
+      await GET<number>(
+        `admin/clinics/${clinicId}/appointment-deductions/current-month/total`,
+        undefined,
+        this.headers,
+      ),
+    );
+  }
 }

@@ -21,7 +21,7 @@ export const HandleDatePicker = (
     : true;
 
   const dateStr = day.format("YYYY-MM-DD 00:00:00");
-  const appointments = data.booked_times[dateStr] || 0;
+  const appointments = data?.booked_times[dateStr] || 0;
 
   return (
     dayjs().isAfter(day.subtract(-1, "day")) ||

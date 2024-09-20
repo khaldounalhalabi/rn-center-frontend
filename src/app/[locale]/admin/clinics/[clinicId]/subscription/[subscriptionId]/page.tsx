@@ -3,9 +3,9 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import {getTranslations} from "next-intl/server";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const page = async ({
   params: { clinicId, subscriptionId },

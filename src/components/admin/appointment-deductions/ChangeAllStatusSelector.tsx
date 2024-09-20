@@ -15,17 +15,19 @@ const ChangeAllStatusSelector = ({
   closeModalStatus: any;
 }) => {
   const [selectedStatus, setSelectedStatus] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [total, setTotal] = useState(0);
   const handleSelect = async (data: any) => {
     const dataSend = {
       status: data.status,
-      ids: items.map((item) => item.id).filter((item) => item != undefined),
+      ids: items
+        .map((item) => item.id)
+        .filter((item) => item != undefined) as number[],
     };
 
     return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      "admin"
+      "admin",
     )
       .bulkToggleStatus(dataSend)
       .then((res) => {

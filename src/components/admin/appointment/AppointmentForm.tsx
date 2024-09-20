@@ -51,6 +51,7 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
+  console.log(defaultValues)
   const [date, setDate] = useState(defaultValues ?? {});
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
@@ -151,7 +152,7 @@ const AppointmentForm = ({
       });
   };
 
-  const [typeAppointment, setTypeAppointment] = useState<number | string>(0);
+  const [typeAppointment, setTypeAppointment] = useState<number | string>(defaultValues?.type??"");
 
   const appointmentCostSystem = HandleCalcOffers(
     defaultValues?.system_offers
@@ -422,7 +423,7 @@ const AppointmentForm = ({
             Offers & Additions:
           </h2>
           <div className={"flex items-center justify-between w-full flex-wrap"}>
-            {type == "store" && typeAppointment == "online" ? (
+            {typeAppointment == "online" ? (
               <div className={"w-full md:w-[49%]"}>
                 <ApiSelect
                   name={"system_offers"}

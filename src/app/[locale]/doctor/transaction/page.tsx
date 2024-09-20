@@ -86,11 +86,11 @@ const Page = () => {
     extraButton: (
       <>
         <Link href={`/doctor/transaction/chart`} className={"mx-1"}>
-          <button className="btn btn-info btn-sm p-1 btn-square">
+          <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]">
             <ChartIcon className={"w-6 h-6"} />
           </button>
         </Link>
-        <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
+        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
       </>

@@ -166,7 +166,22 @@ const AppointmentStatusColumn = ({
         </div>
       ) : (
         <select
-          className={`select select-bordered text-sm font-medium w-fit `}
+          className={`select select-bordered text-sm font-medium w-fit 
+          ${
+              appointmentState?.status == AppointmentStatusEnum.CHECKOUT
+                  ? "text-[#0089c1]"
+                  : appointmentState?.status == AppointmentStatusEnum.CANCELLED
+                      ? "text-[#ff5861]"
+                      : appointmentState?.status == AppointmentStatusEnum.PENDING
+                          ? "text-[#ffa500]"
+                          : appointmentState?.status == AppointmentStatusEnum.CHECKIN
+                              ? "text-[#00a96e]"
+                              : appointmentState?.status == AppointmentStatusEnum.BOOKED
+                                  ? "text-[#013567]"
+                                  : appointmentState?.status == "completed"
+                                      ? "text-info"
+                                      : ""
+          }`}
           onChange={(e) => {
             e.target.value === AppointmentStatusEnum.CANCELLED
               ? openModal()
@@ -185,18 +200,20 @@ const AppointmentStatusColumn = ({
             ).map((e, index) => (
               <option
                 key={index}
-                className={`block truncate ${
-                  e === AppointmentStatusEnum.CHECKOUT
-                    ? "text-neutral"
-                    : e === AppointmentStatusEnum.CANCELLED
-                      ? "text-warning"
-                      : e === AppointmentStatusEnum.PENDING
-                        ? "text-primary"
-                        : e === AppointmentStatusEnum.CHECKIN
-                          ? "text-success"
-                          : e === AppointmentStatusEnum.BOOKED
-                            ? "text-error"
-                            : ""
+                className={`block truncate  ${
+                    e == AppointmentStatusEnum.CHECKOUT
+                        ? "text-[#0089c1]"
+                        : e == AppointmentStatusEnum.CANCELLED
+                            ? "text-[#ff5861]"
+                            : e == AppointmentStatusEnum.PENDING
+                                ? "text-[#ffa500]"
+                                : e == AppointmentStatusEnum.CHECKIN
+                                    ? "text-[#00a96e]"
+                                    : e == AppointmentStatusEnum.BOOKED
+                                        ? "text-[#013567]"
+                                        : e == "completed"
+                                            ? "text-info"
+                                            : ""
                 }`}
               >
                 {e}

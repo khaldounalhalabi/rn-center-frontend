@@ -856,6 +856,7 @@
         "name": "الصنف"
       },
       "show": {
+        "cancellationReason": "سبب الالغاء",
         "appointmentDetails": "تفاصيل الموعد",
         "editBtn": "تعديل",
         "clinicName": "اسم العيادة",

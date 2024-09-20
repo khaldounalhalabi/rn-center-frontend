@@ -845,6 +845,7 @@
         "cancellationReason": "Cancellation Reason"
       },
       "show": {
+        "cancellationReason": "Cancellation Reason",
         "appointmentDetails": "Appointment Details",
         "editBtn": "Edit",
         "clinicName": "Clinic Name",

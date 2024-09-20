@@ -16,7 +16,6 @@ const AppointmentOverview = ({
   appointment?: Appointment | undefined;
 }) => {
   const t = useTranslations("common.appointment.show");
-
   return (
     <div className={"w-full"}>
       <Tab.Group>

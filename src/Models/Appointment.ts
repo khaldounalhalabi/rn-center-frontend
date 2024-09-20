@@ -23,6 +23,7 @@ export interface Appointment {
   system_offers?: SystemOffers[];
   offers?: Offers[];
   discount: number;
+  cancellation_reason?:string
 }
 
 export interface groupedByMonth {

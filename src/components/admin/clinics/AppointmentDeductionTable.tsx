@@ -26,17 +26,23 @@ import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePicker
 import { useQueryClient } from "@tanstack/react-query";
 import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface filterExportType {
   year: string;
   month: string;
 }
 
+interface SelectedItems {
+  id?: number;
+  status?: string;
+  amount?: number;
+}
+
 const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
-  const t = useTranslations("common.deductions.table")
-  const [selectAll, setSelectAll] = useState<number[]>([]);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const t = useTranslations("common.deductions.table");
+  const [selectAll, setSelectAll] = useState<SelectedItems[]>([]);
+  const [selectedItems, setSelectedItems] = useState<SelectedItems[]>([]);
   const [typeSelectAll, setTypeSelectAll] = useState(false);
   const queryClient = useQueryClient();
   const revalidateTable = () => {
@@ -44,11 +50,11 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
       queryKey: ["tableData_undefined_Appointment Deductions"],
     });
   };
-  const handleCheckboxChange = (id: number, checked: boolean) => {
+  const handleCheckboxChange = (item: SelectedItems, checked: boolean) => {
     if (checked) {
-      setSelectedItems((prev) => [...prev, id]);
+      setSelectedItems((prev) => [...prev, item]);
     } else {
-      setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
+      setSelectedItems((prev) => prev.filter((itemId) => itemId.id !== item.id));
     }
   };
   const handleSelectAll = () => {
@@ -118,15 +124,25 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
       },
       {
         label: `${t("changeStatus")}`,
-        render: (_id, translatable) => {
+        render: (_id, deduction) => {
           return (
             <div className={"flex justify-center"}>
               <input
                 type="checkbox"
                 className="checkbox "
-                checked={selectedItems.includes(translatable?.id ?? 0)}
+                checked={
+                  selectedItems.filter((item) => item.id == deduction?.id)
+                    .length > 0
+                }
                 onChange={(e) =>
-                  handleCheckboxChange(translatable?.id ?? 0, e.target.checked)
+                  handleCheckboxChange(
+                    {
+                      id: deduction?.id,
+                      status: deduction?.status,
+                      amount: deduction?.amount,
+                    },
+                    e.target.checked,
+                  )
                 }
               />
             </div>
@@ -205,7 +221,11 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
           params,
         )
         .then((res) => {
-          const allId = res?.data?.map((item) => item.id);
+          const allId = res?.data?.map((item) => ({
+            id: item.id,
+            status: item.status,
+            amount: item.amount,
+          }));
           setSelectAll(allId);
           return res;
         }),

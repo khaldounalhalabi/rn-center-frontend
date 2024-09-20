@@ -7,12 +7,12 @@ import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import {useTranslations} from "next-intl";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const ClinicSubscriptionForm = ({
   defaultValues = undefined,

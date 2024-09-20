@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServise";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const CollectSubscriptionButton = ({
   clinicId,

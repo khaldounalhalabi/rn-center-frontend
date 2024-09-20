@@ -4,12 +4,13 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
+import CollectSpecificSubscriptionButton from "../clinicSubscription/CollectSpecificSubscriptionButton";
 
 const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
-  const t = useTranslations('admin.subscription.table')
+  const t = useTranslations("admin.subscription.table");
   const tableData: DataTableData<ClinicSubscription> = {
     createUrl: `/admin/clinics/${clinicId}/subscription/create`,
     title: `${t("clinicSubscriptions")}`,
@@ -64,8 +65,14 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
         ),
       },
       {
+        name: "is_paid",
+        label: `paid ?`,
+        sortable: true,
+        render: (isPaid) => (isPaid ? "yes" : "no"),
+      },
+      {
         label: `${t("actions")}`,
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "delete", "show"]}
@@ -73,13 +80,15 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
             editUrl={`/admin/clinics/${clinicId}/subscription/${data?.id}/edit`}
             showUrl={`/admin/clinics/${clinicId}/subscription/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <CollectSpecificSubscriptionButton clinicSubscription={data} refetch={revalidate}/>
+          </ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin",
+        "admin"
       ).getClinicSubscriptions(
         clinicId,
         page,
@@ -87,7 +96,7 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
   };
   return <DataTable {...tableData} />;

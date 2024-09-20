@@ -12,7 +12,7 @@ import Hospital from "@/components/landing/Hospital";
 const Page = () => {
   return (
     <Providers>
-      <div className={"kodchasan text-[#013567]"}>
+      <div className={"kodchasan text-[#013567] relative"}>
         <Nav />
         <div className={"flex lg:h-[65vh] mt-4 px-4 relative"}>
           <LandingLinIcon className={"w-full absolute top-0 z-10"} />

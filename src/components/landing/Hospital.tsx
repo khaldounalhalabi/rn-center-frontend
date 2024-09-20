@@ -7,7 +7,7 @@ const Hospital = ()=>{
 
 
     return (
-        <div className={'w-full flex md:flex-row flex-col my-6'}>
+        <div className={'w-full flex md:flex-row flex-col py-6'}>
             <div className={' md:w-1/2 w-full flex justify-center items-center md:p-0 px-6'}>
                 <HospitalLandingIcon />
             </div>

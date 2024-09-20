@@ -20,7 +20,7 @@ const Title = () =>{
                     <p>adipisicing elit. Expedita fugiat,</p>
                     <p>impedit ad saepe sit fuga iste tempora</p>
                 </div>
-                <AuthSubmitButton className={'w-1/2 px-8 py-3 text-[13px] lg:text-[16px] md:text-[14px] 2xl:text-[20px]'}>Explore Clinics</AuthSubmitButton>
+                <AuthSubmitButton className={'w-1/2 px-6 py-2 text-[13px] lg:text-[16px] md:text-[14px] 2xl:text-[20px]'}>Explore Clinics</AuthSubmitButton>
             </div>
             <div className={'w-full flex justify-around items-center '}>
                 <div className={'max-w-[180px] w-[25%] h-[125px] rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center'}>

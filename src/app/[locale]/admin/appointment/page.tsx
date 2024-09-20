@@ -97,9 +97,9 @@ const Page = () => {
         label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>{t("online")}</span>
+            <span className={` text-[#00a96e]`}>{t("online")}</span>
           ) : (
-            <span className={`badge badge-neutral`}>{t("manual")}</span>
+            <span className={` text-[#2b3440]`}>{t("manual")}</span>
           ),
         sortable: true,
       },

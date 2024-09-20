@@ -1,5 +1,6 @@
 {
   "sideBar": {
+    "offersManagement": "Offers Management",
     "dashboard": "Dashboard",
     "clinicsManagement": "Clinics Management",
     "clinics": "Clinics",
@@ -26,7 +27,7 @@
     "subscriptions": "Subscriptions",
     "blockedItems": "Blocked Items",
     "enquiries": "Enquiries",
-    "bloodDonation": "Blood Donation",
+    "bloodDonation": "Blood bank",
     "systemOffers": "System Offers",
     "settings": "Settings"
   },

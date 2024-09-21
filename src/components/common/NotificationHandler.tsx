@@ -1,8 +1,7 @@
 "use client";
 import { NotificationPayload } from "@/Models/NotificationPayload";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { HandleNotification } from "@/hooks/HandleNotification";
-
 export const NotificationHandler = ({
   handle,
   children,
@@ -14,6 +13,9 @@ export const NotificationHandler = ({
   isPermenant?: boolean;
   children?: ReactNode;
 }) => {
-  HandleNotification(handle, isPermenant, key);
+  const process = HandleNotification(handle, isPermenant, key);
+  useEffect(() => {
+    process.process();
+  }, []);
   return <>{children}</>;
 };

@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -14,15 +14,15 @@ import AppointmentStatuses, {
 } from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 const statusData = AppointmentStatuses();
 const typeData = ["online", "manual", "all"];
 
 const Appointments = ({ clinicId }: { clinicId: number }) => {
-  const t = useTranslations('common.appointment.table')
+  const t = useTranslations("common.appointment.table");
   const tableData: DataTableData<Appointment> = {
     schema: [
       {

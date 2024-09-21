@@ -3,8 +3,8 @@ import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServise";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const Page = () => {
   const tableData: DataTableData<ClinicSubscription> = {

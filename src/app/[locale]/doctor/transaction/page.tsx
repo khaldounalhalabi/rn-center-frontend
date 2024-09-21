@@ -30,10 +30,10 @@ import ExcelIcon from "@/components/icons/ExcelIcon";
 import AllMonth from "@/enum/Month";
 import ChartIcon from "@/components/icons/ChartIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;
@@ -41,7 +41,7 @@ interface filterExportType {
 }
 
 const Page = () => {
-  const t= useTranslations('common.transaction.table')
+  const t = useTranslations("common.transaction.table");
   const queryClient = useQueryClient();
   const revalidateTable = () => {
     queryClient.invalidateQueries({

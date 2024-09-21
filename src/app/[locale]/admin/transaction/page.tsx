@@ -17,13 +17,13 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
 import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import {
   NotificationPayload,
   RealTimeEvents,
 } from "@/Models/NotificationPayload";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import {useTranslations} from "next-intl";
+import {NotificationHandler} from "@/components/common/NotificationHandler";
 
 const Page = () => {
     const t= useTranslations('common.transaction.table')

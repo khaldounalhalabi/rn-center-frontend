@@ -1,8 +1,8 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionServic";
 import ClinicSubscriptionForm from "@/components/admin/clinicSubscription/ClinicSubscriptionForm";
 import {getTranslations} from "next-intl/server";
+import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const page = async ({
   params: { subscriptionId, clinicId },

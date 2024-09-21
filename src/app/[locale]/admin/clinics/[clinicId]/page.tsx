@@ -14,6 +14,7 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import Grid from "@/components/common/ui/Grid";
 import CollectSubscriptionButton from "@/components/admin/clinicSubscription/CollectSubscriptionButton";
+import CollectDeductionsButton from "@/components/admin/appointment-deductions/CollectDeductionsButton";
 
 const Page = async ({
   params: { clinicId },
@@ -25,19 +26,36 @@ const Page = async ({
   const clinic = data.data;
   const summary =
     await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      "admin",
+      "admin"
     ).getSummaryByClinicId(clinicId);
+
+  const currentMonthTotalDeductions =
+    await AppointmentDeductionsService.make<AppointmentDeductionsService>(
+      "admin"
+    ).getCurrentMonthTotalByClinic(clinicId);
+
   const t = await getTranslations("admin.clinic.show");
   return (
     <PageCard>
-      <div className={"flex justify-between items-center"}>
-        <h1 className={"card-title "}>{t("name")}</h1>
-        <div className={"flex gap-1 items-center"}>
+      <div className={"flex flex-col md:flex-row justify-between items-center w-full"}>
+        <h1 className={"card-title !text-center md:text-start w-full"}>{t("name")}</h1>
+        <div
+          className={
+            "flex flex-col md:flex-row gap-1 items-center justify-end w-full"
+          }
+        >
           <Link href={`${clinicId}/edit`}>
             <PrimaryButton>{t("editBtn")}</PrimaryButton>
           </Link>
 
-          <CollectSubscriptionButton clinicId={clinicId} clinicSubscription={clinic?.active_subscription} />
+          <CollectDeductionsButton
+            clinic={clinic}
+            total={currentMonthTotalDeductions.data}
+          />
+          <CollectSubscriptionButton
+            clinicId={clinicId}
+            clinicSubscription={clinic?.active_subscription}
+          />
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3 "}>
@@ -139,7 +157,7 @@ const Page = async ({
             {t("appointmentDeductions")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(
-                summary?.data?.appointments_deductions ?? 0,
+                summary?.data?.appointments_deductions ?? 0
               ).toLocaleString()}
             </span>
           </label>

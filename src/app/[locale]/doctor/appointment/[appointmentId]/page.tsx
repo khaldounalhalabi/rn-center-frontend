@@ -10,9 +10,9 @@ import Grid from "@/components/common/ui/Grid";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
+import {NotificationHandler} from "@/components/common/NotificationHandler";
 
 const Show = ({
   params: { appointmentId },

@@ -22,10 +22,10 @@ import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsSe
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
+import {NotificationHandler} from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;

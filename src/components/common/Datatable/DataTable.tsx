@@ -94,7 +94,7 @@ const DataTable = (tableData: DataTableData<any>) => {
           });
       },
       refetchOnWindowFocus: false,
-      retry: 10,
+      retry: true,
     });
   return (
     <>

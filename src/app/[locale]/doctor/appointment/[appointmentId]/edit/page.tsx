@@ -1,6 +1,7 @@
 import React from "react";
 import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
+import {AuthService} from "@/services/AuthService";
 
 const page = async ({
   params: { appointmentId },
@@ -12,6 +13,7 @@ const page = async ({
       appointmentId,
     )
   ).data;
+    const actor = await AuthService.make<AuthService>("doctor").GetUserDetails()
 
   return (
     <AppointmentForm
@@ -19,6 +21,7 @@ const page = async ({
       defaultValues={{
         ...appointment,
       }}
+      clinic={actor.data}
     />
   );
 };

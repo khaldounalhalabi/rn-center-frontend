@@ -51,7 +51,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   const error = getNestedPropertyValue(errors, `${name}.message`);
 
   return (
-    <div className="flex flex-col items-start justify-between w-full">
+    <div className="flex flex-col items-start  w-full">
       {label ? (
         <label className="label">
           {label}

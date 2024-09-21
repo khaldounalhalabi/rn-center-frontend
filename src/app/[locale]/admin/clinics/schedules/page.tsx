@@ -75,24 +75,6 @@ const Page = () => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className={"label"}>
-            {t("startTime")} :
-            <TimepickerFilter
-              defaultValue={params.start_time}
-              onChange={(v): void => {
-                setParams({ ...params, start_time: v?.format("HH:mm") });
-              }}
-            />
-          </label>
-          <label className={`label`}>
-            {t("endTime")} :
-            <TimepickerFilter
-              defaultValue={params.end_time}
-              onChange={(v): void => {
-                setParams({ ...params, end_time: v?.format("HH:mm") });
-              }}
-            />
-          </label>
-          <label className={"label"}>
             {t("day")} :
             <WeekDaySelect
               className="w-full max-w-xs select-bordered select-sm select"

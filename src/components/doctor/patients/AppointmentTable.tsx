@@ -19,8 +19,8 @@ import AppointmentSpeechButton from "@/components/doctor/appointment/Appointment
 import { getCookieClient } from "@/Actions/clientCookies";
 import { Customer } from "@/Models/Customer";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
+import NotificationProvider from "@/components/common/NotificationProvider";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -23,22 +24,21 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        staleTime:0,
-        refetchOnReconnect:true,
-        retry:true,
-        retryDelay:1
+        staleTime: 0,
+        refetchOnReconnect: true,
+        retry: true,
+        retryDelay: 1,
       },
     },
   });
   const [reFetch, setReFetch] = useState(false);
-
 
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <ToastContainer />
-          {children}
+          <NotificationProvider>{children}</NotificationProvider>
         </LocalizationProvider>
       </QueryClientProvider>
     </ReFetchPhoto.Provider>

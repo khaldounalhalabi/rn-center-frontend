@@ -14,9 +14,9 @@ import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogMo
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
 import { Link } from "@/navigation";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");

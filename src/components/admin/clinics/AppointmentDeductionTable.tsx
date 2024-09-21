@@ -24,9 +24,9 @@ import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useQueryClient } from "@tanstack/react-query";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;
@@ -54,7 +54,9 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
     if (checked) {
       setSelectedItems((prev) => [...prev, item]);
     } else {
-      setSelectedItems((prev) => prev.filter((itemId) => itemId.id !== item.id));
+      setSelectedItems((prev) =>
+        prev.filter((itemId) => itemId.id !== item.id),
+      );
     }
   };
   const handleSelectAll = () => {

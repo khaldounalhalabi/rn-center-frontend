@@ -12,7 +12,7 @@ import BillIcon from "@/components/icons/BillIcon";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import NotificationHandler from "@/components/common/NotificationHandler";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 const NotificationsList = () => {
   dayjs.extend(relativeTime);
@@ -31,7 +31,7 @@ const NotificationsList = () => {
         undefined,
         undefined,
         undefined,
-        6
+        6,
       ),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
@@ -52,7 +52,7 @@ const NotificationsList = () => {
     queryKey: ["notifications_count"],
     queryFn: async () =>
       await NotificationService.make<NotificationService>(
-        "customer"
+        "customer",
       ).getUnreadCount(),
   });
 
@@ -120,7 +120,7 @@ const NotificationsList = () => {
                 not.read_at,
                 not.created_at,
                 not.type,
-                not.id
+                not.id,
               );
 
               return (
@@ -139,7 +139,7 @@ const NotificationsList = () => {
                         className="badge badge-error"
                         onClick={() => {
                           NotificationService.make<NotificationService>(
-                            "customer"
+                            "customer",
                           )
                             .markAsRead(not.id)
                             .then((res) => {
@@ -166,7 +166,7 @@ const NotificationsList = () => {
                   </div>
                 </ListCards>
               );
-            })
+            }),
           )
         )}
         {isFetchingNextPage && (

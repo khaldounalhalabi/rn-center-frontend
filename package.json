@@ -57,6 +57,7 @@
     "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.56.2",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@types/node": "^20",

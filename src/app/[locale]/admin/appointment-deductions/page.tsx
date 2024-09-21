@@ -27,13 +27,13 @@ import {
   NotificationPayload,
   RealTimeEvents,
 } from "@/Models/NotificationPayload";
-import NotificationHandler from "@/components/common/NotificationHandler";
 import dayjs from "dayjs";
 import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 interface filterExportType {
   year: string;
@@ -84,7 +84,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin"
+        "admin",
       ).getAdminSummary();
     },
     refetchOnWindowFocus: false,
@@ -165,7 +165,7 @@ const Page = () => {
                       status: deduction?.status,
                       amount: deduction?.amount,
                     },
-                    e.target.checked
+                    e.target.checked,
                   )
                 }
               />
@@ -277,7 +277,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin"
+        "admin",
       )
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {

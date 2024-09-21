@@ -1,56 +1,19 @@
 "use client";
+import { NotificationPayload } from "@/Models/NotificationPayload";
+import { ReactNode } from "react";
+import { HandleNotification } from "@/hooks/HandleNotification";
 
-import { Navigate } from "@/Actions/navigate";
-import firebaseApp from "@/Helpers/Firebase";
-import {
-  NotificationPayload,
-  NotificationPayloadData,
-} from "@/Models/NotificationPayload";
-import { getMessaging, onMessage } from "firebase/messaging";
-import { ReactNode, useEffect } from "react";
-import { toast } from "react-toastify";
-
-const NotificationHandler = ({
+export const NotificationHandler = ({
+  handle,
   children,
-  handle = undefined,
+  key = undefined,
+  isPermenant = false,
 }: {
-  handle?: (payload: NotificationPayload) => void;
+  handle: (payload: NotificationPayload) => void;
+  key?: string;
+  isPermenant?: boolean;
   children?: ReactNode;
 }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-      const messaging = getMessaging(firebaseApp);
-      const unsubscribe = onMessage(messaging, (payload) => {
-        const notification = new NotificationPayload(
-          payload.collapseKey,
-          payload?.data as NotificationPayloadData | undefined,
-          payload.from,
-          payload.messageId,
-        );
-        console.log(notification.getNotificationType(), notification);
-
-        if (notification.isNotification()) {
-          toast.success(notification.data?.message, {
-            onClick: () => {
-              Navigate(notification.getUrl());
-            },
-            bodyClassName: "cursor-pointer",
-          });
-          if (handle) {
-            handle(notification);
-          }
-        } else if (handle) {
-          handle(notification);
-        }
-      });
-      return () => {
-        unsubscribe(); // Unsubscribe from the onMessage event
-      };
-    }
-  }, []);
-
+  HandleNotification(handle, isPermenant, key);
   return <>{children}</>;
 };
-
-export default NotificationHandler;

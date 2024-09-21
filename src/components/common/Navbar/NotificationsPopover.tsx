@@ -9,9 +9,9 @@ import { getCookieClient } from "@/Actions/clientCookies";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Actors } from "@/types";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import NotificationHandler from "../NotificationHandler";
 import CircleCheckMark from "@/components/icons/CircleCheckMark";
 import { Link } from "@/navigation";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 const NotificationsPopover = () => {
   const [openPopNot, setOpenPopNot] = useState<boolean>(false);
@@ -19,7 +19,7 @@ const NotificationsPopover = () => {
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
     await NotificationService.make<NotificationService>(
-      userType,
+      userType
     ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
     data: notifications,
@@ -49,7 +49,7 @@ const NotificationsPopover = () => {
     queryKey: ["notifications_count"],
     queryFn: async () =>
       await NotificationService.make<NotificationService>(
-        userType,
+        userType
       ).getUnreadCount(),
   });
 
@@ -70,6 +70,7 @@ const NotificationsPopover = () => {
             refetchCount();
           }
         }}
+        isPermenant={true}
       />
       <NotificationsIcon
         onClick={() => OpenAndClose(openPopNot, setOpenPopNot)}
@@ -120,7 +121,7 @@ const NotificationsPopover = () => {
                   notification.read_at,
                   notification.created_at,
                   notification.type,
-                  notification.id,
+                  notification.id
                 );
                 return (
                   <div
@@ -132,7 +133,7 @@ const NotificationsPopover = () => {
                       className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
                       onClick={() => {
                         NotificationService.make<NotificationService>(
-                          userType,
+                          userType
                         ).markAsRead(notification.id);
                       }}
                     >
@@ -143,7 +144,7 @@ const NotificationsPopover = () => {
                       onClick={() => {
                         if (!n.read_at) {
                           NotificationService.make<NotificationService>(
-                            userType,
+                            userType
                           ).markAsRead(notification.id);
                           refetch();
                           refetchCount();
@@ -157,7 +158,7 @@ const NotificationsPopover = () => {
                     </button>
                   </div>
                 );
-              }),
+              })
             )
           )}
           {isFetchingNextPage ? (

@@ -3,17 +3,17 @@ import { getCookieClient } from "@/Actions/clientCookies";
 
 export function TranslateClient(
   val: string | undefined | null,
-  object?: boolean,
+  object?: boolean
 ): string;
 
 export function TranslateClient(
   val: string | undefined | null,
-  object: true,
+  object: true
 ): Translatable;
 
 export function TranslateClient(
   val: string | undefined | null,
-  object = false,
+  object = false
 ): string | Translatable {
   try {
     if (!val && object) {
@@ -31,8 +31,18 @@ export function TranslateClient(
     let locale = "en";
     locale = getCookieClient("NEXT_LOCALE") ?? "en";
     if (locale == "en") {
-      return tr.en ?? "";
-    } else return tr.ar ?? "";
+      if (tr.en) {
+        return tr.en.trim() != "" ? tr.en : tr.ar ?? "";
+      } else {
+        return tr.ar ?? "";
+      }
+    } else {
+      if (tr.ar) {
+        return tr.ar.trim() != "" ? tr.ar : tr.en ?? "";
+      } else {
+        return tr.en ?? "";
+      }
+    }
   } catch (e) {
     if (object) {
       return {

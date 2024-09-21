@@ -3,7 +3,7 @@ import { getCookieServer } from "@/Actions/serverCookies";
 
 const TranslateServer = async (
   val: string | undefined | null,
-  object?: boolean,
+  object?: boolean
 ) => {
   const locale = (await getCookieServer("NEXT_LOCALE")) ?? "en";
 
@@ -24,12 +24,20 @@ const TranslateServer = async (
   const tr = await JSON.parse(val ?? "{}");
   if (val && !object) {
     if (locale == "en") {
-      return await tr.en;
+      if (tr.en) {
+        return await (tr.en.trim() != "" ? tr.en : tr.ar ?? "");
+      } else {
+        return await (tr.ar ?? "");
+      }
     } else {
-      return await tr.ar;
+      if (tr.ar) {
+        return await (tr.ar.trim() != "" ? tr.ar : tr.en ?? "");
+      } else {
+        return await (tr.en ?? "");
+      }
     }
   } else if (val && object) {
-     return await tr;
+    return await tr;
   }
 };
 export default TranslateServer;

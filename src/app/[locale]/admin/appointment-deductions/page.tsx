@@ -63,7 +63,7 @@ const Page = () => {
     if (checked) {
       setSelectedItems((prev) => [...prev, item]);
     } else {
-      setSelectedItems((prev) => prev.filter((itemId) => itemId !== item));
+      setSelectedItems((prev) => prev.filter((itemId) => itemId.id !== item.id));
     }
   };
   const handleSelectAll = () => {

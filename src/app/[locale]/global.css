@@ -179,3 +179,6 @@ html {
   scrollbar-shadow-color: rgba(0, 0, 0, 0.1);
   scrollbar-color: rgba(209 213 219);
 }
+.badge{
+  height: auto !important;
+}

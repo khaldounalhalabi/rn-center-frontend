@@ -98,11 +98,11 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
     title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
-        <button className="btn btn-info btn-sm btn-square" onClick={openModal}>
+        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
         <button
-          className={"btn btn-info  btn-sm btn-square"}
+          className={`p-2  rounded-full border-[1px] border-[#44c4c5]   ${selectedItems.length == 0 ? "bg-gray-300":"bg-[#8fdbdc] hover:bg-[#1fb8b9] cursor-pointer"}`}
           disabled={selectedItems.length == 0}
         >
           <ChangeStatusIcon
@@ -110,7 +110,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
             onClick={openModalStatus}
           />
         </button>
-        <button className={"btn btn-info  btn-sm btn-square"}>
+        <button className={"p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"}>
           <CheckMarkIcon
             className={`w-6 h-6 cursor-pointer `}
             onClick={handleSelectAll}

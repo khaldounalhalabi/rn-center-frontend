@@ -1,8 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "@/components/common/Navbar/Navbar";
-import SidebarDoctor from "@/components/common/Sidebar/doctor/SidebarDoctor";
+import dynamic from "next/dynamic";
 
+const Sidebar = dynamic(
+  () => import("@/components/common/Sidebar/doctor/SidebarDoctor"),
+  {
+    ssr: false, // Disable server-side rendering
+  },
+);
 const NavProvider = ({ children }: { children: React.ReactNode }) => {
   const [openNavBar, setOpenNavBar] = useState<{
     sm: boolean;
@@ -14,7 +20,7 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex flex-row ">
-      <SidebarDoctor openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
+      <Sidebar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
       <div
         className={`flex-grow transition-all duration-300 w-[75%] min-h-screen`}
       >

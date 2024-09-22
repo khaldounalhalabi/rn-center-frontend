@@ -88,7 +88,11 @@ const Page = () => {
         name: "status",
         label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
-          return <AppointmentStatusColumn appointment={appointment} />;
+          return (
+            <div className={"flex items-center justify-center"}>
+              <AppointmentStatusColumn appointment={appointment} />
+            </div>
+          );
         },
         sortable: true,
       },
@@ -97,9 +101,9 @@ const Page = () => {
         label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>{t("online")}</span>
+            <span className={` text-[#00a96e]`}>{t("online")}</span>
           ) : (
-            <span className={`badge badge-neutral`}>{t("manual")}</span>
+            <span className={` text-[#2b3440]`}>{t("manual")}</span>
           ),
         sortable: true,
       },

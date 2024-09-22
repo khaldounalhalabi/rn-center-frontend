@@ -22,7 +22,7 @@ const PatientsOverview = ({
   return (
     <div className={"w-full"}>
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="flex flex-col md:flex-row space-x-1 rounded-xl bg-blue-900/20 p-1">
           <Tab
             className={({ selected }) =>
               classNames(

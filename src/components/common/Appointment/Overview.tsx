@@ -41,6 +41,7 @@ const Overview = ({
       Number(appointment?.discount ?? 0)
     );
   };
+  console.log(appointment)
 
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -79,6 +80,15 @@ const Overview = ({
           defaultValue={appointment?.note}
         />
       </div>
+      {appointment?.cancellation_reason?
+          <div className={"w-full"}>
+            <label className={"label"}>{t("cancellationReason")} :</label>
+            <textarea
+                className="textarea textarea-bordered h-24 w-full"
+                disabled={true}
+                defaultValue={appointment?.cancellation_reason}
+            />
+          </div>:""}
       <div className="overflow-x-auto border-2 rounded-2xl">
         <table className="table">
           <thead>

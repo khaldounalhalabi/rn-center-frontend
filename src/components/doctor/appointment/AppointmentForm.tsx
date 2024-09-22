@@ -57,6 +57,7 @@ const AppointmentForm = ({
       ).getAvailableTimesClinic();
     },
   });
+  console.log(clinic)
   const range = {
     id: clinic?.clinic?.id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,

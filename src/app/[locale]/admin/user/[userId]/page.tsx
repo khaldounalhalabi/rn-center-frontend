@@ -41,7 +41,7 @@ const page = async ({ params: { userId } }: { params: { userId: number } }) => {
               </span>
             </h2>
             <h3>{res.email}</h3>
-            <div className={"flex gap-1"}>
+            <div className={"flex gap-1 md:flex-row flex-col"}>
               {t("phones")} :{" "}
               {res.phones?.slice(0, 2).map((item: Phone, index) => {
                 return (

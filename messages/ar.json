@@ -1,5 +1,6 @@
 {
   "sideBar": {
+    "offersManagement": "ادارة العروض",
     "dashboard": "لوحة القيادة",
     "clinicsManagement": "إدارة العيادات",
     "clinics": "عيادات",
@@ -856,6 +857,7 @@
         "name": "الصنف"
       },
       "show": {
+        "cancellationReason": "سبب الالغاء",
         "appointmentDetails": "تفاصيل الموعد",
         "editBtn": "تعديل",
         "clinicName": "اسم العيادة",

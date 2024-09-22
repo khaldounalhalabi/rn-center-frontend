@@ -4,6 +4,7 @@ import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { usePathname, useRouter } from "next/navigation";
+import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 
 const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
@@ -60,11 +61,7 @@ const LanguagePopover = () => {
             onClick={() => setCoc("ar")}
             className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
-            <img
-              className="mr-4 w-7 h-7"
-              src="https://img.icons8.com/fluency/48/saudi-arabia.png"
-              alt="saudi-arabia"
-            />
+            <IraqFlagIcon className={'w-7 h-7 mr-4'}/>
             <h3>Arabic</h3>
           </button>
         </div>

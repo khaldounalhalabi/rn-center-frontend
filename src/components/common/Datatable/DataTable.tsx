@@ -185,7 +185,7 @@ const DataTable = (tableData: DataTableData<any>) => {
             <div className={"flex gap-1"}>
               {tableData.createUrl ? (
                 <Link href={tableData.createUrl ?? "#"}>
-                  <button className="btn btn-info btn-sm btn-square">
+                  <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" >
                     <DocumentPlus className={`h-6 w-6`} />
                   </button>
                 </Link>
@@ -195,7 +195,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               {tableData?.filter ? (
                 <div>
                   <button
-                    className="btn btn-info btn-sm btn-square"
+                    className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
                     onClick={() => setOpenFilter((prevState) => !prevState)}
                   >
                     <FilterIcon />

@@ -59,7 +59,7 @@ const Page = async ({
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3 "}>
-        <div className={`flex items-center gap-3`}>
+        <div className={`flex flex-col md:flex-row items-center gap-3`}>
           <RoundedImage
             src={getMedia(clinic?.user?.image?.[0] ?? undefined)}
             alt={"doctor-profile"}

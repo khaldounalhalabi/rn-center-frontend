@@ -29,7 +29,7 @@ export const AppointmentStatusesFilter = (
           AppointmentStatusEnum.CANCELLED,
         ];
       case AppointmentStatusEnum.CHECKOUT:
-        return [AppointmentStatusEnum.CHECKOUT,AppointmentStatusEnum.CANCELLED];
+        return [AppointmentStatusEnum.CHECKOUT];
       case AppointmentStatusEnum.CANCELLED:
         return [AppointmentStatusEnum.CANCELLED];
       default:

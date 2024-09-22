@@ -8,6 +8,7 @@ import { Navigate } from "@/Actions/navigate";
 import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
 import AuthSubmitButton from "./AuthSubmitButton";
 import { swal } from "@/Helpers/UIHelpers";
+import {toast} from "react-toastify";
 
 const RegisterCustomer = () => {
   const [privacy, setPrivacy] = useState<boolean>(false);
@@ -15,12 +16,7 @@ const RegisterCustomer = () => {
     if (privacy) {
       return await POST("/customer/register", data);
     } else {
-      swal.fire({
-        title: "We Apologize",
-        text: "You didn't agree to the privacy policy.",
-        icon: "question",
-      });
-
+      toast.error("You didn't agree to the privacy policy.!");
       return undefined;
     }
   };

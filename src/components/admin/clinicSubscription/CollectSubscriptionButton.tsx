@@ -40,7 +40,7 @@ const CollectSubscriptionButton = ({
         className={
           "btn btn-active disabled:text-white disabled:cursor-not-allowed text-black w-full flex items-center"
         }
-        disabled={(isPaid ?? true) || mutation.isPending}
+        disabled={(isPaid ?? true) || mutation.isPending || clinicSubscription?.subscription?.cost == 0}
         onClick={() => {
           if (!clinicSubscription?.is_paid) {
             mutation.mutate(clinicId);

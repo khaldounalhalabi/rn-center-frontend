@@ -71,11 +71,13 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
         label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
-            <AppointmentStatusColumn
-              userType={"doctor"}
-              appointment={appointment}
-              revalidate={revalidate}
-            />
+            <div className={"flex items-center justify-center"}>
+              <AppointmentStatusColumn
+                userType={"doctor"}
+                appointment={appointment}
+                revalidate={revalidate}
+              />
+            </div>
           );
         },
         sortable: true,

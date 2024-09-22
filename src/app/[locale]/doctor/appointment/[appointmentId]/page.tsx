@@ -55,13 +55,13 @@ const Show = ({
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("clinicName")} :{" "}
             <span className="ml-2 badge badge-success ">
               {TranslateClient(res?.clinic?.name)}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("doctorName")} :{" "}
             <span className="ml-2 badge badge-accent  ">
               {TranslateClient(res?.clinic?.user?.first_name)}{" "}
@@ -69,7 +69,7 @@ const Show = ({
               {TranslateClient(res?.clinic?.user?.last_name)}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("customerName")} :{" "}
             <span className="ml-2 badge badge-neutral ">
               {TranslateClient(res?.customer?.user?.first_name)}{" "}
@@ -77,7 +77,7 @@ const Show = ({
               {TranslateClient(res?.customer?.user?.last_name)}{" "}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("serviceName")} :{" "}
             <span className="ml-2 badge badge-primary  ">
               {TranslateClient(res?.service?.name)}

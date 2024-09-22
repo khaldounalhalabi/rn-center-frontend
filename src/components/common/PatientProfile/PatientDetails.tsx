@@ -37,7 +37,7 @@ const PatientDetails = ({
             {patient?.user?.age}
           </span>
         </label>
-        <label className="label justify-start text-xl">
+        <label className="label justify-start text-xl md:block flex flex-col items-start">
           {t("address")} :{" "}
           <span className="ml-2 badge badge-success  ">
             {TranslateClient(patient?.user?.address?.name)}

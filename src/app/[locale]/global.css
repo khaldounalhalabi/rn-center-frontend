@@ -5,6 +5,9 @@
 .kodchasan {
   font-family: var(--font-kodchasan);
 }
+.Cairo {
+  font-family: var(--font-Cairo);
+}
 
 .slide-menu-bottom {
   -webkit-animation: slide-menu-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
@@ -175,4 +178,7 @@ html {
   scrollbar-width: 5px;
   scrollbar-shadow-color: rgba(0, 0, 0, 0.1);
   scrollbar-color: rgba(209 213 219);
+}
+.badge{
+  height: auto !important;
 }

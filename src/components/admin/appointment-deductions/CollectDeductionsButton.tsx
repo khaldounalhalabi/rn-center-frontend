@@ -38,7 +38,7 @@ const CollectDeductionsButton = ({
       data-tip="Collect current month deductions for this clinic"
     >
       <button
-        className={`btn disabled:text-white btn-active text-black`}
+        className={`btn w-full disabled:text-white btn-active text-black`}
         onClick={() => {
           if (clinic?.id) {
             mutation.mutate(clinic.id);

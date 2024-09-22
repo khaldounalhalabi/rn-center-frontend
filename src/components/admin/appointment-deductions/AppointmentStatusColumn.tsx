@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const AppointmentDeductionStatusColumn = ({
   appointmentDeduction,
@@ -12,15 +13,18 @@ const AppointmentDeductionStatusColumn = ({
   revalidate?: () => void;
 }) => {
   const [selected, setSelected] = useState(appointmentDeduction?.status);
-  const handleSelectStatus = (status: string, id: number) => {
-    setSelected(status);
+    const [loading,setLoading] = useState(false)
+    const handleSelectStatus = (status: string, id: number) => {
+        setLoading(true)
+        setSelected(status);
     return AppointmentDeductionsService.make<AppointmentDeductionsService>(
       "admin"
     )
       .toggleStatus(id)
       .then((res) => {
         setSelected(status);
-        toast.success("Status Changed!");
+          setLoading(false)
+          toast.success("Status Changed!");
       });
   };
 
@@ -30,7 +34,7 @@ const AppointmentDeductionStatusColumn = ({
 
   return (
     <>
-      <select
+        {loading?<div className={'flex justify-center items-center'}><LoadingSpin className={'w-6 h-6'}/></div>:<select
         className={`select select-bordered text-sm font-medium w-fit `}
         value={selected}
         onChange={(e) =>
@@ -42,7 +46,7 @@ const AppointmentDeductionStatusColumn = ({
             {e}
           </option>
         ))}
-      </select>
+      </select>}
     </>
   );
 };

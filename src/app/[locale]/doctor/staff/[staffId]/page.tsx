@@ -41,7 +41,7 @@ const page = async ({
         </Link>
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
-        <div className={`flex items-center gap-3`}>
+        <div className={`flex flex-col md:flex-row items-center gap-3`}>
           <RoundedImage
             src={getMedia(res?.image?.[0] ?? undefined)}
             alt={"doctor-profile"}
@@ -71,7 +71,7 @@ const page = async ({
         </div>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label justify-start text-xl">
+        <label className="label justify-start text-xl md:block flex flex-col items-start">
           {t("birth-date")} :{" "}
           <span className="ml-2 badge badge-outline  ">{res?.birth_date}</span>
         </label>
@@ -79,16 +79,16 @@ const page = async ({
           {t("age")} :{" "}
           <span className="ml-2 badge badge-accent  ">{res?.age}</span>
         </label>
-        <label className="label justify-start text-xl">
+        <label className="label justify-start text-xl md:block flex flex-col items-start">
           {t("address")} :{" "}
           <span className="ml-2 badge badge-success  ">
-            {TranslateClient(res?.address?.name)}
+            {await TranslateServer(res?.address?.name)}
           </span>
         </label>
-        <label className="label justify-start text-xl">
+        <label className="label justify-start text-xl md:block flex flex-col items-start">
           {t("city")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {TranslateClient(res?.address?.city?.name)}
+            {await TranslateServer(res?.address?.city?.name)}
           </span>
         </label>
         <label className="label justify-start text-xl">

@@ -28,13 +28,13 @@ const page = async ({
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("clinicName")} :{" "}
             <span className="ml-2 badge badge-success ">
               {await TranslateServer(res?.clinic?.name)}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("doctorName")} :{" "}
             <span className="ml-2 badge badge-accent  ">
               {await TranslateServer(res?.clinic?.user?.first_name)}{" "}
@@ -42,7 +42,7 @@ const page = async ({
               {await TranslateServer(res?.clinic?.user?.last_name)}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("customerName")} :{" "}
             <span className="ml-2 badge badge-neutral ">
               {await TranslateServer(res?.customer?.user?.first_name)}{" "}
@@ -50,7 +50,7 @@ const page = async ({
               {await TranslateServer(res?.customer?.user?.last_name)}{" "}
             </span>
           </label>
-          <label className="label justify-start text-xl">
+          <label className="label justify-start text-xl items-start flex flex-col md:block">
             {t("serviceName")} :{" "}
             <span className="ml-2 badge badge-primary  ">
               {await TranslateServer(res?.service?.name)}

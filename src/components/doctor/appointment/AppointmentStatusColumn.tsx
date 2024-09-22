@@ -12,6 +12,7 @@ import {
   AppointmentStatusEnum,
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -29,6 +30,7 @@ const AppointmentStatusColumn = ({
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
+  const [loading,setLoading] = useState(false)
 
   const [isPendingCheckout, setPendingCheckout] = useState<boolean>(false);
   const [isTransitionStartedCheckout, startTransitionCheckout] =
@@ -39,6 +41,7 @@ const AppointmentStatusColumn = ({
   const [selected, setSelected] = useState(appointment?.status);
 
   const handleSelectStatus = (status: string, id: number) => {
+    setLoading(true)
     if (status === AppointmentStatusEnum.CHECKIN) {
       swal
         .fire({
@@ -55,10 +58,12 @@ const AppointmentStatusColumn = ({
             return AppointmentService.make<AppointmentService>(userType)
               .toggleStatus(id, { status: status })
               .then((res) => {
+                setLoading(false)
                 setSelected(res.data.status);
                 toast.success("Status Changed!");
               });
           } else {
+            setLoading(false)
             setSelected(appointment?.status);
             setPendingCheckout(true);
             startTransitionCheckout(rot.refresh);
@@ -69,6 +74,7 @@ const AppointmentStatusColumn = ({
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
         .then((res) => {
+          setLoading(false)
           setSelected(AppointmentStatusEnum.BOOKED);
           toast.success("Status Changed!");
         });
@@ -76,6 +82,7 @@ const AppointmentStatusColumn = ({
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
         .then((res) => {
+          setLoading(false)
           setSelected(status);
           toast.success("Status Changed!");
         });
@@ -149,81 +156,83 @@ const AppointmentStatusColumn = ({
           </div>
         </Dialog>
       </Transition>
-      {isMutatingCheckout ? (
-        "Loading..."
-      ) : (appointmentState?.status === AppointmentStatusEnum.CANCELLED || appointmentState?.status === AppointmentStatusEnum.CHECKOUT) &&
-        appointmentState?.type == "online" ? (
-        <div className={"w-full text-center"}>
+      {loading?<div className={'flex justify-center items-center'}><LoadingSpin className={'w-6 h-6'}/></div>:<>
+       {isMutatingCheckout ? (
+           "Loading..."
+       ) : (appointmentState?.status === AppointmentStatusEnum.CANCELLED || appointmentState?.status === AppointmentStatusEnum.CHECKOUT) &&
+       appointmentState?.type == "online" ? (
+           <div className={"w-full text-center"}>
           <span
-            className={` badge  ${
-              appointmentState?.status === AppointmentStatusEnum.CANCELLED
-                ? "badge-error"
-                : appointmentState?.status === AppointmentStatusEnum.CHECKOUT 
-                ? "badge-warning"
-                  :""
-            }`}
+              className={` badge  ${
+                  appointmentState?.status === AppointmentStatusEnum.CANCELLED
+                      ? "badge-error"
+                      : appointmentState?.status === AppointmentStatusEnum.CHECKOUT
+                          ? "badge-warning"
+                          :""
+              }`}
           >
             {selected}
           </span>
-        </div>
-      ) : (
-        <select
-          className={`select select-bordered text-sm font-medium w-fit 
+           </div>
+       ) : (
+           <select
+               className={`select select-bordered text-sm font-medium w-fit 
           ${
-              appointmentState?.status == AppointmentStatusEnum.CHECKOUT
-                  ? "text-[#0089c1]"
-                  : appointmentState?.status == AppointmentStatusEnum.CANCELLED
-                      ? "text-[#ff5861]"
-                      : appointmentState?.status == AppointmentStatusEnum.PENDING
-                          ? "text-[#ffa500]"
-                          : appointmentState?.status == AppointmentStatusEnum.CHECKIN
-                              ? "text-[#00a96e]"
-                              : appointmentState?.status == AppointmentStatusEnum.BOOKED
-                                  ? "text-[#013567]"
-                                  : appointmentState?.status == "completed"
-                                      ? "text-info"
-                                      : ""
-          }`}
-          onChange={(e) => {
-            e.target.value === AppointmentStatusEnum.CANCELLED
-              ? openModal()
-              : handleSelectStatus(e.target.value, appointment?.id ?? 0);
+                   appointmentState?.status == AppointmentStatusEnum.CHECKOUT
+                       ? "text-[#0089c1]"
+                       : appointmentState?.status == AppointmentStatusEnum.CANCELLED
+                           ? "text-[#ff5861]"
+                           : appointmentState?.status == AppointmentStatusEnum.PENDING
+                               ? "text-[#ffa500]"
+                               : appointmentState?.status == AppointmentStatusEnum.CHECKIN
+                                   ? "text-[#00a96e]"
+                                   : appointmentState?.status == AppointmentStatusEnum.BOOKED
+                                       ? "text-[#013567]"
+                                       : appointmentState?.status == "completed"
+                                           ? "text-info"
+                                           : ""
+               }`}
+               onChange={(e) => {
+                 e.target.value === AppointmentStatusEnum.CANCELLED
+                     ? openModal()
+                     : handleSelectStatus(e.target.value, appointment?.id ?? 0);
 
-            setSelected(e.target.value);
-          }}
-          value={appointmentState?.status}
-        >
-          {isMutating ? (
-            <option>Loading...</option>
-          ) : (
-            AppointmentStatusesFilter(
-              appointment?.type ?? "",
-              appointment?.status ?? ""
-            ).map((e, index) => (
-              <option
-                key={index}
-                className={`block truncate  ${
-                    e == AppointmentStatusEnum.CHECKOUT
-                        ? "text-[#0089c1]"
-                        : e == AppointmentStatusEnum.CANCELLED
-                            ? "text-[#ff5861]"
-                            : e == AppointmentStatusEnum.PENDING
-                                ? "text-[#ffa500]"
-                                : e == AppointmentStatusEnum.CHECKIN
-                                    ? "text-[#00a96e]"
-                                    : e == AppointmentStatusEnum.BOOKED
-                                        ? "text-[#013567]"
-                                        : e == "completed"
-                                            ? "text-info"
-                                            : ""
-                }`}
-              >
-                {e}
-              </option>
-            ))
-          )}
-        </select>
-      )}
+                 setSelected(e.target.value);
+               }}
+               value={appointmentState?.status}
+           >
+             {isMutating ? (
+                 <option>Loading...</option>
+             ) : (
+                 AppointmentStatusesFilter(
+                     appointment?.type ?? "",
+                     appointment?.status ?? ""
+                 ).map((e, index) => (
+                     <option
+                         key={index}
+                         className={`block truncate  ${
+                             e == AppointmentStatusEnum.CHECKOUT
+                                 ? "text-[#0089c1]"
+                                 : e == AppointmentStatusEnum.CANCELLED
+                                     ? "text-[#ff5861]"
+                                     : e == AppointmentStatusEnum.PENDING
+                                         ? "text-[#ffa500]"
+                                         : e == AppointmentStatusEnum.CHECKIN
+                                             ? "text-[#00a96e]"
+                                             : e == AppointmentStatusEnum.BOOKED
+                                                 ? "text-[#013567]"
+                                                 : e == "completed"
+                                                     ? "text-info"
+                                                     : ""
+                         }`}
+                     >
+                       {e}
+                     </option>
+                 ))
+             )}
+           </select>
+       )}
+     </>}
     </>
   );
 };

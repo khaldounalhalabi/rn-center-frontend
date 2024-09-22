@@ -84,7 +84,7 @@ const NotificationsPopover = () => {
       <div
         className={
           openPopNot
-            ? "absolute end-0 w-[360px] z-10 mt-2 top-10 divide-y divide-gray-100 rounded-2xl bg-white opacity-100  transition-x-0 ease-in-out  duration-500 "
+            ? "absolute md:end-0 -end-3 md:w-[360px] w-[80vw] z-10 mt-2 top-10 divide-y divide-gray-100 rounded-2xl bg-white opacity-100  transition-x-0 ease-in-out  duration-500 "
             : "absolute transition-x-[-200px] opacity-0 ease-in-out duration-500 "
         }
         role="menu"

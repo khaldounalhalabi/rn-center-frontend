@@ -27,12 +27,13 @@ const page = async () => {
     <PageCard>
       <div className={"card p-5 bg-base-200 my-3 "}>
         <div className={"flex justify-between"}>
-          <div className={`flex items-center gap-3`}>
+          <div className={`flex md:flex-row flex-col items-center gap-3`}>
             <RoundedImage
               src={getMedia(res?.user?.image?.[0] ?? undefined)}
               alt={"doctor-profile"}
               className={"w-24 h-24"}
             />
+
             <div className={"flex flex-col"}>
               <h2 className={"font-bold text-lg"}>
                 {await TranslateServer(res?.name)}
@@ -53,22 +54,23 @@ const page = async () => {
                 })}
               </div>
             </div>
+            <div className={'mb-4'}>
+              <Link
+                  href={`/doctor/clinic-details/edit`}
+                  className={
+                    role == Role.CLINIC_EMPLOYEE &&
+                    !permissionsArray.includes(
+                        PermissionsDoctor.EDIT_CLINIC_PROFILE,
+                    )
+                        ? "hidden"
+                        : ""
+                  }
+              >
+                <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link
-              href={`/doctor/clinic-details/edit`}
-              className={
-                role == Role.CLINIC_EMPLOYEE &&
-                !permissionsArray.includes(
-                  PermissionsDoctor.EDIT_CLINIC_PROFILE,
-                )
-                  ? "hidden"
-                  : ""
-              }
-            >
-              <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
-            </Link>
-          </div>
+
         </div>
         <div className={"grid grid-cols-1 md:grid-cols-3 gap-3"}>
           <div
@@ -118,105 +120,104 @@ const page = async () => {
             </div>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>
-              {t("approximateAppointmentTime")} :{" "}
-            </label>
-            <div className={"badge badge-neutral"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>
+              {t("approximateAppointmentTime")} : <span className={"badge badge-neutral"}>
               {res?.approximate_appointment_time} min
-            </div>
+            </span>
+            </label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("status")} : </label>
-            <p className={"badge badge-warning"}>{res?.status}</p>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("status")} :  <span className={"badge badge-warning"}>{res?.status}</span></label>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("experienceYear")} : </label>
-            <p className={"badge badge-accent"}>{res?.experience_years}</p>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("experienceYear")} :             <span className={"badge badge-accent"}>{res?.experience_years}</span>
+            </label>
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("address")} :</label>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("address")} :</label>
             <div className={"flex flex-col"}>
-              <p>{await TranslateServer(res?.user?.address?.name)}</p>
-              <p>{await TranslateServer(res?.user?.address?.city?.name)}</p>
-              <p>{res?.user?.address?.country}</p>
+              <span>{await TranslateServer(res?.user?.address?.name)}</span>
+              <span>{await TranslateServer(res?.user?.address?.city?.name)}</span>
+              <span>{res?.user?.address?.country}</span>
             </div>
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>{t("cost")} :</label>
-            <p className={"badge badge-primary"} suppressHydrationWarning>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("cost")} :<span className={"badge badge-primary"} suppressHydrationWarning>
               {res?.appointment_cost.toLocaleString()} IQD
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("maxAppointmentsPerDay")} :</label>
-            <p className={"badge badge-warning"} suppressHydrationWarning>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("maxAppointmentsPerDay")} :<span className={"badge badge-warning"} suppressHydrationWarning>
               {res?.max_appointments.toLocaleString()}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("appointmentDayRange")} :</label>
-            <p className={"badge badge-neutral"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("appointmentDayRange")} :  <span className={"badge badge-neutral"}>
               {res?.appointment_day_range}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("hospital")} :</label>
-            <p className={"badge badge-error"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("hospital")} : <span className={"badge badge-error"}>
               {await TranslateServer(res?.hospital?.name) ?? "No Hospital"}
-            </p>
+            </span></label>
+
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>{t("registeredAt")} :</label>
-            <p className={"badge badge-secondary"}>{res?.created_at}</p>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("registeredAt")} : <span className={"badge badge-secondary"}>{res?.created_at}</span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("lastUpdatedAt")} :</label>
-            <p className={"badge badge-accent"}>{res?.updated_at}</p>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("lastUpdatedAt")} :<span className={"badge badge-accent"}>{res?.updated_at}</span></label>
+
           </div>
 
           <div className={"w-full"}>
-            <label className={"label"}>{t("subscription")} :</label>
-            <p className={"badge badge-warning"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("subscription")} : <span className={"badge badge-warning"}>
               {res?.active_subscription?.subscription?.name}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("subscriptionType")} :</label>
-            <p className={"badge badge-primary"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("subscriptionType")} :<span className={"badge badge-primary"}>
               {res?.active_subscription?.type}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("subscriptionCost")} :</label>
-            <p className={"badge badge-success"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("subscriptionCost")} : <span className={"badge badge-success"}>
               {res?.active_subscription?.subscription?.cost ?? 0}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("deductionCost")} :</label>
-            <p className={"badge badge-success"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("deductionCost")} : <span className={"badge badge-success"}>
               {res?.active_subscription?.deduction_cost ?? 0}
-            </p>
+            </span></label>
+
           </div>
           <div className={"w-full"}>
-            <label className={"label"}>{t("subscriptionStartTime")} :</label>
-            <p className={"badge badge-neutral"}>
+            <label className={"label md:block flex flex-col items-start gap-1"}>{t("subscriptionStartTime")} : <span className={"badge badge-neutral"}>
               {res?.active_subscription?.start_time}
-            </p>
+            </span></label>
+
           </div>
           {(res?.active_subscription?.subscription?.period ?? 0) >= 0 && (
             <div className={"w-full"}>
-              <label className={"label"}>{t("endTime")} :</label>
-              <p className={"badge badge-accent"}>
+              <label className={"label md:block flex flex-col items-start gap-1"}>{t("endTime")} :<span className={"badge badge-accent"}>
                 {res?.active_subscription?.end_time}
-              </p>
+              </span></label>
+
             </div>
           )}
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t("subscriptionDescription")} :</label>
+          <label className={"label md:block flex flex-col items-start gap-1"}>{t("subscriptionDescription")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
@@ -224,7 +225,7 @@ const page = async () => {
           ></textarea>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t("experienceY")} :</label>
+          <label className={"label md:block flex flex-col items-start gap-1"}>{t("experienceY")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
@@ -232,7 +233,7 @@ const page = async () => {
           ></textarea>
         </div>
         <div className={"w-full"}>
-          <label className={"label"}>{t("about")} :</label>
+          <label className={"label md:block flex flex-col items-start gap-1"}>{t("about")} :</label>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}

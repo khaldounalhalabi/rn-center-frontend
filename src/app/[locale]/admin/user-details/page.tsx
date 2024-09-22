@@ -18,7 +18,7 @@ const page = async () => {
   const t = await getTranslations("details")
   return (
     <PageCard>
-      <div className="flex justify-between items-center  w-full h-24">
+      <div className="flex justify-between items-center  w-full h-fit">
         <h2 className="card-title ">
           {t("name")} : {await TranslateServer(res.first_name)}{" "}
           {await TranslateServer(res.middle_name)}{" "}
@@ -29,12 +29,12 @@ const page = async () => {
         </Link>
       </div>
       <hr />
-      <div className="w-full flex my-4 h-56">
-        <div className={"w-1/2  flex flex-col h-full justify-between"}>
+      <div className="w-full flex flex-col gap-3 md:flex-row my-4 h-fit">
+        <div className={"md:w-1/2 w-full flex flex-col gap-3 h-full justify-between"}>
           <RoundedImage
             src={getMedia(res?.image?.[0] ?? undefined)}
             alt={"doctor-profile"}
-            className={"w-24 h-24"}
+            className={"w-fit self-center md:self-start h-24"}
           />
           <h2>
             {t("email")} :{" "}
@@ -45,7 +45,7 @@ const page = async () => {
             <span className="badge badge-outline">{res?.birth_date}</span>
           </h2>
         </div>
-        <div className="w-1/2  flex flex-col h-full justify-between">
+        <div className="md:w-1/2 w-full gap-3  flex flex-col h-full justify-between">
           <div className="flex ">
             <h1>{t("phone")} : </h1>
             <div className={"flex flex-col"}>

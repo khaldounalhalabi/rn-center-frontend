@@ -19,7 +19,7 @@ const NotificationsPopover = () => {
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
     await NotificationService.make<NotificationService>(
-      userType
+      userType,
     ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
     data: notifications,
@@ -49,7 +49,7 @@ const NotificationsPopover = () => {
     queryKey: ["notifications_count"],
     queryFn: async () =>
       await NotificationService.make<NotificationService>(
-        userType
+        userType,
       ).getUnreadCount(),
   });
 
@@ -72,14 +72,29 @@ const NotificationsPopover = () => {
         }}
         isPermenant={true}
       />
-      <NotificationsIcon
+      <div
+        className={"relative w-8 h-full cursor-pointer"}
         onClick={() => OpenAndClose(openPopNot, setOpenPopNot)}
-        className={
-          openPopNot
-            ? `h-6 w-6 cursor-pointer text-[#909CA6] fill-blue-500`
-            : "h-6 w-6 cursor-pointer text-[#909CA6] fill-[#909CA6]"
-        }
-      />
+      >
+        <NotificationsIcon
+          className={
+            openPopNot
+              ? `h-6 w-6 cursor-pointer text-[#909CA6] fill-blue-500`
+              : "h-6 w-6 cursor-pointer text-[#909CA6] fill-[#909CA6]"
+          }
+        />
+        {(notificationsCount?.data ?? 0) > 0 ? (
+          <span
+            className={
+              "absolute top-0 text-xs right-[0px] rounded-full p-[1px] bg-error text-white"
+            }
+          >
+            {notificationsCount?.data}
+          </span>
+        ) : (
+          ""
+        )}
+      </div>
 
       <div
         className={
@@ -121,7 +136,7 @@ const NotificationsPopover = () => {
                   notification.read_at,
                   notification.created_at,
                   notification.type,
-                  notification.id
+                  notification.id,
                 );
                 return (
                   <div
@@ -133,7 +148,7 @@ const NotificationsPopover = () => {
                       className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
                       onClick={() => {
                         NotificationService.make<NotificationService>(
-                          userType
+                          userType,
                         ).markAsRead(notification.id);
                       }}
                     >
@@ -144,7 +159,7 @@ const NotificationsPopover = () => {
                       onClick={() => {
                         if (!n.read_at) {
                           NotificationService.make<NotificationService>(
-                            userType
+                            userType,
                           ).markAsRead(notification.id);
                           refetch();
                           refetchCount();
@@ -158,7 +173,7 @@ const NotificationsPopover = () => {
                     </button>
                   </div>
                 );
-              })
+              }),
             )
           )}
           {isFetchingNextPage ? (

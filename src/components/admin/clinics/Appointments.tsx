@@ -59,7 +59,11 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         name: "status",
         label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
-          return <AppointmentStatusColumn appointment={appointment} />;
+          return (
+            <div className={"flex items-center justify-center"}>
+              <AppointmentStatusColumn appointment={appointment} />
+            </div>
+          );
         },
         sortable: true,
       },

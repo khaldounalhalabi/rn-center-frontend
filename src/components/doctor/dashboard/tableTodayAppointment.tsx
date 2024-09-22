@@ -14,7 +14,7 @@ import AppointmentSpeechButton from "@/components/doctor/appointment/Appointment
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -23,7 +23,7 @@ const handleCopyLink = (id: number | undefined) => {
 const locale = getCookieClient("NEXT_LOCALE");
 
 const TableTodayAppointment = () => {
-  const t = useTranslations("common.dashboard")
+  const t = useTranslations("common.dashboard");
 
   const tableData: DataTableData<Appointment> = {
     createUrl: `/doctor/appointment/create`,
@@ -74,11 +74,13 @@ const TableTodayAppointment = () => {
         label: `${t("status")}`,
         render: (_status, appointment, setHidden, revalidate) => {
           return (
-            <AppointmentStatusColumn
-              userType={"doctor"}
-              appointment={appointment}
-              revalidate={revalidate}
-            />
+            <div className={"flex items-center justify-center"}>
+              <AppointmentStatusColumn
+                userType={"doctor"}
+                appointment={appointment}
+                revalidate={revalidate}
+              />
+            </div>
           );
         },
         sortable: true,

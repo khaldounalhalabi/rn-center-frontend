@@ -29,7 +29,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void
+    revalidate?: () => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -44,13 +44,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object
+    params?: object,
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam
-    ) => void
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
+    ) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -185,7 +185,7 @@ const DataTable = (tableData: DataTableData<any>) => {
             <div className={"flex gap-1"}>
               {tableData.createUrl ? (
                 <Link href={tableData.createUrl ?? "#"}>
-                  <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" >
+                  <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]">
                     <DocumentPlus className={`h-6 w-6`} />
                   </button>
                 </Link>

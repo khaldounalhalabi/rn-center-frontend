@@ -6,7 +6,7 @@ import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import { AvailableDepartmentService } from "@/services/AvailableDepartmentService";
 import { AvailableDepartment } from "@/Models/AvailableDepartment";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const DepartmentForm = ({
   defaultValues = undefined,
@@ -17,7 +17,7 @@ const DepartmentForm = ({
   defaultValues?: AvailableDepartment;
   id?: number;
 }) => {
-  const t = useTranslations("admin.departments")
+  const t = useTranslations("admin.departments");
 
   const handleSubmit = async (data: any) => {
     if (

@@ -12,6 +12,7 @@ export enum MonthsEnum {
   NOVEMBER = "November",
   DECEMBER = "December",
 }
+
 const AllMonth = (): string[] => {
   return Object.values(MonthsEnum);
 };

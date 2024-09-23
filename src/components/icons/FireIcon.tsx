@@ -26,4 +26,4 @@ const FireIcon = () => {
   );
 };
 
-export default FireIcon
+export default FireIcon;

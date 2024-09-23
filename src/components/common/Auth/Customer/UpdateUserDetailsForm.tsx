@@ -21,7 +21,7 @@ const UpdateUserDetailsForm = ({ user }: { user: User }) => {
     address: { name: string; city_id: number };
   }) => {
     return CustomerAuthService.make<CustomerAuthService>(
-      "customer"
+      "customer",
     ).updateUserDetails(data);
   };
 

@@ -17,7 +17,7 @@ const SpecialityHomePageSection = () => {
         undefined,
         undefined,
         undefined,
-        4
+        4,
       ),
   });
 
@@ -47,10 +47,7 @@ const SpecialityHomePageSection = () => {
               Lorem ipsum dolor sit amet conse adipisicing elit. Expedita
             </p>
 
-            <AuthSubmitButton
-                className={'w-1/2 px-10 py-3'}
-
-            >
+            <AuthSubmitButton className={"w-1/2 px-10 py-3"}>
               View All
             </AuthSubmitButton>
           </div>

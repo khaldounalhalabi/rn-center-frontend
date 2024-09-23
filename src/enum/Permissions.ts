@@ -8,7 +8,7 @@ export enum PermissionsDoctor {
   MANAGE_APPOINTMENTS = "manage-appointments",
   EDIT_CLINIC_PROFILE = "edit-clinic-profile",
   MANAGE_EMPLOYEES = "manage-employees",
-  ACCOUNTANT_MANAGEMENT = "accountant-management"
+  ACCOUNTANT_MANAGEMENT = "accountant-management",
 }
 
 const PermissionsDoctorArray = (): string[] => {

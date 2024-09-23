@@ -17,7 +17,7 @@ import { ApiResponse } from "@/Http/Response";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const SystemOfferForm = ({
   defaultValues = undefined,
@@ -28,7 +28,7 @@ const SystemOfferForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("admin.system.create")
+  const t = useTranslations("admin.system.create");
   const handleSubmit = async (data: any) => {
     const sendData = {
       ...data,

@@ -14,7 +14,7 @@ const Page = async ({
 }) => {
   const appoinmentData =
     await AppointmentService.make<AppointmentService>("customer").show(
-      appointmentId
+      appointmentId,
     );
 
   const appointment = appoinmentData?.data ?? undefined;

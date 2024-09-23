@@ -5,7 +5,7 @@ import { POST } from "@/Http/Http";
 import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const ResetCodeForm = ({
   url,
@@ -32,7 +32,7 @@ const ResetCodeForm = ({
     window.localStorage.setItem(pageType + "code", data.reset_password_code);
     return AuthService.make<AuthService>().submitResetCode(url, data, pageType);
   };
-  const t =useTranslations("auth")
+  const t = useTranslations("auth");
   return (
     <div
       className="relative w-[100wh] h-[100vh]"

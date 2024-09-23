@@ -15,7 +15,7 @@ export class ServiceService extends BaseService<Service> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    headers?:Record<string,any>,
+    headers?: Record<string, any>,
     params?: object,
   ): Promise<ApiResponse<Service[]>> {
     const res = await GET<Service[]>(

@@ -23,7 +23,7 @@ import ClinicTransactionDate, {
   DateFilter,
 } from "@/enum/ClinicTransactionDate";
 import HandleFormatArrayDateFilter from "@/hooks/HandleFormatArrayDateFilter";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface ChartData {
   date: string;
@@ -32,7 +32,7 @@ interface ChartData {
 }
 
 const Page: React.FC = () => {
-  const t = useTranslations("common.transaction.chart")
+  const t = useTranslations("common.transaction.chart");
   const [dataRange, setDataRange] = useState([
     dayjs().startOf("month").format("YYYY-MM-DD"),
     dayjs().format("YYYY-MM-DD"),

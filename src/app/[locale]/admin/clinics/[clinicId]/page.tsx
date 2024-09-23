@@ -26,19 +26,25 @@ const Page = async ({
   const clinic = data.data;
   const summary =
     await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      "admin"
+      "admin",
     ).getSummaryByClinicId(clinicId);
 
   const currentMonthTotalDeductions =
     await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      "admin"
+      "admin",
     ).getCurrentMonthTotalByClinic(clinicId);
 
   const t = await getTranslations("admin.clinic.show");
   return (
     <PageCard>
-      <div className={"flex flex-col md:flex-row justify-between items-center w-full"}>
-        <h1 className={"card-title !text-center md:text-start w-full"}>{t("name")}</h1>
+      <div
+        className={
+          "flex flex-col md:flex-row justify-between items-center w-full"
+        }
+      >
+        <h1 className={"card-title !text-center md:text-start w-full"}>
+          {t("name")}
+        </h1>
         <div
           className={
             "flex flex-col md:flex-row gap-1 items-center justify-end w-full"
@@ -157,7 +163,7 @@ const Page = async ({
             {t("appointmentDeductions")} :
             <span className="bg-base-200 px-2 rounded-xl text-lg">
               {Number(
-                summary?.data?.appointments_deductions ?? 0
+                summary?.data?.appointments_deductions ?? 0,
               ).toLocaleString()}
             </span>
           </label>

@@ -81,7 +81,10 @@ const Page = () => {
             <CalenderIcon className={"w-6 h-6"} />
           </button>
         </Link>
-        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
+        <button
+          className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+          onClick={openModal}
+        >
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
       </>
@@ -145,13 +148,13 @@ const Page = () => {
                 }
               }}
             >
-             <div className={"flex items-center justify-center"}>
-               <AppointmentStatusColumn
-                   userType={"doctor"}
-                   appointment={appointment}
-                   revalidate={revalidate}
-               />
-             </div>
+              <div className={"flex items-center justify-center"}>
+                <AppointmentStatusColumn
+                  userType={"doctor"}
+                  appointment={appointment}
+                  revalidate={revalidate}
+                />
+              </div>
             </NotificationHandler>
           );
         },
@@ -162,9 +165,9 @@ const Page = () => {
         label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-              <span className={` text-[#00a96e]`}>{t("online")}</span>
+            <span className={` text-[#00a96e]`}>{t("online")}</span>
           ) : (
-              <span className={` text-[#2b3440]`}>{t("manual")}</span>
+            <span className={` text-[#2b3440]`}>{t("manual")}</span>
           ),
         sortable: true,
       },

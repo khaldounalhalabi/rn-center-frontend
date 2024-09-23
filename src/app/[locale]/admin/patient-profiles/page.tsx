@@ -7,10 +7,10 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('admin.patientsProfiles.table')
+  const t = useTranslations("admin.patientsProfiles.table");
 
   const tableData: DataTableData<PatientProfiles> = {
     createUrl: `/admin/patient-profiles/create`,

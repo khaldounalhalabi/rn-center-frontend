@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { BloodDonationService } from "@/services/BloodDonationService";
 import { BloodDonation } from "@/Models/BloodDonation";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("admin.blood")
+  const t = useTranslations("admin.blood");
   const tableData: DataTableData<BloodDonation> = {
     createUrl: `/admin/blood-donation/create`,
     title: `${t("bloodDonationRequests")}`,

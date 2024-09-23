@@ -5,12 +5,12 @@ import { usePathname } from "@/navigation";
 const SidebarCompactItem = ({
   links,
   title,
-    className=undefined,
+  className = undefined,
   children,
 }: {
   links: string[];
   title: string;
-  className?:string
+  className?: string;
   children: ReactNode;
 }) => {
   const path = usePathname();

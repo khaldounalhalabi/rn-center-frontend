@@ -7,7 +7,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { BlockedItemService } from "@/services/BlockedItemService";
 import { BlockedItem } from "@/Models/BlockedItem";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const BlockedForm = ({
   defaultValues = undefined,
@@ -18,7 +18,7 @@ const BlockedForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("admin.block")
+  const t = useTranslations("admin.block");
 
   const handleSubmit = async (data: any) => {
     if (

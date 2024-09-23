@@ -23,7 +23,6 @@ const SubscriptionForm = ({
   const t = useTranslations("admin.subscription.create");
 
   const handleSubmit = async (data: any) => {
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)

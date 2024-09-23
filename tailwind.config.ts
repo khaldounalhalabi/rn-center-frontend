@@ -9,9 +9,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/common/ui/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [
-    require("daisyui")
-  ],
+  plugins: [require("daisyui")],
   daisyui: {
     themes: ["light"],
   },

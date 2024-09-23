@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import Roles from "@/enum/Role";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const UserForm = ({
   defaultValues = undefined,
@@ -29,7 +29,7 @@ const UserForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('admin.users')
+  const t = useTranslations("admin.users");
   const handleSubmit = async (data: any) => {
     console.log(data);
 

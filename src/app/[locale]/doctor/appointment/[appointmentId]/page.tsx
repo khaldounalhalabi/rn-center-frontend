@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
-import {NotificationHandler} from "@/components/common/NotificationHandler";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
 
 const Show = ({
   params: { appointmentId },

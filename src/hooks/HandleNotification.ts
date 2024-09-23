@@ -8,7 +8,7 @@ import { useContext } from "react";
 export const HandleNotification = (
   handleFunction: (payload: NotificationPayload) => void,
   isPermenant: boolean,
-  key?: string
+  key?: string,
 ) => {
   const setHandlers = useContext(NotificationsHandlersContext);
 
@@ -29,7 +29,7 @@ export const HandleNotification = (
         .map((item) =>
           item.is_active && !item.is_permenant
             ? { ...item, is_active: false }
-            : item
+            : item,
         )
         .filter((item) => item.is_permenant || item.is_active);
 

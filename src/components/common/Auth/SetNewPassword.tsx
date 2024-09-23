@@ -3,7 +3,7 @@ import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const SetNewPassword = ({
   url,
@@ -29,7 +29,7 @@ const SetNewPassword = ({
       pageType,
     );
   };
-  const t = useTranslations("auth")
+  const t = useTranslations("auth");
   return (
     <div
       className="w-[100wh] h-[100vh] relative "

@@ -23,7 +23,6 @@ import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
@@ -44,7 +43,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).getDoctorSummary();
     },
   });
@@ -145,7 +144,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -332,7 +331,7 @@ const Page = () => {
               {t("appointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.appointments_deductions ?? 0
+                  balance?.data?.appointments_deductions ?? 0,
                 ).toLocaleString()}
               </span>
             </label>

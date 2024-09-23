@@ -51,7 +51,7 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
-  console.log(defaultValues)
+  console.log(defaultValues);
   const [date, setDate] = useState(defaultValues ?? {});
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
@@ -127,7 +127,7 @@ const AppointmentForm = ({
     defaultValues?.service?.price,
   );
 
-  const [status, setStatus] = useState(defaultValues?.status??"pending");
+  const [status, setStatus] = useState(defaultValues?.status ?? "pending");
   const statusData = AppointmentStatuses();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -152,7 +152,9 @@ const AppointmentForm = ({
       });
   };
 
-  const [typeAppointment, setTypeAppointment] = useState<number | string>(defaultValues?.type??"");
+  const [typeAppointment, setTypeAppointment] = useState<number | string>(
+    defaultValues?.type ?? "",
+  );
 
   const appointmentCostSystem = HandleCalcOffers(
     defaultValues?.system_offers
@@ -702,11 +704,11 @@ const AppointmentForm = ({
 export default AppointmentForm;
 
 const appointmentDate = {
-    "2024-08-05 00:00:00": 4,
-    "2024-08-06 00:00:00": 3,
-    "2024-08-07 00:00:00": 1,
-    "2024-08-08 00:00:00": 10,
-    "2024-08-09 00:00:00": 5,
-    "2024-08-10 00:00:00": 4,
-    "2024-08-11 00:00:00": 10,
+  "2024-08-05 00:00:00": 4,
+  "2024-08-06 00:00:00": 3,
+  "2024-08-07 00:00:00": 1,
+  "2024-08-08 00:00:00": 10,
+  "2024-08-09 00:00:00": 5,
+  "2024-08-10 00:00:00": 4,
+  "2024-08-11 00:00:00": 10,
 };

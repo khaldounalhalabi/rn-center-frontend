@@ -3,16 +3,16 @@ import React from "react";
 import AppointmentForm from "@/components/admin/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { appointmentId },
 }: {
   params: { appointmentId: number };
 }) => {
-    const t = await getTranslations("common.appointment.create")
+  const t = await getTranslations("common.appointment.create");
 
-    const appointment = (
+  const appointment = (
     await AppointmentService.make<AppointmentService>("admin").show(
       appointmentId,
     )
@@ -25,7 +25,7 @@ const page = async ({
     <PageCard>
       <h2 className="card-title">{t("editAppointment")}</h2>
       <label className={""}>
-          {t("patientName")} :{" "}
+        {t("patientName")} :{" "}
         <span className={"badge"}>
           {TranslateServer(appointment?.customer?.user?.full_name)}
         </span>

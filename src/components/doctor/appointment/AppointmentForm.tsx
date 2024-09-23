@@ -24,26 +24,25 @@ import { useQuery } from "@tanstack/react-query";
 import { Dialog, Transition } from "@headlessui/react";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import PageCard from "@/components/common/ui/PageCard";
 import PatientForm from "@/components/doctor/patients/PatientForm";
 import { useTranslations } from "next-intl";
-import {User} from "@/Models/User";
+import { User } from "@/Models/User";
 
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
   patient,
   type = "store",
-                           clinic = undefined
+  clinic = undefined,
 }: {
   defaultValues?: Appointment;
   id?: number;
   patient?: Customer;
   type?: "store" | "update";
-  clinic?:User | undefined
+  clinic?: User | undefined;
 }) => {
   const t = useTranslations("common.appointment.create");
   const [date, setDate] = useState(defaultValues ?? {});
@@ -57,7 +56,7 @@ const AppointmentForm = ({
       ).getAvailableTimesClinic();
     },
   });
-  console.log(clinic)
+  console.log(clinic);
   const range = {
     id: clinic?.clinic?.id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
@@ -320,161 +319,164 @@ const AppointmentForm = ({
         onSuccess={onSuccess}
         defaultValues={defaultValues}
       >
+        {!patient?.id && type === "store" ? (
+          <div className={"w-full"}>
+            <h2 className={"text-xl font-bold border-b my-5"}>
+              Patient Details:
+            </h2>
+            <div className={"w-full md:w-1/2"}>
+              <ApiSelect
+                required={true}
+                name={"customer_id"}
+                placeHolder={"Select Patient Name ..."}
+                api={(page, search) =>
+                  CustomerService.make<CustomerService>("doctor")
+                    .setHeaders({ filtered: true })
+                    .indexWithPagination(page, search)
+                }
+                onSelect={(selectedItem) => {
+                  setCustomerId(selectedItem?.id ?? 0);
+                }}
+                label={t("customerName")}
+                optionValue={"id"}
+                getOptionLabel={(data: Customer) => {
+                  return (
+                    <p>
+                      {TranslateClient(data?.user?.first_name)}{" "}
+                      {TranslateClient(data?.user?.middle_name)}{" "}
+                      {TranslateClient(data?.user?.last_name)}
+                    </p>
+                  );
+                }}
+                revalidate={reloadSelect}
+              />
 
-          {!patient?.id && type === "store" ? (
-            <div className={"w-full"}>
-              <h2 className={"text-xl font-bold border-b my-5"}>Patient Details:</h2>
-              <div className={"w-full md:w-1/2"}>
-                <ApiSelect
-                  required={true}
-                  name={"customer_id"}
-                  placeHolder={"Select Patient Name ..."}
-                  api={(page, search) =>
-                    CustomerService.make<CustomerService>("doctor")
-                      .setHeaders({ filtered: true })
-                      .indexWithPagination(page, search)
-                  }
-                  onSelect={(selectedItem) => {
-                    setCustomerId(selectedItem?.id ?? 0);
-                  }}
-                  label={t("customerName")}
-                  optionValue={"id"}
-                  getOptionLabel={(data: Customer) => {
-                    return (
-                      <p>
-                        {TranslateClient(data?.user?.first_name)}{" "}
-                        {TranslateClient(data?.user?.middle_name)}{" "}
-                        {TranslateClient(data?.user?.last_name)}
-                      </p>
-                    );
-                  }}
-                  revalidate={reloadSelect}
-                />
-
-                {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
-                  <p className={"label"}>
-                    {t("lastVisit")} : {lastAppointmentDate}
-                  </p>
-                ) : (
-                  ""
-                )}
-              </div>
+              {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (
+                <p className={"label"}>
+                  {t("lastVisit")} : {lastAppointmentDate}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
+          </div>
+        ) : (
+          ""
+        )}
+
+        <h2 className={"text-xl font-bold border-b  w-full my-5"}>
+          Offers & Additions:
+        </h2>
+        <Grid md={2}>
+          <ApiSelect
+            name={"offers"}
+            placeHolder={"Select offer ..."}
+            api={(page, search) =>
+              OffersService.make<OffersService>("doctor")
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
+            }
+            closeOnSelect={false}
+            defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
+            label={t("offers")}
+            onSelect={async (selectedItem) => {
+              if (selectedItem) {
+                setOffer((prevOffers) => [...prevOffers, selectedItem]);
+              }
+            }}
+            onClear={() => {
+              setOffer([]);
+            }}
+            onRemoveSelected={(selectedItem) => {
+              setOffer((prev) =>
+                prev.filter((item) => item.id != selectedItem.value),
+              );
+            }}
+            isMultiple={true}
+            optionValue={"id"}
+            getOptionLabel={(data: Offers) => TranslateClient(data.title)}
+          />
+
+          <Input
+            name={"extra_fees"}
+            type={"number"}
+            step={"any"}
+            unit={"IQD"}
+            placeholder={"Extra Fees : 5"}
+            label={t("extraFees")}
+            setWatch={setExtra}
+          />
+          <Input
+            name={"discount"}
+            type={"number"}
+            step={"any"}
+            placeholder={"Discount ..."}
+            label={t("discount")}
+            setWatch={setDiscount}
+          />
+        </Grid>
+
+        <h2 className={" w-full text-xl font-bold border-b my-5"}>
+          Booking details:
+        </h2>
+        <Grid md={2}>
+          <ApiSelect
+            name={"service_id"}
+            placeHolder={"Select Service name ..."}
+            api={(page, search) =>
+              ServiceService.make<ServiceService>("doctor")
+                .setHeaders({ filtered: true })
+                .indexWithPagination(page, search)
+            }
+            defaultValues={
+              defaultValues?.service ? [defaultValues?.service] : []
+            }
+            label={t("serviceName")}
+            onSelect={async (selectedItem) => {
+              setServicePrice(selectedItem?.price);
+            }}
+            onClear={() => {
+              setServicePrice(0);
+            }}
+            onRemoveSelected={() => {
+              setServicePrice(0);
+            }}
+            optionValue={"id"}
+            getOptionLabel={(data: Service) => TranslateClient(data.name)}
+          />
+
+          {type == "update" ? (
+            <SelectPopOverFrom
+              required={true}
+              name={"status"}
+              ArraySelect={statusData}
+              status={status}
+              label={t("status")}
+              handleSelect={(select: string) => setStatus(select)}
+            />
           ) : (
             ""
           )}
 
-          <h2 className={"text-xl font-bold border-b  w-full my-5"}>Offers & Additions:</h2>
-          <Grid md={2}>
-            <ApiSelect
-                name={"offers"}
-                placeHolder={"Select offer ..."}
-                api={(page, search) =>
-                    OffersService.make<OffersService>("doctor")
-                        .setHeaders({ filtered: true })
-                        .indexWithPagination(page, search)
-                }
-                closeOnSelect={false}
-                defaultValues={defaultValues?.offers ? defaultValues?.offers : []}
-                label={t("offers")}
-                onSelect={async (selectedItem) => {
-                  if (selectedItem) {
-                    setOffer((prevOffers) => [...prevOffers, selectedItem]);
-                  }
-                }}
-                onClear={() => {
-                  setOffer([]);
-                }}
-                onRemoveSelected={(selectedItem) => {
-                  setOffer((prev) =>
-                      prev.filter((item) => item.id != selectedItem.value),
-                  );
-                }}
-                isMultiple={true}
-                optionValue={"id"}
-                getOptionLabel={(data: Offers) => TranslateClient(data.title)}
+          {type == "store" ? (
+            <Datepicker
+              name={"date"}
+              label={t("date")}
+              required={true}
+              shouldDisableDate={(day) => {
+                const data = range.data;
+                return HandleDatePicker(
+                  data,
+                  day,
+                  range.range,
+                  range.maxAppointment,
+                );
+              }}
             />
-
-            <Input
-                name={"extra_fees"}
-                type={"number"}
-                step={"any"}
-                unit={"IQD"}
-                placeholder={"Extra Fees : 5"}
-                label={t("extraFees")}
-                setWatch={setExtra}
-            />
-            <Input
-                name={"discount"}
-                type={"number"}
-                step={"any"}
-                placeholder={"Discount ..."}
-                label={t("discount")}
-                setWatch={setDiscount}
-            />
-          </Grid>
-
-          <h2 className={" w-full text-xl font-bold border-b my-5"}>Booking details:</h2>
-          <Grid md={2}>
-            <ApiSelect
-                name={"service_id"}
-                placeHolder={"Select Service name ..."}
-                api={(page, search) =>
-                    ServiceService.make<ServiceService>("doctor").setHeaders({filtered: true }).indexWithPagination(
-                        page,
-                        search,
-                    )
-                }
-                defaultValues={
-                  defaultValues?.service ? [defaultValues?.service] : []
-                }
-                label={t("serviceName")}
-                onSelect={async (selectedItem) => {
-                  setServicePrice(selectedItem?.price);
-                }}
-                onClear={() => {
-                  setServicePrice(0);
-                }}
-                onRemoveSelected={() => {
-                  setServicePrice(0);
-                }}
-                optionValue={"id"}
-                getOptionLabel={(data: Service) => TranslateClient(data.name)}
-            />
-
-            {type == "update" ? (
-                <SelectPopOverFrom
-                    required={true}
-                    name={"status"}
-                    ArraySelect={statusData}
-                    status={status}
-                    label={t("status")}
-                    handleSelect={(select: string) => setStatus(select)}
-                />
-            ) : (
-                ""
-            )}
-
-            {type == "store" ? (
-                <Datepicker
-                    name={"date"}
-                    label={t("date")}
-                    required={true}
-                    shouldDisableDate={(day) => {
-                      const data = range.data;
-                      return HandleDatePicker(
-                          data,
-                          day,
-                          range.range,
-                          range.maxAppointment,
-                      );
-                    }}
-                />
-            ) : (
-                ""
-            )}
-
-          </Grid>
+          ) : (
+            ""
+          )}
+        </Grid>
 
         {type == "update" ? (
           <button
@@ -497,7 +499,9 @@ const AppointmentForm = ({
             label={"Cancellation Reason"}
             name={"cancellation_reason"}
           />
-        ) : ""}
+        ) : (
+          ""
+        )}
         <div className="overflow-x-auto border-2 rounded-2xl">
           <table className="table">
             <thead>

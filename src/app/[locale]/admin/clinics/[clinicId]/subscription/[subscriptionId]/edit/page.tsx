@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import ClinicSubscriptionForm from "@/components/admin/clinicSubscription/ClinicSubscriptionForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const page = async ({
@@ -9,9 +9,9 @@ const page = async ({
 }: {
   params: { subscriptionId: number; clinicId: number };
 }) => {
-    const t = await getTranslations('admin.subscription.create')
+  const t = await getTranslations("admin.subscription.create");
 
-    const subscription = (
+  const subscription = (
     await ClinicSubscriptionService.make<ClinicSubscriptionService>(
       "admin",
     ).show(subscriptionId)

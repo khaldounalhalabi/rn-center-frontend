@@ -7,7 +7,7 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { offerId },

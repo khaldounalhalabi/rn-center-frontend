@@ -250,7 +250,6 @@
         "noData": "لايوجد بيانات",
         "editBtn": "يحرر",
         "image": "صورة"
-
       },
       "create-edit": {
         "addService": "أضف الخدمة",
@@ -356,7 +355,6 @@
       "notArchived": "غير مؤرشفة",
       "actions": "أجراءات",
       "editUser": "تعديل المستخدم",
-
       "first-Name": "اسم  الأول",
       "middle-name": "اسم  الأوسط",
       "last-name": "اسم  الاخير",
@@ -372,14 +370,13 @@
       "image": "صورة",
       "noData": "لايوجد بيانات",
       "tags": "العلامات",
-
       "userDetails": "تفاصيل المستخدم",
       "editBtn": "تعديل",
       "blood": "فصيلة الدم"
     },
     "patientsProfiles": {
       "table": {
-          "patientsProfiles": "ملفات تعريف المرضى",
+        "patientsProfiles": "ملفات تعريف المرضى",
         "clinicName": "اسم العيادة",
         "customerName": "اسم المريض",
         "lastModify": "تم التعديل الأخير",
@@ -470,14 +467,14 @@
       }
     },
     "blood": {
-        "bloodDonationRequests": "طلبات التبرع بالدم",
+      "bloodDonationRequests": "طلبات التبرع بالدم",
       "addBloodDonationRequest": "إضافة طلب التبرع بالدم",
       "editBloodDonationRequest": "تعديل طلب التبرع بالدم",
       "bloodDonationRequestDetails": "تفاصيل طلب التبرع بالدم",
-        "name": "الاسم",
-        "blood": "فصيلة الدم",
-        "city": "المدينة",
-        "canWait": "هل يمكن الانتظار",
+      "name": "الاسم",
+      "blood": "فصيلة الدم",
+      "city": "المدينة",
+      "canWait": "هل يمكن الانتظار",
       "actions": "أجراءات",
       "phone": "هاتف",
       "nearestHospital": "أقرب مستشفى",
@@ -523,7 +520,6 @@
       },
       "show": {
         "amount": "الكمية",
-
         "isActive": "التحقق من النشاط",
         "offerDetails": "تفاصيل عرض النظام",
         "editBtn": "يحرر",
@@ -556,7 +552,6 @@
       "TermsAndServices": "الشروط والخدمات",
       "DaysBefore": "إشعار قبل أيام من انتهاء الصلاحية",
       "ZainCashNumber": "رقم زين كاش"
-
     }
   },
   "doctor": {
@@ -606,7 +601,6 @@
         "about": "عن",
         "image": "صورة",
         "ourWork": "اعمالنا"
-
       }
     },
     "schedules": {
@@ -620,7 +614,6 @@
       "edit": {
         "appointmentGap": "الفاصل الزمني بين الواعيد"
       }
-
     },
     "holidays": {
       "table": {
@@ -633,7 +626,6 @@
         "endDate": "تاريخ الانتهاء"
       },
       "show": {
-
       },
       "create": {
         "addHolidays": "أضف الإجازات",
@@ -667,7 +659,6 @@
         "inActive": "غير نشط",
         "actions": "أجراءات"
       },
-
       "create-edit": {
         "addService": "أضف الخدمة",
         "editService": "تحرير الخدمة",
@@ -744,7 +735,7 @@
         "manageHolidays": "ادارة العطل",
         "manageEmployees": "ادارة الموظفين",
         "manageAppointments": "ادارة المواعيد",
-        "accountantManagement":"ادارة الحسابات",
+        "accountantManagement": "ادارة الحسابات",
         "first-Name": "اسم  الأول",
         "middle-name": "اسم  الأوسط",
         "last-name": "اسم  الاخير",
@@ -825,7 +816,6 @@
         "happenIn": "حدث في ",
         "actor": "المنفذ",
         "event": "الحدث"
-
       },
       "create": {
         "editAppointment": "تعديل الميعاد",
@@ -834,7 +824,6 @@
         "setDate": "اختيار تاريخ",
         "date": "التاريخ",
         "patientName": "اسم المريض",
-
         "clinicName": "اسم العيادة",
         "type": "النوع",
         "online": "متصل",
@@ -916,7 +905,6 @@
         "note": "ملاحظة",
         "image": "صورة",
         "supplementalImages": "صور تكميلية"
-
       },
       "table": {
         "patients": "المرضى",
@@ -955,7 +943,6 @@
         "otherData": "بيانات اخرى",
         "note": "ملاحظة",
         "medicalCondition": "الحالة الطبية"
-
       }
     },
     "prescription": {
@@ -1058,7 +1045,6 @@
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الدكتور",
         "description": "وصف"
-
       }
     },
     "transaction": {
@@ -1119,7 +1105,6 @@
         "changeAllStatus": "تغير حالة الجميع",
         "clinicName": "اسم العيادة",
         "doctor": "طبيب",
-
         "appointmentDeductions": "خصومات المواعيد",
         "amount": "الكمية",
         "appointmentDate": "تاريخ الموعد",
@@ -1143,7 +1128,6 @@
       },
       "show": {
         "clinicName": "اسم العيادة",
-
         "appointmentDeductionDetails": "تفاصيل خصومات الموعد",
         "totalCost": "المجموع",
         "amount": "الكمية",
@@ -1189,7 +1173,7 @@
     "nextPage": "الصفحة التالية"
   },
   "nav": {
-     "clinicProfile": "الملف التعريفي للعيادة",
+    "clinicProfile": "الملف التعريفي للعيادة",
     "profile": "الملف التعريفي",
     "logout": "تسجيل الخروج"
   },

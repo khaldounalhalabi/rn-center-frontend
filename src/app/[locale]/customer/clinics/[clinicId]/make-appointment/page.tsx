@@ -12,14 +12,13 @@ const Page = async ({
     await ClinicsService.make<ClinicsService>("public").show(clinicId)
   )?.data;
 
-
   if (!clinic) {
     await Navigate("/404");
   }
 
   const availableTimes = (
     await AppointmentService.make<AppointmentService>(
-      "customer"
+      "customer",
     ).getAvailableTimes(clinic.id)
   )?.data;
 

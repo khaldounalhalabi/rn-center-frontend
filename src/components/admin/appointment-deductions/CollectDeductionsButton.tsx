@@ -17,7 +17,7 @@ const CollectDeductionsButton = ({
   const mutation = useMutation({
     mutationFn: (clinicId: number) =>
       AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin"
+        "admin",
       ).collectDeductionsForThisMonth(clinicId),
     onSuccess: (data) => {
       if (data.code == 200) {

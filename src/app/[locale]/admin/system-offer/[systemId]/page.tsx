@@ -7,14 +7,14 @@ import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import Gallery from "@/components/common/ui/Gallery";
 import ClinicTable from "@/components/admin/system-offer/ClinicTable";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { systemId },
 }: {
   params: { systemId: number };
 }) => {
-  const t = await getTranslations("admin.system.show")
+  const t = await getTranslations("admin.system.show");
   const data =
     await SystemOffersService.make<SystemOffersService>().show(systemId);
   const res: SystemOffers = data?.data;

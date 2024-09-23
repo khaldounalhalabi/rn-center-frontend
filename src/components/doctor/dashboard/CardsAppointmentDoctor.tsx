@@ -3,7 +3,7 @@ import Card from "@/components/common/ui/Card";
 import React from "react";
 import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const CardsAppointmentDoctor = ({
   statisticsRes,
@@ -14,7 +14,7 @@ const CardsAppointmentDoctor = ({
   isFetching: boolean;
   isLoading: boolean;
 }) => {
-  const t = useTranslations("common.dashboard")
+  const t = useTranslations("common.dashboard");
 
   return (
     <div className={"flex pl-4 md:pl-0 flex-wrap mb-6 gap-5"}>

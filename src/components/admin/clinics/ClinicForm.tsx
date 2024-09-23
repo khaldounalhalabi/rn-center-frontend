@@ -38,7 +38,6 @@ const ClinicForm = ({
 }) => {
   const [typeSelect, setType] = useState("");
   console.log(defaultValues?.user?.tags);
-  
 
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
     const { deduction_cost, ...subscriptionData } = data;
@@ -176,7 +175,7 @@ const ClinicForm = ({
         required={true}
       />
 
-      <Grid >
+      <Grid>
         <div className={`flex gap-5  p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
             {t("status")}:
@@ -293,7 +292,6 @@ const ClinicForm = ({
           }
         />
 
-
         {type != "update" ? (
           <>
             <ApiSelect
@@ -357,9 +355,9 @@ const ClinicForm = ({
         )}
       </Grid>
       <TextAreaMap
-          name="address.map_iframe"
-          label={t("mapIframe")}
-          required={true}
+        name="address.map_iframe"
+        label={t("mapIframe")}
+        required={true}
       />
       <ImageUploader name={"user.image"} label={t("image")} />
     </Form>

@@ -5,7 +5,7 @@ import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
 import PrescriptionsTable from "@/components/admin/appointment/PrescriptionsTable";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,7 +16,7 @@ const AppointmentOverview = ({
 }: {
   appointment?: Appointment | undefined;
 }) => {
-  const t = useTranslations('common.appointment.show')
+  const t = useTranslations("common.appointment.show");
   return (
     <div className={"w-full"}>
       <Tab.Group>

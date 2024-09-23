@@ -130,4 +130,4 @@ const BloodLandingIcon = () => {
   );
 };
 
-export default BloodLandingIcon
+export default BloodLandingIcon;

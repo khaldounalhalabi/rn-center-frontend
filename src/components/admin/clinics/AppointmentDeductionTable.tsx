@@ -22,7 +22,6 @@ import AppointmentDeductionStatusColumn from "@/components/admin/appointment-ded
 import ChangeStatusIcon from "@/components/icons/ChangeStatusIcon";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/ChangeAllStatusSelector";
-import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useQueryClient } from "@tanstack/react-query";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
@@ -56,7 +55,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
       setSelectedItems((prev) => [...prev, item]);
     } else {
       setSelectedItems((prev) =>
-        prev.filter((itemId) => itemId.id !== item.id)
+        prev.filter((itemId) => itemId.id !== item.id),
       );
     }
   };
@@ -151,7 +150,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
                       status: deduction?.status,
                       amount: deduction?.amount,
                     },
-                    e.target.checked
+                    e.target.checked,
                   )
                 }
               />
@@ -219,7 +218,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin"
+        "admin",
       )
         .getClinicAppointmentDeductions(
           clinicId,
@@ -228,7 +227,7 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
           sortCol,
           sortDir,
           perPage,
-          params
+          params,
         )
         .then((res) => {
           const allId = res?.data?.map((item) => ({

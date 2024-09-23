@@ -2,7 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PatientsForm from "@/components/admin/patients/PatientsForm";
 import { PatientsService } from "@/services/PatientsService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId },

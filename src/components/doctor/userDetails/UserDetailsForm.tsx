@@ -12,7 +12,7 @@ import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
 import Gallery from "@/components/common/ui/Gallery";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { reFetch, setReFetch } = useContext(ReFetchPhoto);
@@ -25,8 +25,8 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         setReFetch(!reFetch);
         console.log(res);
         window.localStorage.setItem(
-            "user",
-            JSON.stringify(res?.data.user ?? undefined),
+          "user",
+          JSON.stringify(res?.data.user ?? undefined),
         );
         return res;
       });
@@ -44,7 +44,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const onSuccess = () => {
     Navigate(`/doctor/user-details`);
   };
-  const t = useTranslations("details")
+  const t = useTranslations("details");
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { image, ...rest } = defaultValues ?? { image: "" };
   return (
@@ -168,7 +168,9 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{t("noImage")}</span>
+              <span className="text-lg badge badge-neutral">
+                {t("noImage")}
+              </span>
             </div>
           )}
         </div>

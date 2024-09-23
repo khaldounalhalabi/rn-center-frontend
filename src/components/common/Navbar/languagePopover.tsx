@@ -61,7 +61,7 @@ const LanguagePopover = () => {
             onClick={() => setCoc("ar")}
             className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
-            <IraqFlagIcon className={'w-7 h-7 mr-4'}/>
+            <IraqFlagIcon className={"w-7 h-7 mr-4"} />
             <h3>Arabic</h3>
           </button>
         </div>

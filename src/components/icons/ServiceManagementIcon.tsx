@@ -1,4 +1,4 @@
-const ServiceManagementIcon = ({...props}) => {
+const ServiceManagementIcon = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
       <g fill="none" fillRule="evenodd">
@@ -9,8 +9,7 @@ const ServiceManagementIcon = ({...props}) => {
         ></path>
       </g>
     </svg>
-
   );
 };
 
-export default ServiceManagementIcon
+export default ServiceManagementIcon;

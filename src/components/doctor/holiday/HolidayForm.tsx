@@ -3,7 +3,6 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import { ClinicHolidayService } from "@/services/ClinicHolidayService";
 import { ClinicHoliday } from "@/Models/ClinicHoliday";
-import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
@@ -20,20 +19,19 @@ const HolidayForm = ({
   const t = useTranslations("doctor.holidays.create");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return ClinicHolidayService.make<ClinicHolidayService>("doctor").update(
-        defaultValues.id,
-        data,
-      ).then((res)=>{
-        console.log(res)
-        return res
-      });
+      return ClinicHolidayService.make<ClinicHolidayService>("doctor")
+        .update(defaultValues.id, data)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
     } else {
-      return await ClinicHolidayService.make<ClinicHolidayService>(
-        "doctor",
-      ).store(data).then((res)=>{
-        console.log(res)
-        return res
-      });
+      return await ClinicHolidayService.make<ClinicHolidayService>("doctor")
+        .store(data)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
     }
   };
 

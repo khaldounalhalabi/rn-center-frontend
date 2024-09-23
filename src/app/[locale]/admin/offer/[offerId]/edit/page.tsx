@@ -3,14 +3,14 @@ import React from "react";
 
 import OfferForm from "@/components/common/Offers/OfferForm";
 import { OffersService } from "@/services/OffersService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { offerId },
 }: {
   params: { offerId: number };
 }) => {
-    const t = await getTranslations("admin.offer.create")
+  const t = await getTranslations("admin.offer.create");
   const offers = (
     await OffersService.make<OffersService>("admin").show(offerId)
   ).data;

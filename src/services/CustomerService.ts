@@ -35,7 +35,7 @@ export class CustomerService extends BaseService<Customer> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    headers?: Record<string,any>,
+    headers?: Record<string, any>,
     params?: object,
   ): Promise<ApiResponse<Customer[]>> {
     const res = await GET<Customer[]>(
@@ -48,7 +48,7 @@ export class CustomerService extends BaseService<Customer> {
         per_page: per_page,
         ...params,
       },
-        headers,
+      headers,
     );
     return await this.errorHandler(res);
   }

@@ -10,10 +10,10 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import { UsersService } from "@/services/UsersService";
 import BlockButton from "@/components/common/BlockButton";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("common.patient.table")
+  const t = useTranslations("common.patient.table");
   const tableData: DataTableData<Customer> = {
     createUrl: `/admin/patients/create`,
     title: `${t("patients")}`,

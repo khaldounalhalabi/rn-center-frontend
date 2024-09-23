@@ -6,16 +6,16 @@ import Grid from "@/components/common/ui/Grid";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { medicinesId },
 }: {
   params: { medicinesId: number };
 }) => {
-    const t =await getTranslations('common.medicine.show')
+  const t = await getTranslations("common.medicine.show");
 
-    const data = await MedicineService.make<MedicineService>().show(medicinesId);
+  const data = await MedicineService.make<MedicineService>().show(medicinesId);
   const res: Medicine = data?.data;
   return (
     <PageCard>

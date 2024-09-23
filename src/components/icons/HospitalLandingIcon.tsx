@@ -145,4 +145,4 @@ const HospitalLandingIcon = () => {
   );
 };
 
-export default HospitalLandingIcon
+export default HospitalLandingIcon;

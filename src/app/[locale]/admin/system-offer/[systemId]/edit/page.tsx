@@ -3,16 +3,16 @@ import React from "react";
 
 import { SystemOffersService } from "@/services/SystemOffersService";
 import SystemOfferForm from "@/components/admin/system-offer/SystemOfferForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { systemId },
 }: {
   params: { systemId: number };
 }) => {
-    const t = await getTranslations("admin.system.create")
+  const t = await getTranslations("admin.system.create");
 
-    const system = (
+  const system = (
     await SystemOffersService.make<SystemOffersService>("admin").show(systemId)
   ).data;
   return (

@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('admin.subscription.table')
+  const t = useTranslations("admin.subscription.table");
 
   const tableData: DataTableData<Subscriptions> = {
     createUrl: `/admin/subscriptions/create`,

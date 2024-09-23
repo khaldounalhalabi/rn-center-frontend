@@ -81,14 +81,17 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
             showUrl={`/admin/clinics/${clinicId}/subscription/${data?.id}`}
             setHidden={setHidden}
           >
-            <CollectSpecificSubscriptionButton clinicSubscription={data} refetch={revalidate}/>
+            <CollectSpecificSubscriptionButton
+              clinicSubscription={data}
+              refetch={revalidate}
+            />
           </ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin"
+        "admin",
       ).getClinicSubscriptions(
         clinicId,
         page,
@@ -96,7 +99,7 @@ const ClinicSubscriptionTable = ({ clinicId }: { clinicId: number }) => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
   };
   return <DataTable {...tableData} />;

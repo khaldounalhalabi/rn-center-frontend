@@ -8,10 +8,10 @@ const useFcmToken = () => {
   const [token, setToken] = useState("");
   const [notificationPermissionStatus, setNotificationPermissionStatus] =
     useState("");
-  const [isClient , setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true)
+    setIsClient(true);
     const retrieveToken = async () => {
       try {
         if (typeof window !== "undefined" && "serviceWorker" in navigator) {

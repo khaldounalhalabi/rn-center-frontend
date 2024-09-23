@@ -6,14 +6,14 @@ import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId, patient },
 }: {
   params: { patientId: number; patient: number };
 }) => {
-  const t = await getTranslations("admin.patientsProfiles.show")
+  const t = await getTranslations("admin.patientsProfiles.show");
   const data =
     await PatientProfilesService.make<PatientProfilesService>().show(patient);
   const res: PatientProfiles = data?.data;

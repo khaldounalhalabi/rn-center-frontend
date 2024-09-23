@@ -8,7 +8,7 @@ import { AdminStatistics } from "@/Models/Statistics";
 import UserDataAdmin from "@/components/admin/dashboard/UserDataAdmin";
 import CardsAppointmentAdmin from "@/components/admin/dashboard/CardsAppointmentAdmin";
 import TableRecent from "@/components/admin/dashboard/TableRecent";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const { data, isLoading, isFetching } = useQuery({
@@ -21,7 +21,7 @@ const Page = () => {
   });
 
   const statisticsRes: AdminStatistics | undefined = data?.data;
-  const t = useTranslations('common.dashboard')
+  const t = useTranslations("common.dashboard");
 
   return (
     <>
@@ -41,7 +41,9 @@ const Page = () => {
             isFetching={isFetching}
           />
           <Card>
-            <h2 className={"card-title mb-8"}>{t("earningsFromAppointments")}</h2>
+            <h2 className={"card-title mb-8"}>
+              {t("earningsFromAppointments")}
+            </h2>
             <ChartDashboardAdmin />
           </Card>
         </div>

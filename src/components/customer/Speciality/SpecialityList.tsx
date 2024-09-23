@@ -12,13 +12,9 @@ const SpecialityList = () => {
     useInfiniteQuery({
       queryKey: ["speciality_lists"],
       queryFn: async ({ pageParam }) => {
-        return await SpecialityService.make<SpecialityService>("public").indexWithPagination(
-          pageParam,
-          undefined,
-          undefined,
-          undefined,
-          6
-        );
+        return await SpecialityService.make<SpecialityService>(
+          "public",
+        ).indexWithPagination(pageParam, undefined, undefined, undefined, 6);
       },
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
@@ -83,7 +79,7 @@ const SpecialityList = () => {
                   </ListCards>
                 </div>
               );
-            })
+            }),
           )
         )}
         {isFetchingNextPage && (

@@ -22,13 +22,14 @@ import {
   RealTimeEvents,
 } from "@/Models/NotificationPayload";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {useTranslations} from "next-intl";
-import {NotificationHandler} from "@/components/common/NotificationHandler";
+import { useTranslations } from "next-intl";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 const Page = () => {
-    const t= useTranslations('common.transaction.table')
+  const t = useTranslations("common.transaction.table");
 
-    const {
+  const {
     data: balance,
     isLoading,
     refetch,
@@ -36,7 +37,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await TransactionService.make<TransactionService>(
-        "admin",
+        "admin"
       ).getSummary();
     },
   });
@@ -104,7 +105,7 @@ const Page = () => {
         sortable: true,
       },
       {
-          label: `${t("actions")}`,
+        label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
@@ -119,7 +120,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await TransactionService.make<TransactionService>(
-        "admin",
+        "admin"
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -155,27 +156,29 @@ const Page = () => {
             }}
           />
 
-            <label className="label">{t("startDate")} :</label>
-          <DateTimePickerRangFilter
+          <label className="label">{t("startDate")} :</label>
+          <DatepickerFilter
             onChange={(time: any) => {
               setParams({
                 ...params,
                 date: [
-                  time?.format("YYYY-MM-DD hh:mm"),
-                  params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                  time?.format("YYYY-MM-DD") + " 00:00:01",
+                  params?.date?.[1] ??
+                    dayjs().format("YYYY-MM-DD") + " 23:59:59",
                 ],
               });
             }}
             defaultValue={params?.date?.[0] ?? ""}
           />
-            <label className="label">{t("endDate")} :</label>
-          <DateTimePickerRangFilter
+          <label className="label">{t("endDate")} :</label>
+          <DatepickerFilter
             onChange={(time: any) => {
               setParams({
                 ...params,
                 date: [
-                  params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                  time?.format("YYYY-MM-DD hh:mm"),
+                  params?.date?.[0] ??
+                    dayjs().format("YYYY-MM-DD") + " 00:00:01",
+                  time?.format("YYYY-MM-DD") + " 23:59:59",
                 ],
               });
             }}

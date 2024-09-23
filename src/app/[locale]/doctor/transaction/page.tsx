@@ -34,6 +34,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 interface filterExportType {
   year: string;
@@ -57,7 +58,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor",
+        "doctor"
       ).getSummary();
     },
   });
@@ -76,7 +77,7 @@ const Page = () => {
   }
 
   const type = ClinicTransactionTypeArray().map((type) =>
-    type.replace(/_/g, " "),
+    type.replace(/_/g, " ")
   );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
@@ -90,7 +91,10 @@ const Page = () => {
             <ChartIcon className={"w-6 h-6"} />
           </button>
         </Link>
-        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
+        <button
+          className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+          onClick={openModal}
+        >
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
       </>
@@ -115,13 +119,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name,
+                        transaction?.appointment?.customer?.user?.first_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name,
+                        transaction?.appointment?.customer?.user?.middle_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name,
+                        transaction?.appointment?.customer?.user?.last_name
                       )}
                     </p>
                   </Link>
@@ -224,7 +228,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     filter: (params, setParams) => {
       return (
@@ -296,26 +300,28 @@ const Page = () => {
           {showCustomDate ? (
             <>
               <label className="label">{t("startDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      time?.format("YYYY-MM-DD hh:mm"),
-                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD") + " 00:00:01",
+                      params?.date?.[1] ??
+                        dayjs().format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">{t("endDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[0] ??
+                        dayjs().format("YYYY-MM-DD") + " 00:00:01",
+                      time?.format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}

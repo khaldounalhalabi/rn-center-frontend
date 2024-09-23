@@ -23,14 +23,11 @@ export interface ValidationError {
 }
 
 export interface ApiResponsePagination {
-  currentPage: number;
-  from: number;
-  to: number;
-  total: number;
+  current_page: number;
   per_page: number;
-  total_pages: number;
-  isFirst: boolean;
-  isLast: boolean;
+  is_first: boolean;
+  is_last: boolean;
+  has_more: boolean;
 }
 
 export class ApiResponse<T> {
@@ -47,7 +44,7 @@ export class ApiResponse<T> {
     status: boolean = true,
     code: number = 500,
     message: string | ValidationError | undefined | null = null,
-    paginate: ApiResponsePagination | undefined | null = null,
+    paginate: ApiResponsePagination | undefined | null = null
   ) {
     this.data = data;
     this.status = status;

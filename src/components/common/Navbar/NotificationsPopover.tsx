@@ -32,9 +32,9 @@ const NotificationsPopover = () => {
     queryKey: ["Notifications"],
     queryFn: fetchNotifications,
     getNextPageParam: (lastPage) => {
-      return !lastPage.paginate?.isLast
-        ? lastPage.paginate?.currentPage
-          ? lastPage.paginate?.currentPage + 1
+      return !lastPage.paginate?.is_last
+        ? lastPage.paginate?.current_page
+          ? lastPage.paginate?.current_page + 1
           : null
         : null;
     },

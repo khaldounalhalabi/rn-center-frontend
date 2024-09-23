@@ -25,7 +25,8 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
-import {NotificationHandler} from "@/components/common/NotificationHandler";
+import { NotificationHandler } from "@/components/common/NotificationHandler";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 interface filterExportType {
   year: string;
@@ -75,7 +76,10 @@ const Page = () => {
     title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
-        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
+        <button
+          className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+          onClick={openModal}
+        >
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
       </>
@@ -177,26 +181,28 @@ const Page = () => {
           {showCustomDate ? (
             <>
               <label className="label">{t("startDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      time?.format("YYYY-MM-DD hh:mm"),
-                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD") + " 00:00:01",
+                      params?.date?.[1] ??
+                        dayjs().format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">{t("endDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[0] ??
+                        dayjs().format("YYYY-MM-DD") + " 00:00:01",
+                      time?.format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}

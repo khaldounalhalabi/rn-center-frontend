@@ -34,6 +34,7 @@ import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/C
 import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 
 interface filterExportType {
   year: string;
@@ -63,7 +64,9 @@ const Page = () => {
     if (checked) {
       setSelectedItems((prev) => [...prev, item]);
     } else {
-      setSelectedItems((prev) => prev.filter((itemId) => itemId.id !== item.id));
+      setSelectedItems((prev) =>
+        prev.filter((itemId) => itemId.id !== item.id)
+      );
     }
   };
   const handleSelectAll = () => {
@@ -84,7 +87,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       ).getAdminSummary();
     },
     refetchOnWindowFocus: false,
@@ -120,19 +123,23 @@ const Page = () => {
     title: `${t("appointmentDeductions")}`,
     extraButton: (
       <>
-        <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]" onClick={openModal}>
+        <button
+          className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+          onClick={openModal}
+        >
           <ExcelIcon className={`w-6 h-6 cursor-pointer `} />
         </button>
         <button
-          className={`p-2  rounded-full border-[1px] border-[#44c4c5]   ${selectedItems.length == 0 ? "bg-gray-300":"bg-[#8fdbdc] hover:bg-[#1fb8b9] cursor-pointer"}`}
+          className={`p-2  rounded-full border-[1px] border-[#44c4c5]   ${selectedItems.length == 0 ? "bg-gray-300" : "bg-[#8fdbdc] hover:bg-[#1fb8b9] cursor-pointer"}`}
           disabled={selectedItems.length == 0}
         >
-          <ChangeStatusIcon
-            className={`w-6 h-6  `}
-            onClick={openModalStatus}
-          />
+          <ChangeStatusIcon className={`w-6 h-6  `} onClick={openModalStatus} />
         </button>
-        <button className={"p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"}>
+        <button
+          className={
+            "p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+          }
+        >
           <CheckMarkIcon
             className={`w-6 h-6 cursor-pointer `}
             onClick={handleSelectAll}
@@ -165,7 +172,7 @@ const Page = () => {
                       status: deduction?.status,
                       amount: deduction?.amount,
                     },
-                    e.target.checked,
+                    e.target.checked
                   )
                 }
               />
@@ -277,7 +284,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       )
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
@@ -323,26 +330,28 @@ const Page = () => {
           {showCustomDate ? (
             <>
               <label className="label">{t("startDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      time?.format("YYYY-MM-DD hh:mm"),
-                      params?.date?.[1] ?? dayjs().format("YYYY-MM-DD hh:mm"),
+                      time?.format("YYYY-MM-DD") + " 00:00:01",
+                      params?.date?.[1] ??
+                        dayjs().format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}
                 defaultValue={params?.date?.[0] ?? ""}
               />
               <label className="label">{t("endDate")} :</label>
-              <DateTimePickerRangFilter
+              <DatepickerFilter
                 onChange={(time: any) => {
                   setParams({
                     ...params,
                     date: [
-                      params?.date?.[0] ?? dayjs().format("YYYY-MM-DD hh:mm"),
-                      time?.format("YYYY-MM-DD hh:mm"),
+                      params?.date?.[0] ??
+                        dayjs().format("YYYY-MM-DD") + " 00:00:01",
+                      time?.format("YYYY-MM-DD") + " 23:59:59",
                     ],
                   });
                 }}

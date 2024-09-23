@@ -2,12 +2,10 @@ import { ApiResponse } from "@/Http/Response";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const TablePaginator = ({
   data,
-  placeholderData,
-  page,
   setPage,
 }: {
   data: ApiResponse<any> | undefined;
@@ -15,74 +13,36 @@ const TablePaginator = ({
   page: number;
   setPage: (value: ((prevState: number) => number) | number) => void;
 }) => {
-  const t = useTranslations("table")
+  const t = useTranslations("table");
 
-  const paginationArray = [...Array(data?.paginate?.total_pages ?? 0)];
   return (
-    <div className="flex justify-between border-gray-200 px-4 py-2 border-t rounded-b-lg">
-      <div className={"justify-start"}>
-        {t("totalRecords")} : {data?.paginate?.total}
-      </div>
+    <div className="flex justify-end border-gray-200 px-4 py-2 border-t rounded-b-lg">
       <ol className="flex justify-end items-center gap-1 font-medium text-xs">
         <li>
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={data?.paginate?.isFirst ?? true}
-            className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 size-8 rtl:rotate-180"
+            disabled={data?.paginate?.is_first ?? true}
+            className="btn btn-sm btn-square bg-pom disabled:btn-neutral disabled:text-black cursor-pointer"
           >
-            <span className="sr-only">{t("prevPage")}</span>
-            <ChevronLeft />
+            <div className="tooltip" data-tip={t("prevPage")}>
+              <ChevronLeft />
+            </div>
           </button>
         </li>
-
-        {paginationArray.map((_e, index) => {
-          if (index < 3 || index >= paginationArray.length - 1) {
-            return (
-              <li key={`page-${index + 1}`}>
-                <button
-                  onClick={() => setPage(index + 1)}
-                  className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            );
-          } else if (
-            (index === 3 && page > 5) ||
-            (index === paginationArray.length - 2 &&
-              page < paginationArray.length - 4)
-          ) {
-            return (
-              <li key={`page-${index + 1}`}>
-                <span>...</span>
-              </li>
-            );
-          } else if (index >= page - 2 && index <= page + 1) {
-            return (
-              <li key={`page-${index + 1}`}>
-                <button
-                  onClick={() => setPage(index + 1)}
-                  className={`block size-8 rounded border border-gray-100 text-center leading-8 text-gray-900 ${index + 1 == data?.paginate?.currentPage ? "bg-info" : "bg-white"}`}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            );
-          } else return null;
-        })}
         <li>
           <button
             type={"button"}
             onClick={() => {
-              if (!data?.paginate?.isLast) {
+              if (!data?.paginate?.is_last) {
                 setPage((old) => old + 1);
               }
             }}
-            disabled={data?.paginate?.isLast ?? true}
-            className="inline-flex justify-center items-center border-gray-100 bg-white border rounded text-gray-900 size-8 rtl:rotate-180"
+            disabled={data?.paginate?.is_last ?? true}
+            className="btn btn-sm btn-square bg-pom disabled:btn-neutral disabled:text-black cursor-pointer"
           >
-            <span className="sr-only">{t("nextPage")}</span>
-            <ChevronRight />
+            <div className="tooltip" data-tip={t("nextPage")}>
+              <ChevronRight />
+            </div>
           </button>
         </li>
       </ol>

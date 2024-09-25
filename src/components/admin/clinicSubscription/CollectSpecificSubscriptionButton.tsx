@@ -42,7 +42,11 @@ const CollectSpecificSubscriptionButton = ({
     >
       <button
         className="btn btn-sm btn-square disabled:cursor-not-allowed"
-        disabled={subscription?.is_paid || mutation.isPending}
+        disabled={
+          subscription?.is_paid ||
+          mutation.isPending ||
+          subscription?.subscription?.cost == 0
+        }
         onClick={() => {
           if (subscription) {
             mutation.mutate(subscription?.id);

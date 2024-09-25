@@ -8,6 +8,9 @@ import { Offers } from "@/Models/Offers";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Value } from "@/components/common/ui/LabelsValues/Value";
 
 const page = async ({
   params: { offerId },
@@ -28,51 +31,50 @@ const page = async ({
         </Link>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label justify-start text-xl">
-          {t("cost")} :{" "}
-          <span className="ml-2 badge badge-error" suppressHydrationWarning>
-            {res.clinic?.appointment_cost.toLocaleString()} IQD
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("title")} :{" "}
-          <span className="ml-2 badge badge-outline  ">
-            {await TranslateServer(res?.title)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("isActive")} :{" "}
+        <LabelValue
+          label={t("cost")}
+          value={`${res.clinic?.appointment_cost.toLocaleString()} IQD`}
+          color={"error"}
+        />
+
+        <LabelValue
+          label={t("title")}
+          value={await TranslateServer(res?.title)}
+          color={"primary"}
+        />
+
+        <Label label={t("isActive")}>
           {res?.is_active ? (
-            <span className="ml-2 badge badge-neutral">{t("active")}</span>
+            <Value color="neutral">{t("active")}</Value>
           ) : (
-            <span className="ml-2 badge badge-warning">{t("not-active")}</span>
+            <Value color="warning">{t("not-active")}</Value>
           )}
-        </label>
-        <label className="label justify-start text-xl">
-          {t("type")} :{" "}
-          <span className="ml-2 badge badge-success  ">{res?.type}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("value")} :{" "}
-          <span className="ml-2 badge badge-ghost  ">
-            {res?.value} {res?.type == "percentage" ? "%" : "IQD"}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("startDate")} :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.start_at}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("endDate")} :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.end_at}</span>
-        </label>
+        </Label>
+
+        <LabelValue label={t("type")} value={res?.type} color={"success"} />
+
+        <LabelValue
+          label={t("value")}
+          value={`${res?.value} ${res?.type == "percentage" ? "%" : "IQD"}`}
+          color={"primary"}
+        />
+
+        <LabelValue
+          label={t("startDate")}
+          value={res?.start_at}
+          color={"info"}
+        />
+
+        <LabelValue label={t("endDate")} value={res?.end_at} color={"accent"} />
       </Grid>
-      <label className={"label text-xl"}>{t("note")} :</label>
-      <textarea
-        className="textarea textarea-bordered h-24 w-full"
-        disabled={true}
-        defaultValue={await TranslateServer(res?.note)}
-      />
+      <Label label={t("note")}>
+        <textarea
+          className="textarea textarea-bordered text-sm"
+          disabled={true}
+          defaultValue={await TranslateServer(res?.note)}
+        />
+      </Label>
+
       <div className={"col-span-2"}>
         {res?.image?.length != 0 ? (
           <Gallery media={res?.image ? res?.image : []} />

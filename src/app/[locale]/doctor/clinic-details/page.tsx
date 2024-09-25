@@ -14,6 +14,10 @@ import { getTranslations } from "next-intl/server";
 import { getCookieServer } from "@/Actions/serverCookies";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
+import Grid from "@/components/common/ui/Grid";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Value } from "@/components/common/ui/LabelsValues/Value";
 
 const page = async () => {
   const role = await getCookieServer("role");
@@ -26,7 +30,7 @@ const page = async () => {
   return (
     <PageCard>
       <div className={"card p-5 bg-base-200 my-3 "}>
-        <div className={"flex justify-between"}>
+        <div className={"flex justify-between items-center"}>
           <div className={`flex md:flex-row flex-col items-center gap-3`}>
             <RoundedImage
               src={getMedia(res?.user?.image?.[0] ?? undefined)}
@@ -54,22 +58,18 @@ const page = async () => {
                 })}
               </div>
             </div>
-            <div className={"mb-4"}>
-              <Link
-                href={`/doctor/clinic-details/edit`}
-                className={
-                  role == Role.CLINIC_EMPLOYEE &&
-                  !permissionsArray.includes(
-                    PermissionsDoctor.EDIT_CLINIC_PROFILE,
-                  )
-                    ? "hidden"
-                    : ""
-                }
-              >
-                <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
-              </Link>
-            </div>
           </div>
+          <Link
+            href={`/doctor/clinic-details/edit`}
+            className={
+              role == Role.CLINIC_EMPLOYEE &&
+              !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE)
+                ? "hidden"
+                : ""
+            }
+          >
+            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+          </Link>
         </div>
         <div className={"grid grid-cols-1 md:grid-cols-3 gap-3"}>
           <div
@@ -105,183 +105,150 @@ const page = async () => {
         </div>
       </div>
       <div className={"card p-5 bg-base-200 my-3 w-full"}>
-        <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-          <div className={"w-full"}>
-            <label className={"label"}>{t("specializations")} :</label>
-            <div className={"flex flex-wrap w-full gap-3"}>
+        <Grid gap={8}>
+          <Label label={t("specializations")} col>
+            <div className="flex items-center justify-between flex-wrap">
               {res?.specialities?.map((spec) => {
                 return (
-                  <div key={spec.id} className={"badge badge-info"}>
+                  <div key={spec.id} className={"badge badge-info mx-1"}>
                     {TranslateServer(spec.name)}
                   </div>
                 );
               })}
             </div>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("approximateAppointmentTime")} :{" "}
-              <span className={"badge badge-neutral"}>
-                {res?.approximate_appointment_time} min
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("status")} :{" "}
-              <span className={"badge badge-warning"}>{res?.status}</span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("experienceYear")} :{" "}
-              <span className={"badge badge-accent"}>
-                {res?.experience_years}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("address")} :
-            </label>
-            <div className={"flex flex-col"}>
-              <span>{await TranslateServer(res?.user?.address?.name)}</span>
-              <span>
-                {await TranslateServer(res?.user?.address?.city?.name)}
-              </span>
-              <span>{res?.user?.address?.country}</span>
-            </div>
-          </div>
+          </Label>
 
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("cost")} :
-              <span className={"badge badge-primary"} suppressHydrationWarning>
-                {res?.appointment_cost.toLocaleString()} IQD
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("maxAppointmentsPerDay")} :
-              <span className={"badge badge-warning"} suppressHydrationWarning>
-                {res?.max_appointments.toLocaleString()}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("appointmentDayRange")} :{" "}
-              <span className={"badge badge-neutral"}>
-                {res?.appointment_day_range}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("hospital")} :{" "}
-              <span className={"badge badge-error"}>
-                {(await TranslateServer(res?.hospital?.name)) ?? "No Hospital"}
-              </span>
-            </label>
-          </div>
+          <LabelValue
+            label={t("approximateAppointmentTime")}
+            value={`${res?.approximate_appointment_time} min`}
+            color={"primary"}
+          />
 
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("registeredAt")} :{" "}
-              <span className={"badge badge-secondary"}>{res?.created_at}</span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("lastUpdatedAt")} :
-              <span className={"badge badge-accent"}>{res?.updated_at}</span>
-            </label>
-          </div>
+          <LabelValue
+            label={t("status")}
+            value={res?.status}
+            color={"success"}
+          />
 
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("subscription")} :{" "}
-              <span className={"badge badge-warning"}>
-                {res?.active_subscription?.subscription?.name}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("subscriptionType")} :
-              <span className={"badge badge-primary"}>
-                {res?.active_subscription?.type}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("subscriptionCost")} :{" "}
-              <span className={"badge badge-success"}>
-                {res?.active_subscription?.subscription?.cost ?? 0}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("deductionCost")} :{" "}
-              <span className={"badge badge-success"}>
-                {res?.active_subscription?.deduction_cost ?? 0}
-              </span>
-            </label>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label md:block flex flex-col items-start gap-1"}>
-              {t("subscriptionStartTime")} :{" "}
-              <span className={"badge badge-neutral"}>
-                {res?.active_subscription?.start_time}
-              </span>
-            </label>
-          </div>
-          {(res?.active_subscription?.subscription?.period ?? 0) >= 0 && (
-            <div className={"w-full"}>
-              <label
-                className={"label md:block flex flex-col items-start gap-1"}
-              >
-                {t("endTime")} :
-                <span className={"badge badge-accent"}>
-                  {res?.active_subscription?.end_time}
+          <LabelValue
+            label={t("experienceYear")}
+            value={`${res?.experience_years} Years`}
+            color={"accent"}
+          />
+
+          <Label label={t("address")} col>
+            <Value>
+              <div className={"flex flex-col"}>
+                <span className="text-start">
+                  {await TranslateServer(res?.user?.address?.name)}
                 </span>
-              </label>
-            </div>
-          )}
-        </div>
-        <div className={"w-full"}>
-          <label className={"label md:block flex flex-col items-start gap-1"}>
-            {t("subscriptionDescription")} :
-          </label>
+                <span className="text-start">
+                  {await TranslateServer(res?.user?.address?.city?.name)}
+                </span>
+                <span className="text-start">
+                  {res?.user?.address?.country}
+                </span>
+              </div>
+            </Value>
+          </Label>
+
+          <LabelValue
+            label={t("cost")}
+            value={`${res?.appointment_cost.toLocaleString()} IQD`}
+            color={"info"}
+          />
+
+          <LabelValue
+            label={t("maxAppointmentsPerDay")}
+            value={`${res?.max_appointments.toLocaleString()} Appointments`}
+            color={"error"}
+          />
+
+          <LabelValue
+            label={t("appointmentDayRange")}
+            value={`${res?.appointment_day_range} Days`}
+            color={"primary"}
+          />
+
+          <LabelValue
+            label={t("hospital")}
+            value={await TranslateServer(res?.hospital?.name)}
+            color={"secondary"}
+          />
+
+          <LabelValue
+            label={t("registeredAt")}
+            value={res?.created_at}
+            color={"accent"}
+          />
+
+          <LabelValue
+            label={t("lastUpdatedAt")}
+            value={res?.updated_at}
+            color={"success"}
+          />
+
+          <LabelValue
+            label={t("subscription")}
+            value={res?.active_subscription?.subscription?.name}
+            color={"warning"}
+          />
+
+          <LabelValue
+            label={t("subscriptionType")}
+            value={res?.active_subscription?.type}
+            color={"primary"}
+          />
+
+          <LabelValue
+            label={t("subscriptionCost")}
+            value={res?.active_subscription?.subscription?.cost ?? 0}
+            color={"primary"}
+          />
+
+          <LabelValue
+            label={t("deductionCost")}
+            value={res?.active_subscription?.deduction_cost ?? 0}
+            color={"success"}
+          />
+
+          <LabelValue
+            label={t("subscriptionStartTime")}
+            value={res?.active_subscription?.start_time}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("endTime")}
+            value={res?.active_subscription?.end_time}
+            color={"error"}
+          />
+        </Grid>
+
+        <Label label={t("subscriptionDescription")} col>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
             defaultValue={res?.active_subscription?.subscription?.description}
           ></textarea>
-        </div>
-        <div className={"w-full"}>
-          <label className={"label md:block flex flex-col items-start gap-1"}>
-            {t("experienceY")} :
-          </label>
+        </Label>
+
+        <Label label={t("experienceY")} col>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
             defaultValue={res?.experience}
           ></textarea>
-        </div>
-        <div className={"w-full"}>
-          <label className={"label md:block flex flex-col items-start gap-1"}>
-            {t("about")} :
-          </label>
+        </Label>
+
+        <Label label={t("about")} col>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
             defaultValue={res?.about_us}
           />
-        </div>
+        </Label>
+
         <div className={"w-full"}>
           {res?.work_gallery?.length != 0 ? (
             <Gallery media={res?.work_gallery ? res?.work_gallery : [""]} />

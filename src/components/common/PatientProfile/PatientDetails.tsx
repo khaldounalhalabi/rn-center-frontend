@@ -4,6 +4,9 @@ import React from "react";
 import { Customer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import { useTranslations } from "next-intl";
+import { LabelValue } from "../ui/LabelsValues/LabelValue";
+import { Value } from "../ui/LabelsValues/Value";
+import { Label } from "../ui/LabelsValues/Label";
 
 const PatientDetails = ({
   patient,
@@ -19,92 +22,96 @@ const PatientDetails = ({
   };
   const otherData = patient?.currentClinicPatientProfile?.other_data
     ? convertObjectToArray(
-        JSON.parse(patient?.currentClinicPatientProfile?.other_data),
+        JSON.parse(patient?.currentClinicPatientProfile?.other_data)
       )
     : [];
   return (
     <>
       <Grid md={2} gap={5}>
-        <label className="label justify-start text-xl">
-          {t("birthDate")} :{" "}
-          <span className="ml-2 badge badge-outline  ">
-            {patient?.user?.birth_date}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("age")} :{" "}
-          <span className="ml-2 badge badge-accent  ">
-            {patient?.user?.age}
-          </span>
-        </label>
-        <label className="label justify-start text-xl md:block flex flex-col items-start">
-          {t("address")} :{" "}
-          <span className="ml-2 badge badge-success  ">
-            {TranslateClient(patient?.user?.address?.name)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("city")} :{" "}
-          <span className="ml-2 badge badge-ghost  ">
-            {TranslateClient(patient?.user?.address?.city?.name)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("gender")} :{" "}
-          <span className="ml-2 badge badge-accent  ">
-            {patient?.user?.gender}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("blood")} :{" "}
-          <span className="ml-2 badge badge-accent  ">
-            {patient?.user?.blood_group}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("isBlocked")} :{" "}
+        <LabelValue
+          label={t("birthDate")}
+          value={patient?.user?.birth_date}
+          color={"primary"}
+        />
+
+        <LabelValue
+          label={t("age")}
+          value={patient?.user?.age}
+          color={"accent"}
+        />
+
+        <LabelValue
+          label={t("address")}
+          value={TranslateClient(patient?.user?.address?.name)}
+          color={"success"}
+        />
+
+        <LabelValue
+          label={t("city")}
+          value={TranslateClient(patient?.user?.address?.city?.name)}
+          color={"info"}
+        />
+
+        <LabelValue
+          label={t("gender")}
+          value={patient?.user?.gender}
+          color={"warning"}
+        />
+
+        <LabelValue
+          label={t("blood")}
+          value={patient?.user?.blood_group}
+          color={"error"}
+        />
+
+        <Label label={t("isBlocked")}>
           {patient?.user?.is_blocked ? (
-            <span className="ml-2 badge badge-error">{t("blocked")}</span>
+            <Value color="error" value={t("blocked")} />
           ) : (
-            <span className="ml-2 badge badge-success">{t("notBlocked")}</span>
+            <Value color="success" value={t("notBlocked")} />
           )}
-        </label>
-        <label className="label justify-start text-xl">
-          {t("isArchived")} :{" "}
+        </Label>
+
+        <Label label={t("isArchived")}>
           {patient?.user?.is_archived ? (
-            <span className="ml-2 badge badge-neutral">{t("archived")}</span>
+            <Value color="neutral" value={t("archived")} />
           ) : (
-            <span className="ml-2 badge badge-warning">{t("notArchived")}</span>
+            <Value color="warning" value={t("notArchived")} />
           )}
-        </label>
+        </Label>
       </Grid>
       {typePage == "admin" ? (
         ""
       ) : (
         <>
-          <h2 className="card-title">{t("otherData")} :</h2>
-          <Grid md={2}>
-            {otherData?.map((data, index) => (
-              <label key={index} className="label justify-start text-xl">
-                {data.key} :{" "}
-                <span className="ml-2 badge badge-warning">{data.value}</span>
-              </label>
-            ))}
-          </Grid>
-          <label className={"label text-xl"}>{t("note")} :</label>
-          <textarea
-            className="textarea textarea-bordered h-24 w-full"
-            disabled={true}
-            defaultValue={patient?.currentClinicPatientProfile?.note}
-          />
-          <label className={"label text-xl"}>{t("medicalCondition")} :</label>
-          <textarea
-            className="textarea textarea-bordered h-24 w-full"
-            disabled={true}
-            defaultValue={
-              patient?.currentClinicPatientProfile?.medical_condition
-            }
-          />
+          <Label label={t("otherData")} col>
+            <Grid md={2}>
+              {otherData?.map((data, index) => (
+                <Label key={index}>
+                  {data.key} : <Value color="warning" value={data.value} />
+                </Label>
+              ))}
+            </Grid>
+          </Label>
+
+          <Label label={t("note")} col>
+            <textarea
+              className="textarea textarea-bordered text-sm w-full"
+              disabled={true}
+              defaultValue={patient?.currentClinicPatientProfile?.note}
+            />
+          </Label>
+
+          <Label label={t("medicalCondition")} col>
+            <textarea
+              className="textarea textarea-bordered text-sm w-full"
+              disabled={true}
+              defaultValue={
+                patient?.currentClinicPatientProfile?.medical_condition
+              }
+            />
+          </Label>
+
           <Gallery media={patient?.currentClinicPatientProfile?.images ?? []} />
         </>
       )}

@@ -7,6 +7,9 @@ import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { useTranslations } from "next-intl";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import { Label } from "../ui/LabelsValues/Label";
+import { LabelValue } from "../ui/LabelsValues/LabelValue";
+import { Value } from "../ui/LabelsValues/Value";
 
 const Overview = ({
   appointment,
@@ -21,16 +24,16 @@ const Overview = ({
       ? HandleCalcOffers(
           appointment?.offers ?? [],
           appointment?.clinic?.appointment_cost ?? 0,
-          "offer",
+          "offer"
         )
       : HandleCalcOffers(
           appointment?.offers ?? [],
           HandleCalcOffers(
             appointment?.system_offers ?? [],
             appointment?.clinic?.appointment_cost ?? 0,
-            "system",
+            "system"
           ),
-          "offer",
+          "offer"
         );
 
   const handleTotalCost = (): number => {
@@ -44,54 +47,75 @@ const Overview = ({
   console.log(appointment);
 
   return (
-    <div className={"card p-5 bg-base-200 my-3 w-full"}>
-      <Grid md={2} gap={5}>
-        <div className={"w-full"}>
-          <label className={"label"}>{t("status")} : </label>
+    <div className={"card bg-base-200 my-3 w-full"}>
+      <Grid md={2} gap={8}>
+        <Label label={t("status")}>
           <AppointmentStatusColumn
             userType={"doctor"}
             appointment={appointment}
           />
-          <label className={"label"}>{t("type")} : </label>
-          <p className={"badge badge-accent"}>{appointment?.type}</p>
-          <label className={"label"}>{t("extraFees")} : </label>
-          <p className={"badge badge-primary"}>{appointment?.extra_fees} IQD</p>
-          <label className={"label"}>{t("totalCost")} : </label>
-          <p className={"badge badge-ghost"} suppressHydrationWarning>
-            {appointment?.total_cost?.toLocaleString()} IQD
-          </p>
-          <label className={"label"}>{t("appointmentSequence")} : </label>
-          <p className={"badge badge-info"} suppressHydrationWarning>
-            {appointment?.appointment_sequence?.toLocaleString()}
-          </p>
-        </div>
-        <div className={"w-full"}>
-          <label className={"label"}>{t("deviceType")} : </label>
-          <p className={"badge badge-outline"}>{appointment?.device_type}</p>
-          <label className={"label"}>{t("date")} :</label>
-          <p className={"badge badge-neutral"}>{appointment?.date}</p>
-        </div>
-      </Grid>
-      <div className={"w-full"}>
-        <label className={"label"}>{t("note")} :</label>
-        <textarea
-          className="textarea textarea-bordered h-24 w-full"
-          disabled={true}
-          defaultValue={appointment?.note}
+        </Label>
+
+        <LabelValue
+          label={t("type")}
+          value={appointment?.type}
+          color={"primary"}
         />
-      </div>
-      {appointment?.cancellation_reason ? (
-        <div className={"w-full"}>
-          <label className={"label"}>{t("cancellationReason")} :</label>
+
+        <LabelValue
+          label={t("extraFees")}
+          value={`${appointment?.extra_fees} IQD`}
+          color={"info"}
+        />
+
+        <LabelValue
+          label={t("totalCost")}
+          value={`${appointment?.total_cost?.toLocaleString()} IQD`}
+          color={"success"}
+        />
+
+        <LabelValue
+          label={t("appointmentSequence")}
+          value={appointment?.appointment_sequence?.toLocaleString()}
+          color={"warning"}
+        />
+
+        <LabelValue
+          label={t("deviceType")}
+          value={appointment?.device_type}
+          color={"info"}
+        />
+
+        <LabelValue
+          label={t("date")}
+          value={appointment?.date}
+          color={"primary"}
+        />
+      </Grid>
+
+      <div className={"w-full my-5"}>
+        <Label label={t("note")} col>
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             disabled={true}
-            defaultValue={appointment?.cancellation_reason}
+            defaultValue={appointment?.note}
           />
+        </Label>
+      </div>
+      {appointment?.cancellation_reason ? (
+        <div className="w-full my-5">
+          <Label label={t("cancellationReason")}>
+            <textarea
+              className="textarea textarea-bordered h-24 w-full"
+              disabled={true}
+              defaultValue={appointment?.cancellation_reason}
+            />
+          </Label>
         </div>
       ) : (
         ""
       )}
+
       <div className="overflow-x-auto border-2 rounded-2xl">
         <table className="table">
           <thead>
@@ -152,7 +176,7 @@ const Overview = ({
               : ""}
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
-              <td className="text-lg">
+              <td className="text-lg text-primary">
                 {handleTotalCost().toLocaleString()} IQD
               </td>
             </tr>

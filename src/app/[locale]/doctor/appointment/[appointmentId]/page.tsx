@@ -13,6 +13,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 
 const Show = ({
   params: { appointmentId },
@@ -24,7 +25,7 @@ const Show = ({
     queryKey: ["AppointmentService"],
     queryFn: async () => {
       return await AppointmentService.make<AppointmentService>("doctor").show(
-        appointmentId,
+        appointmentId
       );
     },
   });
@@ -55,34 +56,29 @@ const Show = ({
       </div>
       <div className={"card p-5 bg-base-200 my-3"}>
         <Grid md={"2"}>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("clinicName")} :{" "}
-            <span className="ml-2 badge badge-success ">
-              {TranslateClient(res?.clinic?.name)}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("doctorName")} :{" "}
-            <span className="ml-2 badge badge-accent  ">
-              {TranslateClient(res?.clinic?.user?.first_name)}{" "}
-              {TranslateClient(res?.clinic?.user?.middle_name)}{" "}
-              {TranslateClient(res?.clinic?.user?.last_name)}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("customerName")} :{" "}
-            <span className="ml-2 badge badge-neutral ">
-              {TranslateClient(res?.customer?.user?.first_name)}{" "}
-              {TranslateClient(res?.customer?.user?.middle_name)}{" "}
-              {TranslateClient(res?.customer?.user?.last_name)}{" "}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("serviceName")} :{" "}
-            <span className="ml-2 badge badge-primary  ">
-              {TranslateClient(res?.service?.name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("clinicName")}
+            value={TranslateClient(res?.clinic?.name)}
+            color={"success"}
+          />
+
+          <LabelValue
+            label={t("doctorName")}
+            value={TranslateClient(res?.clinic?.user?.full_name)}
+            color="info"
+          />
+
+          <LabelValue
+            label={t("customerName")}
+            value={TranslateClient(res?.customer?.user?.full_name)}
+            color={"primary"}
+          />
+
+          <LabelValue
+            label={t("serviceName")}
+            value={res?.service?.name}
+            color={"warning"}
+          />
         </Grid>
         <div className="px-2 sm:px-0 py-16 w-full">
           <AppointmentOverview appointment={res} />

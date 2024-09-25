@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const page = async ({
@@ -12,7 +12,7 @@ const page = async ({
 }: {
   params: { clinicId: number; subscriptionId: number };
 }) => {
-  const t = await getTranslations('admin.subscription.show')
+  const t = await getTranslations("admin.subscription.show");
 
   const data =
     await ClinicSubscriptionService.make<ClinicSubscriptionService>().show(

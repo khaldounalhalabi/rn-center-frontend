@@ -4,14 +4,14 @@ import Grid from "@/components/common/ui/Grid";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { deductionId },
 }: {
   params: { deductionId: number };
 }) => {
-  const t = await getTranslations("common.deductions.show")
+  const t = await getTranslations("common.deductions.show");
   const data =
     await AppointmentDeductionsService.make<AppointmentDeductionsService>(
       "admin",

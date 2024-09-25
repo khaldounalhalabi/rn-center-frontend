@@ -17,7 +17,7 @@ import { AddOrUpdateCustomer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const PatientsForm = ({
   defaultValues = undefined,
@@ -115,7 +115,8 @@ const PatientsForm = ({
         <div className={`flex gap-5 p-2 items-center`}>
           <label className={`bg-pom p-2 rounded-md text-white`}>
             {t("gender")}:
-          </label>          <Input
+          </label>{" "}
+          <Input
             name={"gender"}
             label={t("male")}
             type="radio"
@@ -125,7 +126,6 @@ const PatientsForm = ({
               defaultValues?.gender ? defaultValues?.gender == "male" : true
             }
           />
-
           <Input
             name={"gender"}
             label={t("female")}

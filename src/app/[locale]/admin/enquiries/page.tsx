@@ -7,10 +7,10 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { EnquiriesService } from "@/services/EnquiriesService";
 import { Enquiries } from "@/Models/Enquiries";
 import ReplyButton from "@/components/admin/enquiries/ReplyButton";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("admin.enquiries")
+  const t = useTranslations("admin.enquiries");
   const tableData: DataTableData<Enquiries> = {
     title: `${t("enquiries")}`,
     schema: [

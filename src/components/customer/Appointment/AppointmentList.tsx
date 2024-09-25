@@ -23,14 +23,14 @@ const AppointmentList = () => {
       queryKey: ["next_appointments_list", params],
       queryFn: async ({ pageParam }) =>
         await AppointmentService.make<AppointmentService>(
-          "customer"
+          "customer",
         ).indexWithPagination(
           pageParam,
           undefined,
           undefined,
           undefined,
           6,
-          params
+          params,
         ),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
@@ -70,7 +70,7 @@ const AppointmentList = () => {
                       dayjs().format("YYYY-MM-DD"),
                       dayjs().add(1, "year").format("YYYY-MM-DD"),
                     ],
-                  }
+                  },
             );
           }}
         >
@@ -126,7 +126,7 @@ const AppointmentList = () => {
                   </div>
                 </ListCards>
               );
-            })
+            }),
           )
         )}
         {isFetchingNextPage && (

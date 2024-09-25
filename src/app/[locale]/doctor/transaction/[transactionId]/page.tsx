@@ -6,14 +6,14 @@ import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { transactionId },
 }: {
   params: { transactionId: number };
 }) => {
-  const t =await getTranslations("common.transaction.show")
+  const t = await getTranslations("common.transaction.show");
   const data =
     await ClinicTransactionService.make<ClinicTransactionService>(
       "doctor",

@@ -6,7 +6,7 @@ import Eye from "@/components/icons/Eye";
 import { Link } from "@/navigation";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { AppointmentLogs as AppointmentLogsModel } from "@/Models/AppointmentLog";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const AppointmentLogs = ({
   appointment,
@@ -23,7 +23,7 @@ const AppointmentLogs = ({
   });
   const res: AppointmentLogsModel[] | undefined = data?.data;
   const locale = useLocale();
-  const t = useTranslations('common.appointment.show')
+  const t = useTranslations("common.appointment.show");
 
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>

@@ -18,7 +18,7 @@ export class ClinicsService extends BaseService<Clinic> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Clinic[]>> {
     const res = await GET<Clinic[]>(
       `${this.actor}/subscriptions/${subscriptionId}/clinics`,
@@ -30,7 +30,7 @@ export class ClinicsService extends BaseService<Clinic> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }
@@ -42,7 +42,7 @@ export class ClinicsService extends BaseService<Clinic> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object
+    params?: object,
   ): Promise<ApiResponse<Clinic[]>> {
     const res = await GET<Clinic[]>(
       `${this.actor}/system-offers/${offerId}/clinics`,
@@ -54,7 +54,7 @@ export class ClinicsService extends BaseService<Clinic> {
         per_page: per_page,
         ...params,
       },
-      this.headers
+      this.headers,
     );
     return await this.errorHandler(res);
   }

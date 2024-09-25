@@ -19,7 +19,7 @@ const ClinicCarousel = () => {
         undefined,
         undefined,
         undefined,
-        4
+        4,
       ),
   });
 

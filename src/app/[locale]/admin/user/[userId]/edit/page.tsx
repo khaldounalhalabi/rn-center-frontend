@@ -2,10 +2,10 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { UsersService } from "@/services/UsersService";
 import UserForm from "@/components/admin/users/UserForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
-    const t = await getTranslations('admin.users')
+  const t = await getTranslations("admin.users");
   const user = (await UsersService.make<UsersService>("admin").show(userId))
     .data;
 

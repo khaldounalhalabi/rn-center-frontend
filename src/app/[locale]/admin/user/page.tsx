@@ -9,10 +9,10 @@ import { User } from "@/Models/User";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import BlockButton from "@/components/common/BlockButton";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations('admin.users')
+  const t = useTranslations("admin.users");
   const tableData: DataTableData<User> = {
     title: `${t("users")}`,
     schema: [

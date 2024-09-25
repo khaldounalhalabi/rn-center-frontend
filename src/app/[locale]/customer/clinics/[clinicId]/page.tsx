@@ -1,13 +1,10 @@
-import { Navigate } from "@/Actions/navigate";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 import RoundedImage from "@/components/common/RoundedImage";
 import Grid from "@/components/common/ui/Grid";
-import MakeAppointmentForm from "@/components/customer/Appointment/MakeAppointmentForm";
 import LocationPinIcon from "@/components/icons/LovationPinIcon";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { getMedia } from "@/Models/Media";
 import { Link } from "@/navigation";
-import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
 
 const Page = async ({

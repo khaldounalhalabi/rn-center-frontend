@@ -9,13 +9,13 @@ import { Phone } from "@/Models/Phone";
 import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({ params: { userId } }: { params: { userId: number } }) => {
-  const t = await getTranslations("admin.users")
+  const t = await getTranslations("admin.users");
   const data = await UsersService.make<UsersService>().show(userId);
   const res: User = data?.data;
-  const tagsArray = typeof res?.tags == "string" ?res?.tags?.split(",") :[];
+  const tagsArray = typeof res?.tags == "string" ? res?.tags?.split(",") : [];
 
   return (
     <PageCard>

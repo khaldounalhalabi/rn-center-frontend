@@ -3,7 +3,6 @@ import { Navigate } from "@/Actions/navigate";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
-import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
 import { AppointmentService } from "@/services/AppointmentService";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { HandleDatePicker } from "@/hooks/CheckTimeAvailable";
@@ -52,7 +51,7 @@ const MakeAppointmentForm = ({
                 availableTimes,
                 day,
                 clinic.appointment_day_range,
-                clinic.max_appointments
+                clinic.max_appointments,
               );
             }}
           />{" "}
@@ -65,10 +64,10 @@ const MakeAppointmentForm = ({
           <ApiSelect
             api={function (
               page?: number,
-              search?: string
+              search?: string,
             ): Promise<ApiResponse<SystemOffers[]>> {
               return SystemOffersService.make<SystemOffersService>(
-                "public"
+                "public",
               ).getSystemOffersByClinic(clinic.id, page, search);
             }}
             name={"system_offers"}

@@ -98,8 +98,13 @@ export class AuthService extends BaseService<AuthResponse> {
     return await this.errorHandler(res);
   }
 
-  public async UpdateUserDetails(data: any): Promise<ApiResponse<AuthResponse>> {
-    const res = await POST<AuthResponse>(`${this.actor}/update-user-data`, data);
+  public async UpdateUserDetails(
+    data: any,
+  ): Promise<ApiResponse<AuthResponse>> {
+    const res = await POST<AuthResponse>(
+      `${this.actor}/update-user-data`,
+      data,
+    );
     return await this.errorHandler(res);
   }
 

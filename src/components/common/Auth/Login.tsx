@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Input from "@/components/common/ui/Inputs/Input";
-import {Link, usePathname} from "@/navigation";
+import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
 import { POST } from "@/Http/Http";
 import { Navigate } from "@/Actions/navigate";
@@ -10,7 +10,7 @@ import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { Role } from "@/enum/Role";
 import { isArray } from "util";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface LoginProps {
   url: string;
@@ -58,7 +58,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("user-type", pageType);
     Navigate(`/${pageType}`);
   };
-  const t = useTranslations("auth")
+  const t = useTranslations("auth");
   return (
     <div className="relative w-full h-screen">
       <div className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] -translate-x-1/2 -translate-y-1/2">
@@ -87,9 +87,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
           </div>
 
           {error && (
-            <p className="my-3 p-2 w-full text-error text-sm">
-              {t("err")}.
-            </p>
+            <p className="my-3 p-2 w-full text-error text-sm">{t("err")}.</p>
           )}
           {errorBlocked ? (
             <p className="my-3 p-2 w-full text-error text-sm">{errorBlocked}</p>

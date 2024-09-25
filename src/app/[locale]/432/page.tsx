@@ -39,7 +39,7 @@ const page = () => {
           "absolute top-1/2 right-1/2 md:w-[43%] w-[80%] h-[50vh]  transform translate-x-1/2 md:-translate-y-[80%] -translate-y-[100%] "
         }
       >
-        <ExpiredIcon className={'w-full h-full'}/>
+        <ExpiredIcon className={"w-full h-full"} />
       </div>
       <div
         className={

@@ -7,14 +7,14 @@ import { Appointment } from "@/Models/Appointment";
 import AppointmentOverview from "@/components/admin/appointment/AppointmentOverviw";
 import Grid from "@/components/common/ui/Grid";
 import TranslateServer from "@/Helpers/TranslationsServer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { appointmentId },
 }: {
   params: { appointmentId: number };
 }) => {
-  const t = await getTranslations('common.appointment.show')
+  const t = await getTranslations("common.appointment.show");
   const data =
     await AppointmentService.make<AppointmentService>().show(appointmentId);
   const res: Appointment = data?.data;

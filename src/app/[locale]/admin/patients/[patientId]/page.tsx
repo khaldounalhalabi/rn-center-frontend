@@ -10,7 +10,7 @@ import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";
 import { Customer } from "@/Models/Customer";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId },

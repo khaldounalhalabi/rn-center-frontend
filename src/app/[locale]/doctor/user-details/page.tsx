@@ -8,10 +8,10 @@ import RoundedImage from "@/components/common/RoundedImage";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async () => {
-  const t = await getTranslations("details")
+  const t = await getTranslations("details");
 
   const data = await AuthService.make<AuthService>("doctor").GetUserDetails();
   const res: User = data.data;

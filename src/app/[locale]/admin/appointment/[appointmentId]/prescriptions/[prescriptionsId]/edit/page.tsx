@@ -2,7 +2,7 @@ import React from "react";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PrescriptionsForm from "@/components/common/prescriptions/PrescriptionsForm";
 import { AppointmentService } from "@/services/AppointmentService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { appointmentId, prescriptionsId },
@@ -16,7 +16,7 @@ const page = async ({
   ).data;
   const appointment =
     await AppointmentService.make<AppointmentService>().show(appointmentId);
-    const t = await getTranslations("common.prescription.create")
+  const t = await getTranslations("common.prescription.create");
 
   return (
     <div>

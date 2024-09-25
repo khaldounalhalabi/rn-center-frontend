@@ -3,17 +3,17 @@ import { getCookieClient } from "@/Actions/clientCookies";
 
 export function TranslateClient(
   val: string | undefined | null,
-  object?: boolean
+  object?: boolean,
 ): string;
 
 export function TranslateClient(
   val: string | undefined | null,
-  object: true
+  object: true,
 ): Translatable;
 
 export function TranslateClient(
   val: string | undefined | null,
-  object = false
+  object = false,
 ): string | Translatable {
   try {
     if (!val && object) {

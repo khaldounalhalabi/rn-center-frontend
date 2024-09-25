@@ -10,7 +10,6 @@ import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
-import TimepickerFilter from "@/components/common/ui/TimePickerFilter";
 
 const Page = () => {
   const t = useTranslations("admin.schedules.table");

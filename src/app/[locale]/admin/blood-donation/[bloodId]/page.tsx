@@ -6,14 +6,14 @@ import Grid from "@/components/common/ui/Grid";
 import { BloodDonationService } from "@/services/BloodDonationService";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { BloodDonation } from "@/Models/BloodDonation";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { bloodId },
 }: {
   params: { bloodId: number };
 }) => {
-  const t = await getTranslations("admin.blood")
+  const t = await getTranslations("admin.blood");
   const data =
     await BloodDonationService.make<BloodDonationService>().show(bloodId);
   const res: BloodDonation = data?.data;

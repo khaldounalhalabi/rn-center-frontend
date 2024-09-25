@@ -8,7 +8,6 @@ import RoundedImage from "@/components/common/RoundedImage";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { StaffService } from "@/services/StaffService";
 import { Phone } from "@/Models/Phone";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 

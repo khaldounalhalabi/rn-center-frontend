@@ -5,12 +5,12 @@ import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { Dialog, Transition } from "@headlessui/react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
-    const t = useTranslations("common.appointment.table")
+  const t = useTranslations("common.appointment.table");
 
-    const [openLogs, setOpenLogs] = useState(false);
+  const [openLogs, setOpenLogs] = useState(false);
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (

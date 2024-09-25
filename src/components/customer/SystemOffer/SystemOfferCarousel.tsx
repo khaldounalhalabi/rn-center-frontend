@@ -1,6 +1,6 @@
 "use client";
 import { SystemOffersService } from "@/services/SystemOffersService";
-import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import "./embla.css";
@@ -9,26 +9,38 @@ const SystemOfferCarousel = () => {
   const { data, isPending } = useQuery({
     queryKey: ["system_offers_carousel"],
     queryFn: async () => {
-      return await SystemOffersService.make<SystemOffersService>("public").indexWithPagination(1, undefined, undefined, undefined, 5)
-    }
+      return await SystemOffersService.make<SystemOffersService>(
+        "public",
+      ).indexWithPagination(1, undefined, undefined, undefined, 5);
+    },
   });
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
   return (
-      <div className="my-4  h-[23vh] md:h-[25vh] xl:h-[28vh]  ">
-        <div className="embla h-full" ref={emblaRef}>
-          <div className="embla__container">
-            {data?.data.map((offer,index) => (
-                    <div className="mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]" key={index}>
-                      <div className={'  w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]               h-[23vh] md:h-[25vh] xl:h-[28vh] '}>
-                        <img className={'rounded-3xl h-full w-full'} src={offer.image[0].file_url} alt={offer.title} />
-                      </div>
-                    </div>
-                ))
-            }
-          </div>
+    <div className="my-4  h-[23vh] md:h-[25vh] xl:h-[28vh]  ">
+      <div className="embla h-full" ref={emblaRef}>
+        <div className="embla__container">
+          {data?.data.map((offer, index) => (
+            <div
+              className="mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]"
+              key={index}
+            >
+              <div
+                className={
+                  "  w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]               h-[23vh] md:h-[25vh] xl:h-[28vh] "
+                }
+              >
+                <img
+                  className={"rounded-3xl h-full w-full"}
+                  src={offer.image[0].file_url}
+                  alt={offer.title}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Kodchasan,Cairo } from "next/font/google";
+import { Cairo, Inter, Kodchasan } from "next/font/google";
 import "./global.css";
 import React from "react";
 import { CookiesProvider } from "next-client-cookies/server";
@@ -19,6 +19,7 @@ const CairoFont = Cairo({
   weight: ["600", "300"],
   variable: "--font-Cairo",
 });
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -59,7 +60,9 @@ export default async function RootLayout({
       lang={locale == "ar" ? "ar" : "en"}
       dir={locale == "ar" ? "rtl" : "ltr"}
     >
-      <body className={`${inter.className} ${kodChasan.variable} ${CairoFont.variable} min-h-screen ${locale == "ar"?"Cairo":""}`}>
+      <body
+        className={`${inter.className} ${kodChasan.variable} ${CairoFont.variable} min-h-screen ${locale == "ar" ? "Cairo" : ""}`}
+      >
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>
             <NextTopLoader showSpinner={false} />

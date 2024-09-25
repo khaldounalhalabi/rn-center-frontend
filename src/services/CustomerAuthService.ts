@@ -20,7 +20,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
     const response = await POST<null>(
       "/customer/password-reset-request",
       data,
-      this.headers
+      this.headers,
     );
 
     return this.errorHandler(response);
@@ -30,7 +30,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
     const response = await POST<boolean>(
       "/customer/verify-phone",
       data,
-      this.headers
+      this.headers,
     );
 
     return this.errorHandler(response);
@@ -52,7 +52,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
         verification_code: verificationCode,
         ...data,
       },
-      this.headers
+      this.headers,
     );
 
     deleteCookieServer("customer_reset_password_code");
@@ -64,7 +64,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
     const response = await POST<boolean>(
       "/customer/validate-reset-code",
       data,
-      this.headers
+      this.headers,
     );
 
     if (response.code == 200) {
@@ -78,7 +78,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
     const response = await POST<boolean>(
       "customer/request-verification-code",
       data,
-      this.headers
+      this.headers,
     );
 
     return this.errorHandler(response);
@@ -90,7 +90,7 @@ export class CustomerAuthService extends BaseService<AuthResponse> {
 
   public async updateUserDetails(data: any) {
     return this.errorHandler(
-      await POST<User>("/customer/update-user-data", data, this.headers)
+      await POST<User>("/customer/update-user-data", data, this.headers),
     );
   }
 }

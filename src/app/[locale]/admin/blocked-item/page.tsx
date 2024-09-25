@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { BlockedItemService } from "@/services/BlockedItemService";
 import { BlockedItem } from "@/Models/BlockedItem";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("admin.block")
+  const t = useTranslations("admin.block");
   const tableData: DataTableData<BlockedItem> = {
     createUrl: `/admin/blocked-item/create`,
     title: `${t("blockedItems")}`,

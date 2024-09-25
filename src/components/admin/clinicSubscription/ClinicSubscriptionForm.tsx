@@ -11,7 +11,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import SubscriptionArray, { SubscriptionType } from "@/enum/SubscriptionType";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
 
 const ClinicSubscriptionForm = ({
@@ -23,7 +23,7 @@ const ClinicSubscriptionForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations('admin.subscription.create')
+  const t = useTranslations("admin.subscription.create");
 
   const [typeSelect, setType] = useState("");
   const handleSubmit = async (data: any) => {

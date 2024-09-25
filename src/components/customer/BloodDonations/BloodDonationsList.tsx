@@ -17,7 +17,7 @@ const BloodDonationsList = () => {
           undefined,
           undefined,
           undefined,
-          6
+          6,
         );
       },
       initialPageParam: 1,
@@ -87,7 +87,7 @@ const BloodDonationsList = () => {
                   </ListCards>
                 </div>
               );
-            })
+            }),
           )
         )}
         {isFetchingNextPage && (

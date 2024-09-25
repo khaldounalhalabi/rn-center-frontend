@@ -9,7 +9,6 @@ import { Transactions } from "@/Models/Transactions";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import TransactionTypeArray from "@/enum/TransactionType";
-import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -37,7 +36,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await TransactionService.make<TransactionService>(
-        "admin"
+        "admin",
       ).getSummary();
     },
   });
@@ -120,7 +119,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await TransactionService.make<TransactionService>(
-        "admin"
+        "admin",
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (

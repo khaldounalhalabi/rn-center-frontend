@@ -6,7 +6,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import BackIcon from "@/components/icons/backIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const UserDataAdmin = ({
   statisticsRes,
@@ -18,7 +18,7 @@ const UserDataAdmin = ({
   isFetching: boolean;
 }) => {
   const user: User = HandleGetUserData();
-  const t = useTranslations('common.dashboard')
+  const t = useTranslations("common.dashboard");
   const thisMonth = Number(statisticsRes?.total_deductions_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);
 
@@ -70,7 +70,9 @@ const UserDataAdmin = ({
 
         <div className="h-1/2 flex flex-col justify-between  xl:items-end bg-white rounded-b-xl">
           <div className="p-4 w-full ">
-            <div className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px] left-[10%] ${local == "en" ? "left-[10%]" : "right-[10%]"}`}>
+            <div
+              className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px] left-[10%] ${local == "en" ? "left-[10%]" : "right-[10%]"}`}
+            >
               <RoundedImage
                 src={user.image?.[0]?.file_url ?? "/user.png"}
                 alt={"user-profile"}

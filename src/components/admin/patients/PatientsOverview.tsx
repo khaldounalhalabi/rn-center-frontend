@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import PatientProfilesTable from "@/components/admin/patients/PatientProfilesTable";
 import PatientDetails from "@/components/common/PatientProfile/PatientDetails";
 import { Customer } from "@/Models/Customer";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

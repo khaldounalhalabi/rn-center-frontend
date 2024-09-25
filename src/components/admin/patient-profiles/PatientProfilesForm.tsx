@@ -16,7 +16,7 @@ import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import PageCard from "@/components/common/ui/PageCard";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const PatientProfilesForm = ({
   defaultValues = undefined,
@@ -29,7 +29,7 @@ const PatientProfilesForm = ({
   type?: "store" | "update";
   patientId?: number;
 }) => {
-  const t = useTranslations('admin.patientsProfiles.create')
+  const t = useTranslations("admin.patientsProfiles.create");
 
   const handleSubmit = async (data: any) => {
     const dataSend = patientId

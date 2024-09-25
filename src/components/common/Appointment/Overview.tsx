@@ -41,7 +41,7 @@ const Overview = ({
       Number(appointment?.discount ?? 0)
     );
   };
-  console.log(appointment)
+  console.log(appointment);
 
   return (
     <div className={"card p-5 bg-base-200 my-3 w-full"}>
@@ -80,15 +80,18 @@ const Overview = ({
           defaultValue={appointment?.note}
         />
       </div>
-      {appointment?.cancellation_reason?
-          <div className={"w-full"}>
-            <label className={"label"}>{t("cancellationReason")} :</label>
-            <textarea
-                className="textarea textarea-bordered h-24 w-full"
-                disabled={true}
-                defaultValue={appointment?.cancellation_reason}
-            />
-          </div>:""}
+      {appointment?.cancellation_reason ? (
+        <div className={"w-full"}>
+          <label className={"label"}>{t("cancellationReason")} :</label>
+          <textarea
+            className="textarea textarea-bordered h-24 w-full"
+            disabled={true}
+            defaultValue={appointment?.cancellation_reason}
+          />
+        </div>
+      ) : (
+        ""
+      )}
       <div className="overflow-x-auto border-2 rounded-2xl">
         <table className="table">
           <thead>
@@ -126,7 +129,8 @@ const Overview = ({
                       {t("offers")} [{TranslateClient(e.title)}]
                     </td>
                     <td>
-                      {e?.value.toLocaleString() ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                      {e?.value.toLocaleString() ?? 0}{" "}
+                      {e?.type == "fixed" ? "IQD" : "%"}
                     </td>
                   </tr>
                 ))
@@ -139,7 +143,8 @@ const Overview = ({
                         {t("systemOffer")} [{TranslateClient(e.title)}]
                       </td>
                       <td>
-                        {e?.amount.toLocaleString() ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {e?.amount.toLocaleString() ?? 0}{" "}
+                        {e?.type == "fixed" ? "IQD" : "%"}
                       </td>
                     </tr>
                   ))
@@ -147,7 +152,9 @@ const Overview = ({
               : ""}
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
-              <td className="text-lg">{handleTotalCost().toLocaleString()} IQD</td>
+              <td className="text-lg">
+                {handleTotalCost().toLocaleString()} IQD
+              </td>
             </tr>
           </tbody>
         </table>

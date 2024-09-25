@@ -3,7 +3,7 @@ import { getCookieServer } from "@/Actions/serverCookies";
 
 const TranslateServer = async (
   val: string | undefined | null,
-  object?: boolean
+  object?: boolean,
 ) => {
   const locale = (await getCookieServer("NEXT_LOCALE")) ?? "en";
 

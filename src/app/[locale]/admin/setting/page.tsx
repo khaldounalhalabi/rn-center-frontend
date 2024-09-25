@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SettingService } from "@/services/SettingService";
 import { Setting } from "@/Models/setting";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("admin.setting")
+  const t = useTranslations("admin.setting");
   const tableData: DataTableData<Setting> = {
     title: `${t("settings")}`,
     schema: [
@@ -28,7 +28,9 @@ const Page = () => {
         name: "value",
         label: `${t("value")}`,
         sortable: true,
-        render: (data) => <div className={"max-w-[200px] overflow-x-hidden"}>{data}</div>
+        render: (data) => (
+          <div className={"max-w-[200px] overflow-x-hidden"}>{data}</div>
+        ),
       },
       {
         label: `${t("actions")}`,

@@ -6,10 +6,10 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SystemOffersService } from "@/services/SystemOffersService";
 import { SystemOffers } from "@/Models/SystemOffer";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("admin.system.table")
+  const t = useTranslations("admin.system.table");
 
   const tableData: DataTableData<SystemOffers> = {
     createUrl: `/admin/system-offer/create`,
@@ -41,9 +41,9 @@ const Page = () => {
         sortable: true,
         render: (data) =>
           data == "active" ? (
-              <span className="badge badge-neutral">{t("active")}</span>
+            <span className="badge badge-neutral">{t("active")}</span>
           ) : (
-              <span className="badge badge-warning">{t("not-active")}</span>
+            <span className="badge badge-warning">{t("not-active")}</span>
           ),
       },
       {

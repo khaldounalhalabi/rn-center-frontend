@@ -31,7 +31,6 @@ import AllMonth from "@/enum/Month";
 import ChartIcon from "@/components/icons/ChartIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import DateTimePickerRangFilter from "@/components/common/ui/Date/DateTimePickerRangFilter";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
@@ -58,7 +57,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor"
+        "doctor",
       ).getSummary();
     },
   });
@@ -77,7 +76,7 @@ const Page = () => {
   }
 
   const type = ClinicTransactionTypeArray().map((type) =>
-    type.replace(/_/g, " ")
+    type.replace(/_/g, " "),
   );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
@@ -119,13 +118,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name
+                        transaction?.appointment?.customer?.user?.first_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name
+                        transaction?.appointment?.customer?.user?.middle_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name
+                        transaction?.appointment?.customer?.user?.last_name,
                       )}
                     </p>
                   </Link>
@@ -228,7 +227,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     filter: (params, setParams) => {
       return (

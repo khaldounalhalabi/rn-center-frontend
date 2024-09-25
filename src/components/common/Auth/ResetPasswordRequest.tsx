@@ -3,7 +3,7 @@ import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const ResetPasswordRequest = ({
   url,
@@ -21,7 +21,7 @@ const ResetPasswordRequest = ({
       typePage,
     );
   };
-  const t = useTranslations('auth')
+  const t = useTranslations("auth");
   return (
     <div
       className="relative w-[100wh] h-[100vh]"

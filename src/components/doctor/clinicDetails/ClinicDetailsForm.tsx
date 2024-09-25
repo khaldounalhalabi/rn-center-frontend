@@ -30,14 +30,16 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
     return await AuthService.make<AuthService>("doctor")
       .UpdateClinicDetails(data)
       .then((res) => {
-         AuthService.make<AuthService>("doctor").GetUserDetails().then((ress)=>{
-           console.log(ress)
-           window.localStorage.setItem(
-               "user",
-               JSON.stringify(ress?.data ?? undefined),
-           );
-           return res
-         })
+        AuthService.make<AuthService>("doctor")
+          .GetUserDetails()
+          .then((ress) => {
+            console.log(ress);
+            window.localStorage.setItem(
+              "user",
+              JSON.stringify(ress?.data ?? undefined),
+            );
+            return res;
+          });
         return res;
       });
   };

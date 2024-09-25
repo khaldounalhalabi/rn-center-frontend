@@ -7,8 +7,7 @@ import { setCookieClient } from "@/Actions/clientCookies";
 import { Navigate } from "@/Actions/navigate";
 import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer";
 import AuthSubmitButton from "./AuthSubmitButton";
-import { swal } from "@/Helpers/UIHelpers";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const RegisterCustomer = () => {
   const [privacy, setPrivacy] = useState<boolean>(false);

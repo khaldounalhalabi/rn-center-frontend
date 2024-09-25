@@ -250,7 +250,6 @@
         "noData": "No Data",
         "editBtn": "Edit",
         "image": "Image"
-
       },
       "create-edit": {
         "addService": "Add Service",
@@ -279,7 +278,6 @@
         "editBtn": "Edit",
         "description": "Description",
         "image": "Image"
-
       },
       "create-edit": {
         "addSpeciality": "Add Speciality",
@@ -357,7 +355,6 @@
       "notArchived": "Not Archived",
       "actions": "Actions",
       "editUser": "Edit User",
-
       "first-Name": " First Name",
       "middle-name": " Middle Name",
       "last-name": " Last Name",
@@ -373,8 +370,7 @@
       "address": " Address",
       "image": "Image",
       "noData": "No Data",
-
-     "userDetails": "User Detail",
+      "userDetails": "User Detail",
       "editBtn": "Edit",
       "blood": "Blood Group"
     },
@@ -470,14 +466,14 @@
       }
     },
     "blood": {
-        "bloodDonationRequests": "Blood Donation Requests",
+      "bloodDonationRequests": "Blood Donation Requests",
       "addBloodDonationRequest": "Add Blood Donation Request",
       "editBloodDonationRequest": "Edit Blood Donation Request",
       "bloodDonationRequestDetails": "Blood Donation Request Details",
-        "name": "Name",
-        "blood": "Blood Group",
-        "city": "City",
-        "canWait": "Can Wait",
+      "name": "Name",
+      "blood": "Blood Group",
+      "city": "City",
+      "canWait": "Can Wait",
       "actions": "Actions",
       "phone": "Phone",
       "nearestHospital": "Nearest Hospital",
@@ -554,7 +550,6 @@
       "TermsAndServices": "Terms And Services",
       "DaysBefore": "DaysBeforeExpirationNotification",
       "ZainCashNumber": "Zain Cash Number"
-
     }
   },
   "doctor": {
@@ -736,7 +731,7 @@
         "manageHolidays": "Manage Holidays",
         "manageEmployees": "Manage Employees",
         "manageAppointments": "Manage Appointments",
-        "accountantManagement":"Accountant Management",
+        "accountantManagement": "Accountant Management",
         "first-Name": " First Name",
         "middle-name": " Middle Name",
         "last-name": " Last Name",
@@ -1128,7 +1123,6 @@
       },
       "show": {
         "clinicName": "Clinic Name",
-
         "appointmentDeductionDetails": "Appointment Deduction Details",
         "date": "Date",
         "status": "Status",
@@ -1173,7 +1167,7 @@
     "prevPage": "Prev Page",
     "nextPage": "Next Page"
   },
-  "nav":{
+  "nav": {
     "clinicProfile": "Clinic Profile",
     "profile": "Profile",
     "logout": "Logout"

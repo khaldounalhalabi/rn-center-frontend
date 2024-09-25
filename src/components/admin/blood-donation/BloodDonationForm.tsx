@@ -13,7 +13,7 @@ import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import BloodArray from "@/enum/blood";
 import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import { BloodDonation } from "@/Models/BloodDonation";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const BloodDonationForm = ({
   defaultValues = undefined,
@@ -24,7 +24,7 @@ const BloodDonationForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("admin.blood")
+  const t = useTranslations("admin.blood");
 
   const handleSubmit = async (data: any) => {
     if (

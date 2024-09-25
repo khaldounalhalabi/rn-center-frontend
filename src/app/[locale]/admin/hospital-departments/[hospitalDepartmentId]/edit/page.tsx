@@ -2,7 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AvailableDepartmentService } from "@/services/AvailableDepartmentService";
 import DepartmentForm from "@/components/admin/department/DepartmentForm";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { hospitalDepartmentId },
@@ -14,9 +14,9 @@ const page = async ({
       "admin",
     ).show(hospitalDepartmentId)
   ).data;
-    const t = await getTranslations("admin.departments")
+  const t = await getTranslations("admin.departments");
 
-    return (
+  return (
     <PageCard>
       <h2 className="card-title">{t("editDepartment")}</h2>
       <DepartmentForm

@@ -9,13 +9,13 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 import MapIFrame from "@/components/common/ui/MapIFrame";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async () => {
   const data = await AuthService.make<AuthService>("admin").GetUserDetails();
   const res: User = data.data;
   console.log(res);
-  const t = await getTranslations("details")
+  const t = await getTranslations("details");
   return (
     <PageCard>
       <div className="flex justify-between items-center  w-full h-fit">
@@ -30,7 +30,11 @@ const page = async () => {
       </div>
       <hr />
       <div className="w-full flex flex-col gap-3 md:flex-row my-4 h-fit">
-        <div className={"md:w-1/2 w-full flex flex-col gap-3 h-full justify-between"}>
+        <div
+          className={
+            "md:w-1/2 w-full flex flex-col gap-3 h-full justify-between"
+          }
+        >
           <RoundedImage
             src={getMedia(res?.image?.[0] ?? undefined)}
             alt={"doctor-profile"}

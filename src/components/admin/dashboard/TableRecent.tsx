@@ -6,10 +6,10 @@ import React from "react";
 import { CustomerService } from "@/services/CustomerService";
 import { Recent } from "@/Models/Customer";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const TableRecent = () => {
-  const t = useTranslations('common.dashboard')
+  const t = useTranslations("common.dashboard");
 
   const tableData: DataTableData<Recent> = {
     title: `${t("recentPatientsRegistration")}`,

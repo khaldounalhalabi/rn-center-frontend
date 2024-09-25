@@ -23,13 +23,13 @@ const AppointmentStatusColumn = ({
   const [appointmentState, setAppointment] = useState(appointment);
   const [selected, setSelected] = useState(appointmentState?.status);
   const [isOpen, setIsOpen] = useState(false);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleSelectStatus = (
     status: string,
     id: number,
-    setSelected: React.Dispatch<string | undefined>
+    setSelected: React.Dispatch<string | undefined>,
   ) => {
-      setLoading(true)
+    setLoading(true);
     if (status == AppointmentStatusEnum.CHECKIN) {
       swal
         .fire({
@@ -49,12 +49,12 @@ const AppointmentStatusColumn = ({
               })
               .then((res) => {
                 setSelected(res.data.status);
-                  setLoading(false)
-                  toast.success("Status Changed!");
+                setLoading(false);
+                toast.success("Status Changed!");
               });
           } else {
             setSelected(appointmentState?.status);
-              setLoading(false)
+            setLoading(false);
           }
         });
     } else {
@@ -63,8 +63,8 @@ const AppointmentStatusColumn = ({
           status: status,
         })
         .then((res) => {
-            setLoading(false)
-            toast.success("Status Changed!");
+          setLoading(false);
+          toast.success("Status Changed!");
         });
     }
   };
@@ -132,60 +132,65 @@ const AppointmentStatusColumn = ({
           </div>
         </Dialog>
       </Transition>
-        {loading?<div className={'flex justify-center items-center'}><LoadingSpin className={'w-6 h-6'}/></div>:
-            <select
-                value={appointmentState?.status}
-                className={`select select-bordered text-sm font-medium w-fit  ${
-                    appointmentState?.status == AppointmentStatusEnum.CHECKOUT
-                        ? "text-[#0089c1]"
-                        : appointmentState?.status == AppointmentStatusEnum.CANCELLED
-                            ? "text-[#ff5861]"
-                            : appointmentState?.status == AppointmentStatusEnum.PENDING
-                                ? "text-[#ffa500]"
-                                : appointmentState?.status == AppointmentStatusEnum.CHECKIN
-                                    ? "text-[#00a96e]"
-                                    : appointmentState?.status == AppointmentStatusEnum.BOOKED
-                                        ? "text-[#013567]"
-                                        : appointmentState?.status == "completed"
-                                            ? "text-info"
-                                            : ""
+      {loading ? (
+        <div className={"flex justify-center items-center"}>
+          <LoadingSpin className={"w-6 h-6"} />
+        </div>
+      ) : (
+        <select
+          value={appointmentState?.status}
+          className={`select select-bordered text-sm font-medium w-fit  ${
+            appointmentState?.status == AppointmentStatusEnum.CHECKOUT
+              ? "text-[#0089c1]"
+              : appointmentState?.status == AppointmentStatusEnum.CANCELLED
+                ? "text-[#ff5861]"
+                : appointmentState?.status == AppointmentStatusEnum.PENDING
+                  ? "text-[#ffa500]"
+                  : appointmentState?.status == AppointmentStatusEnum.CHECKIN
+                    ? "text-[#00a96e]"
+                    : appointmentState?.status == AppointmentStatusEnum.BOOKED
+                      ? "text-[#013567]"
+                      : appointmentState?.status == "completed"
+                        ? "text-info"
+                        : ""
+          }`}
+          onChange={(e) => {
+            setSelected(e.target?.value);
+            return e.target.value == AppointmentStatusEnum.CANCELLED
+              ? openModal()
+              : handleSelectStatus(
+                  e.target.value,
+                  appointmentState?.id ?? 0,
+                  setSelected,
+                );
+          }}
+        >
+          {AppointmentStatuses().map((e, index) => {
+            return (
+              <option
+                key={index}
+                className={`block truncate   ${
+                  e == AppointmentStatusEnum.CHECKOUT
+                    ? "text-[#0089c1]"
+                    : e == AppointmentStatusEnum.CANCELLED
+                      ? "text-[#ff5861]"
+                      : e == AppointmentStatusEnum.PENDING
+                        ? "text-[#ffa500]"
+                        : e == AppointmentStatusEnum.CHECKIN
+                          ? "text-[#00a96e]"
+                          : e == AppointmentStatusEnum.BOOKED
+                            ? "text-[#013567]"
+                            : e == "completed"
+                              ? "text-info"
+                              : ""
                 }`}
-                onChange={(e) => {
-                    setSelected(e.target?.value);
-                    return e.target.value == AppointmentStatusEnum.CANCELLED
-                        ? openModal()
-                        : handleSelectStatus(
-                            e.target.value,
-                            appointmentState?.id ?? 0,
-                            setSelected
-                        );
-                }}
-            >
-                {AppointmentStatuses().map((e, index) => {
-                    return (
-                        <option
-                            key={index}
-                            className={`block truncate   ${
-                                e == AppointmentStatusEnum.CHECKOUT
-                                    ? "text-[#0089c1]"
-                                    : e == AppointmentStatusEnum.CANCELLED
-                                        ? "text-[#ff5861]"
-                                        : e == AppointmentStatusEnum.PENDING
-                                            ? "text-[#ffa500]"
-                                            : e == AppointmentStatusEnum.CHECKIN
-                                                ? "text-[#00a96e]"
-                                                : e == AppointmentStatusEnum.BOOKED
-                                                    ? "text-[#013567]"
-                                                    : e == "completed"
-                                                        ? "text-info"
-                                                        : ""
-                            }`}
-                        >
-                            {e}
-                        </option>
-                    );
-                })}
-            </select>}
+              >
+                {e}
+              </option>
+            );
+          })}
+        </select>
+      )}
     </>
   );
 };

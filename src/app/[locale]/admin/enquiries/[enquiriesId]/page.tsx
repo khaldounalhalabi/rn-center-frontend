@@ -4,14 +4,14 @@ import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import { EnquiriesService } from "@/services/EnquiriesService";
 import { Enquiries } from "@/Models/Enquiries";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { enquiriesId },
 }: {
   params: { enquiriesId: number };
 }) => {
-    const t = await getTranslations("admin.enquiries")
+  const t = await getTranslations("admin.enquiries");
   const data =
     await EnquiriesService.make<EnquiriesService>().show(enquiriesId);
   const res: Enquiries = data?.data;

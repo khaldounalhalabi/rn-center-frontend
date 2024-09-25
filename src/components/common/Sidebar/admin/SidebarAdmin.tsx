@@ -343,7 +343,10 @@ const SidebarAdmin = ({
               >
                 <HolidaysIcon className={`h-6 w-6 mx-2`} />
               </SidebarIcon>
-              <SidebarIcon link={"/admin/subscriptions"} title={"Subscriptions"}>
+              <SidebarIcon
+                link={"/admin/subscriptions"}
+                title={"Subscriptions"}
+              >
                 <SubscriptionIcon className={`h-7 w-7`} />
               </SidebarIcon>
               <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
@@ -358,56 +361,62 @@ const SidebarAdmin = ({
             <AppointmentIcon className={`h-8 w-8`} />
           </SidebarIcon>
           <SidebarCompactIcon
-              title={"Patients Management"}
-              icon={<PatientMangerIcon className={`h-9 w-9 `} />}
+            title={"Patients Management"}
+            icon={<PatientMangerIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/patients"} title={"Patients"}>
                 <PatientIcon className={`h-7 w-7`} />
               </SidebarIcon>
               <SidebarIcon
-                  link={"/admin/patient-profiles"}
-                  title={"Patient Profiles"}
+                link={"/admin/patient-profiles"}
+                title={"Patient Profiles"}
               >
                 <PatientProfilesIcon className={`h-7 w-7`} />
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
           <SidebarCompactIcon
-              title={t("offersManagement")}
-              icon={<OffersManagementIcon className={`h-9 w-9 `} />}
+            title={t("offersManagement")}
+            icon={<OffersManagementIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/offer"} title={"Offers"}>
                 <OfferIcon className={`h-8 w-8`} />
               </SidebarIcon>
-              <SidebarIcon link={"/admin/system-offer"} title={"Blood Donation"}>
+              <SidebarIcon
+                link={"/admin/system-offer"}
+                title={"Blood Donation"}
+              >
                 <SystemOfferIcon className={`h-8 w-8`} />
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
           <SidebarCompactIcon
-              title={"Accountant Management"}
-              icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
+            title={"Accountant Management"}
+            icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/transaction"} title={"Transaction"}>
                 <TransactionIcon className={`h-8 w-8 `} />
               </SidebarIcon>
               <SidebarIcon
-                  link={"/admin/appointment-deductions"}
-                  title={"Appointment Deductions"}
+                link={"/admin/appointment-deductions"}
+                title={"Appointment Deductions"}
               >
                 <AppointmentDeductionstIcon className={`h-8 w-8 `} />
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
           <SidebarCompactIcon
-              title={"Service"}
-              icon={<ServiceManagementIcon className={`h-9 w-9 `} />}
+            title={"Service"}
+            icon={<ServiceManagementIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
-              <SidebarIcon link={"/admin/category"} title={t("serviceCategories")}>
+              <SidebarIcon
+                link={"/admin/category"}
+                title={t("serviceCategories")}
+              >
                 <CategoryIcon className={`h-8 w-8`} />
               </SidebarIcon>
               <SidebarIcon link={"/admin/service"} title={t("services")}>
@@ -415,7 +424,6 @@ const SidebarAdmin = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-
 
           <SidebarCompactIcon
             title={"Hospitals Management"}
@@ -434,7 +442,6 @@ const SidebarAdmin = ({
             </div>
           </SidebarCompactIcon>
 
-
           <SidebarIcon link={"/admin/user"} title={"Users"}>
             <UsersIcon className={`h-8 w-8`} />
           </SidebarIcon>
@@ -445,11 +452,9 @@ const SidebarAdmin = ({
             <EnquirieIcon className={`h-8 w-8`} />
           </SidebarIcon>
 
-
-
           <SidebarCompactIcon
-              title={"Settings Management"}
-              icon={<SettingManagementIcon className={`h-9 w-9 `} />}
+            title={"Settings Management"}
+            icon={<SettingManagementIcon className={`h-9 w-9 `} />}
           >
             <div className="flex flex-col">
               <SidebarIcon link={"/admin/setting"} title={"Settings"}>
@@ -460,7 +465,6 @@ const SidebarAdmin = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
-
         </ul>
       </div>
     </div>

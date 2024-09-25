@@ -14,7 +14,11 @@ export const AppointmentStatusesFilter = (
   if (type === "online") {
     switch (status) {
       case AppointmentStatusEnum.PENDING:
-        return [AppointmentStatusEnum.PENDING, AppointmentStatusEnum.BOOKED,AppointmentStatusEnum.CANCELLED];
+        return [
+          AppointmentStatusEnum.PENDING,
+          AppointmentStatusEnum.BOOKED,
+          AppointmentStatusEnum.CANCELLED,
+        ];
       case AppointmentStatusEnum.BOOKED:
         return [
           AppointmentStatusEnum.BOOKED,

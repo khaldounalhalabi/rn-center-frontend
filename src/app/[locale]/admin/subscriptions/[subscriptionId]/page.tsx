@@ -4,16 +4,16 @@ import Grid from "@/components/common/ui/Grid";
 import { SubscriptionsService } from "@/services/SubscriptionsService";
 import { Subscriptions } from "@/Models/Subscriptions";
 import SubscriptionClinicsTable from "@/components/admin/subscriptions/SubscriptionClinicsTable";
-import {getTranslations} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { subscriptionId },
 }: {
   params: { subscriptionId: number };
 }) => {
-    const t = await getTranslations('admin.subscription.show')
+  const t = await getTranslations("admin.subscription.show");
 
-    const data =
+  const data =
     await SubscriptionsService.make<SubscriptionsService>().show(
       subscriptionId,
     );
@@ -49,7 +49,7 @@ const page = async ({
           )}
         </label>
         <label className="label">
-            {t("allowPeriod")} :
+          {t("allowPeriod")} :
           <span className="badge badge-accent px-2 rounded-xl text-lg">
             {res?.allow_period}
           </span>

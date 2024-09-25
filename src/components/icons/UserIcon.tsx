@@ -1,7 +1,7 @@
-const UserIcon = ({...props}) => {
+const UserIcon = ({ ...props }) => {
   return (
     <svg
-        {...props}
+      {...props}
       viewBox="0 0 23 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,4 @@ const UserIcon = ({...props}) => {
   );
 };
 
-export default UserIcon
+export default UserIcon;

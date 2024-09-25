@@ -6,6 +6,9 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
 import TranslateServer from "@/Helpers/TranslationsServer";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import Grid from "@/components/common/ui/Grid";
 
 const page = async ({
   params: { holidayId },
@@ -15,7 +18,7 @@ const page = async ({
   const t = await getTranslations("admin.holidays.show");
   const data =
     await ClinicHolidayService.make<ClinicHolidayService>("doctor").show(
-      holidayId,
+      holidayId
     );
   const res: ClinicHoliday = data?.data;
 
@@ -27,52 +30,39 @@ const page = async ({
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
-      <div className="flex flex-col">
-        <div className="my-5">
-          <div className="flex w-full">
-            <h2 className="w-4/12 text-lg md:text-xl">
-              {t("startHoliday")} :{" "}
-            </h2>
-            <div className="flex items-center w-8/12">
-              <span className="text-lg badge badge-neutral">
-                {res?.start_date}
-              </span>
-            </div>
-          </div>
-          <div className="flex w-full">
-            <h2 className="my-3 w-4/12 text-lg md:text-xl">
-              {t("endHoliday")} :
-            </h2>
-            <div className="flex items-center w-8/12">
-              <span className="text-lg badge badge-neutral">
-                {res?.end_date}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="my-5">
-          <div className="text-xl">
-            {t("reason")} En : <br />
-            <textarea
-              rows={4}
-              dir="ltr"
-              value={(await TranslateServer(res?.reason, true)).en}
-              className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
-              readOnly={true}
-            />
-          </div>
-          <div className="mt-3 text-xl">
-            {t("reason")} Ar : <br />
-            <textarea
-              rows={4}
-              value={(await TranslateServer(res?.reason, true)).ar}
-              dir="rtl"
-              className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
-              readOnly={true}
-            />
-          </div>
-        </div>
-      </div>
+      <Grid gap={8}>
+        <LabelValue
+          label={t("startHoliday")}
+          value={res?.start_date}
+          color={"primary"}
+        />
+
+        <LabelValue
+          label={t("endHoliday")}
+          value={res?.end_date}
+          color={"primary"}
+        />
+      </Grid>
+
+      <Label label={`${t("reason")} En`} col>
+        <textarea
+          rows={4}
+          dir="ltr"
+          value={(await TranslateServer(res?.reason, true)).en}
+          className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
+          readOnly={true}
+        />
+      </Label>
+
+      <Label label={`${t("reason")} Ar`} col>
+        <textarea
+          rows={4}
+          dir="ltr"
+          value={(await TranslateServer(res?.reason, true)).ar}
+          className="block border-gray-300 bg-white p-2.5 border focus:border-blue-500 rounded-lg w-full text-gray-900 text-lg focus:ring-blue-500"
+          readOnly={true}
+        />
+      </Label>
     </PageCard>
   );
 };

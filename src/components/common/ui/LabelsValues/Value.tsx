@@ -16,7 +16,7 @@ export const Value: React.FC<ValueProps> = ({
   return (
     <div
       className={
-        className ?? `text-start text-${color} text-md md:text-xl font-normal`
+        className ?? `text-end text-${color} text-xs md:text-xl font-normal`
       }
       {...props}
     >

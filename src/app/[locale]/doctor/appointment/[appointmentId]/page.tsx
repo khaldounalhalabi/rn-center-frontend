@@ -76,7 +76,7 @@ const Show = ({
 
           <LabelValue
             label={t("serviceName")}
-            value={"asdas"}
+            value={res?.service?.name}
             color={"warning"}
           />
         </Grid>

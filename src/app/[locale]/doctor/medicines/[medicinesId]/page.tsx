@@ -6,6 +6,8 @@ import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import { getTranslations } from "next-intl/server";
 import Grid from "@/components/common/ui/Grid";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const page = async ({
   params: { medicinesId },
@@ -26,21 +28,20 @@ const page = async ({
         </Link>
       </div>
       <Grid md={2}>
-        <label className="label">
-          {t("medicineName")}
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {res?.name}
-          </span>
-        </label>
+        <LabelValue
+          label={t("medicineName")}
+          value={res?.name}
+          color={"primary"}
+        />
       </Grid>
-      <div className="w-full">
-        <label className="label">{t("description")} :</label>
+
+      <Label label={t("description")} col>
         <textarea
-          className="w-full p-2"
+          className="w-full text-sm p-2"
           disabled={true}
           defaultValue={res?.description ?? ""}
         ></textarea>
-      </div>
+      </Label>
     </PageCard>
   );
 };

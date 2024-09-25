@@ -47,7 +47,7 @@ const Overview = ({
   console.log(appointment);
 
   return (
-    <div className={"card p-5 bg-base-200 my-3 w-full"}>
+    <div className={"card bg-base-200 my-3 w-full"}>
       <Grid md={2} gap={8}>
         <Label label={t("status")}>
           <AppointmentStatusColumn

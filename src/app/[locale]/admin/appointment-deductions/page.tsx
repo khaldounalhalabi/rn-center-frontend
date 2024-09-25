@@ -21,7 +21,6 @@ import AllMonth from "@/enum/Month";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
-import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentStatusColumn";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import {
   NotificationPayload,
@@ -34,6 +33,7 @@ import ChangeAllStatusSelector from "@/components/admin/appointment-deductions/C
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentDeductionStatusColumn";
 
 interface filterExportType {
   year: string;

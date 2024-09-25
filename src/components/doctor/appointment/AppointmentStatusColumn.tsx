@@ -28,8 +28,6 @@ const AppointmentStatusColumn = ({
   );
 
   const [isPending, setPending] = useState<boolean>(false);
-  const [isTransitionStarted, startTransition] = useTransition();
-  const isMutating: boolean = isPending || isTransitionStarted;
   const [loading, setLoading] = useState(false);
 
   const [isPendingCheckout, setPendingCheckout] = useState<boolean>(false);
@@ -208,9 +206,7 @@ const AppointmentStatusColumn = ({
               }}
               value={appointmentState?.status}
             >
-              {isMutating ? (
-                <option>Loading...</option>
-              ) : (
+              {(
                 AppointmentStatusesFilter(
                   appointment?.type ?? "",
                   appointment?.status ?? "",

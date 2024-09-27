@@ -10,6 +10,8 @@ import { StaffService } from "@/services/StaffService";
 import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 function formatPermission(permission: string): string {
   return permission
@@ -70,60 +72,42 @@ const page = async ({
         </div>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label justify-start text-xl md:block flex flex-col items-start">
-          {t("birth-date")} :{" "}
-          <span className="ml-2 badge badge-outline  ">{res?.birth_date}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("age")} :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.age}</span>
-        </label>
-        <label className="label justify-start text-xl md:block flex flex-col items-start">
-          {t("address")} :{" "}
-          <span className="ml-2 badge badge-success  ">
-            {await TranslateServer(res?.address?.name)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl md:block flex flex-col items-start">
-          {t("city")} :{" "}
-          <span className="ml-2 badge badge-ghost  ">
-            {await TranslateServer(res?.address?.city?.name)}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("gender")} :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.gender}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("blood")} :{" "}
-          <span className="ml-2 badge badge-accent  ">{res?.blood_group}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("isBlocked")} :{" "}
-          {res?.is_blocked ? (
-            <span className="ml-2 badge badge-error">{t("blocked")}</span>
-          ) : (
-            <span className="ml-2 badge badge-success">{t("notBlocked")}</span>
-          )}
-        </label>
-        <label className="label justify-start text-xl">
-          {t("isArchived")} :{" "}
-          {res?.is_archived ? (
-            <span className="ml-2 badge badge-neutral">{t("archived")}</span>
-          ) : (
-            <span className="ml-2 badge badge-warning">{t("notArchived")}</span>
-          )}
-        </label>
+        <LabelValue label={t("birth-date")} value={res?.birth_date} />
+        <LabelValue label={t("age")} value={res?.age} color={"info"} />
+        <LabelValue
+          label={t("address")}
+          value={await TranslateServer(res?.address?.name)}
+          color={"error"}
+        />
+        <LabelValue
+          label={t("city")}
+          value={await TranslateServer(res?.address?.city?.name)}
+          color={"secondary"}
+        />
+        <LabelValue label={t("gender")} value={res?.gender} />
+        <LabelValue label={t("blood")} value={res?.blood_group} />
+        <LabelValue
+          label={t("isBlocked")}
+          value={res?.is_blocked ? t("blocked") : t("notBlocked")}
+          color={res?.is_blocked ? "error" : "success"}
+        />
+
+        <LabelValue
+          label={t("isArchived")}
+          value={res?.is_archived ? t("archived") : t("notArchived")}
+          color={res?.is_archived ? "warning" : "neutral"}
+        />
       </Grid>
-      <label className={"label"}>{t("permission")} : </label>
-      <Grid md={3}>
-        {" "}
-        {permission.map((e, index) => (
-          <span key={index} className={"badge w-fit p-2 my-2 badge-outline"}>
-            {e}
-          </span>
-        ))}
-      </Grid>
+      <Label label={t("permission")} col={true}>
+        <Grid md={3}>
+          {" "}
+          {permission.map((e, index) => (
+            <span key={index} className={"badge w-fit p-2 my-2 badge-outline"}>
+              {e}
+            </span>
+          ))}
+        </Grid>
+      </Label>
     </PageCard>
   );
 };

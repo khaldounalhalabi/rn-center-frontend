@@ -9,6 +9,7 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 
 const page = async () => {
   const t = await getTranslations("details");
@@ -40,27 +41,19 @@ const page = async () => {
       <hr />
       <div className="w-full flex my-4 h-40">
         <Grid md={2}>
-          <h2>
-            {t("birthDate")} :{" "}
-            <span className="badge badge-outline">{res?.birth_date}</span>
-          </h2>
-          <h2>
-            {t("gender")} :{" "}
-            <span className="badge ml-3 mt-1 badge-warning">{res?.gender}</span>
-          </h2>
-          <h2>
-            {t("email")} :{" "}
-            <span className="badge badge-accent">{res?.email}</span>
-          </h2>
-          <h2>
-            {t("age")} : <span className="badge badge-info">{res?.age}</span>
-          </h2>
-          <h2>
-            {t("blood")} :{" "}
-            <span className="badge ml-3 mt-1 badge-warning">
-              {res?.blood_group ?? "No Data"}
-            </span>
-          </h2>
+          <LabelValue
+            label={t("birthDate")}
+            value={res?.birth_date}
+            color={"accent"}
+          />
+          <LabelValue label={t("gender")} value={res?.gender} color={"error"} />
+          <LabelValue label={t("email")} value={res?.email} />
+          <LabelValue label={t("age")} value={res?.age} color={"warning"} />
+          <LabelValue
+            label={t("blood")}
+            value={res?.blood_group}
+            color={"success"}
+          />
         </Grid>
       </div>
     </PageCard>

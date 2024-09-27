@@ -18,4 +18,7 @@ type DaisyUiColor =
   | "warning"
   | "warning-content"
   | "error"
-  | "error-content";
+  | "error-content"
+  | "pom"
+  | "title"
+  | "brand-primary";

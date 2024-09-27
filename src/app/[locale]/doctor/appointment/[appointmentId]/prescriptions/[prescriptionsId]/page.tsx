@@ -8,6 +8,8 @@ import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { Stringify } from "@/components/common/prescriptions/PhysicalForm";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const Page = async ({
   params: { appointmentId, prescriptionsId },
@@ -36,201 +38,163 @@ const Page = async ({
           </Link>
         </div>
         <Grid md={2} gap={5}>
-          <label className="label">
-            {t("clinicName")}
-            <span className="px-2 rounded-xl text-lg badge-neutral">
-              {await TranslateServer(res?.clinic?.name)}
-            </span>
-          </label>
-          <label className="label">
-            {t("doctorName")}
-            <span className="px-2 rounded-xl text-lg badge-success">
-              <h3>
-                {await TranslateServer(res.clinic?.user?.first_name)}{" "}
-                {await TranslateServer(res.clinic?.user?.middle_name)}{" "}
-                {await TranslateServer(res.clinic?.user?.last_name)}
-              </h3>
-            </span>
-          </label>
-          <label className="label">
-            {t("customerName")}
-            <span className="px-2 rounded-xl text-lg badge-info">
-              <h3>
-                {await TranslateServer(res.customer?.user?.first_name)}{" "}
-                {await TranslateServer(res.customer?.user?.middle_name)}{" "}
-                {await TranslateServer(res.customer?.user?.last_name)}
-              </h3>
-            </span>
-          </label>
-
-          <label className="label">
-            {t("customerAge")}
-            <span className="px-2 rounded-xl text-lg badge-primary">
-              {res?.customer?.user?.age}
-            </span>
-          </label>
+          <LabelValue
+            label={t("customerName")}
+            value={await TranslateServer(res.customer?.user?.full_name)}
+            color={"primary"}
+          />
+          <LabelValue
+            label={t("customerAge")}
+            value={res?.customer?.user?.age}
+            color={"success"}
+          />
         </Grid>
       </PageCard>
-      <hr />
       <PageCard>
-        <h2 className="card-title">{t("medicines")}</h2>
-        {medicines.map((e, index) => (
-          <div key={index}>
-            <Grid md={2} gap={5} key={index}>
-              <label className="label">
-                {t("medicineName")} :
-                <span className="bg-base-200 px-2 rounded-xl text-lg">
-                  {e.medicine?.name}
-                </span>
-              </label>
-              <label className="label">
-                {t("dosage")} :
-                <span className="bg-base-200 px-2 rounded-xl text-lg">
-                  {e.dosage}
-                </span>
-              </label>
-              <label className="label">
-                {t("doseInterval")} :
-                <span className="bg-base-200 px-2 rounded-xl text-lg">
-                  {e.dose_interval}
-                </span>
-              </label>
-              <label className="label">
-                {t("duration")} :
-                <span className="bg-base-200 px-2 rounded-xl text-lg">
-                  {e.duration}
-                </span>
-              </label>
-            </Grid>
-            <div className={"w-full"}>
-              <label className={"label"}>{t("comment")} :</label>
-              <textarea
-                className="textarea-bordered w-full h-24 textarea"
-                disabled={true}
-                defaultValue={e.comment}
-              ></textarea>
+        <Label label={t("medicines")} col={true}>
+          {medicines.map((e, index) => (
+            <div key={index}>
+              <Grid md={2} gap={5} key={index}>
+                <LabelValue
+                  label={t("medicineName")}
+                  value={e.medicine?.name}
+                  color={"pom"}
+                />
+                <LabelValue
+                  label={t("dosage")}
+                  value={e.dosage}
+                  color={"title"}
+                />
+                <LabelValue
+                  label={t("doseInterval")}
+                  value={e.dose_interval}
+                  color={"brand-primary"}
+                />
+                <LabelValue
+                  label={t("duration")}
+                  value={e.duration}
+                  color={"error"}
+                />
+              </Grid>
+              <Label label={t("comment")} col>
+                <textarea
+                  className="text-sm textarea-bordered w-full h-24 textarea"
+                  disabled={true}
+                  defaultValue={e.comment}
+                ></textarea>
+              </Label>
             </div>
-            <hr />
-          </div>
-        ))}
+          ))}
+        </Label>
       </PageCard>
-      <hr />
       <PageCard>
         <h2 className="card-title">{t("physicalInformation")}</h2>
         <Grid md={2} gap={5}>
-          <label className="label">
-            {t("pulseRate")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.pulse}
-            </span>
-          </label>
-          <label className="label">
-            {t("surgery")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.surgery}
-            </span>
-          </label>
-          <label className="label">
-            {t("breastFeeding")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.breast}
-            </span>
-          </label>
-          <label className="label">
-            {t("currentMedication")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.current}
-            </span>
-          </label>
-          <label className="label">
-            {t("accident")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.accident}
-            </span>
-          </label>
-          <label className="label">
-            {t("femalePregnancy")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.female}
-            </span>
-          </label>
-          <label className="label">
-            {t("medicalHistory")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.medical}
-            </span>
-          </label>
-          <label className="label">
-            {t("diabetic")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.diabetic}
-            </span>
-          </label>
-          <label className="label">
-            {t("heartDisease")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.heart}
-            </span>
-          </label>
-          <label className="label">
-            {t("tendencyBleed")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.tendency}
-            </span>
-          </label>
-          <label className="label">
-            {t("foodAllergies")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.food}
-            </span>
-          </label>
-          <label className="label">
-            {t("temperature")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.temperature}
-            </span>
-          </label>
-          <label className="label">
-            {t("highBloodPressure")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.blood}
-            </span>
-          </label>
-          <label className="label">
-            {t("others")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {physicalInformation.others}
-            </span>
-          </label>
+          <LabelValue
+            label={t("pulseRate")}
+            value={physicalInformation.pulse}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("surgery")}
+            value={physicalInformation.surgery}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("breastFeeding")}
+            value={physicalInformation.breast}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("currentMedication")}
+            value={physicalInformation.current}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("accident")}
+            value={physicalInformation.accident}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("femalePregnancy")}
+            value={physicalInformation.female}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("medicalHistory")}
+            value={physicalInformation.medical}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("diabetic")}
+            value={physicalInformation.diabetic}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("heartDisease")}
+            value={physicalInformation.heart}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("tendencyBleed")}
+            value={physicalInformation.tendency}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("foodAllergies")}
+            value={physicalInformation.food}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("temperature")}
+            value={physicalInformation.temperature}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("highBloodPressure")}
+            value={physicalInformation.blood}
+            color={"neutral"}
+          />
+
+          <LabelValue
+            label={t("others")}
+            value={physicalInformation.others}
+            color={"neutral"}
+          />
         </Grid>
       </PageCard>
-      <hr />
       <PageCard>
-        <Grid md={2} gap={5}>
-          <div className={"w-full"}>
-            <label className={"label"}>{t("test")} :</label>
-            <textarea
-              className="textarea-bordered w-full h-24 textarea"
-              disabled={true}
-              defaultValue={res.test}
-            ></textarea>
-          </div>
-          <div className={"w-full"}>
-            <label className={"label"}>{t("problemDescription")} :</label>
-            <textarea
-              className="textarea-bordered w-full h-24 textarea"
-              disabled={true}
-              defaultValue={res.problem_description}
-            ></textarea>
-          </div>
-          <label className="label">
-            {t("nextVisit")} :
-            <span className="bg-base-200 px-2 rounded-xl text-lg">
-              {res.next_visit?.replace(/\D/g, "")}{" "}
-              {res.next_visit?.replace(/\d/g, "")}
-            </span>
-          </label>
-        </Grid>
+        <Label label={t("test")} col>
+          <textarea
+            className="text-sm textarea-bordered w-full h-24 textarea"
+            disabled={true}
+            defaultValue={res.test}
+          ></textarea>
+        </Label>
+        <Label label={t("problemDescription")} col>
+          <textarea
+            className="textarea-bordered w-full h-24 textarea"
+            disabled={true}
+            defaultValue={res.problem_description}
+          ></textarea>
+        </Label>
+        <LabelValue
+          label={t("nextVisit")}
+          value={`${res.next_visit?.replace(/\D/g, "")} ${res.next_visit?.replace(/\d/g, "")}`}
+          color={"success"}
+        />
       </PageCard>
     </>
   );

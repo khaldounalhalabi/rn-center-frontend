@@ -1,0 +1,9 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - /home/pom/deploy-main.sh
+  only:
+    - staging  # Run deploy only on dev branch

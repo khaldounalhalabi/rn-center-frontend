@@ -4,6 +4,14 @@ stages:
 deploy:
   stage: deploy
   script:
-    - bash ./deploy.sh
+    - bash export PATH=/opt/cpanel/ea-nodejs18/bin/:$PATH
+    - bash pm2 kill
+    - bash rm -r -f .next
+    - bash git reset --hard
+    - bash git clean -df
+    - bash git pull origin
+    - bash npm install
+    - bash npm run build
+    - bash pm2 start ./ecosystem.config.js
   only:
     - staging  # Run deploy only on dev branch

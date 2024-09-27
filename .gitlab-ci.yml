@@ -4,6 +4,6 @@ stages:
 deploy:
   stage: deploy
   script:
-    - sudo /home/pom/deploy-main.sh
+    - /home/pom/deploy-main.sh
   only:
     - staging  # Run deploy only on dev branch

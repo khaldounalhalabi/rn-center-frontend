@@ -9,7 +9,7 @@ export const LabelValue = ({
 }: {
   label: string | any;
   value: any;
-  color: DaisyUiColor;
+  color?: DaisyUiColor;
   col?: boolean;
 }) => {
   return (

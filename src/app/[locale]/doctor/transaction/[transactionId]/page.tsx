@@ -7,6 +7,8 @@ import TranslateServer from "@/Helpers/TranslationsServer";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const page = async ({
   params: { transactionId },
@@ -29,87 +31,54 @@ const page = async ({
         </Link>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label justify-start text-xl">
-          {t("patientName")} :{" "}
-          <span className="ml-2 badge badge-outline">
-            {res?.appointment?.customer?.user?.first_name ? (
-              <>
-                {await TranslateServer(
-                  res?.appointment?.customer?.user?.first_name,
-                )}{" "}
-                {await TranslateServer(
-                  res?.appointment?.customer?.user?.middle_name,
-                )}{" "}
-                {await TranslateServer(
-                  res?.appointment?.customer?.user?.last_name,
-                )}
-              </>
-            ) : (
-              <>No Data</>
-            )}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("doctorName")} :{" "}
-          <span className="ml-2 badge badge-outline">
-            {res?.clinic?.user?.first_name ? (
-              <>
-                {await TranslateServer(res?.clinic?.user?.first_name)}{" "}
-                {await TranslateServer(res?.clinic?.user?.middle_name)}{" "}
-                {await TranslateServer(res?.clinic?.user?.last_name)}
-              </>
-            ) : (
-              <>No Data</>
-            )}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("type")} :{" "}
-          <span className="ml-2 badge badge-primary  ">{res.type}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("status")} :{" "}
-          <span className="ml-2 badge badge-success  ">{res.status}</span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("amount")} :{" "}
-          <span className="ml-2 badge badge-warning" suppressHydrationWarning>
-            {res?.type == "income"
+        <LabelValue
+          label={t("patientName")}
+          value={await TranslateServer(
+            res?.appointment?.customer?.user?.full_name,
+          )}
+          color={"success"}
+        />
+        <LabelValue
+          label={t("doctorName")}
+          value={await TranslateServer(res?.clinic?.user?.full_name)}
+        />
+        <LabelValue label={t("type")} value={res.type} color={"accent"} />
+        <LabelValue label={t("status")} value={res.status} color={"info"} />
+        <LabelValue
+          color={"warning"}
+          label={t("amount")}
+          value={`${
+            res?.type == "income"
               ? "+"
               : res?.type == "outcome"
                 ? "-"
                 : res?.type == "system_debt"
                   ? "-"
-                  : "+"}
-            {res?.amount.toLocaleString()} IQD
-          </span>
-        </label>
+                  : "+"
+          } ${res?.amount.toLocaleString()} IQD`}
+        />
 
-        <label className="label justify-start text-xl">
-          {t("date")} :{" "}
-          <span className="ml-2 badge badge-accent  ">
-            {res?.date ?? "No Data"}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("appointmentDate")} :{" "}
-          <span className="ml-2 badge badge-neutral  ">
-            {res?.appointment?.date ?? "No Data"}
-          </span>
-        </label>
-        <label className="label justify-start text-xl">
-          {t("totalCost")} :{" "}
-          <span className="ml-2 badge badge-info  ">
-            {res?.appointment?.total_cost ?? "No Data"}
-          </span>
-        </label>
+        <LabelValue label={t("date")} value={res?.date} color={"error"} />
+
+        <LabelValue
+          color={"secondary"}
+          label={t("appointmentDate")}
+          value={res?.appointment?.date}
+        />
+
+        <LabelValue
+          color={"primary"}
+          label={t("totalCost")}
+          value={res?.appointment?.total_cost}
+        />
       </Grid>
-      <label className={"label text-xl"}>{t("notes")} :</label>
-      <textarea
-        className="textarea textarea-bordered h-24 w-full"
-        disabled={true}
-        defaultValue={res?.notes ?? ""}
-      />
+      <Label label={t("notes")} col>
+        <textarea
+          className="text-sm textarea textarea-bordered h-24 w-full"
+          disabled={true}
+          defaultValue={res?.notes ?? ""}
+        />
+      </Label>
     </PageCard>
   );
 };

@@ -17,8 +17,7 @@ const TableBody = ({
   revalidate?: () => void;
   hidden: number[];
 }) => {
-  console.log(data?.data?.data);
-  
+
   return (
     <tbody className="divide-y divide-gray-200">
       {data?.data?.length ? (

@@ -50,12 +50,14 @@ const Page = () => {
 
   const queryClient = useQueryClient();
   const revalidateTable = () => {
-    console.log("revalidating")
-    queryClient.invalidateQueries({
-      queryKey: [`tableData_undefined_Appointment Deductions`],
-    }).then(() => {
-      console.log("revalidated")
-    });
+    console.log("revalidating");
+    queryClient
+      .invalidateQueries({
+        queryKey: [`tableData_undefined_Appointment Deductions`],
+      })
+      .then(() => {
+        console.log("revalidated");
+      });
   };
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
@@ -97,7 +99,11 @@ const Page = () => {
         label: `${t("amount")}`,
         sortable: true,
         render: (data) => {
-          return <span>{data.toLocaleString()}</span>;
+          return (
+            <span>
+              {data.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </span>
+          );
         },
       },
       {
@@ -306,7 +312,10 @@ const Page = () => {
             <label className="label">
               {t("totalCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.total_cost ?? 0).toLocaleString()}
+                {Number(balance?.data?.total_cost ?? 0).toLocaleString(
+                  undefined,
+                  { maximumFractionDigits: 2 },
+                )}
               </span>
             </label>
 
@@ -319,13 +328,19 @@ const Page = () => {
             <label className="label">
               {t("subscriptionCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.subscription_cost ?? 0).toLocaleString()}
+                {Number(balance?.data?.subscription_cost ?? 0).toLocaleString(
+                  undefined,
+                  { maximumFractionDigits: 2 },
+                )}
               </span>
             </label>
             <label className="label">
               {t("clinicBalance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}
+                {Number(balance?.data?.clinic_balance ?? 0).toLocaleString(
+                  undefined,
+                  { maximumFractionDigits: 2 },
+                )}
               </span>
             </label>
 
@@ -334,7 +349,7 @@ const Page = () => {
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
                   balance?.data?.appointments_deductions ?? 0,
-                ).toLocaleString()}
+                ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>
           </Grid>

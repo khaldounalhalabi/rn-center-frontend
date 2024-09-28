@@ -224,7 +224,11 @@ const Page = () => {
         label: `${t("amount")}`,
         sortable: true,
         render: (data) => {
-          return <span>{data.toLocaleString()}</span>;
+          return (
+            <span>
+              {data.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+            </span>
+          );
         },
       },
       {
@@ -485,24 +489,26 @@ const Page = () => {
             <label className="label">
               {t("balance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.balance).toFixed(1).toLocaleString()}
+                {Number(balance?.data?.balance).toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
               </span>
             </label>
             <label className="label">
               {t("doneAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.done_appointment_deductions)
-                  .toFixed(1)
-                  .toLocaleString()}
+                {Number(
+                  balance?.data?.done_appointment_deductions,
+                ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>
 
             <label className="label">
               {t("pendingAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.pending_appointment_deductions)
-                  .toFixed(1)
-                  .toLocaleString()}
+                {Number(
+                  balance?.data?.pending_appointment_deductions,
+                ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>
           </Grid>

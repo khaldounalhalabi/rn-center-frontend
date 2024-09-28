@@ -45,7 +45,7 @@ const Page = () => {
   const queryClient = useQueryClient();
   const revalidateTable = () => {
     queryClient.invalidateQueries({
-      queryKey: [`tableData_/doctor/transaction/create_Transactions`],
+      queryKey: [`tableData_/admin/transaction/create_Transactions`],
     });
   };
   const {

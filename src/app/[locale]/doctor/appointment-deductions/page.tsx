@@ -50,8 +50,11 @@ const Page = () => {
 
   const queryClient = useQueryClient();
   const revalidateTable = () => {
+    console.log("revalidating")
     queryClient.invalidateQueries({
       queryKey: [`tableData_undefined_Appointment Deductions`],
+    }).then(() => {
+      console.log("revalidated")
     });
   };
 
@@ -222,7 +225,6 @@ const Page = () => {
           if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
             refetch();
             revalidateTable();
-            console.log("asdasdasd");
           }
         }}
       />

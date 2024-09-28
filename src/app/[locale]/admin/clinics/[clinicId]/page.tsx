@@ -92,7 +92,7 @@ const Page = async ({
             </div>
           </div>
         </div>
-        <div className={"grid grid-cols-1 md:grid-cols-3 gap-3"}>
+        <div className={"grid grid-cols-1 md:grid-cols-3 gap-3 w-full"}>
           <div
             className={
               "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"

@@ -199,7 +199,7 @@ const Page = () => {
       />
       <Grid>
         <PageCard>
-          <label className={"card-title"}>{t("clinicBalance")}</label>
+          <label className={"card-title"}>{t("balance")}</label>
           <div className={"my-4 flex items-center justify-between"}>
             <div className={"p-4 rounded-full bg-green-100"}>
               <BalanceIcon

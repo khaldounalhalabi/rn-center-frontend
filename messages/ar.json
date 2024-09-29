@@ -625,8 +625,7 @@
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء"
       },
-      "show": {
-      },
+      "show": {},
       "create": {
         "addHolidays": "أضف الإجازات",
         "startHoliday": "ابدأ العطلة في",
@@ -1069,7 +1068,8 @@
         "year": "السنة",
         "month": "الشهر",
         "clinicBalance": "موازنة العيادة",
-        "pendingAmount": "الاموال المعلقة"
+        "pendingAmount": "الاموال المعلقة",
+        "balance": "الصندوق"
       },
       "create": {
         "addTransaction": "اضافة تحويل",

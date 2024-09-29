@@ -7,6 +7,7 @@ import Grid from "@/components/common/ui/Grid";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { useTranslations } from "next-intl";
+import { Navigate } from "@/Actions/navigate";
 
 const HolidayForm = ({
   defaultValues = undefined,
@@ -36,7 +37,7 @@ const HolidayForm = ({
   };
 
   const onSuccess = () => {
-    // Navigate(`/doctor/clinic/holidays`);
+    Navigate(`/doctor/clinic/holidays`);
   };
   return (
     <Form

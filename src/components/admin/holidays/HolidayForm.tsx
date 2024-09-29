@@ -28,22 +28,21 @@ const HolidayForm = ({
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>().update(
         defaultValues.id,
-        data,
+        data
       );
     } else {
       return await ClinicHolidayService.make<ClinicHolidayService>().store(
-        data,
+        data
       );
     }
   };
 
-  const onSuccess = () => {
-    Navigate(`/admin/clinics/holidays`);
-  };
   return (
     <Form
       handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
+      onSuccess={() => {
+        Navigate(`/admin/clinics/holidays`);
+      }}
       defaultValues={defaultValues}
     >
       {type == "store" ? (

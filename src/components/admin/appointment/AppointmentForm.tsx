@@ -68,11 +68,11 @@ const AppointmentForm = ({
   const [customer_id, setCustomerId] = useState(0);
 
   const [systemOffer, setSystemOffer] = useState(
-    defaultValues?.system_offers ?? [],
+    defaultValues?.system_offers ?? []
   );
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const [clinicId, setClinicId] = useState<number | undefined>(
-    defaultValues?.clinic_id,
+    defaultValues?.clinic_id
   );
   const { data } = useQuery({
     queryKey: ["getLastVisit", customer_id, range.id],
@@ -80,7 +80,7 @@ const AppointmentForm = ({
       if (range.id != 0 && customer_id) {
         return await CustomerService.make<CustomerService>().getAdminCustomerLastVisit(
           customer_id ?? 0,
-          range.id ?? 0,
+          range.id ?? 0
         );
       } else {
         return { data: { date: "" } };
@@ -124,7 +124,7 @@ const AppointmentForm = ({
   const [getDiscount, setDiscount] = useState(0);
 
   const [getServicePrice, setServicePrice] = useState<number | undefined>(
-    defaultValues?.service?.price,
+    defaultValues?.service?.price
   );
 
   const [status, setStatus] = useState(defaultValues?.status ?? "pending");
@@ -153,7 +153,7 @@ const AppointmentForm = ({
   };
 
   const [typeAppointment, setTypeAppointment] = useState<number | string>(
-    defaultValues?.type ?? "",
+    defaultValues?.type ?? ""
   );
 
   const appointmentCostSystem = HandleCalcOffers(
@@ -163,17 +163,17 @@ const AppointmentForm = ({
         ? systemOffer
         : [],
     range?.appointment_cost ?? 0,
-    "system",
+    "system"
   );
   const appointmentCostOffer = HandleCalcOffers(
     defaultValues?.offers ? defaultValues?.offers : offer ? offer : [],
     appointmentCostSystem ?? 0,
-    "offer",
+    "offer"
   );
   const appointmentCostOfferOnly = HandleCalcOffers(
     defaultValues?.offers ? defaultValues?.offers : offer ? offer : [],
     range?.appointment_cost ?? 0,
-    "offer",
+    "offer"
   );
 
   const [totalCost, setTotalCost] = useState(0);
@@ -267,7 +267,7 @@ const AppointmentForm = ({
                           data,
                           day,
                           range.range,
-                          range.maxAppointment,
+                          range.maxAppointment
                         );
                       }}
                     />
@@ -306,7 +306,7 @@ const AppointmentForm = ({
                       appointment_cost: selectedItem?.appointment_cost,
                     }));
                     return await AppointmentService.make<AppointmentService>(
-                      "admin",
+                      "admin"
                     )
                       .getAvailableTimes(selectedItem?.id ?? 0)
                       .then((res) => {
@@ -373,7 +373,7 @@ const AppointmentForm = ({
                   placeHolder={"Select Patient name ..."}
                   api={(page, search) =>
                     CustomerService.make<CustomerService>(
-                      "admin",
+                      "admin"
                     ).getClinicCustomer(
                       clinicId,
                       page,
@@ -381,7 +381,7 @@ const AppointmentForm = ({
                       undefined,
                       undefined,
                       undefined,
-                      { filtered: true },
+                      { filtered: true }
                     )
                   }
                   revalidate={`${clinicId}`}
@@ -434,7 +434,7 @@ const AppointmentForm = ({
                     SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
                       clinicId,
                       page,
-                      search,
+                      search
                     )
                   }
                   closeOnSelect={false}
@@ -453,12 +453,13 @@ const AppointmentForm = ({
                   }}
                   onRemoveSelected={(selectedItem) => {
                     setSystemOffer((prev) =>
-                      prev.filter((item) => item.id != selectedItem.value),
+                      prev.filter((item) => item.id != selectedItem.value)
                     );
                   }}
                   isMultiple={true}
                   optionValue={"id"}
                   getOptionLabel={(data: SystemOffers) => data.title}
+                  defaultValues={defaultValues?.system_offers ?? []}
                 />
               </div>
             ) : (
@@ -472,7 +473,7 @@ const AppointmentForm = ({
                   OffersService.make<OffersService>().getOffersByClinic(
                     clinicId,
                     page,
-                    search,
+                    search
                   )
                 }
                 closeOnSelect={false}
@@ -491,7 +492,7 @@ const AppointmentForm = ({
                 }}
                 onRemoveSelected={(selectedItem) => {
                   setOffer((prev) =>
-                    prev.filter((item) => item.id != selectedItem.value),
+                    prev.filter((item) => item.id != selectedItem.value)
                   );
                 }}
                 isMultiple={true}
@@ -538,7 +539,7 @@ const AppointmentForm = ({
                 undefined,
                 undefined,
                 undefined,
-                { filtered: true },
+                { filtered: true }
               )
             }
             defaultValues={
@@ -608,7 +609,7 @@ const AppointmentForm = ({
                   data,
                   day,
                   range.range,
-                  range.maxAppointment,
+                  range.maxAppointment
                 );
               }}
             />

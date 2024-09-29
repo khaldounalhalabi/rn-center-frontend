@@ -143,7 +143,7 @@ const ProfileOptionsPopover = () => {
               deleteCookieClient("refresh_token");
               deleteCookieClient("role");
               deleteCookieClient("permissions");
-              router.replace("/");
+              router.replace(`/auth/${actor}/login`);
             }}
           >
             {t("logout")}

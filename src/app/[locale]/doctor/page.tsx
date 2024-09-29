@@ -40,7 +40,7 @@ const Home = () => {
           />
         </div>
 
-        <div className={" md:max-w-[58%] pr-4 w-full"}>
+        <div className={"pr-4 w-full"}>
           <CardsAppointmentDoctor
             statisticsRes={statisticsRes}
             isLoading={isLoading}

@@ -17,38 +17,34 @@ const CardsAppointmentAdmin = ({
   const t = useTranslations("common.dashboard");
 
   return (
-    <div className={"flex pl-4 md:pl-0 flex-wrap mb-6 gap-5"}>
+    <div className={"flex flex-col md:flex-row"}>
       <Card>
         <div
           className={
-            "flex w-full justify-between gap-4 items-center min-w-[210px]"
+            "flex w-full justify-between items-center"
           }
         >
-          <div className={"flex flex-col justify-between "}>
-            <p>{t("totalAppointments")}</p>
-            <p>
-              {isLoading || isFetching ? (
-                <LoadingSpin />
-              ) : (
-                statisticsRes?.total_appointments
-              )}
-            </p>
+          <div>{t("totalAppointments")}</div>
+          <div>
+            {isLoading || isFetching ? (
+              <LoadingSpin />
+            ) : (
+              statisticsRes?.total_appointments
+            )}
           </div>
         </div>
       </Card>
       <Card>
         <div
-          className={"flex justify-between gap-4 items-center min-w-[210px]"}
+          className={"flex justify-between items-center"}
         >
-          <div className={"flex flex-col justify-between "}>
-            <p>{t("nextAppointments")}</p>
-            <p>
-              {isLoading || isFetching ? (
-                <LoadingSpin />
-              ) : (
-                statisticsRes?.upcoming_appointments
-              )}
-            </p>
+          <div>{t("nextAppointments")}</div>
+          <div>
+            {isLoading || isFetching ? (
+              <LoadingSpin />
+            ) : (
+              statisticsRes?.upcoming_appointments
+            )}
           </div>
         </div>
       </Card>

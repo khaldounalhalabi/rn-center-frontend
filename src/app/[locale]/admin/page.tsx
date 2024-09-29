@@ -34,7 +34,7 @@ const Page = () => {
           />
         </div>
 
-        <div className={" md:max-w-[58%] pr-4 w-full"}>
+        <div className={"w-full"}>
           <CardsAppointmentAdmin
             statisticsRes={statisticsRes}
             isLoading={isLoading}

@@ -36,12 +36,12 @@ const Navbar = ({
   const path = usePathname();
   return (
     <nav
-      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 items-center pl-2 pr-10 py-4 col-span-4 lg:col-span-3`}
+      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 px-2 items-center py-4 col-span-4 lg:col-span-3`}
     >
       <div
         className={
           showSearchForm
-            ? "w-full h-16 lg:w-full md:right-0 lg:left-auto left-0  absolute z-30 top-0   translate-y-0 ease-in-out duration-200"
+            ? "w-full h-16 lg:w-full md:right-0 lg:left-auto left-0  absolute z-30 top-0 translate-y-0 ease-in-out duration-200"
             : "w-full h-0 absolute overflow-clip translate-y-[-200px] ease-in-out duration-300"
         }
       >

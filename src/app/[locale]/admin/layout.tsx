@@ -18,7 +18,7 @@ const Layout = ({
       >
         <Providers>
           <div
-            className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4`}
+            className={`w-full col-start-1 col-span-4 md:col-start-2 md:col-span-4`}
           >
             <NavProvider> {children}</NavProvider>
           </div>

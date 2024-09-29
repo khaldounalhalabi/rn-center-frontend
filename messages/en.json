@@ -284,7 +284,9 @@
         "editSpeciality": "Edit Speciality",
         "specialityName": "Speciality Name",
         "tags": "Tags",
-        "description": "Description"
+        "description": "Description",
+        "image":"Image",
+        "noData":"No Data"
       }
     },
     "subscription": {

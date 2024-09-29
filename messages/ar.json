@@ -284,7 +284,9 @@
         "editSpeciality": "تحرير التخصص",
         "specialityName": "اسم التخصص",
         "tags": "العلامات",
-        "description": "وصف"
+        "description": "وصف",
+        "image": "الصورة",
+        "noData":"لا يوجد بيانات"
       }
     },
     "subscription": {

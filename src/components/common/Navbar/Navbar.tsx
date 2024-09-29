@@ -14,7 +14,7 @@ import dynamic from "next/dynamic";
 const ProfileOptionsPopover = dynamic(
   () => import("@/components/common/Navbar/ProfileOptionsPopover"),
   {
-    ssr: false, // Disable server-side rendering
+    ssr: false,
   },
 );
 

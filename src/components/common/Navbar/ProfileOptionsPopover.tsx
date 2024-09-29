@@ -9,10 +9,9 @@ import {
   getCookieClient,
   setCookieClient,
 } from "@/Actions/clientCookies";
-import { Navigate } from "@/Actions/navigate";
 import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { Link } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
@@ -24,6 +23,7 @@ import { NotificationHandler } from "@/components/common/NotificationHandler";
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
@@ -143,7 +143,7 @@ const ProfileOptionsPopover = () => {
               deleteCookieClient("refresh_token");
               deleteCookieClient("role");
               deleteCookieClient("permissions");
-              return Navigate("/");
+              router.replace("/");
             }}
           >
             {t("logout")}

@@ -64,7 +64,7 @@ const Page = () => {
       setSelectedItems((prev) => [...prev, item]);
     } else {
       setSelectedItems((prev) =>
-        prev.filter((itemId) => itemId.id !== item.id),
+        prev.filter((itemId) => itemId.id !== item.id)
       );
     }
   };
@@ -86,7 +86,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       ).getAdminSummary();
     },
     refetchOnWindowFocus: false,
@@ -171,7 +171,7 @@ const Page = () => {
                       status: deduction?.status,
                       amount: deduction?.amount,
                     },
-                    e.target.checked,
+                    e.target.checked
                   )
                 }
               />
@@ -287,7 +287,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       )
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
@@ -406,6 +406,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
+                    <h1>{t("export")}</h1>
                     <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"
@@ -489,7 +490,7 @@ const Page = () => {
             <label className="label">
               {t("balance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.balance).toLocaleString(undefined, {
+                {Number(balance?.data?.balance ?? 0).toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </span>
@@ -498,7 +499,7 @@ const Page = () => {
               {t("doneAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.done_appointment_deductions,
+                  balance?.data?.done_appointment_deductions ?? 0
                 ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>
@@ -507,7 +508,7 @@ const Page = () => {
               {t("pendingAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.pending_appointment_deductions,
+                  balance?.data?.pending_appointment_deductions ?? 0
                 ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>

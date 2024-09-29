@@ -1070,7 +1070,7 @@
         "clinicBalance": "موازنة العيادة",
         "pendingAmount": "الاموال المعلقة",
         "balance": "الصندوق",
-        "export" : "تدير لملف اكسيل"
+        "export": "تصدير لملف اكسيل"
       },
       "create": {
         "addTransaction": "اضافة تحويل",
@@ -1125,7 +1125,8 @@
         "pendingAmount": "الاموال المعلقة",
         "balance": "التوازن",
         "doneAppointmentDeductions": "خصومات المواعيد المنتهية",
-        "pendingAppointmentDeductions": "خصومات المواعيد المعلقة"
+        "pendingAppointmentDeductions": "خصومات المواعيد المعلقة",
+        "export": "تصدير لملف اكسيل"
       },
       "show": {
         "clinicName": "اسم العيادة",

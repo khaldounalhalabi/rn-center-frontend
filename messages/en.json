@@ -1121,7 +1121,8 @@
         "pendingAmount": "Pending Amount",
         "balance": "Balance",
         "doneAppointmentDeductions": "Done Appointment Deductions",
-        "pendingAppointmentDeductions": "Pending Appointment Deductions"
+        "pendingAppointmentDeductions": "Pending Appointment Deductions",
+        "export" : "Export to excel"
       },
       "show": {
         "clinicName": "Clinic Name",

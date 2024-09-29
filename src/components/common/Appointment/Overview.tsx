@@ -19,22 +19,15 @@ const Overview = ({
   userType?: "admin" | "doctor";
 }) => {
   const t = useTranslations("common.appointment.show");
-  const appointmentCost =
-    userType == "doctor"
-      ? HandleCalcOffers(
-          appointment?.offers ?? [],
-          appointment?.clinic?.appointment_cost ?? 0,
-          "offer"
-        )
-      : HandleCalcOffers(
-          appointment?.offers ?? [],
-          HandleCalcOffers(
-            appointment?.system_offers ?? [],
-            appointment?.clinic?.appointment_cost ?? 0,
-            "system"
-          ),
-          "offer"
-        );
+  const appointmentCost = HandleCalcOffers(
+    appointment?.offers ?? [],
+    HandleCalcOffers(
+      appointment?.system_offers ?? [],
+      appointment?.clinic?.appointment_cost ?? 0,
+      "system"
+    ),
+    "offer"
+  );
 
   const handleTotalCost = (): number => {
     return (

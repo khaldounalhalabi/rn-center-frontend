@@ -57,7 +57,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor",
+        "doctor"
       ).getSummary();
     },
   });
@@ -76,7 +76,7 @@ const Page = () => {
   }
 
   const type = ClinicTransactionTypeArray().map((type) =>
-    type.replace(/_/g, " "),
+    type.replace(/_/g, " ")
   );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
@@ -118,13 +118,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name,
+                        transaction?.appointment?.customer?.user?.first_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name,
+                        transaction?.appointment?.customer?.user?.middle_name
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name,
+                        transaction?.appointment?.customer?.user?.last_name
                       )}
                     </p>
                   </Link>
@@ -227,7 +227,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     filter: (params, setParams) => {
       return (
@@ -371,6 +371,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
+                    <h1>{t("export")}</h1>
                     <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"

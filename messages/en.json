@@ -1065,7 +1065,8 @@
         "month": "Month",
         "clinicBalance": "Clinic Balance",
         "balance": "Balance",
-        "pendingAmount": "Pending Amount"
+        "pendingAmount": "Pending Amount",
+        "export" : "Export to excel"
       },
       "create": {
         "addTransaction": "Add Transaction",

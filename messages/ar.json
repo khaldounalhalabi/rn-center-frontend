@@ -1069,7 +1069,8 @@
         "month": "الشهر",
         "clinicBalance": "موازنة العيادة",
         "pendingAmount": "الاموال المعلقة",
-        "balance": "الصندوق"
+        "balance": "الصندوق",
+        "export" : "تدير لملف اكسيل"
       },
       "create": {
         "addTransaction": "اضافة تحويل",

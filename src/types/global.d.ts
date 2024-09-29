@@ -1,3 +1,8 @@
+import en from "./../../messages/en.json";
+import en from "./../../messages/ar.json";
+
+type Messages = typeof en;
+
 declare namespace firebase {
   namespace messaging {
     interface Messaging {
@@ -10,4 +15,8 @@ declare namespace firebase {
       onMessage(callback: (payload: any) => void): void;
     }
   }
+}
+
+declare global {
+  interface IntlMessages extends Messages {}
 }

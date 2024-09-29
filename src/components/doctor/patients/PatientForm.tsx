@@ -18,7 +18,6 @@ import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm"
 import BloodArray from "@/enum/blood";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
-import PageCard from "@/components/common/ui/PageCard";
 import { useTranslations } from "next-intl";
 
 const PatientForm = ({
@@ -72,7 +71,7 @@ const PatientForm = ({
       defaultValues={res}
       setLocale={setLocale}
     >
-      {appointment ? <h2 className="card-title">{t("addPatient")}</h2> : ""}
+      {appointment ? <h2 className="card-title my-5">{t("addPatient")}</h2> : ""}
       <Grid md={"2"}>
         {type != "update" ? (
           <TranslatableInput
@@ -147,7 +146,7 @@ const PatientForm = ({
           />
         )}
         {type != "update" ? (
-          <div className={`flex gap-5 p-2 items-center`}>
+          <div className={`flex justify-between items-center w-full`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>

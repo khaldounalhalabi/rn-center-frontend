@@ -226,7 +226,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               <label className="flex items-center relative gap-2 w-full">
                 <input
                   type="text"
-                  className="input-bordered input input-sm"
+                  className="input-bordered input input-sm w-full"
                   placeholder="Search"
                   value={search}
                   onChange={(e) => {

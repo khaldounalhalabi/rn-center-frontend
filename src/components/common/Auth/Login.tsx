@@ -61,7 +61,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("user-type", pageType);
     if (pageType == "doctor" && !data?.data?.clinic?.agreed_on_contract) {
       if (data?.data?.user?.role?.[0].name == Role.CLINIC_EMPLOYEE) {
-        setContractError(data.message as string);
+        setContractError("Clinic owner must agree on the system contract");
       } else {
         Navigate("/auth/contract");
       }

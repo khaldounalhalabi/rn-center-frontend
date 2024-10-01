@@ -4,4 +4,10 @@ export enum SettingKeysEnum {
   ContactNumber1 = "contact_number_1",
   ContactNumber2 = "contact_number_2",
   DaysBeforeExpirationNotification = "days_before_notify_for_expiration",
+  ClinicContract = "clinic_contract",
 }
+
+export const EditorRequiredSettings: string[] = [
+  SettingKeysEnum.ClinicContract,
+  SettingKeysEnum.TermsAndServices,
+];

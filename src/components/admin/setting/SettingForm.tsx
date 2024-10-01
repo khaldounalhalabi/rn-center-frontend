@@ -6,7 +6,10 @@ import Grid from "@/components/common/ui/Grid";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Setting } from "@/Models/setting";
 import { SettingService } from "@/services/SettingService";
-import { SettingKeysEnum } from "@/enum/SettingKeysEnum";
+import {
+  EditorRequiredSettings,
+  SettingKeysEnum,
+} from "@/enum/SettingKeysEnum";
 import CKTextEditor from "@/components/common/ui/CKEditor";
 import { useTranslations } from "next-intl";
 
@@ -24,7 +27,7 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
   };
   return (
     <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
-      {defaultValues.label != SettingKeysEnum.TermsAndServices ? (
+      {!EditorRequiredSettings.includes(defaultValues.label) ? (
         <Grid md={2}>
           <Input
             required={true}

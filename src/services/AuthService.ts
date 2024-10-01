@@ -25,7 +25,7 @@ export class AuthService extends BaseService<AuthResponse> {
         }
 
         return res;
-      },
+      }
     );
     if (this.successStatus) await Navigate(`/${pageType}`);
 
@@ -38,7 +38,7 @@ export class AuthService extends BaseService<AuthResponse> {
   public async submitResetCode(
     url: string,
     dataForm: object,
-    pageType: string,
+    pageType: string
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -54,7 +54,7 @@ export class AuthService extends BaseService<AuthResponse> {
   public async requestResetPasswordRequest(
     url: string,
     dataForm: object,
-    typePage: string,
+    typePage: string
   ) {
     const response = await POST<null>(url, dataForm).then((e) => {
       this.successStatus = e.code == 200;
@@ -99,11 +99,11 @@ export class AuthService extends BaseService<AuthResponse> {
   }
 
   public async UpdateUserDetails(
-    data: any,
+    data: any
   ): Promise<ApiResponse<AuthResponse>> {
     const res = await POST<AuthResponse>(
       `${this.actor}/update-user-data`,
-      data,
+      data
     );
     return await this.errorHandler(res);
   }
@@ -111,5 +111,9 @@ export class AuthService extends BaseService<AuthResponse> {
   public async UpdateClinicDetails(data: any): Promise<ApiResponse<Clinic>> {
     const res = await PUT<Clinic>(`${this.actor}/clinic/update`, data);
     return await this.errorHandler(res);
+  }
+
+  public async agreeOnContract() {
+    return this.errorHandler(await GET<boolean>(`doctor/contract/agree`));
   }
 }

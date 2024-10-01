@@ -30,6 +30,7 @@ export type Clinic = {
   upcoming_appointments_count: number;
   active_subscription?: ClinicSubscription;
   work_gallery?: Media[];
+  agreed_on_contract: boolean;
 };
 
 export interface AddOrUpdateClinicForm {

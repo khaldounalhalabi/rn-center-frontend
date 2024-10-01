@@ -173,6 +173,10 @@ export class BaseService<T> {
       deleteCookieServer("permissions");
       await Navigate("/auth/customer/verify-code");
     }
+
+    if (res.code == 435) {
+      await Navigate("/auth/contract");
+    }
     return res;
   }
 }

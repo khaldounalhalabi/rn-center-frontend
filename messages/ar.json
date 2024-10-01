@@ -816,7 +816,9 @@
         "logs": "سجلات",
         "happenIn": "حدث في ",
         "actor": "المنفذ",
-        "event": "الحدث"
+        "event": "الحدث",
+        "export": "تصدير لملف اكسيل"
+
       },
       "create": {
         "editAppointment": "تعديل الميعاد",
@@ -906,6 +908,7 @@
         "note": "ملاحظة",
         "image": "صورة",
         "supplementalImages": "صور تكميلية"
+
       },
       "table": {
         "patients": "المرضى",

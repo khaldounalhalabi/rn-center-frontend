@@ -18,7 +18,7 @@ const CardsAppointmentDoctor = ({
 
   return (
     <div className={"flex flex-col md:flex-row w-full"}>
-      <Card>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div className={"flex w-full justify-between gap-4 items-center"}>
           <div>{t("totalAppointments")}</div>
           <div>
@@ -30,7 +30,7 @@ const CardsAppointmentDoctor = ({
           </div>
         </div>
       </Card>
-      <Card>
+      <Card  className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div className={"flex w-full justify-between gap-4 items-center"}>
           <div>{t("todayAppointments")}</div>
           <div>
@@ -42,7 +42,7 @@ const CardsAppointmentDoctor = ({
           </div>
         </div>
       </Card>
-      <Card>
+      <Card  className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div className={"flex w-full justify-between gap-4 items-center"}>
           <div>{t("nextAppointments")}</div>
           <div>

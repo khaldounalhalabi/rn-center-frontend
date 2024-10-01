@@ -1,7 +1,19 @@
+"use client"
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 import React from "react";
+import {useQuery} from "@tanstack/react-query";
+import {StatisticService} from "@/services/StatisticService";
+import {StatisticsPublic} from "@/Models/Statistics";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const Title = () => {
+  const {data,isLoading}= useQuery({
+    queryKey:['StatisticsPublic'],
+    queryFn:async ()=>{
+      return await StatisticService.make<StatisticService>().getStatistics()
+    }
+  })
+  const res :StatisticsPublic|undefined = data?.data
   return (
     <>
       <div className={"flex flex-col gap-6"}>
@@ -39,7 +51,7 @@ const Title = () => {
           }
         >
           <h2 className={"font-bold lg:text-[35px] md:text-[30px] text-[25px]"}>
-            5K
+            {isLoading?<LoadingSpin className={'w-6 h-6'}/>:res?.clinics_count}
           </h2>
           <h2 className={"lg:text-[15px] md:text-[12px] text-[8px] "}>
             Clinic
@@ -51,7 +63,7 @@ const Title = () => {
           }
         >
           <h2 className={"font-bold lg:text-[35px] md:text-[30px] text-[25px]"}>
-            96%
+            {isLoading?<LoadingSpin className={'w-6 h-6'}/>:res?.success_appointments_count}%
           </h2>
           <h2 className={"lg:text-[15px] md:text-[12px] text-[8px] "}>
             Success

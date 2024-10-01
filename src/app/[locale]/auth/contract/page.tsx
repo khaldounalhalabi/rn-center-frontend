@@ -16,6 +16,10 @@ const Page = async () => {
           dangerouslySetInnerHTML={{ __html: setting?.data?.value }}
         ></div>
       </div>
+      <p className="font-medium">
+        <strong>Note: </strong> you must agree on the contract to be able to
+        continue using POM system , please read carefully
+      </p>
       <div className="flex items-center justify-between">
         <Link className="btn btn-neutral" href={"/"}>
           Reject

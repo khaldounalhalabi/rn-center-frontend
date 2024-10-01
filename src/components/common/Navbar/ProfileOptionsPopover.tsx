@@ -137,16 +137,18 @@ const ProfileOptionsPopover = () => {
         )}
         <div className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
           <button
+              type={'button'}
             onClick={() => {
               deleteCookieClient("token");
               deleteCookieClient("user-type");
               deleteCookieClient("refresh_token");
               deleteCookieClient("role");
               deleteCookieClient("permissions");
-              router.replace(`/auth/${actor}/login`);
             }}
           >
-            {t("logout")}
+            <Link href={`/auth/${actor}/login`}>
+              {t("logout")}
+            </Link>
           </button>
         </div>
       </div>

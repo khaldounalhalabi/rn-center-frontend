@@ -2,7 +2,7 @@ const SidebarArIcon = ({ ...props }) => {
   return (
     <svg
       {...props}
-      viewBox="0 0 650 388"
+      viewBox="0 0 400 388"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

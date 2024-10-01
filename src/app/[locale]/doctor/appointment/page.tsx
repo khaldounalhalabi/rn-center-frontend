@@ -181,6 +181,7 @@ const Page = () => {
       {
         name: "appointment_sequence",
         label: `${t("sequence")}`,
+        sortable:true
       },
       {
         name: "date",
@@ -319,6 +320,7 @@ const Page = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <div className={"w-full my-4 grid grid-cols-1"}>
+                    <h1 className={'card-title mb-2'}>{t("export")} :</h1>
                     <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"

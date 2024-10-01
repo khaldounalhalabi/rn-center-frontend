@@ -18,7 +18,7 @@ const CardsAppointmentAdmin = ({
 
   return (
     <div className={"flex flex-col md:flex-row"}>
-      <Card>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div
           className={
             "flex w-full justify-between items-center"
@@ -34,7 +34,7 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div
           className={"flex justify-between items-center"}
         >

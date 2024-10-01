@@ -34,8 +34,8 @@ interface ChartData {
 const Page: React.FC = () => {
   const t = useTranslations("common.transaction.chart");
   const [dataRange, setDataRange] = useState([
-    dayjs().startOf("month").format("YYYY-MM-DD"),
-    dayjs().format("YYYY-MM-DD"),
+    dayjs().startOf("month").format("YYYY-MM-DD")+ " 00:00:01",
+    dayjs().format("YYYY-MM-DD")+ " 23:59:59",
   ]);
 
   const [showCustomDate, setShowCustomDate] = useState(true);
@@ -127,7 +127,7 @@ const Page: React.FC = () => {
                   <DatepickerFilter
                     onChange={(time) => {
                       setDataRange([
-                        time?.format("YYYY-MM-DD") ?? "",
+                        time?.format("YYYY-MM-DD") + " 00:00:01" ?? "",
                         dataRange[1],
                       ]);
                     }}
@@ -140,7 +140,7 @@ const Page: React.FC = () => {
                     onChange={(time) => {
                       setDataRange([
                         dataRange[0],
-                        time?.format("YYYY-MM-DD") ?? "",
+                        time?.format("YYYY-MM-DD") + " 23:59:59" ?? "",
                       ]);
                     }}
                     defaultValue={dataRange[1]}

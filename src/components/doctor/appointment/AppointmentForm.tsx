@@ -56,7 +56,6 @@ const AppointmentForm = ({
       ).getAvailableTimesClinic();
     },
   });
-  console.log(clinic);
   const range = {
     id: clinic?.clinic?.id ?? 0,
     appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
@@ -68,7 +67,8 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.data?.clinic_holidays ?? [],
     },
   };
-
+  console.log(clinic);
+  console.log(range)
   const { data: lastVisitData } = useQuery({
     queryKey: ["getLastVisit", customer_id, range.id],
     queryFn: async () => {

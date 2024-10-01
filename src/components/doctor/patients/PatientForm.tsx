@@ -78,7 +78,7 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-            placeholder={"John"}
+
             label={t("firstName")}
             name={"first_name"}
             locale={locale}
@@ -96,7 +96,7 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-            placeholder={"John"}
+
             label={t("middleName")}
             name={"middle_name"}
             locale={locale}
@@ -114,7 +114,7 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-            placeholder={"John"}
+
             label={t("lastName")}
             locale={locale}
             name={"last_name"}
@@ -146,7 +146,7 @@ const PatientForm = ({
           />
         )}
         {type != "update" ? (
-          <div className={`flex justify-between items-center w-full`}>
+          <div className={`flex md:flex-row flex-col justify-between items-center w-full`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>
@@ -154,7 +154,7 @@ const PatientForm = ({
               name={"gender"}
               label={t("male")}
               type="radio"
-              className="radio radio-info"
+              className="radio radio-info "
               value={"male"}
               defaultChecked={
                 defaultValues?.gender ? defaultValues?.gender == "male" : true
@@ -198,7 +198,7 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-            placeholder={"John"}
+
             label={t("address")}
             name={"address.name"}
             locale={locale}

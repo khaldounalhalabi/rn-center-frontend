@@ -20,3 +20,8 @@ export interface AdminStatistics {
   total_patients: number;
   total_active_doctors: number;
 }
+
+export interface StatisticsPublic {
+  clinics_count: number,
+  success_appointments_count: number
+}

@@ -490,15 +490,16 @@ const Page = () => {
             <label className="label">
               {t("balance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(balance?.data?.balance ?? 0).toLocaleString(undefined, {
-                  maximumFractionDigits: 2,
-                })}
+                {isLoading?<LoadingSpin className={'w-6 h-6'}/>:
+                    Number(balance?.data?.balance ?? 0).toLocaleString(undefined, {
+                      maximumFractionDigits: 2,
+                    })}
               </span>
             </label>
             <label className="label">
               {t("doneAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(
+                 {isLoading?<LoadingSpin className={'w-6 h-6'}/>:Number(
                   balance?.data?.done_appointment_deductions ?? 0
                 ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
@@ -507,7 +508,7 @@ const Page = () => {
             <label className="label">
               {t("pendingAppointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
-                {Number(
+                 {isLoading?<LoadingSpin className={'w-6 h-6'}/>:Number(
                   balance?.data?.pending_appointment_deductions ?? 0
                 ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>

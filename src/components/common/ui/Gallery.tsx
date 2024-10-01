@@ -45,7 +45,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
 
   return (
     <div
-      className={`gap-5 grid grid-cols-${parseInt(`${cols / 2}`)} md:grid-cols-${cols} w-full`}
+      className={` flex flex-wrap gap-6 grid-cols-${parseInt(`${cols / 2}`)} md:grid-cols-${cols} w-full`}
     >
       {isMutating ? (
         <LoadingSpin className={"w-7 h-7"} />
@@ -61,7 +61,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
                 "rounded-full border-[1px] hover:bg-gray-300 absolute  w-fit border-gray-600 cursor-pointer p-1"
               }
             >
-              <XMark className={"w-4 h-4"} />
+              <XMark className={"w-4 h-4 fill-error stroke-error"} />
             </div>
             <ImagePreview
               src={typeof img == "string" ? img : getMedia(img)}

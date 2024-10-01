@@ -812,7 +812,9 @@
         "logs": "Logs",
         "happenIn": "Happen In",
         "actor": "Actor",
-        "event": "Event"
+        "event": "Event",
+        "export" : "Export to excel"
+
       },
       "create": {
         "editAppointment": "Edit Appointment",

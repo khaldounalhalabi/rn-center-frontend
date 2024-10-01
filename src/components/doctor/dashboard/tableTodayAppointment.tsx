@@ -15,6 +15,8 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { useTranslations } from "next-intl";
+import { Role } from "@/enum/Role";
+import { PermissionsDoctor } from "@/enum/Permissions";
 
 const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -24,9 +26,11 @@ const locale = getCookieClient("NEXT_LOCALE");
 
 const TableTodayAppointment = () => {
   const t = useTranslations("common.dashboard");
-
+  const permissions: string | undefined = getCookieClient("permissions");
+  const permissionsArray: string[] = permissions?.split(",") ?? [""];
+  const role = getCookieClient("role");
   const tableData: DataTableData<Appointment> = {
-    createUrl: `/doctor/appointment/create`,
+    createUrl: `${role === Role.CLINIC_EMPLOYEE && permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "/doctor/appointment/create" : role === Role.CLINIC_EMPLOYEE && !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "" : "/doctor/appointment/create"}`,
     title: `${t("todayAppointments")}`,
     schema: [
       {
@@ -75,11 +79,27 @@ const TableTodayAppointment = () => {
         render: (_status, appointment, setHidden, revalidate) => {
           return (
             <div className={"flex items-center justify-center"}>
-              <AppointmentStatusColumn
-                userType={"doctor"}
-                appointment={appointment}
-                revalidate={revalidate}
-              />
+              {role === Role.CLINIC_EMPLOYEE &&
+              permissionsArray.includes(
+                PermissionsDoctor.MANAGE_APPOINTMENTS,
+              ) ? (
+                <AppointmentStatusColumn
+                  userType={"doctor"}
+                  appointment={appointment}
+                  revalidate={revalidate}
+                />
+              ) : role === Role.CLINIC_EMPLOYEE &&
+                !permissionsArray.includes(
+                  PermissionsDoctor.MANAGE_APPOINTMENTS,
+                ) ? (
+                <span>{appointment?.status}</span>
+              ) : (
+                <AppointmentStatusColumn
+                  userType={"doctor"}
+                  appointment={appointment}
+                  revalidate={revalidate}
+                />
+              )}
             </div>
           );
         },
@@ -115,7 +135,17 @@ const TableTodayAppointment = () => {
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
               ? ["show"]
-              : ["edit", "show"];
+              : role === Role.CLINIC_EMPLOYEE &&
+                  permissionsArray.includes(
+                    PermissionsDoctor.MANAGE_APPOINTMENTS,
+                  )
+                ? ["edit", "show"]
+                : role === Role.CLINIC_EMPLOYEE &&
+                    !permissionsArray.includes(
+                      PermissionsDoctor.MANAGE_APPOINTMENTS,
+                    )
+                  ? ["show"]
+                  : ["edit", "show"];
           return (
             <ActionsButtons
               id={data?.id}

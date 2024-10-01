@@ -57,7 +57,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor"
+        "doctor",
       ).getSummary();
     },
   });
@@ -76,7 +76,7 @@ const Page = () => {
   }
 
   const type = ClinicTransactionTypeArray().map((type) =>
-    type.replace(/_/g, " ")
+    type.replace(/_/g, " "),
   );
   const [showCustomDate, setShowCustomDate] = useState(true);
   const [customDate, setCustomDate] = useState(DateFilter.CUSTOM_DATE);
@@ -118,13 +118,13 @@ const Page = () => {
                   >
                     <p>
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.first_name
+                        transaction?.appointment?.customer?.user?.first_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.middle_name
+                        transaction?.appointment?.customer?.user?.middle_name,
                       )}{" "}
                       {TranslateClient(
-                        transaction?.appointment?.customer?.user?.last_name
+                        transaction?.appointment?.customer?.user?.last_name,
                       )}
                     </p>
                   </Link>
@@ -227,7 +227,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     filter: (params, setParams) => {
       return (
@@ -346,18 +346,6 @@ const Page = () => {
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -370,8 +358,13 @@ const Page = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="font-medium text-gray-900 text-lg leading-6"
+                  >
+                    {t("export")}
+                  </Dialog.Title>
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <h1 className={'card-title mb-2'}>{t("export")} :</h1>
                     <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"

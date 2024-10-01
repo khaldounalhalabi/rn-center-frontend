@@ -123,21 +123,19 @@ const ProfileOptionsPopover = () => {
         </Link>
         {actor == "doctor" ? (
           <Link
+            className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200 opacity-[0.8]"
             suppressHydrationWarning
             onClick={() => setOpenPopProfile(false)}
             href={`/doctor/clinic-details`}
-            className="opacity-[0.8]"
           >
-            <button className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
-              {t("clinicProfile")}
-            </button>
+            <button>{t("clinicProfile")}</button>
           </Link>
         ) : (
           ""
         )}
         <div className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
-          <button
-              type={'button'}
+          <Link
+            href={`/auth/${actor}/login`}
             onClick={() => {
               deleteCookieClient("token");
               deleteCookieClient("user-type");
@@ -146,10 +144,8 @@ const ProfileOptionsPopover = () => {
               deleteCookieClient("permissions");
             }}
           >
-            <Link href={`/auth/${actor}/login`}>
-              {t("logout")}
-            </Link>
-          </button>
+            {t("logout")}
+          </Link>
         </div>
       </div>
     </div>

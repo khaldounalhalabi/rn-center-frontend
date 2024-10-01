@@ -9,10 +9,6 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "@/navigation";
 
 const Gallery = ({ media }: { media: Media[] | string[] }) => {
-  const cols =
-    parseInt(`${media.length / 2} `) != 1
-      ? parseInt(`${media.length / 2} `)
-      : 2;
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
@@ -45,7 +41,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
 
   return (
     <div
-      className={` flex flex-wrap gap-6 grid-cols-${parseInt(`${cols / 2}`)} md:grid-cols-${cols} w-full`}
+      className={` grid gap-6 grid-cols-2 md:grid-cols-6 w-full`}
     >
       {isMutating ? (
         <LoadingSpin className={"w-7 h-7"} />

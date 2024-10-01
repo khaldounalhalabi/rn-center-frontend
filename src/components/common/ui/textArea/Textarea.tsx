@@ -44,7 +44,6 @@ const Textarea: React.FC<textAreaType> = ({
         rows={4}
         dir={dir}
         className="text-sm textarea textarea-bordered w-full"
-        placeholder="Write your thoughts here..."
         defaultValue={defaultValue ? defaultValue : ""}
       />
       {error ? <p className={`text-error text-sm`}>{error}</p> : ""}

@@ -181,7 +181,7 @@ const Page = () => {
       {
         name: "appointment_sequence",
         label: `${t("sequence")}`,
-        sortable:true
+        sortable: true,
       },
       {
         name: "date",
@@ -295,18 +295,6 @@ const Page = () => {
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -319,8 +307,13 @@ const Page = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="font-medium text-gray-900 text-lg leading-6"
+                  >
+                    {t("export")}
+                  </Dialog.Title>
                   <div className={"w-full my-4 grid grid-cols-1"}>
-                    <h1 className={'card-title mb-2'}>{t("export")} :</h1>
                     <label className={"label"}>{t("year")} :</label>
                     <input
                       className="input input-bordered w-full focus:outline-pom focus:border-pom"

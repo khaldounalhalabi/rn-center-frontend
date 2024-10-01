@@ -146,7 +146,7 @@ const PatientForm = ({
           />
         )}
         {type != "update" ? (
-          <div className={`flex md:flex-row flex-col justify-between items-center w-full`}>
+          <div className={`flex md:flex-row flex-col justify-between items-start w-full`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>
@@ -240,7 +240,6 @@ const PatientForm = ({
         <MultiInput
           type={"tel"}
           name={"phone_numbers"}
-          placeholder={"Enter Clinic Phone Number"}
           label={t("phone")}
           required={true}
           maxFields={2}

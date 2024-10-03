@@ -64,7 +64,7 @@ const Page = () => {
       setSelectedItems((prev) => [...prev, item]);
     } else {
       setSelectedItems((prev) =>
-        prev.filter((itemId) => itemId.id !== item.id),
+        prev.filter((itemId) => itemId.id !== item.id)
       );
     }
   };
@@ -86,7 +86,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       ).getAdminSummary();
     },
     refetchOnWindowFocus: false,
@@ -171,7 +171,7 @@ const Page = () => {
                       status: deduction?.status,
                       amount: deduction?.amount,
                     },
-                    e.target.checked,
+                    e.target.checked
                   )
                 }
               />
@@ -287,7 +287,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        "admin"
       )
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
@@ -381,6 +381,17 @@ const Page = () => {
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -438,6 +449,17 @@ const Page = () => {
 
       <Transition appear show={isOpenStatus} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModalStatus}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
@@ -483,7 +505,7 @@ const Page = () => {
                     undefined,
                     {
                       maximumFractionDigits: 2,
-                    },
+                    }
                   )
                 )}
               </span>
@@ -495,7 +517,7 @@ const Page = () => {
                   <LoadingSpin className={"w-6 h-6"} />
                 ) : (
                   Number(
-                    balance?.data?.done_appointment_deductions ?? 0,
+                    balance?.data?.done_appointment_deductions ?? 0
                   ).toLocaleString(undefined, { maximumFractionDigits: 2 })
                 )}
               </span>
@@ -508,7 +530,7 @@ const Page = () => {
                   <LoadingSpin className={"w-6 h-6"} />
                 ) : (
                   Number(
-                    balance?.data?.pending_appointment_deductions ?? 0,
+                    balance?.data?.pending_appointment_deductions ?? 0
                   ).toLocaleString(undefined, { maximumFractionDigits: 2 })
                 )}
               </span>

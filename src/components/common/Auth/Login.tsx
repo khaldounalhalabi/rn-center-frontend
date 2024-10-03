@@ -59,7 +59,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
-    if (pageType == "doctor" && !data?.data?.clinic?.agreed_on_contract) {
+    if (pageType == "doctor" && !data?.data?.user?.clinic?.agreed_on_contract) {
       if (data?.data?.user?.role?.[0].name == Role.CLINIC_EMPLOYEE) {
         setContractError("Clinic owner must agree on the system contract");
       } else {

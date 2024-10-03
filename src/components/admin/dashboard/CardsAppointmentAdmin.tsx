@@ -21,7 +21,7 @@ const CardsAppointmentAdmin = ({
       <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div
           className={
-            "flex w-full justify-between items-center"
+            "flex w-full justify-between items-center gap-1"
           }
         >
           <div>{t("totalAppointments")}</div>
@@ -36,7 +36,7 @@ const CardsAppointmentAdmin = ({
       </Card>
       <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
         <div
-          className={"flex justify-between items-center"}
+          className={"flex justify-between items-center gap-1"}
         >
           <div>{t("nextAppointments")}</div>
           <div>

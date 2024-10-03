@@ -13,8 +13,10 @@ const InputFilter: React.FC<InputProps> = ({
   onChange,
   type,
   min = 0,
+  placeholder = undefined,
   ...props
 }) => {
+  placeholder = undefined;
   return (
     <div className={`flex flex-col items-start w-full`}>
       <input

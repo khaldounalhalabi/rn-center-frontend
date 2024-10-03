@@ -22,7 +22,7 @@ function ApiSelect<TResponse, TData>({
   getOptionLabel = undefined,
   getOptionValue = undefined,
   onSelect = undefined,
-  placeHolder = "Select",
+  placeHolder = undefined,
   defaultValues = undefined,
   onChange = undefined,
   required = false,
@@ -31,6 +31,7 @@ function ApiSelect<TResponse, TData>({
   inputProps = {},
   revalidate,
 }: IApiSelectProps<TResponse, TData>) {
+  placeHolder = undefined;
   const {
     setValue,
     formState: { errors },
@@ -97,7 +98,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
 
@@ -138,7 +139,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -146,7 +147,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));

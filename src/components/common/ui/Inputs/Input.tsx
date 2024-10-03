@@ -35,6 +35,7 @@ const Input: React.FC<InputProps> = ({
   setWatch,
   unit,
   min = 0,
+  placeholder=undefined,
   ...props
 }) => {
   const {
@@ -47,6 +48,7 @@ const Input: React.FC<InputProps> = ({
   }
   const locale = useLocale();
   const [hidden, setHidden] = useState(true);
+  placeholder = undefined;
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
   if (type == "password") {

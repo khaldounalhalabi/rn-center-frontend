@@ -22,8 +22,10 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   name,
   required = false,
   locale = undefined,
+  placeholder = undefined,
   ...props
 }) => {
+  placeholder = undefined;
   const {
     register,
     setValue,
@@ -35,7 +37,7 @@ const TranslatableInput: React.FC<TranslatableInputProps> = ({
   const [tValue, setTValue] = useState<Translatable>(
     typeof defaultValue === "string"
       ? TranslateClient(defaultValue, true)
-      : defaultValue ?? { en: "", ar: "" },
+      : defaultValue ?? { en: "", ar: "" }
   );
 
   useEffect(() => {

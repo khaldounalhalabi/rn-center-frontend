@@ -1,3 +1,4 @@
+import BankNote from "@/components/icons/BankNote";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ClinicSubscription } from "@/Models/ClinicSubscription";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
@@ -18,13 +19,13 @@ const CollectSpecificSubscriptionButton = ({
   const mutation = useMutation({
     mutationFn: (clinicSubscriptionId: number) =>
       ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin",
+        "admin"
       ).collect(clinicSubscriptionId),
     onSuccess: (data) => {
       if (data.data === true) {
         toast.success("Collected successfully");
         setSubscription((prev) =>
-          prev ? { ...prev, is_paid: true } : undefined,
+          prev ? { ...prev, is_paid: true } : undefined
         );
 
         if (refetch) {
@@ -53,11 +54,7 @@ const CollectSpecificSubscriptionButton = ({
           }
         }}
       >
-        {mutation.isPending ? (
-          <LoadingSpin />
-        ) : (
-          subscription?.subscription?.cost
-        )}
+        {mutation.isPending ? <LoadingSpin /> : <BankNote />}
       </button>
     </div>
   );

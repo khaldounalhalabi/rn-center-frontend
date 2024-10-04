@@ -17,8 +17,8 @@ const CardsAppointmentAdmin = ({
   const t = useTranslations("common.dashboard");
 
   return (
-    <div className={"flex flex-col md:flex-row"}>
-      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
+    <div className={"flex flex-col md:flex-row w-full"}>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
         <div
           className={
             "flex w-full justify-between items-center gap-1"
@@ -34,7 +34,7 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
         <div
           className={"flex justify-between items-center gap-1"}
         >
@@ -44,6 +44,20 @@ const CardsAppointmentAdmin = ({
               <LoadingSpin />
             ) : (
               statisticsRes?.upcoming_appointments
+            )}
+          </div>
+        </div>
+      </Card>
+      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
+        <div
+          className={"flex justify-between items-center gap-1"}
+        >
+          <div>{t("todayAppointments")}</div>
+          <div>
+            {isLoading || isFetching ? (
+              <LoadingSpin />
+            ) : (
+              statisticsRes?.today_appointments
             )}
           </div>
         </div>

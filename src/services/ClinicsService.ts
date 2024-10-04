@@ -58,4 +58,5 @@ export class ClinicsService extends BaseService<Clinic> {
     );
     return await this.errorHandler(res);
   }
+
 }

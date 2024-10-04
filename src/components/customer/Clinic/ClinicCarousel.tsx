@@ -32,7 +32,7 @@ const ClinicCarousel = () => {
       <div className={"flex flex-col"}>
         <div className={"flex  px-6 justify-between"}>
           <h2 className={" text-[#151D48] text-[21px]"}>Clinics</h2>
-          <Link href={"/"} className={"text-[#737791] text-[18px]"}>
+          <Link href={"/customer/clinics"} className={"text-[#737791] text-[18px]"}>
             View All
           </Link>
         </div>

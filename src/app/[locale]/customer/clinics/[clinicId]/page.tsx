@@ -12,9 +12,8 @@ const Page = async ({
 }: {
   params: { clinicId: number };
 }) => {
-  const clinic = (
-    await ClinicsService.make<ClinicsService>("public").show(clinicId)
-  )?.data;
+  const data = await ClinicsService.make<ClinicsService>("public").show(clinicId);
+  const clinic = data?.data
   return (
     <div className="p-10">
       <div className="w-full flex md:flex-row flex-col justify-between items-center border-b pb-2">

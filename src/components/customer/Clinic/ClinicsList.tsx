@@ -132,7 +132,7 @@ const ClinicsList = () => {
           data?.pages.map((page) =>
             page?.data?.map((e, index) => {
               return (
-                <div className="h-[34vh]  w-full sm:w-1/2 xl:w-1/3" key={index}>
+                <div className="h-[34vh] my-4 w-full sm:w-1/2 xl:w-1/3" key={index}>
                   <Link
                     href={`/customer/clinics/${e.id}`}
                     className={"block h-full relative mx-4 cursor-pointer"}
@@ -148,7 +148,7 @@ const ClinicsList = () => {
                         alt={".."}
                       />
                     </div>
-                    <div className={"w-full h-[50%] flex  "}>
+                    <div className={"w-full h-[50%] flex  shadowCard  rounded-b-2xl"}>
                       <div
                         className={
                           "w-[60%] pl-2 text-nowrap flex flex-col justify-around"

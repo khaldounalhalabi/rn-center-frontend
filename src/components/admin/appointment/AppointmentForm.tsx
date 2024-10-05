@@ -425,7 +425,7 @@ const AppointmentForm = ({
             Offers & Additions:
           </h2>
           <div className={"flex items-center justify-between w-full flex-wrap"}>
-            {typeAppointment == "online" ? (
+            {typeAppointment == "online" && type == "store" ? (
               <div className={"w-full md:w-[49%]"}>
                 <ApiSelect
                   name={"system_offers"}

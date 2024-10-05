@@ -24,7 +24,7 @@ const AppointmentStatusColumn = ({
   userType?: "admin" | "doctor";
 }) => {
   const [appointmentState, setAppointment] = useState<Appointment | undefined>(
-    appointment,
+    appointment
   );
 
   const [isPending, setPending] = useState<boolean>(false);
@@ -141,6 +141,17 @@ const AppointmentStatusColumn = ({
             closeModal();
           }}
         >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
           <div className="flex items-center justify-center min-h-screen p-4 text-center">
             <Dialog.Panel className="relative w-full max-w-md px-4 py-6 bg-white shadow-lg rounded-lg">
               <Form handleSubmit={HandleCancel} showToastMessage={false}>
@@ -206,33 +217,31 @@ const AppointmentStatusColumn = ({
               }}
               value={appointmentState?.status}
             >
-              {(
-                AppointmentStatusesFilter(
-                  appointment?.type ?? "",
-                  appointment?.status ?? "",
-                ).map((e, index) => (
-                  <option
-                    key={index}
-                    className={`block truncate  ${
-                      e == AppointmentStatusEnum.CHECKOUT
-                        ? "text-[#0089c1]"
-                        : e == AppointmentStatusEnum.CANCELLED
-                          ? "text-[#ff5861]"
-                          : e == AppointmentStatusEnum.PENDING
-                            ? "text-[#ffa500]"
-                            : e == AppointmentStatusEnum.CHECKIN
-                              ? "text-[#00a96e]"
-                              : e == AppointmentStatusEnum.BOOKED
-                                ? "text-[#013567]"
-                                : e == "completed"
-                                  ? "text-info"
-                                  : ""
-                    }`}
-                  >
-                    {e}
-                  </option>
-                ))
-              )}
+              {AppointmentStatusesFilter(
+                appointment?.type ?? "",
+                appointment?.status ?? ""
+              ).map((e, index) => (
+                <option
+                  key={index}
+                  className={`block truncate  ${
+                    e == AppointmentStatusEnum.CHECKOUT
+                      ? "text-[#0089c1]"
+                      : e == AppointmentStatusEnum.CANCELLED
+                        ? "text-[#ff5861]"
+                        : e == AppointmentStatusEnum.PENDING
+                          ? "text-[#ffa500]"
+                          : e == AppointmentStatusEnum.CHECKIN
+                            ? "text-[#00a96e]"
+                            : e == AppointmentStatusEnum.BOOKED
+                              ? "text-[#013567]"
+                              : e == "completed"
+                                ? "text-info"
+                                : ""
+                  }`}
+                >
+                  {e}
+                </option>
+              ))}
             </select>
           )}
         </>

@@ -27,7 +27,7 @@ const AppointmentStatusColumn = ({
   const handleSelectStatus = (
     status: string,
     id: number,
-    setSelected: React.Dispatch<string | undefined>,
+    setSelected: React.Dispatch<string | undefined>
   ) => {
     setLoading(true);
     if (status == AppointmentStatusEnum.CHECKIN) {
@@ -119,6 +119,17 @@ const AppointmentStatusColumn = ({
             closeModal();
           }}
         >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
           <div className="flex items-center justify-center min-h-screen p-4 text-center">
             <Dialog.Panel className="relative w-full max-w-md px-4 py-6 bg-white shadow-lg rounded-lg">
               <Form handleSubmit={HandleCancel} showToastMessage={false}>
@@ -161,7 +172,7 @@ const AppointmentStatusColumn = ({
               : handleSelectStatus(
                   e.target.value,
                   appointmentState?.id ?? 0,
-                  setSelected,
+                  setSelected
                 );
           }}
         >

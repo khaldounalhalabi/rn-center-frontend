@@ -7,9 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import NotificationProvider from "@/components/common/NotificationProvider";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
-import { useRouter } from "next/navigation";
-import {getCookieClient} from "@/Actions/clientCookies";
+import { getCookieClient } from "@/Actions/clientCookies";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -22,7 +20,7 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
 };
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const { fcmToken } = useFcmToken();
+  useFcmToken();
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -35,7 +33,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     },
   });
   const [reFetch, setReFetch] = useState(false);
-  const locale = getCookieClient('NEXT_LOCALE')
+  const locale = getCookieClient("NEXT_LOCALE");
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>
       <QueryClientProvider client={queryClient}>

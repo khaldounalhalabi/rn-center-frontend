@@ -69,7 +69,7 @@ const SidebarAdmin = ({
     >
       <div className={"overflow-hidden "}>
         <div
-          className={`flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+          className={`px-5 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
           {local == "en" ? (
             <SidebarEnIcon
@@ -85,11 +85,11 @@ const SidebarAdmin = ({
             onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
           />
           <XMark
-            className={`h-8 w-8 mx-4 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
+            className={`h-8 w-8 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
             onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
           <MenuIcon
-            className={`h-8 w-8  hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
+            className={`h-8 w-8 hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
             onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
           />
         </div>

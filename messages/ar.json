@@ -120,9 +120,9 @@
         "archived?": "مؤرشف ?",
         "actions": "أجراءات",
         "archived": "مؤرشف",
+        "approximateAppointmentTime": "الوقت المقدر للموعد",
         "total-appointments": "إجمالي المواعيد",
-        "subscriptionStatus": "حالة الاشتراك",
-        "approximateAppointmentTime": "الوقت المقدر للموعد"
+        "subscriptionStatus": "حالة الاشتراك"
       }
     },
     "holidays": {
@@ -286,7 +286,7 @@
         "tags": "العلامات",
         "description": "وصف",
         "image": "الصورة",
-        "noData":"لا يوجد بيانات"
+        "noData": "لا يوجد بيانات"
       }
     },
     "subscription": {
@@ -363,15 +363,15 @@
       "password": "كلمة السر",
       "confirm-password": "تأكيد كلمة السر",
       "birth-date": "تاريخ ميلاد ",
-      "phones": "رقم العيادة",
-      "gender": "جنس",
       "male": "رجل",
       "female": "مرأة",
+      "gender": "جنس",
+      "phones": "رقم العيادة",
+      "tags": "العلامات",
       "city": "المدينة",
       "address": "موقع العيادة",
       "image": "صورة",
       "noData": "لايوجد بيانات",
-      "tags": "العلامات",
       "userDetails": "تفاصيل المستخدم",
       "editBtn": "تعديل",
       "blood": "فصيلة الدم"
@@ -427,7 +427,6 @@
     "offer": {
       "table": {
         "offers": "العروض",
-        "email": "ايميل ",
         "clinicName": "اسم العيادة",
         "title": "العنوان",
         "value": "القيمة",
@@ -435,7 +434,8 @@
         "isActive": "التحقق من النشاط",
         "active": "نشط",
         "not-active": "خامل",
-        "actions": "أجراءات"
+        "actions": "أجراءات",
+        "email": "ايميل "
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -453,12 +453,12 @@
         "image": "صور"
       },
       "show": {
-        "isActive": "التحقق من النشاط",
         "offerDetails": "تفاصيل العرض",
         "editBtn": "يحرر",
         "clinicName": "اسم العيادة",
         "cost": "تكلفة التعيين",
         "title": "العنوان",
+        "isActive": "التحقق من النشاط",
         "not-active": "خامل",
         "active": "نشط",
         "type": "النوع",
@@ -487,10 +487,9 @@
     "system": {
       "table": {
         "systemOffers": "عروض النظام",
-        "email": "ايميل ",
-        "amount": "الكمية",
         "clinicName": "اسم العيادة",
         "title": "العنوان",
+        "amount": "الكمية",
         "status": "حالة",
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
@@ -499,11 +498,11 @@
         "isActive": "التحقق من النشاط",
         "active": "نشط",
         "not-active": "خامل",
-        "actions": "أجراءات"
+        "actions": "أجراءات",
+        "email": "ايميل "
       },
       "create": {
         "amount": "الكمية",
-        "description": "وصف",
         "editSystemOffer": "تعديل عرض النظام",
         "addSystemOffer": "اضافة عرض من النظام",
         "clinicName": "اسم العيادة",
@@ -518,16 +517,17 @@
         "note": "ملاحظة",
         "image": "صور",
         "alowedUses": "الاستخدامات المسموح بها",
-        "allowReuse": "السماح بأعادة الاسستخدام"
+        "allowReuse": "السماح بأعادة الاسستخدام",
+        "description": "وصف"
       },
       "show": {
-        "amount": "الكمية",
-        "isActive": "التحقق من النشاط",
         "offerDetails": "تفاصيل عرض النظام",
         "editBtn": "يحرر",
         "clinicName": "اسم العيادة",
+        "amount": "الكمية",
         "cost": "تكلفة التعيين",
         "title": "العنوان",
+        "isActive": "التحقق من النشاط",
         "not-active": "خامل",
         "active": "نشط",
         "type": "النوع",
@@ -627,7 +627,6 @@
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء"
       },
-      "show": {},
       "create": {
         "addHolidays": "أضف الإجازات",
         "startHoliday": "ابدأ العطلة في",
@@ -703,11 +702,11 @@
         "image": "صور"
       },
       "show": {
-        "isActive": "التحقق من النشاط",
         "offerDetails": "تفاصيل العرض",
         "editBtn": "يحرر",
         "cost": "تكلفة التعيين",
         "title": "العنوان",
+        "isActive": "التحقق من النشاط",
         "not-active": "خامل",
         "active": "نشط",
         "type": "النوع",
@@ -746,7 +745,7 @@
         "birth-date": "تاريخ ميلاد ",
         "cost": "تكلفة التعيين",
         "max-appointments": "الحد الأقصى للمواعيد في اليوم الواحد",
-        "phones": "رقم العيادة",
+        "phones": "رقم الهاتف",
         "active": "نشط",
         "in-active": "خامل",
         "male": "رجل",
@@ -754,7 +753,7 @@
         "hospital": "اسم المستشفى",
         "specialities": "التخصصات",
         "city": "المدينة",
-        "address": "موقع العيادة",
+        "address": "العنوان",
         "latitude": "خط العرض",
         "longitude": "خط الطول",
         "mapIframe": "خريطة",
@@ -796,15 +795,15 @@
     "appointment": {
       "table": {
         "appointments": "المواعيد",
-        "appointment": "ميعاد",
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الدكتور",
+        "appointment": "ميعاد",
         "patientName": "اسم المريض",
         "serviceName": "اسم الخدمة",
         "status": "حالة",
         "type": "النوع",
-        "online": "متصل",
         "totalCost": "المجموع",
+        "online": "متصل",
         "manual": "يدوي",
         "sequence": "تسلسل",
         "date": "التاريخ",
@@ -818,20 +817,18 @@
         "actor": "المنفذ",
         "event": "الحدث",
         "export": "تصدير لملف اكسيل"
-
       },
       "create": {
         "editAppointment": "تعديل الميعاد",
         "createAppointment": "اضافة الميعاد",
+        "patientName": "اسم المريض",
         "newPatient": "مريض جديد",
         "setDate": "اختيار تاريخ",
         "date": "التاريخ",
-        "patientName": "اسم المريض",
         "clinicName": "اسم العيادة",
         "type": "النوع",
         "online": "متصل",
         "manual": "يدوي",
-        "cancellationReason": "سبب الالغاء",
         "customerName": "اسم المريض",
         "lastVisit": "اخر زيارة",
         "serviceName": "اسم الخدمة",
@@ -846,7 +843,8 @@
         "cost": "تكلفة التعيين",
         "totalCost": "المجموع",
         "price": "سعر",
-        "name": "الصنف"
+        "name": "الصنف",
+        "cancellationReason": "سبب الالغاء"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
@@ -883,8 +881,8 @@
     "patient": {
       "create": {
         "birth-date": "تاريخ ميلاد ",
-        "email": "الايميل",
         "noData": "لايوجد بيانات",
+        "email": "الايميل",
         "password": "كلمة السر",
         "confirm-password": "تأكيد كلمة السر",
         "addPatient": "اضافة مريض",
@@ -908,7 +906,6 @@
         "note": "ملاحظة",
         "image": "صورة",
         "supplementalImages": "صور تكميلية"
-
       },
       "table": {
         "patients": "المرضى",
@@ -1056,8 +1053,8 @@
         "transactions": "التحويلات",
         "patientName": "اسم المريض",
         "email": "ايميل ",
-        "type": "النوع",
         "sender": "المرسل",
+        "type": "النوع",
         "amount": "الكمية",
         "afterBalance": "بعد التوازن",
         "beforeBalance": "قبل التوازن",
@@ -1073,8 +1070,8 @@
         "year": "السنة",
         "month": "الشهر",
         "clinicBalance": "موازنة العيادة",
-        "pendingAmount": "الاموال المعلقة",
         "balance": "الصندوق",
+        "pendingAmount": "الاموال المعلقة",
         "export": "تصدير لملف اكسيل"
       },
       "create": {
@@ -1136,11 +1133,11 @@
       "show": {
         "clinicName": "اسم العيادة",
         "appointmentDeductionDetails": "تفاصيل خصومات الموعد",
-        "totalCost": "المجموع",
-        "amount": "الكمية",
-        "appointmentDate": "تاريخ الموعد",
         "date": "التاريخ",
         "status": "حالة",
+        "amount": "الكمية",
+        "appointmentDate": "تاريخ الموعد",
+        "totalCost": "المجموع",
         "note": "ملاحظة"
       }
     },
@@ -1160,14 +1157,14 @@
       "nextAppointments": "الماعيد القادمة",
       "monthlyAppointments": "المواعيد الشهرية",
       "earningsFromAppointments": "المكتسبات من المواعيد",
+      "completedAppointments": "المواعيد المكتملة",
       "recentPatientsRegistration": "المرضى المسلين مؤخرا",
       "registeredOn": "تاريخ الانضمام",
-      "completedAppointments": "المواعيد المكتملة",
       "patientName": "اسم المريض",
       "serviceName": "اسم الخدمة",
+      "sequence": "تسلسل",
       "status": "حالة",
       "type": "النوع",
-      "sequence": "تسلسل",
       "actions": "أجراءات"
     }
   },
@@ -1215,8 +1212,8 @@
     "noImage": "لا توجد صورة"
   },
   "auth": {
-    "signIn": "تسجيل الدخول",
     "welcomeBack": "مرحبا بعودتك",
+    "signIn": "تسجيل الدخول",
     "email": "ايميل ",
     "password": "كلمة السر",
     "confirm-password": "تأكيد كلمة السر",

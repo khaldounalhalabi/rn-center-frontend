@@ -285,8 +285,8 @@
         "specialityName": "Speciality Name",
         "tags": "Tags",
         "description": "Description",
-        "image":"Image",
-        "noData":"No Data"
+        "image": "Image",
+        "noData": "No Data"
       }
     },
     "subscription": {
@@ -740,10 +740,10 @@
         "email": " Email",
         "password": "Password",
         "confirm-password": "Confirm Password",
-        "birth-date": "Doctor BirthDate",
+        "birth-date": "Birth date",
         "cost": "Appointment Cost",
         "max-appointments": "Max Appointments Per Day",
-        "phones": "Clinic Phones",
+        "phones": "Phone number",
         "active": "Active",
         "in-active": "In-Active",
         "male": "Male",
@@ -751,7 +751,7 @@
         "hospital": "Hospital",
         "specialities": "Specialities",
         "city": "City",
-        "address": "Clinic Address",
+        "address": "Address",
         "latitude": "Latitude",
         "longitude": "Longitude",
         "mapIframe": "Map iframe",
@@ -813,8 +813,7 @@
         "happenIn": "Happen In",
         "actor": "Actor",
         "event": "Event",
-        "export" : "Export to excel"
-
+        "export": "Export to excel"
       },
       "create": {
         "editAppointment": "Edit Appointment",
@@ -1070,7 +1069,7 @@
         "clinicBalance": "Clinic Balance",
         "balance": "Balance",
         "pendingAmount": "Pending Amount",
-        "export" : "Export to excel"
+        "export": "Export to excel"
       },
       "create": {
         "addTransaction": "Add Transaction",
@@ -1126,7 +1125,7 @@
         "balance": "Balance",
         "doneAppointmentDeductions": "Done Appointment Deductions",
         "pendingAppointmentDeductions": "Pending Appointment Deductions",
-        "export" : "Export to excel"
+        "export": "Export to excel"
       },
       "show": {
         "clinicName": "Clinic Name",

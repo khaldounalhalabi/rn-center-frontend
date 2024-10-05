@@ -123,7 +123,7 @@ const ClinicsList = () => {
         }
         >Search</button>
       </Overview>
-      <div className={"w-full my-10"}>
+      <div className={"w-full my-10 flex flex-col sm:flex-row flex-wrap"}>
         {isPending ? (
           <div className={"w-full h-[300px] flex justify-center items-center"}>
             <LoadingSpin className={"w-12 h-12"} />
@@ -131,10 +131,8 @@ const ClinicsList = () => {
         ) : (
           data?.pages.map((page) =>
             page?.data?.map((e, index) => {
-              console.log(e);
-
               return (
-                <div className="h-[34vh]" key={index}>
+                <div className="h-[34vh]  w-full sm:w-1/2 xl:w-1/3" key={index}>
                   <Link
                     href={`/customer/clinics/${e.id}`}
                     className={"block h-full relative mx-4 cursor-pointer"}
@@ -150,7 +148,7 @@ const ClinicsList = () => {
                         alt={".."}
                       />
                     </div>
-                    <div className={"w-full h-[50%] flex "}>
+                    <div className={"w-full h-[50%] flex  "}>
                       <div
                         className={
                           "w-[60%] pl-2 text-nowrap flex flex-col justify-around"
@@ -192,7 +190,7 @@ const ClinicsList = () => {
                             "bg-[#2ECBCC] rounded-xl w-[60%] h-[20px] flex justify-center items-center"
                           }
                         >
-                          <h2 className={"font-semibold text-white text-[9px]"}>
+                          <h2 className={"font-semibold text-white text-[9px] md:text-[12px] xl:text-[15px]"}>
                             {TranslateClient(e.specialities?.[0]?.name)}
                           </h2>
                         </div>

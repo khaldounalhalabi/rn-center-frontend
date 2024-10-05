@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .kodchasan {
-    font-family: var(--font-kodchasan);
+    font-family: var(--font-kodchasan) !important;
 }
 
 .Cairo {
-    font-family: var(--font-Cairo);
+    font-family: var(--font-Cairo) !important;
 }
 
 .slide-menu-bottom {

@@ -70,18 +70,12 @@ const SidebarDoctor = ({
               className={`w-64 h-full ${openNavBar.md ? " !hidden" : "md:block"}`}
             />
           )}
-          <XMark
-            className={`h-8 w-8 md:hidden cursor-pointer`}
-            onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
-          />
-          <XMark
-            className={`h-8 w-8 hidden cursor-pointer ${openNavBar.md ? " !hidden" : "md:block"}`}
-            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
-          />
 
           <MenuIcon
-            className={`h-8 w-8 hidden cursor-pointer ${openNavBar.md ? "md:block " : "!hidden"}`}
-            onClick={() => setOpenNavBar({ sm: false, md: !openNavBar.md })}
+            className={`h-8 w-8 cursor-pointer`}
+            onClick={() =>
+              setOpenNavBar({ sm: !openNavBar.sm, md: !openNavBar.md })
+            }
           />
         </span>
         <ul
@@ -195,7 +189,7 @@ const SidebarDoctor = ({
             className={
               role == Role.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(
-                PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+                PermissionsDoctor.ACCOUNTANT_MANAGEMENT
               )
                 ? "hidden"
                 : ""
@@ -345,7 +339,7 @@ const SidebarDoctor = ({
             className={
               role == Role.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(
-                PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+                PermissionsDoctor.ACCOUNTANT_MANAGEMENT
               )
                 ? "hidden"
                 : ""

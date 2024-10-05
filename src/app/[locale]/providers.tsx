@@ -38,7 +38,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <ToastContainer />
+          <ToastContainer rtl={locale == "ar"} />
           <NotificationProvider>
             <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
               {children}

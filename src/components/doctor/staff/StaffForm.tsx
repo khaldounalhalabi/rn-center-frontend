@@ -136,8 +136,9 @@ const StaffForm = ({
   );
   const formValues = {
     phone_numbers: defaultValues?.phone_numbers ?? [],
-    ...defaultValues?.user,
+    ...res,
   };
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

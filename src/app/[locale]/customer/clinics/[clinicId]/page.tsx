@@ -12,46 +12,24 @@ const Page = async ({
 }: {
   params: { clinicId: number };
 }) => {
-  const data = await ClinicsService.make<ClinicsService>("public").show(clinicId);
-  const clinic = data?.data
+  const data =
+    await ClinicsService.make<ClinicsService>("public").show(clinicId);
+  const clinic = data?.data;
   return (
     <div className="p-10">
-      <div className="w-full flex md:flex-row flex-col justify-between items-center  pb-2">
-        <div className="flex md:flex-row flex-col items-center justify-center md:justify-start gap-2">
-          <RoundedImage
-            className={"hidden md:block"}
+      <div className="w-full flex flex-col justify-between items-center gap-4 pb-2">
+        <div className="max-h-[45vh] w-full">
+          <img
+            className=" w-full h-[20vh]  md:h-[40vh] rounded-2xl"
             src={
-            clinic?.user?.image?.[0]
+              clinic?.user?.image?.[0]
                 ? getMedia(clinic?.user?.image?.[0])
                 : "/no-clinic-image.png"
-          }
-            alt={"clinic image"}
+            }
           />
-          <div className="max-h-[45vh]">
-            <img
-              className="md:hidden w-full h-full"
-              src={
-                clinic?.user?.image?.[0]
-                    ? getMedia(clinic?.user?.image?.[0])
-                    : "/no-clinic-image.png"
-              }
-            />
-          </div>
-          <div className="hidden md:flex flex-col items-start justify-start">
-            <h1 className="text-title text-lg">
-              {await TranslateServer(clinic?.name)}
-            </h1>
-            <p className="text-gray-400 text-sm md:text-md">
-              Dr. {await TranslateServer(clinic?.user?.full_name)}
-            </p>
-            <div className="flex items-center gap-2">
-              <LocationPinIcon className="h-6 w-6 text-error" />
-              {await TranslateServer(clinic?.user?.address?.name)}
-            </div>
-          </div>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex md:hidden flex-col items-start justify-start">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex flex-col items-start justify-start">
             <h1 className="text-title text-sm md:text-lg">
               {await TranslateServer(clinic?.name)}
             </h1>
@@ -75,8 +53,7 @@ const Page = async ({
           </div>
         </div>
       </div>
-      <ClinicTaps clinic={clinic}/>
-
+      <ClinicTaps clinic={clinic} />
     </div>
   );
 };

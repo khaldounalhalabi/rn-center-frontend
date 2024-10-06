@@ -8,6 +8,8 @@ import Providers from "@/app/[locale]/providers";
 import CenterFooter from "@/components/landing/CenterFooter";
 import BloodBank from "@/components/landing/BloodBank";
 import Hospital from "@/components/landing/Hospital";
+import DownloadFooter from "@/components/landing/DownloadFooter";
+import Footer from "@/components/landing/Footer";
 
 const Page = () => {
   return (
@@ -31,6 +33,8 @@ const Page = () => {
         <CenterFooter />
         <BloodBank />
         <Hospital />
+        <DownloadFooter/>
+        <Footer />
       </div>
     </Providers>
   );

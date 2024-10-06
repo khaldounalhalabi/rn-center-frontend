@@ -32,7 +32,7 @@ const RegisterCustomer = () => {
   return (
     <div
       className={
-        "min-w-full kodchasan tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
+        "min-w-full  tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
       }
     >
       <div
@@ -42,7 +42,7 @@ const RegisterCustomer = () => {
       >
         <h1
           className={
-            "kodchasan text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
+            " text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
           }
         >
           Join PoM family

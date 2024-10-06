@@ -152,8 +152,7 @@ const Overview = ({
                   </tr>
                 ))
               : ""}
-            {userType == "admin"
-              ? appointment?.system_offers?.length != 0
+            {appointment?.system_offers?.length != 0
                 ? appointment?.system_offers?.map((e: SystemOffers, index) => (
                     <tr key={index}>
                       <td>
@@ -166,7 +165,7 @@ const Overview = ({
                     </tr>
                   ))
                 : ""
-              : ""}
+              }
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
               <td className="text-lg text-primary">

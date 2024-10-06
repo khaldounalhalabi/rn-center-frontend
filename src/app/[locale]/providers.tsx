@@ -8,6 +8,7 @@ import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import NotificationProvider from "@/components/common/NotificationProvider";
 import { getCookieClient } from "@/Actions/clientCookies";
+import {useLocale} from "next-intl";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -33,7 +34,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     },
   });
   const [reFetch, setReFetch] = useState(false);
-  const locale = getCookieClient("NEXT_LOCALE");
+  const locale = useLocale();
   return (
     <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>
       <QueryClientProvider client={queryClient}>

@@ -30,6 +30,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import PatientForm from "@/components/doctor/patients/PatientForm";
 import { useTranslations } from "next-intl";
 import { User } from "@/Models/User";
+import {SystemOffers} from "@/Models/SystemOffer";
 
 const AppointmentForm = ({
   defaultValues = undefined,
@@ -48,6 +49,7 @@ const AppointmentForm = ({
   const [date, setDate] = useState(defaultValues ?? {});
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
+  const [systemOffer , setSystemOffer] = useState(defaultValues?.system_offers??[])
   const { data: availableTimes } = useQuery({
     queryKey: ["availableTimes"],
     queryFn: async () => {
@@ -541,6 +543,16 @@ const AppointmentForm = ({
                     </tr>
                   ))
                 : ""}
+              {systemOffer.length != 0
+                  ? systemOffer?.map((e: SystemOffers, index) => (
+                      <tr key={index}>
+                        <td>System Offer [{TranslateClient(e.title)}]</td>
+                        <td>
+                          {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        </td>
+                      </tr>
+                  ))
+                  : ""}
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>
                 <td className="text-lg">

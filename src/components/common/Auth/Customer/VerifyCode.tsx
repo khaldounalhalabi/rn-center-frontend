@@ -43,7 +43,7 @@ const VerifyCode = ({
   return (
     <div
       className={
-        "min-w-full kodchasan tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
+        "min-w-full  tracking-5 min-h-screen content-end bg-gradient-to-b from-[#1FB8B9]  to-[#8AFEFF] md:flex md:justify-center md:items-center"
       }
     >
       <div
@@ -53,7 +53,7 @@ const VerifyCode = ({
       >
         <h1
           className={
-            "kodchasan text-[20px] md:text-[32px] font-semibold text-[#f1fcfc]"
+            " text-[20px] md:text-[32px] font-semibold text-[#f1fcfc]"
           }
         >
           Enter your verification code sent you using sms

@@ -222,7 +222,8 @@ const AppointmentForm = ({
       );
     }
   };
-
+  console.log(defaultValues)
+  console.log(clinicId)
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

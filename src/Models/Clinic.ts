@@ -30,9 +30,21 @@ export type Clinic = {
   upcoming_appointments_count: number;
   active_subscription?: ClinicSubscription;
   work_gallery?: Media[];
+  schedules:SchedulesDay;
   agreed_on_contract: boolean;
 };
+interface Schedule {
+  id: number;
+  day_of_week: string;
+  start_time: string;
+  end_time: string;
+  appointment_gap: number;
+  clinic_id: number;
+}
 
+interface SchedulesDay {
+  [key: string]: Schedule[];
+}
 export interface AddOrUpdateClinicForm {
   name?: string | Translatable;
   appointment_cost?: number;

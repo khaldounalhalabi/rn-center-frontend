@@ -1,11 +1,11 @@
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 import RoundedImage from "@/components/common/RoundedImage";
-import Grid from "@/components/common/ui/Grid";
 import LocationPinIcon from "@/components/icons/LovationPinIcon";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { getMedia } from "@/Models/Media";
 import { Link } from "@/navigation";
 import { ClinicsService } from "@/services/ClinicsService";
+import ClinicTaps from "@/components/customer/Clinic/ClinicTaps";
 
 const Page = async ({
   params: { clinicId },
@@ -16,7 +16,7 @@ const Page = async ({
   const clinic = data?.data
   return (
     <div className="p-10">
-      <div className="w-full flex md:flex-row flex-col justify-between items-center border-b pb-2">
+      <div className="w-full flex md:flex-row flex-col justify-between items-center  pb-2">
         <div className="flex md:flex-row flex-col items-center justify-center md:justify-start gap-2">
           <RoundedImage
             className={"hidden md:block"}
@@ -75,20 +75,8 @@ const Page = async ({
           </div>
         </div>
       </div>
-      <Grid gap={5}>
-        <label className="text-title">
-          Specialitites :
-          {clinic?.specialities?.map((spec) => (
-            <span key={spec?.id} className="badge badge-brand-primary">
-              {TranslateServer(spec?.name)}
-            </span>
-          ))}
-        </label>
-        <label className="text-title">
-          Experience :{" "}
-          <span className="text-brand-primary">{clinic?.experience}</span>
-        </label>
-      </Grid>
+      <ClinicTaps clinic={clinic}/>
+
     </div>
   );
 };

@@ -26,13 +26,12 @@ const ClinicCarousel = () => {
   const arrayData = Array.isArray(data?.data) ? data.data : [];
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
-
   return (
     <div className={"mt-6 mb-24"}>
       <div className={"flex flex-col"}>
         <div className={"flex  px-6 justify-between"}>
           <h2 className={" text-[#151D48] text-[21px]"}>Clinics</h2>
-          <Link href={"/"} className={"text-[#737791] text-[18px]"}>
+          <Link href={"/customer/clinics"} className={"text-[#737791] text-[18px]"}>
             View All
           </Link>
         </div>
@@ -42,7 +41,7 @@ const ClinicCarousel = () => {
             <div className="embla__container py-6">
               {data?.data?.map((e: Clinic, index) => (
                 <Link
-                  href={`/customer/clinics/${e.id}`}
+                  href={`/customer/clinics/${e?.id}`}
                   className={
                     "w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl relative mx-4 cursor-pointer"
                   }

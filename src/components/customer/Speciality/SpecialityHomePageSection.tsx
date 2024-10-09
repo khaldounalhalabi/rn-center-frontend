@@ -48,7 +48,9 @@ const SpecialityHomePageSection = () => {
             </p>
 
             <AuthSubmitButton className={"w-1/2 px-10 py-3"}>
-              View All
+              <Link href={'/customer/specialitities'}>
+                View All
+              </Link>
             </AuthSubmitButton>
           </div>
         </div>

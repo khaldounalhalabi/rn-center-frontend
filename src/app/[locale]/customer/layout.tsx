@@ -11,7 +11,7 @@ const Layout = ({
 }>) => {
   return (
     <main
-      className={` min-h-screen  w-full max-w-screen overflow-x-auto-hidden`}
+      className={` min-h-screen relative  w-full max-w-screen overflow-x-auto-hidden`}
     >
       <Providers>
         <div

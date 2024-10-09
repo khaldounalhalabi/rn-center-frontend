@@ -103,7 +103,7 @@ const SpecialityList = () => {
                                   </div>
                                   <div className="absolute flex text-[#30ACC2] gap-1 justify-center items-center w-[30%] h-10 bg-white rounded-2xl top-1/2 right-[20%] transform translate-x-1/2 -translate-y-1/2">
                                       <h2 className={"text-[14px]"}>
-                                          {Number(e?.clinics_count).toLocaleString()}
+                                         Clinics : {Number(e?.clinics_count).toLocaleString()}
                                       </h2>
                                   </div>
 
@@ -114,7 +114,7 @@ const SpecialityList = () => {
               )
           )}
           {isFetchingNextPage && (
-              <div className={`flex items-center justify-center`}>
+              <div className={`w-full flex items-center justify-center`}>
                   <LoadingSpin className={`w-12 h-12`} />
               </div>
           )}

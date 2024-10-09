@@ -9,7 +9,7 @@ import { Link } from "@/navigation";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 
 const SpecialityHomePageSection = () => {
-  const { data, isPending } = useQuery({
+  const { data, isPending,isLoading } = useQuery({
     queryKey: ["specialities_cards"],
     queryFn: async () =>
       SpecialityService.make<SpecialityService>("public").indexWithPagination(
@@ -55,7 +55,14 @@ const SpecialityHomePageSection = () => {
           </div>
         </div>
         <div className={"w-[60%] flex justify-around gap-1 px-2"}>
-          {arrayData?.map((e, index) => {
+          {isLoading?
+              <>
+               <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
+                <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
+                <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
+                <div className={'skeleton w-[22%] h-full rounded-xl '}></div>
+              </>
+              :arrayData?.map((e, index) => {
             return (
               <div
                 key={index}
@@ -104,7 +111,13 @@ const SpecialityHomePageSection = () => {
           <div className="  h-[23vh]">
             <div className="embla h-full" ref={emblaRef}>
               <div className="embla__container py-6">
-                {data?.data?.map((e, index) => (
+                {isLoading?
+                    <>
+                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
+                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
+                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
+                    </>
+                    :data?.data?.map((e, index) => (
                   <div
                     className={
                       "w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4"

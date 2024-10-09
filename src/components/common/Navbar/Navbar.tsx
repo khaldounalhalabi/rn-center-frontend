@@ -6,7 +6,7 @@ import Searchbar from "@/components/common/Navbar/Searchbar";
 import NotificationsPopover from "@/components/common/Navbar/NotificationsPopover";
 import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import BackIcon from "@/components/icons/backIcon";
+import ArrowRight from "@/components/icons/ArrowRight";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
 import dynamic from "next/dynamic";
@@ -58,7 +58,7 @@ const Navbar = ({
           className={`p-2 hidden  ${path == "/admin" || path == "/doctor" ? "hidden" : "lg:block"} h-full rounded-full hover:bg-gray-300 cursor-pointer`}
           onClick={() => rout.back()}
         >
-          <BackIcon className={"w-8 h-8"} />
+          <ArrowRight className={"w-8 h-8"} />
         </button>
 
         <SearchIcon

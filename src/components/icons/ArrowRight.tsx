@@ -1,4 +1,4 @@
-const BackIcon = ({ ...props }) => {
+const ArrowRight = ({ ...props }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path
@@ -9,4 +9,4 @@ const BackIcon = ({ ...props }) => {
   );
 };
 
-export default BackIcon;
+export default ArrowRight;

@@ -1,9 +1,10 @@
+"use client";
 import { AdminStatistics } from "@/Models/Statistics";
 import { User } from "@/Models/User";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import RoundedImage from "@/components/common/RoundedImage";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import BackIcon from "@/components/icons/backIcon";
+import ArrowRight from "@/components/icons/ArrowRight";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -168,11 +169,11 @@ const UserDataAdmin = ({
                 {" "}
                 {calc < 0 ? (
                   <span className="text-error flex items-center">
-                    {calc}% <BackIcon className="w-4 h-6 -rotate-90" />
+                    {calc}% <ArrowRight className="w-4 h-6 -rotate-90" />
                   </span>
                 ) : calc > 0 ? (
                   <span className="flex items-center text-green-500">
-                    {calc}% <BackIcon className="w-4 h-6 rotate-90" />
+                    {calc}% <ArrowRight className="w-4 h-6 rotate-90" />
                   </span>
                 ) : (
                   <span>{calc}%</span>

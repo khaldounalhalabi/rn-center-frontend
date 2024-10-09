@@ -174,8 +174,15 @@ const Page = () => {
       {
         name: "total_cost",
         label: `${t("totalCost")}`,
-        render: (data) => {
-          return <span>{data.toLocaleString()}</span>;
+        render: (data, appointment: Appointment|undefined) => {
+          return (
+            <span className="flex items-center gap-1 justify-between">
+              {data.toLocaleString()}
+              {(appointment?.system_offers?.length ?? 0) > 0 && (
+                <span className="rounded-full w-3 h-3 bg-[#00a96e]"></span>
+              )}
+            </span>
+          );
         },
       },
       {

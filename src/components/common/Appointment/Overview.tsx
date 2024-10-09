@@ -74,12 +74,6 @@ const Overview = ({
         />
 
         <LabelValue
-          label={t("deviceType")}
-          value={appointment?.device_type}
-          color={"info"}
-        />
-
-        <LabelValue
           label={t("date")}
           value={appointment?.date}
           color={"primary"}
@@ -153,19 +147,18 @@ const Overview = ({
                 ))
               : ""}
             {appointment?.system_offers?.length != 0
-                ? appointment?.system_offers?.map((e: SystemOffers, index) => (
-                    <tr key={index}>
-                      <td>
-                        {t("systemOffer")} [{TranslateClient(e.title)}]
-                      </td>
-                      <td>
-                        {e?.amount.toLocaleString() ?? 0}{" "}
-                        {e?.type == "fixed" ? "IQD" : "%"}
-                      </td>
-                    </tr>
-                  ))
-                : ""
-              }
+              ? appointment?.system_offers?.map((e: SystemOffers, index) => (
+                  <tr key={index}>
+                    <td>
+                      {t("systemOffer")} [{TranslateClient(e.title)}]
+                    </td>
+                    <td>
+                      {e?.amount.toLocaleString() ?? 0}{" "}
+                      {e?.type == "fixed" ? "IQD" : "%"}
+                    </td>
+                  </tr>
+                ))
+              : ""}
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
               <td className="text-lg text-primary">

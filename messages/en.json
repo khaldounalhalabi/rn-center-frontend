@@ -1171,7 +1171,8 @@
     "resetFilters": "Reset Filters",
     "totalRecords": "Total Records",
     "prevPage": "Prev Page",
-    "nextPage": "Next Page"
+    "nextPage": "Next Page",
+    "search" : "Search"
   },
   "nav": {
     "clinicProfile": "Clinic Profile",

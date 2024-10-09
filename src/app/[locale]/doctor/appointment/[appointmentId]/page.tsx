@@ -76,7 +76,7 @@ const Show = ({
 
           <LabelValue
             label={t("serviceName")}
-            value={res?.service?.name}
+            value={TranslateClient(res?.service?.name)}
             color={"warning"}
           />
         </Grid>

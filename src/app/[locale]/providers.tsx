@@ -19,6 +19,7 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
   reFetch: false,
   setReFetch: () => {},
 };
+
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
 const Providers = ({ children }: { children: React.ReactNode }) => {
   useFcmToken();

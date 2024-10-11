@@ -793,6 +793,17 @@
   },
   "common": {
     "appointment": {
+      "calender": {
+        "status": "حالة",
+        "type": "النوع",
+        "startDate": "تاريخ البدء",
+        "endDate": "تاريخ الانتهاء",
+        "apply": "فلترة",
+        "filters": "التصفية",
+
+        "resetFilters": "اعادة ضبط التصفية",
+        "anAppointmentWith": "موعد مع"
+      },
       "table": {
         "appointments": "المواعيد",
         "clinicName": "اسم العيادة",

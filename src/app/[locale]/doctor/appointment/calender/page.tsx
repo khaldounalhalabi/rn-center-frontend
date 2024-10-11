@@ -16,8 +16,12 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Link } from "@/navigation";
+import {useLocale, useTranslations} from "next-intl";
+import arLocale from '@fullcalendar/core/locales/ar';
 
 const CalendarComponent = () => {
+  const locale = useLocale()
+  const calendarLocale = locale === 'ar' ? 'ar' : 'en';
   const calendarRef = useRef(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [startDate, setStartDate] = useState<string>(
@@ -28,13 +32,13 @@ const CalendarComponent = () => {
   const typeData = ["online", "manual", "all"];
   const [params, setParams] = useState({});
   const [startFilter, setStartFilter] = useState(0);
-
+  const t = useTranslations('common.appointment.calender')
   const filter = (params: any, setParams: any) => {
     return (
       <>
         <div className="w-full grid grid-cols-1">
           <label className="label">
-            Status :
+            {t("status")} :
             <SelectFilter
               data={[...statusData, "all"]}
               selected={""}
@@ -44,7 +48,7 @@ const CalendarComponent = () => {
             />
           </label>
           <label className="label">
-            Type :
+            {t("type")} :
             <SelectFilter
               data={typeData}
               selected={params.type ?? "online"}
@@ -53,7 +57,7 @@ const CalendarComponent = () => {
               }}
             />
           </label>
-          <label className="label">Start Date :</label>
+          <label className="label">{t("startDate")} :</label>
           <DatepickerFilter
             onChange={(time) => {
               setStartDate(time?.format("YYYY-MM-DD") ?? "");
@@ -66,7 +70,7 @@ const CalendarComponent = () => {
               startDate ?? dayjs().startOf("month").format("YYYY-MM-DD")
             }
           />
-          <label className="label">End Date :</label>
+          <label className="label">{t("endDate")} :</label>
           <DatepickerFilter
             onChange={(time) => {
               setEndDate(time?.format("YYYY-MM-DD") ?? "");
@@ -87,7 +91,7 @@ const CalendarComponent = () => {
               setOpenFilter(false);
             }}
           >
-            Apply
+            {t("apply")}
           </button>
           <button
             type="button"
@@ -97,7 +101,7 @@ const CalendarComponent = () => {
               setOpenFilter(false);
             }}
           >
-            Reset Filters
+            {t("resetFilters")}
           </button>
         </div>
       </>
@@ -144,10 +148,10 @@ const CalendarComponent = () => {
       >
         <div
           className={
-            "label text-sm bg-success flex flex-col rounded-xl hover:bg-gray-400"
+            "label text-sm bg-[#1fb8b9] flex flex-col rounded-xl hover:bg-gray-400"
           }
         >
-          <p>An appointment with :</p>
+          <p>{t("anAppointmentWith")} :</p>
           <span className={"text-black"}>
             {firstName} {middleName} {lastName}
           </span>
@@ -192,7 +196,7 @@ const CalendarComponent = () => {
                     as="h3"
                     className="font-medium text-gray-900 text-lg leading-6"
                   >
-                    Filters
+                    {t("filters")}
                   </Dialog.Title>
                   {filter(params, setParams)}
                 </Dialog.Panel>
@@ -204,7 +208,7 @@ const CalendarComponent = () => {
       <PageCard>
         <div className="flex justify-between mb-4">
           <button
-            className="btn btn-info btn-sm btn-square"
+            className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
             onClick={() => setOpenFilter((prevState) => !prevState)}
           >
             <FilterIcon />
@@ -222,6 +226,8 @@ const CalendarComponent = () => {
             // @ts-ignore
             events={events}
             initialDate={startDate}
+            locale={calendarLocale}
+            locales={[arLocale]}
             eventContent={renderEventContent}
           />
         )}

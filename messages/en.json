@@ -790,6 +790,16 @@
   },
   "common": {
     "appointment": {
+      "calender": {
+        "status": "Status",
+        "type": "Type",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "apply": "Apply",
+        "filters": "Filters",
+        "resetFilters": "Reset Filters",
+        "anAppointmentWith": "An appointment with"
+      },
       "table": {
         "appointments": "Appointments",
         "clinicName": "Clinic Name",

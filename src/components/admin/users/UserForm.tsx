@@ -56,11 +56,12 @@ const UserForm = ({
     Navigate(`/admin/user`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
+  const { image, ...res } = defaultValues??{image:"No Data"}
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={res}
       setLocale={setLocale}
     >
       <Grid md={"2"}>

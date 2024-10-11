@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React ,{useState}from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
@@ -40,6 +40,7 @@ import SidebarArIcon from "@/components/icons/SidebarArIcon";
 import SettingManagementIcon from "@/components/icons/SettingManagementIcon";
 import ServiceManagementIcon from "@/components/icons/ServiceManagementIcon";
 import OffersManagementIcon from "@/components/icons/OffersManagementIcon";
+import SearchIcon from "@/components/icons/SearchIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -56,6 +57,127 @@ const SidebarAdmin = ({
 }) => {
   const t = useTranslations("sideBar");
   const local = useLocale();
+
+  // @ts-ignore
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const sidebarItems = [
+    {
+      search: "dashboard,لوحةالقيادة,داشبورد",
+      title: t("dashboard"),
+      link: "/admin",
+    },
+    {
+      search: "clinics,عيادة,العيادات",
+      title: t("clinics"),
+      link: "/admin/clinics",
+    },
+    {
+      search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
+      title: t("clinicsSchedules"),
+      link: "/admin/clinics/schedules",
+    },
+    {
+      search:
+        "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
+      title: t("clinicsHolidays"),
+      link: "/admin/clinics/holidays",
+    },
+    {
+      search: "subscriptions,subscription,اشتراك,اشتراكات",
+      title: t("subscriptions"),
+      link: "/admin/subscriptions",
+    },
+    {
+      search: "specialties,specialtie,اختصاص,اختصاصات",
+      title: t("specialties"),
+      link: "/admin/speciality",
+    },
+    {
+      search: "medicines,medicine,الدواء,علاج,ادوية",
+      title: t("medicines"),
+      link: "/admin/medicines",
+    },
+    {
+      search: "appointment,appointments,موعد,مواعيد",
+      title: t("appointment"),
+      link: "/admin/appointment",
+    },
+    {
+      search: "patients,patient,مرضى,مريض",
+      title: t("patients"),
+      link: "/admin/patients",
+    },
+    {
+      search: "patient profiles,patient,profiles,ملف,مريض,مرضى",
+      title: t("patientProfiles"),
+      link: "/admin/patient-profiles",
+    },
+    {
+      search: "offers,عروض,عرض",
+      title: t("offers"),
+      link: "/admin/offers",
+    },
+    {
+      search: "offers,system offers,system,عرض,عروض النظام",
+      title: t("systemOffers"),
+      link: "/admin/system-offer",
+    },
+    {
+      search: "services,خدمة,خدمات",
+      title: t("services"),
+      link: "/admin/services",
+    },
+    {
+      search: "category,service,خدمات,خدمة,serviceCategories,تصنيفات,فئات",
+      title: t("serviceCategories"),
+      link: "/admin/service-category",
+    },
+    {
+      search: "hospitals,مستشفيات,مستشفى,مشفى,عيادة",
+      title: t("hospitals"),
+      link: "/admin/hospitals",
+    },
+    {
+      search: "available departments,departments,اقسام,متاح,متاحة,قسم,available",
+      title: t("availableDepartments"),
+      link: "/admin/available-departments",
+    },
+    {
+      search: "users,user,مستخدم,مستخدمون,مستخدمين",
+      title: t("users"),
+      link: "/admin/user",
+    },
+    {
+      search: "blood donation,donation,blood,بنك,دم,تبرع,تبرع دم",
+      title: t("bloodDonation"),
+      link: "/admin/blood-donation",
+    },
+    {
+      search: "enquiries,enquirie,الاستفسارات,اسئلة,استفسار",
+      title: t("enquiries"),
+      link: "/admin/enquiries",
+    },
+    {
+      search: "settings,setting,الاعدادات,اعدادات,ضبط",
+      title: t("settings"),
+      link: "/admin/setting",
+    },
+    {
+      search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
+      title: t("appointmentDeductions"),
+      link: "/admin/appointment-deductions",
+    },
+    {
+      search: "transaction,تحويلات,تحويل,معاملات",
+      title: t("transaction"),
+      link: "/admin/transaction",
+    },
+  ];
+
+  const filteredItems = sidebarItems.filter((item) =>
+    item.search.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <div
@@ -83,230 +205,263 @@ const SidebarAdmin = ({
 
           <MenuIcon
             className={`h-8 w-8 cursor-pointer`}
-            onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: !openNavBar.md })}
+            onClick={() =>
+              setOpenNavBar({ sm: !openNavBar.sm, md: !openNavBar.md })
+            }
           />
+        </div>
+        <div className={`px-4 relative ${openNavBar.md ? " hidden " : ""}`}>
+          <div className={`absolute flex gap-2  top-4 items-center  ${local == 'ar'?"left-[8%]":"right-[8%]"}`}>
+            <SearchIcon className={'w-5 h-5  opacity-60'}/>
+          </div>
+          <input type={'text'}
+                 placeholder={'Search'}
+                 className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
+                    border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
+                 onChange={(e)=>{setSearchTerm(e.target.value)}}
+          />
+
         </div>
         <ul
           className={` space-y-1 px-4 pt-3  h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/admin"}
-          >
-            {" "}
-            {t("dashboard")}
-          </SidebarItem>
-          <SidebarCompactItem
-            title={t("clinicsManagement")}
-            links={[
-              "/admin/clinics",
-              "/admin/clinics/schedules",
-              "/admin/clinics/holidays",
-              "/admin/subscriptions",
-              "/admin/speciality",
-              "/admin/medicines",
-            ]}
-          >
-            <div className="flex flex-col">
+          {searchTerm ?
+              filteredItems?.map((item, index) => (
+                  <SidebarItem
+                      setOpenNavBar={setOpenNavBar}
+                      openNavBar={openNavBar}
+                      link={item.link}
+                      index={index}
+                  >
+                    {" "}
+                    {item.title}
+                  </SidebarItem>
+                ))
+           : (
+            <>
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
-                link={"/admin/clinics"}
+                link={"/admin"}
               >
                 {" "}
-                {t("clinics")}
+                {t("dashboard")}
               </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/clinics/schedules"}
+              <SidebarCompactItem
+                title={t("clinicsManagement")}
+                links={[
+                  "/admin/clinics",
+                  "/admin/clinics/schedules",
+                  "/admin/clinics/holidays",
+                  "/admin/subscriptions",
+                  "/admin/speciality",
+                  "/admin/medicines",
+                ]}
               >
-                {t("clinicsSchedules")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/clinics/holidays"}
-              >
-                {t("clinicsHolidays")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/subscriptions"}
-              >
-                {t("subscriptions")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/speciality"}
-              >
-                {t("specialties")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/medicines"}
-              >
-                {t("medicines")}
-              </SidebarItem>
-            </div>
-          </SidebarCompactItem>
-          <div className="flex flex-col">
-            <SidebarItem
-              setOpenNavBar={setOpenNavBar}
-              openNavBar={openNavBar}
-              link={"/admin/appointment"}
-            >
-              {t("appointment")}
-            </SidebarItem>
-            <SidebarCompactItem
-              title={t("patientsManagement")}
-              links={["/admin/patients", "/admin/patient-profiles"]}
-            >
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/patients"}
-              >
-                {t("patients")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/patient-profiles"}
-              >
-                {t("patientProfiles")}
-              </SidebarItem>
-            </SidebarCompactItem>
-
-            <SidebarCompactItem
-              title={t("offersManagement")}
-              links={["/admin/offer", "/admin/system-offer"]}
-            >
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/offer"}
-              >
-                {t("offers")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/system-offer"}
-              >
-                {t("systemOffers")}
-              </SidebarItem>
-            </SidebarCompactItem>
-            <SidebarCompactItem
-              title={t("accountantManagement")}
-              links={["/admin/transaction", "/admin/appointment-deductions"]}
-            >
+                <div className="flex flex-col">
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/clinics"}
+                  >
+                    {" "}
+                    {t("clinics")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/clinics/schedules"}
+                  >
+                    {t("clinicsSchedules")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/clinics/holidays"}
+                  >
+                    {t("clinicsHolidays")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/subscriptions"}
+                  >
+                    {t("subscriptions")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/speciality"}
+                  >
+                    {t("specialties")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/medicines"}
+                  >
+                    {t("medicines")}
+                  </SidebarItem>
+                </div>
+              </SidebarCompactItem>
               <div className="flex flex-col">
                 <SidebarItem
                   setOpenNavBar={setOpenNavBar}
                   openNavBar={openNavBar}
-                  link={"/admin/transaction"}
+                  link={"/admin/appointment"}
                 >
-                  {t("transaction")}
+                  {t("appointment")}
+                </SidebarItem>
+                <SidebarCompactItem
+                  title={t("patientsManagement")}
+                  links={["/admin/patients", "/admin/patient-profiles"]}
+                >
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/patients"}
+                  >
+                    {t("patients")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/patient-profiles"}
+                  >
+                    {t("patientProfiles")}
+                  </SidebarItem>
+                </SidebarCompactItem>
+
+                <SidebarCompactItem
+                  title={t("offersManagement")}
+                  links={["/admin/offer", "/admin/system-offer"]}
+                >
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/offer"}
+                  >
+                    {t("offers")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/system-offer"}
+                  >
+                    {t("systemOffers")}
+                  </SidebarItem>
+                </SidebarCompactItem>
+                <SidebarCompactItem
+                  title={t("accountantManagement")}
+                  links={[
+                    "/admin/transaction",
+                    "/admin/appointment-deductions",
+                  ]}
+                >
+                  <div className="flex flex-col">
+                    <SidebarItem
+                      setOpenNavBar={setOpenNavBar}
+                      openNavBar={openNavBar}
+                      link={"/admin/transaction"}
+                    >
+                      {t("transaction")}
+                    </SidebarItem>
+                    <SidebarItem
+                      setOpenNavBar={setOpenNavBar}
+                      openNavBar={openNavBar}
+                      link={"/admin/appointment-deductions"}
+                    >
+                      {t("appointmentDeductions")}
+                    </SidebarItem>
+                  </div>
+                </SidebarCompactItem>
+
+                <SidebarCompactItem
+                  title={t("services")}
+                  links={["/admin/category", "/admin/service"]}
+                >
+                  <div className="flex flex-col">
+                    <SidebarItem
+                      setOpenNavBar={setOpenNavBar}
+                      openNavBar={openNavBar}
+                      link={"/admin/category"}
+                    >
+                      {t("serviceCategories")}
+                    </SidebarItem>
+                    <SidebarItem
+                      setOpenNavBar={setOpenNavBar}
+                      openNavBar={openNavBar}
+                      link={"/admin/service"}
+                    >
+                      {t("services")}
+                    </SidebarItem>
+                  </div>
+                </SidebarCompactItem>
+
+                <SidebarCompactItem
+                  title={t("hospitalsManagement")}
+                  links={["/admin/hospitals", "/admin/hospital-departments"]}
+                >
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/hospitals"}
+                  >
+                    {t("hospitals")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/hospital-departments"}
+                  >
+                    {t("availableDepartments")}
+                  </SidebarItem>
+                </SidebarCompactItem>
+
+                <SidebarItem
+                  setOpenNavBar={setOpenNavBar}
+                  openNavBar={openNavBar}
+                  link={"/admin/user"}
+                >
+                  {t("users")}
                 </SidebarItem>
                 <SidebarItem
                   setOpenNavBar={setOpenNavBar}
                   openNavBar={openNavBar}
-                  link={"/admin/appointment-deductions"}
+                  link={"/admin/blood-donation"}
                 >
-                  {t("appointmentDeductions")}
+                  {t("bloodDonation")}
                 </SidebarItem>
+                <SidebarItem
+                  setOpenNavBar={setOpenNavBar}
+                  openNavBar={openNavBar}
+                  link={"/admin/enquiries"}
+                >
+                  {t("enquiries")}
+                </SidebarItem>
+
+                <SidebarCompactItem
+                  title={t("settings")}
+                  links={["/admin/setting", "/admin/blocked-item"]}
+                >
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/setting"}
+                  >
+                    {t("settings")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/admin/blocked-item"}
+                  >
+                    {t("blockedItems")}
+                  </SidebarItem>
+                </SidebarCompactItem>
               </div>
-            </SidebarCompactItem>
-
-            <SidebarCompactItem
-              title={t("services")}
-              links={["/admin/category", "/admin/service"]}
-            >
-              <div className="flex flex-col">
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/category"}
-                >
-                  {t("serviceCategories")}
-                </SidebarItem>
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/service"}
-                >
-                  {t("services")}
-                </SidebarItem>
-              </div>
-            </SidebarCompactItem>
-
-            <SidebarCompactItem
-              title={t("hospitalsManagement")}
-              links={["/admin/hospitals", "/admin/hospital-departments"]}
-            >
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/hospitals"}
-              >
-                {t("hospitals")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/hospital-departments"}
-              >
-                {t("availableDepartments")}
-              </SidebarItem>
-            </SidebarCompactItem>
-
-            <SidebarItem
-              setOpenNavBar={setOpenNavBar}
-              openNavBar={openNavBar}
-              link={"/admin/user"}
-            >
-              {t("users")}
-            </SidebarItem>
-            <SidebarItem
-              setOpenNavBar={setOpenNavBar}
-              openNavBar={openNavBar}
-              link={"/admin/blood-donation"}
-            >
-              {t("bloodDonation")}
-            </SidebarItem>
-            <SidebarItem
-              setOpenNavBar={setOpenNavBar}
-              openNavBar={openNavBar}
-              link={"/admin/enquiries"}
-            >
-              {t("enquiries")}
-            </SidebarItem>
-
-            <SidebarCompactItem
-              title={t("settings")}
-              links={["/admin/setting", "/admin/blocked-item"]}
-            >
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/setting"}
-              >
-                {t("settings")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin/blocked-item"}
-              >
-                {t("blockedItems")}
-              </SidebarItem>
-            </SidebarCompactItem>
-          </div>
+            </>
+          )}
         </ul>
       </div>
       <div

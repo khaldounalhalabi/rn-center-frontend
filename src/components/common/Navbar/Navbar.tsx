@@ -62,7 +62,7 @@ const Navbar = ({
         </button>
 
         <SearchIcon
-          className={`h-6 w-6 cursor-pointer`}
+          className={`h-6 w-6 cursor-pointer hidden`}
           onClick={() => {
             OpenAndClose(showSearchForm, setShowSearchForm);
           }}

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
@@ -27,6 +27,7 @@ import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionI
 import TransactionIcon from "@/components/icons/TransactionIcon";
 import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
 import SidebarArIcon from "@/components/icons/SidebarArIcon";
+import SearchIcon from "@/components/icons/SearchIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -46,7 +47,93 @@ const SidebarDoctor = ({
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const role = getCookieClient("role");
   const local = useLocale();
+  const [searchTerm, setSearchTerm] = useState("");
+  const sidebarItems = [
+    {
+      search: "dashboard,لوحةالقيادة,داشبورد",
+      title: t("dashboard"),
+      link: "/doctor",
+      role:""
+    },
+    {
+      search: "clinics,عيادة,العيادات",
+      title: t("clinics"),
+      link: "/doctor/clinics",
+      role:""
+    },
+    {
+      search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
+      title: t("clinicsSchedules"),
+      link: "/doctor/clinics/schedules",
+      role:PermissionsDoctor.MANGE_SCHEDULES,
+    },
+    {
+      search:
+        "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
+      title: t("clinicsHolidays"),
+      link: "/doctor/clinics/holidays",
+      role:PermissionsDoctor.MANAGE_HOLIDAYS,
+    },
+    {
+      search: "medicines,medicine,الدواء,علاج,ادوية",
+      title: t("medicines"),
+      link: "/doctor/medicines",
+      role:PermissionsDoctor.MANAGE_MEDICINES,
+    },
+    {
+      search: "appointment,appointments,موعد,مواعيد",
+      title: t("appointment"),
+      link: "/doctor/appointment",
+      role:PermissionsDoctor.MANAGE_APPOINTMENTS,
+    },
+    {
+      search: "patients,patient,مرضى,مريض",
+      title: t("patients"),
+      link: "/doctor/patients",
+      role:PermissionsDoctor.MANAGE_PATIENTS,
+    },
 
+    {
+      search: "offers,عروض,عرض",
+      title: t("offers"),
+      link: "/doctor/offers",
+      role:PermissionsDoctor.MANAGE_OFFERS,
+    },
+    {
+      search: "services,خدمة,خدمات",
+      title: t("services"),
+      link: "/doctor/services",
+      role:PermissionsDoctor.MANAGE_SERVICE,
+    },
+    {
+      search: "staff,موظف,موظفون,موظفين,عمال",
+      title: t("staff"),
+      link: "/doctor/staff",
+      role:PermissionsDoctor.MANAGE_EMPLOYEES
+    },
+    {
+      search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
+      title: t("appointmentDeductions"),
+      link: "/doctor/appointment-deductions",
+      role:PermissionsDoctor.ACCOUNTANT_MANAGEMENT
+    },
+    {
+      search: "transaction,تحويلات,تحويل,معاملات",
+      title: t("transaction"),
+      link: "/doctor/transaction",
+      role:PermissionsDoctor.ACCOUNTANT_MANAGEMENT
+    },
+    {
+      search: "clinic details,معلومات,تفاصيل,عيادات,عيادة",
+      title: t("clinicDetails"),
+      link: "/doctor/clinic-details",
+      role:""
+    },
+
+  ];
+  const filteredItems = sidebarItems.filter((item) =>
+    item.search.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
   return (
     <div
       className={`lg:block sidebar w-full !overflow-visible  min-h-screen overflow-y-hidden lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
@@ -78,169 +165,220 @@ const SidebarDoctor = ({
             }
           />
         </span>
+        <div className={`px-4 relative ${openNavBar.md ? " hidden " : ""}`}>
+          <div
+            className={`absolute flex gap-2  top-4 items-center  ${local == "ar" ? "left-[8%]" : "right-[8%]"}`}
+          >
+            <SearchIcon className={"w-5 h-5  opacity-60"} />
+          </div>
+          <input
+            type={"text"}
+            placeholder={"Search"}
+            className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
+                    border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
+        </div>
         <ul
-          className={` space-y-1 mt-6 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          <SidebarItem
-            link={"/doctor"}
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-          >
-            {" "}
-            {t("dashboard")}
-          </SidebarItem>
-          <SidebarCompactItem
-            title={t("clinicsManagement")}
-            links={[
-              "/doctor/clinic-details",
-              "/doctor/clinic/schedules",
-              "/doctor/clinic/holidays",
-            ]}
-          >
-            <div className="flex flex-col">
+          {searchTerm ? (
+            filteredItems?.map((item, index) => (
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
-                link={"/doctor/clinic-details"}
-              >
-                {t("clinicDetails")}
-              </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
+                link={item.link}
+                index={index}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
-                  !permissionsArray.includes(PermissionsDoctor.MANGE_SCHEDULES)
+                  !permissionsArray.includes(
+                      item.role,
+                  )
+                      ? "hidden"
+                      : ""
+                }
+              >
+                {" "}
+                {item.title}
+              </SidebarItem>
+            ))
+          ) : (
+            <>
+              <SidebarItem
+                link={"/doctor"}
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+              >
+                {" "}
+                {t("dashboard")}
+              </SidebarItem>
+              <SidebarCompactItem
+                title={t("clinicsManagement")}
+                links={[
+                  "/doctor/clinic-details",
+                  "/doctor/clinic/schedules",
+                  "/doctor/clinic/holidays",
+                ]}
+              >
+                <div className="flex flex-col">
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/doctor/clinic-details"}
+                  >
+                    {t("clinicDetails")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    className={
+                      role == Role.CLINIC_EMPLOYEE &&
+                      !permissionsArray.includes(
+                        PermissionsDoctor.MANGE_SCHEDULES,
+                      )
+                        ? "hidden"
+                        : ""
+                    }
+                    link={"/doctor/clinic/schedules"}
+                  >
+                    {t("clinicsSchedules")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/doctor/clinic/holidays"}
+                    className={
+                      role == Role.CLINIC_EMPLOYEE &&
+                      !permissionsArray.includes(
+                        PermissionsDoctor.MANAGE_HOLIDAYS,
+                      )
+                        ? "hidden"
+                        : ""
+                    }
+                  >
+                    {t("clinicsHolidays")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/doctor/medicines"}
+                    className={
+                      role == Role.CLINIC_EMPLOYEE &&
+                      !permissionsArray.includes(
+                        PermissionsDoctor.MANAGE_MEDICINES,
+                      )
+                        ? "hidden"
+                        : ""
+                    }
+                  >
+                    {t("medicines")}
+                  </SidebarItem>
+                </div>
+              </SidebarCompactItem>
+              <SidebarItem
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(
+                    PermissionsDoctor.MANAGE_APPOINTMENTS,
+                  )
                     ? "hidden"
                     : ""
                 }
-                link={"/doctor/clinic/schedules"}
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={"/doctor/appointment"}
               >
-                {t("clinicsSchedules")}
+                {t("appointment")}
               </SidebarItem>
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
-                link={"/doctor/clinic/holidays"}
+                link={"/doctor/patients"}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
-                  !permissionsArray.includes(PermissionsDoctor.MANAGE_HOLIDAYS)
+                  !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
                     ? "hidden"
                     : ""
                 }
               >
-                {t("clinicsHolidays")}
+                {t("patients")}
               </SidebarItem>
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
-                link={"/doctor/medicines"}
+                link={"/doctor/offer"}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
-                  !permissionsArray.includes(PermissionsDoctor.MANAGE_MEDICINES)
+                  !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
                     ? "hidden"
                     : ""
                 }
               >
-                {t("medicines")}
+                {t("offers")}
               </SidebarItem>
-            </div>
-          </SidebarCompactItem>
-          <SidebarItem
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS)
-                ? "hidden"
-                : ""
-            }
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/doctor/appointment"}
-          >
-            {t("appointment")}
-          </SidebarItem>
-          <SidebarItem
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/doctor/patients"}
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
-                ? "hidden"
-                : ""
-            }
-          >
-            {t("patients")}
-          </SidebarItem>
-          <SidebarItem
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/doctor/offer"}
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
-                ? "hidden"
-                : ""
-            }
-          >
-            {t("offers")}
-          </SidebarItem>
-          <SidebarCompactItem
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(
-                PermissionsDoctor.ACCOUNTANT_MANAGEMENT
-              )
-                ? "hidden"
-                : ""
-            }
-            title={t("accountantManagement")}
-            links={["/doctor/transaction", "/doctor/appointment-deductions"]}
-          >
-            <div className="flex flex-col">
+              <SidebarCompactItem
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(
+                    PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+                  )
+                    ? "hidden"
+                    : ""
+                }
+                title={t("accountantManagement")}
+                links={[
+                  "/doctor/transaction",
+                  "/doctor/appointment-deductions",
+                ]}
+              >
+                <div className="flex flex-col">
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/doctor/transaction"}
+                  >
+                    {t("transaction")}
+                  </SidebarItem>
+                  <SidebarItem
+                    setOpenNavBar={setOpenNavBar}
+                    openNavBar={openNavBar}
+                    link={"/doctor/appointment-deductions"}
+                  >
+                    {t("appointmentDeductions")}
+                  </SidebarItem>
+                </div>
+              </SidebarCompactItem>
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
-                link={"/doctor/transaction"}
+                link={"/doctor/service"}
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
+                    ? "hidden"
+                    : ""
+                }
               >
-                {t("transaction")}
+                {t("services")}
               </SidebarItem>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/doctor/appointment-deductions"}
-              >
-                {t("appointmentDeductions")}
-              </SidebarItem>
-            </div>
-          </SidebarCompactItem>
-          <SidebarItem
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/doctor/service"}
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
-                ? "hidden"
-                : ""
-            }
-          >
-            {t("services")}
-          </SidebarItem>
 
-          <SidebarItem
-            setOpenNavBar={setOpenNavBar}
-            openNavBar={openNavBar}
-            link={"/doctor/staff"}
-            className={
-              role == Role.CLINIC_EMPLOYEE &&
-              !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
-                ? "hidden"
-                : ""
-            }
-          >
-            {t("staff")}
-          </SidebarItem>
+              <SidebarItem
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={"/doctor/staff"}
+                className={
+                  role == Role.CLINIC_EMPLOYEE &&
+                  !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
+                    ? "hidden"
+                    : ""
+                }
+              >
+                {t("staff")}
+              </SidebarItem>
+            </>
+          )}
         </ul>
       </div>
       <div
@@ -339,7 +477,7 @@ const SidebarDoctor = ({
             className={
               role == Role.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(
-                PermissionsDoctor.ACCOUNTANT_MANAGEMENT
+                PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
               )
                 ? "hidden"
                 : ""

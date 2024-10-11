@@ -12,6 +12,8 @@ import {
 } from "@/enum/SettingKeysEnum";
 import CKTextEditor from "@/components/common/ui/CKEditor";
 import { useTranslations } from "next-intl";
+import ImageUploader from "@/components/common/ui/ImageUploader";
+import Gallery from "@/components/common/ui/Gallery";
 
 const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
   const t = useTranslations("admin.setting");
@@ -25,25 +27,42 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         return res;
       });
   };
+  const {image,...res} = defaultValues??{image:"no Data"}
   return (
-    <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
-      {!EditorRequiredSettings.includes(defaultValues.label) ? (
-        <Grid md={2}>
-          <Input
-            required={true}
-            name={"value"}
-            label={defaultValues?.label?.replace(/_/g, " ")}
-            placeholder={"value ...."}
-            type="text"
-            defaultValue={defaultValues ? defaultValues?.value : undefined}
+    <Form handleSubmit={handleSubmit} defaultValues={res}>
+      {EditorRequiredSettings.includes(defaultValues.label) ? (
+          <CKTextEditor
+              name={"value"}
+              label={defaultValues?.label?.replace(/_/g, " ")}
+              defaultValue={defaultValues ? defaultValues?.value : undefined}
           />
-        </Grid>
-      ) : (
-        <CKTextEditor
-          name={"value"}
-          label={defaultValues?.label?.replace(/_/g, " ")}
-          defaultValue={defaultValues ? defaultValues?.value : undefined}
-        />
+      ) :SettingKeysEnum.ZainCASHQR === (defaultValues.label)?
+          <>
+                  <div className={"col-span-2"}>
+                      {defaultValues?.image?.length != 0 ? (
+                          <Gallery
+                              media={defaultValues?.image ? defaultValues?.image : [""]}
+                          />
+                      ) : (
+                          <div className="flex items-center">
+                              <label className="label"> {t("image")} : </label>
+                              <span className="text-lg badge badge-neutral">{t("noData")}</span>
+                          </div>
+                      )}
+                  </div>
+              <ImageUploader name={"image"} label={t("image")} />
+          </>
+          : (
+              <Grid md={2}>
+                  <Input
+                      required={true}
+                      name={"value"}
+                      label={defaultValues?.label?.replace(/_/g, " ")}
+                      placeholder={"value ...."}
+                      type="text"
+                      defaultValue={defaultValues ? defaultValues?.value : undefined}
+                  />
+              </Grid>
       )}
     </Form>
   );

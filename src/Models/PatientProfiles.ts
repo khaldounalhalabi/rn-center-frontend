@@ -13,4 +13,8 @@ export interface PatientProfiles {
   customer?: Customer;
   clinic?: Clinic;
   images?: Media[] | string[];
+  last_appointment?:{
+    id?:number,
+    date?:string
+  }
 }

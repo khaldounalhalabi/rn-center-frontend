@@ -17,7 +17,7 @@ export const config = {
 async function authenticationMiddleware(req: NextRequest) {
   const path = `${req.nextUrl.pathname}`;
   const access = await getCookieServer("user-type");
-  const locale = await getLocale();
+  const locale = await getCookieServer("NEXT_LOCALE");
   if (
     (!access && path.includes(`${locale}/admin`)) ||
     ((access == "customer" || access == "doctor") &&

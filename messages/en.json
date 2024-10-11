@@ -551,7 +551,9 @@
       "ContactNumber2": "Contact Number 2",
       "TermsAndServices": "Terms And Services",
       "DaysBefore": "DaysBeforeExpirationNotification",
-      "ZainCashNumber": "Zain Cash Number"
+      "ZainCashNumber": "Zain Cash Number",
+      "image": "Image",
+      "noData": "No Data"
     }
   },
   "doctor": {
@@ -950,7 +952,8 @@
         "tags": "Tags",
         "otherData": "Other Data",
         "note": "Note",
-        "medicalCondition": "Medical Condition"
+        "medicalCondition": "Medical Condition",
+        "lastAppointment": "Last Appointment"
       }
     },
     "prescription": {

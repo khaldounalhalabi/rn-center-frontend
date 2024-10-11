@@ -25,6 +25,7 @@ const PatientDetails = ({
         JSON.parse(patient?.currentClinicPatientProfile?.other_data)
       )
     : [];
+  console.log(patient)
   return (
     <>
       <Grid md={2} gap={5}>
@@ -63,22 +64,12 @@ const PatientDetails = ({
           value={patient?.user?.blood_group}
           color={"error"}
         />
+        <LabelValue
+            label={t("lastAppointment")}
+            value={patient?.currentClinicPatientProfile?.last_appointment?.date}
+            color={"error"}
+        />
 
-        <Label label={t("isBlocked")}>
-          {patient?.user?.is_blocked ? (
-            <Value color="error" value={t("blocked")} />
-          ) : (
-            <Value color="success" value={t("notBlocked")} />
-          )}
-        </Label>
-
-        <Label label={t("isArchived")}>
-          {patient?.user?.is_archived ? (
-            <Value color="neutral" value={t("archived")} />
-          ) : (
-            <Value color="warning" value={t("notArchived")} />
-          )}
-        </Label>
       </Grid>
       {typePage == "admin" ? (
         ""

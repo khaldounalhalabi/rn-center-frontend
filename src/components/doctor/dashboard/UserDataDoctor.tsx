@@ -100,13 +100,13 @@ const UserDataDoctor = ({
             false
           ) : (
             <div className={`p-4 text-center `}>
-              <h2 className="font-semibold">{t("editProfile")}</h2>
+              <h2 className="font-semibold ">{t("editProfile")}</h2>
               <Link
                 href={"/doctor/clinic-details/edit"}
                 className={`
-                 flex items-center rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
+                 flex items-center text-start rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
               >
-                {t("profile")} {locale == "ar" ? <ArrowLeft/> : <ArrowRight />}
+                {t("profile")}{" "} {locale == "ar" ? <ArrowLeft/> : <ArrowRight />}
               </Link>
             </div>
           )}

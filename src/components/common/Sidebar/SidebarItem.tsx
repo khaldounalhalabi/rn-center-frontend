@@ -9,7 +9,7 @@ const SidebarItem = ({
   className = undefined,
   openNavBar,
   setOpenNavBar,
-    index=0
+    key=0
 }: {
   openNavBar: {
     sm: boolean;
@@ -20,7 +20,7 @@ const SidebarItem = ({
     md: boolean;
   }>;
   link?: string;
-  index?:number
+  key?:number
   children: ReactNode;
   onClick?: (e: React.MouseEvent<HTMLLIElement>) => void;
   className?: string;
@@ -34,7 +34,7 @@ const SidebarItem = ({
     active = "text-gray-500 hover:bg-[#1fb8b9] hover:text-white";
   }
   return (
-    <li key={index}
+    <li key={key}
       className={`${className}`}
       onClick={(e) => {
         if (openNavBar.sm) {

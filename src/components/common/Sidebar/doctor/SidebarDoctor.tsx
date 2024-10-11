@@ -190,7 +190,7 @@ const SidebarDoctor = ({
                 setOpenNavBar={setOpenNavBar}
                 openNavBar={openNavBar}
                 link={item.link}
-                index={index}
+                key={index}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(

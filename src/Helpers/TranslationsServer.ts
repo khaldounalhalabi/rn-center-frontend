@@ -1,12 +1,11 @@
 "use server";
-import { getCookieServer } from "@/Actions/serverCookies";
+import {getLocale} from "next-intl/server";
 
 const TranslateServer = async (
   val: string | undefined | null,
   object?: boolean,
 ) => {
-  const locale = (await getCookieServer("NEXT_LOCALE")) ?? "en";
-
+  const locale = await getLocale();
   const noData = `{"en":"No Data","ar":"لا يوجد بيانات"}`;
   const noDataObj = JSON.parse(noData ?? "{}");
 

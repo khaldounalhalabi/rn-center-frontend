@@ -1,9 +1,9 @@
 "use server";
 import { redirect } from "next/navigation";
-import { getCookieServer } from "./serverCookies";
+import {getLocale} from "next-intl/server";
 
 export async function Navigate(url: string) {
-  let locale = await getCookieServer("NEXT_LOCALE");
+  let locale = await getLocale();
   if (url.startsWith("/")) {
     redirect(`/${locale}${url}`);
   } else redirect(url);

@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { ApiErrorType, ApiResponse } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
+import {getLocale} from "next-intl/server";
 
 export const GET = async <T>(
   url: string,
@@ -41,7 +42,7 @@ const http = async <T>(
   params?: object,
   data?: object | undefined,
 ): Promise<ApiResponse<T>> => {
-  let lang = await getCookieServer("NEXT_LOCALE");
+  let lang = await getLocale();
   const token = (await getCookieServer("token")) ?? "";
   const h = {
     "Content-Type": "multipart/form-data",

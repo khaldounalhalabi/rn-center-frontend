@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { getCookieServer } from "./Actions/serverCookies";
 import { locales } from "./navigation";
+import {getLocale} from "next-intl/server";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -16,7 +17,7 @@ export const config = {
 async function authenticationMiddleware(req: NextRequest) {
   const path = `${req.nextUrl.pathname}`;
   const access = await getCookieServer("user-type");
-  const locale = await getCookieServer("NEXT_LOCALE");
+  const locale = await getLocale();
   if (
     (!access && path.includes(`${locale}/admin`)) ||
     ((access == "customer" || access == "doctor") &&

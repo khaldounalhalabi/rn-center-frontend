@@ -16,10 +16,9 @@ import AppointmentStatuses, {
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
-import { getCookieClient } from "@/Actions/clientCookies";
 import { Customer } from "@/Models/Customer";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import { useTranslations } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
 
@@ -33,7 +32,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
   };
-  const locale = getCookieClient("NEXT_LOCALE");
+  const locale = useLocale();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const statusData = AppointmentStatuses();

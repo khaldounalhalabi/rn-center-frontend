@@ -231,7 +231,7 @@ const SidebarAdmin = ({
                       setOpenNavBar={setOpenNavBar}
                       openNavBar={openNavBar}
                       link={item.link}
-                      index={index}
+                      key={index}
                   >
                     {" "}
                     {item.title}

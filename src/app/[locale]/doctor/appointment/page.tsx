@@ -14,7 +14,6 @@ import AppointmentStatuses from "@/enum/AppointmentStatus";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
-import { getCookieClient } from "@/Actions/clientCookies";
 import ExportButton from "@/components/common/Appointment/ExportButton";
 import { Link } from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
@@ -26,7 +25,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useQuery } from "@tanstack/react-query";
 import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
-import { useTranslations } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
 
@@ -52,7 +51,7 @@ const Page = () => {
     navigator.clipboard.writeText(`${window.location.href}/${id}`);
     toast.success("Link Has Been Copied Successfully");
   };
-  const locale = getCookieClient("NEXT_LOCALE");
+  const locale = useLocale();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const statusData = AppointmentStatuses();

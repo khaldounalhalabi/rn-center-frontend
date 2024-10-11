@@ -14,7 +14,7 @@ import AppointmentSpeechButton from "@/components/doctor/appointment/Appointment
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
-import { useTranslations } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
 
@@ -22,9 +22,9 @@ const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
   toast.success("Link Has Been Copied Successfully");
 };
-const locale = getCookieClient("NEXT_LOCALE");
 
 const TableTodayAppointment = () => {
+  const locale = useLocale();
   const t = useTranslations("common.dashboard");
   const permissions: string | undefined = getCookieClient("permissions");
   const permissionsArray: string[] = permissions?.split(",") ?? [""];

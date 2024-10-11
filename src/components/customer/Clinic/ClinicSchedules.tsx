@@ -9,8 +9,9 @@ const ClinicSchedules = ({ clinic }: { clinic: Clinic }) => {
     <div>
       <div>
         <h1 className={"label text-xl font-semi bold w-fit"}>
-          {"Appointment Gap"} : {/*// @ts-ignore*/}
+          {"Appointment Gap"} :
           <span className={"mx-2 badge badge-success"}>
+            {/*// @ts-ignore*/}
             {clinic?.schedules?.appointment_gap}
           </span>
         </h1>

@@ -28,6 +28,7 @@ import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import PercentBadge from "@/components/icons/PercentBadge";
 
 interface filterExportType {
   year: string;
@@ -174,8 +175,15 @@ const Page = () => {
       {
         name: "total_cost",
         label: `${t("totalCost")}`,
-        render: (data) => {
-          return <span>{data.toLocaleString()}</span>;
+        render: (data, appointment: Appointment | undefined) => {
+          return (
+            <span className="flex items-center gap-1 justify-between">
+              {data.toLocaleString()}
+              {(appointment?.system_offers?.length ?? 0) > 0 && (
+                <PercentBadge className="text-[#00a96e] h-6 w-6" />
+              )}
+            </span>
+          );
         },
       },
       {

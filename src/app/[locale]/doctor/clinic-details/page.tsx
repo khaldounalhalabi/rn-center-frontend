@@ -110,7 +110,7 @@ const page = async () => {
             <div className="flex items-center justify-between flex-wrap">
               {res?.specialities?.map((spec) => {
                 return (
-                  <div key={spec.id} className={"badge badge-info mx-1"}>
+                  <div key={spec.id} className={"text-info mx-1"}>
                     {TranslateServer(spec.name)}
                   </div>
                 );
@@ -186,18 +186,6 @@ const page = async () => {
             label={t("lastUpdatedAt")}
             value={res?.updated_at}
             color={"success"}
-          />
-
-          <LabelValue
-            label={t("subscription")}
-            value={res?.active_subscription?.subscription?.name}
-            color={"warning"}
-          />
-
-          <LabelValue
-            label={t("subscriptionType")}
-            value={res?.active_subscription?.type}
-            color={"primary"}
           />
 
           <LabelValue

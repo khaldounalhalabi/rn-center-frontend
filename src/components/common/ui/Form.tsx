@@ -5,6 +5,7 @@ import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
+import { useLocale } from "next-intl";
 
 const Form = ({
   className,
@@ -52,7 +53,8 @@ const Form = ({
     return res;
   };
 
-  const [lang, setLang] = useState<"en" | "ar">("en");
+  const locale = useLocale() as "en" | "ar";
+  const [lang, setLang] = useState<"en" | "ar">(locale);
   useEffect(() => {
     if (setLocale) {
       setLocale(lang);
@@ -66,7 +68,10 @@ const Form = ({
         className={`${className}`}
       >
         {setLocale ? (
-          <div className="h-8 w-full flex-row flex justify-center items-center">
+          <div
+            dir="ltr"
+            className="h-8 w-full flex-row flex justify-center items-center"
+          >
             <div className="w-36  h-8 flex">
               <p
                 className={`w-1/2 h-full pt-1 rounded-l-2xl text-center cursor-pointer ${lang == "en" ? "bg-black text-white" : "bg-gray-300 text-black "}`}

@@ -2,7 +2,7 @@
 import RoundedImage from "@/components/common/RoundedImage";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
-import BackIcon from "@/components/icons/backIcon";
+import ArrowRight from "@/components/icons/ArrowRight";
 import React from "react";
 import { User } from "@/Models/User";
 import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
@@ -12,6 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
 import { getCookieClient } from "@/Actions/clientCookies";
+import ArrowLeft from "@/components/icons/ArrowLeft";
 
 const UserDataDoctor = ({
   statisticsRes,
@@ -61,7 +62,7 @@ const UserDataDoctor = ({
     Number(lastMonth ?? 0),
     Number(thisMonth ?? 0),
   );
-  const local = useLocale();
+  const locale = useLocale();
   const role = getCookieClient("role");
   const permissions: string | undefined = getCookieClient("permissions");
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
@@ -79,7 +80,7 @@ const UserDataDoctor = ({
         <div className="h-1/2 flex flex-col xl:flex-row justify-between items-center xl:items-end bg-white rounded-b-xl">
           <div className="p-4">
             <div
-              className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px]  ${local == "en" ? "left-[10%]" : "right-[10%]"}`}
+              className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px]  ${locale == "en" ? "left-[10%]" : "right-[10%]"}`}
             >
               <RoundedImage
                 src={user.image?.[0]?.file_url ?? "/user.png"}
@@ -99,15 +100,13 @@ const UserDataDoctor = ({
             false
           ) : (
             <div className={`p-4 text-center `}>
-              <h2 className=" font-semibold">{t("editProfile")}</h2>
+              <h2 className="font-semibold">{t("editProfile")}</h2>
               <Link
                 href={"/doctor/clinic-details/edit"}
                 className={`
-                 flex rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
+                 flex items-center rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
               >
-                <BackIcon className={`w-8 h-5 ml-1 mt-1 rotate-180 ${local == "en"?"hidden":""}`} />
-                {t("profile")}{" "}
-                <BackIcon className={`w-8 h-5 ml-1 mt-1 rotate-180 ${local == "ar"?"hidden":""}`} />
+                {t("profile")} {locale == "ar" ? <ArrowLeft/> : <ArrowRight />}
               </Link>
             </div>
           )}
@@ -141,11 +140,11 @@ const UserDataDoctor = ({
                 {" "}
                 {calc < 0 ? (
                   <span className="text-error flex items-center">
-                    {calc}% <BackIcon className="w-4 h-6 -rotate-90" />
+                    {calc}% <ArrowRight className="w-4 h-6 -rotate-90" />
                   </span>
                 ) : calc > 0 ? (
                   <span className="flex items-center text-green-500">
-                    {calc}% <BackIcon className="w-4 h-6 rotate-90" />
+                    {calc}% <ArrowRight className="w-4 h-6 rotate-90" />
                   </span>
                 ) : (
                   <span>{calc}%</span>

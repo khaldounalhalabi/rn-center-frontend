@@ -21,6 +21,7 @@ import { Customer } from "@/Models/Customer";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import PercentBadge from "@/components/icons/PercentBadge";
 
 interface filterExportType {
   year: string;
@@ -104,6 +105,18 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
         ),
       },
       {
+        name: "total_cost",
+        label: `${t("totalCost")}`,
+        render: (data, appointment: Appointment | undefined) => (
+          <span className="flex items-center justify-between gap-1">
+            {data?.toLocaleString() + " IQD"}{" "}
+            {(appointment?.system_offers?.length ?? 0) > 0 && (
+              <PercentBadge className="text-[#00a96e] h-6 w-6" />
+            )}
+          </span>
+        ),
+      },
+      {
         name: "date",
         label: `${t("date")}`,
         sortable: true,
@@ -156,7 +169,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentService.make<AppointmentService>(
-        "doctor",
+        "doctor"
       ).getCustomerAppointments(
         customer?.id,
         page,
@@ -164,7 +177,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     filter: (params, setParams) => {
       return (

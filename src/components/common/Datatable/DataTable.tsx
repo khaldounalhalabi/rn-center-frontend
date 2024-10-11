@@ -29,7 +29,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void,
+    revalidate?: () => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -44,13 +44,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object,
+    params?: object
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
-    ) => void,
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam
+    ) => void
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -131,7 +131,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                   <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
                     <Dialog.Title
                       as="h3"
-                      className="font-medium text-gray-900 text-lg leading-6"
+                      className="text-start font-medium text-gray-900 text-lg leading-6"
                     >
                       {t("filters")}
                     </Dialog.Title>
@@ -226,12 +226,13 @@ const DataTable = (tableData: DataTableData<any>) => {
                 <input
                   type="text"
                   className="input-bordered input input-sm w-full"
-                  placeholder="Search"
+                  placeholder={t("search")}
                   value={search}
                   onChange={(e) => {
                     setSearch(e.target.value);
                     setPage(1);
                   }}
+                  dir={"ltr"}
                 />
                 <SearchIcon
                   className={`w-4 h-4 opacity-70 absolute top-2 right-2`}

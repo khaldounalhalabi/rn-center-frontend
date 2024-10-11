@@ -12,7 +12,7 @@ import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";
 
@@ -40,6 +40,7 @@ const ScheduleForm = ({
   appointment_gap: number | undefined;
 }) => {
   const t = useTranslations("doctor.schedules.edit");
+  const locale = useLocale();
 
   const [schedule, setSchedule] = useState<SchedulesTimes>({
     saturday:
@@ -139,12 +140,12 @@ const ScheduleForm = ({
     day: WeekDay,
     index: number,
     time: string,
-    timeType: "start_time" | "end_time",
+    timeType: "start_time" | "end_time"
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].map((timeRange, i) =>
-        i === index ? { ...timeRange, [timeType]: time } : timeRange,
+        i === index ? { ...timeRange, [timeType]: time } : timeRange
       ),
     }));
   };
@@ -173,7 +174,7 @@ const ScheduleForm = ({
             end_time: dayjs(item.end_time, "HH:mm").format("HH:mm"),
             day_of_week: value[0] as string,
           });
-        },
+        }
       );
     });
 
@@ -216,7 +217,7 @@ const ScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "start_time",
+                        "start_time"
                       )
                     }
                   />
@@ -228,13 +229,13 @@ const ScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "end_time",
+                        "end_time"
                       )
                     }
                     shouldDisableTime={(time) => {
                       return time.isSameOrBefore(
                         dayjs(schedule?.[day]?.[index]?.start_time, "HH:mm"),
-                        "minutes",
+                        "minutes"
                       );
                     }}
                   />
@@ -269,7 +270,9 @@ const ScheduleForm = ({
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="z-10 absolute bg-white max-w-32 transform -translate-x-1/2">
+                      <Popover.Panel
+                        className={`z-10 absolute bg-white max-w-32 transform ${locale == "en" ? "-translate-x-1/2" : "translate-x-1/2"}`}
+                      >
                         <div className="shadow-lg rounded-lg overflow-hidden ring-1 ring-black/5">
                           <div className="flex flex-col">
                             {weeKDays.map((d, index) => (

@@ -20,7 +20,11 @@ const ListCards = ({
     >
       {url ? (
         <Link href={url} className={"flex items-center w-full"}>
-          <div className={"w-[30%] md:w-[15%] h-full flex justify-center items-center"}>
+          <div
+            className={
+              "w-[30%] md:w-[15%] h-full flex justify-center items-center"
+            }
+          >
             {image}
           </div>
           <div className={"w-auto h-full"}>{children}</div>

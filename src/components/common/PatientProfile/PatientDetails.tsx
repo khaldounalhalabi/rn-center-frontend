@@ -22,10 +22,10 @@ const PatientDetails = ({
   };
   const otherData = patient?.currentClinicPatientProfile?.other_data
     ? convertObjectToArray(
-        JSON.parse(patient?.currentClinicPatientProfile?.other_data)
+        JSON.parse(patient?.currentClinicPatientProfile?.other_data),
       )
     : [];
-  console.log(patient)
+  console.log(patient);
   return (
     <>
       <Grid md={2} gap={5}>
@@ -65,11 +65,10 @@ const PatientDetails = ({
           color={"error"}
         />
         <LabelValue
-            label={t("lastAppointment")}
-            value={patient?.currentClinicPatientProfile?.last_appointment?.date}
-            color={"error"}
+          label={t("lastAppointment")}
+          value={patient?.currentClinicPatientProfile?.last_appointment?.date}
+          color={"error"}
         />
-
       </Grid>
       {typePage == "admin" ? (
         ""

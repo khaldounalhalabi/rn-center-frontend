@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { Customer } from "@/Models/Customer";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
 
@@ -168,7 +168,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentService.make<AppointmentService>(
-        "doctor"
+        "doctor",
       ).getCustomerAppointments(
         customer?.id,
         page,
@@ -176,7 +176,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     filter: (params, setParams) => {
       return (

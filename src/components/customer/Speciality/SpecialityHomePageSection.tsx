@@ -9,7 +9,7 @@ import { Link } from "@/navigation";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
 
 const SpecialityHomePageSection = () => {
-  const { data, isPending,isLoading } = useQuery({
+  const { data, isPending, isLoading } = useQuery({
     queryKey: ["specialities_cards"],
     queryFn: async () =>
       SpecialityService.make<SpecialityService>("public").indexWithPagination(
@@ -48,53 +48,57 @@ const SpecialityHomePageSection = () => {
             </p>
 
             <AuthSubmitButton className={"w-1/2 px-10 py-3"}>
-              <Link href={'/customer/specialitities'}>
-                View All
-              </Link>
+              <Link href={"/customer/specialitities"}>View All</Link>
             </AuthSubmitButton>
           </div>
         </div>
         <div className={"w-[60%] flex justify-around gap-1 px-2"}>
-          {isLoading?
-              <>
-               <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
-                <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
-                <div className={'skeleton w-[22%] h-full rounded-xl'}></div>
-                <div className={'skeleton w-[22%] h-full rounded-xl '}></div>
-              </>
-              :arrayData?.map((e, index) => {
-            return (
-              <div
-                key={index}
-                style={{ boxShadow: "5px 7.5px 11.5px -5.5px #dddddd" }}
-                className={"w-[22%] h-full rounded-xl "}
-              >
-                <div className={"w-full h-[70%]"}>
-                  <img
-                    className={"w-full h-full rounded-t-xl"}
-                    src={e?.image[0]?.file_url}
-                    alt={".."}
-                  />
-                </div>
+          {isLoading ? (
+            <>
+              <div className={"skeleton w-[22%] h-full rounded-xl"}></div>
+              <div className={"skeleton w-[22%] h-full rounded-xl"}></div>
+              <div className={"skeleton w-[22%] h-full rounded-xl"}></div>
+              <div className={"skeleton w-[22%] h-full rounded-xl "}></div>
+            </>
+          ) : (
+            arrayData?.map((e, index) => {
+              return (
                 <div
-                  className={
-                    "w-full h-[30%] gap-2 flex flex-col justify-center items-center"
-                  }
+                  key={index}
+                  style={{ boxShadow: "5px 7.5px 11.5px -5.5px #dddddd" }}
+                  className={"w-[22%] h-full rounded-xl "}
                 >
-                  <h2
-                    className={"text-[#151D48] text-center text-xs md:text-sm"}
+                  <div className={"w-full h-[70%]"}>
+                    <img
+                      className={"w-full h-full rounded-t-xl"}
+                      src={e?.image[0]?.file_url}
+                      alt={".."}
+                    />
+                  </div>
+                  <div
+                    className={
+                      "w-full h-[30%] gap-2 flex flex-col justify-center items-center"
+                    }
                   >
-                    {TranslateClient(e.name)}
-                  </h2>
-                  <p
-                    className={"text-[#737791] text-center text-xs md:text-sm"}
-                  >
-                    {e.clinics_count} Doctor
-                  </p>
+                    <h2
+                      className={
+                        "text-[#151D48] text-center text-xs md:text-sm"
+                      }
+                    >
+                      {TranslateClient(e.name)}
+                    </h2>
+                    <p
+                      className={
+                        "text-[#737791] text-center text-xs md:text-sm"
+                      }
+                    >
+                      {e.clinics_count} Doctor
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
       <div className={"md:hidden my-6 block"}>
@@ -111,44 +115,46 @@ const SpecialityHomePageSection = () => {
           <div className="  h-[23vh]">
             <div className="embla h-full" ref={emblaRef}>
               <div className="embla__container py-6">
-                {isLoading?
-                    <>
-                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
-                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
-                      <div className={'skeleton w-[24vw] rounded-xl mx-4'}></div>
-                    </>
-                    :data?.data?.map((e, index) => (
-                  <div
-                    className={
-                      "w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4"
-                    }
-                    key={index}
-                  >
-                    <div className={"w-[23vw] h-[50%]"}>
-                      <img
-                        className={"w-full h-full rounded-t-xl"}
-                        src={e?.image[0]?.file_url}
-                        alt={".."}
-                      />
-                    </div>
+                {isLoading ? (
+                  <>
+                    <div className={"skeleton w-[24vw] rounded-xl mx-4"}></div>
+                    <div className={"skeleton w-[24vw] rounded-xl mx-4"}></div>
+                    <div className={"skeleton w-[24vw] rounded-xl mx-4"}></div>
+                  </>
+                ) : (
+                  data?.data?.map((e, index) => (
                     <div
                       className={
-                        "w-[24vw] h-[50%] flex flex-col justify-center items-center"
+                        "w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4"
                       }
+                      key={index}
                     >
-                      <p className={"text-xs text-[#737791] text-center"}>
-                        {e.clinics_count} Doctors
-                      </p>
-                      <h2
+                      <div className={"w-[23vw] h-[50%]"}>
+                        <img
+                          className={"w-full h-full rounded-t-xl"}
+                          src={e?.image[0]?.file_url}
+                          alt={".."}
+                        />
+                      </div>
+                      <div
                         className={
-                          "max-h-[40%] overflow-y-hidden text-xs text-center text-[#151D48]"
+                          "w-[24vw] h-[50%] flex flex-col justify-center items-center"
                         }
                       >
-                        {TranslateClient(e.name)}
-                      </h2>
+                        <p className={"text-xs text-[#737791] text-center"}>
+                          {e.clinics_count} Doctors
+                        </p>
+                        <h2
+                          className={
+                            "max-h-[40%] overflow-y-hidden text-xs text-center text-[#151D48]"
+                          }
+                        >
+                          {TranslateClient(e.name)}
+                        </h2>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           </div>

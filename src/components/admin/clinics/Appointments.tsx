@@ -118,7 +118,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentService.make<AppointmentService>(
-        "admin"
+        "admin",
       ).getClinicAppointments(
         clinicId,
         page ?? 0,
@@ -126,7 +126,7 @@ const Appointments = ({ clinicId }: { clinicId: number }) => {
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
     filter: (params, setParams) => {
       return (

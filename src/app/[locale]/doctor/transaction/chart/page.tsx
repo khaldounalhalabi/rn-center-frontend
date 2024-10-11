@@ -46,7 +46,7 @@ const Page: React.FC = () => {
     queryFn: async () => {
       try {
         return await ClinicTransactionService.make<ClinicTransactionService>(
-          "doctor"
+          "doctor",
         ).getAll("date", "asc", { date: dataRange });
       } catch (err) {
         console.error("Error fetching transactions:", err);

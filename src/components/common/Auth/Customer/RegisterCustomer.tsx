@@ -41,9 +41,7 @@ const RegisterCustomer = () => {
         }
       >
         <h1
-          className={
-            " text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
-          }
+          className={" text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"}
         >
           Join PoM family
         </h1>

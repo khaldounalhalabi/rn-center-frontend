@@ -150,7 +150,6 @@ const Page = () => {
               className="select-bordered select"
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 setParams({ ...params, city_name: e.target.value });
-
               }}
             >
               {cities.map((city, index) => (

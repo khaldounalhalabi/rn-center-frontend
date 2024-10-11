@@ -56,8 +56,8 @@ const UserForm = ({
     Navigate(`/admin/user`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { image, ...res } = defaultValues??{image:"No Data"}
-  console.log(res)
+  const { image, ...res } = defaultValues ?? { image: "No Data" };
+  console.log(res);
   return (
     <Form
       handleSubmit={handleSubmit}

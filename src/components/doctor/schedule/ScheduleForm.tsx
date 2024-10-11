@@ -140,12 +140,12 @@ const ScheduleForm = ({
     day: WeekDay,
     index: number,
     time: string,
-    timeType: "start_time" | "end_time"
+    timeType: "start_time" | "end_time",
   ) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].map((timeRange, i) =>
-        i === index ? { ...timeRange, [timeType]: time } : timeRange
+        i === index ? { ...timeRange, [timeType]: time } : timeRange,
       ),
     }));
   };
@@ -174,7 +174,7 @@ const ScheduleForm = ({
             end_time: dayjs(item.end_time, "HH:mm").format("HH:mm"),
             day_of_week: value[0] as string,
           });
-        }
+        },
       );
     });
 
@@ -217,7 +217,7 @@ const ScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "start_time"
+                        "start_time",
                       )
                     }
                   />
@@ -229,13 +229,13 @@ const ScheduleForm = ({
                         day,
                         index,
                         newValue?.format("HH:mm") ?? "",
-                        "end_time"
+                        "end_time",
                       )
                     }
                     shouldDisableTime={(time) => {
                       return time.isSameOrBefore(
                         dayjs(schedule?.[day]?.[index]?.start_time, "HH:mm"),
-                        "minutes"
+                        "minutes",
                       );
                     }}
                   />

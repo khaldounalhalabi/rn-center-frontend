@@ -22,6 +22,6 @@ export interface AdminStatistics {
 }
 
 export interface StatisticsPublic {
-  clinics_count: number,
-  success_appointments_count: number
+  clinics_count: number;
+  success_appointments_count: number;
 }

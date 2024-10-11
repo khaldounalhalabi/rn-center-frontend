@@ -1,5 +1,4 @@
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
-import RoundedImage from "@/components/common/RoundedImage";
 import LocationPinIcon from "@/components/icons/LovationPinIcon";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { getMedia } from "@/Models/Media";

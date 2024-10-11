@@ -25,7 +25,7 @@ const Show = ({
     queryKey: ["AppointmentService"],
     queryFn: async () => {
       return await AppointmentService.make<AppointmentService>("doctor").show(
-        appointmentId
+        appointmentId,
       );
     },
   });

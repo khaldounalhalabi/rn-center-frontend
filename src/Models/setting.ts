@@ -1,4 +1,4 @@
-import {Media} from "@/Models/Media";
+import { Media } from "@/Models/Media";
 
 export interface Setting {
   id: number;

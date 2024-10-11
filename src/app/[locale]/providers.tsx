@@ -7,8 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import NotificationProvider from "@/components/common/NotificationProvider";
-import { getCookieClient } from "@/Actions/clientCookies";
-import {useLocale} from "next-intl";
+import { useLocale } from "next-intl";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;

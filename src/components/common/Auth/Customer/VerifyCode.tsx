@@ -52,9 +52,7 @@ const VerifyCode = ({
         }
       >
         <h1
-          className={
-            " text-[20px] md:text-[32px] font-semibold text-[#f1fcfc]"
-          }
+          className={" text-[20px] md:text-[32px] font-semibold text-[#f1fcfc]"}
         >
           Enter your verification code sent you using sms
         </h1>

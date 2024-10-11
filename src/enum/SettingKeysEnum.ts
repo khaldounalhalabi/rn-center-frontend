@@ -5,7 +5,7 @@ export enum SettingKeysEnum {
   ContactNumber2 = "contact_number_2",
   DaysBeforeExpirationNotification = "days_before_notify_for_expiration",
   ClinicContract = "clinic_contract",
-  ZainCASHQR="zain_cash_qr"
+  ZainCashQr = "zain_cash_qr",
 }
 
 export const EditorRequiredSettings: string[] = [

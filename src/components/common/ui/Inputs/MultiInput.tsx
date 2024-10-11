@@ -33,7 +33,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
 
   // Ensure there's always at least one input field
   const [inputs, setInputs] = useState<any[]>(
-    defaultValue.length ? defaultValue : [""]
+    defaultValue.length ? defaultValue : [""],
   );
 
   const handleInputChange = (index: number, value: any) => {

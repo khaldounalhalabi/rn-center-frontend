@@ -1,7 +1,7 @@
-const NoClinicImage = ({...props}) => {
+const NoClinicImage = ({ ...props }) => {
   return (
     <svg
-        {...props}
+      {...props}
       viewBox="0 0 380 154"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,4 +30,4 @@ const NoClinicImage = ({...props}) => {
     </svg>
   );
 };
-export default NoClinicImage
+export default NoClinicImage;

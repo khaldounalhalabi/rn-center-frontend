@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import XMark from "@/components/icons/XMark";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import { useLocale, useTranslations } from "next-intl";
@@ -53,83 +52,82 @@ const SidebarDoctor = ({
       search: "dashboard,لوحةالقيادة,داشبورد",
       title: t("dashboard"),
       link: "/doctor",
-      role:""
+      role: "",
     },
     {
       search: "clinics,عيادة,العيادات",
       title: t("clinics"),
       link: "/doctor/clinics",
-      role:""
+      role: "",
     },
     {
       search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
       title: t("clinicsSchedules"),
       link: "/doctor/clinics/schedules",
-      role:PermissionsDoctor.MANGE_SCHEDULES,
+      role: PermissionsDoctor.MANGE_SCHEDULES,
     },
     {
       search:
         "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
       title: t("clinicsHolidays"),
       link: "/doctor/clinics/holidays",
-      role:PermissionsDoctor.MANAGE_HOLIDAYS,
+      role: PermissionsDoctor.MANAGE_HOLIDAYS,
     },
     {
       search: "medicines,medicine,الدواء,علاج,ادوية",
       title: t("medicines"),
       link: "/doctor/medicines",
-      role:PermissionsDoctor.MANAGE_MEDICINES,
+      role: PermissionsDoctor.MANAGE_MEDICINES,
     },
     {
       search: "appointment,appointments,موعد,مواعيد",
       title: t("appointment"),
       link: "/doctor/appointment",
-      role:PermissionsDoctor.MANAGE_APPOINTMENTS,
+      role: PermissionsDoctor.MANAGE_APPOINTMENTS,
     },
     {
       search: "patients,patient,مرضى,مريض",
       title: t("patients"),
       link: "/doctor/patients",
-      role:PermissionsDoctor.MANAGE_PATIENTS,
+      role: PermissionsDoctor.MANAGE_PATIENTS,
     },
 
     {
       search: "offers,عروض,عرض",
       title: t("offers"),
       link: "/doctor/offers",
-      role:PermissionsDoctor.MANAGE_OFFERS,
+      role: PermissionsDoctor.MANAGE_OFFERS,
     },
     {
       search: "services,خدمة,خدمات",
       title: t("services"),
       link: "/doctor/services",
-      role:PermissionsDoctor.MANAGE_SERVICE,
+      role: PermissionsDoctor.MANAGE_SERVICE,
     },
     {
       search: "staff,موظف,موظفون,موظفين,عمال",
       title: t("staff"),
       link: "/doctor/staff",
-      role:PermissionsDoctor.MANAGE_EMPLOYEES
+      role: PermissionsDoctor.MANAGE_EMPLOYEES,
     },
     {
       search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
       title: t("appointmentDeductions"),
       link: "/doctor/appointment-deductions",
-      role:PermissionsDoctor.ACCOUNTANT_MANAGEMENT
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
     },
     {
       search: "transaction,تحويلات,تحويل,معاملات",
       title: t("transaction"),
       link: "/doctor/transaction",
-      role:PermissionsDoctor.ACCOUNTANT_MANAGEMENT
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
     },
     {
       search: "clinic details,معلومات,تفاصيل,عيادات,عيادة",
       title: t("clinicDetails"),
       link: "/doctor/clinic-details",
-      role:""
+      role: "",
     },
-
   ];
   const filteredItems = sidebarItems.filter((item) =>
     item.search.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -193,11 +191,9 @@ const SidebarDoctor = ({
                 key={index}
                 className={
                   role == Role.CLINIC_EMPLOYEE &&
-                  !permissionsArray.includes(
-                      item.role,
-                  )
-                      ? "hidden"
-                      : ""
+                  !permissionsArray.includes(item.role)
+                    ? "hidden"
+                    : ""
                 }
               >
                 {" "}

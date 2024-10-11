@@ -71,14 +71,17 @@ const PatientForm = ({
       defaultValues={res}
       setLocale={setLocale}
     >
-      {appointment ? <h2 className="card-title my-5">{t("addPatient")}</h2> : ""}
+      {appointment ? (
+        <h2 className="card-title my-5">{t("addPatient")}</h2>
+      ) : (
+        ""
+      )}
       <Grid md={"2"}>
         {type != "update" ? (
           <TranslatableInput
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-
             label={t("firstName")}
             name={"first_name"}
             locale={locale}
@@ -96,7 +99,6 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-
             label={t("middleName")}
             name={"middle_name"}
             locale={locale}
@@ -114,7 +116,6 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-
             label={t("lastName")}
             locale={locale}
             name={"last_name"}
@@ -146,7 +147,9 @@ const PatientForm = ({
           />
         )}
         {type != "update" ? (
-          <div className={`flex md:flex-row flex-col justify-between w-full items-center py-10`}>
+          <div
+            className={`flex md:flex-row flex-col justify-between w-full items-center py-10`}
+          >
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>
@@ -198,7 +201,6 @@ const PatientForm = ({
             required={true}
             locales={["en", "ar"]}
             type={"text"}
-
             label={t("address")}
             name={"address.name"}
             locale={locale}

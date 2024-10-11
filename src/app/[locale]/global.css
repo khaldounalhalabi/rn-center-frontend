@@ -10,7 +10,7 @@
     font-family: var(--font-Cairo) !important;
 }
 
-.shadowCard{
+.shadowCard {
     -webkit-box-shadow: 8px 9.5px 12px -12.5px #b6b6b6;
     -moz-box-shadow: 8px 9.5px 12px -12.5px #b6b6b6;
     box-shadow: 8px 9.5px 12px -12.5px #b6b6b6;

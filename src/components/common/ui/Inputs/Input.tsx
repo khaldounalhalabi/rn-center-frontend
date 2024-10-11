@@ -35,7 +35,7 @@ const Input: React.FC<InputProps> = ({
   setWatch,
   unit,
   min = 0,
-  placeholder=undefined,
+  placeholder = undefined,
   ...props
 }) => {
   const {

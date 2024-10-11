@@ -16,12 +16,12 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Link } from "@/navigation";
-import {useLocale, useTranslations} from "next-intl";
-import arLocale from '@fullcalendar/core/locales/ar';
+import { useLocale, useTranslations } from "next-intl";
+import arLocale from "@fullcalendar/core/locales/ar";
 
 const CalendarComponent = () => {
-  const locale = useLocale()
-  const calendarLocale = locale === 'ar' ? 'ar' : 'en';
+  const locale = useLocale();
+  const calendarLocale = locale === "ar" ? "ar" : "en";
   const calendarRef = useRef(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [startDate, setStartDate] = useState<string>(
@@ -32,7 +32,7 @@ const CalendarComponent = () => {
   const typeData = ["online", "manual", "all"];
   const [params, setParams] = useState({});
   const [startFilter, setStartFilter] = useState(0);
-  const t = useTranslations('common.appointment.calender')
+  const t = useTranslations("common.appointment.calender");
   const filter = (params: any, setParams: any) => {
     return (
       <>

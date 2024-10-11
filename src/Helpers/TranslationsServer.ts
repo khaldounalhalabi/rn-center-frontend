@@ -1,5 +1,5 @@
 "use server";
-import {getLocale} from "next-intl/server";
+import { getLocale } from "next-intl/server";
 
 const TranslateServer = async (
   val: string | undefined | null,

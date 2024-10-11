@@ -21,7 +21,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
   const [errorBlocked, setErrorBlocked] = useState();
   const [contractError, setContractError] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const handleSubmit = (data: { email: string; password: string }) => {
@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined)
+      JSON.stringify(data?.data?.user ?? undefined),
     );
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");

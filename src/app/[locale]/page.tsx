@@ -33,7 +33,7 @@ const Page = () => {
         <CenterFooter />
         <BloodBank />
         <Hospital />
-        <DownloadFooter/>
+        <DownloadFooter />
         <Footer />
       </div>
     </Providers>

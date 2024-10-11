@@ -25,7 +25,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useQuery } from "@tanstack/react-query";
 import { ServiceService } from "@/services/ServiceService";
 import dayjs from "dayjs";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
 

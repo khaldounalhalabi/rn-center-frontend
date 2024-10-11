@@ -18,12 +18,8 @@ const CardsAppointmentAdmin = ({
 
   return (
     <div className={"flex flex-col md:flex-row w-full"}>
-      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
-        <div
-          className={
-            "flex w-full justify-between items-center gap-1"
-          }
-        >
+      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
+        <div className={"flex w-full justify-between items-center gap-1"}>
           <div>{t("totalAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -34,10 +30,8 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
-        <div
-          className={"flex justify-between items-center gap-1"}
-        >
+      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
+        <div className={"flex justify-between items-center gap-1"}>
           <div>{t("nextAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -48,10 +42,8 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl w-full'}>
-        <div
-          className={"flex justify-between items-center gap-1"}
-        >
+      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
+        <div className={"flex justify-between items-center gap-1"}>
           <div>{t("todayAppointments")}</div>
           <div>
             {isLoading || isFetching ? (

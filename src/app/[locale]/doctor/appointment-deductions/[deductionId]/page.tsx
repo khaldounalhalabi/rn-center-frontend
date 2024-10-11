@@ -15,7 +15,7 @@ const page = async ({
   const t = await getTranslations("common.deductions.show");
   const data =
     await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-      "doctor"
+      "doctor",
     ).show(deductionId);
   const res: AppointmentDeductions = data?.data;
 

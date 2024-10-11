@@ -10,9 +10,6 @@ export function getCookieClient(key: string) {
   return coc ? coc : "";
 }
 
-
-
-
 export function deleteCookieClient(key: string) {
   return deleteCookie(key);
 }

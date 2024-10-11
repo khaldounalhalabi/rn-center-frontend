@@ -24,7 +24,7 @@ const AppointmentStatusColumn = ({
   userType?: "admin" | "doctor";
 }) => {
   const [appointmentState, setAppointment] = useState<Appointment | undefined>(
-    appointment
+    appointment,
   );
 
   const [isPending, setPending] = useState<boolean>(false);
@@ -219,7 +219,7 @@ const AppointmentStatusColumn = ({
             >
               {AppointmentStatusesFilter(
                 appointment?.type ?? "",
-                appointment?.status ?? ""
+                appointment?.status ?? "",
               ).map((e, index) => (
                 <option
                   key={index}

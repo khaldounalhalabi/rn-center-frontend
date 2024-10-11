@@ -1,24 +1,24 @@
 "use client";
-import { useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { ClinicsService } from "@/services/ClinicsService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getMedia } from "@/Models/Media";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import React, {ChangeEvent, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Link } from "@/navigation";
 import LocationIcon from "@/components/icons/LocationIcon";
 import FireIcon from "@/components/icons/FireIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
 import { FilterTowIcon } from "@/components/icons/FilterTowIcon";
 import Overview from "@/components/common/Overview";
-import {cities} from "@/constants/Cities";
+import { cities } from "@/constants/Cities";
 
 const ClinicsList = () => {
   const [params, setParams] = useState<Record<string, any>>({});
   const [search, setSearch] = useState("");
   const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ["Clinic-customer",params],
+      queryKey: ["Clinic-customer", params],
       queryFn: async ({ pageParam }) =>
         await ClinicsService.make<ClinicsService>("public").indexWithPagination(
           pageParam,
@@ -80,24 +80,24 @@ const ClinicsList = () => {
         </div>
       </div>
       <Overview isOpen={isOpenFilter} closeModal={closeModalFilter}>
-        <h2 className={'card-title'}>Filter</h2>
+        <h2 className={"card-title"}>Filter</h2>
         <label className="label">
           City :
           <select
-              className="select-bordered select"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                setParams({ ...params, city_name: e.target.value });
-                closeModalFilter()
-              }}
+            className="select-bordered select"
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              setParams({ ...params, city_name: e.target.value });
+              closeModalFilter();
+            }}
           >
             {cities.map((city, index) => (
-                <option
-                    key={index}
-                    value={city.name}
-                    selected={params?.city_name == city.name}
-                >
-                  {TranslateClient(city.name)}
-                </option>
+              <option
+                key={index}
+                value={city.name}
+                selected={params?.city_name == city.name}
+              >
+                {TranslateClient(city.name)}
+              </option>
             ))}
           </select>
         </label>
@@ -106,22 +106,22 @@ const ClinicsList = () => {
         <h2 className={"card-title"}>Search</h2>
         <div>
           <input
-              className="block kodchasan py-2.5 px-0 w-full   bg-transparent border-0 border-b-2 border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]  peer"
+            className="block kodchasan py-2.5 px-0 w-full   bg-transparent border-0 border-b-2 border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]  peer"
             type={"text"}
             placeholder={"Search..."}
             onChange={(e) => setSearch(e.target.value)}
           />
-
         </div>
 
         <button
           className="inline-flex mt-4 justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => {
-            setParams({ search: search })
-            closeModalSearch()
-          }
-        }
-        >Search</button>
+            setParams({ search: search });
+            closeModalSearch();
+          }}
+        >
+          Search
+        </button>
       </Overview>
       <div className={"w-full my-10 flex flex-col sm:flex-row flex-wrap"}>
         {isPending ? (
@@ -132,7 +132,10 @@ const ClinicsList = () => {
           data?.pages.map((page) =>
             page?.data?.map((e, index) => {
               return (
-                <div className="h-[34vh] my-4 w-full sm:w-1/2 xl:w-1/3" key={index}>
+                <div
+                  className="h-[34vh] my-4 w-full sm:w-1/2 xl:w-1/3"
+                  key={index}
+                >
                   <Link
                     href={`/customer/clinics/${e.id}`}
                     className={"block h-full relative mx-4 cursor-pointer"}
@@ -148,7 +151,11 @@ const ClinicsList = () => {
                         alt={".."}
                       />
                     </div>
-                    <div className={"w-full h-[50%] flex  shadowCard  rounded-b-2xl"}>
+                    <div
+                      className={
+                        "w-full h-[50%] flex  shadowCard  rounded-b-2xl"
+                      }
+                    >
                       <div
                         className={
                           "w-[60%] pl-2 text-nowrap flex flex-col justify-around"
@@ -190,7 +197,11 @@ const ClinicsList = () => {
                             "bg-[#2ECBCC] rounded-xl w-[60%] h-[20px] flex justify-center items-center"
                           }
                         >
-                          <h2 className={"font-semibold text-white text-[9px] md:text-[12px] xl:text-[15px]"}>
+                          <h2
+                            className={
+                              "font-semibold text-white text-[9px] md:text-[12px] xl:text-[15px]"
+                            }
+                          >
                             {TranslateClient(e.specialities?.[0]?.name)}
                           </h2>
                         </div>

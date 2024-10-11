@@ -98,7 +98,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
 
@@ -139,7 +139,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -147,7 +147,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -284,7 +284,9 @@ function ApiSelect<TResponse, TData>({
           </div>
 
           {data?.pages?.map((res) => {
-            const items = getDataArray ? getDataArray(res) ?? [] : (res.data as TData[]);
+            const items = getDataArray
+              ? getDataArray(res) ?? []
+              : (res.data as TData[]);
             return items?.map((item, index) => (
               <div
                 key={index}

@@ -14,7 +14,7 @@ import AppointmentSpeechButton from "@/components/doctor/appointment/Appointment
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
 

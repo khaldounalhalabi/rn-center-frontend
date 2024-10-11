@@ -115,8 +115,8 @@ const Page = () => {
           <span className="flex items-center justify-between gap-1">
             {data?.toLocaleString() + " IQD"}{" "}
             {(appointment?.system_offers?.length ?? 0) > 0 && (
-                <PercentBadge className="text-[#00a96e] h-6 w-6" />
-              )}
+              <PercentBadge className="text-[#00a96e] h-6 w-6" />
+            )}
           </span>
         ),
       },

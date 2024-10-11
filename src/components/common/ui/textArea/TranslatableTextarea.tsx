@@ -28,7 +28,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   placeholder = undefined;
   const [selectedLocale, setSelectedLocale] = useState<Locales>(locale ?? "en");
   const [trVal, setTrVal] = useState<Translatable>(
-    defaultValue ? TranslateClient(defaultValue, true) : { en: "", ar: "" }
+    defaultValue ? TranslateClient(defaultValue, true) : { en: "", ar: "" },
   );
   const {
     setValue,

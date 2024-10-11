@@ -29,7 +29,7 @@ export interface DataTableSchema<T> {
     data: any,
     fullObject?: T,
     setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void,
-    revalidate?: () => void
+    revalidate?: () => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 
@@ -44,13 +44,13 @@ export interface DataTableData<T> {
     sortCol?: string,
     sortDir?: string,
     perPage?: number,
-    params?: object
+    params?: object,
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
     params: FilterParam,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam
-    ) => void
+      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
+    ) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
 

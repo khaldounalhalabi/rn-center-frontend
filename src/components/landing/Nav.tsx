@@ -1,26 +1,29 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "@/navigation";
 import UserIcon from "@/components/icons/UserIcon";
 import MenuIcon from "@/components/icons/MenuIcon";
 import Close from "@/components/icons/Close";
-import {getCookieClient} from "@/Actions/clientCookies";
-import {Navigate} from "@/Actions/navigate";
+import { getCookieClient } from "@/Actions/clientCookies";
+import { Navigate } from "@/Actions/navigate";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
-  const actor = getCookieClient('role')
+  const actor = getCookieClient("role");
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches) {
-      if(actor === "admin"){
-        Navigate('/admin')
-      }else if(actor === "doctor"){
-        Navigate('/doctor')
-      }else if(actor === "customer"){
-        Navigate('/customer')
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(display-mode: standalone)").matches
+    ) {
+      if (actor === "admin") {
+        Navigate("/admin");
+      } else if (actor === "doctor") {
+        Navigate("/doctor");
+      } else if (actor === "customer") {
+        Navigate("/customer");
       }
     } else {
-      console.log('Running in the browser');
+      console.log("Running in the browser");
     }
   }, []);
   return (

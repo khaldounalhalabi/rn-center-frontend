@@ -27,42 +27,44 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         return res;
       });
   };
-  const {image,...res} = defaultValues??{image:"no Data"}
+  const { image, ...res } = defaultValues ?? { image: "no Data" };
   return (
     <Form handleSubmit={handleSubmit} defaultValues={res}>
       {EditorRequiredSettings.includes(defaultValues.label) ? (
-          <CKTextEditor
-              name={"value"}
-              label={defaultValues?.label?.replace(/_/g, " ")}
-              defaultValue={defaultValues ? defaultValues?.value : undefined}
+        <CKTextEditor
+          name={"value"}
+          label={defaultValues?.label?.replace(/_/g, " ")}
+          defaultValue={defaultValues ? defaultValues?.value : undefined}
+        />
+      ) : SettingKeysEnum.ZainCashQr === defaultValues.label ? (
+        <>
+          <div className={"col-span-2"}>
+            {defaultValues?.image?.length != 0 ? (
+              <Gallery
+                media={defaultValues?.image ? defaultValues?.image : [""]}
+              />
+            ) : (
+              <div className="flex items-center">
+                <label className="label"> {t("image")} : </label>
+                <span className="text-lg badge badge-neutral">
+                  {t("noData")}
+                </span>
+              </div>
+            )}
+          </div>
+          <ImageUploader name={"image"} label={t("image")} />
+        </>
+      ) : (
+        <Grid md={2}>
+          <Input
+            required={true}
+            name={"value"}
+            label={defaultValues?.label?.replace(/_/g, " ")}
+            placeholder={"value ...."}
+            type="text"
+            defaultValue={defaultValues ? defaultValues?.value : undefined}
           />
-      ) :SettingKeysEnum.ZainCASHQR === (defaultValues.label)?
-          <>
-                  <div className={"col-span-2"}>
-                      {defaultValues?.image?.length != 0 ? (
-                          <Gallery
-                              media={defaultValues?.image ? defaultValues?.image : [""]}
-                          />
-                      ) : (
-                          <div className="flex items-center">
-                              <label className="label"> {t("image")} : </label>
-                              <span className="text-lg badge badge-neutral">{t("noData")}</span>
-                          </div>
-                      )}
-                  </div>
-              <ImageUploader name={"image"} label={t("image")} />
-          </>
-          : (
-              <Grid md={2}>
-                  <Input
-                      required={true}
-                      name={"value"}
-                      label={defaultValues?.label?.replace(/_/g, " ")}
-                      placeholder={"value ...."}
-                      type="text"
-                      defaultValue={defaultValues ? defaultValues?.value : undefined}
-                  />
-              </Grid>
+        </Grid>
       )}
     </Form>
   );

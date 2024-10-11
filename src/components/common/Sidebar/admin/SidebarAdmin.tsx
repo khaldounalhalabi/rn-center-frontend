@@ -1,6 +1,5 @@
 "use client";
-import React ,{useState}from "react";
-import XMark from "@/components/icons/XMark";
+import React, { useState } from "react";
 import "@/app/[locale]/global.css";
 import SidebarItem from "@/components/common/Sidebar/SidebarItem";
 import { useLocale, useTranslations } from "next-intl";
@@ -139,7 +138,8 @@ const SidebarAdmin = ({
       link: "/admin/hospitals",
     },
     {
-      search: "available departments,departments,اقسام,متاح,متاحة,قسم,available",
+      search:
+        "available departments,departments,اقسام,متاح,متاحة,قسم,available",
       title: t("availableDepartments"),
       link: "/admin/available-departments",
     },
@@ -211,33 +211,37 @@ const SidebarAdmin = ({
           />
         </div>
         <div className={`px-4 relative ${openNavBar.md ? " hidden " : ""}`}>
-          <div className={`absolute flex gap-2  top-4 items-center  ${local == 'ar'?"left-[8%]":"right-[8%]"}`}>
-            <SearchIcon className={'w-5 h-5  opacity-60'}/>
+          <div
+            className={`absolute flex gap-2  top-4 items-center  ${local == "ar" ? "left-[8%]" : "right-[8%]"}`}
+          >
+            <SearchIcon className={"w-5 h-5  opacity-60"} />
           </div>
-          <input type={'text'}
-                 placeholder={'Search'}
-                 className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
+          <input
+            type={"text"}
+            placeholder={"Search"}
+            className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
                     border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
-                 onChange={(e)=>{setSearchTerm(e.target.value)}}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
-
         </div>
         <ul
           className={`space-y-1 px-4 pt-3  h-[85vh] text-black ease-in-out duration-500 transform overflow-y-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
-          {searchTerm ?
-              filteredItems?.map((item, index) => (
-                  <SidebarItem
-                      setOpenNavBar={setOpenNavBar}
-                      openNavBar={openNavBar}
-                      link={item.link}
-                      key={index}
-                  >
-                    {" "}
-                    {item.title}
-                  </SidebarItem>
-                ))
-           : (
+          {searchTerm ? (
+            filteredItems?.map((item, index) => (
+              <SidebarItem
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={item.link}
+                key={index}
+              >
+                {" "}
+                {item.title}
+              </SidebarItem>
+            ))
+          ) : (
             <>
               <SidebarItem
                 setOpenNavBar={setOpenNavBar}

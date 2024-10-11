@@ -27,7 +27,7 @@ const AppointmentStatusColumn = ({
   const handleSelectStatus = (
     status: string,
     id: number,
-    setSelected: React.Dispatch<string | undefined>
+    setSelected: React.Dispatch<string | undefined>,
   ) => {
     setLoading(true);
     if (status == AppointmentStatusEnum.CHECKIN) {
@@ -172,7 +172,7 @@ const AppointmentStatusColumn = ({
               : handleSelectStatus(
                   e.target.value,
                   appointmentState?.id ?? 0,
-                  setSelected
+                  setSelected,
                 );
           }}
         >

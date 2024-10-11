@@ -1,4 +1,3 @@
-import en from "./../../messages/en.json";
 import en from "./../../messages/ar.json";
 
 type Messages = typeof en;

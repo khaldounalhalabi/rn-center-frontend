@@ -40,9 +40,7 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
   };
 
   return (
-    <div
-      className={`my-10 grid gap-6 grid-cols-2 md:grid-cols-6 w-full`}
-    >
+    <div className={`my-10 grid gap-6 grid-cols-2 md:grid-cols-6 w-full`}>
       {isMutating ? (
         <LoadingSpin className={"w-7 h-7"} />
       ) : (

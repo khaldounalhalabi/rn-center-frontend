@@ -1,8 +1,15 @@
-import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
 
-
-const Overview = ({ isOpen, closeModal, children }:{ isOpen:any, closeModal:any, children: React.ReactNode }) => {
+const Overview = ({
+  isOpen,
+  closeModal,
+  children,
+}: {
+  isOpen: any;
+  closeModal: any;
+  children: React.ReactNode;
+}) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -30,7 +37,7 @@ const Overview = ({ isOpen, closeModal, children }:{ isOpen:any, closeModal:any,
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  {children}
+                {children}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -40,4 +47,4 @@ const Overview = ({ isOpen, closeModal, children }:{ isOpen:any, closeModal:any,
   );
 };
 
-export default Overview
+export default Overview;

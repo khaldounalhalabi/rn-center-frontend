@@ -40,7 +40,7 @@ const Page = () => {
             isLoading={isLoading}
             isFetching={isFetching}
           />
-          <Card className={'my-4 mx-0 md:m-4 bg-white rounded-2xl'}>
+          <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl"}>
             <h2 className={"card-title mb-8"}>
               {t("earningsFromAppointments")}
             </h2>

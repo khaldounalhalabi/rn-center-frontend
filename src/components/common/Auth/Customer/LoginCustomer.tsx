@@ -64,9 +64,7 @@ const LoginCustomer = () => {
         }
       >
         <h1
-          className={
-            " text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"
-          }
+          className={" text-[40px] md:text-[64px] font-semibold text-[#f1fcfc]"}
         >
           Welcome back
         </h1>

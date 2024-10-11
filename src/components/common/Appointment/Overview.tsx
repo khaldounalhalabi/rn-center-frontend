@@ -9,7 +9,6 @@ import { useTranslations } from "next-intl";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Label } from "../ui/LabelsValues/Label";
 import { LabelValue } from "../ui/LabelsValues/LabelValue";
-import { Value } from "../ui/LabelsValues/Value";
 
 const Overview = ({
   appointment,
@@ -24,9 +23,9 @@ const Overview = ({
     HandleCalcOffers(
       appointment?.system_offers ?? [],
       appointment?.clinic?.appointment_cost ?? 0,
-      "system"
+      "system",
     ),
-    "offer"
+    "offer",
   );
 
   const handleTotalCost = (): number => {

@@ -19,13 +19,13 @@ const CollectSpecificSubscriptionButton = ({
   const mutation = useMutation({
     mutationFn: (clinicSubscriptionId: number) =>
       ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin"
+        "admin",
       ).collect(clinicSubscriptionId),
     onSuccess: (data) => {
       if (data.data === true) {
         toast.success("Collected successfully");
         setSubscription((prev) =>
-          prev ? { ...prev, is_paid: true } : undefined
+          prev ? { ...prev, is_paid: true } : undefined,
         );
 
         if (refetch) {

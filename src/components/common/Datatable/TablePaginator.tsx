@@ -42,7 +42,7 @@ const TablePaginator = ({
             className="btn btn-sm btn-square bg-pom disabled:btn-neutral disabled:text-black cursor-pointer"
           >
             <div className="tooltip" data-tip={t("nextPage")}>
-            {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
+              {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
             </div>
           </button>
         </li>

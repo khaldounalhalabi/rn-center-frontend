@@ -1,9 +1,7 @@
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
 import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import dayjs from "dayjs";
-import ClinicTransactionTypeArray, {
-  TransactionType,
-} from "@/enum/ClinicTransactionType";
+import { TransactionType } from "@/enum/ClinicTransactionType";
 import { TransactionStatus } from "@/enum/ClinicTransactionStatus";
 
 interface FilteredData {
@@ -15,7 +13,7 @@ interface FilteredData {
 }
 
 const filterDataForChart = (
-  data?: ClinicTransaction[] | AppointmentDeductions[]
+  data?: ClinicTransaction[] | AppointmentDeductions[],
 ): FilteredData => {
   const dataAll: FilteredData = {};
 

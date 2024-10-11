@@ -6,7 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import "./embla.css";
 
 const SystemOfferCarousel = () => {
-  const { data, isPending } = useQuery({
+  const { data, isPending, isLoading } = useQuery({
     queryKey: ["system_offers_carousel"],
     queryFn: async () => {
       return await SystemOffersService.make<SystemOffersService>(
@@ -20,24 +20,49 @@ const SystemOfferCarousel = () => {
     <div className="my-4  h-[23vh] md:h-[25vh] xl:h-[28vh]  ">
       <div className="embla h-full" ref={emblaRef}>
         <div className="embla__container">
-          {data?.data.map((offer, index) => (
-            <div
-              className="mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]"
-              key={index}
-            >
+          {isLoading ? (
+            <>
               <div
                 className={
-                  "  w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]               h-[23vh] md:h-[25vh] xl:h-[28vh] "
+                  "skeleton mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]"
                 }
+              ></div>
+              <div
+                className={
+                  "skeleton mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw] "
+                }
+              ></div>
+              <div
+                className={
+                  "skeleton mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw] md:block hidden"
+                }
+              ></div>
+              <div
+                className={
+                  "skeleton mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw] md:block hidden"
+                }
+              ></div>
+            </>
+          ) : (
+            data?.data.map((offer, index) => (
+              <div
+                className="mx-2 w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]"
+                key={index}
               >
-                <img
-                  className={"rounded-3xl h-full w-full"}
-                  src={offer.image[0].file_url}
-                  alt={offer.title}
-                />
+                <div
+                  className={
+                    "  w-[80vw] sm:w-[60vw] md:w-[50vw] lg:w-[35vw]               h-[23vh] md:h-[25vh] xl:h-[28vh] "
+                  }
+                >
+                  <img
+                    className={"rounded-3xl h-full w-full"}
+                    src={offer.image[0].file_url}
+                    alt={offer.title}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

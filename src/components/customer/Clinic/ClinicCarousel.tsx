@@ -11,7 +11,7 @@ import FireIcon from "@/components/icons/FireIcon";
 import { getMedia } from "@/Models/Media";
 
 const ClinicCarousel = () => {
-  const { data, isPending } = useQuery({
+  const { data, isPending,isLoading } = useQuery({
     queryKey: ["clinic_cards"],
     queryFn: async () =>
       ClinicsService.make<ClinicsService>("public").indexWithPagination(
@@ -26,6 +26,7 @@ const ClinicCarousel = () => {
   const arrayData = Array.isArray(data?.data) ? data.data : [];
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
+
   return (
     <div className={"mt-6 mb-24"}>
       <div className={"flex flex-col"}>
@@ -39,7 +40,14 @@ const ClinicCarousel = () => {
         <div className="h-[24vh] sm:h-[34vh] xl:h-[40vh]">
           <div className="embla h-full" ref={emblaRef}>
             <div className="embla__container py-6">
-              {data?.data?.map((e: Clinic, index) => (
+              {isLoading?
+                  <>
+                    <div className={'skeleton w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl mx-4'}></div>
+                    <div className={'skeleton w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl mx-4'}></div>
+                    <div className={'skeleton w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl mx-4 hidden md:block'}></div>
+                    <div className={'skeleton w-[63vw] sm:w-[33vw] lg:w-[30vw] rounded-xl mx-4 hidden md:block'}></div>
+                  </>
+                  :data?.data?.map((e: Clinic, index) => (
                 <Link
                   href={`/customer/clinics/${e?.id}`}
                   className={

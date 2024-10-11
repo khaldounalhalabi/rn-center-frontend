@@ -146,7 +146,7 @@ const PatientForm = ({
           />
         )}
         {type != "update" ? (
-          <div className={`flex md:flex-row flex-col justify-between items-start w-full`}>
+          <div className={`flex md:flex-row flex-col justify-between w-full items-center pb-1`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>

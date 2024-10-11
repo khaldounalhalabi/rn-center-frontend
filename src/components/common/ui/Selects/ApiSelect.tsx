@@ -285,7 +285,6 @@ function ApiSelect<TResponse, TData>({
 
           {data?.pages?.map((res) => {
             const items = getDataArray ? getDataArray(res) ?? [] : (res.data as TData[]);
-            console.log(items,name)
             return items?.map((item, index) => (
               <div
                 key={index}

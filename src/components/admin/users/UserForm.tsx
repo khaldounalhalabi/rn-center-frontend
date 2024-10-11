@@ -57,6 +57,7 @@ const UserForm = ({
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { image, ...res } = defaultValues??{image:"No Data"}
+  console.log(res)
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -96,7 +97,7 @@ const UserForm = ({
           required={true}
           label={t("role")}
           name={"role"}
-          status={"admin"}
+          status={defaultValues?.role?.[0].name}
           ArraySelect={Roles()}
           handleSelect={() => undefined}
         />

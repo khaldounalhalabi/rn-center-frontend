@@ -17,6 +17,7 @@ import { Link } from "@/navigation";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import PercentBadge from "@/components/icons/PercentBadge";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");
@@ -114,8 +115,8 @@ const Page = () => {
           <span className="flex items-center justify-between gap-1">
             {data?.toLocaleString() + " IQD"}{" "}
             {(appointment?.system_offers?.length ?? 0) > 0 && (
-              <span className="rounded-full w-3 h-3 bg-[#00a96e]"></span>
-            )}
+                <PercentBadge className="text-[#00a96e] h-6 w-6" />
+              )}
           </span>
         ),
       },

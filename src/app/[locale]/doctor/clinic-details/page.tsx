@@ -189,12 +189,6 @@ const page = async () => {
           />
 
           <LabelValue
-            label={t("subscriptionType")}
-            value={res?.active_subscription?.type ?? 0}
-            color={"primary"}
-          />
-
-          <LabelValue
             label={t("subscriptionCost")}
             value={res?.active_subscription?.subscription?.cost ?? 0}
             color={"primary"}

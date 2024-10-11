@@ -105,8 +105,9 @@ const UserDataDoctor = ({
                 className={`
                  flex rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
               >
+                <BackIcon className={`w-8 h-5 ml-1 mt-1 rotate-180 ${local == "en"?"hidden":""}`} />
                 {t("profile")}{" "}
-                <BackIcon className="w-8 h-5 ml-1 mt-1 rotate-180" />
+                <BackIcon className={`w-8 h-5 ml-1 mt-1 rotate-180 ${local == "ar"?"hidden":""}`} />
               </Link>
             </div>
           )}

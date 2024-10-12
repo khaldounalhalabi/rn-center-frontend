@@ -8,7 +8,8 @@ const AgreeContractButton = () => {
   const { isPending, mutate, isSuccess } = useMutation({
     mutationFn: async () =>
       await AuthService.make<AuthService>().agreeOnContract(),
-    onSuccess: () => {
+    onSuccess: (option) => {
+      console.log(option);
       Navigate("/doctor");
     },
   });

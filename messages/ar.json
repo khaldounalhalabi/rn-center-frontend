@@ -957,7 +957,8 @@
         "otherData": "بيانات اخرى",
         "note": "ملاحظة",
         "medicalCondition": "الحالة الطبية",
-        "lastAppointment": "اخر موعد"
+        "lastAppointment": "اخر موعد",
+        "appointments_count" : "عدد المواعيد"
       }
     },
     "prescription": {

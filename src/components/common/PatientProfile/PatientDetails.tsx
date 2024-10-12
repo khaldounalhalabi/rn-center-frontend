@@ -22,7 +22,7 @@ const PatientDetails = ({
   };
   const otherData = patient?.currentClinicPatientProfile?.other_data
     ? convertObjectToArray(
-        JSON.parse(patient?.currentClinicPatientProfile?.other_data),
+        JSON.parse(patient?.currentClinicPatientProfile?.other_data)
       )
     : [];
   console.log(patient);
@@ -64,11 +64,25 @@ const PatientDetails = ({
           value={patient?.user?.blood_group}
           color={"error"}
         />
-        <LabelValue
-          label={t("lastAppointment")}
-          value={patient?.currentClinicPatientProfile?.last_appointment?.date}
-          color={"error"}
-        />
+        {typePage == "doctor" && (
+          <>
+            <LabelValue
+              label={t("lastAppointment")}
+              value={
+                patient?.currentClinicPatientProfile?.last_appointment?.date
+              }
+              color={"error"}
+            />
+
+            <LabelValue
+              label={t("appointments_count")}
+              value={
+                patient?.currentClinicPatientProfile?.appointments_count ?? 0
+              }
+              color={"warning"}
+            />
+          </>
+        )}
       </Grid>
       {typePage == "admin" ? (
         ""

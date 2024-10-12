@@ -953,7 +953,8 @@
         "otherData": "Other Data",
         "note": "Note",
         "medicalCondition": "Medical Condition",
-        "lastAppointment": "Last Appointment"
+        "lastAppointment": "Last Appointment",
+        "appointments_count" : "Appointments count"
       }
     },
     "prescription": {

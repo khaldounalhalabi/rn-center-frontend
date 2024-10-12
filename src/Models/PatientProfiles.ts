@@ -15,4 +15,6 @@ export interface PatientProfiles {
   clinic?: Clinic;
   images?: Media[] | string[];
   last_appointment?: Appointment;
+  appointments?: Appointment[];
+  appointments_count?: number;
 }

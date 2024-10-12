@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 const Sidebar = dynamic(
   () => import("@/components/common/Sidebar/doctor/SidebarDoctor"),
   {
-    ssr: false, // Disable server-side rendering
+    ssr: true,
   },
 );
 const NavProvider = ({ children }: { children: React.ReactNode }) => {

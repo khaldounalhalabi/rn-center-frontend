@@ -55,22 +55,16 @@ const SidebarDoctor = ({
       role: "",
     },
     {
-      search: "clinics,عيادة,العيادات",
-      title: t("clinics"),
-      link: "/doctor/clinics",
-      role: "",
-    },
-    {
       search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
       title: t("clinicsSchedules"),
-      link: "/doctor/clinics/schedules",
+      link: "/doctor/clinic/schedules",
       role: PermissionsDoctor.MANGE_SCHEDULES,
     },
     {
       search:
         "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
       title: t("clinicsHolidays"),
-      link: "/doctor/clinics/holidays",
+      link: "/doctor/clinic/holidays",
       role: PermissionsDoctor.MANAGE_HOLIDAYS,
     },
     {
@@ -95,13 +89,13 @@ const SidebarDoctor = ({
     {
       search: "offers,عروض,عرض",
       title: t("offers"),
-      link: "/doctor/offers",
+      link: "/doctor/offer",
       role: PermissionsDoctor.MANAGE_OFFERS,
     },
     {
       search: "services,خدمة,خدمات",
       title: t("services"),
-      link: "/doctor/services",
+      link: "/doctor/service",
       role: PermissionsDoctor.MANAGE_SERVICE,
     },
     {

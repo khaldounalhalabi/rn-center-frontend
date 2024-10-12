@@ -106,7 +106,7 @@ const UserDataDoctor = ({
                 className={`
                  flex items-center text-start rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
               >
-                {t("profile")} {locale == "ar" ? <ArrowLeft /> : <ArrowRight />}
+                {t("profile")} {locale == "ar" ? <ArrowLeft /> : <ArrowRight className={"h-4 w-4"}/>}
               </Link>
             </div>
           )}

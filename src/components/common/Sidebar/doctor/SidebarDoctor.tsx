@@ -138,7 +138,7 @@ const SidebarDoctor = ({
     >
       <div className={"overflow-hidden"}>
         <span
-          className={`px-5 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+          className={`px-4 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
           {local == "en" ? (
             <SidebarEnIcon

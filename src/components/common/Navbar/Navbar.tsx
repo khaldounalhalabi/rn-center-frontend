@@ -10,6 +10,7 @@ import ArrowRight from "@/components/icons/ArrowRight";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
 import dynamic from "next/dynamic";
+import ArrowLeft from "@/components/icons/ArrowLeft";
 
 const ProfileOptionsPopover = dynamic(
   () => import("@/components/common/Navbar/ProfileOptionsPopover"),
@@ -58,7 +59,7 @@ const Navbar = ({
           className={`p-2 hidden  ${path == "/admin" || path == "/doctor" ? "hidden" : "lg:block"} h-full rounded-full hover:bg-gray-300 cursor-pointer`}
           onClick={() => rout.back()}
         >
-          <ArrowRight className={"w-8 h-8"} />
+          <ArrowLeft className={"w-5 h-5"} />
         </button>
 
         <SearchIcon

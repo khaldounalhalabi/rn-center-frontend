@@ -1,6 +1,6 @@
 import { BaseService } from "@/services/BaseService";
 import { Setting } from "@/Models/setting";
-import { GET } from "@/Http/Http";
+import {GET, POST} from "@/Http/Http";
 
 export class SettingService extends BaseService<Setting> {
   public getBaseUrl(): string {
@@ -8,6 +8,12 @@ export class SettingService extends BaseService<Setting> {
   }
 
   public async getByLabel(label: string) {
-    return this.errorHandler(await GET<Setting>(`settings/by-label/${label}`));
+    return this.errorHandler(await GET<Setting>(`settings/by-label/${label}` ,undefined , this.headers));
+  }
+
+  public async getByLabels (labels:string[]){
+    return this.errorHandler(
+      await POST<Setting[]>("settings/get-by-labels", { labels:labels }, this.headers),
+    );
   }
 }

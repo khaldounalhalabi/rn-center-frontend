@@ -27,6 +27,8 @@ import TransactionIcon from "@/components/icons/TransactionIcon";
 import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
 import SidebarArIcon from "@/components/icons/SidebarArIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
+import CreditCardIcon from "@/components/icons/CreditCardIcon";
+import PaperIcon from "@/components/icons/PaperIcon";
 
 const SidebarDoctor = ({
   openNavBar,
@@ -121,6 +123,18 @@ const SidebarDoctor = ({
       title: t("clinicDetails"),
       link: "/doctor/clinic-details",
       role: "",
+    },
+    {
+      search: "contact , payment , and , الدفع, التواصل , تواصل , طرق",
+      title: t("contact_and_payment"),
+      link: "/doctor/contact-and-payment",
+      role: "",
+    },
+    {
+      search: "contract , العقد",
+      title: t("contract"),
+      link: "/doctor/contract",
+      role: "doctor_and_just_doctor",
     },
   ];
   const filteredItems = sidebarItems.filter((item) =>
@@ -367,6 +381,22 @@ const SidebarDoctor = ({
               >
                 {t("staff")}
               </SidebarItem>
+
+              <SidebarItem
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={"/doctor/contact-and-payment"}
+              >
+                {t("contact_and_payment")}
+              </SidebarItem>
+
+              <SidebarItem
+                  setOpenNavBar={setOpenNavBar}
+                  openNavBar={openNavBar}
+                  link={"/doctor/contract"}
+              >
+                {t("contract")}
+              </SidebarItem>
             </>
           )}
         </ul>
@@ -512,6 +542,21 @@ const SidebarDoctor = ({
             title={"Staff"}
           >
             <StaffIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+
+          <SidebarIcon
+              link={"/doctor/contact-and-payment"}
+              title={t("contact_and_payment")}
+          >
+            <CreditCardIcon className={`h-8 w-8`} />
+          </SidebarIcon>
+
+          <SidebarIcon
+              link={"/doctor/contract"}
+              title={t("contract")}
+          >
+            <PaperIcon
+                className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

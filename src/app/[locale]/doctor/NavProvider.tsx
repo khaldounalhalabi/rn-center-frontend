@@ -16,7 +16,7 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
     <div className="flex flex-row ">
       <SidebarDoctor openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
       <div
-        className={`flex-grow transition-all duration-300 w-[75%] min-h-screen`}
+        className={`flex-grow transition-all duration-300 w-[75%] h-full`}
       >
         <Navbar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
         <div>{children}</div>

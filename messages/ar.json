@@ -29,7 +29,9 @@
     "enquiries": "الاستفسارات",
     "bloodDonation": "التبرع بالدم",
     "systemOffers": "عروض النظام",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "contact_and_payment": "التواصل و طرق الدفع",
+    "contract": "العقد"
   },
   "admin": {
     "clinic": {
@@ -802,7 +804,6 @@
         "endDate": "تاريخ الانتهاء",
         "apply": "فلترة",
         "filters": "التصفية",
-
         "resetFilters": "اعادة ضبط التصفية",
         "anAppointmentWith": "موعد مع"
       },
@@ -958,7 +959,7 @@
         "note": "ملاحظة",
         "medicalCondition": "الحالة الطبية",
         "lastAppointment": "اخر موعد",
-        "appointments_count" : "عدد المواعيد"
+        "appointments_count": "عدد المواعيد"
       }
     },
     "prescription": {
@@ -1245,5 +1246,13 @@
     "resendThecode": "اعادة ارسال الرمز",
     "send": "ارسال",
     "save": "حفظ"
+  },
+  "contact_and_payment": {
+    "phone": "رقم الهاتف",
+    "zain_cash_number": "رقم زين كاش",
+    "zain_cash_qr": "زين كاش QR",
+    "address": "العنوان",
+    "payment_description": "كيفية الدفع",
+    "contract": "العقد"
   }
 }

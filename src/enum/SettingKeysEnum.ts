@@ -6,9 +6,11 @@ export enum SettingKeysEnum {
   DaysBeforeExpirationNotification = "days_before_notify_for_expiration",
   ClinicContract = "clinic_contract",
   ZainCashQr = "zain_cash_qr",
+  PaymentWayDescription = "payment_way_description",
 }
 
 export const EditorRequiredSettings: string[] = [
   SettingKeysEnum.ClinicContract,
   SettingKeysEnum.TermsAndServices,
+  SettingKeysEnum.PaymentWayDescription,
 ];

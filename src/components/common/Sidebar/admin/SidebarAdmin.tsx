@@ -181,7 +181,7 @@ const SidebarAdmin = ({
 
   return (
     <div
-      className={`lg:block sidebar w-full !overflow-visible h-full overflow-y-scroll md:overflow-y-hidden lg:w-[25%] lg:max-w-[300px] lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300
+      className={`lg:block sidebar w-full !overflow-visible h-full overflow-y-scroll md:overflow-y-hidden lg:w-[25%] lg:max-w-[300px] lg:translate-y-0 z-50 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300
        ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
        ${
          openNavBar.sm
@@ -191,7 +191,7 @@ const SidebarAdmin = ({
     >
       <div className={"h-screen md:h-full"}>
         <div
-          className={`px-5 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+          className={`px-4 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
           {local == "en" ? (
             <SidebarEnIcon
@@ -227,7 +227,7 @@ const SidebarAdmin = ({
           />
         </div>
         <ul
-          className={`space-y-1 px-4 pt-3 h-screen md:h-[85vh] text-black ease-in-out duration-500 transform overflow-y-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={`space-y-1 px-4 py-5 h-screen md:h-[85vh] text-black ease-in-out duration-500 transform overflow-y-scroll ${openNavBar.md ? " hidden " : ""}`}
         >
           {searchTerm ? (
             filteredItems?.map((item, index) => (

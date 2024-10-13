@@ -56,7 +56,7 @@ const UserForm = ({
     Navigate(`/admin/user`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
-  const { image, ...res } = defaultValues ?? { image: "No Data" };
+  const { image, ...res } = defaultValues ?? { image: undefined };
   console.log(res);
   return (
     <Form

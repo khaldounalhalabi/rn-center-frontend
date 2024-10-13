@@ -32,7 +32,7 @@ const CKTextEditor = ({
   } = useFormContext();
   return (
     <>
-      <input {...register(`${name}`)} />
+      <input {...register(`${name}`)} hidden={true}/>
       {label && (
         <label className={"label w-fit"}>
           {label == SettingKeysEnum.ContactNumber1

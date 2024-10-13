@@ -29,7 +29,9 @@
     "enquiries": "Enquiries",
     "bloodDonation": "Blood bank",
     "systemOffers": "System Offers",
-    "settings": "Settings"
+    "settings": "Settings",
+    "contact_and_payment": "Contact and payment ways",
+    "contract": "Contract"
   },
   "admin": {
     "clinic": {
@@ -1241,5 +1243,13 @@
     "resendThecode": "Resend The code",
     "send": "Send",
     "save": "Save"
+  },
+  "contact_and_payment" : {
+    "phone": "phone",
+    "zain_cash_number": "Zain cash number",
+    "zain_cash_qr": "Zain cash QR code",
+    "address": "Address",
+    "payment_description": "How to pay",
+    "contract": "Contract"
   }
 }

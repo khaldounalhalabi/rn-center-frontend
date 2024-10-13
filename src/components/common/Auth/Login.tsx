@@ -9,7 +9,6 @@ import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { Role } from "@/enum/Role";
-import { isArray } from "util";
 import { useTranslations } from "next-intl";
 
 interface LoginProps {
@@ -35,7 +34,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
         setErrorBlocked(res?.message);
         return res;
       } else {
-        isArray(res?.data?.user?.role)
+        Array.isArray(res?.data?.user?.role)
           ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
               setCookieClient("role", e.name);
               if (e.name == Role.CLINIC_EMPLOYEE) {
@@ -51,6 +50,16 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     });
   };
 
+  function clinicDidntAgreeOnContract(data: ApiResponse<AuthResponse>) {
+    return (
+      pageType == "doctor" &&
+      data.code == 200 &&
+      data?.data?.user &&
+      data?.data?.user?.clinic &&
+      !data?.data?.user?.clinic?.agreed_on_contract
+    );
+  }
+
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
@@ -59,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
-    if (pageType == "doctor" && !data?.data?.user?.clinic?.agreed_on_contract) {
+    if (clinicDidntAgreeOnContract(data)) {
       console.log(data?.data?.user?.clinic);
       if (data?.data?.user?.role?.[0].name == Role.CLINIC_EMPLOYEE) {
         setContractError("Clinic owner must agree on the system contract");

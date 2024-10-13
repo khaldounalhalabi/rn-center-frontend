@@ -19,11 +19,18 @@ const page = async () => {
   return (
     <PageCard>
       <div className="flex justify-between items-center  w-full h-fit">
-        <h2 className="card-title ">
-          {t("name")} : {await TranslateServer(res.first_name)}{" "}
-          {await TranslateServer(res.middle_name)}{" "}
-          {await TranslateServer(res.last_name)}
-        </h2>
+        <div className={"flex items-center justify-between"}>
+          <RoundedImage
+              src={getMedia(res?.image?.[0] ?? undefined)}
+              alt={"doctor-profile"}
+              className={"w-24 self-center md:self-start h-24"}
+          />
+          <h2 className="card-title ">
+            {t("name")} : {await TranslateServer(res.first_name)}{" "}
+            {await TranslateServer(res.middle_name)}{" "}
+            {await TranslateServer(res.last_name)}
+          </h2>
+        </div>
         <Link href={`/admin/user-details/edit`}>
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
@@ -35,11 +42,6 @@ const page = async () => {
             "md:w-1/2 w-full flex flex-col gap-3 h-full justify-between"
           }
         >
-          <RoundedImage
-            src={getMedia(res?.image?.[0] ?? undefined)}
-            alt={"doctor-profile"}
-            className={"w-fit self-center md:self-start h-24"}
-          />
           <h2>
             {t("email")} :{" "}
             <span className="badge badge-accent">{res?.email}</span>

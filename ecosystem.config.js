@@ -5,7 +5,7 @@ module.exports = {
       script: "npm",
       args: "start",
       env: {
-        NODE_ENV: "dev",
+        NODE_ENV: "production",
       },
       instances: 2,
       watch: false,

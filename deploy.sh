@@ -1,8 +1,8 @@
 echo "Exporting node.js path"
 export PATH=/opt/cpanel/ea-nodejs18/bin/:$PATH
 
-echo "Killing all pm2 deamons ..."
-pm2 kill
+echo "Killing pom-front-dev pm2 deamon ..."
+pm2 stop pom-front-dev
 
 echo "Deleting old builds ..."
 rm -r -f .next
@@ -10,7 +10,7 @@ rm -r -f .next
 echo "Pulling ..."
 git reset --hard
 git clean -df
-git pull origin
+git pull origin staging
 
 echo "Installing npm packages ..."
 npm i

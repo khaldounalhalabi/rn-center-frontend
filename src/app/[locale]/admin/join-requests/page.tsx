@@ -20,7 +20,7 @@ const Page = () => {
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
     schema: [
       {
@@ -41,7 +41,7 @@ const Page = () => {
       },
       {
         name: "city.name",
-        label: t("clinic_name"),
+        label: t("city"),
         translatable: true,
       },
       {
@@ -53,8 +53,7 @@ const Page = () => {
             baseUrl={`/admin/join-requests`}
             deleteUrl={`/admin/clinic-join-requests/${data?.id}`}
             setHidden={setHidden}
-          >
-          </ActionsButtons>
+          ></ActionsButtons>
         ),
       },
     ],

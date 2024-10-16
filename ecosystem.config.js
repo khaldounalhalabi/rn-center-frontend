@@ -1,16 +1,16 @@
 module.exports = {
   apps: [
     {
-      name: "pom-front",
+      name: "pom-front-dev",
       script: "npm",
       args: "start",
       env: {
         NODE_ENV: "production",
       },
-      instances: 2,
+      instances: 1,
       watch: false,
-      output: "./../../pom-front-logs/out.log",
-      error: "./../../pom-front-logs/error.log",
+      output: "./../../pom-front-dev-logs/out.log",
+      error: "./../../pom-front-dev-logs/error.log",
       log_date_format: "YYYY-MM-DD HH:mm Z",
     },
   ],

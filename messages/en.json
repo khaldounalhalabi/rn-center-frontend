@@ -31,7 +31,8 @@
     "systemOffers": "System Offers",
     "settings": "Settings",
     "contact_and_payment": "Contact and payment ways",
-    "contract": "Contract"
+    "contract": "Contract",
+    "join_requests": "Join Requests"
   },
   "admin": {
     "clinic": {
@@ -956,7 +957,7 @@
         "note": "Note",
         "medicalCondition": "Medical Condition",
         "lastAppointment": "Last Appointment",
-        "appointments_count" : "Appointments count"
+        "appointments_count": "Appointments count"
       }
     },
     "prescription": {
@@ -1188,7 +1189,7 @@
     "totalRecords": "Total Records",
     "prevPage": "Prev Page",
     "nextPage": "Next Page",
-    "search" : "Search"
+    "search": "Search"
   },
   "nav": {
     "clinicProfile": "Clinic Profile",
@@ -1244,12 +1245,21 @@
     "send": "Send",
     "save": "Save"
   },
-  "contact_and_payment" : {
+  "contact_and_payment": {
     "phone": "phone",
     "zain_cash_number": "Zain cash number",
     "zain_cash_qr": "Zain cash QR code",
     "address": "Address",
     "payment_description": "How to pay",
     "contract": "Contract"
+  },
+  "join_requests": {
+    "clinic_name": "Clinic name",
+    "doctor_name": "Doctor name",
+    "phone": "Phone number",
+    "city": "City",
+    "join_requests": "Join Requests",
+    "join_request": "Join request",
+    "actions": "Actions"
   }
 }

@@ -31,7 +31,8 @@
     "systemOffers": "عروض النظام",
     "settings": "الإعدادات",
     "contact_and_payment": "التواصل و طرق الدفع",
-    "contract": "العقد"
+    "contract": "العقد",
+    "join_requests": "طلبات الانضمام"
   },
   "admin": {
     "clinic": {
@@ -1254,5 +1255,14 @@
     "address": "العنوان",
     "payment_description": "كيفية الدفع",
     "contract": "العقد"
+  },
+  "join_requests": {
+    "join_requests": "طلبات الانضمام",
+    "clinic_name": "اسم العيادة",
+    "doctor_name": "اسم الطبيب",
+    "phone": "رقم الهاتف",
+    "city": "المدينة",
+    "join_request": "طلب الانضمام",
+    "actions": "الخيارات"
   }
 }

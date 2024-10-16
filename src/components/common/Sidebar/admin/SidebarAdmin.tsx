@@ -40,6 +40,7 @@ import SettingManagementIcon from "@/components/icons/SettingManagementIcon";
 import ServiceManagementIcon from "@/components/icons/ServiceManagementIcon";
 import OffersManagementIcon from "@/components/icons/OffersManagementIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
+import PlusIcon from "@/components/icons/PlusIcon";
 
 const SidebarAdmin = ({
   openNavBar,
@@ -171,6 +172,11 @@ const SidebarAdmin = ({
     {
       search: "transaction,تحويلات,تحويل,معاملات",
       title: t("transaction"),
+      link: "/admin/transaction",
+    },
+    {
+      search: "join requests,طلبات الانضمام",
+      title: t("join_requests"),
       link: "/admin/transaction",
     },
   ];
@@ -463,6 +469,13 @@ const SidebarAdmin = ({
                     {t("blockedItems")}
                   </SidebarItem>
                 </SidebarCompactItem>
+                <SidebarItem
+                  setOpenNavBar={setOpenNavBar}
+                  openNavBar={openNavBar}
+                  link={"/admin/join-requests"}
+                >
+                  {t("join_requests")}
+                </SidebarItem>
               </div>
             </>
           )}
@@ -617,6 +630,9 @@ const SidebarAdmin = ({
               </SidebarIcon>
             </div>
           </SidebarCompactIcon>
+          <SidebarIcon link={"/admin/join-requests"} title={t("join_requests")}>
+            <PlusIcon className={`h-8 w-8`} />
+          </SidebarIcon>
         </ul>
       </div>
     </div>

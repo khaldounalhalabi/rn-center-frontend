@@ -195,7 +195,7 @@ const SidebarAdmin = ({
            : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
        }`}
     >
-      <div className={"h-screen md:h-full"}>
+      <div className={"h-screen md:h-full bg-white"}>
         <div
           className={`px-4 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
         >
@@ -484,7 +484,7 @@ const SidebarAdmin = ({
       <div
         className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul className={""}>
+        <ul className={"bg-white"}>
           <SidebarIcon link={"/admin"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>

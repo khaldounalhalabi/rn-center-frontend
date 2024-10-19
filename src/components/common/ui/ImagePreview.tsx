@@ -1,15 +1,13 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, HTMLProps, ImgHTMLAttributes, useState } from "react";
 
 const ImagePreview = ({
   src,
   className,
-}: {
-  src: string;
-  className?: string;
-}) => {
+  ...props
+}: Omit<HTMLProps<HTMLImageElement>, "onClick">) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -26,6 +24,7 @@ const ImagePreview = ({
         src={src}
         onClick={openModal}
         className={className ?? "" + "cursor-pointer"}
+        {...props}
       />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

@@ -22,7 +22,6 @@ const CategoryForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return CategoryService.make<CategoryService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {

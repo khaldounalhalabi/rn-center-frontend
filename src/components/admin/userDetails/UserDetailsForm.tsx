@@ -23,16 +23,14 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { reFetch, setReFetch } = useContext(ReFetchPhoto);
 
   const handleSubmit = async (data: any) => {
-    console.log(data);
     return await AuthService.make<AuthService>("admin")
       .UpdateUserDetails(data)
       .then((res) => {
         setReFetch(!reFetch);
-        console.log(res?.data);
         window.localStorage.setItem(
           "user",
           // @ts-ignore
-          JSON.stringify(res?.data.user ?? undefined),
+          JSON.stringify(res?.data.user ?? undefined)
         );
         return res;
       });

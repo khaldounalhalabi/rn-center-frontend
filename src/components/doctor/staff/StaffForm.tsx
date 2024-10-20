@@ -74,24 +74,13 @@ const StaffForm = ({
 }) => {
   const t = useTranslations("doctor.staff.create");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.user?.id != undefined || id != undefined)
     ) {
-      return StaffService.make<StaffService>("doctor")
-        .update(id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return StaffService.make<StaffService>("doctor").update(id, data);
     } else {
-      return await StaffService.make<StaffService>("doctor")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await StaffService.make<StaffService>("doctor").store(data);
     }
   };
   const onSuccess = () => {
@@ -111,14 +100,12 @@ const StaffForm = ({
   const handleSubmitPermissions = async (data: PermissionsType) => {
     // @ts-ignore
     const permissions = Object.keys(data).filter((key) => data[key]);
-    console.log(permissions);
     const dataSend = {
       permissions: permissions,
     };
     return await StaffService.make<StaffService>("doctor")
       .updateEmployeePermissions(id ?? 0, dataSend)
       .then((res) => {
-        console.log(res);
         if (res.code == 405) {
           // @ts-ignore
           setErrorPermissions(res?.message?.errors?.permissions);
@@ -132,7 +119,7 @@ const StaffForm = ({
   const role = getCookieClient("role");
   const defPermissions = comparePermissions(
     PermissionsDoctorArray(),
-    defaultValues?.user?.permissions ?? [""],
+    defaultValues?.user?.permissions ?? [""]
   );
   const formValues = {
     phone_numbers: defaultValues?.phone_numbers ?? [],

@@ -25,7 +25,6 @@ const BlockedForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return BlockedItemService.make<BlockedItemService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {

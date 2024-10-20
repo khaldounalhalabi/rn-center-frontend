@@ -31,7 +31,6 @@ const BloodDonationForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return BloodDonationService.make<BloodDonationService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {

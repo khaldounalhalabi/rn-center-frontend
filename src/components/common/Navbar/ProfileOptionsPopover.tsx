@@ -61,7 +61,6 @@ const ProfileOptionsPopover = () => {
           if (
             payload.getNotificationType() == RealTimeEvents.PermissionChange
           ) {
-            console.log("hiiiiiii");
             refetch().then(() => {
               window.document.location.reload();
             });

@@ -23,9 +23,9 @@ const Overview = ({
     HandleCalcOffers(
       appointment?.system_offers ?? [],
       appointment?.clinic?.appointment_cost ?? 0,
-      "system",
+      "system"
     ),
-    "offer",
+    "offer"
   );
 
   const handleTotalCost = (): number => {
@@ -36,7 +36,6 @@ const Overview = ({
       Number(appointment?.discount ?? 0)
     );
   };
-  console.log(appointment);
 
   return (
     <div className={"card bg-base-200 my-3 w-full"}>

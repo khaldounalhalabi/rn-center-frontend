@@ -26,7 +26,6 @@ const page = async () => {
   const data = await AuthService.make<AuthService>("doctor").GetClinicDetails();
   const res: Clinic = data.data;
   const t = await getTranslations("doctor.clinic-details.show");
-  console.log(res);
   return (
     <PageCard>
       <div className={"card p-5 bg-base-200 my-3 "}>

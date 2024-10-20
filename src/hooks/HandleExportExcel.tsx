@@ -36,7 +36,6 @@ const HandleExportExcel = () => {
         window.URL.revokeObjectURL(url);
         toast.success("Excel file exported successfully!");
       } else {
-        console.log(response);
         toast.error("Failed to export Excel file.");
       }
     } catch (error) {

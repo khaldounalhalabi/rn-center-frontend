@@ -43,28 +43,17 @@ const ClinicSubscriptionForm = ({
       defaultValues?.type == SubscriptionType.BOOKING_COST
         ? dataSendTow
         : dataSend;
-    console.log(send);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return ClinicSubscriptionService.make<ClinicSubscriptionService>("admin")
-        .update(defaultValues?.id ?? id, send)
-        .then((res) => {
-          console.log(res);
-
-          return res;
-        });
+      return ClinicSubscriptionService.make<ClinicSubscriptionService>(
+        "admin"
+      ).update(defaultValues?.id ?? id, send);
     } else {
       return await ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin",
-      )
-        .store(send)
-        .then((res) => {
-          console.log(res);
-
-          return res;
-        });
+        "admin"
+      ).store(send);
     }
   };
   const onSuccess = () => {
@@ -82,7 +71,7 @@ const ClinicSubscriptionForm = ({
           api={(page, search): Promise<ApiResponse<Subscriptions[]>> =>
             SubscriptionsService.make<SubscriptionsService>().indexWithPagination(
               page,
-              search,
+              search
             )
           }
           placeHolder={"Select Subscription Name ..."}

@@ -22,24 +22,16 @@ const SpecialityForm = ({
 }) => {
   const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type == "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return await SpecialityService.make<SpecialityService>()
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await SpecialityService.make<SpecialityService>().update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await SpecialityService.make<SpecialityService>()
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await SpecialityService.make<SpecialityService>().store(data);
     }
   };
   const onSuccess = () => {

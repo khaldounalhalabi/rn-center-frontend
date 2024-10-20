@@ -25,7 +25,6 @@ const PatientDetails = ({
         JSON.parse(patient?.currentClinicPatientProfile?.other_data)
       )
     : [];
-  console.log(patient);
   return (
     <>
       <Grid md={2} gap={5}>

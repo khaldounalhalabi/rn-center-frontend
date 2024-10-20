@@ -28,17 +28,14 @@ const ServiceForm = ({
 }) => {
   const t = useTranslations("doctor.service.create-edit");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return ServiceService.make<ServiceService>("doctor")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return ServiceService.make<ServiceService>("doctor").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
       return await ServiceService.make<ServiceService>("doctor").store(data);
     }
@@ -72,7 +69,7 @@ const ServiceForm = ({
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().getAllCategory(
               page,
-              search,
+              search
             )
           }
           getOptionLabel={(option: ServiceCategory) =>

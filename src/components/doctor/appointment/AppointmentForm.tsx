@@ -50,13 +50,13 @@ const AppointmentForm = ({
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const [systemOffer, setSystemOffer] = useState(
-    defaultValues?.system_offers ?? [],
+    defaultValues?.system_offers ?? []
   );
   const { data: availableTimes } = useQuery({
     queryKey: ["availableTimes"],
     queryFn: async () => {
       return await AppointmentService.make<AppointmentService>(
-        "doctor",
+        "doctor"
       ).getAvailableTimesClinic();
     },
   });
@@ -71,14 +71,12 @@ const AppointmentForm = ({
       clinic_holidays: availableTimes?.data?.clinic_holidays ?? [],
     },
   };
-  console.log(clinic);
-  console.log(range);
   const { data: lastVisitData } = useQuery({
     queryKey: ["getLastVisit", customer_id, range.id],
     queryFn: async () => {
       if (customer_id) {
         return await CustomerService.make<CustomerService>(
-          "doctor",
+          "doctor"
         ).getDoctorCustomerLastVisit(customer_id ?? 0);
       } else {
         return { data: { date: "" } };
@@ -100,8 +98,6 @@ const AppointmentForm = ({
       return AppointmentService.make<AppointmentService>("doctor")
         .update(defaultValues?.id ?? id, sendData)
         .then((res) => {
-          console.log(res);
-
           if (res.code == 425) {
             swal.fire("The time you selected is unavailable!");
             return res;
@@ -111,7 +107,6 @@ const AppointmentForm = ({
       return await AppointmentService.make<AppointmentService>("doctor")
         .store(sendData)
         .then((res) => {
-          console.log(res);
           if (res.code == 425) {
             swal.fire("The time you selected is unavailable!");
             return res;
@@ -128,13 +123,13 @@ const AppointmentForm = ({
   const [getDiscount, setDiscount] = useState(0);
 
   const [getServicePrice, setServicePrice] = useState<number | undefined>(
-    defaultValues?.service?.price ? defaultValues?.service?.price : 0,
+    defaultValues?.service?.price ? defaultValues?.service?.price : 0
   );
 
   const [status, setStatus] = useState(defaultValues?.status);
   const statusData = AppointmentStatusesFilter(
     defaultValues?.type ?? "",
-    defaultValues?.status ?? "",
+    defaultValues?.status ?? ""
   );
 
   let [isOpen, setIsOpen] = useState(false);
@@ -162,7 +157,7 @@ const AppointmentForm = ({
   const appointmentCostOffer = HandleCalcOffers(
     offer,
     range.appointment_cost,
-    "offer",
+    "offer"
   );
 
   const [totalCost, setTotalCost] = useState(0);
@@ -307,7 +302,7 @@ const AppointmentForm = ({
                           data,
                           day,
                           range.range,
-                          range?.maxAppointment,
+                          range?.maxAppointment
                         );
                       }}
                     />
@@ -393,7 +388,7 @@ const AppointmentForm = ({
             }}
             onRemoveSelected={(selectedItem) => {
               setOffer((prev) =>
-                prev.filter((item) => item.id != selectedItem.value),
+                prev.filter((item) => item.id != selectedItem.value)
               );
             }}
             isMultiple={true}
@@ -473,7 +468,7 @@ const AppointmentForm = ({
                   data,
                   day,
                   range.range,
-                  range.maxAppointment,
+                  range.maxAppointment
                 );
               }}
             />

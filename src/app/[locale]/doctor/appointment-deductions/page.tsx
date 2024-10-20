@@ -43,21 +43,16 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor",
+        "doctor"
       ).getDoctorSummary();
     },
   });
 
   const queryClient = useQueryClient();
   const revalidateTable = () => {
-    console.log("revalidating");
-    queryClient
-      .invalidateQueries({
-        queryKey: [`tableData_undefined_Appointment Deductions`],
-      })
-      .then(() => {
-        console.log("revalidated");
-      });
+    queryClient.invalidateQueries({
+      queryKey: [`tableData_undefined_Appointment Deductions`],
+    });
   };
 
   const [filterExport, setFilterExport] = useState<filterExportType>({
@@ -153,7 +148,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor",
+        "doctor"
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -319,7 +314,7 @@ const Page = () => {
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.total_cost ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 },
+                  { maximumFractionDigits: 2 }
                 )}
               </span>
             </label>
@@ -335,7 +330,7 @@ const Page = () => {
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.subscription_cost ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 },
+                  { maximumFractionDigits: 2 }
                 )}
               </span>
             </label>
@@ -344,7 +339,7 @@ const Page = () => {
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.clinic_balance ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 },
+                  { maximumFractionDigits: 2 }
                 )}
               </span>
             </label>
@@ -353,7 +348,7 @@ const Page = () => {
               {t("appointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.appointments_deductions ?? 0,
+                  balance?.data?.appointments_deductions ?? 0
                 ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </span>
             </label>

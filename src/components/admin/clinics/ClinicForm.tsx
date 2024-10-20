@@ -37,18 +37,12 @@ const ClinicForm = ({
   id?: number | undefined;
 }) => {
   const [typeSelect, setType] = useState("");
-  console.log(defaultValues?.user?.tags);
 
   let onSubmit = async (data: AddOrUpdateClinicForm) => {
     const { deduction_cost, ...subscriptionData } = data;
     const sendData =
       typeSelect == SubscriptionType.BOOKING_COST ? data : subscriptionData;
-    return await ClinicsService.make<ClinicsService>()
-      .store(sendData)
-      .then((r) => {
-        console.log(r);
-        return r;
-      });
+    return await ClinicsService.make<ClinicsService>().store(sendData);
   };
 
   if (type == "update" && id) {
@@ -250,7 +244,7 @@ const ClinicForm = ({
           api={(page?: number | undefined, search?: string | undefined) =>
             SpecialityService.make<SpecialityService>().indexWithPagination(
               page,
-              search,
+              search
             )
           }
           getOptionLabel={(item) => TranslateClient(item.name)}
@@ -299,7 +293,7 @@ const ClinicForm = ({
               api={(page, search): Promise<ApiResponse<Subscriptions[]>> =>
                 SubscriptionsService.make<SubscriptionsService>().indexWithPagination(
                   page,
-                  search,
+                  search
                 )
               }
               placeHolder={"Select Subscription Name ..."}

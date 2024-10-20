@@ -24,25 +24,18 @@ const OfferForm = ({
   const t = useTranslations("common.transaction.create");
 
   const handleSubmit = async (data: any) => {
-    console.log(data);
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return TransactionService.make<TransactionService>("admin")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return TransactionService.make<TransactionService>("admin").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await TransactionService.make<TransactionService>("admin")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await TransactionService.make<TransactionService>("admin").store(
+        data
+      );
     }
   };
   const onSuccess = () => {

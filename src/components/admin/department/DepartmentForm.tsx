@@ -24,9 +24,8 @@ const DepartmentForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
       return AvailableDepartmentService.make<AvailableDepartmentService>(
-        "admin",
+        "admin"
       )
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
@@ -34,7 +33,7 @@ const DepartmentForm = ({
         });
     } else {
       return await AvailableDepartmentService.make<AvailableDepartmentService>(
-        "admin",
+        "admin"
       ).store(data);
     }
   };

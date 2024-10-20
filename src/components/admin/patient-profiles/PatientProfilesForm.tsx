@@ -43,24 +43,18 @@ const PatientProfilesForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PatientProfilesService.make<PatientProfilesService>("admin")
-        .update(defaultValues?.id ?? id, dataSend)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return PatientProfilesService.make<PatientProfilesService>(
+        "admin"
+      ).update(defaultValues?.id ?? id, dataSend);
     } else {
-      return await PatientProfilesService.make<PatientProfilesService>("admin")
-        .store(dataSend)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await PatientProfilesService.make<PatientProfilesService>(
+        "admin"
+      ).store(dataSend);
     }
   };
   const onSuccess = () => {
     Navigate(
-      patientId ? `/admin/patients/${patientId}` : `/admin/patient-profiles`,
+      patientId ? `/admin/patients/${patientId}` : `/admin/patient-profiles`
     );
   };
 
@@ -97,7 +91,7 @@ const PatientProfilesForm = ({
               api={(page, search) =>
                 CustomerService.make<CustomerService>().indexWithPagination(
                   page,
-                  search,
+                  search
                 )
               }
               defaultValues={

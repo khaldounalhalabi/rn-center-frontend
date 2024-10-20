@@ -30,35 +30,31 @@ const PatientsForm = ({
 }) => {
   const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PatientsService.make<PatientsService>("admin")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return PatientsService.make<PatientsService>("admin").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await PatientsService.make<PatientsService>("admin")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await PatientsService.make<PatientsService>("admin").store(data);
     }
   };
   const onSuccess = () => {
     Navigate(`/admin/patients`);
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
+  const { images, image, ...res } = defaultValues ?? {
+    images: undefined,
+    image: undefined,
+  };
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={res}
       setLocale={setLocale}
     >
       <Grid md={"2"}>

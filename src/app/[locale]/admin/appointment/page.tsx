@@ -152,7 +152,6 @@ const Page = () => {
                         RealTimeEvents.NewAppointment)
                   ) {
                     revalidate();
-                    console.log("revalidated");
                   }
                 }}
               />
@@ -166,7 +165,6 @@ const Page = () => {
       await AppointmentService.make<AppointmentService>("admin")
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
-          console.log(res);
           return res;
         }),
     filter: (params, setParams) => {

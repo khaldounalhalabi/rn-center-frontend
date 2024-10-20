@@ -45,10 +45,8 @@ const NotificationProvider = ({
           payload.collapseKey,
           payload?.data as NotificationPayloadData | undefined,
           payload.from,
-          payload.messageId,
+          payload.messageId
         );
-        console.log(notification.getNotificationType(), notification);
-        console.log(handlers);
 
         handlers.forEach((handler) => {
           handler.fn(notification);

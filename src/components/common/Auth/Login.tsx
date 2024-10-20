@@ -20,13 +20,12 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
   const [errorBlocked, setErrorBlocked] = useState();
   const [contractError, setContractError] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   const handleSubmit = (data: { email: string; password: string }) => {
     setError(false);
     return POST<AuthResponse>(url, data).then((res: any) => {
-      console.log(res);
       if (res.code == 401) {
         setError(true);
         return res;
@@ -63,13 +62,12 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined),
+      JSON.stringify(data?.data?.user ?? undefined)
     );
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
     if (clinicDidntAgreeOnContract(data)) {
-      console.log(data?.data?.user?.clinic);
       if (data?.data?.user?.role?.[0].name == Role.CLINIC_EMPLOYEE) {
         setContractError("Clinic owner must agree on the system contract");
       } else {

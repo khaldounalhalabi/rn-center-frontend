@@ -34,25 +34,18 @@ const SystemOfferForm = ({
       ...data,
       allow_reuse: Number(data.allow_reuse),
     };
-    console.log(sendData);
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return SystemOffersService.make<SystemOffersService>("admin")
-        .update(defaultValues?.id ?? id, sendData)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return SystemOffersService.make<SystemOffersService>("admin").update(
+        defaultValues?.id ?? id,
+        sendData
+      );
     } else {
-      return await SystemOffersService.make<SystemOffersService>("admin")
-        .store(sendData)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await SystemOffersService.make<SystemOffersService>("admin").store(
+        sendData
+      );
     }
   };
   const onSuccess = () => {

@@ -14,7 +14,6 @@ import { getTranslations } from "next-intl/server";
 const page = async () => {
   const data = await AuthService.make<AuthService>("admin").GetUserDetails();
   const res: User = data.data;
-  console.log(res);
   const t = await getTranslations("details");
   return (
     <PageCard>

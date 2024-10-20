@@ -4,7 +4,6 @@ import daysArray from "@/enum/days";
 import React from "react";
 
 const ClinicSchedules = ({ clinic }: { clinic: Clinic }) => {
-  console.log(clinic);
   return (
     <div>
       <div>

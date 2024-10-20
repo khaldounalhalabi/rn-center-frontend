@@ -16,8 +16,6 @@ const PrescriptionsTable = ({
   appointment?: Appointment | null | undefined;
 }) => {
   const t = useTranslations("common.prescription.table");
-  console.log(appointment?.id);
-
   const tableData: DataTableData<Prescription> = {
     createUrl: `/doctor/appointment/${appointment?.id}/prescriptions/create`,
     title: `${t("prescriptions")}`,
@@ -71,7 +69,7 @@ const PrescriptionsTable = ({
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await PrescriptionService.make<PrescriptionService>(
-        "doctor",
+        "doctor"
       ).getAllAppointmentPrescriptions(
         appointment?.id ?? 0,
         page,
@@ -79,7 +77,7 @@ const PrescriptionsTable = ({
         sortCol,
         sortDir,
         perPage,
-        params,
+        params
       ),
   };
   return <DataTable {...tableData} />;

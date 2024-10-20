@@ -51,7 +51,6 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
-  console.log(defaultValues);
   const [date, setDate] = useState(defaultValues ?? {});
   const [range, setRange] = useState<Range>({
     id: defaultValues?.clinic_id ?? 0,
@@ -87,10 +86,8 @@ const AppointmentForm = ({
       }
     },
   });
-  console.log(range);
   const lastAppointmentDate = data?.data?.date;
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -98,8 +95,6 @@ const AppointmentForm = ({
       return AppointmentService.make<AppointmentService>("admin")
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
-          console.log(res);
-
           if (res.code == 425) {
             swal.fire("The time you selected is unavailable!");
             return res;
@@ -109,7 +104,6 @@ const AppointmentForm = ({
       return await AppointmentService.make<AppointmentService>("admin")
         .store(data)
         .then((res) => {
-          console.log(res);
           if (res.code == 425) {
             swal.fire("The time you selected is unavailable!");
             return res;
@@ -222,8 +216,6 @@ const AppointmentForm = ({
       );
     }
   };
-  console.log(defaultValues);
-  console.log(clinicId);
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

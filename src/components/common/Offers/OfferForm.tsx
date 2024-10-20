@@ -33,25 +33,16 @@ const OfferForm = ({
 }) => {
   const t = useTranslations("doctor.offer.create");
   const handleSubmit = async (data: any) => {
-    console.log(data);
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return OffersService.make<OffersService>(typePage)
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return OffersService.make<OffersService>(typePage).update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await OffersService.make<OffersService>(typePage)
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await OffersService.make<OffersService>(typePage).store(data);
     }
   };
   const onSuccess = () => {
@@ -59,7 +50,7 @@ const OfferForm = ({
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const [typeOffers, setTypeOffers] = useState(
-    defaultValues?.type ?? "percentage",
+    defaultValues?.type ?? "percentage"
   );
   const { image, ...res } = defaultValues ?? { image: [] };
   return (

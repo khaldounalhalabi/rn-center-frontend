@@ -27,15 +27,13 @@ const SubscriptionForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      console.log(data);
-      return SubscriptionsService.make<SubscriptionsService>("admin")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          return res;
-        });
+      return SubscriptionsService.make<SubscriptionsService>("admin").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
       return await SubscriptionsService.make<SubscriptionsService>(
-        "admin",
+        "admin"
       ).store(data);
     }
   };

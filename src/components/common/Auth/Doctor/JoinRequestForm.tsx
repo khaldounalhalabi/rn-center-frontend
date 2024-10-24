@@ -29,7 +29,7 @@ const JoinRequestForm = () => {
           onSuccess={() => {
             Navigate("/auth/doctor/login");
             swal.fire({
-              title: "Your join request has been sent",
+              title: joinRequestTranslation("join_request_sent"),
               confirmButtonColor: "#007BFF",
             });
           }}

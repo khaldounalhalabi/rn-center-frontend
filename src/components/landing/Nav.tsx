@@ -96,7 +96,6 @@ const Nav = () => {
         <div className={"flex flex-col gap-6 p-6"}>
           <Link href={'/auth/doctor/login'} className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Doctor</h2></Link>
           <Link href={'/auth/customer/login'}  className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Customer</h2></Link>
-          <Link href={'/auth/admin/login'}  className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Admin</h2></Link>
 
         </div>
       </div>

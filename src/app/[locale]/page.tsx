@@ -16,9 +16,9 @@ import Clinics from "@/components/landing/Clinics";
 const Page = () => {
   return (
     <Providers>
-      <div className={"kodchasan text-[#013567] relative"}>
+      <div className={"kodchasan text-[#013567] relative overflow-x-hidden"}>
         <Nav />
-        <div className={"flex lg:h-[65vh] mt-4 px-4 relative"}>
+        <div className={"flex  mt-4 px-4 relative"}>
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div
             className={

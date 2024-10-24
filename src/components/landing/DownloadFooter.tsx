@@ -1,7 +1,44 @@
+"use client";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const DownloadFooter = () => {
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
+const DownloadFooter: React.FC = () => {
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the install prompt");
+      } else {
+        console.log("User dismissed the install prompt");
+      }
+      setDeferredPrompt(null);
+    }
+  };
   return (
     <div
       className={
@@ -15,7 +52,10 @@ const DownloadFooter = () => {
         <p className={"font-extralight md:text-[15px] lg:text-[20px]"}>
           Lorem ipsum dolor sit amet conse adipisicing elit. Expedita
         </p>
-        <AuthSubmitButton className={"w-1/2 px-10 py-2"}>
+        <AuthSubmitButton
+          className={"w-1/2 px-10 py-2"}
+          onClick={handleInstallClick}
+        >
           Download
         </AuthSubmitButton>
       </div>

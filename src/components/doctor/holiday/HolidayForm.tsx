@@ -20,19 +20,14 @@ const HolidayForm = ({
   const t = useTranslations("doctor.holidays.create");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return ClinicHolidayService.make<ClinicHolidayService>("doctor")
-        .update(defaultValues.id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return ClinicHolidayService.make<ClinicHolidayService>("doctor").update(
+        defaultValues.id,
+        data
+      );
     } else {
-      return await ClinicHolidayService.make<ClinicHolidayService>("doctor")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await ClinicHolidayService.make<ClinicHolidayService>(
+        "doctor"
+      ).store(data);
     }
   };
 

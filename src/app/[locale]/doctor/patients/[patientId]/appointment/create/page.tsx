@@ -1,6 +1,7 @@
 import React from "react";
 import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 import { PatientsService } from "@/services/PatientsService";
+import { AuthService } from "@/services/AuthService";
 
 const page = async ({
   params: { patientId },
@@ -10,7 +11,10 @@ const page = async ({
   const patient = (
     await PatientsService.make<PatientsService>("doctor").show(patientId)
   ).data;
-  return <AppointmentForm type="store" patient={patient} />;
+  const clinic = await AuthService.make<AuthService>("doctor").GetUserDetails();
+  return (
+    <AppointmentForm type="store" patient={patient} clinic={clinic?.data} />
+  );
 };
 
 export default page;

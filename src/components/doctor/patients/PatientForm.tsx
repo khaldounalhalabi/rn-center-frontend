@@ -35,24 +35,16 @@ const PatientForm = ({
 }) => {
   const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
-    console.log(data);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PatientsService.make<PatientsService>("doctor")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return PatientsService.make<PatientsService>("doctor").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await PatientsService.make<PatientsService>("doctor")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await PatientsService.make<PatientsService>("doctor").store(data);
     }
   };
   const onSuccess = () => {

@@ -52,17 +52,16 @@ const PrescriptionsForm = ({
           test: data.test,
           medicines: data.medicines,
         };
-    console.log(sendData);
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return await PrescriptionService.make<PrescriptionService>(
-        userType,
+        userType
       ).update(defaultValues?.id ?? id, sendData);
     } else {
       return await PrescriptionService.make<PrescriptionService>(
-        userType,
+        userType
       ).store(sendData);
     }
   };

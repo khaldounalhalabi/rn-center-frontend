@@ -21,53 +21,35 @@ const Page = async () => {
   )?.data;
   return (
     <PageCard>
-      <Grid gap={8}>
-        <LabelValue
-          label={t("phone")}
-          value={
-            settings?.filter(
-              (s) => s.label == SettingKeysEnum.ContactNumber1,
-            )?.[0]?.value
-          }
-          color={"info"}
+      <div className="flex items-center justify-center">
+        <ImagePreview
+          src={getMedia(
+            settings?.filter((s) => s.label == SettingKeysEnum.ZainCashQr)?.[0]
+              ?.image?.[0]
+          )}
+          className="w-1/3"
         />
-        <LabelValue
-          label={t("phone")}
-          value={
-            settings?.filter(
-              (s) => s.label == SettingKeysEnum.ContactNumber2,
-            )?.[0]?.value
-          }
-          color={"warning"}
-        />
-        <LabelValue
-          label={t("zain_cash_number")}
-          value={
-            settings?.filter(
-              (s) => s.label == SettingKeysEnum.ZainCashNumber,
-            )?.[0]?.value
-          }
-        />
-      </Grid>
-        <Label label={t("zain_cash_qr")} col={true}>
-          <ImagePreview
-            src={getMedia(
-              settings?.filter(
-                (s) => s.label == SettingKeysEnum.ZainCashQr,
-              )?.[0]?.image?.[0],
-            )}
-          />
-        </Label>
+      </div>
       <Label label={t("payment_description")} col={true}>
         <div
           className="textarea textarea-bordered h-full w-full overflow-y-scroll"
           dangerouslySetInnerHTML={{
-            __html: settings?.filter(
-              (s) => s.label == SettingKeysEnum.PaymentWayDescription,
-            )?.[0]?.value ?? "",
+            __html:
+              settings?.filter(
+                (s) => s.label == SettingKeysEnum.PaymentWayDescription
+              )?.[0]?.value ?? "",
           }}
         ></div>
       </Label>
+      <LabelValue
+        label={t("phone")}
+        value={
+          settings?.filter(
+            (s) => s.label == SettingKeysEnum.ContactNumber1
+          )?.[0]?.value
+        }
+        color={"info"}
+      />
     </PageCard>
   );
 };

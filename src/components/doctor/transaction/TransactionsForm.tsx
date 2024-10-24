@@ -24,27 +24,17 @@ const OfferForm = ({
   const t = useTranslations("common.transaction.create");
 
   const handleSubmit = async (data: any) => {
-    console.log(data);
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return ClinicTransactionService.make<ClinicTransactionService>("doctor")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return ClinicTransactionService.make<ClinicTransactionService>(
+        "doctor"
+      ).update(defaultValues?.id ?? id, data);
     } else {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor",
-      )
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+        "doctor"
+      ).store(data);
     }
   };
   const onSuccess = () => {

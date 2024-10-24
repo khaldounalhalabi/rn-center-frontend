@@ -26,17 +26,15 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   const t = useTranslations("doctor.clinic-details.edit");
 
   const handleSubmit = async (data: any) => {
-    console.log(data);
     return await AuthService.make<AuthService>("doctor")
       .UpdateClinicDetails(data)
       .then((res) => {
         AuthService.make<AuthService>("doctor")
           .GetUserDetails()
           .then((ress) => {
-            console.log(ress);
             window.localStorage.setItem(
               "user",
-              JSON.stringify(ress?.data ?? undefined),
+              JSON.stringify(ress?.data ?? undefined)
             );
             return res;
           });
@@ -145,7 +143,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             api={(page, search): Promise<ApiResponse<Hospital>> =>
               HospitalService.make<HospitalService>("doctor").getAllHospital(
                 page,
-                search,
+                search
               )
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
@@ -162,7 +160,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             placeHolder={"Select Speciality Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
-                "doctor",
+                "doctor"
               ).getAllSpecialities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}

@@ -1243,10 +1243,13 @@
     "code": "Code",
     "resendThecode": "Resend The code",
     "send": "Send",
-    "save": "Save"
+    "save": "Save",
+    "join_request": "Don't have an account ?",
+    "join_us": "Send a joining request",
+    "send_us_join_request": "Send a join request"
   },
   "contact_and_payment": {
-    "phone": "phone",
+    "phone": "Contact us",
     "zain_cash_number": "Zain cash number",
     "zain_cash_qr": "Zain cash QR code",
     "address": "Address",
@@ -1260,6 +1263,7 @@
     "city": "City",
     "join_requests": "Join Requests",
     "join_request": "Join request",
-    "actions": "Actions"
+    "actions": "Actions",
+    "join_request_sent": "Your join request has been sent"
   }
 }

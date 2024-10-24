@@ -31,25 +31,16 @@ const UserForm = ({
 }) => {
   const t = useTranslations("admin.users");
   const handleSubmit = async (data: any) => {
-    console.log(data);
-
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return UsersService.make<UsersService>("admin")
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return UsersService.make<UsersService>("admin").update(
+        defaultValues?.id ?? id,
+        data
+      );
     } else {
-      return await UsersService.make<UsersService>("admin")
-        .store(data)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
+      return await UsersService.make<UsersService>("admin").store(data);
     }
   };
   const onSuccess = () => {
@@ -57,7 +48,6 @@ const UserForm = ({
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { image, ...res } = defaultValues ?? { image: undefined };
-  console.log(res);
   return (
     <Form
       handleSubmit={handleSubmit}
@@ -97,7 +87,7 @@ const UserForm = ({
           required={true}
           label={t("role")}
           name={"role"}
-          status={defaultValues?.role?.[0].name}
+          status={defaultValues?.role?.[0]?.name}
           ArraySelect={Roles()}
           handleSelect={() => undefined}
         />

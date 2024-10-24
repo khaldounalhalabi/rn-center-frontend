@@ -16,7 +16,6 @@ const page = async () => {
 
   const data = await AuthService.make<AuthService>("doctor").GetUserDetails();
   const res: User = data.data;
-  console.log(res);
   return (
     <PageCard>
       <div className="flex justify-between items-center  w-full h-24">

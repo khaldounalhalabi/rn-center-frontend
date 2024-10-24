@@ -28,7 +28,6 @@ const Home = () => {
   });
   const statisticsRes: Statistics | undefined = statistics?.data;
   const t = useTranslations("common.dashboard");
-  console.log(clinic);
   return (
     <>
       <div className={"flex flex-col justify-between md:flex-row my-6"}>

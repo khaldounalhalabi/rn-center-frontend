@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
   const [errorBlocked, setErrorBlocked] = useState();
   const [contractError, setContractError] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const handleSubmit = (data: { email: string; password: string }) => {
@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
       "user",
-      JSON.stringify(data?.data?.user ?? undefined)
+      JSON.stringify(data?.data?.user ?? undefined),
     );
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
@@ -131,6 +131,17 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
               {t("resetPassword")}
             </Link>
           </div>
+          {pageType == "doctor" && (
+            <div className="flex justify-center opacity-80 mt-4">
+              <h4>{t("join_request")}</h4>
+              <Link
+                href={`/auth/${pageType}/join-request`}
+                className="text-blue-600 ml-1"
+              >
+                {t("join_us")}
+              </Link>
+            </div>
+          )}
         </Form>
       </div>
     </div>

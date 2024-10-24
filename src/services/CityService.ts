@@ -15,8 +15,8 @@ export class CityService extends BaseService<City> {
     sortDir?: string,
     per_page?: number,
     params?: object,
-  ): Promise<ApiResponse<City>> {
-    const res = await GET<City>(
+  ): Promise<ApiResponse<City[]>> {
+    const res = await GET<City[]>(
       `cities`,
       {
         page: page,

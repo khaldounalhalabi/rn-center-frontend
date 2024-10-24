@@ -2,7 +2,11 @@ import { BaseService } from "@/services/BaseService";
 import { JoinRequest } from "@/Models/JoinRequest";
 
 export class JoinRequestService extends BaseService<JoinRequest> {
-  getBaseUrl(): string {
-    return "/admin/clinic-join-requests";
+  public getBaseUrl(): string {
+    if (this.actor == "public") {
+      return `/clinic-join-requests`;
+    } else {
+      return `/admin/clinic-join-requests`;
+    }
   }
 }

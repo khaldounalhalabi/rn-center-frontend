@@ -10,6 +10,8 @@ import BloodBank from "@/components/landing/BloodBank";
 import Hospital from "@/components/landing/Hospital";
 import DownloadFooter from "@/components/landing/DownloadFooter";
 import Footer from "@/components/landing/Footer";
+import EndLine from "@/components/landing/EndLine";
+import Clinics from "@/components/landing/Clinics";
 
 const Page = () => {
   return (
@@ -17,7 +19,7 @@ const Page = () => {
       <div className={"kodchasan text-[#013567] relative"}>
         <Nav />
         <div className={"flex lg:h-[65vh] mt-4 px-4 relative"}>
-          <LandingLinIcon className={"w-full absolute top-0 z-10"} />
+          <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div
             className={
               "md:w-1/2 w-full flex gap-12 flex-col items-start ml-4 md:ml-0 justify-center md:items-center"
@@ -33,8 +35,10 @@ const Page = () => {
         <CenterFooter />
         <BloodBank />
         <Hospital />
+        <Clinics />
         <DownloadFooter />
         <Footer />
+        <EndLine/>
       </div>
     </Providers>
   );

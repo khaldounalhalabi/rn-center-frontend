@@ -71,7 +71,11 @@ const SpecialityHomePageSection = () => {
                   <div className={"w-full h-[70%]"}>
                     <img
                       className={"w-full h-full rounded-t-xl"}
-                      src={e?.image[0]?.file_url}
+                      src={
+                        e?.image?.[0]
+                            ? e?.image[0]?.file_url
+                            : "/no-clinic-image.png"
+                      }
                       alt={".."}
                     />
                   </div>
@@ -114,7 +118,7 @@ const SpecialityHomePageSection = () => {
           </div>
           <div className="  h-[23vh]">
             <div className="embla h-full" ref={emblaRef}>
-              <div className="embla__container py-6">
+              <div className="embla__container py-6 !h-full">
                 {isLoading ? (
                   <>
                     <div className={"skeleton w-[24vw] rounded-xl mx-4"}></div>
@@ -125,14 +129,18 @@ const SpecialityHomePageSection = () => {
                   data?.data?.map((e, index) => (
                     <div
                       className={
-                        "w-[24vw] rounded-xl border-2 border-[#F2F1F9] p-[1px] mx-4"
+                        "w-[24vw] rounded-xl h-full border-2 border-[#F2F1F9] p-[1px] mx-4"
                       }
                       key={index}
                     >
                       <div className={"w-[23vw] h-[50%]"}>
                         <img
-                          className={"w-full h-full rounded-t-xl"}
-                          src={e?.image[0]?.file_url}
+                          className={"w-full h-full object-cover rounded-t-xl"}
+                          src={
+                            e?.image?.[0]
+                                ? e?.image[0]?.file_url
+                                : "/no-clinic-image.png"
+                          }
                           alt={".."}
                         />
                       </div>

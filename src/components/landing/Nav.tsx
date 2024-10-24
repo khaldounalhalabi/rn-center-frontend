@@ -9,6 +9,7 @@ import { Navigate } from "@/Actions/navigate";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
+  const [user,setUser] = useState(false)
   const actor = getCookieClient("role");
   useEffect(() => {
     if (
@@ -58,9 +59,9 @@ const Nav = () => {
           </ul>
         </div>
         <div className="navbar-end pr-6">
-          <UserIcon className={"w-6 h-6 fill-[#013567] mx-2"} />
+          <UserIcon className={"w-6 h-6 fill-[#013567] mx-2 cursor-pointer"} onClick={()=>setUser(!user)}/>
           <MenuIcon
-            className={"w-8 h-8 md:hidden"}
+            className={"w-8 h-8 md:hidden cursor-pointer"}
             onClick={() => {
               setOpenNav(!openNav);
             }}
@@ -71,13 +72,10 @@ const Nav = () => {
         className={`absolute  right-0 w-full  min-h-screen bg-white duration-500 transform ${openNav ? "top-0 h-full" : "-top-[100vh]"} z-[1000] md:hidden`}
       >
         <div className="navbar bg-base-100 justify-around">
-          <div className="navbar-start pl-8">
-            <UserIcon className={"w-6 h-6 fill-[#013567] mx-2"} />
-          </div>
 
-          <div className="navbar-end pr-6">
+          <div className="w-full place-content-end pr-6">
             <Close
-              className={"w-8 h-8"}
+              className={"w-8 h-8 cursor-pointer"}
               onClick={() => {
                 setOpenNav(!openNav);
               }}
@@ -92,6 +90,14 @@ const Nav = () => {
             <h2 className={"text-[15px] font-semibold"}>Blood Bank</h2>
             <h2 className={"text-[15px] font-semibold"}>Contact</h2>
           </div>
+        </div>
+      </div>
+      <div className={`absolute h-auto top-20 w-fit bg-white shadow-xl border-y-2 border-pom duration-500 transform z-[500] ${user ? "right-0 h-full" : "-right-[100%]"}`}>
+        <div className={"flex flex-col gap-6 p-6"}>
+          <Link href={'/auth/doctor/login'} className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Doctor</h2></Link>
+          <Link href={'/auth/customer/login'}  className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Customer</h2></Link>
+          <Link href={'/auth/admin/login'}  className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Admin</h2></Link>
+
         </div>
       </div>
     </>

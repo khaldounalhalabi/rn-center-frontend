@@ -1253,7 +1253,10 @@
     "code": "الرمز",
     "resendThecode": "إعادة ارسال الرمز",
     "send": "إرسال",
-    "save": "حفظ"
+    "save": "حفظ",
+    "join_request": "ليس لديك حساب ؟",
+    "join_us": "أرسل طلب انضمام",
+    "send_us_join_request": "إرسال طلب انضمام"
   },
   "contact_and_payment": {
     "phone": "تواصل معنا",
@@ -1270,6 +1273,7 @@
     "phone": "رقم الهاتف",
     "city": "المدينة",
     "join_request": "طلب الانضمام",
-    "actions": "الخيارات"
+    "actions": "الخيارات",
+    "join_request_sent": "تم إرسال طلب الانضمام"
   }
 }

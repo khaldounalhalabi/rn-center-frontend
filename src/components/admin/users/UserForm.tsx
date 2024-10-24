@@ -87,7 +87,7 @@ const UserForm = ({
           required={true}
           label={t("role")}
           name={"role"}
-          status={defaultValues?.role?.[0].name}
+          status={defaultValues?.role?.[0]?.name}
           ArraySelect={Roles()}
           handleSelect={() => undefined}
         />

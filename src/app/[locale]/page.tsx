@@ -6,12 +6,9 @@ import Title from "@/components/landing/Title";
 import SpecialityHomePageSection from "@/components/customer/Speciality/SpecialityHomePageSection";
 import Providers from "@/app/[locale]/providers";
 import CenterFooter from "@/components/landing/CenterFooter";
-import BloodBank from "@/components/landing/BloodBank";
-import Hospital from "@/components/landing/Hospital";
 import DownloadFooter from "@/components/landing/DownloadFooter";
 import Footer from "@/components/landing/Footer";
-import EndLine from "@/components/landing/EndLine";
-import Clinics from "@/components/landing/Clinics";
+import Features from "@/components/landing/Features";
 
 const Page = () => {
   return (
@@ -33,12 +30,9 @@ const Page = () => {
         </div>
         <SpecialityHomePageSection />
         <CenterFooter />
-        <BloodBank />
-        <Hospital />
-        <Clinics />
+        <Features />
         <DownloadFooter />
         <Footer />
-        <EndLine/>
       </div>
     </Providers>
   );

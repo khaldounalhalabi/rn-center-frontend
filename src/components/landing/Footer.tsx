@@ -8,6 +8,9 @@ import Grid from "@/components/common/ui/Grid";
 
 import SelectorLanding from "@/components/common/ui/Selects/SelectorLanding";
 import {JoinRequestService} from "@/services/JoinRequestService";
+import FacebookIcon from "@/components/icons/FacebookIcon";
+import InstagramIcon from "@/components/icons/instaIcon";
+import TwitterIcon from "@/components/icons/TwitarIcon";
 
 const Footer = () => {
 
@@ -25,16 +28,13 @@ const Footer = () => {
             "w-full md:w-1/3 flex flex-col justify-center items-center p-6 h-full"
           }
         >
-          <img
-            className={"w-full md:block hidden max-w-[250px] h-full max-h-[340px]"}
-            src={"/footer-logo.png"}
-            alt={"..."}
-          />
-          <img
-              className={"w-full md:hidden max-w-[250px] h-full max-h-[340px]"}
-              src={"/sidlogo-en.png"}
-              alt={"..."}
-          />
+         <h2 className={'text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] font-bold'}>Planet of Medicine</h2>
+          <p>All rights reserved.</p>
+          <div className={'flex gap-3 my-6'}>
+            <FacebookIcon/>
+            <InstagramIcon/>
+            <TwitterIcon />
+          </div>
         </div>
         <div className={"md:w-[25%] w-full h-full flex flex-col justify-center items-center"}>
           <div className={"flex flex-col gap-6"}>
@@ -57,7 +57,7 @@ const Footer = () => {
         </div>
         <div
           className={
-            "md:w-[41%] w-full flex md:pt-10 flex-col justify-center md:items-start items-center"
+            "md:w-[30%] w-full flex md:pt-10 p-4 flex-col justify-center md:items-start items-center"
           }
         >
           <Form
@@ -73,8 +73,8 @@ const Footer = () => {
             )}
             defaultButton={false}
           >
-            <h2 className={"card-title"}>Join as a Doctor</h2>
-            <Grid md={2} className={'relative z-50'}>
+            <h2 className={"card-title"}>Contact Us</h2>
+            <div className={'relative z-50 flex flex-col gap-4'}>
               <InputLoginCustomer
                 type={"text"}
                 name={"doctor_name"}
@@ -85,13 +85,7 @@ const Footer = () => {
                 name={"clinic_name"}
                 label={"Clinic name"}
               />
-              <InputLoginCustomer
-                type={"text"}
-                name={"phone_number"}
-                label={"Phone number"}
-              />
-              <SelectorLanding name={'city_id'}/>
-            </Grid>
+            </div>
           </Form>
         </div>
       </div>

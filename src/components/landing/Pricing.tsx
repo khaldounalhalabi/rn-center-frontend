@@ -40,7 +40,7 @@ const Pricing = () => {
     },
   ];
   return (
-    <div className="w-full my-5 flex justify-center pricing-curv">
+    <div id={'pricing'} className="w-full my-5 flex justify-center pricing-curv">
       <div className={"w-[68%]"}>
         <h1 className={"text-[24px] font-bold mb-10 text-center"}>Pricing</h1>
         <div className={"flex flex-col md:flex-row items-centerv gap-2 justify-around w-full"}>

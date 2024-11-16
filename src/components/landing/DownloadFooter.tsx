@@ -22,7 +22,7 @@ const DownloadFooter: React.FC = () => {
   };
   return (
     <div
-      id="#join"
+      id="start"
       className={
         "my-4 flex gap-4 md:gap-2 lg:gap-6 flex-col md:flex-row justify-around items-center w-full max-h-fit md:h-[400px] bg-gradient-to-r from-[#d7eff6] to-[#e0efef]"
       }

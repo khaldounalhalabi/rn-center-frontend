@@ -5,7 +5,7 @@ const Features = ()=>{
 
 
     return (
-        <div className={'w-full my-6 flex flex-col items-center gap-12'}>
+        <div id={'features'} className={'w-full my-6 flex flex-col items-center gap-12'}>
             <div className={'w-full flex flex-col gap-2 items-center'}>
                 <p className={'opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]'}>Introducing some</p>
                 <div className={'text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] flex gap-1'}><h2 className={'font-bold'}>POM</h2><h3>Features</h3></div>

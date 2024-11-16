@@ -9,7 +9,7 @@ const SpecialityHomePageSection = async () => {
   const arrayData = Array.isArray(data?.data) ? data.data : [];
   return (
     <>
-      <div className={"my-8 flex px-[13%] w-full"}>
+      <div id={'specialities'} className={"my-8 flex px-[13%] w-full"}>
         <div
           className={
             "w-full grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-3  grid-cols-2 gap-4"

@@ -11,7 +11,7 @@ const Title = async () => {
   const res: StatisticsPublic | undefined = data?.data;
   return (
     <>
-      <div className={"flex flex-col gap-6"}>
+      <div id={'home'} className={"flex flex-col gap-6"}>
         <div
           className={
             "text-[#013567] text-[30px] lg:text-[30px] font-bold md:text-[25px] 2xl:text-[35px]"

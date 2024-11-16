@@ -1,32 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Link } from "@/navigation";
-import UserIcon from "@/components/icons/UserIcon";
+import React, {  useState } from "react";
+import Link  from "next/link";
 import MenuIcon from "@/components/icons/MenuIcon";
 import Close from "@/components/icons/Close";
-import { getCookieClient } from "@/Actions/clientCookies";
-import { Navigate } from "@/Actions/navigate";
+import CheckUserImg from "@/components/landing/CheckUserImg";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
-  const [user, setUser] = useState(false);
-  const actor = getCookieClient("role");
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(display-mode: standalone)").matches
-    ) {
-      if (actor === "admin") {
-        Navigate("/admin");
-      } else if (actor === "doctor") {
-        Navigate("/doctor");
-      } else if (actor === "customer") {
-        Navigate("/customer");
-      }
-    } else {
-      console.log("Running in the browser");
-    }
-  }, []);
+  const HandleClose = ()=>{
+    setOpenNav(false)
+  }
   return (
     <>
       <div className="navbar bg-base-100 justify-around">
@@ -42,27 +25,24 @@ const Nav = () => {
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal px-1 font-semibold text-[15px]">
             <li>
-              <Link href={"/"}>Home</Link>
+              <Link href={"#home"}>Home</Link>
             </li>
             <li>
-              <Link href={"/"}>Specialities</Link>
+              <Link href={"#specialities"}>Specialities</Link>
             </li>
             <li>
-              <Link href={"/"}>Features</Link>
+              <Link href={"#features"}>Features</Link>
             </li>
             <li>
-              <Link href={"/"}>Pricing</Link>
+              <Link href={"#pricing"}>Pricing</Link>
             </li>
             <li>
-              <Link href={"/"}>Get Started</Link>
+              <Link href={"#start"}>Get Started</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end pr-6">
-          <UserIcon
-            className={"w-6 h-6 fill-[#013567] mx-2 cursor-pointer"}
-            onClick={() => setUser(!user)}
-          />
+          <CheckUserImg />
           <MenuIcon
             className={"w-8 h-8 md:hidden cursor-pointer"}
             onClick={() => {
@@ -86,36 +66,12 @@ const Nav = () => {
         </div>
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
-            <h2 className={"text-[15px] font-semibold"}>Home</h2>
-            <h2 className={"text-[15px] font-semibold"}>Specialities</h2>
-            <h2 className={"text-[15px] font-semibold"}>Features</h2>
-            <h2 className={"text-[15px] font-semibold"}>Pricing</h2>
-            <h2 className={"text-[15px] font-semibold"}>Get Started</h2>
+            <Link href={"#home"} onClick={HandleClose} className={"text-[15px] font-semibold"}>Home</Link>
+            <Link href={"#specialities"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Specialities</Link>
+            <Link href={"#features"}  onClick={HandleClose}  className={"text-[15px] font-semibold"}>Features</Link>
+            <Link href={"#pricing"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Pricing</Link>
+            <Link href={"#start"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Get Started</Link>
           </div>
-        </div>
-      </div>
-      <div
-        className={`absolute h-auto top-20 w-fit bg-white shadow-xl border-y-2 border-pom duration-500 transform z-[500] ${user ? "right-0 h-full" : "-right-[100%]"}`}
-      >
-        <div className={"flex flex-col gap-6 p-6"}>
-          <Link href={"/auth/doctor/login"} className={"w-full"}>
-            <h2
-              className={
-                "w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer"
-              }
-            >
-              Doctor
-            </h2>
-          </Link>
-          <Link href={"/auth/customer/login"} className={"w-full"}>
-            <h2
-              className={
-                "w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer"
-              }
-            >
-              Customer
-            </h2>
-          </Link>
         </div>
       </div>
     </>

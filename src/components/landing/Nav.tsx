@@ -9,7 +9,7 @@ import { Navigate } from "@/Actions/navigate";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
-  const [user,setUser] = useState(false)
+  const [user, setUser] = useState(false);
   const actor = getCookieClient("role");
   useEffect(() => {
     if (
@@ -59,7 +59,10 @@ const Nav = () => {
           </ul>
         </div>
         <div className="navbar-end pr-6">
-          <UserIcon className={"w-6 h-6 fill-[#013567] mx-2 cursor-pointer"} onClick={()=>setUser(!user)}/>
+          <UserIcon
+            className={"w-6 h-6 fill-[#013567] mx-2 cursor-pointer"}
+            onClick={() => setUser(!user)}
+          />
           <MenuIcon
             className={"w-8 h-8 md:hidden cursor-pointer"}
             onClick={() => {
@@ -72,7 +75,6 @@ const Nav = () => {
         className={`absolute  right-0 w-full  min-h-screen bg-white duration-500 transform ${openNav ? "top-0 h-full" : "-top-[100vh]"} z-[1000] md:hidden`}
       >
         <div className="navbar bg-base-100 justify-around">
-
           <div className="w-full place-content-end pr-6">
             <Close
               className={"w-8 h-8 cursor-pointer"}
@@ -85,18 +87,35 @@ const Nav = () => {
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
             <h2 className={"text-[15px] font-semibold"}>Home</h2>
-            <h2 className={"text-[15px] font-semibold"}>About</h2>
-            <h2 className={"text-[15px] font-semibold"}>Services</h2>
-            <h2 className={"text-[15px] font-semibold"}>Blood Bank</h2>
-            <h2 className={"text-[15px] font-semibold"}>Contact</h2>
+            <h2 className={"text-[15px] font-semibold"}>Specialities</h2>
+            <h2 className={"text-[15px] font-semibold"}>Features</h2>
+            <h2 className={"text-[15px] font-semibold"}>Pricing</h2>
+            <h2 className={"text-[15px] font-semibold"}>Get Started</h2>
           </div>
         </div>
       </div>
-      <div className={`absolute h-auto top-20 w-fit bg-white shadow-xl border-y-2 border-pom duration-500 transform z-[500] ${user ? "right-0 h-full" : "-right-[100%]"}`}>
+      <div
+        className={`absolute h-auto top-20 w-fit bg-white shadow-xl border-y-2 border-pom duration-500 transform z-[500] ${user ? "right-0 h-full" : "-right-[100%]"}`}
+      >
         <div className={"flex flex-col gap-6 p-6"}>
-          <Link href={'/auth/doctor/login'} className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Doctor</h2></Link>
-          <Link href={'/auth/customer/login'}  className={'w-full'}><h2 className={'w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer'}>Customer</h2></Link>
-
+          <Link href={"/auth/doctor/login"} className={"w-full"}>
+            <h2
+              className={
+                "w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer"
+              }
+            >
+              Doctor
+            </h2>
+          </Link>
+          <Link href={"/auth/customer/login"} className={"w-full"}>
+            <h2
+              className={
+                "w-full hover:bg-[#013567] hover:text-pom p-2 rounded-2xl text-center cursor-pointer"
+              }
+            >
+              Customer
+            </h2>
+          </Link>
         </div>
       </div>
     </>

@@ -22,7 +22,7 @@ const Footer = () => {
   };
   return (
     <div className={"md:max-h-[530px]"}>
-      <div className={"flex md:flex-row flex-col justify-around md:gap-0 gap-4 items-start md:ml-0 ml-4 md:items-center h-full"}>
+      <div className={"flex md:flex-row flex-col-reverse justify-around md:gap-0 gap-4 items-start md:ml-0 ml-4 md:items-center h-full"}>
         <div
           className={
             "w-full md:w-1/3 flex flex-col justify-center items-center p-6 h-full"

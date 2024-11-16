@@ -30,8 +30,11 @@ function ApiSelect<TResponse, TData>({
   onRemoveSelected = undefined,
   inputProps = {},
   revalidate,
+  withoutPlaceHolder = true,
 }: IApiSelectProps<TResponse, TData>) {
-  placeHolder = undefined;
+  if (withoutPlaceHolder) {
+    placeHolder = undefined;
+  }
   const {
     setValue,
     formState: { errors },
@@ -98,7 +101,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData,
+    item: TData
   ) => {
     e.stopPropagation();
 
@@ -139,7 +142,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -147,7 +150,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option,
+    clickedItem: Option
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -230,7 +233,7 @@ function ApiSelect<TResponse, TData>({
               ))}
             </div>
           ) : (
-            <p>{placeHolder}</p>
+            <p className={styles?.placeholder ?? ""}>{placeHolder}</p>
           )}
           <div className="flex items-center gap-2">
             {isFetching && (

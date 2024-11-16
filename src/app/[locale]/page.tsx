@@ -9,6 +9,7 @@ import CenterFooter from "@/components/landing/CenterFooter";
 import DownloadFooter from "@/components/landing/DownloadFooter";
 import Footer from "@/components/landing/Footer";
 import Features from "@/components/landing/Features";
+import Pricing from "@/components/landing/Pricing";
 
 const Page = () => {
   return (
@@ -31,6 +32,7 @@ const Page = () => {
         <SpecialityHomePageSection />
         <CenterFooter />
         <Features />
+        <Pricing />
         <DownloadFooter />
         <Footer />
       </div>

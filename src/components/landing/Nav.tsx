@@ -45,16 +45,16 @@ const Nav = () => {
               <Link href={"/"}>Home</Link>
             </li>
             <li>
-              <Link href={"/"}>About</Link>
+              <Link href={"/"}>Specialities</Link>
             </li>
             <li>
-              <Link href={"/"}>Services</Link>
+              <Link href={"/"}>Features</Link>
             </li>
             <li>
-              <Link href={"/"}>Blood Bank</Link>
+              <Link href={"/"}>Pricing</Link>
             </li>
             <li>
-              <Link href={"/"}>Contact</Link>
+              <Link href={"/"}>Get Started</Link>
             </li>
           </ul>
         </div>

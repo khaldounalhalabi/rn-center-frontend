@@ -11,7 +11,7 @@ const AuthSubmitButton: React.FC<ButtonAttr> = ({
   children,
   isSubmitting = false,
   disabled = false,
-  className = "px-10 py-3",
+  className = "px-12 py-3",
   ...props
 }) => {
   return (

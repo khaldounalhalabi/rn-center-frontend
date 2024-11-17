@@ -75,17 +75,17 @@ const UserDataAdmin = ({
               className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px] left-[10%] ${local == "en" ? "left-[10%]" : "right-[10%]"}`}
             >
               <RoundedImage
-                src={user.image?.[0]?.file_url ?? "/user.png"}
+                src={user?.image?.[0]?.file_url ?? "/user?.png"}
                 alt={"user-profile"}
                 className="w-full h-full"
               />
             </div>
             <h2 className="text-lg lg:text-xl md:text-lg font-semibold">
-              {TranslateClient(user.first_name)}{" "}
-              {TranslateClient(user.middle_name)}{" "}
-              {TranslateClient(user.last_name)}
+              {TranslateClient(user?.first_name)}{" "}
+              {TranslateClient(user?.middle_name)}{" "}
+              {TranslateClient(user?.last_name)}
             </h2>
-            <p className="text-sm md:text-base">{user.email}</p>
+            <p className="text-sm md:text-base">{user?.email}</p>
           </div>
           <hr className={"w-full"} />
           <div className="p-4 w-full gap-2 flex justify-between">

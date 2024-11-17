@@ -2,6 +2,7 @@
 
 import AuthSubmitButton from "../common/Auth/Customer/AuthSubmitButton";
 import FeaturedBadgeIcon from "../icons/FeaturedBadgeIcon";
+import Link from "next/link";
 
 const Pricing = () => {
   const data = [
@@ -40,10 +41,17 @@ const Pricing = () => {
     },
   ];
   return (
-    <div id={'pricing'} className="w-full my-5 flex justify-center pricing-curv">
+    <div
+      id={"pricing"}
+      className="w-full my-5 flex justify-center pricing-curv"
+    >
       <div className={"w-[68%]"}>
         <h1 className={"text-[24px] font-bold mb-10 text-center"}>Pricing</h1>
-        <div className={"flex flex-col md:flex-row items-centerv gap-2 justify-around w-full"}>
+        <div
+          className={
+            "flex flex-col md:flex-row items-center gap-2 justify-around w-full"
+          }
+        >
           {data.map((item, index) => (
             <div
               key={index}
@@ -78,12 +86,14 @@ const Pricing = () => {
               {item.featured ? (
                 <AuthSubmitButton type="button">Start</AuthSubmitButton>
               ) : (
-                <button
-                  type="button"
-                  className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-12 py-3 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
-                >
-                  Start
-                </button>
+                <Link href={"/#start"}>
+                  <button
+                    type="button"
+                    className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-12 py-3 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
+                  >
+                    Start
+                  </button>
+                </Link>
               )}
 
               {item.featured ? (

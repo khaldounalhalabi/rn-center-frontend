@@ -9,11 +9,8 @@ import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
 import { useTranslations } from "next-intl";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 
 const Home = () => {
-  const clinic = HandleGetUserData();
-
   const {
     data: statistics,
     isLoading,

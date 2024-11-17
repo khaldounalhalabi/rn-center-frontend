@@ -2,8 +2,7 @@ import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton
 import React from "react";
 import { StatisticService } from "@/services/StatisticService";
 import { StatisticsPublic } from "@/Models/Statistics";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { Link } from "@/navigation";
+import Link  from "next/link";
 
 const Title = async () => {
   const data = await StatisticService.make<StatisticService>().getStatistics();
@@ -32,7 +31,7 @@ const Title = async () => {
           <p>Start a free trial and see</p>
           <p>how easy clinic management can be</p>
         </div>
-        <a href={"#join"}>
+        <Link href={"/#start"}>
           <AuthSubmitButton
             className={
               "w-1/2 px-6 py-2 text-[13px] lg:text-[16px] md:text-[14px] 2xl:text-[20px]"
@@ -40,7 +39,7 @@ const Title = async () => {
           >
             Get Started
           </AuthSubmitButton>
-        </a>
+        </Link>
       </div>
       <div className={"w-full flex justify-around items-center "}>
         <div

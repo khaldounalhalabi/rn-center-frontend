@@ -19,4 +19,16 @@ export class EnquiriesService extends BaseService<Enquiries> {
     );
     return await this.errorHandler(res);
   }
+
+  async store(data: any, headers?: object): Promise<ApiResponse<Enquiries>> {
+    const res: ApiResponse<Enquiries> = await POST<Enquiries>(
+      `enquiry/send`,
+      data,
+      {
+        ...headers,
+        ...this.headers,
+      },
+    );
+    return await this.errorHandler(res);
+  }
 }

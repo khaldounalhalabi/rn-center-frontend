@@ -263,7 +263,7 @@ function ApiSelect<TResponse, TData>({
         <div
           className={
             isOpen
-              ? `absolute overflow-y-scroll left-0 z-50 ${styles?.dropDownItemsContainerClasses ?? " px-3 pb-3 rounded-lg border border-gray-200 shadow-2xl bg-white w-full"}`
+              ? `absolute overflow-y-scroll left-0 !z-50 ${styles?.dropDownItemsContainerClasses ?? " px-3 pb-3 rounded-lg border border-gray-200 shadow-2xl bg-white w-full"}`
               : "hidden"
           }
           style={{

@@ -25,19 +25,19 @@ const Nav = () => {
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal px-1 font-semibold text-[15px]">
             <li>
-              <Link href={"#home"}>Home</Link>
+              <Link href={"/#home"}>Home</Link>
             </li>
             <li>
-              <Link href={"#specialities"}>Specialities</Link>
+              <Link href={"/#specialities"}>Specialities</Link>
             </li>
             <li>
-              <Link href={"#features"}>Features</Link>
+              <Link href={"/#features"}>Features</Link>
             </li>
             <li>
-              <Link href={"#pricing"}>Pricing</Link>
+              <Link href={"/#pricing"}>Pricing</Link>
             </li>
             <li>
-              <Link href={"#start"}>Get Started</Link>
+              <Link href={"/#start"}>Get Started</Link>
             </li>
           </ul>
         </div>
@@ -66,11 +66,11 @@ const Nav = () => {
         </div>
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
-            <Link href={"#home"} onClick={HandleClose} className={"text-[15px] font-semibold"}>Home</Link>
-            <Link href={"#specialities"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Specialities</Link>
-            <Link href={"#features"}  onClick={HandleClose}  className={"text-[15px] font-semibold"}>Features</Link>
-            <Link href={"#pricing"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Pricing</Link>
-            <Link href={"#start"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Get Started</Link>
+            <Link href={"/#home"} onClick={HandleClose} className={"text-[15px] font-semibold"}>Home</Link>
+            <Link href={"/#specialities"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Specialities</Link>
+            <Link href={"/#features"}  onClick={HandleClose}  className={"text-[15px] font-semibold"}>Features</Link>
+            <Link href={"/#pricing"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Pricing</Link>
+            <Link href={"/#start"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Get Started</Link>
           </div>
         </div>
       </div>

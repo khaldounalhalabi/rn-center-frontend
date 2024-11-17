@@ -11,8 +11,8 @@ import TestForm from "@/components/common/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
-import HandleGetUserAndClinic from "@/hooks/HandleGetUserAndClinic";
 import { useTranslations } from "next-intl";
+import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 
 const PrescriptionsForm = ({
   userType = "admin",
@@ -30,7 +30,7 @@ const PrescriptionsForm = ({
   type?: "store" | "update";
 }) => {
   const t = useTranslations("common.prescription.create");
-  const clinicId = HandleGetUserAndClinic();
+  const clinicId = HandleGetUserData();
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = customerId
       ? {

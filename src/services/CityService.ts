@@ -5,6 +5,9 @@ import { GET } from "@/Http/Http";
 
 export class CityService extends BaseService<City> {
   getBaseUrl(): string {
+    if (this.actor == "public") {
+      return `cities`;
+    }
     return `${this.actor}/cities`;
   }
 
@@ -14,7 +17,7 @@ export class CityService extends BaseService<City> {
     sortCol?: string,
     sortDir?: string,
     per_page?: number,
-    params?: object,
+    params?: object
   ): Promise<ApiResponse<City[]>> {
     const res = await GET<City[]>(
       `cities`,
@@ -26,7 +29,7 @@ export class CityService extends BaseService<City> {
         per_page: per_page,
         ...params,
       },
-      this.headers,
+      this.headers
     );
     return await this.errorHandler(res);
   }

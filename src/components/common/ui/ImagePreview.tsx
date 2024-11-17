@@ -21,6 +21,7 @@ const ImagePreview = ({
   return (
     <>
       <img
+          alt={"..."}
         src={src}
         onClick={openModal}
         className={className ?? "" + "cursor-pointer"}
@@ -52,7 +53,7 @@ const ImagePreview = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="bg-transparent p-6 max-w-lg text-left transform transition-all overflow-hidden align-middle">
-                  <img src={src} />
+                  <img src={src} alt={"..."}/>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

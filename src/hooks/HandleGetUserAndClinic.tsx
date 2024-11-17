@@ -2,18 +2,12 @@
 import { useEffect, useState } from "react";
 
 const HandleGetUserData = () => {
-  const [isClient, setIsClient] = useState(false);
-
+  const [data, setData] = useState<any>();
   useEffect(() => {
-    setIsClient(true);
+    setData(window.localStorage.getItem("user"));
   }, []);
 
-  if (isClient) {
-    const data = window.localStorage.getItem("user");
-    return data ? JSON.parse(data) : undefined;
-  } else {
-    return { data: "" };
-  }
+  return data ? JSON.parse(data) : undefined;
 };
 
 export default HandleGetUserData;

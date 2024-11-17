@@ -83,17 +83,17 @@ const UserDataDoctor = ({
               className={`relative z-10 p-1 bg-white w-16 h-16 rounded-full -top-[40px]  ${locale == "en" ? "left-[10%]" : "right-[10%]"}`}
             >
               <RoundedImage
-                src={user.image?.[0]?.file_url ?? "/user.png"}
+                src={user?.image?.[0]?.file_url ?? "/user?.png"}
                 alt={"user-profile"}
                 className="w-full h-full"
               />
             </div>
             <h2 className="text-lg lg:text-xl md:text-lg font-semibold">
-              {TranslateClient(user.first_name)}{" "}
-              {TranslateClient(user.middle_name)}{" "}
-              {TranslateClient(user.last_name)}
+              {TranslateClient(user?.first_name)}{" "}
+              {TranslateClient(user?.middle_name)}{" "}
+              {TranslateClient(user?.last_name)}
             </h2>
-            <p className="text-sm md:text-base">{user.email}</p>
+            <p className="text-sm md:text-base">{user?.email}</p>
           </div>
           {role == Role.CLINIC_EMPLOYEE &&
           !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE) ? (
@@ -106,7 +106,12 @@ const UserDataDoctor = ({
                 className={`
                  flex items-center text-start rounded-xl mt-2 bg-[#1fb8b9] hover:bg-[#1aa0a1] p-2 text-white `}
               >
-                {t("profile")} {locale == "ar" ? <ArrowLeft /> : <ArrowRight className={"h-4 w-4"}/>}
+                {t("profile")}{" "}
+                {locale == "ar" ? (
+                  <ArrowLeft />
+                ) : (
+                  <ArrowRight className={"h-4 w-4"} />
+                )}
               </Link>
             </div>
           )}

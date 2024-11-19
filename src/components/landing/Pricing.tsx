@@ -45,7 +45,7 @@ const Pricing = () => {
       id={"pricing"}
       className="w-full my-5 flex justify-center pricing-curv"
     >
-      <div className={"w-[65%]"}>
+      <div className={"w-[65%] h-full"}>
         <h1 className={"text-[24px] font-bold mb-10 text-center"}>Pricing</h1>
         <div
           className={

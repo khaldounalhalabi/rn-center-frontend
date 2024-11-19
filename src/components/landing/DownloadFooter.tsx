@@ -24,24 +24,24 @@ const DownloadFooter: React.FC = () => {
     <div
       id="start"
       className={
-        "my-4 flex gap-4 md:gap-2 lg:gap-6 flex-col md:flex-row justify-around items-center w-full max-h-fit md:h-[400px] bg-gradient-to-r from-[#d7eff6] to-[#e0efef]"
+        "my-4 flex gap-4 md:gap-2 lg:gap-6 flex-col md:flex-row justify-around items-center w-full max-h-fit md:h-[400px] bg-gradient-to-r from-[#d7eff6] to-[#e0efef] px-10"
       }
     >
       <div
         className={
-          " flex flex-col justify-center items-start gap-4 w-full md:w-1/3 p-4 md:p-0"
+          " flex flex-col justify-center items-start gap-4 w-full md:w-1/4 md:px-0"
         }
       >
         <h2 className={"md:text-[30px] lg:text-[35px] font-bold"}>
           Join PoM Family
         </h2>
-        <p className={"text-[12px] opacity-80 font-extralight"}>
+        <p className={"text-[12px] text-[#6685A3] opacity-80 font-extralight"}>
           Unlock a new level of clinic management! Book a live demo with our
           team and experience the tools that make running a clinic smoother,
           faster, and more rewarding.
         </p>
       </div>
-      <div className={"flex h-full w-full md:w-1/3 p-4 md:p-0"}>
+      <div className={"flex h-full w-full md:w-1/4 p-4 md:p-0"}>
         <div
           className={
             " w-full flex flex-col justify-center md:items-start items-center"
@@ -50,6 +50,7 @@ const DownloadFooter: React.FC = () => {
           <Form
             className={"w-full max-w-[650px]"}
             handleSubmit={handleSubmit}
+            submitButtonClasses="justify-start"
             otherSubmitButton={(isSubmitting) => (
               <AuthSubmitButton
                 isSubmitting={isSubmitting}

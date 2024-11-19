@@ -16,17 +16,17 @@ const Page = () => {
     <Providers>
       <div className={"kodchasan text-[#013567] relative overflow-x-hidden"}>
         <Nav />
-        <div className={"flex  mt-4 px-4 relative"}>
+        <div className={"flex mt-4 md:px-[13%] relative"}>
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div
             className={
-              "md:w-1/2 w-full flex gap-12 flex-col items-start ml-4 md:ml-0 justify-center md:items-center"
+              "md:w-1/2 w-full"
             }
           >
             <Title />
           </div>
           <div className={"w-1/2 z-20 hidden md:block"}>
-            <LandingIcon className={"w-full h-full "} />
+            <LandingIcon className={"w-full h-[65vh]"} />
           </div>
         </div>
         <SpecialityHomePageSection />

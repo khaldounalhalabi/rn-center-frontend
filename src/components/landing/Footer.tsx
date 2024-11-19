@@ -21,12 +21,12 @@ const Footer = () => {
     <div className={"md:max-h-[530px]"}>
       <div
         className={
-          "md:flex-row flex-col-reverse justify-around md:items-start h-full flex items-start px-5 py-10 gap-5"
+          "md:flex-row flex-col-reverse justify-around md:items-start h-full flex items-start px-36 py-10 gap-5"
         }
       >
         <div
           className={
-            "w-full md:w-1/3 flex flex-col justify-center items-center h-full"
+            " w-full md:w-1/3 flex flex-col justify-center items-start h-full gap-4"
           }
         >
           <h2
@@ -36,8 +36,8 @@ const Footer = () => {
           >
             Planet of Medicine
           </h2>
-          <p>All rights reserved.</p>
-          <div className={"flex gap-3 my-6"}>
+          <p className="text-[#013567]">All rights reserved.</p>
+          <div className={"flex gap-3"}>
             <Link
               href={"https://www.facebook.com/share/7Eatuaim1iVt5wHP/"}
               target={"_blank"}
@@ -56,28 +56,28 @@ const Footer = () => {
               target={"_blank"}
               href={"https://wa.me/message/4LFLCAM2QQYNL1"}
             >
-              <WhatsappIcon className={"h-7 w-7"}/>
+              <WhatsappIcon className={"h-7 w-7"} />
             </Link>
           </div>
         </div>
         <div
           className={
-            "md:w-[25%] w-full h-full flex flex-col justify-center items-center"
+            " md:w-1/3 w-full h-full flex flex-col justify-center items-start"
           }
         >
           <div className={"flex flex-col gap-6"}>
-            <h2 className={"card-title"}>Quick links</h2>
+            <h2 className={"card-title text-[#013567]"}>Quick links</h2>
             <div className={"grid md:grid-cols-1 grid-cols-2 gap-6"}>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer"}>
+              <p className={"hover:text-[#1FB8B9] text-[#013567] cursor-pointer"}>
                 <Link href={"/#specialities"}>Specialities</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer"}>
+              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
                 <Link href={"/#features"}>Features</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer"}>
+              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
                 <Link href={"/#pricing"}>Pricing</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer"}>
+              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
                 <Link href={"/#start"}>Get Started</Link>
               </p>
             </div>
@@ -85,12 +85,13 @@ const Footer = () => {
         </div>
         <div
           className={
-            "md:w-[30%] w-full flex flex-col justify-center md:items-start items-center"
+            " md:w-1/3 w-full flex flex-col justify-center md:items-start items-start"
           }
         >
           <Form
             className={"w-full max-w-[650px]"}
             handleSubmit={handleSubmit}
+            submitButtonClasses="justify-start"
             otherSubmitButton={(isSubmitting) => (
               <AuthSubmitButton
                 isSubmitting={isSubmitting}

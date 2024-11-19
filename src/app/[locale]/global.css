@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 .kodchasan {
   font-family: var(--font-kodchasan) !important;
 }
@@ -198,4 +202,17 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.marker {
+  background-image: url("/marker.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.pricing-card-shadow {
+  -webkit-box-shadow: 5px 3px 10px 3px #f1fbfb;
+  -moz-box-shadow: 5px 3px 10px 3px #f1fbfb;
+  box-shadow: 5px 3px 10px 3px #f1fbfb;
 }

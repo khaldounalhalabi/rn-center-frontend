@@ -19,9 +19,9 @@ const SpecialityHomePageSection = async () => {
             return (
               <div
                 key={index}
-                className={"h-[210px] flex flex-col gap-1 p-6 rounded-xl border border-gray-200"}
+                className={"h-[250px] flex flex-col gap-1 p-6 rounded-xl border border-[#F2F1F9]"}
               >
-                <div className={"w-full h-[65%]"}>
+                <div className={"w-full h-[60%]"}>
                   <img
                     className={"w-full h-full rounded-t-xl object-contain"}
                     src={getMedia(speciality.image?.[0])}
@@ -30,7 +30,7 @@ const SpecialityHomePageSection = async () => {
                 </div>
                 <div
                   className={
-                    "w-full h-[35%] gap-1 flex flex-col justify-start items-start"
+                    "w-full h-[35%] gap-1 flex flex-col justify-start items-start mt-5"
                   }
                 >
                   <p

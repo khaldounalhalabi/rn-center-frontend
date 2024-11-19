@@ -19,6 +19,7 @@ const Form = ({
   disabled = false,
   defaultButton = true,
   otherSubmitButton = undefined,
+  submitButtonClasses = "justify-center",
 }: {
   className?: string;
   children: React.ReactNode;
@@ -31,6 +32,7 @@ const Form = ({
   disabled?: boolean;
   defaultButton?: boolean;
   otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode;
+  submitButtonClasses?: string;
 }) => {
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
@@ -92,7 +94,7 @@ const Form = ({
         )}
         {children}
         <div
-          className="flex justify-center items-center my-5"
+          className={`flex ${submitButtonClasses} items-center my-5`}
           onClick={() => {
             methods.clearErrors();
           }}

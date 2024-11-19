@@ -45,17 +45,17 @@ const Pricing = () => {
       id={"pricing"}
       className="w-full my-5 flex justify-center pricing-curv"
     >
-      <div className={"w-[68%]"}>
+      <div className={"w-[65%]"}>
         <h1 className={"text-[24px] font-bold mb-10 text-center"}>Pricing</h1>
         <div
           className={
-            "flex flex-col md:flex-row items-center gap-2 justify-around w-full"
+            "flex h-[75%] flex-col md:flex-row items-center gap-[5%] justify-between w-full"
           }
         >
           {data.map((item, index) => (
             <div
               key={index}
-              className="md:w-[25%] flex flex-col justify-center items-center rounded-md shadow-md p-10 bg-white"
+              className="flex h-full flex-col justify-center items-center rounded-md shadow-md p-10 bg-white pricing-card-shadow"
             >
               <h1 className="text-center font-bold text-[20px] my-3 text-[#013567]">
                 {item.title}{" "}

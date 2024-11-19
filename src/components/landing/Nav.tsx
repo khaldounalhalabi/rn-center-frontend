@@ -1,15 +1,15 @@
 "use client";
-import React, {  useState } from "react";
-import Link  from "next/link";
+import React, { useState } from "react";
+import Link from "next/link";
 import MenuIcon from "@/components/icons/MenuIcon";
 import Close from "@/components/icons/Close";
 import CheckUserImg from "@/components/landing/CheckUserImg";
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
-  const HandleClose = ()=>{
-    setOpenNav(false)
-  }
+  const HandleClose = () => {
+    setOpenNav(false);
+  };
   return (
     <>
       <div className="navbar bg-base-100 justify-around">
@@ -23,21 +23,31 @@ const Nav = () => {
           </div>
         </div>
         <div className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal px-1 font-semibold text-[15px]">
+          <ul className="flex w-full gap-5 justify-between px-1 font-semibold text-[15px]">
             <li>
-              <Link href={"/#home"}>Home</Link>
+              <Link href={"/#home"} className="hover:text-[#1FB8B9]">
+                Home
+              </Link>
             </li>
             <li>
-              <Link href={"/#specialities"}>Specialities</Link>
+              <Link href={"/#specialities"} className="hover:text-[#1FB8B9]">
+                Specialities
+              </Link>
             </li>
             <li>
-              <Link href={"/#features"}>Features</Link>
+              <Link href={"/#features"} className="hover:text-[#1FB8B9]">
+                Features
+              </Link>
             </li>
             <li>
-              <Link href={"/#pricing"}>Pricing</Link>
+              <Link href={"/#pricing"} className="hover:text-[#1FB8B9]">
+                Pricing
+              </Link>
             </li>
             <li>
-              <Link href={"/#start"}>Get Started</Link>
+              <Link href={"/#start"} className="hover:text-[#1FB8B9]">
+                Get Started
+              </Link>
             </li>
           </ul>
         </div>
@@ -66,11 +76,41 @@ const Nav = () => {
         </div>
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
-            <Link href={"/#home"} onClick={HandleClose} className={"text-[15px] font-semibold"}>Home</Link>
-            <Link href={"/#specialities"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Specialities</Link>
-            <Link href={"/#features"}  onClick={HandleClose}  className={"text-[15px] font-semibold"}>Features</Link>
-            <Link href={"/#pricing"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Pricing</Link>
-            <Link href={"/#start"}  onClick={HandleClose} className={"text-[15px] font-semibold"}>Get Started</Link>
+            <Link
+              href={"/#home"}
+              onClick={HandleClose}
+              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+            >
+              Home
+            </Link>
+            <Link
+              href={"/#specialities"}
+              onClick={HandleClose}
+              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+            >
+              Specialities
+            </Link>
+            <Link
+              href={"/#features"}
+              onClick={HandleClose}
+              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+            >
+              Features
+            </Link>
+            <Link
+              href={"/#pricing"}
+              onClick={HandleClose}
+              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+            >
+              Pricing
+            </Link>
+            <Link
+              href={"/#start"}
+              onClick={HandleClose}
+              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </div>

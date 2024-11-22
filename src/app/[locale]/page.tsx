@@ -20,7 +20,7 @@ const Page = () => {
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div
             className={
-              "md:w-1/2 w-full"
+              "md:w-1/2 w-full z-20"
             }
           >
             <Title />

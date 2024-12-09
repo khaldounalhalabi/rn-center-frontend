@@ -55,7 +55,7 @@ const Pricing = () => {
           {data.map((item, index) => (
             <div
               key={index}
-              className="flex h-full flex-col justify-center items-center rounded-md shadow-md p-10 bg-white pricing-card-shadow"
+              className="flex h-full flex-col justify-center items-center rounded-md shadow-md p-10 bg-white pricing-card-shadow mt-5 md:mt-0"
             >
               <h1 className="text-center font-bold text-[20px] my-3 text-[#013567]">
                 {item.title}{" "}
@@ -84,12 +84,12 @@ const Pricing = () => {
               </ul>
 
               {item.featured ? (
-                <AuthSubmitButton type="button">Start</AuthSubmitButton>
+                <AuthSubmitButton type="button" className={"px-10 py-1"}>Start</AuthSubmitButton>
               ) : (
                 <Link href={"/#start"}>
                   <button
                     type="button"
-                    className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-12 py-3 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
+                    className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-10 py-1 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
                   >
                     Start
                   </button>

@@ -27,13 +27,13 @@ const Features = () => {
             "w-full flex flex-col gap-12 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]"
           }
         >
-          <div className={"flex items-center gap-6 justify-between"}>
+          <div className={"flex flex-col md:flex-row items-center gap-8 md:gap-16"}>
             <img
               src={"/tab2.png"}
               alt={".."}
-              className={"hidden md:block object-contain w-[40%]"}
+              className={"block object-contain w-full md:w-[40%]"}
             />
-            <div className={"flex flex-col items-start gap-6 w-full  md:w-[36%]"}>
+            <div className={"flex flex-col items-start gap-6 w-full  md:w-[60%]"}>
               <img
                 src={"/nots.png"}
                 alt={".."}
@@ -46,13 +46,13 @@ const Features = () => {
               </p>
             </div>
           </div>
-          <div className={"flex items-center gap-6 justify-between"}>
+          <div className={"flex flex-col md:flex-row items-center gap-8 md:gap-16"}>
             <img
               src={"/tab1.png"}
               alt={".."}
-              className={"hidden md:block object-contain w-[40%]"}
+              className={"block object-contain w-full md:w-[40%]"}
             />
-            <div className={"flex flex-col gap-6 w-full md:w-[36%]"}>
+            <div className={"flex flex-col gap-6 w-full md:w-[60%]"}>
               <img
                 src={"/calender.png"}
                 alt={".."}
@@ -65,13 +65,13 @@ const Features = () => {
               </p>
             </div>
           </div>
-          <div className={"flex items-center gap-6 justify-between"}>
+          <div className={"flex flex-col md:flex-row items-center gap-8 md:gap-16"}>
             <img
               src={"/tab3.png"}
               alt={".."}
-              className={"hidden md:block object-contain w-[40%]"}
+              className={"block object-contain w-full md:w-[40%]"}
             />
-            <div className={"flex flex-col gap-6 w-full md:w-[36%]"}>
+            <div className={"flex flex-col gap-6 w-full md:w-[60%]"}>
               <img
                 src={"/balanc.png"}
                 alt={".."}

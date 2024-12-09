@@ -14,9 +14,9 @@ import Pricing from "@/components/landing/Pricing";
 const Page = () => {
   return (
     <Providers>
-      <div className={"kodchasan text-[#013567] relative overflow-x-hidden"}>
+      <div className={"kodchasan text-[#013567] relative overflow-x-hidden md:px-0 px-2"}>
         <Nav />
-        <div className={"flex mt-4 md:px-[13%] relative"}>
+        <div className={"flex mt-4 md:px-[10%] relative"}>
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div
             className={

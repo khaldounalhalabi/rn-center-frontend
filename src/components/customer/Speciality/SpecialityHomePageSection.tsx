@@ -9,7 +9,7 @@ const SpecialityHomePageSection = async () => {
   const arrayData = Array.isArray(data?.data) ? data.data : [];
   return (
     <>
-      <div id={'specialities'} className={"my-8 flex px-[13%] w-full"}>
+      <div id={"specialities"} className={"my-8 flex px-[13%] w-full"}>
         <div
           className={
             "w-full grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-3  grid-cols-2 gap-4"
@@ -19,7 +19,9 @@ const SpecialityHomePageSection = async () => {
             return (
               <div
                 key={index}
-                className={"h-[250px] flex flex-col gap-1 p-6 rounded-xl border border-[#F2F1F9]"}
+                className={
+                  "h-[250px] flex flex-col gap-1 p-6 rounded-xl border border-[#F2F1F9]"
+                }
               >
                 <div className={"w-full h-[60%]"}>
                   <img
@@ -33,10 +35,9 @@ const SpecialityHomePageSection = async () => {
                     "w-full h-[35%] gap-1 flex flex-col justify-start items-start mt-5"
                   }
                 >
-                  <p
-                    className={"text-[#737791] text-start text-xs md:text-sm"}
-                  >
-                    {speciality.clinics_count ?? 0} Doctor
+                  <p className={"text-[#737791] text-start text-xs md:text-sm"}>
+                    {/*{speciality.clinics_count ?? 0} Doctor*/}
+                    {Math.floor(Math.random() * (100 - 50 + 1) + 50)} Doctor
                   </p>
                   <h2
                     className={"text-[#151D48] text-start text-xs md:text-sm"}

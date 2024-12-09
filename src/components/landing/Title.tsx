@@ -13,11 +13,11 @@ const Title = async () => {
     <>
       <div
         id={"home"}
-        className={"flex flex-col items-start px-5 md:px-0 gap-6"}
+        className={"flex flex-col items-start px-5 md:px-0"}
       >
         <HomeTitle />
         <div
-          className={`opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]`}
+          className={`opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
         >
           <p className="tex-[#6685A3]">
             Planet of Medicine gives you full control over
@@ -31,17 +31,17 @@ const Title = async () => {
           <p className="tex-[#6685A3]">Start a free trial and see</p>
           <p className="tex-[#6685A3]">how easy clinic management can be</p>
         </div>
-        <Link href={"/#start"}>
+        <Link href={"/#start"} className={"mt-12"}>
           <AuthSubmitButton>Get Started</AuthSubmitButton>
         </Link>
         <div
           className={
-            "w-full flex justify-between md:justify-start gap-5 items-center "
+            "w-full flex justify-between md:justify-start gap-5 items-center mt-12"
           }
         >
           <div
             className={
-              "max-w-[180px] w-[25%] h-[125px] rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
+              "max-w-[180px] w-1/3 md:w-[25%] h-[125px] rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
             }
           >
             <h2
@@ -56,7 +56,7 @@ const Title = async () => {
           </div>
           <div
             className={
-              "max-w-[180px] w-[25%] h-[125px]  rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
+              "max-w-[180px] w-1/3 md:w-[25%] h-[125px] rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
             }
           >
             <h2
@@ -71,7 +71,7 @@ const Title = async () => {
           </div>
           <div
             className={
-              "max-w-[180px] w-[25%] h-[125px]  rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
+              "max-w-[180px] w-1/3 md:w-[25%] h-[125px]  rounded-2xl py-5 bg-gradient-to-r from-[#ddfafa] to-[#d5f4f5] flex flex-col justify-center items-center"
             }
           >
             <h2

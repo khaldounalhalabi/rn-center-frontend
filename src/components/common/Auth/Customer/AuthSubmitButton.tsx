@@ -21,8 +21,8 @@ const AuthSubmitButton: React.FC<ButtonAttr> = ({
       disabled={disabled || isSubmitting}
     >
       {children}
-      <span className="absolute top-[15%] right-[7%] w-4 h-4 ">
-        <LineC />
+      <span className="absolute top-1 right-4 w-1 h-1 ">
+        <LineC className={""} />
       </span>
 
       {isSubmitting ? (
@@ -38,7 +38,7 @@ const AuthSubmitButton: React.FC<ButtonAttr> = ({
 
 export default AuthSubmitButton;
 
-export const LineC = () => {
+export const LineC = ({ className = "" }: { className: string }) => {
   return (
     <svg
       width="16"
@@ -46,6 +46,7 @@ export const LineC = () => {
       viewBox="0 0 16 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M2 1.81085C7.90967 3.85583 11.1383 6.04193 14.0358 13.3561"

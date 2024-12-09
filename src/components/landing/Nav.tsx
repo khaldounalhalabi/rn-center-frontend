@@ -12,8 +12,8 @@ const Nav = () => {
   };
   return (
     <>
-      <div className="navbar bg-base-100 justify-around">
-        <div className="navbar-start pl-8">
+      <div className="navbar bg-base-100 justify-around md:px-[10%]">
+        <div className="navbar-start">
           <div className="dropdown">
             <img
               src={"/pom.png"}
@@ -51,7 +51,7 @@ const Nav = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end pr-6">
+        <div className="navbar-end md:pr-[5%]">
           <CheckUserImg />
           <MenuIcon
             className={"w-8 h-8 md:hidden cursor-pointer"}

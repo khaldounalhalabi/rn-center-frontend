@@ -34,13 +34,13 @@ const Page = () => {
           />
         </div>
 
-        <div className={"w-full px-4 md:p-0"}>
+        <div className={"w-full flex flex-col justify-start items-start px-4 md:p-0"}>
           <CardsAppointmentAdmin
             statisticsRes={statisticsRes}
             isLoading={isLoading}
             isFetching={isFetching}
           />
-          <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl"}>
+          <Card className={"my-4 w-full bg-white rounded-2xl"}>
             <h2 className={"card-title mb-8"}>
               {t("earningsFromAppointments")}
             </h2>

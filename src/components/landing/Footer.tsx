@@ -21,12 +21,12 @@ const Footer = () => {
     <div className={"md:max-h-[530px]"}>
       <div
         className={
-          "md:flex-row flex-col-reverse justify-around md:items-start h-full flex items-start px-36 py-10 gap-5"
+          "md:flex-row flex-col-reverse justify-center md:justify-around items-center md:items-start h-full flex px-10 md:px-36 py-10 gap-5"
         }
       >
         <div
           className={
-            " w-full md:w-1/3 flex flex-col justify-center items-start h-full gap-4"
+            " w-full md:w-1/3 flex flex-col justify-center md:items-start h-full gap-4"
           }
         >
           <h2
@@ -62,22 +62,30 @@ const Footer = () => {
         </div>
         <div
           className={
-            " md:w-1/3 w-full h-full flex flex-col justify-center items-start"
+            " md:w-1/3 w-full h-full flex flex-col justify-center md:items-start"
           }
         >
           <div className={"flex flex-col gap-6"}>
             <h2 className={"card-title text-[#013567]"}>Quick links</h2>
             <div className={"grid md:grid-cols-1 grid-cols-2 gap-6"}>
-              <p className={"hover:text-[#1FB8B9] text-[#013567] cursor-pointer"}>
+              <p
+                className={"hover:text-[#1FB8B9] text-[#013567] cursor-pointer"}
+              >
                 <Link href={"/#specialities"}>Specialities</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
+              <p
+                className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
+              >
                 <Link href={"/#features"}>Features</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
+              <p
+                className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
+              >
                 <Link href={"/#pricing"}>Pricing</Link>
               </p>
-              <p className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}>
+              <p
+                className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
+              >
                 <Link href={"/#start"}>Get Started</Link>
               </p>
             </div>

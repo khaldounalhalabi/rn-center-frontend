@@ -17,9 +17,9 @@ const CardsAppointmentAdmin = ({
   const t = useTranslations("common.dashboard");
 
   return (
-    <div className={"flex flex-col md:flex-row w-full"}>
-      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
-        <div className={"flex w-full justify-between items-center gap-1"}>
+    <div className={"grid grid-cols-1 md:grid-cols-3 w-full gap-2"}>
+      <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
+        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
           <div>{t("totalAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -30,8 +30,8 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
-        <div className={"flex justify-between items-center gap-1"}>
+      <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
+        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
           <div>{t("nextAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -42,8 +42,8 @@ const CardsAppointmentAdmin = ({
           </div>
         </div>
       </Card>
-      <Card className={"my-4 mx-0 md:m-4 bg-white rounded-2xl w-full"}>
-        <div className={"flex justify-between items-center gap-1"}>
+      <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
+        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
           <div>{t("todayAppointments")}</div>
           <div>
             {isLoading || isFetching ? (

@@ -18,7 +18,7 @@ const Footer = () => {
       });
   };
   return (
-    <div className={"md:max-h-[530px]"}>
+    <div className={"md:max-h-[530px]"} id={"#footer"}>
       <div
         className={
           "md:flex-row flex-col-reverse justify-center md:justify-around items-center md:items-start h-full flex px-10 md:px-36 py-10 gap-5"

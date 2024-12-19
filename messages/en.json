@@ -828,7 +828,8 @@
         "happenIn": "Happen In",
         "actor": "Actor",
         "event": "Event",
-        "export": "Export to excel"
+        "export": "Export to excel",
+        "appointment_unique_code": "Appointment Code"
       },
       "create": {
         "editAppointment": "Edit Appointment",
@@ -1265,5 +1266,30 @@
     "join_request": "Join request",
     "actions": "Actions",
     "join_request_sent": "Your join request has been sent"
+  },
+  "landing": {
+    "stay_informed": "Stay Informed: Easily Track Your",
+    "appointments_with": "Appointments with",
+    "pom": "Planet of Medicine",
+    "using_your_booking_code": "Using Your Booking Code",
+    "enter_your_booking_code": "Enter your booking code to track your medical appointments effortlessly with Planet of Medicine. Stay updated and save time with just a few clicks!",
+    "input_label": "Enter your booking code here ...",
+    "search": "Search",
+    "wrong_code": "Wrong code , try again",
+    "booked": "Booked",
+    "checkin": "Check-in",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "booking_serial_number": "Booking Serial Number",
+    "appointments_left_until_yours": "Appointments Lefts Until Yours",
+    "approximate_waiting_time": "Approximate Waiting Time",
+    "appointment_from": "Appointment from",
+    "clinic": "Clinic",
+    "dr": "Dr.",
+    "appointment_date": "Appointment Date",
+    "appointment_completed": "Your appointment has been completed successfully, Wishing you good health!",
+    "appointment_cancelled": "Your appointment has been canceled. If you need to reschedule, please contact the clinic. Wishing you good health!",
+    "cancellation_reason": "Cancellation Reason",
+    "track_another_appointment": "Track another appointment"
   }
 }

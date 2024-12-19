@@ -4,8 +4,9 @@ import Link from "next/link";
 import MenuIcon from "@/components/icons/MenuIcon";
 import Close from "@/components/icons/Close";
 import CheckUserImg from "@/components/landing/CheckUserImg";
+import { Link as TranslatableLink } from "@/navigation";
 
-const Nav = () => {
+const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
   const [openNav, setOpenNav] = useState(false);
   const HandleClose = () => {
     setOpenNav(false);
@@ -24,31 +25,24 @@ const Nav = () => {
         </div>
         <div className="navbar-center hidden md:flex">
           <ul className="flex w-full gap-5 justify-between px-1 font-semibold text-[15px]">
-            <li>
-              <Link href={"/#home"} className="hover:text-[#1FB8B9]">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href={"/#specialities"} className="hover:text-[#1FB8B9]">
-                Specialities
-              </Link>
-            </li>
-            <li>
-              <Link href={"/#features"} className="hover:text-[#1FB8B9]">
-                Features
-              </Link>
-            </li>
-            <li>
-              <Link href={"/#pricing"} className="hover:text-[#1FB8B9]">
-                Pricing
-              </Link>
-            </li>
-            <li>
-              <Link href={"/#start"} className="hover:text-[#1FB8B9]">
-                Get Started
-              </Link>
-            </li>
+            {links.map((item) =>
+              item?.link != "/check-appointment" ? (
+                <li>
+                  <Link href={item.link} className="hover:text-[#1FB8B9]">
+                    {item.title}
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <TranslatableLink
+                    href={item.link}
+                    className="hover:text-[#1FB8B9]"
+                  >
+                    {item.title}
+                  </TranslatableLink>
+                </li>
+              ),
+            )}
           </ul>
         </div>
         <div className="navbar-end md:pr-[5%]">
@@ -76,41 +70,25 @@ const Nav = () => {
         </div>
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
-            <Link
-              href={"/#home"}
-              onClick={HandleClose}
-              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
-            >
-              Home
-            </Link>
-            <Link
-              href={"/#specialities"}
-              onClick={HandleClose}
-              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
-            >
-              Specialities
-            </Link>
-            <Link
-              href={"/#features"}
-              onClick={HandleClose}
-              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
-            >
-              Features
-            </Link>
-            <Link
-              href={"/#pricing"}
-              onClick={HandleClose}
-              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
-            >
-              Pricing
-            </Link>
-            <Link
-              href={"/#start"}
-              onClick={HandleClose}
-              className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
-            >
-              Get Started
-            </Link>
+            {links.map((item) =>
+              item?.link != "/check-appointment" ? (
+                <Link
+                  href={item.link}
+                  onClick={HandleClose}
+                  className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+                >
+                  {item.title}
+                </Link>
+              ) : (
+                <TranslatableLink
+                  href={item.link}
+                  onClick={HandleClose}
+                  className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
+                >
+                  {item.title}
+                </TranslatableLink>
+              ),
+            )}
           </div>
         </div>
       </div>

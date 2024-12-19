@@ -11,18 +11,44 @@ import Footer from "@/components/landing/Footer";
 import Features from "@/components/landing/Features";
 import Pricing from "@/components/landing/Pricing";
 
+const navItems = [
+  {
+    title: "Home",
+    link: "/#home",
+  },
+  {
+    link: "/#specialities",
+    title: "Specialities",
+  },
+  {
+    link: "/#features",
+    title: "Features",
+  },
+  {
+    link: "/#pricing",
+    title: "Pricing",
+  },
+  {
+    link: "/#start",
+    title: "Get Started",
+  },
+  {
+    link: "/check-appointment",
+    title: "Check your booked appointment",
+  },
+];
 const Page = () => {
   return (
     <Providers>
-      <div className={"kodchasan text-[#013567] relative overflow-x-hidden md:px-0 px-2"}>
-        <Nav />
+      <div
+        className={
+          "kodchasan text-[#013567] relative overflow-x-hidden md:px-0 px-2"
+        }
+      >
+        <Nav links={navItems} />
         <div className={"flex mt-4 md:px-[10%] relative"}>
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
-          <div
-            className={
-              "md:w-1/2 w-full z-20"
-            }
-          >
+          <div className={"md:w-1/2 w-full z-20"}>
             <Title />
           </div>
           <div className={"w-1/2 z-20 hidden md:block"}>

@@ -838,7 +838,8 @@
         "happenIn": "حدث في",
         "actor": "المنفذ",
         "event": "الحدث",
-        "export": "تصدير لملف إكسيل"
+        "export": "تصدير لملف إكسيل",
+        "appointment_unique_code": "المحدد الفريد"
       },
       "create": {
         "editAppointment": "تعديل الموعد",
@@ -1275,5 +1276,25 @@
     "join_request": "طلب الانضمام",
     "actions": "الخيارات",
     "join_request_sent": "تم إرسال طلب الانضمام"
+  },
+  "landing": {
+    "stay_informed": "ابقَ على اطلاع: تابع",
+    "appointments_with": "مواعيدك الطبية بسهولة مع",
+    "pom": "كوكب الطب",
+    "using_your_booking_code": "باستخدام كود الحجز الخاص بك",
+    "enter_your_booking_code": "استخدم كود الحجز الخاص بك لتتبع مواعيدك الطبية بكل سهولة مع كوكب الطب. ابقى على اطلاع دائم ووفّر وقتك بخطوات بسيطة!",
+    "input_label": "أدخل رمز الحجز هنا ...",
+    "search": "بحث",
+    "wrong_code": "الرمز خاطئ , حاول مرة أخرى",
+    "booked": "محجوز",
+    "checkin": "في العيادة",
+    "completed": "اكتمل",
+    "cancelled": "ملغي",
+    "booking_serial_number": "الرقم التسلسلي للحجز",
+    "appointments_left_until_yours": "الموعيد المتبقية قبلك",
+    "approximate_waiting_time": "الوقت المقدر للانتظار",
+    "appointment_from": "موعد من",
+    "clinic": "عيادة",
+    "dr": "د."
   }
 }

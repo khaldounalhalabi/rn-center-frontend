@@ -25,15 +25,15 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
         </div>
         <div className="navbar-center hidden md:flex">
           <ul className="flex w-full gap-5 justify-between px-1 font-semibold text-[15px]">
-            {links.map((item) =>
+            {links.map((item, key) =>
               item?.link != "/check-appointment" ? (
-                <li>
+                <li key={key}>
                   <Link href={item.link} className="hover:text-[#1FB8B9]">
                     {item.title}
                   </Link>
                 </li>
               ) : (
-                <li>
+                <li key={key}>
                   <TranslatableLink
                     href={item.link}
                     className="hover:text-[#1FB8B9]"
@@ -70,9 +70,10 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
         </div>
         <div className={"pt-6 flex justify-center"}>
           <div className={"flex flex-col gap-8 justify-center items-center"}>
-            {links.map((item) =>
+            {links.map((item, key) =>
               item?.link != "/check-appointment" ? (
                 <Link
+                  key={key}
                   href={item.link}
                   onClick={HandleClose}
                   className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}
@@ -81,6 +82,7 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
                 </Link>
               ) : (
                 <TranslatableLink
+                  key={key}
                   href={item.link}
                   onClick={HandleClose}
                   className={"text-[15px] hover:text-[#1FB8B9] font-semibold"}

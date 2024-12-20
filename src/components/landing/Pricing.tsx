@@ -1,39 +1,41 @@
 import AuthSubmitButton from "../common/Auth/Customer/AuthSubmitButton";
 import FeaturedBadgeIcon from "../icons/FeaturedBadgeIcon";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-const Pricing = () => {
+const Pricing = async () => {
+  const t = await getTranslations("landing");
   const data = [
     {
-      title: "1 Month",
+      title: t("1_month"),
       price: "35,000",
       discount: undefined,
       features: [
-        "Full access to all clinics management tools",
-        "Unlimited appointments and billing",
-        "24/7 Support",
+        t("1_month_full_access"),
+        t("1_month_unlimited_appointments"),
+        t("1_month_support"),
       ],
       featured: false,
     },
     {
-      title: "3 Month",
+      title: t("3_month"),
       price: "95,000",
       discount: "-10,000",
       features: [
-        "Full access to all clinics management tools",
-        "Unlimited appointments and billing",
-        "24/7 Support",
+        t("3_month_full_access"),
+        t("3_month_unlimited_appointments"),
+        t("3_month_support"),
       ],
       featured: true,
     },
     {
-      title: "6 Month",
+      title: t("6_month"),
       price: "180,000",
       discount: "-30,000",
       features: [
-        "Full access to all clinics management tools",
-        "Unlimited appointments and billing",
-        "24/7 Support",
+        t("6_month_full_access"),
+        t("6_month_unlimited_appointments"),
+        t("6_month_support"),
       ],
       featured: false,
     },
@@ -44,7 +46,9 @@ const Pricing = () => {
       className="w-full my-5 flex justify-center pricing-curv"
     >
       <div className={"w-[65%] h-full"}>
-        <h1 className={"text-[24px] font-bold mb-10 text-center"}>Pricing</h1>
+        <h1 className={"text-[24px] font-bold mb-10 text-center"}>
+          {t("pricing")}
+        </h1>
         <div
           className={
             "flex h-[75%] flex-col md:flex-row items-center gap-[5%] justify-between w-full"
@@ -59,15 +63,15 @@ const Pricing = () => {
                 {item.title}{" "}
                 {item.discount ? (
                   <span className="text-[8px] text-gray-400">
-                    {item.discount} IQD
+                    {item.discount} {t("iqd")}
                   </span>
                 ) : (
                   ""
                 )}
               </h1>
               <h2 className="text-[20px] text-[#013567] font-thin">
-                {item.price} IQD{" "}
-                <span className="text-[#D9D9D9] text-[14px]">/ mo</span>
+                {item.price} {t("iqd")}{" "}
+                <span className="text-[#D9D9D9] text-[14px]">/ {t("mo")}</span>
               </h2>
 
               <ul className="my-5 list-disc">
@@ -83,7 +87,7 @@ const Pricing = () => {
 
               {item.featured ? (
                 <AuthSubmitButton type="button" className={"px-10 py-1"}>
-                  Start
+                  {t("start")}
                 </AuthSubmitButton>
               ) : (
                 <Link href={"/#start"}>
@@ -91,7 +95,7 @@ const Pricing = () => {
                     type="button"
                     className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-10 py-1 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
                   >
-                    Start
+                    {t("start")}
                   </button>
                 </Link>
               )}
@@ -99,7 +103,9 @@ const Pricing = () => {
               {item.featured ? (
                 <div className="mt-3 flex items-center justify-center">
                   <FeaturedBadgeIcon />
-                  <span className="text-gray-400 text-[8px]">Recommended</span>
+                  <span className="text-gray-400 text-[8px]">
+                    {t("recommended")}
+                  </span>
                 </div>
               ) : (
                 ""

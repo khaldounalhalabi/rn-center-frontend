@@ -25,7 +25,7 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
           </div>
         </div>
         <div className="navbar-center hidden md:flex">
-          <ul className="flex w-full gap-5 justify-between px-1 font-semibold text-[15px]">
+          <ul className="flex w-full gap-3 justify-between px-1 font-semibold text-[12px] lg:text-[15px]">
             {links.map((item, key) =>
               item?.link != "/check-appointment" ? (
                 <li key={key}>
@@ -47,8 +47,8 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
           </ul>
         </div>
         <div className="navbar-end md:pr-[5%]">
-          <CheckUserImg />
           <LanguagePopover />
+          <CheckUserImg />
           <MenuIcon
             className={"w-8 h-8 md:hidden cursor-pointer"}
             onClick={() => {

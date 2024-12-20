@@ -10,8 +10,10 @@ import { ApiResponse } from "@/Http/Response";
 import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { City } from "@/Models/City";
+import { useTranslations } from "next-intl";
 
 const DownloadFooter: React.FC = () => {
+  const t = useTranslations("landing");
   const handleSubmit = async (data: any) => {
     return await JoinRequestService.make<JoinRequestService>("public")
       .store(data)
@@ -33,16 +35,14 @@ const DownloadFooter: React.FC = () => {
         }
       >
         <h2 className={"md:text-[30px] lg:text-[35px] font-bold"}>
-          Join PoM Family
+          {t("join_pom_family")}
         </h2>
         <p
           className={
             "text-[12px] md:text-[16px] text-[#6685A3] opacity-80 font-extralight"
           }
         >
-          Unlock a new level of clinic management! Book a live demo with our
-          team and experience the tools that make running a clinic smoother,
-          faster, and more rewarding.
+          {t("unlock_clinic_management")}
         </p>
       </div>
       <div className={"flex h-full w-full md:w-1/4 p-4 md:p-0"}>
@@ -60,32 +60,32 @@ const DownloadFooter: React.FC = () => {
                 isSubmitting={isSubmitting}
                 className={"py-2 px-8"}
               >
-                Submit
+                {t("submit")}
               </AuthSubmitButton>
             )}
             defaultButton={false}
           >
-            <h2 className={"card-title"}>Join as a Doctor</h2>
+            <h2 className={"card-title"}>{t("join_as_doctor")}</h2>
             <Grid md={2} className={"relative z-50"}>
               <InputLoginCustomer
                 type={"text"}
                 name={"doctor_name"}
-                label={"Doctor name"}
+                label={t("doctor_name")}
               />
               <InputLoginCustomer
                 type={"text"}
                 name={"clinic_name"}
-                label={"Clinic name"}
+                label={t("clinic_name")}
               />
               <InputLoginCustomer
                 type={"text"}
                 name={"phone_number"}
-                label={"Phone number"}
+                label={t("phone_number")}
               />
               <ApiSelect
                 name={"city_id"}
                 withoutPlaceHolder={false}
-                placeHolder={"City"}
+                placeHolder={t("city")}
                 api={async (
                   page?: number | undefined,
                   search?: string | undefined,

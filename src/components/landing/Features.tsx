@@ -1,28 +1,28 @@
 "use client";
 import { InView } from "react-intersection-observer";
+import { useLocale, useTranslations } from "next-intl";
 
 const Features = () => {
+  const t = useTranslations("landing");
+  const locale = useLocale();
   const features = [
     {
       imgSrc: "/tab2.png",
       iconSrc: "/nots.png",
-      title: "Full patient record",
-      description:
-        "Access detailed patient histories, treatment plans, and notes all in one place for better care and quicker decision-making.",
+      title: t("full_patient"),
+      description: t("access_detailed"),
     },
     {
       imgSrc: "/tab1.png",
       iconSrc: "/calender.png",
-      title: "Control all appointments",
-      description:
-        "Easily manage patient appointments, reduce wait times, and ensure a smooth schedule with just a few clicks.",
+      title: t("control_appointments"),
+      description: t("easily_manage"),
     },
     {
       imgSrc: "/tab3.png",
       iconSrc: "/balanc.png",
-      title: "Financial transactions tracking",
-      description:
-        "Keep track of all clinic transactions, from billing to payments, in real-time to ensure financial clarity and control.",
+      title: t("financial_transactions"),
+      description: t("keep_track"),
     },
   ];
   return (
@@ -32,11 +32,14 @@ const Features = () => {
     >
       <div className="w-full flex flex-col gap-2 items-center">
         <p className="opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]">
-          Introducing some
+          {t("introducing_some")}
         </p>
-        <div className="text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] flex gap-1">
-          <h2 className="font-bold marker">POM</h2>
-          <h3>Features</h3>
+        <div
+          className="text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] flex rtl:flex-row-reverse
+         gap-1"
+        >
+          <h2 className="font-bold marker">{t("POM")}</h2>
+          <h3>{t("features")}</h3>
         </div>
       </div>
       <div className="flex justify-center items-center w-[65%]">

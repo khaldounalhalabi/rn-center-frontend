@@ -4,35 +4,27 @@ import { StatisticService } from "@/services/StatisticService";
 import { StatisticsPublic } from "@/Models/Statistics";
 import Link from "next/link";
 import { HomeTitle } from "@/components/landing/HomeTitle";
+import { getTranslations } from "next-intl/server";
 
 const Title = async () => {
   const data = await StatisticService.make<StatisticService>().getStatistics();
-
   const res: StatisticsPublic | undefined = data?.data;
+  const t = await getTranslations("landing");
   return (
     <>
-      <div
-        id={"home"}
-        className={"flex flex-col items-start px-5 md:px-0"}
-      >
+      <div id={"home"} className={"flex flex-col items-start px-5 md:px-0"}>
         <HomeTitle />
         <div
           className={`opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
         >
-          <p className="tex-[#6685A3]">
-            Planet of Medicine gives you full control over
-          </p>
-          <p className="tex-[#6685A3]">
-            your clinic’s operations. Streamline everything
-          </p>
-          <p className="tex-[#6685A3]">
-            from appointments to invoicing, all in one place
-          </p>
-          <p className="tex-[#6685A3]">Start a free trial and see</p>
-          <p className="tex-[#6685A3]">how easy clinic management can be</p>
+          <p className="tex-[#6685A3]">{t("give_full_control")}</p>
+          <p className="tex-[#6685A3]">{t("your_clinics_operations")}</p>
+          <p className="tex-[#6685A3]">{t("from_appointments_to_invoicing")}</p>
+          <p className="tex-[#6685A3]">{t("start_free_trial")}</p>
+          <p className="tex-[#6685A3]">{t("how_easy")}</p>
         </div>
         <Link href={"/#start"} className={"mt-12"}>
-          <AuthSubmitButton>Get Started</AuthSubmitButton>
+          <AuthSubmitButton>{t("get_started")}</AuthSubmitButton>
         </Link>
         <div
           className={
@@ -51,7 +43,7 @@ const Title = async () => {
               5K
             </h2>
             <h2 className={"lg:text-[15px] md:text-[12px] text-[8px] "}>
-              Clinic
+              {t("clinic")}
             </h2>
           </div>
           <div
@@ -66,7 +58,7 @@ const Title = async () => {
               32.2K
             </h2>
             <h2 className={"lg:text-[15px] md:text-[12px] text-[8px] "}>
-              Appointments
+              {t("appointments")}
             </h2>
           </div>
           <div
@@ -80,7 +72,7 @@ const Title = async () => {
               99%
             </h2>
             <h2 className={"lg:text-[15px] md:text-[12px] text-[8px] "}>
-              Ratings
+              {t("ratings")}
             </h2>
           </div>
         </div>

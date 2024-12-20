@@ -11,38 +11,39 @@ import Footer from "@/components/landing/Footer";
 import Pricing from "@/components/landing/Pricing";
 import Features from "@/components/landing/Features";
 import dynamic from "next/dynamic";
+import { getTranslations } from "next-intl/server";
 
 const Providers = dynamic(() => import("@/app/[locale]/providers"), {
   ssr: false,
 });
-
-const navItems = [
-  {
-    title: "Home",
-    link: "/#home",
-  },
-  {
-    link: "/#specialities",
-    title: "Specialities",
-  },
-  {
-    link: "/#features",
-    title: "Features",
-  },
-  {
-    link: "/#pricing",
-    title: "Pricing",
-  },
-  {
-    link: "/#start",
-    title: "Get Started",
-  },
-  {
-    link: "/check-appointment",
-    title: "Check your booked appointment",
-  },
-];
 const Page = async () => {
+  const t = await getTranslations("landing");
+  const navItems = [
+    {
+      title: t("home"),
+      link: "/#home",
+    },
+    {
+      link: "/#specialities",
+      title: t("specialities"),
+    },
+    {
+      link: "/#features",
+      title: t("features"),
+    },
+    {
+      link: "/#pricing",
+      title: t("pricing"),
+    },
+    {
+      link: "/#start",
+      title: t("get_started"),
+    },
+    {
+      link: "/check-appointment",
+      title: t("check_appointment"),
+    },
+  ];
   return (
     <Providers>
       <div

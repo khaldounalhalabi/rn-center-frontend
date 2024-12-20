@@ -33,10 +33,7 @@ async function authenticationMiddleware(req: NextRequest) {
     ((access == "admin" || access == "doctor") &&
       path.includes(`${locale}/customer`))
   ) {
-    const absolutURL = new URL(
-      `${locale}/auth/customer/login`,
-      req.nextUrl.origin,
-    );
+    const absolutURL = new URL(`${locale}`, req.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
   if (

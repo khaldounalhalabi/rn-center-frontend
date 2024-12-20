@@ -42,10 +42,9 @@ const Features = () => {
       <div className="flex justify-center items-center w-[65%]">
         <div className="w-full flex flex-col gap-12 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]">
           {features.map((feature, index) => (
-            <InView triggerOnce={true} threshold={0.8}>
+            <InView key={index} triggerOnce={true} threshold={0.8}>
               {({ inView, ref, entry }) => (
                 <div
-                  key={index}
                   className="flex flex-col md:flex-row items-center gap-8 md:gap-16"
                   ref={ref}
                 >

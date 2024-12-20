@@ -5,6 +5,7 @@ import MenuIcon from "@/components/icons/MenuIcon";
 import Close from "@/components/icons/Close";
 import CheckUserImg from "@/components/landing/CheckUserImg";
 import { Link as TranslatableLink } from "@/navigation";
+import LanguagePopover from "@/components/common/Navbar/languagePopover";
 
 const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
   const [openNav, setOpenNav] = useState(false);
@@ -47,6 +48,7 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
         </div>
         <div className="navbar-end md:pr-[5%]">
           <CheckUserImg />
+          <LanguagePopover />
           <MenuIcon
             className={"w-8 h-8 md:hidden cursor-pointer"}
             onClick={() => {

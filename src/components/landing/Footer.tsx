@@ -8,8 +8,10 @@ import FacebookIcon from "@/components/icons/FacebookIcon";
 import InstagramIcon from "@/components/icons/instaIcon";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
 import { EnquiriesService } from "@/services/EnquiriesService";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("landing");
   const handleSubmit = async (data: any) => {
     return await EnquiriesService.make<EnquiriesService>("public")
       .store(data)
@@ -18,7 +20,7 @@ const Footer = () => {
       });
   };
   return (
-    <div className={"md:max-h-[530px]"}>
+    <div className={"md:max-h-[530px]"} id={"#footer"}>
       <div
         className={
           "md:flex-row flex-col-reverse justify-center md:justify-around items-center md:items-start h-full flex px-10 md:px-36 py-10 gap-5"
@@ -34,9 +36,9 @@ const Footer = () => {
               "text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] font-bold"
             }
           >
-            Planet of Medicine
+            {t("pom")}
           </h2>
-          <p className="text-[#013567]">All rights reserved.</p>
+          <p className="text-[#013567]">{t("all_rights_reserved")}</p>
           <div className={"flex gap-3"}>
             <Link
               href={"https://www.facebook.com/share/7Eatuaim1iVt5wHP/"}
@@ -66,27 +68,27 @@ const Footer = () => {
           }
         >
           <div className={"flex flex-col gap-6"}>
-            <h2 className={"card-title text-[#013567]"}>Quick links</h2>
+            <h2 className={"card-title text-[#013567]"}>{t("quick_links")}</h2>
             <div className={"grid md:grid-cols-1 grid-cols-2 gap-6"}>
               <p
                 className={"hover:text-[#1FB8B9] text-[#013567] cursor-pointer"}
               >
-                <Link href={"/#specialities"}>Specialities</Link>
+                <Link href={"/#specialities"}>{t("specialities")}</Link>
               </p>
               <p
                 className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
               >
-                <Link href={"/#features"}>Features</Link>
+                <Link href={"/#features"}>{t("features")}</Link>
               </p>
               <p
                 className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
               >
-                <Link href={"/#pricing"}>Pricing</Link>
+                <Link href={"/#pricing"}>{t("pricing")}</Link>
               </p>
               <p
                 className={"hover:text-[#1FB8B9] cursor-pointer text-[#013567]"}
               >
-                <Link href={"/#start"}>Get Started</Link>
+                <Link href={"/#start"}>{t("get_started")}</Link>
               </p>
             </div>
           </div>
@@ -106,23 +108,27 @@ const Footer = () => {
                 className={"py-2 px-8"}
                 disabled={isSubmitting}
               >
-                Submit
+                {t("submit")}
               </AuthSubmitButton>
             )}
             defaultButton={false}
           >
-            <h2 className={"card-title"}>Contact Us</h2>
+            <h2 className={"card-title"}>{t("contact_us")}</h2>
             <div className={"relative z-40 flex flex-col gap-4"}>
-              <InputLoginCustomer type={"text"} name={"name"} label={"Name"} />
+              <InputLoginCustomer
+                type={"text"}
+                name={"name"}
+                label={t("name")}
+              />
               <InputLoginCustomer
                 type={"text"}
                 name={"email"}
-                label={"Email"}
+                label={t("email")}
               />
               <InputLoginCustomer
                 type={"text"}
                 name={"message"}
-                label={"Message"}
+                label={t("message")}
               />
             </div>
           </Form>

@@ -195,7 +195,11 @@ const Page = () => {
         label: `${t("date")}`,
         sortable: true,
       },
-
+      {
+        name: "appointment_unique_code",
+        label: `${t("appointment_unique_code")}`,
+        sortable: false,
+      },
       {
         label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => {

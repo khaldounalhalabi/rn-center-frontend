@@ -3,6 +3,7 @@ import { Customer } from "./Customer";
 import { Service } from "./Service";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { Offers } from "@/Models/Offers";
+import { AppointmentLogs } from "@/Models/AppointmentLog";
 
 export interface Appointment {
   id: number;
@@ -24,6 +25,13 @@ export interface Appointment {
   offers?: Offers[];
   discount: number;
   cancellation_reason?: string;
+  appointment_unique_code: string;
+  last_booked_log?: AppointmentLogs;
+  last_check_in_log?: AppointmentLogs;
+  last_check_out_log?: AppointmentLogs;
+  last_cancelled_log?: AppointmentLogs;
+  before_appointments_count?: number;
+  remaining_time?: string;
 }
 
 export interface groupedByMonth {

@@ -144,4 +144,10 @@ export class AppointmentService extends BaseService<Appointment> {
       await GET<Appointment>(`/customer/appointments/${appointmentId}/cancel`),
     );
   }
+
+  public async getByCode(code: string) {
+    return this.errorHandler(
+      await GET<Appointment>(`/appointments/${code}/get-by-code`),
+    );
+  }
 }

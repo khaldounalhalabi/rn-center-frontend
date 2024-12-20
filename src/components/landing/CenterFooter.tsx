@@ -1,9 +1,10 @@
 import AppointmentLandingIcon from "@/components/icons/AppointmentLandingIcon";
 import TrackLandingIcon from "@/components/icons/TrackLandingIcon";
 import TimeLandingIcon from "@/components/icons/TimeLandingIcon";
-import React from "react";
+import { getTranslations } from "next-intl/server";
 
-const CenterFooter = () => {
+const CenterFooter = async () => {
+  const t = await getTranslations("landing");
   return (
     <div
       className={
@@ -11,12 +12,10 @@ const CenterFooter = () => {
       }
     >
       <div
-        className={
-          "flex flex-col justify-center md:items-center h-1/2 w-full"
-        }
+        className={"flex flex-col justify-center md:items-center h-1/2 w-full"}
       >
         <h2 className={"md:text-[35px] text-center text-[22px] font-bold "}>
-          Features & Services
+          {t("features_services")}
         </h2>
       </div>
       <div
@@ -26,26 +25,28 @@ const CenterFooter = () => {
       >
         <div className={"flex flex-col gap-5 h-full items-center"}>
           <AppointmentLandingIcon />
-          <h2 className={"text-[20px] font-bold"}>Appointment Management</h2>
+          <h2 className={"text-[20px] font-bold"}>
+            {t("appointment_management")}
+          </h2>
           <div className={"text-center text-[15px] opacity-80 font-extralight"}>
-            <p>Easily schedule and track appointments</p>
-            <p>to optimize patient flow.</p>
+            <p>{t("easley_schedule")}</p>
+            <p>{t("optimize_your_patients")}</p>
           </div>
         </div>
         <div className={"flex flex-col items-center gap-5 h-full"}>
           <TrackLandingIcon />
-          <h2 className={"text-[20px] font-bold"}>Billing & Invoicing</h2>
+          <h2 className={"text-[20px] font-bold"}>{t("billing_invoicing")}</h2>
           <div className={"text-center text-[15px] opacity-80 font-extralight"}>
-            <p>Streamline your clinic’s financials with</p>
-            <p>easy billing and invoicing.</p>
+            <p>{t("streamline_financials")}</p>
+            <p>{t("easy_billing")}</p>
           </div>
         </div>
         <div className={"flex flex-col items-center gap-5 h-full"}>
           <TimeLandingIcon />
-          <h2 className={"text-[20px] font-bold"}>Patient Records</h2>
+          <h2 className={"text-[20px] font-bold"}>{t("patient_records")}</h2>
           <div className={"text-center text-[15px] opacity-80 font-extralight"}>
-            <p>Access and manage patient information</p>
-            <p>securely in one place.</p>
+            <p>{t("access_records")}</p>
+            <p>{t("securely")}</p>
           </div>
         </div>
       </div>

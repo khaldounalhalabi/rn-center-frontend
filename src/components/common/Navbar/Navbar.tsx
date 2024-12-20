@@ -6,7 +6,6 @@ import Searchbar from "@/components/common/Navbar/Searchbar";
 import NotificationsPopover from "@/components/common/Navbar/NotificationsPopover";
 import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import ArrowRight from "@/components/icons/ArrowRight";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
 import dynamic from "next/dynamic";

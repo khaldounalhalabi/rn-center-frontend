@@ -1,9 +1,8 @@
 import AppointmentLandingIcon from "@/components/icons/AppointmentLandingIcon";
 import TrackLandingIcon from "@/components/icons/TrackLandingIcon";
 import TimeLandingIcon from "@/components/icons/TimeLandingIcon";
-import React from "react";
 
-const CenterFooter = () => {
+const CenterFooter = async () => {
   return (
     <div
       className={
@@ -11,9 +10,7 @@ const CenterFooter = () => {
       }
     >
       <div
-        className={
-          "flex flex-col justify-center md:items-center h-1/2 w-full"
-        }
+        className={"flex flex-col justify-center md:items-center h-1/2 w-full"}
       >
         <h2 className={"md:text-[35px] text-center text-[22px] font-bold "}>
           Features & Services

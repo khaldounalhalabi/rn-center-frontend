@@ -228,3 +228,33 @@ html {
 .cancelled-circle {
     background: rgba(255, 0, 0, 0.1);
 }
+
+@keyframes fade-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in-right 0.8s ease-out forwards;
+}
+
+[dir="rtl"] .animate-fade-in {
+    animation: fade-in-left 0.8s ease-out forwards;
+}

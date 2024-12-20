@@ -11,7 +11,7 @@ import {
 } from "@/Actions/clientCookies";
 import { useQuery } from "@tanstack/react-query";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { Link, useRouter } from "@/navigation";
+import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
@@ -23,7 +23,6 @@ import { NotificationHandler } from "@/components/common/NotificationHandler";
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);

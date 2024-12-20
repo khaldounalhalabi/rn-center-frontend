@@ -4,12 +4,17 @@ import LandingIcon from "@/components/icons/landingIcon";
 import LandingLinIcon from "@/components/icons/LandinLinIcon";
 import Title from "@/components/landing/Title";
 import SpecialityHomePageSection from "@/components/customer/Speciality/SpecialityHomePageSection";
-import Providers from "@/app/[locale]/providers";
+
 import CenterFooter from "@/components/landing/CenterFooter";
 import DownloadFooter from "@/components/landing/DownloadFooter";
 import Footer from "@/components/landing/Footer";
-import Features from "@/components/landing/Features";
 import Pricing from "@/components/landing/Pricing";
+import Features from "@/components/landing/Features";
+import dynamic from "next/dynamic";
+
+const Providers = dynamic(() => import("@/app/[locale]/providers"), {
+  ssr: false,
+});
 
 const navItems = [
   {
@@ -37,7 +42,7 @@ const navItems = [
     title: "Check your booked appointment",
   },
 ];
-const Page = () => {
+const Page = async () => {
   return (
     <Providers>
       <div

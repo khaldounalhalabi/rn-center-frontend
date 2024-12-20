@@ -1295,6 +1295,11 @@
     "approximate_waiting_time": "الوقت المقدر للانتظار",
     "appointment_from": "موعد من",
     "clinic": "عيادة",
-    "dr": "د."
+    "dr": "د.",
+    "appointment_date": "تاريخ الموعد",
+    "appointment_completed": "تم اكتمال موعدك , نتمنى لك دوام الصحة",
+    "appointment_cancelled": "تم إلغاء موعدك. إذا كنت بحاجة لإعادة جدولته، يرجى التواصل مع العيادة. نتمنى لك دوام الصحة والعافية!",
+    "cancellation_reason": "سبب الإلغاء",
+    "track_another_appointment": "رؤية موعد آخر"
   }
 }

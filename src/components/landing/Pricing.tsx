@@ -1,5 +1,3 @@
-"use client";
-
 import AuthSubmitButton from "../common/Auth/Customer/AuthSubmitButton";
 import FeaturedBadgeIcon from "../icons/FeaturedBadgeIcon";
 import Link from "next/link";
@@ -84,7 +82,9 @@ const Pricing = () => {
               </ul>
 
               {item.featured ? (
-                <AuthSubmitButton type="button" className={"px-10 py-1"}>Start</AuthSubmitButton>
+                <AuthSubmitButton type="button" className={"px-10 py-1"}>
+                  Start
+                </AuthSubmitButton>
               ) : (
                 <Link href={"/#start"}>
                   <button

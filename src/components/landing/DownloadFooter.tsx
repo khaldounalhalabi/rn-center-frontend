@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { JoinRequestService } from "@/services/JoinRequestService";
 import Form from "@/components/common/ui/Form";
 import AuthSubmitButton from "@/components/common/Auth/Customer/AuthSubmitButton";
@@ -8,7 +8,7 @@ import InputLoginCustomer from "@/components/common/ui/Inputs/InputLoginCustomer
 import ApiSelect from "../common/ui/Selects/ApiSelect";
 import { ApiResponse } from "@/Http/Response";
 import { CityService } from "@/services/CityService";
-import { TranslateClient } from "../../Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { City } from "@/Models/City";
 
 const DownloadFooter: React.FC = () => {
@@ -35,7 +35,11 @@ const DownloadFooter: React.FC = () => {
         <h2 className={"md:text-[30px] lg:text-[35px] font-bold"}>
           Join PoM Family
         </h2>
-        <p className={"text-[12px] md:text-[16px] text-[#6685A3] opacity-80 font-extralight"}>
+        <p
+          className={
+            "text-[12px] md:text-[16px] text-[#6685A3] opacity-80 font-extralight"
+          }
+        >
           Unlock a new level of clinic management! Book a live demo with our
           team and experience the tools that make running a clinic smoother,
           faster, and more rewarding.
@@ -84,10 +88,10 @@ const DownloadFooter: React.FC = () => {
                 placeHolder={"City"}
                 api={async (
                   page?: number | undefined,
-                  search?: string | undefined
+                  search?: string | undefined,
                 ): Promise<ApiResponse<City[]>> =>
                   await CityService.make<CityService>(
-                    "public"
+                    "public",
                   ).indexWithPagination(page, search)
                 }
                 getOptionLabel={(item: City) => TranslateClient(item.name)}

@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
@@ -12,7 +12,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { PatientsService } from "@/services/PatientsService";
-import { AddOrUpdateCustomer } from "@/Models/Customer";
+import { AddOrUpdateCustomer, Customer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import BloodArray from "@/enum/blood";
@@ -20,6 +20,8 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import { useTranslations } from "next-intl";
 import { User } from "@/Models/User";
+import { CreatedPatientContext } from "@/components/doctor/appointment/AppointmentForm";
+import { ApiResponse } from "@/Http/Response";
 
 const PatientForm = ({
   defaultValues = undefined,
@@ -37,6 +39,8 @@ const PatientForm = ({
   doctor?: User;
 }) => {
   const t = useTranslations("common.patient.create");
+  const createdPatientContext = useContext(CreatedPatientContext);
+
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
@@ -50,8 +54,15 @@ const PatientForm = ({
       return await PatientsService.make<PatientsService>("doctor").store(data);
     }
   };
-  const onSuccess = () => {
+  const onSuccess = (res: ApiResponse<Customer>) => {
     if (appointment && close) {
+      if (
+        res.data &&
+        createdPatientContext &&
+        createdPatientContext.setCreatedPatient
+      ) {
+        createdPatientContext.setCreatedPatient(res.data);
+      }
       return close();
     } else {
       Navigate(`/doctor/patients`);

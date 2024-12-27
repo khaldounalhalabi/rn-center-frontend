@@ -1,6 +1,6 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { createContext, Fragment, useEffect, useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Appointment } from "@/Models/Appointment";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
@@ -32,6 +32,13 @@ import { useTranslations } from "next-intl";
 import { User } from "@/Models/User";
 import { SystemOffers } from "@/Models/SystemOffer";
 
+export const CreatedPatientContext = createContext<{
+  createdPatient: Customer | undefined;
+  setCreatedPatient:
+    | React.Dispatch<React.SetStateAction<Customer | undefined>>
+    | undefined;
+}>({ createdPatient: undefined, setCreatedPatient: undefined });
+
 const AppointmentForm = ({
   defaultValues = undefined,
   id,
@@ -51,6 +58,9 @@ const AppointmentForm = ({
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const [systemOffer, setSystemOffer] = useState(
     defaultValues?.system_offers ?? [],
+  );
+  const [createdPatient, setCreatedPatient] = useState<Customer | undefined>(
+    undefined,
   );
   const { data: availableTimes } = useQuery({
     queryKey: ["availableTimes"],
@@ -187,6 +197,10 @@ const AppointmentForm = ({
     setIsOpenPatient(true);
   }
 
+  useEffect(() => {
+    setCustomerId(createdPatient?.id ?? customer_id ?? 0);
+  }, [createdPatient]);
+
   return (
     <PageCard>
       <div className={"flex justify-between"}>
@@ -252,11 +266,18 @@ const AppointmentForm = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-[70vw] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <PatientForm
-                    appointment={true}
-                    close={closeModalPatient}
-                    doctor={clinic}
-                  />
+                  <CreatedPatientContext.Provider
+                    value={{
+                      createdPatient: createdPatient,
+                      setCreatedPatient: setCreatedPatient,
+                    }}
+                  >
+                    <PatientForm
+                      appointment={true}
+                      close={closeModalPatient}
+                      doctor={clinic}
+                    />
+                  </CreatedPatientContext.Provider>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -352,6 +373,7 @@ const AppointmentForm = ({
                   );
                 }}
                 revalidate={reloadSelect}
+                defaultValues={createdPatient ? [createdPatient] : []}
               />
 
               {lastAppointmentDate && lastAppointmentDate?.length > 0 ? (

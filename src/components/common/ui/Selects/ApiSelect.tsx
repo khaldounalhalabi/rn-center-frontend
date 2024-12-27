@@ -89,6 +89,7 @@ function ApiSelect<TResponse, TData>({
     });
   useEffect(() => {
     refetch().then((r) => r);
+    setSelected(df)
   }, [revalidate]);
   const handleClickOutside = (event: MouseEvent) => {
     if (

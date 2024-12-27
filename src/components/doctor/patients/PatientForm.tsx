@@ -19,6 +19,7 @@ import BloodArray from "@/enum/blood";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import OtherDataInput from "@/components/admin/patient-profiles/OtherDataInput";
 import { useTranslations } from "next-intl";
+import { User } from "@/Models/User";
 
 const PatientForm = ({
   defaultValues = undefined,
@@ -26,12 +27,14 @@ const PatientForm = ({
   type = "store",
   appointment = false,
   close = undefined,
+  doctor = undefined,
 }: {
   defaultValues?: AddOrUpdateCustomer;
   id?: number;
   type?: "store" | "update";
   appointment?: boolean;
   close?: () => void;
+  doctor?: User;
 }) => {
   const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
@@ -41,7 +44,7 @@ const PatientForm = ({
     ) {
       return PatientsService.make<PatientsService>("doctor").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await PatientsService.make<PatientsService>("doctor").store(data);
@@ -190,7 +193,7 @@ const PatientForm = ({
       <Grid md={2}>
         {type != "update" ? (
           <TranslatableInput
-            required={true}
+            required={false}
             locales={["en", "ar"]}
             type={"text"}
             label={t("address")}
@@ -218,7 +221,11 @@ const PatientForm = ({
             getOptionLabel={(item) => TranslateClient(item.name)}
             optionValue={"id"}
             defaultValues={
-              defaultValues?.address?.city ? [defaultValues?.address?.city] : []
+              defaultValues?.address?.city
+                ? [defaultValues?.address?.city]
+                : doctor?.address?.city
+                  ? [doctor?.address?.city]
+                  : []
             }
           />
         ) : (
@@ -255,7 +262,11 @@ const PatientForm = ({
           defaultValues={defaultValues?.other_data ?? undefined}
         />
       )}
-      <Textarea name={"medical_condition"} label={t("medicalCondition")} />
+      <Textarea
+        name={"medical_condition"}
+        label={t("medicalCondition")}
+        required={false}
+      />
       {appointment ? (
         ""
       ) : (

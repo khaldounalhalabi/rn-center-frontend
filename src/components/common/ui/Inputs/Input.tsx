@@ -98,7 +98,7 @@ const Input: React.FC<InputProps> = ({
   } else
     return (
       <div
-        className={`flex ${type == `radio` ? `items-center` : "flex-col"} items-start w-full`}
+        className={`flex ${(type == `radio` || type == "checkbox") ? `items-center gap-2` : "flex-col"} items-start w-full`}
       >
         {label ? (
           <label className={"label text-nowrap"}>

@@ -56,12 +56,17 @@ const AppointmentForm = ({
   const [date, setDate] = useState(defaultValues ?? {});
   const [customer_id, setCustomerId] = useState(0);
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
-  const [systemOffer, setSystemOffer] = useState(
-    defaultValues?.system_offers ?? [],
+  const systemOffer = defaultValues?.system_offers ?? [];
+  const [appointmentCost, setAppointmentCost] = useState(
+    clinic?.clinic?.appointment_cost ?? 0,
+  );
+  const [selectedService, setSelectedService] = useState<Service | undefined>(
+    defaultValues?.service,
   );
   const [createdPatient, setCreatedPatient] = useState<Customer | undefined>(
     undefined,
   );
+  const [isRevision, setIsRevision] = useState(defaultValues?.is_revision ?? false);
   const { data: availableTimes } = useQuery({
     queryKey: ["availableTimes"],
     queryFn: async () => {
@@ -72,7 +77,7 @@ const AppointmentForm = ({
   });
   const range = {
     id: clinic?.clinic?.id ?? 0,
-    appointment_cost: clinic?.clinic?.appointment_cost ?? 0,
+    appointment_cost: appointmentCost ?? 0,
     range: clinic?.clinic?.appointment_day_range ?? 0,
     maxAppointment: clinic?.clinic?.max_appointments ?? 0,
     data: {
@@ -100,7 +105,7 @@ const AppointmentForm = ({
           ...data,
           customer_id: patient?.id,
         }
-      : data;
+      : { ...data, is_revision: Number(data.is_revision ?? 0) };
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -166,15 +171,30 @@ const AppointmentForm = ({
 
   const appointmentCostOffer = HandleCalcOffers(
     offer,
-    range.appointment_cost,
+    appointmentCost,
     "offer",
   );
 
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
+    if (isRevision) {
+      setServicePrice(0);
+      setAppointmentCost(0);
+    } else {
+      setAppointmentCost(clinic?.clinic?.appointment_cost ?? 0);
+      setServicePrice(selectedService?.price ?? 0);
+    }
     setTotalCost(handleTotalCost());
-  }, [getServicePrice, getExtra, range, getDiscount, offer]);
+  }, [
+    getServicePrice,
+    getExtra,
+    range,
+    getDiscount,
+    offer,
+    isRevision,
+    selectedService,
+  ]);
 
   const handleTotalCost = (): number => {
     return (
@@ -457,14 +477,19 @@ const AppointmentForm = ({
               defaultValues?.service ? [defaultValues?.service] : []
             }
             label={t("serviceName")}
-            onSelect={async (selectedItem) => {
-              setServicePrice(selectedItem?.price);
+            onSelect={(selectedItem) => {
+              if (!isRevision) {
+                setServicePrice(selectedItem?.price);
+              }
+              setSelectedService(selectedItem);
             }}
             onClear={() => {
               setServicePrice(0);
+              setSelectedService(undefined);
             }}
             onRemoveSelected={() => {
               setServicePrice(0);
+              setSelectedService(undefined);
             }}
             optionValue={"id"}
             getOptionLabel={(data: Service) => TranslateClient(data.name)}
@@ -500,6 +525,19 @@ const AppointmentForm = ({
             />
           ) : (
             ""
+          )}
+
+          {type == "store" && (
+              <Input
+                  name={"is_revision"}
+                  type="checkbox"
+                  label={t("is_revision") + " " + t("revision_description")}
+                  defaultChecked={false}
+                  className={"checkbox checkbox-info"}
+                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setIsRevision(e.target.checked);
+                  }}
+              />
           )}
         </Grid>
 
@@ -538,9 +576,7 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>{t("cost")}</td>
-                <td>
-                  {Number(range?.appointment_cost ?? 0).toLocaleString()} IQD
-                </td>
+                <td>{Number(appointmentCost ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>{t("service")}</td>

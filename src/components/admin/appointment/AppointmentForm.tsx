@@ -52,12 +52,26 @@ const AppointmentForm = ({
   availableTimes?: AvailableTime;
 }) => {
   const [date, setDate] = useState(defaultValues ?? {});
+  const [selectedService, setSelectedService] = useState<Service | undefined>(
+    defaultValues?.service,
+  );
+  const [getServicePrice, setServicePrice] = useState<number | undefined>(
+    defaultValues?.is_revision ? 0 : defaultValues?.service?.price ?? 0,
+  );
+
+  const [selectedClinic, setSelectedClinic] = useState<Clinic | undefined>(
+    defaultValues?.clinic,
+  );
+  const [appointmentCost, setAppointmentCost] = useState(
+    defaultValues?.is_revision ? 0 : selectedClinic?.appointment_cost ?? 0,
+  );
+
   const [range, setRange] = useState<Range>({
-    id: defaultValues?.clinic_id ?? 0,
-    appointment_cost: defaultValues?.clinic?.appointment_cost ?? 0,
-    range: defaultValues?.clinic?.appointment_day_range ?? 0,
-    limit: defaultValues?.clinic?.approximate_appointment_time ?? 0,
-    maxAppointment: defaultValues?.clinic?.max_appointments ?? 0,
+    id: selectedClinic?.id ?? 0,
+    appointment_cost: appointmentCost ?? 0,
+    range: selectedClinic?.appointment_day_range ?? 0,
+    limit: selectedClinic?.approximate_appointment_time ?? 0,
+    maxAppointment: selectedClinic?.max_appointments ?? 0,
     data: {
       booked_times: availableTimes?.booked_times ?? [],
       clinic_schedule: availableTimes?.clinic_schedule ?? {},
@@ -65,13 +79,15 @@ const AppointmentForm = ({
     },
   });
   const [customer_id, setCustomerId] = useState(0);
-
   const [systemOffer, setSystemOffer] = useState(
     defaultValues?.system_offers ?? [],
   );
   const [offer, setOffer] = useState(defaultValues?.offers ?? []);
   const [clinicId, setClinicId] = useState<number | undefined>(
-    defaultValues?.clinic_id,
+    selectedClinic?.id,
+  );
+  const [isRevision, setIsRevision] = useState(
+    defaultValues?.is_revision ?? false,
   );
   const { data } = useQuery({
     queryKey: ["getLastVisit", customer_id, range.id],
@@ -88,6 +104,7 @@ const AppointmentForm = ({
   });
   const lastAppointmentDate = data?.data?.date;
   const handleSubmit = async (data: any) => {
+    data = { ...data, is_revision: Number(data.is_revision) };
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -116,10 +133,6 @@ const AppointmentForm = ({
   };
   const [getExtra, setExtra] = useState(0);
   const [getDiscount, setDiscount] = useState(0);
-
-  const [getServicePrice, setServicePrice] = useState<number | undefined>(
-    defaultValues?.service?.price,
-  );
 
   const [status, setStatus] = useState(defaultValues?.status ?? "pending");
   const statusData = AppointmentStatuses();
@@ -156,7 +169,7 @@ const AppointmentForm = ({
       : systemOffer
         ? systemOffer
         : [],
-    range?.appointment_cost ?? 0,
+    appointmentCost,
     "system",
   );
   const appointmentCostOffer = HandleCalcOffers(
@@ -166,15 +179,34 @@ const AppointmentForm = ({
   );
   const appointmentCostOfferOnly = HandleCalcOffers(
     defaultValues?.offers ? defaultValues?.offers : offer ? offer : [],
-    range?.appointment_cost ?? 0,
+    appointmentCost,
     "offer",
   );
 
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
+    if (isRevision) {
+      setAppointmentCost(0);
+      setServicePrice(0);
+    } else {
+      setAppointmentCost(selectedClinic?.appointment_cost ?? 0);
+      setServicePrice(
+        selectedService?.price ?? defaultValues?.service?.price ?? 0,
+      );
+    }
     setTotalCost(handleTotalCost());
-  }, [getServicePrice, getExtra, range, getDiscount, offer, systemOffer]);
+  }, [
+    getServicePrice,
+    getExtra,
+    range,
+    getDiscount,
+    offer,
+    systemOffer,
+    selectedService,
+    isRevision,
+    selectedClinic,
+  ]);
 
   const handleTotalCost = (): number => {
     if (
@@ -209,7 +241,7 @@ const AppointmentForm = ({
       );
     } else {
       return (
-        Number(range?.appointment_cost ?? 0) +
+        Number(appointmentCost ?? 0) +
         Number(getServicePrice ?? 0) +
         Number(getExtra ?? 0) -
         Number(getDiscount ?? 0)
@@ -294,13 +326,12 @@ const AppointmentForm = ({
                   }
                   onSelect={async (selectedItem) => {
                     setClinicId(selectedItem?.id ?? 0);
-                    setRange((prevState) => ({
-                      ...prevState,
-                      appointment_cost: selectedItem?.appointment_cost,
-                    }));
-                    return await AppointmentService.make<AppointmentService>(
-                      "admin",
-                    )
+                    if (!isRevision) {
+                      setAppointmentCost(selectedItem?.appointment_cost ?? 0);
+                    } else {
+                      setAppointmentCost(0);
+                    }
+                    await AppointmentService.make<AppointmentService>("admin")
                       .getAvailableTimes(selectedItem?.id ?? 0)
                       .then((res) => {
                         return setRange({
@@ -312,13 +343,14 @@ const AppointmentForm = ({
                           data: res.data,
                         });
                       });
+                    setSelectedClinic(selectedItem);
                   }}
                   onRemoveSelected={() => {
                     setOffer([]);
                     setSystemOffer([]);
                     setServicePrice(0);
                     setCustomerId(0);
-                    return setRange({
+                    setRange({
                       id: 0,
                       appointment_cost: 0,
                       range: 0,
@@ -330,13 +362,15 @@ const AppointmentForm = ({
                         clinic_holidays: [],
                       },
                     });
+                    setAppointmentCost(0);
+                    setSelectedClinic(undefined);
                   }}
                   onClear={() => {
                     setOffer([]);
                     setSystemOffer([]);
                     setServicePrice(0);
                     setCustomerId(0);
-                    return setRange({
+                    setRange({
                       id: 0,
                       appointment_cost: 0,
                       range: 0,
@@ -348,6 +382,8 @@ const AppointmentForm = ({
                         clinic_holidays: [],
                       },
                     });
+                    setAppointmentCost(0);
+                    setSelectedClinic(undefined);
                   }}
                   label={"Clinic Name"}
                   optionValue={"id"}
@@ -541,13 +577,20 @@ const AppointmentForm = ({
             label={"Service Name"}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
-              setServicePrice(selectedItem?.price);
+              if (isRevision) {
+                setServicePrice(0);
+              } else {
+                setServicePrice(selectedItem?.price);
+              }
+              setSelectedService(selectedItem);
             }}
             onClear={() => {
               setServicePrice(0);
+              setSelectedService(undefined);
             }}
             onRemoveSelected={() => {
               setServicePrice(0);
+              setSelectedService(undefined);
             }}
             optionValue={"id"}
             getOptionLabel={(data: Service) => TranslateClient(data.name)}
@@ -609,6 +652,18 @@ const AppointmentForm = ({
           ) : (
             ""
           )}
+          {type == "store" && (
+            <Input
+              name={"is_revision"}
+              type="checkbox"
+              label={"Is Revision"}
+              defaultChecked={false}
+              className={"checkbox checkbox-info"}
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setIsRevision(e.target.checked);
+              }}
+            />
+          )}
         </Grid>
         {type == "update" ? (
           <button
@@ -645,9 +700,7 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>Clinic Appointment Cost</td>
-                <td>
-                  {Number(range?.appointment_cost ?? 0).toLocaleString()} IQD
-                </td>
+                <td>{Number(appointmentCost ?? 0).toLocaleString()} IQD</td>
               </tr>
               <tr>
                 <td>Service</td>
@@ -696,13 +749,3 @@ const AppointmentForm = ({
 };
 
 export default AppointmentForm;
-
-const appointmentDate = {
-  "2024-08-05 00:00:00": 4,
-  "2024-08-06 00:00:00": 3,
-  "2024-08-07 00:00:00": 1,
-  "2024-08-08 00:00:00": 10,
-  "2024-08-09 00:00:00": 5,
-  "2024-08-10 00:00:00": 4,
-  "2024-08-11 00:00:00": 10,
-};

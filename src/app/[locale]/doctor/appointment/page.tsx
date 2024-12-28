@@ -28,6 +28,8 @@ import dayjs from "dayjs";
 import { useLocale, useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
+import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
+import XMark from "@/components/icons/XMark";
 
 interface filterExportType {
   year: string;
@@ -170,6 +172,16 @@ const Page = () => {
             <span className={` text-[#2b3440]`}>{t("manual")}</span>
           ),
         sortable: true,
+      },
+      {
+        name: "is_revision",
+        label: t("is_revision"),
+        render: (is_revision) =>
+          is_revision ? (
+            <span className={"flex items-center justify-center"}><CheckMarkIcon className={"text-success h-6 w-6"} /></span>
+          ) : (
+            <span className={"flex items-center justify-center"}><XMark className={"text-error h-6 w-6"} /></span>
+          ),
       },
       {
         name: "total_cost",

@@ -9,6 +9,8 @@ import { useTranslations } from "next-intl";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Label } from "../ui/LabelsValues/Label";
 import { LabelValue } from "../ui/LabelsValues/LabelValue";
+import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
+import XMark from "@/components/icons/XMark";
 
 const Overview = ({
   appointment,
@@ -23,16 +25,16 @@ const Overview = ({
     HandleCalcOffers(
       appointment?.system_offers ?? [],
       appointment?.clinic?.appointment_cost ?? 0,
-      "system"
+      "system",
     ),
-    "offer"
+    "offer",
   );
 
   const handleTotalCost = (): number => {
     return (
-      Number(appointmentCost ?? 0) +
+      Number(appointment?.is_revision ? 0 :appointmentCost ?? 0) +
       Number(appointment?.extra_fees ?? 0) +
-      Number(appointment?.service?.price ?? 0) -
+      Number(appointment?.is_revision ? 0 :appointment?.service?.price ?? 0) -
       Number(appointment?.discount ?? 0)
     );
   };
@@ -52,6 +54,14 @@ const Overview = ({
           value={appointment?.type}
           color={"primary"}
         />
+
+        <Label label={t("is_revision")}>
+          {appointment?.is_revision ? (
+            <CheckMarkIcon className={"h-6 w-6 text-success"} />
+          ) : (
+            <XMark className={"h-6 w-6 text-error"} />
+          )}
+        </Label>
 
         <LabelValue
           label={t("extraFees")}
@@ -113,13 +123,13 @@ const Overview = ({
             <tr>
               <td>{t("cost")}</td>
               <td>
-                {appointment?.clinic?.appointment_cost.toLocaleString() ?? 0}{" "}
+                {appointment?.is_revision ? 0 :appointment?.clinic?.appointment_cost.toLocaleString() ?? 0}{" "}
                 IQD
               </td>
             </tr>
             <tr>
               <td>{t("service")}</td>
-              <td>{appointment?.service?.price.toLocaleString() ?? 0} IQD</td>
+              <td>{appointment?.is_revision ? 0 : appointment?.service?.price.toLocaleString() ?? 0} IQD</td>
             </tr>
             <tr>
               <td>{t("extraFees")}</td>

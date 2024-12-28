@@ -8,7 +8,7 @@ const HandleCalcOffers = (
 ): number => {
   let finalAmount = initialAmount;
   if (type == "offer") {
-    discounts.forEach((discount: Offers) => {
+    discounts?.forEach((discount: Offers) => {
       if (discount.type === "fixed") {
         finalAmount -= discount.value;
       } else if (discount.type === "percentage") {
@@ -16,7 +16,7 @@ const HandleCalcOffers = (
       }
     });
   } else {
-    discounts.forEach((discount: SystemOffers) => {
+    discounts?.forEach((discount: SystemOffers) => {
       if (discount.type === "fixed") {
         finalAmount -= discount.amount;
       } else if (discount.type === "percentage") {

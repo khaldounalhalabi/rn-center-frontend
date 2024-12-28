@@ -26,7 +26,7 @@ export class BaseService<T> {
     return this.instance as Service;
   }
 
-  public setHeaders(headers: Record<string, any> = {}): BaseService<T> {
+  public setHeaders(headers: Record<string, any> = {}){
     this.headers = headers;
     return this;
   }

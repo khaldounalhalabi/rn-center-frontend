@@ -829,7 +829,8 @@
         "actor": "Actor",
         "event": "Event",
         "export": "Export to excel",
-        "appointment_unique_code": "Appointment Code"
+        "appointment_unique_code": "Appointment Code",
+        "is_revision" : "Is Revision ?"
       },
       "create": {
         "editAppointment": "Edit Appointment",
@@ -857,7 +858,9 @@
         "totalCost": "Total Cost",
         "price": "Price",
         "name": "Name",
-        "cancellationReason": "Cancellation Reason"
+        "cancellationReason": "Cancellation Reason",
+        "is_revision" : "Revision",
+        "revision_description": "(Checking this option will make the appointment cost and the service cost zero)"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",
@@ -888,7 +891,8 @@
         "happenIn": "Happen In",
         "actor": "Actor",
         "event": "Event",
-        "actions": "Actions"
+        "actions": "Actions",
+        "is_revision": "Is Revision ?"
       }
     },
     "patient": {

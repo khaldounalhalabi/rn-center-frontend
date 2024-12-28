@@ -147,27 +147,6 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
           label={t("phone")}
         />
         <Grid md={"2"}>
-          <TranslatableInput
-            locales={["en", "ar"]}
-            type={"text"}
-            placeholder={"John"}
-            label={t("address")}
-            name={"address.name"}
-            locale={locale}
-          />
-          <ApiSelect
-            name={"address.city_id"}
-            label={t("city")}
-            placeHolder={"Select City Name ..."}
-            api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>().indexWithPagination(page, search)
-            }
-            getOptionLabel={(item) => TranslateClient(item.name)}
-            optionValue={"id"}
-            defaultValues={
-              defaultValues?.address?.city ? [defaultValues?.address?.city] : []
-            }
-          />
           <div className={`flex gap-5 p-2 items-center`}>
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
@@ -193,7 +172,6 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             />
           </div>
         </Grid>
-        <Textarea name={"address.map_iframe"} label={t("map")} />
         <div className={"col-span-2"}>
           {defaultValues?.image?.length != 0 ? (
             <Gallery

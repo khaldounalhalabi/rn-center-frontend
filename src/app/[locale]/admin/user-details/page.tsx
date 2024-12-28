@@ -101,23 +101,7 @@ const page = async () => {
                 {res?.is_archived ? t("archived") : t("notArchived")}
               </span>
             </h2>
-            <h2>
-              {t("city")} :{" "}
-              <span className="badge ml-3 mt-1 badge-primary">
-                {await TranslateServer(res?.address?.city?.name)}
-              </span>
-            </h2>
-            <h2>
-              {t("address")} :{" "}
-              <span className="badge ml-3 mt-1 badge-accent">
-                {await TranslateServer(res?.address?.name)}
-              </span>
-            </h2>
           </Grid>
-        </div>
-
-        <div className={"h-1/3"}>
-          <MapIFrame iframe={res?.address?.map_iframe} />
         </div>
       </div>
     </PageCard>

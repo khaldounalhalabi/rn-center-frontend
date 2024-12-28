@@ -96,15 +96,19 @@ const MultiInput: React.FC<MultiInputProps> = ({
                   }}
                 />
 
-                <button
-                  type={"button"}
-                  className={"btn btn-square btn-sm"}
-                  onClick={() => {
-                    removeInput(field);
-                  }}
-                >
-                  <Trash className={"h-6 w-6 text-error"} />
-                </button>
+                {index == 0 && required ? (
+                  ""
+                ) : (
+                  <button
+                    type={"button"}
+                    className={"btn btn-square btn-sm"}
+                    onClick={() => {
+                      removeInput(field);
+                    }}
+                  >
+                    <Trash className={"h-6 w-6 text-error"} />
+                  </button>
+                )}
               </div>
               <div className={"min-h-5"}>
                 {error &&

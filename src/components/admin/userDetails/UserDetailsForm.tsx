@@ -3,15 +3,11 @@ import Form from "@/components/common/ui/Form";
 import React, { Fragment, useContext, useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { Navigate } from "@/Actions/navigate";
 import { User } from "@/Models/User";
-import { CityService } from "@/services/CityService";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
-import Textarea from "@/components/common/ui/textArea/Textarea";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { AuthService } from "@/services/AuthService";
 import { Dialog, Transition } from "@headlessui/react";
@@ -26,12 +22,14 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
     return await AuthService.make<AuthService>("admin")
       .UpdateUserDetails(data)
       .then((res) => {
-        setReFetch(!reFetch);
-        window.localStorage.setItem(
-          "user",
-          // @ts-ignore
-          JSON.stringify(res?.data.user ?? undefined)
-        );
+        if (res.code == 200) {
+          setReFetch(!reFetch);
+          window.localStorage.setItem(
+            "user",
+            // @ts-ignore
+            JSON.stringify(res?.data.user ?? undefined),
+          );
+        }
         return res;
       });
   };
@@ -51,7 +49,6 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const t = useTranslations("details");
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const { image, ...rest } = defaultValues;
-  // @ts-ignore
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

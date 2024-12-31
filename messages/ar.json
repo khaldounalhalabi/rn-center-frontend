@@ -126,7 +126,8 @@
         "archived": "مؤرشف",
         "approximateAppointmentTime": "الوقت المقدر للحجز",
         "total-appointments": "إجمالي الحجوزات",
-        "subscriptionStatus": "حالة الاشتراك"
+        "subscriptionStatus": "حالة الاشتراك",
+        "min": "دقيقة"
       }
     },
     "holidays": {
@@ -241,7 +242,8 @@
         "active": "فعال",
         "inActive": "غير فعال",
         "actions": "الخيارات",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "min": "دقيقة"
       },
       "show": {
         "serviceDetails": "تفاصيل الخدمة",

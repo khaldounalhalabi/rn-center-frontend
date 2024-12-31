@@ -126,7 +126,8 @@
         "archived": "Archived",
         "approximateAppointmentTime": "Approximate Appointment Time",
         "total-appointments": "Total Appointments",
-        "subscriptionStatus": "Subscription Status"
+        "subscriptionStatus": "Subscription Status",
+        "min": "min"
       }
     },
     "holidays": {
@@ -241,7 +242,8 @@
         "active": "Active",
         "inActive": "In-active",
         "actions": "Actions",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "min": "min"
       },
       "show": {
         "serviceDetails": "Service Details",

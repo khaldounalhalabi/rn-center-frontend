@@ -31,7 +31,7 @@ const Page = () => {
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>min</span>
+            {data} <span className={"badge-success badge "}>{t("min")}</span>
           </p>
         ),
       },

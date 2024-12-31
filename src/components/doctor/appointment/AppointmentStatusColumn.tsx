@@ -13,6 +13,7 @@ import {
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -27,7 +28,6 @@ const AppointmentStatusColumn = ({
     appointment,
   );
 
-  const [isPending, setPending] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
   const [isPendingCheckout, setPendingCheckout] = useState<boolean>(false);
@@ -71,7 +71,7 @@ const AppointmentStatusColumn = ({
     } else if (status === AppointmentStatusEnum.BOOKED) {
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
-        .then((res) => {
+        .then(() => {
           setLoading(false);
           setSelected(AppointmentStatusEnum.BOOKED);
           toast.success("Status Changed!");
@@ -79,7 +79,7 @@ const AppointmentStatusColumn = ({
     } else {
       return AppointmentService.make<AppointmentService>(userType)
         .toggleStatus(id, { status: status })
-        .then((res) => {
+        .then(() => {
           setLoading(false);
           setSelected(status);
           toast.success("Status Changed!");
@@ -135,9 +135,6 @@ const AppointmentStatusColumn = ({
           as="div"
           className="fixed inset-0 z-50 overflow-y-auto"
           onClose={() => {
-            if (selected === "cancelled") {
-              setSelected(status);
-            }
             closeModal();
           }}
         >
@@ -239,7 +236,7 @@ const AppointmentStatusColumn = ({
                                 : ""
                   }`}
                 >
-                  {e}
+                  {TranslateStatusOrTypeClient(e)}
                 </option>
               ))}
             </select>

@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import ClosedEye from "@/components/icons/ClosedEye";
 import Eye from "@/components/icons/Eye";
-import { useLocale } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;
@@ -49,6 +49,7 @@ const Input: React.FC<InputProps> = ({
   const locale = useLocale();
   const [hidden, setHidden] = useState(true);
   placeholder = undefined;
+  const translateUnit = useTranslations("units");
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
   if (type == "password") {
@@ -59,7 +60,7 @@ const Input: React.FC<InputProps> = ({
             {label}
             {unit ? (
               <span className="ml-1 ">
-                (<span className="text-green-500">{unit}</span>)
+                (<span className="text-green-500">{translateUnit(unit as any)}</span>)
               </span>
             ) : (
               ""
@@ -105,7 +106,7 @@ const Input: React.FC<InputProps> = ({
             {label}
             {unit ? (
               <span className="ml-1 ">
-                (<span className="text-green-500">{unit}</span>)
+                (<span className="text-green-500">{translateUnit(unit as any)}</span>)
               </span>
             ) : (
               ""

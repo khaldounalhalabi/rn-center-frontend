@@ -33,7 +33,7 @@ const page = async ({
       <Grid md={2} gap={5}>
         <LabelValue
           label={t("cost")}
-          value={`${res.clinic?.appointment_cost.toLocaleString()} IQD`}
+          value={`${res.clinic?.appointment_cost.toLocaleString()} ${t("iqd")}`}
           color={"error"}
         />
 
@@ -55,7 +55,7 @@ const page = async ({
 
         <LabelValue
           label={t("value")}
-          value={`${res?.value} ${res?.type == "percentage" ? "%" : "IQD"}`}
+          value={`${res?.value} ${res?.type == "percentage" ? "%" : t("iqd")}`}
           color={"primary"}
         />
 

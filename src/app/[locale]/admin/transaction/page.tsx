@@ -210,7 +210,8 @@ const Page = () => {
               <LoadingSpin className="w-6 h-6" />
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
-                {Number(balance?.data?.balance ?? 0).toLocaleString()} IQD
+                {Number(balance?.data?.balance ?? 0).toLocaleString()}{" "}
+                {t("iqd")}
               </span>
             )}
           </div>
@@ -226,7 +227,7 @@ const Page = () => {
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
                 {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
-                IQD
+                {t("iqd")}
               </span>
             )}
           </div>

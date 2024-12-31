@@ -7,6 +7,7 @@ import { swal } from "@/Helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -37,6 +38,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   children,
   deleteMessage,
 }) => {
+  const t = useTranslations("components");
   const dataId = id ?? data?.id ?? undefined;
   const dUrl = deleteUrl ?? `${baseUrl}/${dataId ?? ""}`; // delete url
   const sUrl = showUrl ?? `${baseUrl}/${dataId ?? ""}`; // show url
@@ -66,11 +68,12 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
             onClick={() => {
               swal
                 .fire({
-                  title: "Do you want to archive this item ?",
+                  title: t("archive_question"),
                   showDenyButton: true,
                   showCancelButton: true,
-                  confirmButtonText: "Yes",
-                  denyButtonText: `No`,
+                  confirmButtonText: t("yes"),
+                  denyButtonText: t("no"),
+                  cancelButtonText: t("cancel"),
                   confirmButtonColor: "#007BFF",
                 })
                 .then((result) => {
@@ -80,18 +83,16 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .setBaseUrl(aUrl)
                         .delete()
                         .then(() => {
-                          toast.success("Archived!");
+                          toast.success(t("archived"));
 
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);
                           }
                         })
-                        .catch(() =>
-                          swal.fire("There Is Been An Error", "", "error"),
-                        );
+                        .catch(() => swal.fire(t("errored"), "", "error"));
                     }
                   } else if (result.isDenied) {
-                    swal.fire("Didn't Archive", "", "info");
+                    swal.fire(t("didnt_archived"), "", "info");
                   }
                 });
             }}
@@ -107,11 +108,12 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
             onClick={() => {
               swal
                 .fire({
-                  title: deleteMessage ?? "Do you want to Delete this item ?",
+                  title: deleteMessage ?? t("delete_question"),
                   showDenyButton: true,
                   showCancelButton: true,
-                  confirmButtonText: "Yes",
-                  denyButtonText: `No`,
+                  confirmButtonText: t("yes"),
+                  denyButtonText: t("no"),
+                  cancelButtonText: t("cancel"),
                   confirmButtonColor: "#007BFF",
                 })
                 .then((result) => {
@@ -121,18 +123,16 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .setBaseUrl(dUrl)
                         .delete()
                         .then(() => {
-                          toast.success("Deleted!");
+                          toast.success(t("deleted"));
 
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);
                           }
                         })
-                        .catch(() =>
-                          swal.fire("There Is Been An Error", "", "error"),
-                        );
+                        .catch(() => swal.fire(t("errored"), "", "error"));
                     }
                   } else if (result.isDenied) {
-                    swal.fire("Didn't Delete", "", "info");
+                    swal.fire(t("didnt_delete"), "", "info");
                   }
                 });
             }}

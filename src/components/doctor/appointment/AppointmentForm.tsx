@@ -66,7 +66,9 @@ const AppointmentForm = ({
   const [createdPatient, setCreatedPatient] = useState<Customer | undefined>(
     undefined,
   );
-  const [isRevision, setIsRevision] = useState(defaultValues?.is_revision ?? false);
+  const [isRevision, setIsRevision] = useState(
+    defaultValues?.is_revision ?? false,
+  );
   const { data: availableTimes } = useQuery({
     queryKey: ["availableTimes"],
     queryFn: async () => {
@@ -104,8 +106,9 @@ const AppointmentForm = ({
       ? {
           ...data,
           customer_id: patient?.id,
+          is_revision: Number(data.is_revision ?? false),
         }
-      : { ...data, is_revision: Number(data.is_revision ?? 0) };
+      : { ...data, is_revision: Number(data.is_revision ?? false) };
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
@@ -232,7 +235,7 @@ const AppointmentForm = ({
             ""
           ) : (
             <h3>
-              Patient :{" "}
+              {t("patient")} :{" "}
               <span className={"badge badge-outline"}>
                 {TranslateClient(defaultValues?.customer?.user?.full_name)}{" "}
               </span>
@@ -241,7 +244,7 @@ const AppointmentForm = ({
 
           {patient && type != "update" && (
             <h3>
-              Patient :{" "}
+              {t("patient")} :{" "}
               <span className={"badge badge-outline"}>
                 {TranslateClient(patient?.user?.full_name)}{" "}
               </span>
@@ -366,7 +369,7 @@ const AppointmentForm = ({
         {!patient?.id && type === "store" ? (
           <div className={"w-full"}>
             <h2 className={"text-xl font-bold border-b my-5"}>
-              Patient Details:
+              {t("patient_details")}:
             </h2>
             <div className={"w-full md:w-1/2"}>
               <ApiSelect
@@ -410,7 +413,7 @@ const AppointmentForm = ({
         )}
 
         <h2 className={"text-xl font-bold border-b  w-full my-5"}>
-          Offers & Additions:
+          {t("offers_additions")}:
         </h2>
         <Grid md={2}>
           <ApiSelect
@@ -462,7 +465,7 @@ const AppointmentForm = ({
         </Grid>
 
         <h2 className={" w-full text-xl font-bold border-b my-5"}>
-          Booking details:
+          {t("booking_details")}:
         </h2>
         <Grid md={2}>
           <ApiSelect
@@ -528,16 +531,16 @@ const AppointmentForm = ({
           )}
 
           {type == "store" && (
-              <Input
-                  name={"is_revision"}
-                  type="checkbox"
-                  label={t("is_revision") + " " + t("revision_description")}
-                  defaultChecked={false}
-                  className={"checkbox checkbox-info"}
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setIsRevision(e.target.checked);
-                  }}
-              />
+            <Input
+              name={"is_revision"}
+              type="checkbox"
+              label={t("is_revision") + " " + t("revision_description")}
+              defaultChecked={false}
+              className={"checkbox checkbox-info"}
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setIsRevision(e.target.checked);
+              }}
+            />
           )}
         </Grid>
 

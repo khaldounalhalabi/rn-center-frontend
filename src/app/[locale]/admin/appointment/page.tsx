@@ -125,7 +125,7 @@ const Page = () => {
         label: `${t("totalCost")}`,
         render: (data, appointment: Appointment | undefined) => (
           <span className="flex items-center justify-between gap-1">
-            {data?.toLocaleString() + " IQD"}{" "}
+            {data?.toLocaleString() + " " + t("iqd")}{" "}
             {(appointment?.system_offers?.length ?? 0) > 0 && (
               <PercentBadge className="text-[#00a96e] h-6 w-6" />
             )}

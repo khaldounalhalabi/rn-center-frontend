@@ -65,7 +65,7 @@ const SidebarDoctor = ({
     {
       search:
         "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
-      title: t("clinicsHolidays"),
+      title: t("clinic_holidays"),
       link: "/doctor/clinic/holidays",
       role: PermissionsDoctor.MANAGE_HOLIDAYS,
     },
@@ -88,54 +88,6 @@ const SidebarDoctor = ({
       role: PermissionsDoctor.MANAGE_PATIENTS,
     },
 
-    {
-      search: "offers,عروض,عرض",
-      title: t("offers"),
-      link: "/doctor/offer",
-      role: PermissionsDoctor.MANAGE_OFFERS,
-    },
-    {
-      search: "services,خدمة,خدمات",
-      title: t("services"),
-      link: "/doctor/service",
-      role: PermissionsDoctor.MANAGE_SERVICE,
-    },
-    {
-      search: "staff,موظف,موظفون,موظفين,عمال",
-      title: t("staff"),
-      link: "/doctor/staff",
-      role: PermissionsDoctor.MANAGE_EMPLOYEES,
-    },
-    {
-      search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
-      title: t("appointmentDeductions"),
-      link: "/doctor/appointment-deductions",
-      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
-    },
-    {
-      search: "transaction,تحويلات,تحويل,معاملات",
-      title: t("transaction"),
-      link: "/doctor/transaction",
-      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
-    },
-    {
-      search: "clinic details,معلومات,تفاصيل,عيادات,عيادة",
-      title: t("clinicDetails"),
-      link: "/doctor/clinic-details",
-      role: "",
-    },
-    {
-      search: "contact , payment , and , الدفع, التواصل , تواصل , طرق",
-      title: t("contact_and_payment"),
-      link: "/doctor/contact-and-payment",
-      role: "",
-    },
-    {
-      search: "contract , العقد",
-      title: t("contract"),
-      link: "/doctor/contract",
-      role: "doctor_and_just_doctor",
-    },
   ];
   const filteredItems = sidebarItems.filter((item) =>
     item.search.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -262,7 +214,7 @@ const SidebarDoctor = ({
                         : ""
                     }
                   >
-                    {t("clinicsHolidays")}
+                    {t("clinic_holidays")}
                   </SidebarItem>
                   <SidebarItem
                     setOpenNavBar={setOpenNavBar}

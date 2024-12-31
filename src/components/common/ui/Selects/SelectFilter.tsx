@@ -1,5 +1,8 @@
 "use client";
 
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
+
 const SelectFilter = ({
   data,
   name,
@@ -9,6 +12,7 @@ const SelectFilter = ({
   onChange,
   setStatus,
   status,
+  translated = false,
 }: {
   data: any[];
   selected?: any[] | any;
@@ -18,7 +22,9 @@ const SelectFilter = ({
   onChange?: any;
   setStatus?: React.Dispatch<string>;
   status?: string;
+  translated?: boolean;
 }) => {
+  const t = useTranslations("components")
   return (
     <label className={"label flex flex-col w-10/12 items-start"}>
       {label ?? ""}
@@ -28,10 +34,10 @@ const SelectFilter = ({
         multiple={isMultiple ?? false}
         onChange={onChange ?? false}
       >
-        <option value={undefined}>Select an item</option>
+        <option value={undefined}>{t("select_item")}</option>
         {data.map((item, index) => (
           <option value={item == "all" ? "" : item} key={index}>
-            {item}
+            {translated ? TranslateStatusOrTypeClient(item) : item}
           </option>
         ))}
       </select>

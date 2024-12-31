@@ -2,7 +2,9 @@ import PageCard from "@/components/common/ui/PageCard";
 import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import MapIFrame from "@/components/common/ui/MapIFrame";
 import { Clinic } from "@/Models/Clinic";
 import { AuthService } from "@/services/AuthService";
@@ -119,19 +121,19 @@ const page = async () => {
 
           <LabelValue
             label={t("approximateAppointmentTime")}
-            value={`${res?.approximate_appointment_time} min`}
+            value={`${res?.approximate_appointment_time} ${t("minutes")}`}
             color={"primary"}
           />
 
           <LabelValue
             label={t("status")}
-            value={res?.status}
+            value={await TranslateStatusOrTypeServer(res?.status)}
             color={"success"}
           />
 
           <LabelValue
             label={t("experienceYear")}
-            value={`${res?.experience_years} Years`}
+            value={`${res?.experience_years} ${t("years")}`}
             color={"accent"}
           />
 
@@ -153,19 +155,19 @@ const page = async () => {
 
           <LabelValue
             label={t("cost")}
-            value={`${res?.appointment_cost.toLocaleString()} IQD`}
+            value={`${res?.appointment_cost.toLocaleString()} ${t("IQD")}`}
             color={"info"}
           />
 
           <LabelValue
             label={t("maxAppointmentsPerDay")}
-            value={`${res?.max_appointments.toLocaleString()} Appointments`}
+            value={`${res?.max_appointments.toLocaleString()} ${t("appointments")}`}
             color={"error"}
           />
 
           <LabelValue
             label={t("appointmentDayRange")}
-            value={`${res?.appointment_day_range} Days`}
+            value={`${res?.appointment_day_range} ${t("days")}`}
             color={"primary"}
           />
 

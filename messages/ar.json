@@ -5,8 +5,9 @@
     "clinicsManagement": "إدارة العيادات",
     "clinics": "العيادات",
     "clinicDetails": "تفاصيل العيادة",
-    "clinicsSchedules": "حجوزات العيادات",
+    "clinicsSchedules": "أوقات العمل",
     "clinicsHolidays": "إجازات العيادات",
+    "clinic_holidays": "إجازات العيادة",
     "specialties": "التخصصات",
     "hospitals": "المستشفيات",
     "serviceCategories": "فئات الخدمة",
@@ -231,7 +232,7 @@
     },
     "service": {
       "table": {
-        "service": "الخجمة",
+        "service": "الخدمات",
         "clinic": "العيادة",
         "approximateDuration": "مدة الخدمة التقريبية",
         "category": "الفئة",
@@ -239,7 +240,8 @@
         "status": "الحالة",
         "active": "فعال",
         "inActive": "غير فعال",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "iqd": "د.ع"
       },
       "show": {
         "serviceDetails": "تفاصيل الخدمة",
@@ -252,7 +254,8 @@
         "description": "الوصف",
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "create-edit": {
         "addService": "إضافة خدمة",
@@ -307,7 +310,8 @@
         "actions": "خيارات",
         "period": "الفترة",
         "allowPeriod": "فترة السماح",
-        "days": "أيام"
+        "days": "أيام",
+        "iqd": "د.ع"
       },
       "create": {
         "addClinicSubscription": "إضافة اشتراك",
@@ -321,7 +325,8 @@
         "cost": "التكلفة",
         "periodUnit": "وحدة الفترة",
         "description": "الوصف",
-        "forLifetime": "لفترة (مدى الحياة) ضع -1"
+        "forLifetime": "لفترة (مدى الحياة) ضع -1",
+        "iqd": "د.ع"
       },
       "show": {
         "subscriptionDetails": "تفاصيل الاشتراك",
@@ -438,7 +443,8 @@
         "active": "فعال",
         "not-active": "غير فعال",
         "actions": "الخيارات",
-        "email": "البريد الالكتروني "
+        "email": "البريد الالكتروني ",
+        "iqd": "د.ع"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -468,7 +474,8 @@
         "value": "القيمة",
         "startDate": "تاريخ بداية العرض",
         "endDate": "تاريخ نهاية العرض",
-        "note": "ملاحظات"
+        "note": "ملاحظات",
+        "iqd": "د.ع"
       }
     },
     "blood": {
@@ -588,7 +595,12 @@
         "subscriptionDescription": "حول الاشتراك",
         "experienceY": "سنوات الخبرة",
         "about": "حول العيادة",
-        "image": "الصورة"
+        "image": "الصورة",
+        "appointments": "حجوزات",
+        "IQD": "د.ع",
+        "years": "سنوات",
+        "minutes": "دقائق",
+        "days": "أيام"
       },
       "edit": {
         "editClinicDetails": "تعديل تفاصيل العيادة",
@@ -612,11 +624,12 @@
     },
     "schedules": {
       "show": {
-        "schedulesDetails": "تفاصيل الدوام",
+        "schedulesDetails": "أوقات العمل",
         "editBtn": "تعديل",
         "appointmentGap": "الفاصل الزمني بين الحجوزات",
         "startTime": "وقت البدء",
-        "endTime": "وقت النهاية"
+        "endTime": "وقت النهاية",
+        "no_schedule": "غير محدد"
       },
       "edit": {
         "appointmentGap": "الفاصل الزمني بين الحجوزات"
@@ -651,7 +664,8 @@
         "description": "وصف الخدمة",
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "table": {
         "service": "الخدمة",
@@ -689,7 +703,8 @@
         "isActive": "هل هو فعال ؟",
         "active": "فعال",
         "not-active": "غير فعال",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "iqd": "د.ع"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -718,7 +733,8 @@
         "value": "القيمة",
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
-        "note": "ملاحظات"
+        "note": "ملاحظات",
+        "iqd": "د.ع"
       }
     },
     "staff": {
@@ -822,7 +838,7 @@
         "appointment": "حجز",
         "patientName": "اسم المريض",
         "serviceName": "اسم الخدمة",
-        "status": "حالة",
+        "status": "الحالة",
         "type": "النوع",
         "totalCost": "المجموع",
         "online": "اونلاين",
@@ -840,7 +856,9 @@
         "event": "الحدث",
         "export": "تصدير لملف إكسيل",
         "appointment_unique_code": "المحدد الفريد",
-        "is_revision" : "مراجعة ؟"
+        "is_revision" : "مراجعة ؟",
+        "service": "الخدمة",
+        "iqd": "د.ع"
       },
       "create": {
         "editAppointment": "تعديل الحجز",
@@ -870,7 +888,11 @@
         "name": "الصنف",
         "cancellationReason": "سبب الالغاء",
         "is_revision" : "مراجعة",
-        "revision_description": "(استخدام هذا الخيار كلفة الحجز بالإضافة إلى كلفة الخدمة صفر)"
+        "revision_description": "(استخدام هذا الخيار كلفة الحجز بالإضافة إلى كلفة الخدمة صفر)",
+        "patient": "المريض",
+        "patient_details" : "بيانات المريض",
+        "offers_additions": "العروض و الإضافات",
+        "booking_details": "بيانات الحجز"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
@@ -945,7 +967,8 @@
         "isArchived": "هل هو مأرشف",
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشف",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "delete_profile_warning": "حذف هذا السجل سيحذف فقط البيانات الطبية الخاصة بالمريض و ليس مله الكامل"
       },
       "show": {
         "patientDetails": "تفاصيل المريض",
@@ -1055,7 +1078,7 @@
     },
     "medicine": {
       "table": {
-        "medicines": "الدواء",
+        "medicines": "الأدوية",
         "medicineName": "اسم الدواء",
         "actions": "أجراءات",
         "clinicName": "اسم العيادة",
@@ -1101,7 +1124,8 @@
         "clinicBalance": "صندوق العيادة",
         "balance": "الصندوق",
         "pendingAmount": "الأموال المعلقة",
-        "export": "تصدير لملف إكسيل"
+        "export": "تصدير لملف إكسيل",
+        "iqd": "د.ع"
       },
       "create": {
         "addTransaction": "اضافة معاملة",
@@ -1122,7 +1146,10 @@
         "notes": "الملاحظات",
         "appointmentDate": "تاريخ الحجز",
         "status": "الحالة",
-        "totalCost": "المجموع"
+        "totalCost": "المجموع",
+        "actor_name": "المسؤول",
+        "iqd": "د.ع",
+        "description": "الوصف"
       },
       "chart": {
         "filter": "فلتر",
@@ -1167,7 +1194,8 @@
         "amount": "القيمة",
         "appointmentDate": "تاريخ الحجز",
         "totalCost": "المجموع",
-        "note": "الملاحظات"
+        "note": "الملاحظات",
+        "iqd": "د.ع"
       }
     },
     "dashboard": {
@@ -1369,5 +1397,58 @@
     "name": "الاسم",
     "email": "البريد الإلكتروني",
     "message": "الرسالة"
+  },
+  "types_statuses": {
+    "active": "فعال",
+    "in_active": "غير فعال",
+    "pending": "معلق",
+    "booked": "تم الحجز",
+    "checkin": "عند الطبيب",
+    "checkout": "مكتمل",
+    "cancelled": "ملغي",
+    "all": "الجميع",
+    "online": "أونلاين",
+    "manual": "يدوي",
+    "January":"كانون الثاني",
+    "February":"شباط",
+    "March":"آذار",
+    "April":"نيسان",
+    "May":"أيار",
+    "June":"حزيران",
+    "July":"تموز",
+    "August":"آب",
+    "September":"أيلول",
+    "October":"تشرين الأول",
+    "November":"تشرين الثاني",
+    "December": "كانون الأول"
+  },
+  "week_days": {
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة"
+  },
+  "units": {
+    "min": "دقيقة",
+    "IQD": "د.ع"
+  },
+  "components": {
+    "submit": "حفظ",
+    "didnt_archived": "لم يؤرشف",
+    "archived": "تم أرشفة السجل",
+    "errored": "حدث خطأ حاول مرة أخرى",
+    "archive_question": "هل تريد أرشفة هذا العنصر ؟",
+    "yes": "نعم",
+    "no": "لا",
+    "cancel": "إلعاء",
+    "ok": "تم",
+    "delete_question": "هل تريد حذف هذا العنصر ؟",
+    "deleted": "تم الحذف",
+    "didnt_delete": "لم يحذف",
+    "select_item": "قم باختيار عنصر",
+    "add": "إضافة"
   }
 }

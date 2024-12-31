@@ -73,7 +73,7 @@ const page = async ({
           {t("price")} :
           {res?.price ? (
             <span className="badge badge-accent" suppressHydrationWarning>
-              {res?.price.toLocaleString()} IQD
+              {res?.price.toLocaleString()} {t("iqd")}
             </span>
           ) : (
             <span className="text-lg badge badge-neutral">{t("noData")}</span>

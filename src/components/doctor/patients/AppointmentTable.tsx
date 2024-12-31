@@ -193,6 +193,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">
@@ -203,6 +204,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">{t("startDate")} :</label>

@@ -40,6 +40,7 @@ const ScheduleForm = ({
   appointment_gap: number | undefined;
 }) => {
   const t = useTranslations("doctor.schedules.edit");
+  const dayT = useTranslations("week_days");
   const locale = useLocale();
 
   const [schedule, setSchedule] = useState<SchedulesTimes>({
@@ -206,7 +207,7 @@ const ScheduleForm = ({
             className="flex justify-between items-center border-b border-b-gray-400"
           >
             <div className="p-3">
-              <h2>{day.toUpperCase()}</h2>
+              <h2>{dayT(day as any)?.toUpperCase()}</h2>
               {schedule[day].map((timeRange, index) => (
                 <div key={index} className="flex items-center gap-1 my-1">
                   <TimePicker
@@ -277,10 +278,10 @@ const ScheduleForm = ({
                           <div className="flex flex-col">
                             {weeKDays.map((d, index) => (
                               <div
-                                className="flex justify-between items-center p-2"
+                                className="flex justify-between items-center gap-2 p-2"
                                 key={index}
                               >
-                                {d}
+                                {dayT(d)}
                                 <input
                                   type="checkbox"
                                   className="checkbox"

@@ -12,7 +12,7 @@ import { Clinic } from "@/Models/Clinic";
 import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { useTranslations } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 
 const HolidayForm = ({

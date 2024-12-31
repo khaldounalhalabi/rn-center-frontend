@@ -253,7 +253,7 @@ const Page = () => {
       return (
         <div className={"w-full grid grid-cols-1"}>
           <label className="label">
-            Service :
+            {t("service")} :
             <SelectFilter
               data={nameServiceArray}
               selected={serviceSelected}
@@ -268,13 +268,14 @@ const Page = () => {
             />
           </label>
           <label className={"label"}>
-            {t("serviceName")} :
+            {t("status")} :
             <SelectFilter
               data={["all", ...statusData]}
               selected={params.status ?? "all"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">
@@ -285,6 +286,7 @@ const Page = () => {
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">{t("startDate")} :</label>
@@ -373,6 +375,7 @@ const Page = () => {
                           month: e.target.value,
                         });
                       }}
+                      translated={true}
                     />
                   </div>
 

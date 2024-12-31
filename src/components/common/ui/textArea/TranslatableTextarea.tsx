@@ -3,6 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
+import { useLocale } from "next-intl";
 
 interface TranslatableTextAreaProps extends HTMLProps<HTMLTextAreaElement> {
   className?: string | undefined;
@@ -26,7 +27,10 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   ...props
 }) => {
   placeholder = undefined;
-  const [selectedLocale, setSelectedLocale] = useState<Locales>(locale ?? "en");
+  const currentLocale = useLocale() as "en" | "ar" | undefined;
+  const [selectedLocale, setSelectedLocale] = useState<Locales>(
+    locale ?? currentLocale ?? "en",
+  );
   const [trVal, setTrVal] = useState<Translatable>(
     defaultValue ? TranslateClient(defaultValue, true) : { en: "", ar: "" },
   );
@@ -56,6 +60,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
         value={selectedLocale}
         onChange={(e) => setSelectedLocale(e.target.value as Locales)}
         className="select select-bordered"
+        defaultValue={selectedLocale}
       >
         {locales.map((e: string, index: number) => (
           <option key={index} value={e} className="cursor-pointer">
@@ -90,7 +95,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
               {...props}
               rows={4}
               className="textarea textarea-bordered w-full"
-              placeholder="Write your thoughts here..."
+              placeholder=""
               dir={selectedLocale == "ar" ? "rtl" : "ltr"}
               defaultValue={trVal[locale] ?? ""}
               name={`${name}.${locale}`}

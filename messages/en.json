@@ -7,6 +7,7 @@
     "clinicDetails": "Clinic Details",
     "clinicsSchedules": "Clinics Schedules",
     "clinicsHolidays": "Clinics Holidays",
+    "clinic_holidays": "Clinic Holidays",
     "specialties": "Specialties",
     "hospitals": "Hospitals",
     "serviceCategories": "Service Categories",
@@ -239,7 +240,8 @@
         "status": "Status",
         "active": "Active",
         "inActive": "In-active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD"
       },
       "show": {
         "serviceDetails": "Service Details",
@@ -252,7 +254,8 @@
         "description": "Description",
         "noData": "No Data",
         "editBtn": "Edit",
-        "image": "Image"
+        "image": "Image",
+        "iqd": "IQD"
       },
       "create-edit": {
         "addService": "Add Service",
@@ -307,7 +310,8 @@
         "actions": "Actions",
         "period": "Period",
         "allowPeriod": "Allow Period",
-        "days": "Days"
+        "days": "Days",
+        "iqd": "IQD"
       },
       "create": {
         "addClinicSubscription": "Add Clinic Subscription",
@@ -321,7 +325,8 @@
         "cost": "Cost",
         "periodUnit": "Period Unit",
         "description": "Description",
-        "forLifetime": "for lifetime period put -1"
+        "forLifetime": "for lifetime period put -1",
+        "iqd": "IQD"
       },
       "show": {
         "subscriptionDetails": "Subscription Details",
@@ -437,7 +442,8 @@
         "isActive": "is Active",
         "active": "Active",
         "not-active": "Not Active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD"
       },
       "create": {
         "editOffer": "Edit Offer",
@@ -452,7 +458,8 @@
         "startDate": "Start At",
         "endDate": "End At",
         "note": "Note",
-        "image": "Images"
+        "image": "Images",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "Offer Details",
@@ -586,7 +593,12 @@
         "subscriptionDescription": "Subscription Description",
         "experienceY": "Experience Years",
         "about": "About",
-        "image": "Image"
+        "image": "Image",
+        "appointments": "Appointments",
+        "IQD": "IQD",
+        "years": "Years",
+        "minutes": "Minutes",
+        "days": "Days"
       },
       "edit": {
         "editClinicDetails": "Edit Clinic Details",
@@ -614,7 +626,8 @@
         "editBtn": "Edit",
         "appointmentGap": "Appointment Gap",
         "startTime": "Start Time",
-        "endTime": "End Time"
+        "endTime": "End Time",
+        "no_schedule": "No Schedule"
       },
       "edit": {
         "appointmentGap": "Appointment Gap"
@@ -649,7 +662,8 @@
         "description": "Description",
         "noData": "No Data",
         "editBtn": "Edit",
-        "image": "Image"
+        "image": "Image",
+        "iqd": "IQD"
       },
       "table": {
         "service": "Service",
@@ -687,7 +701,8 @@
         "isActive": "is Active",
         "active": "Active",
         "not-active": "Not Active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD"
       },
       "create": {
         "editOffer": "Edit Offer",
@@ -716,7 +731,8 @@
         "value": "Value",
         "startDate": "Start At",
         "endDate": "End At",
-        "note": "Note"
+        "note": "Note",
+        "iqd": "IQD"
       }
     },
     "staff": {
@@ -830,7 +846,9 @@
         "event": "Event",
         "export": "Export to excel",
         "appointment_unique_code": "Appointment Code",
-        "is_revision" : "Is Revision ?"
+        "is_revision": "Is Revision ?",
+        "service": "Service",
+        "iqd": "IQD"
       },
       "create": {
         "editAppointment": "Edit Appointment",
@@ -859,8 +877,12 @@
         "price": "Price",
         "name": "Name",
         "cancellationReason": "Cancellation Reason",
-        "is_revision" : "Revision",
-        "revision_description": "(Checking this option will make the appointment cost and the service cost zero)"
+        "is_revision": "Revision",
+        "revision_description": "(Checking this option will make the appointment cost and the service cost zero)",
+        "patient": "Patient",
+        "patient_details" : "Patient details",
+        "offers_additions": "Offers & Additions",
+        "booking_details": "Booking details"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",
@@ -935,7 +957,8 @@
         "isArchived": "is Archived",
         "archived": "Archived",
         "notArchived": "Not Archived",
-        "actions": "Actions"
+        "actions": "Actions",
+        "delete_profile_warning": "Deleting this record will delete just the stored medical details of this patient not his entire profile"
       },
       "show": {
         "patientDetails": "Patient Details",
@@ -1099,7 +1122,8 @@
         "type": "Type",
         "amount": "Amount",
         "date": "Date",
-        "notes": "Notes"
+        "notes": "Notes",
+        "iqd": "IQD"
       },
       "show": {
         "transactionDetails": "Transaction Details",
@@ -1112,7 +1136,10 @@
         "notes": "Notes",
         "appointmentDate": "Appointment Date",
         "status": "Status",
-        "totalCost": "Total Cost"
+        "totalCost": "Total Cost",
+        "actor_name": "Actor name",
+        "iqd": "IQD",
+        "description": "Description"
       },
       "chart": {
         "filter": "Filter",
@@ -1157,7 +1184,8 @@
         "amount": "Amount",
         "appointmentDate": "Appointment Date",
         "totalCost": "Total Cost",
-        "note": "Note"
+        "note": "Note",
+        "iqd": "IQD"
       }
     },
     "dashboard": {
@@ -1359,5 +1387,58 @@
     "name": "Name",
     "email": "Email",
     "message": "Message"
+  },
+  "types_statuses": {
+    "active": "Active",
+    "in_active": "In-Active",
+    "pending": "Pending",
+    "booked": "Booked",
+    "checkin": "Checkin",
+    "checkout": "Checkout",
+    "cancelled": "Cancelled",
+    "all": "All",
+    "online": "Online",
+    "manual": "Manual",
+    "January":"January",
+    "February":"February",
+    "March":"March",
+    "April":"April",
+    "May":"May",
+    "June":"June",
+    "July":"July",
+    "August":"August",
+    "September":"September",
+    "October":"October",
+    "November":"November",
+    "December": "December"
+  },
+  "week_days": {
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday"
+  },
+  "units": {
+    "min": "min",
+    "IQD": "IQD"
+  },
+  "components": {
+    "submit": "Submit",
+    "didnt_archived": "Didn't Archive",
+    "archived": "Archived",
+    "errored": "There Is Been An Error",
+    "archive_question": "Do you want to archive this item ?",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "delete_question": "Do you want to Delete this item ?",
+    "deleted": "Deleted",
+    "didnt_delete": "Didn't Delete",
+    "select_item": "Select an item",
+    "add": "Add"
   }
 }

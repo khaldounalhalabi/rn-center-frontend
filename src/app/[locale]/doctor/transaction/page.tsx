@@ -425,7 +425,7 @@ const Page = () => {
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
                 {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}{" "}
-                IQD
+                {t("iqd")}
               </span>
             )}
           </div>
@@ -441,7 +441,7 @@ const Page = () => {
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
                 {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
-                IQD
+                {t("iqd")}
               </span>
             )}
           </div>

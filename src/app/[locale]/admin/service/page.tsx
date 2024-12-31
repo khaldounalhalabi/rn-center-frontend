@@ -52,7 +52,9 @@ const Page = () => {
         label: `${t("price")}`,
         render: (data) => (
           <p>
-            <span suppressHydrationWarning>{data.toLocaleString()} IQD</span>
+            <span suppressHydrationWarning>
+              {data.toLocaleString()} {t("iqd")}
+            </span>
           </p>
         ),
       },

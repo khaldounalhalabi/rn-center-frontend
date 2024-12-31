@@ -37,7 +37,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           {t("cost")} :{" "}
           <span className="ml-2 badge badge-error" suppressHydrationWarning>
-            {res?.clinic?.appointment_cost.toLocaleString()} IQD
+            {res?.clinic?.appointment_cost.toLocaleString()} {t("iqd")}
           </span>
         </label>
         <label className="label justify-start text-xl">
@@ -61,7 +61,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           {t("value")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {res?.value} {res?.type == "percentage" ? "%" : "IQD"}
+            {res?.value} {res?.type == "percentage" ? "%" : t("iqd")}
           </span>
         </label>
         <label className="label justify-start text-xl">

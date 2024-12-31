@@ -39,7 +39,7 @@ const Page = () => {
               ) : offer?.type == "fixed" ? (
                 <span>
                   {offer?.value}{" "}
-                  <span className="badge badge-warning">IQD</span>
+                  <span className="badge badge-warning">{t("iqd")}</span>
                 </span>
               ) : (
                 <span className="badge badge-warning">No Data</span>

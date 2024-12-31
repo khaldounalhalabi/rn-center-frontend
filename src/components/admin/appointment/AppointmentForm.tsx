@@ -30,6 +30,7 @@ import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
+import { useTranslations } from "next-intl";
 
 interface Range {
   id: number | undefined;
@@ -51,6 +52,7 @@ const AppointmentForm = ({
   type?: "store" | "update";
   availableTimes?: AvailableTime;
 }) => {
+  const t = useTranslations("common.appointment.create");
   const [date, setDate] = useState(defaultValues ?? {});
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     defaultValues?.service,
@@ -113,7 +115,7 @@ const AppointmentForm = ({
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
           if (res.code == 425) {
-            swal.fire("The time you selected is unavailable!");
+            swal.fire(t("unavailable_selected_time"));
             return res;
           } else return res;
         });
@@ -122,7 +124,7 @@ const AppointmentForm = ({
         .store(data)
         .then((res) => {
           if (res.code == 425) {
-            swal.fire("The time you selected is unavailable!");
+            swal.fire(t("unavailable_selected_time"));
             return res;
           } else return res;
         });
@@ -281,10 +283,10 @@ const AppointmentForm = ({
                     onSuccess={() => closeModal()}
                     defaultValues={date}
                   >
-                    <h1 className={"card-title"}>Set Date : </h1>
+                    <h1 className={"card-title"}>{t("date")}</h1>
                     <Datepicker
                       name={"date"}
-                      label={"Date"}
+                      label={t("date")}
                       required={true}
                       shouldDisableDate={(day) => {
                         const data = range.data;
@@ -312,12 +314,11 @@ const AppointmentForm = ({
           <>
             <div className={"w-full"}>
               <h2 className={"font-bold text-xl border-b w-full my-5"}>
-                Clinic Details :{" "}
+                {t("clinic_details")} :{" "}
               </h2>
               <div className={"w-full md:w-1/2"}>
                 <ApiSelect
                   required={true}
-                  placeHolder={"Select Clinic name ..."}
                   name={"clinic_id"}
                   api={(page, search) =>
                     ClinicsService.make<ClinicsService>()
@@ -385,7 +386,7 @@ const AppointmentForm = ({
                     setAppointmentCost(0);
                     setSelectedClinic(undefined);
                   }}
-                  label={"Clinic Name"}
+                  label={t("clinic_name")}
                   optionValue={"id"}
                   getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
                 />
@@ -393,13 +394,12 @@ const AppointmentForm = ({
             </div>
             <div className={"col-span-2"}>
               <h2 className={"font-bold text-xl border-b w-full my-5"}>
-                Patient Details:{" "}
+                {t("patient_details")}:{" "}
               </h2>
               <div className={"w-full md:w-1/2"}>
                 <ApiSelect
                   required={true}
                   name={"customer_id"}
-                  placeHolder={"Select Patient name ..."}
                   api={(page, search) =>
                     CustomerService.make<CustomerService>(
                       "admin",
@@ -423,7 +423,7 @@ const AppointmentForm = ({
                   onClear={() => {
                     setCustomerId(0);
                   }}
-                  label={"Patient Name"}
+                  label={t("patientName")}
                   optionValue={"id"}
                   getOptionLabel={(data: Customer) => {
                     return (
@@ -438,7 +438,9 @@ const AppointmentForm = ({
                 {lastAppointmentDate &&
                 lastAppointmentDate?.length > 0 &&
                 customer_id != 0 ? (
-                  <p className={"label"}>Last Visit : {lastAppointmentDate}</p>
+                  <p className={"label"}>
+                    {t("lastVisit")} : {lastAppointmentDate}
+                  </p>
                 ) : (
                   ""
                 )}
@@ -451,14 +453,13 @@ const AppointmentForm = ({
 
         <div className={"col-span-2"}>
           <h2 className={"text-xl font-bold w-full border-b my-5"}>
-            Offers & Additions:
+            {t("offers_additions")}:
           </h2>
           <div className={"flex items-center justify-between w-full flex-wrap"}>
             {typeAppointment == "online" && type == "store" ? (
               <div className={"w-full md:w-[49%]"}>
                 <ApiSelect
                   name={"system_offers"}
-                  placeHolder={"Select system offer ..."}
                   api={(page, search) =>
                     SystemOffersService.make<SystemOffersService>().getSystemOffersByClinic(
                       clinicId,
@@ -467,7 +468,7 @@ const AppointmentForm = ({
                     )
                   }
                   closeOnSelect={false}
-                  label={"System Offers"}
+                  label={t("systemOffers")}
                   revalidate={`${clinicId}`}
                   onSelect={(selectedItem) => {
                     if (selectedItem) {
@@ -509,7 +510,7 @@ const AppointmentForm = ({
                 defaultValues={
                   defaultValues?.offers ? defaultValues?.offers : []
                 }
-                label={"Offers"}
+                label={t("offers")}
                 revalidate={`${clinicId}`}
                 onSelect={async (selectedItem) => {
                   if (selectedItem) {
@@ -534,9 +535,9 @@ const AppointmentForm = ({
                 name={"extra_fees"}
                 type={"number"}
                 step={"any"}
-                unit={"IQD"}
+                unit={`${t("iqd")}`}
                 placeholder={"Extra Fees : 5"}
-                label={"Extra Fees"}
+                label={t("extraFees")}
                 setWatch={setExtra}
               />
             </div>
@@ -546,7 +547,7 @@ const AppointmentForm = ({
                 type={"number"}
                 step={"any"}
                 placeholder={"Discount ..."}
-                label={"Discount"}
+                label={t("discount")}
                 setWatch={setDiscount}
               />
             </div>
@@ -554,12 +555,11 @@ const AppointmentForm = ({
         </div>
 
         <h1 className={"col-span-2 w-full text-xl font-bold border-b my-5"}>
-          Booking details
+          {t("booking_details")}
         </h1>
         <Grid md={2}>
           <ApiSelect
             name={"service_id"}
-            placeHolder={"Select Service name ..."}
             api={(page, search) =>
               ServiceService.make<ServiceService>().getClinicService(
                 clinicId,
@@ -574,7 +574,7 @@ const AppointmentForm = ({
             defaultValues={
               defaultValues?.service ? [defaultValues?.service] : []
             }
-            label={"Service Name"}
+            label={t("service")}
             revalidate={`${clinicId}`}
             onSelect={async (selectedItem) => {
               if (isRevision) {
@@ -598,12 +598,12 @@ const AppointmentForm = ({
           {type != "update" ? (
             <div className={`flex gap-5 p-2 items-end`}>
               <label className={`bg-pom p-2 rounded-md text-white`}>
-                Type:
+                {t("type")}:
               </label>
               <Input
                 onClick={() => setSystemOffer([])}
                 name={"type"}
-                label={"manual"}
+                label={t("manual")}
                 type="radio"
                 className="radio radio-info"
                 value={"manual"}
@@ -614,7 +614,7 @@ const AppointmentForm = ({
               />
               <Input
                 name={"type"}
-                label={"online"}
+                label={t("online")}
                 type="radio"
                 className="radio radio-info"
                 value={"online"}
@@ -630,14 +630,14 @@ const AppointmentForm = ({
             name={"status"}
             ArraySelect={statusData}
             status={status}
-            label={"Status"}
+            label={t("status")}
             handleSelect={(select: string) => setStatus(select)}
           />
 
           {type == "store" ? (
             <Datepicker
               name={"date"}
-              label={"Date"}
+              label={t("date")}
               required={true}
               shouldDisableDate={(day) => {
                 const data = range.data;
@@ -656,7 +656,7 @@ const AppointmentForm = ({
             <Input
               name={"is_revision"}
               type="checkbox"
-              label={"Is Revision"}
+              label={t("is_revision")}
               defaultChecked={false}
               className={"checkbox checkbox-info"}
               onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -671,19 +671,19 @@ const AppointmentForm = ({
             onClick={openModal}
             className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
           >
-            Update Date
+            {t("update_date")}
           </button>
         ) : (
           ""
         )}
         <Textarea
           name={"note"}
-          label={"Notes"}
+          label={t("note")}
           defaultValue={defaultValues?.note ?? ""}
         />
         {status == AppointmentStatusEnum.CANCELLED ? (
           <Textarea
-            label={"Cancellation Reason"}
+            label={t("cancellationReason")}
             name={"cancellation_reason"}
           />
         ) : (
@@ -693,33 +693,43 @@ const AppointmentForm = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <th>{t("name")}</th>
+                <th>{t("price")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Clinic Appointment Cost</td>
-                <td>{Number(appointmentCost ?? 0).toLocaleString()} IQD</td>
+                <td>{t("clinic_appointment_cost")}</td>
+                <td>
+                  {Number(appointmentCost ?? 0).toLocaleString()} {t("iqd")}
+                </td>
               </tr>
               <tr>
-                <td>Service</td>
-                <td>{Number(getServicePrice ?? 0).toLocaleString()} IQD</td>
+                <td>{t("service")}</td>
+                <td>
+                  {Number(getServicePrice ?? 0).toLocaleString()} {t("iqd")}
+                </td>
               </tr>
               <tr>
-                <td>Extra Fees</td>
-                <td>{Number(getExtra).toLocaleString()} IQD</td>
+                <td>{t("extraFees")}</td>
+                <td>
+                  {Number(getExtra).toLocaleString()} {t("iqd")}
+                </td>
               </tr>
               <tr>
-                <td>Discount</td>
-                <td>{Number(getDiscount ?? 0).toLocaleString()} IQD</td>
+                <td>{t("discount")}</td>
+                <td>
+                  {Number(getDiscount ?? 0).toLocaleString()} {t("iqd")}
+                </td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
                     <tr key={index}>
-                      <td>Offer [{TranslateClient(e.title)}]</td>
                       <td>
-                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {t("offers")} [{TranslateClient(e.title)}]
+                      </td>
+                      <td>
+                        {e?.value ?? 0} {e?.type == "fixed" ? t("iqd") : "%"}
                       </td>
                     </tr>
                   ))
@@ -727,17 +737,19 @@ const AppointmentForm = ({
               {systemOffer.length != 0
                 ? systemOffer?.map((e: SystemOffers, index) => (
                     <tr key={index}>
-                      <td>System Offer [{TranslateClient(e.title)}]</td>
                       <td>
-                        {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {t("systemOffers")} [{TranslateClient(e.title)}]
+                      </td>
+                      <td>
+                        {e?.amount ?? 0} {e?.type == "fixed" ? t("iqd") : "%"}
                       </td>
                     </tr>
                   ))
                 : ""}
               <tr>
-                <td className="text-lg">Total Cost</td>
+                <td className="text-lg">{t("totalCost")}</td>
                 <td className="text-lg">
-                  {Number(totalCost.toFixed(1)).toLocaleString()} IQD
+                  {Number(totalCost.toFixed(1)).toLocaleString()} {t("iqd")}
                 </td>
               </tr>
             </tbody>

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { useFormContext } from "react-hook-form";
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 
 export default function SelectPopOverFrom({
   required = false,
@@ -9,6 +10,7 @@ export default function SelectPopOverFrom({
   label,
   name,
   handleSelect = undefined,
+  translatedStatusTypeItem = false,
 }: {
   required?: boolean;
   status: string | undefined;
@@ -16,6 +18,7 @@ export default function SelectPopOverFrom({
   label?: string;
   name: string;
   handleSelect: any;
+  translatedStatusTypeItem?: boolean;
 }) {
   const [selected, setSelected] = useState(status);
 
@@ -68,7 +71,9 @@ export default function SelectPopOverFrom({
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {person}
+                        {translatedStatusTypeItem
+                          ? TranslateStatusOrTypeClient(person)
+                          : person}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"></span>

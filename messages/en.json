@@ -74,7 +74,8 @@
         "subscription": "Subscription",
         "subscriptionType": "Subscription Type",
         "deductionCost": "Deduction Cost",
-        "subscriptionDescription": "Subscription Description"
+        "subscriptionDescription": "Subscription Description",
+        "iqd": "IQD"
       },
       "create-edit": {
         "approximateAppointmentTime": "Approximate Appointment Time",
@@ -109,7 +110,8 @@
         "tags": "Tags",
         "subscription": "Subscription",
         "subscriptionType": "Subscription Type",
-        "deductionCost": "Deduction Cost"
+        "deductionCost": "Deduction Cost",
+        "iqd": "IQD"
       },
       "table": {
         "clinics": "Clinics",
@@ -269,7 +271,8 @@
         "status": "Status",
         "category": "Category",
         "approximateDuration": "Approximate Duration",
-        "price": "Price"
+        "price": "Price",
+        "iqd": "د.ع"
       }
     },
     "speciality": {
@@ -528,7 +531,8 @@
         "image": "Images",
         "alowedUses": "Allowed Uses",
         "allowReuse": "Allow Reuse",
-        "description": "Description"
+        "description": "Description",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "System Offer Details",
@@ -691,7 +695,8 @@
         "price": "Price",
         "image": "Image",
         "noData": "No Data",
-        "icon": "Icon"
+        "icon": "Icon",
+        "iqd": "IQD"
       }
     },
     "offer": {
@@ -719,7 +724,8 @@
         "startDate": "Start At",
         "endDate": "End At",
         "note": "Note",
-        "image": "Images"
+        "image": "Images",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "Offer Details",
@@ -884,7 +890,13 @@
         "patient": "Patient",
         "patient_details" : "Patient details",
         "offers_additions": "Offers & Additions",
-        "booking_details": "Booking details"
+        "booking_details": "Booking details",
+        "iqd": "IQD",
+        "unavailable_selected_time": "The date you selected is unavailable",
+        "clinic_details": "Clinic details",
+        "clinic_name": "Clinic name",
+        "update_date": "Update date",
+        "clinic_appointment_cost": "Clinic appointment cost"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",
@@ -916,7 +928,8 @@
         "actor": "Actor",
         "event": "Event",
         "actions": "Actions",
-        "is_revision": "Is Revision ?"
+        "is_revision": "Is Revision ?",
+        "iqd": "IQD"
       }
     },
     "patient": {
@@ -1214,7 +1227,8 @@
       "sequence": "Sequence",
       "status": "Status",
       "type": "Type",
-      "actions": "Actions"
+      "actions": "Actions",
+      "iqd": "IQD"
     }
   },
   "table": {
@@ -1441,6 +1455,8 @@
     "deleted": "Deleted",
     "didnt_delete": "Didn't Delete",
     "select_item": "Select an item",
-    "add": "Add"
+    "add": "Add",
+    "collect_subscription": "Collect Subscription",
+    "iqd": "IQD"
   }
 }

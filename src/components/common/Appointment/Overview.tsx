@@ -4,21 +4,31 @@ import Grid from "@/components/common/ui/Grid";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { Offers } from "@/Models/Offers";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
-import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { useTranslations } from "next-intl";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import { Label } from "../ui/LabelsValues/Label";
 import { LabelValue } from "../ui/LabelsValues/LabelValue";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import XMark from "@/components/icons/XMark";
+import dynamic from "next/dynamic";
+import DynamicLoading from "@/components/icons/DynamicLoading";
 
 const Overview = ({
   appointment,
-  userType = "admin",
 }: {
   appointment?: Appointment | undefined;
   userType?: "admin" | "doctor";
 }) => {
+  const AppointmentStatusSelector = dynamic(
+    () => import("@/components/doctor/appointment/AppointmentStatusColumn"),
+    {
+      ssr: false,
+      loading: DynamicLoading,
+    },
+  );
   const t = useTranslations("common.appointment.show");
   const appointmentCost = HandleCalcOffers(
     appointment?.offers ?? [],
@@ -32,9 +42,9 @@ const Overview = ({
 
   const handleTotalCost = (): number => {
     return (
-      Number(appointment?.is_revision ? 0 :appointmentCost ?? 0) +
+      Number(appointment?.is_revision ? 0 : appointmentCost ?? 0) +
       Number(appointment?.extra_fees ?? 0) +
-      Number(appointment?.is_revision ? 0 :appointment?.service?.price ?? 0) -
+      Number(appointment?.is_revision ? 0 : appointment?.service?.price ?? 0) -
       Number(appointment?.discount ?? 0)
     );
   };
@@ -43,7 +53,7 @@ const Overview = ({
     <div className={"card bg-base-200 my-3 w-full"}>
       <Grid md={2} gap={8}>
         <Label label={t("status")}>
-          <AppointmentStatusColumn
+          <AppointmentStatusSelector
             userType={"doctor"}
             appointment={appointment}
           />
@@ -51,7 +61,7 @@ const Overview = ({
 
         <LabelValue
           label={t("type")}
-          value={appointment?.type}
+          value={TranslateStatusOrTypeClient(appointment?.type)}
           color={"primary"}
         />
 
@@ -65,13 +75,13 @@ const Overview = ({
 
         <LabelValue
           label={t("extraFees")}
-          value={`${appointment?.extra_fees} IQD`}
+          value={`${appointment?.extra_fees} ${t("iqd")}`}
           color={"info"}
         />
 
         <LabelValue
           label={t("totalCost")}
-          value={`${appointment?.total_cost?.toLocaleString()} IQD`}
+          value={`${appointment?.total_cost?.toLocaleString()} ${t("iqd")}`}
           color={"success"}
         />
 
@@ -123,23 +133,34 @@ const Overview = ({
             <tr>
               <td>{t("cost")}</td>
               <td>
-                {appointment?.is_revision ? 0 :appointment?.clinic?.appointment_cost.toLocaleString() ?? 0}{" "}
-                IQD
+                {appointment?.is_revision
+                  ? 0
+                  : appointment?.clinic?.appointment_cost.toLocaleString() ??
+                    0}{" "}
+                {t("iqd")}
               </td>
             </tr>
             <tr>
               <td>{t("service")}</td>
-              <td>{appointment?.is_revision ? 0 : appointment?.service?.price.toLocaleString() ?? 0} IQD</td>
+              <td>
+                {appointment?.is_revision
+                  ? 0
+                  : appointment?.service?.price.toLocaleString() ?? 0}{" "}
+                {t("iqd")}
+              </td>
             </tr>
             <tr>
               <td>{t("extraFees")}</td>
               <td>
-                {Number(appointment?.extra_fees).toLocaleString() ?? 0} IQD
+                {Number(appointment?.extra_fees).toLocaleString() ?? 0}{" "}
+                {t("iqd")}
               </td>
             </tr>
             <tr>
               <td>{t("discount")}</td>
-              <td>{Number(appointment?.discount).toLocaleString() ?? 0} IQD</td>
+              <td>
+                {Number(appointment?.discount).toLocaleString() ?? 0} {t("iqd")}
+              </td>
             </tr>
             {appointment?.offers?.length != 0
               ? appointment?.offers?.map((e: Offers, index) => (
@@ -149,7 +170,7 @@ const Overview = ({
                     </td>
                     <td>
                       {e?.value.toLocaleString() ?? 0}{" "}
-                      {e?.type == "fixed" ? "IQD" : "%"}
+                      {e?.type == "fixed" ? t("iqd") : "%"}
                     </td>
                   </tr>
                 ))
@@ -162,7 +183,7 @@ const Overview = ({
                     </td>
                     <td>
                       {e?.amount.toLocaleString() ?? 0}{" "}
-                      {e?.type == "fixed" ? "IQD" : "%"}
+                      {e?.type == "fixed" ? t("iqd") : "%"}
                     </td>
                   </tr>
                 ))
@@ -170,7 +191,7 @@ const Overview = ({
             <tr>
               <td className="text-lg">{t("totalCost")}</td>
               <td className="text-lg text-primary">
-                {handleTotalCost().toLocaleString()} IQD
+                {handleTotalCost().toLocaleString()} {t("iqd")}
               </td>
             </tr>
           </tbody>

@@ -135,7 +135,7 @@ const ClinicForm = ({
         <Input
           name={"appointment_cost"}
           type={"number"}
-          unit={"IQD"}
+          unit={t("iqd")}
           step={"any"}
           placeholder={"Appointment Cost i.e : 5"}
           label={t("cost")}

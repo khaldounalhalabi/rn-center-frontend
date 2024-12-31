@@ -142,7 +142,7 @@ const ServiceForm = ({
           name={"price"}
           type={"number"}
           step={"any"}
-          unit={"IQD"}
+          unit={t("iqd")}
           placeholder={"Price : "}
           label={t("price")}
         />

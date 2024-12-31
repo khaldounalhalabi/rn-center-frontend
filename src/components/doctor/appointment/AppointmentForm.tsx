@@ -449,7 +449,7 @@ const AppointmentForm = ({
             name={"extra_fees"}
             type={"number"}
             step={"any"}
-            unit={"IQD"}
+            unit={t("iqd")}
             placeholder={"Extra Fees : 5"}
             label={t("extraFees")}
             setWatch={setExtra}
@@ -579,19 +579,19 @@ const AppointmentForm = ({
             <tbody>
               <tr>
                 <td>{t("cost")}</td>
-                <td>{Number(appointmentCost ?? 0).toLocaleString()} IQD</td>
+                <td>{Number(appointmentCost ?? 0).toLocaleString()} {t("iqd")}</td>
               </tr>
               <tr>
                 <td>{t("service")}</td>
-                <td>{Number(getServicePrice ?? 0).toLocaleString()} IQD</td>
+                <td>{Number(getServicePrice ?? 0).toLocaleString()} {t("iqd")}</td>
               </tr>
               <tr>
                 <td>{t("extraFees")}</td>
-                <td>{Number(getExtra).toLocaleString() ?? 0} IQD</td>
+                <td>{Number(getExtra).toLocaleString() ?? 0} {t("iqd")}</td>
               </tr>
               <tr>
                 <td>{t("discount")}</td>
-                <td>{Number(getDiscount).toLocaleString() ?? 0} IQD</td>
+                <td>{Number(getDiscount).toLocaleString() ?? 0} {t("iqd")}</td>
               </tr>
               {offer.length != 0
                 ? offer?.map((e: Offers, index) => (
@@ -600,7 +600,7 @@ const AppointmentForm = ({
                         {t("offers")} [{TranslateClient(e.title)}]
                       </td>
                       <td>
-                        {e?.value ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {e?.value ?? 0} {e?.type == "fixed" ? t("iqd") : "%"}
                       </td>
                     </tr>
                   ))
@@ -610,7 +610,7 @@ const AppointmentForm = ({
                     <tr key={index}>
                       <td>System Offer [{TranslateClient(e.title)}]</td>
                       <td>
-                        {e?.amount ?? 0} {e?.type == "fixed" ? "IQD" : "%"}
+                        {e?.amount ?? 0} {e?.type == "fixed" ? t("iqd") : "%"}
                       </td>
                     </tr>
                   ))
@@ -618,7 +618,7 @@ const AppointmentForm = ({
               <tr>
                 <td className="text-lg">{t("totalCost")}</td>
                 <td className="text-lg">
-                  {Number(totalCost.toFixed(1)).toLocaleString()} IQD
+                  {Number(totalCost.toFixed(1)).toLocaleString()} {t("iqd")}
                 </td>
               </tr>
             </tbody>

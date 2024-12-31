@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import PrescriptionsTable from "@/components/doctor/appointment/PrescriptionsTable";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import DynamicLoading from "@/components/icons/DynamicLoading";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,6 +17,13 @@ const AppointmentOverview = ({
   appointment?: Appointment | undefined;
 }) => {
   const t = useTranslations("common.appointment.show");
+  const AppointmentDetails = dynamic(
+    () => import("@/components/common/Appointment/Overview"),
+    {
+      ssr: false,
+      loading: DynamicLoading,
+    },
+  );
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -49,7 +57,7 @@ const AppointmentOverview = ({
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel className={"w-full"}>
-            <Overview appointment={appointment} userType={"doctor"} />
+            <AppointmentDetails appointment={appointment} userType={"doctor"} />
           </Tab.Panel>
           <Tab.Panel className={"w-full"}>
             <PrescriptionsTable appointment={appointment} />

@@ -74,7 +74,8 @@
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
-        "subscriptionDescription": "حول الاشتراك"
+        "subscriptionDescription": "حول الاشتراك",
+        "iqd": "د.ع"
       },
       "create-edit": {
         "approximateAppointmentTime": "الوقت المقدر للحجز",
@@ -109,7 +110,8 @@
         "tags": "الوسومات",
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
-        "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد"
+        "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
+        "iqd": "د.ع"
       },
       "table": {
         "clinics": "العيادات",
@@ -269,7 +271,8 @@
         "status": "الحالة",
         "category": "الفئة",
         "approximateDuration": "المدة التقريبية",
-        "price": "السعر"
+        "price": "السعر",
+        "iqd": "د.ع"
       }
     },
     "speciality": {
@@ -530,7 +533,8 @@
         "image": "الصورة",
         "alowedUses": "الاستخدامات المسموح بها",
         "allowReuse": "السماح بأعادة الاسستخدام",
-        "description": "الوصف"
+        "description": "الوصف",
+        "iqd": "د.ع"
       },
       "show": {
         "offerDetails": "تفاصيل عرض النظام",
@@ -693,7 +697,8 @@
         "price": "السعر",
         "image": "الصورة",
         "noData": "لايوجد بيانات",
-        "icon": "أيقونة"
+        "icon": "أيقونة",
+        "iqd": "د.ع"
       }
     },
     "offer": {
@@ -721,7 +726,8 @@
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
         "note": "ملاحظات",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "show": {
         "offerDetails": "تفاصيل العرض",
@@ -858,7 +864,7 @@
         "event": "الحدث",
         "export": "تصدير لملف إكسيل",
         "appointment_unique_code": "المحدد الفريد",
-        "is_revision" : "مراجعة ؟",
+        "is_revision": "مراجعة ؟",
         "service": "الخدمة",
         "iqd": "د.ع"
       },
@@ -889,12 +895,18 @@
         "price": "السعر",
         "name": "الصنف",
         "cancellationReason": "سبب الالغاء",
-        "is_revision" : "مراجعة",
+        "is_revision": "مراجعة",
         "revision_description": "(استخدام هذا الخيار كلفة الحجز بالإضافة إلى كلفة الخدمة صفر)",
         "patient": "المريض",
-        "patient_details" : "بيانات المريض",
+        "patient_details": "بيانات المريض",
         "offers_additions": "العروض و الإضافات",
-        "booking_details": "بيانات الحجز"
+        "booking_details": "بيانات الحجز",
+        "iqd": "د.ع",
+        "unavailable_selected_time": "الوقت المختار غير متوفر",
+        "clinic_details": "بيانات العيادة",
+        "clinic_name": "اسم العيادة",
+        "update_date": "تعديل التاريخ",
+        "clinic_appointment_cost": "كلفة الموعد في العيادة"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
@@ -926,7 +938,8 @@
         "actor": "المنفذ",
         "event": "الحدث",
         "actions": "الخيارات",
-        "is_revision": "مراجعة ؟"
+        "is_revision": "مراجعة ؟",
+        "iqd": "د.ع"
       }
     },
     "patient": {
@@ -1135,7 +1148,8 @@
         "type": "النوع",
         "amount": "القيمة",
         "date": "التاريخ",
-        "notes": "الملاحظات"
+        "notes": "الملاحظات",
+        "iqd": "د.ع"
       },
       "show": {
         "transactionDetails": "تفاصيل المعاملة",
@@ -1224,7 +1238,8 @@
       "sequence": "التسلسل",
       "status": "الحالة",
       "type": "النوع",
-      "actions": "الخيارات"
+      "actions": "الخيارات",
+      "iqd": "د.ع"
     }
   },
   "table": {
@@ -1411,17 +1426,17 @@
     "all": "الجميع",
     "online": "أونلاين",
     "manual": "يدوي",
-    "January":"كانون الثاني",
-    "February":"شباط",
-    "March":"آذار",
-    "April":"نيسان",
-    "May":"أيار",
-    "June":"حزيران",
-    "July":"تموز",
-    "August":"آب",
-    "September":"أيلول",
-    "October":"تشرين الأول",
-    "November":"تشرين الثاني",
+    "January": "كانون الثاني",
+    "February": "شباط",
+    "March": "آذار",
+    "April": "نيسان",
+    "May": "أيار",
+    "June": "حزيران",
+    "July": "تموز",
+    "August": "آب",
+    "September": "أيلول",
+    "October": "تشرين الأول",
+    "November": "تشرين الثاني",
     "December": "كانون الأول"
   },
   "week_days": {
@@ -1451,6 +1466,8 @@
     "deleted": "تم الحذف",
     "didnt_delete": "لم يحذف",
     "select_item": "قم باختيار عنصر",
-    "add": "إضافة"
+    "add": "إضافة",
+    "collect_subscription": "تحصيل قيمة الاشتراك",
+    "iqd": "د.ع"
   }
 }

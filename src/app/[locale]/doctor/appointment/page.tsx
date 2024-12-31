@@ -252,7 +252,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
-          <label className="label">
+          <label className="label w-full">
             {t("service")} :
             <SelectFilter
               data={nameServiceArray}

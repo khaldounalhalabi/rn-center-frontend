@@ -111,7 +111,8 @@
         "subscription": "Subscription",
         "subscriptionType": "Subscription Type",
         "deductionCost": "Deduction Cost",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "min": "min"
       },
       "table": {
         "clinics": "Clinics",
@@ -259,7 +260,8 @@
         "noData": "No Data",
         "editBtn": "Edit",
         "image": "Image",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "min": "min"
       },
       "create-edit": {
         "addService": "Add Service",
@@ -696,7 +698,8 @@
         "image": "Image",
         "noData": "No Data",
         "icon": "Icon",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "min": "min"
       }
     },
     "offer": {

@@ -152,7 +152,7 @@ const ClinicForm = ({
         />
         <Input
           name={"approximate_appointment_time"}
-          unit={"min"}
+          unit={t("min")}
           type={"number"}
           step={"any"}
           placeholder={"Doctor Approximate Appointment Time Are ?"}

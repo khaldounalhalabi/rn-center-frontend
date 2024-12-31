@@ -111,7 +111,8 @@
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "min": "دقيقة"
       },
       "table": {
         "clinics": "العيادات",
@@ -272,7 +273,8 @@
         "category": "الفئة",
         "approximateDuration": "المدة التقريبية",
         "price": "السعر",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "min": "دقيقة"
       }
     },
     "speciality": {
@@ -698,7 +700,8 @@
         "image": "الصورة",
         "noData": "لايوجد بيانات",
         "icon": "أيقونة",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "min": "دقيقة"
       }
     },
     "offer": {

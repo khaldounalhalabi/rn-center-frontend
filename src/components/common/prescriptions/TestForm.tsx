@@ -37,6 +37,7 @@ const TestForm = ({ defaultValue }: { defaultValue?: Prescription }) => {
           ArraySelect={SelectDate}
           name={"visit"}
           handleSelect={() => undefined}
+          translatedStatusTypeItem={true}
         />
       </div>
     </>

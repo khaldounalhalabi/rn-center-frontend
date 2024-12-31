@@ -1429,7 +1429,10 @@
     "September":"September",
     "October":"October",
     "November":"November",
-    "December": "December"
+    "December": "December",
+    "day": "Day",
+    "week": "Week",
+    "year": "Year"
   },
   "week_days": {
     "saturday": "Saturday",

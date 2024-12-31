@@ -1440,7 +1440,10 @@
     "September": "أيلول",
     "October": "تشرين الأول",
     "November": "تشرين الثاني",
-    "December": "كانون الأول"
+    "December": "كانون الأول",
+    "day": "يوم",
+    "week": "أسبوع",
+    "year": "سنة"
   },
   "week_days": {
     "saturday": "السبت",

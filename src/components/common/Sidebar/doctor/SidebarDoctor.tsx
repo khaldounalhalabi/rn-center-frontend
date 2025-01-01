@@ -87,7 +87,6 @@ const SidebarDoctor = ({
       link: "/doctor/patients",
       role: PermissionsDoctor.MANAGE_PATIENTS,
     },
-
   ];
   const filteredItems = sidebarItems.filter((item) =>
     item.search.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -171,7 +170,7 @@ const SidebarDoctor = ({
                 {t("dashboard")}
               </SidebarItem>
               <SidebarCompactItem
-                title={t("clinicsManagement")}
+                title={t("clinic_management")}
                 links={[
                   "/doctor/clinic-details",
                   "/doctor/clinic/schedules",
@@ -343,9 +342,9 @@ const SidebarDoctor = ({
               </SidebarItem>
 
               <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/doctor/contract"}
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={"/doctor/contract"}
               >
                 {t("contract")}
               </SidebarItem>
@@ -497,18 +496,14 @@ const SidebarDoctor = ({
           </SidebarIcon>
 
           <SidebarIcon
-              link={"/doctor/contact-and-payment"}
-              title={t("contact_and_payment")}
+            link={"/doctor/contact-and-payment"}
+            title={t("contact_and_payment")}
           >
             <CreditCardIcon className={`h-8 w-8`} />
           </SidebarIcon>
 
-          <SidebarIcon
-              link={"/doctor/contract"}
-              title={t("contract")}
-          >
-            <PaperIcon
-                className={`h-8 w-8`} />
+          <SidebarIcon link={"/doctor/contract"} title={t("contract")}>
+            <PaperIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

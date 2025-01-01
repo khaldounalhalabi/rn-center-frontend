@@ -9,7 +9,10 @@ import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
@@ -140,6 +143,7 @@ const Page = () => {
         name: "type",
         label: `${t("type")}`,
         sortable: true,
+        render: (type) => TranslateStatusOrTypeClient(type),
       },
       {
         name: "amount",
@@ -267,6 +271,7 @@ const Page = () => {
                 setParams({ ...params, type: event.target.value });
               }
             }}
+            translated={true}
           />
           <label className="label">{t("status")} :</label>
           <SelectFilter
@@ -275,6 +280,7 @@ const Page = () => {
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
+            translated={true}
           />
 
           <label className="label">{t("range")} :</label>
@@ -295,6 +301,7 @@ const Page = () => {
                 });
               }
             }}
+            translated={true}
           />
           {showCustomDate ? (
             <>

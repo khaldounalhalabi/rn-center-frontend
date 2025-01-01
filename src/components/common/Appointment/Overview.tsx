@@ -13,8 +13,7 @@ import { Label } from "../ui/LabelsValues/Label";
 import { LabelValue } from "../ui/LabelsValues/LabelValue";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import XMark from "@/components/icons/XMark";
-import dynamic from "next/dynamic";
-import DynamicLoading from "@/components/icons/DynamicLoading";
+import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 
 const Overview = ({
   appointment,
@@ -22,13 +21,6 @@ const Overview = ({
   appointment?: Appointment | undefined;
   userType?: "admin" | "doctor";
 }) => {
-  const AppointmentStatusSelector = dynamic(
-    () => import("@/components/doctor/appointment/AppointmentStatusColumn"),
-    {
-      ssr: false,
-      loading: DynamicLoading,
-    },
-  );
   const t = useTranslations("common.appointment.show");
   const appointmentCost = HandleCalcOffers(
     appointment?.offers ?? [],
@@ -53,7 +45,7 @@ const Overview = ({
     <div className={"card bg-base-200 my-3 w-full"}>
       <Grid md={2} gap={8}>
         <Label label={t("status")}>
-          <AppointmentStatusSelector
+          <AppointmentStatusColumn
             userType={"doctor"}
             appointment={appointment}
           />

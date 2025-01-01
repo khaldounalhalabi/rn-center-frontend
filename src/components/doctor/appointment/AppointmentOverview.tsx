@@ -5,7 +5,6 @@ import { Appointment } from "@/Models/Appointment";
 import PrescriptionsTable from "@/components/doctor/appointment/PrescriptionsTable";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import DynamicLoading from "@/components/icons/DynamicLoading";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -21,7 +20,6 @@ const AppointmentOverview = ({
     () => import("@/components/common/Appointment/Overview"),
     {
       ssr: false,
-      loading: DynamicLoading,
     },
   );
   return (

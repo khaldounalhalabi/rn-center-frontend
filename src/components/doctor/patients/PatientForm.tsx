@@ -8,7 +8,10 @@ import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { PatientsService } from "@/services/PatientsService";
@@ -183,7 +186,7 @@ const PatientForm = ({
           <label className="label justify-start text-xl">
             {t("gender")} :{" "}
             <span className="ml-2 badge badge-outline  ">
-              {defaultValues?.gender}
+              {TranslateStatusOrTypeClient(defaultValues?.gender)}
             </span>
           </label>
         )}

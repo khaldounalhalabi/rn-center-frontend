@@ -170,6 +170,7 @@ const MultiMedicinesInput = ({
                 handleSelect={(select: string, id: number) => {
                   handleInputChange(index, select, "duration");
                 }}
+                translatedStatusTypeItem={true}
               />
               <SelectPopOver
                 id={2}
@@ -183,6 +184,7 @@ const MultiMedicinesInput = ({
                 handleSelect={(select: string, id: number) => {
                   handleInputChange(index, select, "time");
                 }}
+                translatedStatusTypeItem={true}
               />
               <SelectPopOver
                 id={3}
@@ -196,6 +198,7 @@ const MultiMedicinesInput = ({
                 handleSelect={(select: string, id: number) => {
                   handleInputChange(index, select, "dose_interval");
                 }}
+                translatedStatusTypeItem={true}
               />
             </div>
             <div className="flex justify-between items-center w-full">
@@ -203,7 +206,6 @@ const MultiMedicinesInput = ({
                 <label className="label">{t("comment")} :</label>
                 <textarea
                   className={"text-sm textarea textarea-bordered w-full"}
-                  placeholder={"comment ..."}
                   onChange={(e) => {
                     handleInputChange(index, e.target.value, "comment");
                   }}

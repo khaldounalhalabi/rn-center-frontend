@@ -160,7 +160,7 @@ const StaffForm = ({
                     defaultValues={defPermissions}
                   >
                     <h1 className={"card-title"}>{t("setPermissions")} : </h1>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>
                         {t("editClinicProfile")}
                       </label>
@@ -172,7 +172,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageMedicines")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -182,7 +182,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("managePatients")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -192,7 +192,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageOffers")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -202,7 +202,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageServices")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -212,7 +212,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageSchedules")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -222,7 +222,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageHolidays")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -232,7 +232,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>{t("manageEmployees")}</label>
                       <div className={"w-1/3"}>
                         <Input
@@ -242,7 +242,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>
                         {t("manageAppointments")}
                       </label>
@@ -254,7 +254,7 @@ const StaffForm = ({
                         />
                       </div>
                     </div>
-                    <div className={"flex w-full pl-2 my-3 justify-around"}>
+                    <div className={"flex w-full pl-2 my-3 justify-between text-start"}>
                       <label className={"w-2/3"}>
                         {t("accountantManagement")}
                       </label>

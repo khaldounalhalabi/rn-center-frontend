@@ -345,7 +345,7 @@ const Page = () => {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="font-medium text-gray-900 text-lg leading-6"
+                    className="text-start font-medium text-gray-900 text-lg leading-6"
                   >
                     {t("export")}
                   </Dialog.Title>

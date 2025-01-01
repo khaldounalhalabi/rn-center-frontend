@@ -97,6 +97,7 @@ const OfferForm = ({
           ArraySelect={OffersArray()}
           required={true}
           label={t("type")}
+          translatedStatusTypeItem={true}
         />
         <Input
           placeholder={"Price : "}

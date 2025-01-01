@@ -39,9 +39,9 @@ export default function SelectPopOverFrom({
         <div className="relative mb-1">
           <Listbox.Button className="relative input input-bordered cursor-pointer w-full  rounded-lg bg-white  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span
-              className={`block truncate ${selected == "checkout" ? "text-neutral" : selected == "cancelled" ? "text-warning" : selected == "pending" ? "text-primary" : selected == "checkin" ? "text-success" : selected == "booked" ? "text-error" : selected == "completed" ? "text-info" : ""}`}
+              className={`text-start block truncate ${selected == "checkout" ? "text-neutral" : selected == "cancelled" ? "text-warning" : selected == "pending" ? "text-primary" : selected == "checkin" ? "text-success" : selected == "booked" ? "text-error" : selected == "completed" ? "text-info" : ""}`}
             >
-              {selected}
+              {translatedStatusTypeItem ? TranslateStatusOrTypeClient(selected):selected}
             </span>
           </Listbox.Button>
           <Transition

@@ -7,6 +7,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import ChevronDown from "@/components/icons/ChevronDown";
 import { useFormContext } from "react-hook-form";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 function ApiSelect<TResponse, TData>({
   api,
@@ -32,6 +33,7 @@ function ApiSelect<TResponse, TData>({
   revalidate,
   withoutPlaceHolder = true,
 }: IApiSelectProps<TResponse, TData>) {
+  const t = useTranslations("components");
   if (withoutPlaceHolder) {
     placeHolder = undefined;
   }
@@ -89,7 +91,7 @@ function ApiSelect<TResponse, TData>({
     });
   useEffect(() => {
     refetch().then((r) => r);
-    setSelected(df)
+    setSelected(df);
   }, [revalidate]);
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -102,7 +104,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleChoseItem = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: TData
+    item: TData,
   ) => {
     e.stopPropagation();
 
@@ -143,7 +145,7 @@ function ApiSelect<TResponse, TData>({
   };
 
   const handleClickingOnSearchInput = (
-    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     setIsOpen(true);
@@ -151,7 +153,7 @@ function ApiSelect<TResponse, TData>({
 
   const handleRemoveFromSelected = (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    clickedItem: Option
+    clickedItem: Option,
   ) => {
     e.stopPropagation();
     setSelected((prev) => prev.filter((i) => !isEqual(i, clickedItem)));
@@ -282,7 +284,7 @@ function ApiSelect<TResponse, TData>({
               value={search ?? ""}
               name={"search-box"}
               type={"text"}
-              placeholder={"Search ..."}
+              placeholder={`${t("search")}`}
               ref={searchInputRef}
             />
           </div>
@@ -310,7 +312,7 @@ function ApiSelect<TResponse, TData>({
 
           {isFetching && (
             <div className="flex justify-center items-center my-2 w-full">
-              Loading ...
+              {t("loading")} ...
             </div>
           )}
         </div>

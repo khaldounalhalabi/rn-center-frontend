@@ -26,10 +26,10 @@ const SelectFilter = ({
 }) => {
   const t = useTranslations("components")
   return (
-    <label className={"label flex flex-col items-start"}>
+    <label className={"text-start label flex flex-col items-start"}>
       {label ?? ""}
       <select
-        className={"select select-bordered"}
+        className={"!text-start select select-bordered !flex-start "}
         defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
         onChange={onChange ?? false}

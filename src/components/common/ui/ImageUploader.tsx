@@ -8,6 +8,7 @@ import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
 import React from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { useTranslations } from "next-intl";
 
 const ImageUploader = ({
   name,
@@ -18,6 +19,7 @@ const ImageUploader = ({
   isMultiple?: boolean;
   label?: string;
 }) => {
+  const t = useTranslations("components");
   registerPlugin(
     FilePondPluginImageExifOrientation,
     FilePondPluginImagePreview,
@@ -50,7 +52,7 @@ const ImageUploader = ({
             }
           }}
           acceptedFileTypes={["image/jpeg", "image/png", "image/jpg"]}
-          labelIdle={"Drag Or Click To Add Image"}
+          labelIdle={t("image_uploader_placeholder")}
           storeAsFile={true}
           allowMultiple={isMultiple}
         />

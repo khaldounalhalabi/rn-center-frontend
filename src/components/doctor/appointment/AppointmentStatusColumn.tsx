@@ -13,7 +13,7 @@ import {
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -173,7 +173,7 @@ const AppointmentStatusColumn = ({
           ) : (appointmentState?.status === AppointmentStatusEnum.CANCELLED ||
               appointmentState?.status === AppointmentStatusEnum.CHECKOUT) &&
             appointmentState?.type == "online" ? (
-            <div className={"w-full text-center"}>
+            <div className={"text-center"}>
               <span
                 className={` badge  ${
                   appointmentState?.status === AppointmentStatusEnum.CANCELLED
@@ -184,7 +184,7 @@ const AppointmentStatusColumn = ({
                       : ""
                 }`}
               >
-                {selected}
+                {TranslateStatusOrTypeClient(selected)}
               </span>
             </div>
           ) : (

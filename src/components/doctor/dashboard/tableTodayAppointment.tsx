@@ -5,7 +5,10 @@ import DataTable, {
 import React from "react";
 import { Appointment } from "@/Models/Appointment";
 import { Link } from "@/navigation";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import ActionsButtons, {
   Buttons,
@@ -110,9 +113,13 @@ const TableTodayAppointment = () => {
         label: `${t("type")}`,
         render: (data) =>
           data == "online" ? (
-            <span className={`badge badge-success`}>Online</span>
+            <span className={`badge badge-success`}>
+              {TranslateStatusOrTypeClient(data)}
+            </span>
           ) : (
-            <span className={`badge badge-neutral`}>Manual</span>
+            <span className={`badge badge-neutral`}>
+              {TranslateStatusOrTypeClient(data)}
+            </span>
           ),
         sortable: true,
       },

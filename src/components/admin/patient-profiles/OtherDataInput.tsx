@@ -80,7 +80,6 @@ const OtherDataInput = ({ defaultValues }: { defaultValues?: string }) => {
               className="input input-bordered w-full focus:outline-pom focus:border-pom"
               type="text"
               name="key"
-              placeholder="Type Input ..."
               value={input.key}
               onChange={(event) => handleInputChange(index, event)}
             />
@@ -91,7 +90,6 @@ const OtherDataInput = ({ defaultValues }: { defaultValues?: string }) => {
               className="input input-bordered w-full focus:outline-pom focus:border-pom"
               type="text"
               name="value"
-              placeholder="Value ..."
               value={input.value}
               onChange={(event) => handleInputChange(index, event)}
             />

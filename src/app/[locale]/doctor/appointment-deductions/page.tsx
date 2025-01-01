@@ -26,6 +26,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 
 interface filterExportType {
   year: string;
@@ -43,7 +44,7 @@ const Page = () => {
     queryKey: ["balance"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).getDoctorSummary();
     },
   });
@@ -105,6 +106,7 @@ const Page = () => {
         name: "status",
         label: `${t("status")}`,
         sortable: true,
+        render: (status) => TranslateStatusOrTypeClient(status),
       },
       {
         name: "date",
@@ -148,7 +150,7 @@ const Page = () => {
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "doctor"
+        "doctor",
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
@@ -160,6 +162,7 @@ const Page = () => {
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
+            translated={true}
           />
 
           <label className="label">{t("range")} :</label>
@@ -180,6 +183,7 @@ const Page = () => {
                 });
               }
             }}
+            translated={true}
           />
           {showCustomDate ? (
             <>
@@ -286,6 +290,7 @@ const Page = () => {
                           month: e.target.value,
                         });
                       }}
+                      translated={true}
                     />
                   </div>
 
@@ -303,53 +308,57 @@ const Page = () => {
           </div>
         ) : (
           <Grid md={2}>
-            <label className="label">
+            <label className="">
               {t("subscriptionStart")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {balance?.data?.subscription_start}
               </span>
             </label>
-            <label className="label">
+            <label className="">
               {t("totalCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.total_cost ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 }
-                )}
+                  { maximumFractionDigits: 2 },
+                )}{" "}
+                {t("iqd")}
               </span>
             </label>
 
-            <label className="label">
+            <label className="">
               {t("subscriptionEnd")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {balance?.data?.subscription_end}
               </span>
             </label>
-            <label className="label">
+            <label className="">
               {t("subscriptionCost")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.subscription_cost ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 }
-                )}
+                  { maximumFractionDigits: 2 },
+                )}{" "}
+                {t("iqd")}
               </span>
             </label>
-            <label className="label">
+            <label className="">
               {t("clinicBalance")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(balance?.data?.clinic_balance ?? 0).toLocaleString(
                   undefined,
-                  { maximumFractionDigits: 2 }
-                )}
+                  { maximumFractionDigits: 2 },
+                )}{" "}
+                {t("iqd")}
               </span>
             </label>
 
-            <label className="label">
+            <label className="">
               {t("appointmentDeductions")} :
               <span className="bg-base-200 px-2 rounded-xl text-lg">
                 {Number(
-                  balance?.data?.appointments_deductions ?? 0
-                ).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                  balance?.data?.appointments_deductions ?? 0,
+                ).toLocaleString(undefined, { maximumFractionDigits: 2 })}{" "}
+                {t("iqd")}
               </span>
             </label>
           </Grid>

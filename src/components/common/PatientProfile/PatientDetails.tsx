@@ -1,4 +1,4 @@
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import { Customer } from "@/Models/Customer";
@@ -54,7 +54,7 @@ const PatientDetails = ({
 
         <LabelValue
           label={t("gender")}
-          value={patient?.user?.gender}
+          value={TranslateStatusOrTypeClient(patient?.user?.gender)}
           color={"warning"}
         />
 

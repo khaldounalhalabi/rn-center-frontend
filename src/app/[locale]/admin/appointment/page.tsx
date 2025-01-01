@@ -18,6 +18,8 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
+import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
+import XMark from "@/components/icons/XMark";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");
@@ -109,11 +111,21 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "is_revision",
+        label: t("is_revision"),
+        render: (is_revision) =>
+            is_revision ? (
+                <span className={"flex items-center justify-center"}><CheckMarkIcon className={"text-success h-6 w-6"} /></span>
+            ) : (
+                <span className={"flex items-center justify-center"}><XMark className={"text-error h-6 w-6"} /></span>
+            ),
+      },
+      {
         name: "total_cost",
         label: `${t("totalCost")}`,
         render: (data, appointment: Appointment | undefined) => (
           <span className="flex items-center justify-between gap-1">
-            {data?.toLocaleString() + " IQD"}{" "}
+            {data?.toLocaleString() + " " + t("iqd")}{" "}
             {(appointment?.system_offers?.length ?? 0) > 0 && (
               <PercentBadge className="text-[#00a96e] h-6 w-6" />
             )}

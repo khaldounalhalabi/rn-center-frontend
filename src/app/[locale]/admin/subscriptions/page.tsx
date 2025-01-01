@@ -31,7 +31,7 @@ const Page = () => {
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>IQD</span>
+            {data} <span className={"badge-success badge "}>{t("iqd")}</span>
           </p>
         ),
       },

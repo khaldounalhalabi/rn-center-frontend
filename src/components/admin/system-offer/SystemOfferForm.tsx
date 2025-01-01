@@ -18,6 +18,7 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const SystemOfferForm = ({
   defaultValues = undefined,
@@ -40,11 +41,11 @@ const SystemOfferForm = ({
     ) {
       return SystemOffersService.make<SystemOffersService>("admin").update(
         defaultValues?.id ?? id,
-        sendData
+        sendData,
       );
     } else {
       return await SystemOffersService.make<SystemOffersService>("admin").store(
-        sendData
+        sendData,
       );
     }
   };
@@ -85,7 +86,7 @@ const SystemOfferForm = ({
           label={t("amount")}
           required={true}
           type="number"
-          unit={"IQD"}
+          unit={t("iqd")}
         />
         <Input
           placeholder={"allowed uses ... "}
@@ -128,7 +129,9 @@ const SystemOfferForm = ({
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <span className="text-lg badge badge-neutral">
+                <TranslatableEnum value={"no_data"} />
+              </span>
             </div>
           )}
         </div>

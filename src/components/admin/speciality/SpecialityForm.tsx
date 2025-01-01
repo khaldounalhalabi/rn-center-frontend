@@ -20,6 +20,8 @@ const SpecialityForm = ({
   id?: number;
   type?: "store" | "update";
 }) => {
+  const { image, ...values } = defaultValues ?? { image: [] };
+
   const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
     if (
@@ -28,7 +30,7 @@ const SpecialityForm = ({
     ) {
       return await SpecialityService.make<SpecialityService>().update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await SpecialityService.make<SpecialityService>().store(data);
@@ -44,7 +46,7 @@ const SpecialityForm = ({
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={defaultValues}
+      defaultValues={values}
       setLocale={setLocale}
     >
       <div>
@@ -81,9 +83,7 @@ const SpecialityForm = ({
             </div>
           )}
         </div>
-      ) : (
-        false
-      )}
+      ) : false}
       <div className="my-3">
         <ImageUploader name={"image"} />
       </div>

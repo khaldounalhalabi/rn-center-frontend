@@ -28,6 +28,8 @@ import dayjs from "dayjs";
 import { useLocale, useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import PercentBadge from "@/components/icons/PercentBadge";
+import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
+import XMark from "@/components/icons/XMark";
 
 interface filterExportType {
   year: string;
@@ -172,6 +174,16 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "is_revision",
+        label: t("is_revision"),
+        render: (is_revision) =>
+          is_revision ? (
+            <span className={"flex items-center justify-center"}><CheckMarkIcon className={"text-success h-6 w-6"} /></span>
+          ) : (
+            <span className={"flex items-center justify-center"}><XMark className={"text-error h-6 w-6"} /></span>
+          ),
+      },
+      {
         name: "total_cost",
         label: `${t("totalCost")}`,
         render: (data, appointment: Appointment | undefined) => {
@@ -240,8 +252,8 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
-          <label className="label">
-            Service :
+          <label className="label w-full">
+            {t("service")} :
             <SelectFilter
               data={nameServiceArray}
               selected={serviceSelected}
@@ -256,13 +268,14 @@ const Page = () => {
             />
           </label>
           <label className={"label"}>
-            {t("serviceName")} :
+            {t("status")} :
             <SelectFilter
               data={["all", ...statusData]}
               selected={params.status ?? "all"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">
@@ -273,6 +286,7 @@ const Page = () => {
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}
+              translated={true}
             />
           </label>
           <label className="label">{t("startDate")} :</label>
@@ -331,7 +345,7 @@ const Page = () => {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="font-medium text-gray-900 text-lg leading-6"
+                    className="text-start font-medium text-gray-900 text-lg leading-6"
                   >
                     {t("export")}
                   </Dialog.Title>
@@ -361,6 +375,7 @@ const Page = () => {
                           month: e.target.value,
                         });
                       }}
+                      translated={true}
                     />
                   </div>
 

@@ -54,7 +54,7 @@ const page = async ({
 
         <LabelValue
           label={t("price")}
-          value={`${res?.price?.toLocaleString() ?? 0} IQD`}
+          value={`${res?.price?.toLocaleString() ?? 0} ${t("iqd")}`}
           color={"info"}
         />
 

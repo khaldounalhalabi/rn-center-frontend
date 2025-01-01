@@ -10,11 +10,13 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
 import dynamic from "next/dynamic";
 import ArrowLeft from "@/components/icons/ArrowLeft";
+import DynamicLoading from "@/components/icons/DynamicLoading";
 
 const ProfileOptionsPopover = dynamic(
   () => import("@/components/common/Navbar/ProfileOptionsPopover"),
   {
     ssr: false,
+    loading: DynamicLoading,
   },
 );
 

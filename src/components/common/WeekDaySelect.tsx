@@ -1,4 +1,5 @@
 import React, { HTMLProps } from "react";
+import { useTranslations } from "next-intl";
 
 const weeKDays = [
   "saturday",
@@ -14,6 +15,7 @@ const WeekDaySelect: React.FC<HTMLProps<HTMLSelectElement>> = ({
   defaultValue,
   ...props
 }) => {
+  const t = useTranslations("week_days");
   return (
     <select {...props}>
       {weeKDays.map((day) => (
@@ -22,7 +24,7 @@ const WeekDaySelect: React.FC<HTMLProps<HTMLSelectElement>> = ({
           key={day}
           selected={!!(defaultValue && defaultValue === day)}
         >
-          {day}
+          {t(day.toLowerCase() as any)}
         </option>
       ))}
     </select>

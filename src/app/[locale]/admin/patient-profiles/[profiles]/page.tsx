@@ -3,7 +3,9 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
 import { PatientProfiles } from "@/Models/PatientProfiles";
 import { getTranslations } from "next-intl/server";
@@ -82,7 +84,9 @@ const page = async ({
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{"No Data"}</span>
+              <span className="text-lg badge badge-neutral">
+                {await TranslateStatusOrTypeServer("no_data")}
+              </span>
             </div>
           )}
         </div>

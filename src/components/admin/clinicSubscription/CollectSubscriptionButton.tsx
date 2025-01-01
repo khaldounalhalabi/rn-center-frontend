@@ -5,6 +5,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { ClinicSubscriptionService } from "@/services/ClinicSubscriptionService";
+import { useTranslations } from "next-intl";
 
 const CollectSubscriptionButton = ({
   clinicId,
@@ -13,6 +14,7 @@ const CollectSubscriptionButton = ({
   clinicId: number;
   clinicSubscription?: ClinicSubscription;
 }) => {
+  const t = useTranslations("components");
   const [isPaid, setPaid] = useState(clinicSubscription?.is_paid ?? true);
   const mutation = useMutation({
     mutationFn: (clinicId: number) =>
@@ -52,8 +54,8 @@ const CollectSubscriptionButton = ({
         }}
       >
         {" "}
-        Collect Subscription
-        {` ${clinicSubscription?.subscription?.cost?.toFixed(2) ?? 0} IQD`}
+        {t("collect_subscription")}
+        {` ${clinicSubscription?.subscription?.cost?.toFixed(2) ?? 0} ${t("iqd")}`}
         {mutation.isPending && <LoadingSpin className={"h-6 w-6"} />}
       </button>
     </div>

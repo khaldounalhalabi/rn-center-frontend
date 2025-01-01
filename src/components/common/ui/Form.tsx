@@ -5,7 +5,7 @@ import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
-import { useLocale } from "next-intl";
+import {useLocale, useTranslations} from "next-intl";
 
 const Form = ({
   className,
@@ -13,7 +13,7 @@ const Form = ({
   handleSubmit,
   onSuccess,
   defaultValues = {},
-  buttonText = "Submit",
+  buttonText = undefined,
   setLocale = undefined,
   showToastMessage = true,
   disabled = false,
@@ -34,6 +34,10 @@ const Form = ({
   otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode;
   submitButtonClasses?: string;
 }) => {
+  const t = useTranslations("components");
+  if(!buttonText){
+    buttonText = t("submit");
+  }
   // @ts-ignore
   const methods = useForm({ defaultValues: defaultValues });
 

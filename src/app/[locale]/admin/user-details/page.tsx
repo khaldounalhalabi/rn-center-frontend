@@ -5,8 +5,9 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import { getMedia } from "@/Models/Media";
 import RoundedImage from "@/components/common/RoundedImage";
-import TranslateServer from "@/Helpers/TranslationsServer";
-import MapIFrame from "@/components/common/ui/MapIFrame";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
@@ -20,9 +21,9 @@ const page = async () => {
       <div className="flex justify-between items-center  w-full h-fit">
         <div className={"flex items-center justify-between"}>
           <RoundedImage
-              src={getMedia(res?.image?.[0] ?? undefined)}
-              alt={"doctor-profile"}
-              className={"w-24 self-center md:self-start h-24"}
+            src={getMedia(res?.image?.[0] ?? undefined)}
+            alt={"doctor-profile"}
+            className={"w-24 self-center md:self-start h-24"}
           />
           <h2 className="card-title ">
             {t("name")} : {await TranslateServer(res.first_name)}{" "}
@@ -66,7 +67,9 @@ const page = async () => {
                   );
                 })
               ) : (
-                <span className="badge ml-3 mt-1 badge-neutral">No Data</span>
+                <span className="badge ml-3 mt-1 badge-neutral">
+                  {await TranslateStatusOrTypeServer("no_data")}
+                </span>
               )}
             </div>
           </div>
@@ -92,7 +95,8 @@ const page = async () => {
             <h2>
               {t("blood")} :{" "}
               <span className="badge ml-3 mt-1 badge-warning">
-                {res?.blood_group ?? "No Data"}
+                {res?.blood_group ??
+                  (await TranslateStatusOrTypeServer("no_data"))}
               </span>
             </h2>
             <h2>
@@ -101,23 +105,7 @@ const page = async () => {
                 {res?.is_archived ? t("archived") : t("notArchived")}
               </span>
             </h2>
-            <h2>
-              {t("city")} :{" "}
-              <span className="badge ml-3 mt-1 badge-primary">
-                {await TranslateServer(res?.address?.city?.name)}
-              </span>
-            </h2>
-            <h2>
-              {t("address")} :{" "}
-              <span className="badge ml-3 mt-1 badge-accent">
-                {await TranslateServer(res?.address?.name)}
-              </span>
-            </h2>
           </Grid>
-        </div>
-
-        <div className={"h-1/3"}>
-          <MapIFrame iframe={res?.address?.map_iframe} />
         </div>
       </div>
     </PageCard>

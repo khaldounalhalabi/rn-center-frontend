@@ -65,7 +65,7 @@ const ProfileOptionsPopover = () => {
             });
           }
         }}
-        isPermenant={true}
+        isPermanent={true}
       />
       <div
         onClick={() => OpenAndClose(openPopProfile, setOpenPopProfile)}

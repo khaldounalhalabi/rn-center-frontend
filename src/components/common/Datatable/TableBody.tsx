@@ -2,7 +2,11 @@ import { ApiResponse } from "@/Http/Response";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const TableBody = ({
   tableData,
@@ -39,8 +43,9 @@ const TableBody = ({
                           ? TranslateClient(
                               getNestedPropertyValue(item, schema.name),
                             )
-                          : getNestedPropertyValue(item, schema.name) ??
-                            "No Data"}
+                          : getNestedPropertyValue(item, schema.name) ?? (
+                              <TranslatableEnum value={"no_data"} />
+                            )}
                       </td>
                     );
                   } else if (schema.render && schema.name) {
@@ -58,8 +63,9 @@ const TableBody = ({
                             ? TranslateClient(
                                 getNestedPropertyValue(item, schema.name),
                               )
-                            : getNestedPropertyValue(item, schema.name) ??
-                                "No Data",
+                            : getNestedPropertyValue(item, schema.name) ?? (
+                                <TranslatableEnum value={"no_data"} />
+                              ),
                           item,
                           setHidden,
                           revalidate,
@@ -89,7 +95,7 @@ const TableBody = ({
                         }
                         {...schema.cellProps}
                       >
-                        No Data
+                        <TranslatableEnum value={"no_data"} />
                       </td>
                     );
                 })}
@@ -100,7 +106,7 @@ const TableBody = ({
       ) : (
         <tr>
           <td colSpan={tableData.schema.length} className={"text-center p-3"}>
-            No Data
+            {TranslateStatusOrTypeClient("no_data")}
           </td>
         </tr>
       )}

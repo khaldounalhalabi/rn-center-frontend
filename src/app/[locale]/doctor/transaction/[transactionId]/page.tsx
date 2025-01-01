@@ -55,7 +55,7 @@ const page = async ({
                 : res?.type == "system_debt"
                   ? "-"
                   : "+"
-          } ${res?.amount.toLocaleString()} IQD`}
+          } ${res?.amount.toLocaleString()} ${t("iqd")}`}
         />
 
         <LabelValue label={t("date")} value={res?.date} color={"error"} />

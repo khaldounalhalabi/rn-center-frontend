@@ -55,6 +55,7 @@ const OfferForm = ({
           ArraySelect={TransactionTypeArray()}
           required={true}
           label={`${t("type")} :`}
+          translatedStatusTypeItem={true}
         />
         <Input
           placeholder={"amount ... "}
@@ -62,7 +63,7 @@ const OfferForm = ({
           label={t("amount")}
           required={true}
           type="number"
-          unit={"IQD"}
+          unit={t("iqd")}
         />
         <DateTimePickerRang
           required={true}

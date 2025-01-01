@@ -5,8 +5,9 @@
     "clinicsManagement": "إدارة العيادات",
     "clinics": "العيادات",
     "clinicDetails": "تفاصيل العيادة",
-    "clinicsSchedules": "مواعيد العيادات",
+    "clinicsSchedules": "أوقات العمل",
     "clinicsHolidays": "إجازات العيادات",
+    "clinic_holidays": "إجازات العيادة",
     "specialties": "التخصصات",
     "hospitals": "المستشفيات",
     "serviceCategories": "فئات الخدمة",
@@ -20,7 +21,7 @@
     "transaction": "العمليات",
     "appointmentDeductions": "استقطاعات النظام",
     "availableDepartments": "الاقسام المتاحة",
-    "hospitalsManagement": "إدارة المشافي",
+    "hospitalsManagement": "إدارة المستشفيات",
     "users": "المستخدمين",
     "patientsManagement": "إدارة المرضى",
     "patientProfiles": "بيانات المرضى",
@@ -32,7 +33,9 @@
     "settings": "الإعدادات",
     "contact_and_payment": "التواصل و طرق الدفع",
     "contract": "العقد",
-    "join_requests": "طلبات الانضمام"
+    "join_requests": "طلبات الانضمام",
+    "clinic_management": "إدارة العيادة",
+    "search" : "بحث"
   },
   "admin": {
     "clinic": {
@@ -42,7 +45,7 @@
         "total-appointments": "إجمالي الحجوزات",
         "today-appointments": "حجوازت اليوم",
         "upcoming-appointments": "الحجوزات القادمة",
-        "overview": "ملخص",
+        "overview": "نظرة عامة",
         "appointments": "الحجوزات",
         "specializations": "التخصصات",
         "blood": "فصيلة الدم",
@@ -53,9 +56,9 @@
         "experienceY": "سنوات الخبرة",
         "address": "العنوان",
         "cost": "كلفة المعاينة",
-        "maxAppointmentsPerDay": "الحد الأقصى للمواعيد في اليوم الواحد",
-        "maximumDaysToScheduleAnAppointment": "الحد الأقصى للأيام لتحديد موعد",
-        "hospital": "المشفى",
+        "maxAppointmentsPerDay": "الحد الأقصى للحجوزات في اليوم الواحد",
+        "maximumDaysToScheduleAnAppointment": "الحد الأقصى للأيام لتحديد حجز",
+        "hospital": "المستشفى",
         "registeredOn": "انضم بتاريخ",
         "lastUpdatedAt": "آخر تحديث في",
         "experience": "الخبرة",
@@ -69,14 +72,15 @@
         "pendingAmount": "الاستقطاعات المعلقة",
         "appointmentDeductions": "استقطاعات الحجوزات",
         "clinicSubscription": "اشتراكات العيادة",
-        "approximateAppointmentTime": "الوقت المقدر للموعد",
+        "approximateAppointmentTime": "الوقت المقدر للحجز",
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
-        "subscriptionDescription": "حول الاشتراك"
+        "subscriptionDescription": "حول الاشتراك",
+        "iqd": "د.ع"
       },
       "create-edit": {
-        "approximateAppointmentTime": "الوقت المقدر للموعد",
+        "approximateAppointmentTime": "الوقت المقدر للحجز",
         "newClinic": "عيادة جديدة",
         "first-Name": "اسم الطبيب الأول",
         "middle-name": "اسم الطبيب الأوسط",
@@ -93,7 +97,7 @@
         "in-active": "خامل",
         "male": "ذكر",
         "female": "أنثى",
-        "hospital": "اسم المشفى",
+        "hospital": "اسم المستشفى",
         "specialities": "التخصصات",
         "city": "المدينة",
         "address": "عنوان العيادة",
@@ -108,7 +112,9 @@
         "tags": "الوسومات",
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
-        "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد"
+        "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
+        "iqd": "د.ع",
+        "min": "دقيقة"
       },
       "table": {
         "clinics": "العيادات",
@@ -123,9 +129,10 @@
         "archived?": "مؤرشف ؟",
         "actions": "الخيارات",
         "archived": "مؤرشف",
-        "approximateAppointmentTime": "الوقت المقدر للموعد",
+        "approximateAppointmentTime": "الوقت المقدر للحجز",
         "total-appointments": "إجمالي الحجوزات",
-        "subscriptionStatus": "حالة الاشتراك"
+        "subscriptionStatus": "حالة الاشتراك",
+        "min": "دقيقة"
       }
     },
     "holidays": {
@@ -160,7 +167,7 @@
       "table": {
         "clinic": "العيادة",
         "doctor": "الطبيب",
-        "approximateAppointmentTime": "المدة التقريبية للموعد (دقيقة)",
+        "approximateAppointmentTime": "المدة التقريبية للحجز (دقيقة)",
         "clinicSchedules": "جدول العيادة",
         "actions": "الخيارات",
         "startTime": "وقت البدء",
@@ -177,7 +184,7 @@
       },
       "create": {
         "clinicName": "اسم العيادة",
-        "appointmentGap": "المدة الزمنية الفاصلة بين موعد و آخر"
+        "appointmentGap": "المدة الزمنية الفاصلة بين حجز و آخر"
       }
     },
     "category": {
@@ -198,15 +205,15 @@
     },
     "hospitals": {
       "table": {
-        "hospitals": "المشافي",
+        "hospitals": "المستشفيات",
         "city": "المدينة",
         "images": "الصور",
         "actions": "الخيارات"
       },
       "show": {
-        "hospitalDetails": "تفاصيل المشفى",
+        "hospitalDetails": "تفاصيل المستشفى",
         "editBtn": "تعديل",
-        "hospitalName": "اسم المشفى",
+        "hospitalName": "اسم المستشفى",
         "phones": "أرقام الهاتف",
         "departments": "الأقسام",
         "noDepartments": "لا أقسام",
@@ -217,11 +224,11 @@
         "status": "الحالة"
       },
       "create-edit": {
-        "addHospital": "إضافة مشفى",
-        "editHospital": "تعديل بيانات المشفى",
-        "hospitalName": "اسم المشفى",
+        "addHospital": "إضافة مستشفى",
+        "editHospital": "تعديل بيانات المستشفى",
+        "hospitalName": "اسم المستشفى",
         "availableDepartments": "الأقسام المتاحة",
-        "hospitalPhones": "هواتف المشفى",
+        "hospitalPhones": "هواتف المستشفى",
         "city": "المدينة",
         "address": "العنوان",
         "image": "الصور",
@@ -231,7 +238,7 @@
     },
     "service": {
       "table": {
-        "service": "الخجمة",
+        "service": "الخدمات",
         "clinic": "العيادة",
         "approximateDuration": "مدة الخدمة التقريبية",
         "category": "الفئة",
@@ -239,7 +246,9 @@
         "status": "الحالة",
         "active": "فعال",
         "inActive": "غير فعال",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "iqd": "د.ع",
+        "min": "دقيقة"
       },
       "show": {
         "serviceDetails": "تفاصيل الخدمة",
@@ -252,7 +261,8 @@
         "description": "الوصف",
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "create-edit": {
         "addService": "إضافة خدمة",
@@ -264,7 +274,9 @@
         "status": "الحالة",
         "category": "الفئة",
         "approximateDuration": "المدة التقريبية",
-        "price": "السعر"
+        "price": "السعر",
+        "iqd": "د.ع",
+        "min": "دقيقة"
       }
     },
     "speciality": {
@@ -302,12 +314,13 @@
         "subscriptionName": "اسم الاشتراك",
         "remaining": "الوقت المتبقي لانتهاء الاشتراك",
         "type": "النوع",
-        "deductionCost": "قيمة الاستقطاع للموعد الواحد",
+        "deductionCost": "قيمة الاستقطاع للحجز الواحد",
         "cost": "الكلفة",
         "actions": "خيارات",
         "period": "الفترة",
         "allowPeriod": "فترة السماح",
-        "days": "أيام"
+        "days": "أيام",
+        "iqd": "د.ع"
       },
       "create": {
         "addClinicSubscription": "إضافة اشتراك",
@@ -321,7 +334,8 @@
         "cost": "التكلفة",
         "periodUnit": "وحدة الفترة",
         "description": "الوصف",
-        "forLifetime": "لفترة (مدى الحياة) ضع -1"
+        "forLifetime": "لفترة (مدى الحياة) ضع -1",
+        "iqd": "د.ع"
       },
       "show": {
         "subscriptionDetails": "تفاصيل الاشتراك",
@@ -438,7 +452,8 @@
         "active": "فعال",
         "not-active": "غير فعال",
         "actions": "الخيارات",
-        "email": "البريد الالكتروني "
+        "email": "البريد الالكتروني ",
+        "iqd": "د.ع"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -468,7 +483,8 @@
         "value": "القيمة",
         "startDate": "تاريخ بداية العرض",
         "endDate": "تاريخ نهاية العرض",
-        "note": "ملاحظات"
+        "note": "ملاحظات",
+        "iqd": "د.ع"
       }
     },
     "blood": {
@@ -482,7 +498,7 @@
       "canWait": "يمكن الانتظار حتى",
       "actions": "الخيارات",
       "phone": "الهاتف",
-      "nearestHospital": "أقرب مشفى",
+      "nearestHospital": "أقرب مستشفى",
       "address": "العنوان",
       "notes": "الملاحظات",
       "editBtn": "تعديل"
@@ -521,7 +537,8 @@
         "image": "الصورة",
         "alowedUses": "الاستخدامات المسموح بها",
         "allowReuse": "السماح بأعادة الاسستخدام",
-        "description": "الوصف"
+        "description": "الوصف",
+        "iqd": "د.ع"
       },
       "show": {
         "offerDetails": "تفاصيل عرض النظام",
@@ -565,18 +582,18 @@
     "clinic-details": {
       "show": {
         "editBtn": "تعديل",
-        "totalAppointments": "اجمالي المواعيد",
-        "todayAppointments": "مواعيد اليوم",
-        "upcomingAppointments": "المواعيد القادمة",
+        "totalAppointments": "اجمالي الحجوزات",
+        "todayAppointments": "حجوزات اليوم",
+        "upcomingAppointments": "الحجوزات القادمة",
         "specializations": "التخصصات",
-        "approximateAppointmentTime": "الوقت التقريبي للموعد الواحد",
+        "approximateAppointmentTime": "الوقت التقريبي للحجز الواحد",
         "status": "الحالة",
         "experienceYear": "سنوات الخبرة",
         "address": "العنوان",
-        "cost": "كلفة الموعد",
-        "maxAppointmentsPerDay": "الحد الأقصى للمواعيد في اليوم الواحد",
-        "appointmentDayRange": "عدد الأيام بعد اليوم التي يمكن حجز موعد فيها",
-        "hospital": "المشفى",
+        "cost": "كلفة الحجز",
+        "maxAppointmentsPerDay": "الحد الأقصى للحجوزات في اليوم الواحد",
+        "appointmentDayRange": "عدد الأيام بعد اليوم التي يمكن حجز حجز فيها",
+        "hospital": "المستشفى",
         "registeredAt": "تاريخ النضمام",
         "lastUpdatedAt": "آخر تعديل في",
         "subscription": "الاشتراك",
@@ -588,19 +605,24 @@
         "subscriptionDescription": "حول الاشتراك",
         "experienceY": "سنوات الخبرة",
         "about": "حول العيادة",
-        "image": "الصورة"
+        "image": "الصورة",
+        "appointments": "حجوزات",
+        "IQD": "د.ع",
+        "years": "سنوات",
+        "minutes": "دقائق",
+        "days": "أيام"
       },
       "edit": {
         "editClinicDetails": "تعديل تفاصيل العيادة",
         "clinicName": "اسم العيادة",
-        "maxAppointmentsPerDay": "الحد الأقصى للمواعيد في اليوم الواحد",
-        "approximateAppointmentTime": "الوقت التقريبي للموعد (بالدقائق)",
-        "appointmentDayRange": "عدد الأيام بعد اليوم التي يمكن حجز موعد فيها",
+        "maxAppointmentsPerDay": "الحد الأقصى للحجوزات في اليوم الواحد",
+        "approximateAppointmentTime": "الوقت التقريبي للحجز (بالدقائق)",
+        "appointmentDayRange": "عدد الأيام بعد اليوم التي يمكن حجز حجز فيها",
         "experience": "الخبرة",
         "workingStartYear": "سنة بدأ العمل",
         "phones": "أرقام الهواتف",
         "status": "الحالة",
-        "hospital": "المشفى",
+        "hospital": "المستشفى",
         "specialities": "التخصصات",
         "address": "العنوان",
         "city": "المدينة",
@@ -612,14 +634,15 @@
     },
     "schedules": {
       "show": {
-        "schedulesDetails": "تفاصيل الدوام",
+        "schedulesDetails": "أوقات العمل",
         "editBtn": "تعديل",
-        "appointmentGap": "الفاصل الزمني بين المواعيد",
+        "appointmentGap": "الفاصل الزمني بين الحجوزات",
         "startTime": "وقت البدء",
-        "endTime": "وقت النهاية"
+        "endTime": "وقت النهاية",
+        "no_schedule": "غير محدد"
       },
       "edit": {
-        "appointmentGap": "الفاصل الزمني بين المواعيد"
+        "appointmentGap": "الفاصل الزمني بين الحجوزات"
       }
     },
     "holidays": {
@@ -651,7 +674,8 @@
         "description": "وصف الخدمة",
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "table": {
         "service": "الخدمة",
@@ -677,7 +701,9 @@
         "price": "السعر",
         "image": "الصورة",
         "noData": "لايوجد بيانات",
-        "icon": "أيقونة"
+        "icon": "أيقونة",
+        "iqd": "د.ع",
+        "min": "دقيقة"
       }
     },
     "offer": {
@@ -689,7 +715,8 @@
         "isActive": "هل هو فعال ؟",
         "active": "فعال",
         "not-active": "غير فعال",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "iqd": "د.ع"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -704,7 +731,8 @@
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
         "note": "ملاحظات",
-        "image": "الصورة"
+        "image": "الصورة",
+        "iqd": "د.ع"
       },
       "show": {
         "offerDetails": "تفاصيل العرض",
@@ -718,7 +746,8 @@
         "value": "القيمة",
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
-        "note": "ملاحظات"
+        "note": "ملاحظات",
+        "iqd": "د.ع"
       }
     },
     "staff": {
@@ -739,7 +768,7 @@
         "manageSchedules": "إدارة الدوام",
         "manageHolidays": "إدارة العطل",
         "manageEmployees": "إدارة الموظفين",
-        "manageAppointments": "إدارة المواعيد",
+        "manageAppointments": "إدارة الحجوزات",
         "accountantManagement": "إدارة الحسابات",
         "first-Name": "اسم  الأول",
         "middle-name": "اسم  الأوسط",
@@ -749,13 +778,13 @@
         "confirm-password": "تأكيد كلمة السر",
         "birth-date": "تاريخ الميلاد",
         "cost": "الكلفة",
-        "max-appointments": "الحد الأقصى للمواعيد في اليوم الواحد",
+        "max-appointments": "الحد الأقصى للحجوزات في اليوم الواحد",
         "phones": "رقم الهاتف",
         "active": "فعال",
         "in-active": "غير فعال",
         "male": "ذكر",
         "female": "أنثى",
-        "hospital": "المشفى",
+        "hospital": "المستشفى",
         "specialities": "التخصصات",
         "city": "المدينة",
         "address": "العنوان",
@@ -774,13 +803,13 @@
         "confirm-password": "تأكيد كلمة السر",
         "birth-date": "تاريخ الميلاد",
         "cost": "الكلفة",
-        "max-appointments": "الحد الأقصى للمواعيد في اليوم الواحد",
+        "max-appointments": "الحد الأقصى للحجوزات في اليوم الواحد",
         "phones": "رقم الهاتف",
         "active": "فعال",
         "in-active": "غير فعال",
         "male": "ذكر",
         "female": "أنثى",
-        "hospital": "المشفى",
+        "hospital": "المستشفى",
         "specialities": "التخصصات",
         "city": "المدينة",
         "address": "العنوان",
@@ -813,21 +842,21 @@
         "apply": "فلترة",
         "filters": "الفلاتر",
         "resetFilters": "إعادة ضبط الفلتر",
-        "anAppointmentWith": "موعد مع"
+        "anAppointmentWith": "حجز مع"
       },
       "table": {
-        "appointments": "المواعيد",
+        "appointments": "الحجوزات",
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الطبيب",
-        "appointment": "موعد",
+        "appointment": "حجز",
         "patientName": "اسم المريض",
         "serviceName": "اسم الخدمة",
-        "status": "حالة",
+        "status": "الحالة",
         "type": "النوع",
         "totalCost": "المجموع",
         "online": "اونلاين",
         "manual": "يدوي",
-        "sequence": "ترتيب الموعد",
+        "sequence": "ترتيب الحجز",
         "date": "التاريخ",
         "actions": "الخيارات",
         "startDate": "تاريخ البدء",
@@ -839,11 +868,14 @@
         "actor": "المنفذ",
         "event": "الحدث",
         "export": "تصدير لملف إكسيل",
-        "appointment_unique_code": "المحدد الفريد"
+        "appointment_unique_code": "المحدد الفريد",
+        "is_revision": "مراجعة ؟",
+        "service": "الخدمة",
+        "iqd": "د.ع"
       },
       "create": {
-        "editAppointment": "تعديل الموعد",
-        "createAppointment": "اضافة الموعد",
+        "editAppointment": "تعديل الحجز",
+        "createAppointment": "اضافة الحجز",
         "patientName": "اسم المريض",
         "newPatient": "مريض جديد",
         "setDate": "اختيار تاريخ",
@@ -860,30 +892,42 @@
         "extraFees": "رسوم إضافية",
         "status": "الحالة",
         "discount": "الخصم",
-        "updateDate": "تعديل تاريخ الموعد",
+        "updateDate": "تعديل تاريخ الحجز",
         "note": "ملاحظات",
         "service": "قيمة الخدمة",
         "cost": "الكلفة",
         "totalCost": "المجموع",
         "price": "السعر",
         "name": "الصنف",
-        "cancellationReason": "سبب الالغاء"
+        "cancellationReason": "سبب الالغاء",
+        "is_revision": "مراجعة",
+        "revision_description": "(استخدام هذا الخيار سيجعل كلفة الحجز بالإضافة إلى كلفة الخدمة صفر)",
+        "patient": "المريض",
+        "patient_details": "بيانات المريض",
+        "offers_additions": "العروض و الإضافات",
+        "booking_details": "بيانات الحجز",
+        "iqd": "د.ع",
+        "unavailable_selected_time": "الوقت المختار غير متوفر",
+        "clinic_details": "بيانات العيادة",
+        "clinic_name": "اسم العيادة",
+        "update_date": "تعديل التاريخ",
+        "clinic_appointment_cost": "كلفة الموعد في العيادة"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
-        "appointmentDetails": "تفاصيل الموعد",
+        "appointmentDetails": "تفاصيل الحجز",
         "editBtn": "تعديل",
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الدكتور",
         "customerName": "اسم المريض",
         "serviceName": "اسم الخدمة",
-        "overview": "ملخص",
+        "overview": "نظرة عامة",
         "logs": "السجلات",
         "prescriptions": "الوصفات الطبية",
         "type": "النوع",
         "extraFees": "رسوم إضافية",
         "totalCost": "المجموع",
-        "appointmentSequence": "تسلسل الموعد",
+        "appointmentSequence": "تسلسل الحجز",
         "deviceType": "نوع الجهاز",
         "date": "التاريخ",
         "note": "ملاحظات",
@@ -898,7 +942,9 @@
         "happenIn": "حدث في ",
         "actor": "المنفذ",
         "event": "الحدث",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "is_revision": "مراجعة ؟",
+        "iqd": "د.ع"
       }
     },
     "patient": {
@@ -941,14 +987,15 @@
         "isArchived": "هل هو مأرشف",
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشف",
-        "actions": "الخيارات"
+        "actions": "الخيارات",
+        "delete_profile_warning": "حذف هذا السجل سيحذف فقط البيانات الطبية الخاصة بالمريض و ليس مله الكامل"
       },
       "show": {
         "patientDetails": "تفاصيل المريض",
         "editBtn": "تعديل",
         "phone": "الهاتف",
-        "overview": "ملخص",
-        "appointment": "الموعد",
+        "overview": "نظرة عامة",
+        "appointment": "الحجوزات",
         "prescriptions": "الوصفات الطبية",
         "patientsProfiles": "بيانات المريض",
         "birthDate": "تاريخ الميلاد",
@@ -967,8 +1014,8 @@
         "otherData": "بيانات أخرى",
         "note": "الملاحظات",
         "medicalCondition": "الحالة الطبية",
-        "lastAppointment": "آخر موعد",
-        "appointments_count": "عدد المواعيد"
+        "lastAppointment": "آخر حجز",
+        "appointments_count": "عدد الحجوزات"
       }
     },
     "prescription": {
@@ -1051,7 +1098,7 @@
     },
     "medicine": {
       "table": {
-        "medicines": "الدواء",
+        "medicines": "الأدوية",
         "medicineName": "اسم الدواء",
         "actions": "أجراءات",
         "clinicName": "اسم العيادة",
@@ -1085,7 +1132,7 @@
         "beforeBalance": "الصندوق قبل",
         "status": "الحالة",
         "date": "التاريخ",
-        "appointmentDate": "تاريخ الموعد",
+        "appointmentDate": "تاريخ الحجز",
         "actions": "الخيارات",
         "amountFrom": "القيمة من",
         "amountTo": "القيمة إلى",
@@ -1097,7 +1144,8 @@
         "clinicBalance": "صندوق العيادة",
         "balance": "الصندوق",
         "pendingAmount": "الأموال المعلقة",
-        "export": "تصدير لملف إكسيل"
+        "export": "تصدير لملف إكسيل",
+        "iqd": "د.ع"
       },
       "create": {
         "addTransaction": "اضافة معاملة",
@@ -1105,7 +1153,8 @@
         "type": "النوع",
         "amount": "القيمة",
         "date": "التاريخ",
-        "notes": "الملاحظات"
+        "notes": "الملاحظات",
+        "iqd": "د.ع"
       },
       "show": {
         "transactionDetails": "تفاصيل المعاملة",
@@ -1116,9 +1165,12 @@
         "amount": "القيمة",
         "date": "التاريخ",
         "notes": "الملاحظات",
-        "appointmentDate": "تاريخ الموعد",
+        "appointmentDate": "تاريخ الحجز",
         "status": "الحالة",
-        "totalCost": "المجموع"
+        "totalCost": "المجموع",
+        "actor_name": "المسؤول",
+        "iqd": "د.ع",
+        "description": "الوصف"
       },
       "chart": {
         "filter": "فلتر",
@@ -1133,9 +1185,9 @@
         "changeAllStatus": "تغير حالة الجميع",
         "clinicName": "اسم العيادة",
         "doctor": "الطبيب",
-        "appointmentDeductions": "خصومات المواعيد",
+        "appointmentDeductions": "خصومات الحجوزات",
         "amount": "القيمة",
-        "appointmentDate": "تاريخ الموعد",
+        "appointmentDate": "تاريخ الحجز",
         "date": "التاريخ",
         "status": "الحالة",
         "actions": "الخيارات",
@@ -1151,19 +1203,21 @@
         "clinicBalance": "صندوق العيادة",
         "pendingAmount": "الأموال المعلقة",
         "balance": "الصندوق",
-        "doneAppointmentDeductions": "خصومات المواعيد التامة",
-        "pendingAppointmentDeductions": "خصومات المواعيد المعلقة",
-        "export": "تصدير لملف إكسيل"
+        "doneAppointmentDeductions": "خصومات الحجوزات التامة",
+        "pendingAppointmentDeductions": "خصومات الحجوزات المعلقة",
+        "export": "تصدير لملف إكسيل",
+        "iqd": "د.ع"
       },
       "show": {
         "clinicName": "اسم العيادة",
-        "appointmentDeductionDetails": "تفاصيل خصم الموعد",
+        "appointmentDeductionDetails": "تفاصيل خصم الحجز",
         "date": "التاريخ",
         "status": "الحالة",
         "amount": "القيمة",
-        "appointmentDate": "تاريخ الموعد",
+        "appointmentDate": "تاريخ الحجز",
         "totalCost": "المجموع",
-        "note": "الملاحظات"
+        "note": "الملاحظات",
+        "iqd": "د.ع"
       }
     },
     "dashboard": {
@@ -1177,12 +1231,12 @@
       "totalActiveDoctors": "مجموع الأطباء النشطين",
       "totalPatients": "مجموع المرضى",
       "todayRegisteredPatients": "المرضى المسجلين اليوم",
-      "totalAppointments": "مجموع المواعيد",
-      "todayAppointments": "مواعيد اليوم",
+      "totalAppointments": "مجموع الحجوزات",
+      "todayAppointments": "حجوزات اليوم",
       "nextAppointments": "الماعيد القادمة",
-      "monthlyAppointments": "المواعيد الشهرية",
-      "earningsFromAppointments": "الدخل من المواعيد",
-      "completedAppointments": "المواعيد المكتملة",
+      "monthlyAppointments": "الحجوزات الشهرية",
+      "earningsFromAppointments": "الدخل من الحجوزات",
+      "completedAppointments": "الحجوزات المكتملة",
       "recentPatientsRegistration": "المرضى المسجلين مؤخرا",
       "registeredOn": "تاريخ الانضمام",
       "patientName": "اسم المريض",
@@ -1190,7 +1244,8 @@
       "sequence": "التسلسل",
       "status": "الحالة",
       "type": "النوع",
-      "actions": "الخيارات"
+      "actions": "الخيارات",
+      "iqd": "د.ع"
     }
   },
   "table": {
@@ -1244,11 +1299,11 @@
     "password": "كلمة السر",
     "confirm-password": "تأكيد كلمة السر",
     "err": "البريد الإلكتروني أو كلمة المرور غير صحيحة. حاول مرة أخرى أو انقر على نسيت كلمة المرور",
-    "forgetPassword": "نسيت كلمة المرور",
+    "forgetPassword": "نسيت كلمة المرور ؟",
     "resetPassword": "إعادة تعين كلمة المرور",
     "Login": "تسجيل الدخول",
     "enteryourEmailAddress": "أدخل عنوان بريدك الإلكتروني",
-    "sendResetPasswordEmail": "إعادة إرسال رمز غعادة تعيين كلمة السر",
+    "sendResetPasswordEmail": "إرسال رمز التأكيد",
     "resetPasswordCode": "رمز إعادة تعيين كلمة المرور",
     "enterResetPasswordCode": "أدخل رمز إعادة تعيين كلمة المرور",
     "code": "الرمز",
@@ -1279,10 +1334,10 @@
   },
   "landing": {
     "stay_informed": "ابقَ على اطلاع: تابع",
-    "appointments_with": "مواعيدك الطبية بسهولة مع",
+    "appointments_with": "حجوزاتك الطبية بسهولة مع",
     "pom": "كوكب الطب",
     "using_your_booking_code": "باستخدام كود الحجز الخاص بك",
-    "enter_your_booking_code": "استخدم كود الحجز الخاص بك لتتبع مواعيدك الطبية بكل سهولة مع كوكب الطب. ابقى على اطلاع دائم ووفّر وقتك بخطوات بسيطة!",
+    "enter_your_booking_code": "استخدم كود الحجز الخاص بك لتتبع حجوزاتك الطبية بكل سهولة مع كوكب الطب. ابقى على اطلاع دائم ووفّر وقتك بخطوات بسيطة!",
     "input_label": "أدخل رمز الحجز هنا ...",
     "search": "بحث",
     "wrong_code": "الرمز خاطئ , حاول مرة أخرى",
@@ -1293,66 +1348,66 @@
     "booking_serial_number": "الرقم التسلسلي للحجز",
     "appointments_left_until_yours": "الموعيد المتبقية قبلك",
     "approximate_waiting_time": "الوقت المقدر للانتظار",
-    "appointment_from": "موعد من",
+    "appointment_from": "حجز من",
     "clinic": "عيادة",
     "dr": "د.",
-    "appointment_date": "تاريخ الموعد",
-    "appointment_completed": "تم اكتمال موعدك , نتمنى لك دوام الصحة",
-    "appointment_cancelled": "تم إلغاء موعدك. إذا كنت بحاجة لإعادة جدولته، يرجى التواصل مع العيادة. نتمنى لك دوام الصحة والعافية!",
+    "appointment_date": "تاريخ الحجز",
+    "appointment_completed": "تم اكتمال حجزك , نتمنى لك دوام الصحة",
+    "appointment_cancelled": "تم إلغاء حجزك. إذا كنت بحاجة لإعادة جدولته، يرجى التواصل مع العيادة. نتمنى لك دوام الصحة والعافية!",
     "cancellation_reason": "سبب الإلغاء",
-    "track_another_appointment": "رؤية موعد آخر",
+    "track_another_appointment": "رؤية حجز آخر",
     "home": "الرئيسية",
     "specialities": "الاختصاصات",
     "features": "ميزات",
     "pricing": "الأسعار",
     "get_started": "ابدأ الآن",
-    "check_appointment": "تفَحص موعدك",
-    "give_full_control": "كوكب الطب يمنحك التحكم الكامل",
-    "your_clinics_operations": "بعمليات عيادتك. قم بتبسيط كل شيء",
-    "from_appointments_to_invoicing": "من المواعيد إلى الفواتير، كل ذلك في مكان واحد",
-    "start_free_trial": "ابدأ تجربة مجانية واكتشف",
-    "how_easy": "مدى سهولة إدارة العيادة",
-    "appointments": "المواعيد",
+    "check_appointment": "التحقق من الحجز",
+    "give_full_control": "كوكبنا يمنحك تحكم كامل",
+    "your_clinics_operations": "بإدارة عيادتك بكل سهولة",
+    "from_appointments_to_invoicing": "ويساعدك تنظم كل شيء من المواعيد و الحجوزات إلى الفواتير، وكل هذا بمكان واحد",
+    "start_free_trial": "جرّبها مجاناً واكتشف",
+    "how_easy": " شلون إدارة العيادات تصير أسهل وأبسط.",
+    "appointments": "الحجوزات",
     "ratings": "التقييمات",
-    "get_control_over": "احصل على التحكم الكامل",
-    "over_your_clinic": "بعيادتك بخطوات بسيطة",
+    "get_control_over": "تحكم بشكل كامل ",
+    "over_your_clinic": "بعيادتك بخطوات بسيطة ",
     "with": "مع",
     "features_services": "الميزات والخدمات",
-    "appointment_management": "إدارة المواعيد",
-    "easley_schedule": "قم بجدولة وتتبع المواعيد بسهولة",
-    "optimize_your_patients": "لتسريع سير المرضى.",
-    "billing_invoicing": "الفواتير والمدفوعات",
-    "streamline_financials": "قم بتبسيط الشؤون المالية لعيادتك من خلال",
-    "easy_billing": "نظام الفوترة السهل.",
+    "appointment_management": "إدارة الحجوزات",
+    "easley_schedule": "جدول مواعيدك وتابعها بسهولة",
+    "optimize_your_patients": "لتحسين سير عملك.",
+    "billing_invoicing": "الحسابات المالية",
+    "streamline_financials": "نظّم الجوانب المالية لعيادتك مع",
+    "easy_billing": "نظام إدارة الحسابات البسيط.",
     "patient_records": "سجلات المرضى",
-    "access_records": "الوصول إلى معلومات المرضى وإدارتها",
-    "securely": "بأمان في مكان واحد.",
+    "access_records": "نظّم معلومات مرضاك بكل أمان",
+    "securely": "وفي مكان واحد.",
     "full_patient": "السجل الكامل للمرضى",
-    "access_detailed": "الوصول إلى التاريخ التفصيلي للمرضى، وخطط العلاج، والملاحظات، كل ذلك في مكان واحد لتحسين الرعاية واتخاذ قرارات أسرع.",
-    "control_appointments": "إدارة جميع المواعيد",
-    "easily_manage": "إدارة مواعيد المرضى بسهولة، وتقليل أوقات الانتظار، وضمان جدول منظم بنقرات بسيطة.",
-    "financial_transactions": "تتبع المعاملات المالية",
-    "keep_track": "متابعة جميع معاملات العيادة، من الفواتير إلى المدفوعات، في الوقت الفعلي لضمان الوضوح والسيطرة المالية.",
+    "access_detailed": "اطلع على تاريخ المرضى، وخطط العلاج، والملاحظات في مكان واحد لتقديم رعاية أفضل واتخاذ قرارات أسرع.",
+    "control_appointments": "إدارة كل المواعيد",
+    "easily_manage": "أدِر مواعيد مرضاك بسهولة، قلل من وقت الانتظار، وضمان جدول حجوزات سلس بكبسة زر.",
+    "financial_transactions": "إدارة المعاملات المالية",
+    "keep_track": "تابع جميع معاملات العيادة، من الفواتير إلى المدفوعات، بشكل لحظي لضمان وضوح مالي وتحكم كامل.",
     "introducing_some": "تقديم بعض",
     "POM": "كوكب الطب",
     "1_month": "شهر واحد",
-    "1_month_full_access": "الوصول الكامل إلى جميع أدوات إدارة العيادات",
-    "1_month_unlimited_appointments": "مواعيد وفواتير غير محدودة",
+    "1_month_full_access": "الوصول الكامل إلى جميع أدوات إدارة العيادة",
+    "1_month_unlimited_appointments": "حجوزات وفواتير غير محدودة",
     "1_month_support": "دعم 24/7",
     "3_month": "3 أشهر",
     "3_month_full_access": "الوصول الكامل إلى جميع أدوات إدارة العيادات",
-    "3_month_unlimited_appointments": "مواعيد وفواتير غير محدودة",
+    "3_month_unlimited_appointments": "حجوزات وفواتير غير محدودة",
     "3_month_support": "دعم 24/7",
     "6_month": "6 أشهر",
     "6_month_full_access": "الوصول الكامل إلى جميع أدوات إدارة العيادات",
-    "6_month_unlimited_appointments": "مواعيد وفواتير غير محدودة",
+    "6_month_unlimited_appointments": "حجوزات وفواتير غير محدودة",
     "6_month_support": "دعم 24/7",
     "start": "ابدأ",
     "recommended": "موصى به",
     "mo": "شهرياً",
-    "iqd": "د.ق",
+    "iqd": "د.ع",
     "join_pom_family": "انضم إلى عائلة كوكب الطب",
-    "unlock_clinic_management": "افتح مستوى جديدًا من إدارة العيادات! احجز نسخة تجريبية مع فريقنا واكتشف الأدوات التي تجعل إدارة العيادة أكثر سلاسة وسرعة.",
+    "unlock_clinic_management": "اكتشف مستوى جديد في إدارة العيادات! احجز نسخة تجريبية مباشرة مع فريقنا وجرب الأدوات اللي تخلي إدارة العيادة أسهل وأسرع وأكثر فاعلية.",
     "submit": "إرسال",
     "join_as_doctor": "انضم كطبيب",
     "doctor_name": "اسم الطبيب",
@@ -1364,6 +1419,106 @@
     "contact_us": "اتصل بنا",
     "name": "الاسم",
     "email": "البريد الإلكتروني",
-    "message": "الرسالة"
+    "message": "الرسالة",
+    "our_pom": "كوكبنا"
+  },
+  "types_statuses": {
+    "active": "فعال",
+    "in_active": "غير فعال",
+    "pending": "معلق",
+    "booked": "تم الحجز",
+    "checkin": "عند الطبيب",
+    "checkout": "مكتمل",
+    "cancelled": "ملغي",
+    "all": "الجميع",
+    "online": "أونلاين",
+    "manual": "يدوي",
+    "January": "كانون الثاني",
+    "February": "شباط",
+    "March": "آذار",
+    "April": "نيسان",
+    "May": "أيار",
+    "June": "حزيران",
+    "July": "تموز",
+    "August": "آب",
+    "September": "أيلول",
+    "October": "تشرين الأول",
+    "November": "تشرين الثاني",
+    "December": "كانون الأول",
+    "day": "يوم",
+    "week": "أسبوع",
+    "year": "سنة",
+    "one day only": "يوم واحد فقط",
+    "for three day": "لثلاث أيام",
+    "for one week": "لأسبوع",
+    "for 2 week": "لأسبوعين",
+    "for 1 month": "لشهر",
+    "Every Morning": "كل صباح",
+    "Every Morning & Evening": "كل صباح و كل مساء",
+    "Three Time a Day": "ثلاث مرات ي اليوم",
+    "4 Time a Day": "أربع مرات في اليوم",
+    "After Meal": "بعد الطعام",
+    "Before Meal": "قبل الطعام",
+    "male": "ذكر",
+    "female": "أنثى",
+    "percentage": "نسبة مئوية",
+    "fixed": "قيمة ثابتة",
+    "income": "مدخول",
+    "outcome": "مصروف",
+    "system_debt": "دين للنظام",
+    "debt_to_me": "دين لي",
+    "system debt": "دين للنظام",
+    "debt to me": "دين لي",
+    "done": "مكتمل",
+    "Last Week": "الأسبوع الفائت",
+    "Last Month": "الشهر الفائت",
+    "Last Year": "السنة الفائتة",
+    "Current Month": "الشهر الحالي",
+    "Current Year": "السنة الحالية",
+    "Custom Date": "تاريخ مخصص",
+    "no_data": "لا يوجد بيانات",
+    "status_changed": "تم تغيير الحالة"
+  },
+  "week_days": {
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة"
+  },
+  "units": {
+    "min": "دقيقة",
+    "IQD": "د.ع"
+  },
+  "components": {
+    "submit": "حفظ",
+    "didnt_archived": "لم يؤرشف",
+    "archived": "تم أرشفة السجل",
+    "errored": "حدث خطأ حاول مرة أخرى",
+    "archive_question": "هل تريد أرشفة هذا العنصر ؟",
+    "yes": "نعم",
+    "no": "لا",
+    "cancel": "إلعاء",
+    "ok": "تم",
+    "delete_question": "هل تريد حذف هذا العنصر ؟",
+    "deleted": "تم الحذف",
+    "didnt_delete": "لم يحذف",
+    "select_item": "قم باختيار عنصر",
+    "add": "إضافة",
+    "collect_subscription": "تحصيل قيمة الاشتراك",
+    "iqd": "د.ع",
+    "image_uploader_placeholder": "اسحب أو إضغط لإضافة صورة",
+    "notifications": "الإشعارات",
+    "you_have": "لديك",
+    "unread_notifications": "إشعارات غير مقروءة",
+    "load_more": "عرض المزيد",
+    "loading" : "جاري التحميل",
+    "search": "بحث",
+    "arabic": "العربية",
+    "english": "الانكليزية",
+    "appointment_status_checkin_warning": "تحديد هذا الموعد كموعد عند الطبيب سوف يجعل كل المواعيد السابقة مكتملة",
+    "are_you_sure": "هل أنت متأكد ؟"
   }
 }

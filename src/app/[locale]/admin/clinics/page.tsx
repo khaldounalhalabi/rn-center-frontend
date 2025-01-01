@@ -83,7 +83,7 @@ const Page = () => {
         render: (_undefined, clinic, setHidden, revalidate) => {
           return (
             <span className="badge-neutral badge">
-              {clinic?.approximate_appointment_time} min
+              {clinic?.approximate_appointment_time} {t("min")}
             </span>
           );
         },

@@ -6,8 +6,10 @@ import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 import { usePathname, useRouter } from "@/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const LanguagePopover = () => {
+  const t = useTranslations("components");
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -48,21 +50,21 @@ const LanguagePopover = () => {
         <div>
           <button
             onClick={() => setLanguage("en")}
-            className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+            className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
             <img
-              className="mr-4 w-7 h-7"
+              className="w-7 h-7"
               src="https://img.icons8.com/color/48/usa.png"
               alt="usa"
             />
-            <h3>English</h3>
+            <h3>{t("english")}</h3>
           </button>
           <button
             onClick={() => setLanguage("ar")}
-            className="flex w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
+            className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
           >
-            <IraqFlagIcon className={"w-7 h-7 mr-4"} />
-            <h3>Arabic</h3>
+            <IraqFlagIcon className={"w-7 h-7"} />
+            <h3>{t("arabic")}</h3>
           </button>
         </div>
       </div>

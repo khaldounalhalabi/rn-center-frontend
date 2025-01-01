@@ -31,7 +31,7 @@ const Page = () => {
         sortable: true,
         render: (data) => (
           <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>min</span>
+            {data} <span className={"badge-success badge "}>{t("min")}</span>
           </p>
         ),
       },
@@ -46,7 +46,9 @@ const Page = () => {
         label: `${t("price")}`,
         render: (data) => (
           <p>
-            <span suppressHydrationWarning>{data.toLocaleString()} IQD</span>
+            <span suppressHydrationWarning>
+              {data.toLocaleString()} {t("iqd")}
+            </span>
           </p>
         ),
       },

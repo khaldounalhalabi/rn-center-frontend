@@ -9,7 +9,10 @@ import InputFilter from "@/components/common/ui/Inputs/InputFilter";
 import dayjs from "dayjs";
 import { ClinicTransactionService } from "@/services/ClinicTransactionService";
 import { ClinicTransaction } from "@/Models/ClinicTransaction";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import BalanceIcon from "@/components/icons/BalanceIcon";
@@ -34,6 +37,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface filterExportType {
   year: string;
@@ -130,7 +134,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  <TranslatableEnum value={"no_data"} />
+                </span>
               )}
             </>
           );
@@ -140,6 +146,7 @@ const Page = () => {
         name: "type",
         label: `${t("type")}`,
         sortable: true,
+        render: (type) => <TranslatableEnum value={type}/>,
       },
       {
         name: "amount",
@@ -200,7 +207,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  <TranslatableEnum value={"no_data"}/>
+                </span>
               )}
             </>
           );
@@ -267,6 +276,7 @@ const Page = () => {
                 setParams({ ...params, type: event.target.value });
               }
             }}
+            translated={true}
           />
           <label className="label">{t("status")} :</label>
           <SelectFilter
@@ -275,6 +285,7 @@ const Page = () => {
             onChange={(event: any) => {
               setParams({ ...params, status: event.target.value });
             }}
+            translated={true}
           />
 
           <label className="label">{t("range")} :</label>
@@ -295,6 +306,7 @@ const Page = () => {
                 });
               }
             }}
+            translated={true}
           />
           {showCustomDate ? (
             <>
@@ -425,7 +437,7 @@ const Page = () => {
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
                 {Number(balance?.data?.clinic_balance ?? 0).toLocaleString()}{" "}
-                IQD
+                {t("iqd")}
               </span>
             )}
           </div>
@@ -441,7 +453,7 @@ const Page = () => {
             ) : (
               <span suppressHydrationWarning className=" mx-4 text-2xl">
                 {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
-                IQD
+                {t("iqd")}
               </span>
             )}
           </div>

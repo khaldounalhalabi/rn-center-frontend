@@ -7,6 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const Page = () => {
   const t = useTranslations("doctor.offer.table");
@@ -39,10 +40,12 @@ const Page = () => {
               ) : offer?.type == "fixed" ? (
                 <span>
                   {offer?.value}{" "}
-                  <span className="badge badge-warning">IQD</span>
+                  <span className="badge badge-warning">{t("iqd")}</span>
                 </span>
               ) : (
-                <span className="badge badge-warning">No Data</span>
+                <span className="badge badge-warning">
+                  <TranslatableEnum value={"no_data"} />
+                </span>
               )}
             </div>
           );

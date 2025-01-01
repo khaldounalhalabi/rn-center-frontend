@@ -5,7 +5,9 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
 import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
@@ -33,7 +35,7 @@ const page = async ({
       <Grid md={2} gap={5}>
         <LabelValue
           label={t("cost")}
-          value={`${res.clinic?.appointment_cost.toLocaleString()} IQD`}
+          value={`${res.clinic?.appointment_cost.toLocaleString()} ${t("iqd")}`}
           color={"error"}
         />
 
@@ -55,7 +57,7 @@ const page = async ({
 
         <LabelValue
           label={t("value")}
-          value={`${res?.value} ${res?.type == "percentage" ? "%" : "IQD"}`}
+          value={`${res?.value} ${res?.type == "percentage" ? "%" : t("iqd")}`}
           color={"primary"}
         />
 
@@ -81,7 +83,9 @@ const page = async ({
         ) : (
           <div className="flex items-center">
             <label className="label"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <span className="text-lg badge badge-neutral">
+              {await TranslateStatusOrTypeServer("no_data")}
+            </span>
           </div>
         )}
       </div>

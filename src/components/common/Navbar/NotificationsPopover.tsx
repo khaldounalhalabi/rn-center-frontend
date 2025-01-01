@@ -12,8 +12,10 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import CircleCheckMark from "@/components/icons/CircleCheckMark";
 import { Link } from "@/navigation";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
+import { useTranslations } from "next-intl";
 
 const NotificationsPopover = () => {
+  const t = useTranslations("components");
   const [openPopNot, setOpenPopNot] = useState<boolean>(false);
   const userType = getCookieClient("user-type") as Actors;
 
@@ -70,7 +72,7 @@ const NotificationsPopover = () => {
             refetchCount();
           }
         }}
-        isPermenant={true}
+        isPermanent={true}
       />
       <div
         className={"relative w-8 h-full cursor-pointer"}
@@ -111,19 +113,19 @@ const NotificationsPopover = () => {
         }}
       >
         <div className="px-5 py-4">
-          <h2>Notifications</h2>
+          <h2>{t("notifications")}</h2>
           <p className="opacity-[0.6]">
             {isFetchingCount ? (
               <LoadingSpin />
             ) : (
-              `You have ${notificationsCount?.data ?? 0} unread messages`
+              `${t("you_have")} ${notificationsCount?.data ?? 0} ${t("unread_notifications")}`
             )}
           </p>
         </div>
 
         <div className="max-h-72 overflow-y-scroll">
           {isFetching && !isFetchingNextPage ? (
-            <p className="text-center">Loading notifications ...</p>
+            <p className="text-center">{t("loading")} ...</p>
           ) : (
             notifications?.pages.map((item) =>
               item?.data?.map((notification, index) => {
@@ -190,7 +192,7 @@ const NotificationsPopover = () => {
                 fetchNextPage();
               }}
             >
-              Show More
+              {t("load_more")}
               {isFetchingNextPage ? <LoadingSpin /> : ""}
             </button>
           ) : (

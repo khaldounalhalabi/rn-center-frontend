@@ -66,7 +66,7 @@ const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
         <div className={"w-full"}>
           <label className={"label"}>{t("cost")} :</label>
           <p className={"badge badge-primary"} suppressHydrationWarning>
-            {clinic?.appointment_cost.toLocaleString()} IQD
+            {clinic?.appointment_cost.toLocaleString()} {t("iqd")}
           </p>
         </div>
         <div className={"w-full"}>

@@ -51,90 +51,88 @@ const SidebarDoctor = ({
   const [searchTerm, setSearchTerm] = useState("");
   const sidebarItems = [
     {
-      search: "dashboard,لوحةالقيادة,داشبورد",
+      search: t("dashboard"),
       title: t("dashboard"),
       link: "/doctor",
       role: "",
     },
     {
-      search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
-      title: t("clinicsSchedules"),
-      link: "/doctor/clinic/schedules",
-      role: PermissionsDoctor.MANGE_SCHEDULES,
-    },
-    {
-      search:
-        "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
-      title: t("clinicsHolidays"),
-      link: "/doctor/clinic/holidays",
-      role: PermissionsDoctor.MANAGE_HOLIDAYS,
-    },
-    {
-      search: "medicines,medicine,الدواء,علاج,ادوية",
-      title: t("medicines"),
-      link: "/doctor/medicines",
-      role: PermissionsDoctor.MANAGE_MEDICINES,
-    },
-    {
-      search: "appointment,appointments,موعد,مواعيد",
-      title: t("appointment"),
-      link: "/doctor/appointment",
-      role: PermissionsDoctor.MANAGE_APPOINTMENTS,
-    },
-    {
-      search: "patients,patient,مرضى,مريض",
-      title: t("patients"),
-      link: "/doctor/patients",
-      role: PermissionsDoctor.MANAGE_PATIENTS,
-    },
-
-    {
-      search: "offers,عروض,عرض",
-      title: t("offers"),
-      link: "/doctor/offer",
-      role: PermissionsDoctor.MANAGE_OFFERS,
-    },
-    {
-      search: "services,خدمة,خدمات",
-      title: t("services"),
-      link: "/doctor/service",
-      role: PermissionsDoctor.MANAGE_SERVICE,
-    },
-    {
-      search: "staff,موظف,موظفون,موظفين,عمال",
-      title: t("staff"),
-      link: "/doctor/staff",
-      role: PermissionsDoctor.MANAGE_EMPLOYEES,
-    },
-    {
-      search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
-      title: t("appointmentDeductions"),
-      link: "/doctor/appointment-deductions",
-      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
-    },
-    {
-      search: "transaction,تحويلات,تحويل,معاملات",
-      title: t("transaction"),
-      link: "/doctor/transaction",
-      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
-    },
-    {
-      search: "clinic details,معلومات,تفاصيل,عيادات,عيادة",
+      search: t("clinicDetails"),
       title: t("clinicDetails"),
       link: "/doctor/clinic-details",
       role: "",
     },
     {
-      search: "contact , payment , and , الدفع, التواصل , تواصل , طرق",
-      title: t("contact_and_payment"),
+      search: t("clinicsSchedules"),
+      title: t("clinicsSchedules"),
+      link: "/doctor/clinic/schedules",
+      role: PermissionsDoctor.MANGE_SCHEDULES,
+    },
+    {
+      search: t("clinic_holidays"),
+      title: t("clinic_holidays"),
+      link: "/doctor/clinic/holidays",
+      role: PermissionsDoctor.MANAGE_HOLIDAYS,
+    },
+    {
+      search: t("medicines"),
+      title: t("medicines"),
+      link: "/doctor/medicines",
+      role: PermissionsDoctor.MANAGE_MEDICINES,
+    },
+    {
+      search: t("appointment"),
+      title: t("appointment"),
+      link: "/doctor/appointment",
+      role: PermissionsDoctor.MANAGE_APPOINTMENTS,
+    },
+    {
+      search: t("patients"),
+      title: t("patients"),
+      link: "/doctor/patients",
+      role: PermissionsDoctor.MANAGE_PATIENTS,
+    },
+    {
+      search: t("offers"),
+      title: t("offers"),
+      link: "/doctor/offer",
+      role: PermissionsDoctor.MANAGE_OFFERS,
+    },
+    {
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+      link: "/doctor/transaction",
+      title: t("transaction"),
+      search: t("transaction"),
+    },
+    {
+      link: "/doctor/appointment-deductions",
+      title: t("appointmentDeductions"),
+      search: t("appointmentDeductions"),
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+    },
+    {
+      link: "/doctor/service",
+      title: t("services"),
+      search: t("services"),
+      role: PermissionsDoctor.MANAGE_SERVICE,
+    },
+    {
+      link: "/doctor/staff",
+      title: t("staff"),
+      search: t("staff"),
+      role: PermissionsDoctor.MANAGE_EMPLOYEES,
+    },
+    {
       link: "/doctor/contact-and-payment",
+      title: t("contact_and_payment"),
+      search: t("contact_and_payment"),
       role: "",
     },
     {
-      search: "contract , العقد",
-      title: t("contract"),
       link: "/doctor/contract",
-      role: "doctor_and_just_doctor",
+      title: t("contract"),
+      search: t("contract"),
+      role: "",
     },
   ];
   const filteredItems = sidebarItems.filter((item) =>
@@ -142,7 +140,7 @@ const SidebarDoctor = ({
   );
   return (
     <div
-      className={`lg:block sidebar w-full !overflow-visible  min-h-screen overflow-y-hidden lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
+      className={`lg:block sidebar w-full overflow-y-scroll h-screen lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
        ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
        ${
          openNavBar.sm
@@ -179,7 +177,7 @@ const SidebarDoctor = ({
           </div>
           <input
             type={"text"}
-            placeholder={"Search"}
+            placeholder={t("search")}
             className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
                     border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
             onChange={(e) => {
@@ -188,7 +186,7 @@ const SidebarDoctor = ({
           />
         </div>
         <ul
-          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform ${openNavBar.md ? " hidden " : ""}`}
         >
           {searchTerm ? (
             filteredItems?.map((item, index) => (
@@ -219,7 +217,7 @@ const SidebarDoctor = ({
                 {t("dashboard")}
               </SidebarItem>
               <SidebarCompactItem
-                title={t("clinicsManagement")}
+                title={t("clinic_management")}
                 links={[
                   "/doctor/clinic-details",
                   "/doctor/clinic/schedules",
@@ -262,7 +260,7 @@ const SidebarDoctor = ({
                         : ""
                     }
                   >
-                    {t("clinicsHolidays")}
+                    {t("clinic_holidays")}
                   </SidebarItem>
                   <SidebarItem
                     setOpenNavBar={setOpenNavBar}
@@ -391,9 +389,9 @@ const SidebarDoctor = ({
               </SidebarItem>
 
               <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/doctor/contract"}
+                setOpenNavBar={setOpenNavBar}
+                openNavBar={openNavBar}
+                link={"/doctor/contract"}
               >
                 {t("contract")}
               </SidebarItem>
@@ -402,9 +400,9 @@ const SidebarDoctor = ({
         </ul>
       </div>
       <div
-        className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
+        className={`mt-5 ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul className={""}>
+        <ul>
           <SidebarIcon link={"/doctor"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>
@@ -545,18 +543,14 @@ const SidebarDoctor = ({
           </SidebarIcon>
 
           <SidebarIcon
-              link={"/doctor/contact-and-payment"}
-              title={t("contact_and_payment")}
+            link={"/doctor/contact-and-payment"}
+            title={t("contact_and_payment")}
           >
             <CreditCardIcon className={`h-8 w-8`} />
           </SidebarIcon>
 
-          <SidebarIcon
-              link={"/doctor/contract"}
-              title={t("contract")}
-          >
-            <PaperIcon
-                className={`h-8 w-8`} />
+          <SidebarIcon link={"/doctor/contract"} title={t("contract")}>
+            <PaperIcon className={`h-8 w-8`} />
           </SidebarIcon>
         </ul>
       </div>

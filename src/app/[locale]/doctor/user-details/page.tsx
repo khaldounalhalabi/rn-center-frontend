@@ -5,7 +5,9 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import { getMedia } from "@/Models/Media";
 import RoundedImage from "@/components/common/RoundedImage";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import Grid from "@/components/common/ui/Grid";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
@@ -45,7 +47,11 @@ const page = async () => {
             value={res?.birth_date}
             color={"accent"}
           />
-          <LabelValue label={t("gender")} value={res?.gender} color={"error"} />
+          <LabelValue
+            label={t("gender")}
+            value={await TranslateStatusOrTypeServer(res?.gender)}
+            color={"error"}
+          />
           <LabelValue label={t("email")} value={res?.email} />
           <LabelValue label={t("age")} value={res?.age} color={"warning"} />
           <LabelValue

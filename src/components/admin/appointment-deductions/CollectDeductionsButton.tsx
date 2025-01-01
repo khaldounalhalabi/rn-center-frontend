@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Clinic } from "@/Models/Clinic";
 import { useMutation } from "@tanstack/react-query";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import { useTranslations } from "next-intl";
 
 const CollectDeductionsButton = ({
   clinic,
@@ -13,6 +14,7 @@ const CollectDeductionsButton = ({
   clinic: Clinic;
   total: number;
 }) => {
+  const t = useTranslations("units");
   const [total, setTotal] = useState(totalDeductions);
   const mutation = useMutation({
     mutationFn: (clinicId: number) =>
@@ -46,7 +48,7 @@ const CollectDeductionsButton = ({
         }}
         disabled={mutation.isPending || total == 0}
       >
-        {`Collect Deductions ${total?.toFixed(2)} IQD  `}{" "}
+        {`Collect Deductions ${total?.toFixed(2)} ${t("IQD")}  `}{" "}
         {mutation.isPending ? <LoadingSpin className={"h-6 w-6"} /> : ""}
       </button>
     </div>

@@ -54,7 +54,7 @@ const Page = () => {
             editUrl={`/doctor/patients/${data?.id}/edit`}
             showUrl={`/doctor/patients/${data?.id}`}
             deleteMessage={
-              "Deleting this record will delete just the stored medical details of this patient not his entire profile"
+              t("delete_profile_warning")
             }
           ></ActionsButtons>
         ),

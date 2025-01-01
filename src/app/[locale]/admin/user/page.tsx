@@ -6,7 +6,7 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { UsersService } from "@/services/UsersService";
 import { User } from "@/Models/User";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 import ArchiveButton from "@/components/common/ArchiveButton";
 import BlockButton from "@/components/common/BlockButton";
 import { useTranslations } from "next-intl";
@@ -55,7 +55,7 @@ const Page = () => {
           const role =
             Array.isArray(user?.role) && user?.role.length != 0
               ? user?.role
-              : [{ name: "No Data" }];
+              : [{ name: TranslateStatusOrTypeClient("no_data") }];
           return <p>{role[0].name}</p>;
         },
       },

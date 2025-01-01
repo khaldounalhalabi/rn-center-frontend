@@ -157,7 +157,7 @@ const UserDataAdmin = ({
                   .toFixed(2)
                   .toLocaleString()
               )}{" "}
-              IQD
+              {t("iqd")}
             </h2>
           </div>
 

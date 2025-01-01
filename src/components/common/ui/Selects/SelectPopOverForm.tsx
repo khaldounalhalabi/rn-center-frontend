@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { useFormContext } from "react-hook-form";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 export default function SelectPopOverFrom({
   required = false,
@@ -9,6 +10,7 @@ export default function SelectPopOverFrom({
   label,
   name,
   handleSelect = undefined,
+  translatedStatusTypeItem = false,
 }: {
   required?: boolean;
   status: string | undefined;
@@ -16,6 +18,7 @@ export default function SelectPopOverFrom({
   label?: string;
   name: string;
   handleSelect: any;
+  translatedStatusTypeItem?: boolean;
 }) {
   const [selected, setSelected] = useState(status);
 
@@ -36,9 +39,13 @@ export default function SelectPopOverFrom({
         <div className="relative mb-1">
           <Listbox.Button className="relative input input-bordered cursor-pointer w-full  rounded-lg bg-white  text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span
-              className={`block truncate ${selected == "checkout" ? "text-neutral" : selected == "cancelled" ? "text-warning" : selected == "pending" ? "text-primary" : selected == "checkin" ? "text-success" : selected == "booked" ? "text-error" : selected == "completed" ? "text-info" : ""}`}
+              className={`text-start block truncate ${selected == "checkout" ? "text-neutral" : selected == "cancelled" ? "text-warning" : selected == "pending" ? "text-primary" : selected == "checkin" ? "text-success" : selected == "booked" ? "text-error" : selected == "completed" ? "text-info" : ""}`}
             >
-              {selected}
+              {translatedStatusTypeItem ? (
+                <TranslatableEnum value={selected} />
+              ) : (
+                selected
+              )}
             </span>
           </Listbox.Button>
           <Transition
@@ -68,7 +75,11 @@ export default function SelectPopOverFrom({
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {person}
+                        {translatedStatusTypeItem ? (
+                          <TranslatableEnum value={person} />
+                        ) : (
+                          person
+                        )}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"></span>

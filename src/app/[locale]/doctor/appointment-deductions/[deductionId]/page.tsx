@@ -36,7 +36,7 @@ const page = async ({
 
         <LabelValue
           label={t("totalCost")}
-          value={`${res?.appointment?.total_cost?.toLocaleString()} IQD`}
+          value={`${res?.appointment?.total_cost?.toLocaleString()} ${t("iqd")}`}
           color={"info"}
         />
 

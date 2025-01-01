@@ -5,7 +5,9 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
 import { getTranslations } from "next-intl/server";
 
@@ -37,7 +39,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           {t("cost")} :{" "}
           <span className="ml-2 badge badge-error" suppressHydrationWarning>
-            {res?.clinic?.appointment_cost.toLocaleString()} IQD
+            {res?.clinic?.appointment_cost.toLocaleString()} {t("iqd")}
           </span>
         </label>
         <label className="label justify-start text-xl">
@@ -61,7 +63,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           {t("value")} :{" "}
           <span className="ml-2 badge badge-ghost  ">
-            {res?.value} {res?.type == "percentage" ? "%" : "IQD"}
+            {res?.value} {res?.type == "percentage" ? "%" : t("iqd")}
           </span>
         </label>
         <label className="label justify-start text-xl">
@@ -85,7 +87,9 @@ const page = async ({
         ) : (
           <div className="flex items-center">
             <label className="label"> Image : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <span className="text-lg badge badge-neutral">
+              {await TranslateStatusOrTypeServer("no_data")}
+            </span>
           </div>
         )}
       </div>

@@ -7,6 +7,7 @@
     "clinicDetails": "Clinic Details",
     "clinicsSchedules": "Clinics Schedules",
     "clinicsHolidays": "Clinics Holidays",
+    "clinic_holidays": "Clinic Holidays",
     "specialties": "Specialties",
     "hospitals": "Hospitals",
     "serviceCategories": "Service Categories",
@@ -32,7 +33,9 @@
     "settings": "Settings",
     "contact_and_payment": "Contact and payment ways",
     "contract": "Contract",
-    "join_requests": "Join Requests"
+    "join_requests": "Join Requests",
+    "clinic_management": "Clinic management",
+    "search": "search"
   },
   "admin": {
     "clinic": {
@@ -73,7 +76,8 @@
         "subscription": "Subscription",
         "subscriptionType": "Subscription Type",
         "deductionCost": "Deduction Cost",
-        "subscriptionDescription": "Subscription Description"
+        "subscriptionDescription": "Subscription Description",
+        "iqd": "IQD"
       },
       "create-edit": {
         "approximateAppointmentTime": "Approximate Appointment Time",
@@ -108,7 +112,9 @@
         "tags": "Tags",
         "subscription": "Subscription",
         "subscriptionType": "Subscription Type",
-        "deductionCost": "Deduction Cost"
+        "deductionCost": "Deduction Cost",
+        "iqd": "IQD",
+        "min": "min"
       },
       "table": {
         "clinics": "Clinics",
@@ -125,7 +131,8 @@
         "archived": "Archived",
         "approximateAppointmentTime": "Approximate Appointment Time",
         "total-appointments": "Total Appointments",
-        "subscriptionStatus": "Subscription Status"
+        "subscriptionStatus": "Subscription Status",
+        "min": "min"
       }
     },
     "holidays": {
@@ -239,7 +246,9 @@
         "status": "Status",
         "active": "Active",
         "inActive": "In-active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD",
+        "min": "min"
       },
       "show": {
         "serviceDetails": "Service Details",
@@ -252,7 +261,9 @@
         "description": "Description",
         "noData": "No Data",
         "editBtn": "Edit",
-        "image": "Image"
+        "image": "Image",
+        "iqd": "IQD",
+        "min": "min"
       },
       "create-edit": {
         "addService": "Add Service",
@@ -264,7 +275,8 @@
         "status": "Status",
         "category": "Category",
         "approximateDuration": "Approximate Duration",
-        "price": "Price"
+        "price": "Price",
+        "iqd": "د.ع"
       }
     },
     "speciality": {
@@ -307,7 +319,8 @@
         "actions": "Actions",
         "period": "Period",
         "allowPeriod": "Allow Period",
-        "days": "Days"
+        "days": "Days",
+        "iqd": "IQD"
       },
       "create": {
         "addClinicSubscription": "Add Clinic Subscription",
@@ -321,7 +334,8 @@
         "cost": "Cost",
         "periodUnit": "Period Unit",
         "description": "Description",
-        "forLifetime": "for lifetime period put -1"
+        "forLifetime": "for lifetime period put -1",
+        "iqd": "IQD"
       },
       "show": {
         "subscriptionDetails": "Subscription Details",
@@ -437,7 +451,8 @@
         "isActive": "is Active",
         "active": "Active",
         "not-active": "Not Active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD"
       },
       "create": {
         "editOffer": "Edit Offer",
@@ -452,7 +467,8 @@
         "startDate": "Start At",
         "endDate": "End At",
         "note": "Note",
-        "image": "Images"
+        "image": "Images",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "Offer Details",
@@ -519,7 +535,8 @@
         "image": "Images",
         "alowedUses": "Allowed Uses",
         "allowReuse": "Allow Reuse",
-        "description": "Description"
+        "description": "Description",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "System Offer Details",
@@ -586,7 +603,12 @@
         "subscriptionDescription": "Subscription Description",
         "experienceY": "Experience Years",
         "about": "About",
-        "image": "Image"
+        "image": "Image",
+        "appointments": "Appointments",
+        "IQD": "IQD",
+        "years": "Years",
+        "minutes": "Minutes",
+        "days": "Days"
       },
       "edit": {
         "editClinicDetails": "Edit Clinic Details",
@@ -614,7 +636,8 @@
         "editBtn": "Edit",
         "appointmentGap": "Appointment Gap",
         "startTime": "Start Time",
-        "endTime": "End Time"
+        "endTime": "End Time",
+        "no_schedule": "No Schedule"
       },
       "edit": {
         "appointmentGap": "Appointment Gap"
@@ -649,7 +672,8 @@
         "description": "Description",
         "noData": "No Data",
         "editBtn": "Edit",
-        "image": "Image"
+        "image": "Image",
+        "iqd": "IQD"
       },
       "table": {
         "service": "Service",
@@ -675,7 +699,9 @@
         "price": "Price",
         "image": "Image",
         "noData": "No Data",
-        "icon": "Icon"
+        "icon": "Icon",
+        "iqd": "IQD",
+        "min": "min"
       }
     },
     "offer": {
@@ -687,7 +713,8 @@
         "isActive": "is Active",
         "active": "Active",
         "not-active": "Not Active",
-        "actions": "Actions"
+        "actions": "Actions",
+        "iqd": "IQD"
       },
       "create": {
         "editOffer": "Edit Offer",
@@ -702,7 +729,8 @@
         "startDate": "Start At",
         "endDate": "End At",
         "note": "Note",
-        "image": "Images"
+        "image": "Images",
+        "iqd": "IQD"
       },
       "show": {
         "offerDetails": "Offer Details",
@@ -716,7 +744,8 @@
         "value": "Value",
         "startDate": "Start At",
         "endDate": "End At",
-        "note": "Note"
+        "note": "Note",
+        "iqd": "IQD"
       }
     },
     "staff": {
@@ -829,7 +858,10 @@
         "actor": "Actor",
         "event": "Event",
         "export": "Export to excel",
-        "appointment_unique_code": "Appointment Code"
+        "appointment_unique_code": "Appointment Code",
+        "is_revision": "Is Revision ?",
+        "service": "Service",
+        "iqd": "IQD"
       },
       "create": {
         "editAppointment": "Edit Appointment",
@@ -857,7 +889,19 @@
         "totalCost": "Total Cost",
         "price": "Price",
         "name": "Name",
-        "cancellationReason": "Cancellation Reason"
+        "cancellationReason": "Cancellation Reason",
+        "is_revision": "Revision",
+        "revision_description": "(Checking this option will make the appointment cost and the service cost zero)",
+        "patient": "Patient",
+        "patient_details": "Patient details",
+        "offers_additions": "Offers & Additions",
+        "booking_details": "Booking details",
+        "iqd": "IQD",
+        "unavailable_selected_time": "The date you selected is unavailable",
+        "clinic_details": "Clinic details",
+        "clinic_name": "Clinic name",
+        "update_date": "Update date",
+        "clinic_appointment_cost": "Clinic appointment cost"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",
@@ -888,7 +932,9 @@
         "happenIn": "Happen In",
         "actor": "Actor",
         "event": "Event",
-        "actions": "Actions"
+        "actions": "Actions",
+        "is_revision": "Is Revision ?",
+        "iqd": "IQD"
       }
     },
     "patient": {
@@ -931,7 +977,8 @@
         "isArchived": "is Archived",
         "archived": "Archived",
         "notArchived": "Not Archived",
-        "actions": "Actions"
+        "actions": "Actions",
+        "delete_profile_warning": "Deleting this record will delete just the stored medical details of this patient not his entire profile"
       },
       "show": {
         "patientDetails": "Patient Details",
@@ -1095,7 +1142,8 @@
         "type": "Type",
         "amount": "Amount",
         "date": "Date",
-        "notes": "Notes"
+        "notes": "Notes",
+        "iqd": "IQD"
       },
       "show": {
         "transactionDetails": "Transaction Details",
@@ -1108,7 +1156,10 @@
         "notes": "Notes",
         "appointmentDate": "Appointment Date",
         "status": "Status",
-        "totalCost": "Total Cost"
+        "totalCost": "Total Cost",
+        "actor_name": "Actor name",
+        "iqd": "IQD",
+        "description": "Description"
       },
       "chart": {
         "filter": "Filter",
@@ -1143,7 +1194,8 @@
         "balance": "Balance",
         "doneAppointmentDeductions": "Done Appointment Deductions",
         "pendingAppointmentDeductions": "Pending Appointment Deductions",
-        "export": "Export to excel"
+        "export": "Export to excel",
+        "iqd": "IQD"
       },
       "show": {
         "clinicName": "Clinic Name",
@@ -1153,7 +1205,8 @@
         "amount": "Amount",
         "appointmentDate": "Appointment Date",
         "totalCost": "Total Cost",
-        "note": "Note"
+        "note": "Note",
+        "iqd": "IQD"
       }
     },
     "dashboard": {
@@ -1180,7 +1233,8 @@
       "sequence": "Sequence",
       "status": "Status",
       "type": "Type",
-      "actions": "Actions"
+      "actions": "Actions",
+      "iqd": "IQD"
     }
   },
   "table": {
@@ -1234,7 +1288,7 @@
     "password": "Password",
     "confirm-password": "Confirm Password",
     "err": "The email or password is incorrect. Try again or click Forgot Password",
-    "forgetPassword": "Forget Password",
+    "forgetPassword": "Forget Password ?",
     "resetPassword": "Reset Password",
     "Login": "Login",
     "enteryourEmailAddress": "Enter your Email Address",
@@ -1296,8 +1350,8 @@
     "features": "Features",
     "pricing": "Pricing",
     "get_started": "Get started",
-    "check_appointment": "Check on an appointment",
-    "give_full_control": "Planet of Medicine gives you full control over",
+    "check_appointment": "Check appointment",
+    "give_full_control": "Our planet gives you full control over",
     "your_clinics_operations": "your clinic’s operations. Streamline everything",
     "from_appointments_to_invoicing": "from appointments to invoicing, all in one place",
     "start_free_trial": "Start a free trial and see",
@@ -1354,6 +1408,106 @@
     "contact_us": "Contact Us",
     "name": "Name",
     "email": "Email",
-    "message": "Message"
+    "message": "Message",
+    "our_pom": "POM"
+  },
+  "types_statuses": {
+    "active": "Active",
+    "in_active": "In-Active",
+    "pending": "Pending",
+    "booked": "Booked",
+    "checkin": "Checkin",
+    "checkout": "Checkout",
+    "cancelled": "Cancelled",
+    "all": "All",
+    "online": "Online",
+    "manual": "Manual",
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+    "day": "Day",
+    "week": "Week",
+    "year": "Year",
+    "one day only": "One day only",
+    "for three day": "For three day",
+    "for one week": "For one week",
+    "for 2 week": "For 2 week",
+    "for 1 month": "For 1 month",
+    "Every Morning": "Every Morning",
+    "Every Morning & Evening": "Every Morning & Evening",
+    "Three Time a Day": "Three Time a Day",
+    "4 Time a Day": "4 Time a Day",
+    "After Meal": "After Meal",
+    "Before Meal": "Before Meal",
+    "male": "Male",
+    "female": "Female",
+    "percentage": "Percentage",
+    "fixed": "Fixed",
+    "income": "Income",
+    "outcome": "Outcome",
+    "system_debt": "System debt",
+    "debt_to_me": "Debt to me",
+    "system debt": "System debt",
+    "debt to me": "Debt to me",
+    "done": "Done",
+    "Last Week": "Last Week",
+    "Last Month": "Last Month",
+    "Last Year": "Last Year",
+    "Current Month": "Current Month",
+    "Current Year": "Current Year",
+    "Custom Date": "Custom Date",
+    "no_data": "No data",
+    "status_changed": "Status changed"
+  },
+  "week_days": {
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday"
+  },
+  "units": {
+    "min": "min",
+    "IQD": "IQD"
+  },
+  "components": {
+    "submit": "Submit",
+    "didnt_archived": "Didn't Archive",
+    "archived": "Archived",
+    "errored": "There Is Been An Error",
+    "archive_question": "Do you want to archive this item ?",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "delete_question": "Do you want to Delete this item ?",
+    "deleted": "Deleted",
+    "didnt_delete": "Didn't Delete",
+    "select_item": "Select an item",
+    "add": "Add",
+    "collect_subscription": "Collect Subscription",
+    "iqd": "IQD",
+    "image_uploader_placeholder": "Drag Or Click To Add Image",
+    "notifications": "Notifications",
+    "you_have": "You have",
+    "unread_notifications": "Unread notifications",
+    "load_more": "Show more",
+    "loading": "Loading",
+    "search": "Search",
+    "arabic": "Arabic",
+    "english": "English",
+    "appointment_status_checkin_warning": "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
+    "are_you_sure": "Are you sure?"
   }
 }

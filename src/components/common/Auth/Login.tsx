@@ -122,8 +122,8 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
             ""
           )}
 
-          <div className="flex justify-center opacity-80 mt-4">
-            <h4>{t("forgetPassword")}?</h4>
+          <div className="flex justify-center opacity-80 mt-4 gap-1">
+            <h4>{t("forgetPassword")}</h4>
             <Link
               href={`/auth/${pageType}/reset-password`}
               className="text-blue-600 ml-1"
@@ -132,7 +132,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
             </Link>
           </div>
           {pageType == "doctor" && (
-            <div className="flex justify-center opacity-80 mt-4">
+            <div className="flex justify-center opacity-80 mt-4 gap-1">
               <h4>{t("join_request")}</h4>
               <Link
                 href={`/auth/${pageType}/join-request`}

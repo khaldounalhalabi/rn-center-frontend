@@ -20,12 +20,12 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
             <img
               src={"/pom.png"}
               alt={".."}
-              className={"md:w-16 md:h-16 w-10 h-10"}
+              className={"md:h-auto w-10 h-10"}
             />
           </div>
         </div>
         <div className="navbar-center hidden md:flex">
-          <ul className="flex w-full gap-3 justify-between px-1 font-semibold text-[12px] lg:text-[15px]">
+          <ul className="flex w-full gap-5 justify-between px-1 font-semibold text-[12px] lg:text-[15px]">
             {links.map((item, key) =>
               item?.link != "/check-appointment" ? (
                 <li key={key}>

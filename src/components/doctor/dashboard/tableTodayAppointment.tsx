@@ -17,6 +17,7 @@ import { getCookieClient } from "@/Actions/clientCookies";
 import { useLocale, useTranslations } from "next-intl";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -108,12 +109,13 @@ const TableTodayAppointment = () => {
       {
         name: "type",
         label: `${t("type")}`,
-        render: (data) =>
-          data == "online" ? (
-            <span className={`badge badge-success`}>Online</span>
-          ) : (
-            <span className={`badge badge-neutral`}>Manual</span>
-          ),
+        render: (data) => (
+          <span
+            className={`badge ${data == "online" ? "badge-success" : "badge-neutral"}`}
+          >
+            <TranslatableEnum value={data} />
+          </span>
+        ),
         sortable: true,
       },
       {

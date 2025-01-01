@@ -7,6 +7,7 @@ import {
   sanitizeString,
 } from "@/Helpers/ObjectHelpers";
 import { useFormContext } from "react-hook-form";
+import {useTranslations} from "next-intl";
 
 interface MultiInputProps extends InputProps {
   name: string;
@@ -30,6 +31,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
   } = useFormContext();
   const error = getNestedPropertyValue(errors, `${name}`);
   let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [];
+  const t = useTranslations("components");
 
   // Ensure there's always at least one input field
   const [inputs, setInputs] = useState<any[]>(
@@ -96,15 +98,19 @@ const MultiInput: React.FC<MultiInputProps> = ({
                   }}
                 />
 
-                <button
-                  type={"button"}
-                  className={"btn btn-square btn-sm"}
-                  onClick={() => {
-                    removeInput(field);
-                  }}
-                >
-                  <Trash className={"h-6 w-6 text-error"} />
-                </button>
+                {index == 0 && required ? (
+                  ""
+                ) : (
+                  <button
+                    type={"button"}
+                    className={"btn btn-square btn-sm"}
+                    onClick={() => {
+                      removeInput(field);
+                    }}
+                  >
+                    <Trash className={"h-6 w-6 text-error"} />
+                  </button>
+                )}
               </div>
               <div className={"min-h-5"}>
                 {error &&
@@ -128,7 +134,7 @@ const MultiInput: React.FC<MultiInputProps> = ({
           onClick={() => addInput()}
           disabled={inputs.length >= maxFields}
         >
-          Add New {label ?? sanitizeString(name ?? "")}
+          {t("add")} {label ?? sanitizeString(name ?? "")}
         </button>
       </div>
     </>

@@ -63,119 +63,117 @@ const SidebarAdmin = ({
 
   const sidebarItems = [
     {
-      search: "dashboard,لوحةالقيادة,داشبورد",
+      search: t("dashboard"),
       title: t("dashboard"),
       link: "/admin",
     },
     {
-      search: "clinics,عيادة,العيادات",
+      search: t("clinics"),
       title: t("clinics"),
       link: "/admin/clinics",
     },
     {
-      search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
+      search: t("clinicsSchedules"),
       title: t("clinicsSchedules"),
       link: "/admin/clinics/schedules",
     },
     {
-      search:
-        "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
+      search: t("clinicsHolidays"),
       title: t("clinicsHolidays"),
       link: "/admin/clinics/holidays",
     },
     {
-      search: "subscriptions,subscription,اشتراك,اشتراكات",
+      search: t("subscriptions"),
       title: t("subscriptions"),
       link: "/admin/subscriptions",
     },
     {
-      search: "specialties,specialtie,اختصاص,اختصاصات",
+      search: t("specialties"),
       title: t("specialties"),
       link: "/admin/speciality",
     },
     {
-      search: "medicines,medicine,الدواء,علاج,ادوية",
+      search: t("medicines"),
       title: t("medicines"),
       link: "/admin/medicines",
     },
     {
-      search: "appointment,appointments,موعد,مواعيد",
+      search: t("appointment"),
       title: t("appointment"),
       link: "/admin/appointment",
     },
     {
-      search: "patients,patient,مرضى,مريض",
+      search: t("patients"),
       title: t("patients"),
       link: "/admin/patients",
     },
     {
-      search: "patient profiles,patient,profiles,ملف,مريض,مرضى",
+      search: t("patientProfiles"),
       title: t("patientProfiles"),
       link: "/admin/patient-profiles",
     },
     {
-      search: "offers,عروض,عرض",
+      search: t("offers"),
       title: t("offers"),
       link: "/admin/offer",
     },
     {
-      search: "offers,system offers,system,عرض,عروض النظام",
+      search: t("systemOffers"),
       title: t("systemOffers"),
       link: "/admin/system-offer",
     },
     {
-      search: "services,خدمة,خدمات",
+      search: t("services"),
       title: t("services"),
       link: "/admin/service",
     },
     {
-      search: "category,service,خدمات,خدمة,serviceCategories,تصنيفات,فئات",
+      search: t("serviceCategories"),
       title: t("serviceCategories"),
       link: "/admin/category",
     },
     {
-      search: "hospitals,مستشفيات,مستشفى,مشفى,عيادة",
+      search: t("hospitals"),
       title: t("hospitals"),
       link: "/admin/hospitals",
     },
     {
-      search:
-        "available departments,departments,اقسام,متاح,متاحة,قسم,available",
+      search: t("availableDepartments"),
       title: t("availableDepartments"),
       link: "/admin/hospital-departments",
     },
     {
-      search: "users,user,مستخدم,مستخدمون,مستخدمين",
+      search: t("users"),
       title: t("users"),
       link: "/admin/user",
     },
     {
-      search: "blood donation,donation,blood,بنك,دم,تبرع,تبرع دم",
+      search: t("bloodDonation"),
       title: t("bloodDonation"),
       link: "/admin/blood-donation",
     },
     {
-      search: "enquiries,enquirie,الاستفسارات,اسئلة,استفسار",
+      search: t("enquiries"),
       title: t("enquiries"),
       link: "/admin/enquiries",
     },
     {
-      search: "settings,setting,الاعدادات,اعدادات,ضبط",
+      search: t("settings"),
       title: t("settings"),
       link: "/admin/setting",
     },
     {
-      search: "appointment deductions,موعد,مواعيد,استقطاع,استقطاعات",
+      search: t("appointmentDeductions"),
       title: t("appointmentDeductions"),
       link: "/admin/appointment-deductions",
     },
     {
-      search: "transaction,تحويلات,تحويل,معاملات",
+      search: t("transaction"),
       title: t("transaction"),
       link: "/admin/transaction",
     },
     {
-      search: "join requests,طلبات الانضمام",
+      search: t("join_requests"),
       title: t("join_requests"),
       link: "/admin/transaction",
     },
@@ -224,7 +222,7 @@ const SidebarAdmin = ({
           </div>
           <input
             type={"text"}
-            placeholder={"Search"}
+            placeholder={t("search")}
             className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
                     border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
             onChange={(e) => {

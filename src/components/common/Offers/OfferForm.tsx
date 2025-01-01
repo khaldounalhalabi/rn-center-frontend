@@ -8,7 +8,10 @@ import { OffersService } from "@/services/OffersService";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
@@ -19,6 +22,7 @@ import { Navigate } from "@/Actions/navigate";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -39,7 +43,7 @@ const OfferForm = ({
     ) {
       return OffersService.make<OffersService>(typePage).update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await OffersService.make<OffersService>(typePage).store(data);
@@ -50,7 +54,7 @@ const OfferForm = ({
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const [typeOffers, setTypeOffers] = useState(
-    defaultValues?.type ?? "percentage"
+    defaultValues?.type ?? "percentage",
   );
   const { image, ...res } = defaultValues ?? { image: [] };
   return (
@@ -97,6 +101,7 @@ const OfferForm = ({
           ArraySelect={OffersArray()}
           required={true}
           label={t("type")}
+          translatedStatusTypeItem={true}
         />
         <Input
           placeholder={"Price : "}
@@ -104,7 +109,7 @@ const OfferForm = ({
           label={t("value")}
           required={true}
           type="number"
-          unit={typeOffers == "percentage" ? "%" : "IQD"}
+          unit={typeOffers == "percentage" ? "%" : t("iqd")}
         />
         {typePage == "doctor" ? (
           <div className={`flex gap-5 p-2 items-center`}>
@@ -153,7 +158,9 @@ const OfferForm = ({
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <span className="text-lg badge badge-neutral">
+                <TranslatableEnum value={"no_data"}/>
+              </span>
             </div>
           )}
         </div>

@@ -14,6 +14,7 @@ import CKTextEditor from "@/components/common/ui/CKEditor";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
+import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 
 const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
   const t = useTranslations("admin.setting");
@@ -27,7 +28,7 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         return res;
       });
   };
-  const { image, ...res } = defaultValues ?? { image: "no Data" };
+  const { image, ...res } = defaultValues ?? { image: TranslateStatusOrTypeClient("no_data") };
   return (
     <Form handleSubmit={handleSubmit} defaultValues={res}>
       {EditorRequiredSettings.includes(defaultValues.label) ? (

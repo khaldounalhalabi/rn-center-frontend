@@ -26,7 +26,7 @@ const ShowSchedulePage = ({
   gap: number;
 }) => {
   const t = useTranslations("doctor.schedules.show");
-
+  const dayT = useTranslations("week_days");
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24 mb-4">
@@ -47,7 +47,7 @@ const ShowSchedulePage = ({
             key={index}
             className="bg-white p-4 border border-gray-200 rounded-lg shadow"
           >
-            <h3 className="text-lg font-medium mb-2 capitalize">{day}</h3>
+            <h3 className="text-lg font-medium mb-2 capitalize">{dayT(day as any)}</h3>
             {days?.[day.toLowerCase()] && days[day.toLowerCase()].length > 0 ? (
               days[day.toLowerCase()].map((schedule) => (
                 <div
@@ -63,7 +63,7 @@ const ShowSchedulePage = ({
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500">No schedule</p>
+              <p className="text-sm text-gray-500">{t("no_schedule")}</p>
             )}
           </div>
         ))}

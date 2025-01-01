@@ -8,7 +8,6 @@ import { User } from "@/Models/User";
 import { UsersService } from "@/services/UsersService";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import InputTags from "@/components/common/ui/InputTags";
 import MultiInput from "@/components/common/ui/Inputs/MultiInput";
 import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
@@ -37,7 +36,7 @@ const UserForm = ({
     ) {
       return UsersService.make<UsersService>("admin").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await UsersService.make<UsersService>("admin").store(data);
@@ -138,15 +137,6 @@ const UserForm = ({
             defaultChecked={defaultValues?.gender == "female"}
           />
         </div>
-        <InputTags
-          name={"tags"}
-          label={t("tags")}
-          defaultValue={
-            typeof defaultValues?.tags == "string"
-              ? defaultValues?.tags?.split(",") ?? []
-              : []
-          }
-        />
       </Grid>
       <MultiInput
         type={"tel"}

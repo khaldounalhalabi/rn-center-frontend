@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { Tab } from "@headlessui/react";
-import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
 import PrescriptionsTable from "@/components/doctor/appointment/PrescriptionsTable";
 import { useTranslations } from "next-intl";
+import Overview from "@/components/common/Appointment/Overview";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

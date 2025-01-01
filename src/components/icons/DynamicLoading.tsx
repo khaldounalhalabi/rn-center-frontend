@@ -1,16 +1,17 @@
-import { IconAttributes } from "@/types/IconAttributes";
 import React from "react";
+import { DynamicOptionsLoadingProps } from "next/dynamic";
 
-const LoadingSpin: ({ ...props }: IconAttributes) => React.JSX.Element = ({
+const DynamicLoading: ({
   ...props
-}: IconAttributes) => {
+}: DynamicOptionsLoadingProps) => React.JSX.Element = ({
+  ...props
+}: DynamicOptionsLoadingProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
       viewBox="0 0 24 24"
-      {...props}
     >
       <path
         fill="currentColor"
@@ -28,4 +29,4 @@ const LoadingSpin: ({ ...props }: IconAttributes) => React.JSX.Element = ({
   );
 };
 
-export default LoadingSpin;
+export default DynamicLoading;

@@ -1,5 +1,9 @@
 "use client";
 
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import {useTranslations} from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+
 const SelectFilter = ({
   data,
   name,
@@ -9,6 +13,7 @@ const SelectFilter = ({
   onChange,
   setStatus,
   status,
+  translated = false,
 }: {
   data: any[];
   selected?: any[] | any;
@@ -18,20 +23,22 @@ const SelectFilter = ({
   onChange?: any;
   setStatus?: React.Dispatch<string>;
   status?: string;
+  translated?: boolean;
 }) => {
+  const t = useTranslations("components")
   return (
-    <label className={"label flex flex-col w-10/12 items-start"}>
+    <label className={"text-start label flex flex-col items-start"}>
       {label ?? ""}
       <select
-        className={"select select-bordered w-full"}
+        className={"!text-start select select-bordered !flex-start min-w-[150px]"}
         defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
         onChange={onChange ?? false}
       >
-        <option value={undefined}>Select an item</option>
+        <option value={undefined}>{t("select_item")}</option>
         {data.map((item, index) => (
           <option value={item == "all" ? "" : item} key={index}>
-            {item}
+            {translated ? (<TranslatableEnum value={item}/>) : item}
           </option>
         ))}
       </select>

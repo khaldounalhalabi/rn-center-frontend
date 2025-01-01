@@ -1,10 +1,9 @@
 "use client";
 import { InView } from "react-intersection-observer";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Features = () => {
   const t = useTranslations("landing");
-  const locale = useLocale();
   const features = [
     {
       imgSrc: "/tab2.png",
@@ -38,7 +37,7 @@ const Features = () => {
           className="text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] flex rtl:flex-row-reverse
          gap-1"
         >
-          <h2 className="font-bold marker">{t("POM")}</h2>
+          <h2 className="font-bold marker">{t("our_pom")}</h2>
           <h3>{t("features")}</h3>
         </div>
       </div>
@@ -46,7 +45,7 @@ const Features = () => {
         <div className="w-full flex flex-col gap-12 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px]">
           {features.map((feature, index) => (
             <InView key={index} triggerOnce={true} threshold={0.8}>
-              {({ inView, ref, entry }) => (
+              {({ inView, ref }) => (
                 <div
                   className="flex flex-col md:flex-row items-center gap-8 md:gap-16"
                   ref={ref}

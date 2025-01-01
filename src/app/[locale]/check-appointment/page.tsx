@@ -21,7 +21,7 @@ const Page = async () => {
     <Providers>
       <div
         className={
-          "kodchasan text-[#013567] relative overflow-x-hidden md:px-0 px-2 h-screen"
+          " text-[#013567] relative overflow-x-hidden md:px-0 px-2 h-screen"
         }
       >
         <Nav links={navItems} />

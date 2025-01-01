@@ -34,7 +34,8 @@
     "contact_and_payment": "Contact and payment ways",
     "contract": "Contract",
     "join_requests": "Join Requests",
-    "clinic_management": "إدارة العيادة"
+    "clinic_management": "Clinic management",
+    "search": "search"
   },
   "admin": {
     "clinic": {
@@ -1349,8 +1350,8 @@
     "features": "Features",
     "pricing": "Pricing",
     "get_started": "Get started",
-    "check_appointment": "Check on an appointment",
-    "give_full_control": "Planet of Medicine gives you full control over",
+    "check_appointment": "Check appointment",
+    "give_full_control": "Our planet gives you full control over",
     "your_clinics_operations": "your clinic’s operations. Streamline everything",
     "from_appointments_to_invoicing": "from appointments to invoicing, all in one place",
     "start_free_trial": "Start a free trial and see",
@@ -1407,7 +1408,8 @@
     "contact_us": "Contact Us",
     "name": "Name",
     "email": "Email",
-    "message": "Message"
+    "message": "Message",
+    "our_pom": "POM"
   },
   "types_statuses": {
     "active": "Active",
@@ -1499,7 +1501,7 @@
     "you_have": "You have",
     "unread_notifications": "Unread notifications",
     "load_more": "Show more",
-    "loading" : "Loading",
-    "search" : "Search"
+    "loading": "Loading",
+    "search": "Search"
   }
 }

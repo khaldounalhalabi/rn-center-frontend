@@ -25,6 +25,9 @@ import { useTranslations } from "next-intl";
 import { User } from "@/Models/User";
 import { CreatedPatientContext } from "@/components/doctor/appointment/AppointmentForm";
 import { ApiResponse } from "@/Http/Response";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Value } from "@/components/common/ui/LabelsValues/Value";
 
 const PatientForm = ({
   defaultValues = undefined,
@@ -96,12 +99,11 @@ const PatientForm = ({
             locale={locale}
           />
         ) : (
-          <label className="label justify-start text-xl">
-            {t("firstName")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateClient(defaultValues?.first_name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("firstName")}
+            value={TranslateClient(defaultValues?.first_name)}
+            color={"pom"}
+          />
         )}
         {type != "update" ? (
           <TranslatableInput
@@ -113,12 +115,11 @@ const PatientForm = ({
             locale={locale}
           />
         ) : (
-          <label className="label justify-start text-xl">
-            {t("middleName")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateClient(defaultValues?.middle_name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("middleName")}
+            value={TranslateClient(defaultValues?.middle_name)}
+            color={"primary"}
+          />
         )}
         {type != "update" ? (
           <TranslatableInput
@@ -130,22 +131,20 @@ const PatientForm = ({
             name={"last_name"}
           />
         ) : (
-          <label className="label justify-start text-xl">
-            {t("lastName")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateClient(defaultValues?.last_name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("lastName")}
+            value={TranslateClient(defaultValues?.last_name)}
+            color={"warning"}
+          />
         )}
         {appointment ? (
           ""
         ) : type == "update" ? (
-          <label className="label justify-start text-xl">
-            {t("blood")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {defaultValues?.blood_group}
-            </span>
-          </label>
+          <LabelValue
+            label={t("blood")}
+            value={defaultValues?.blood_group}
+            color={"error"}
+          />
         ) : (
           <SelectPopOverFrom
             name={"blood_group"}
@@ -183,22 +182,20 @@ const PatientForm = ({
             />
           </div>
         ) : (
-          <label className="label justify-start text-xl">
-            {t("gender")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateStatusOrTypeClient(defaultValues?.gender)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("gender")}
+            value={TranslateStatusOrTypeClient(defaultValues?.gender)}
+            color={"secondary"}
+          />
         )}
         {appointment ? (
           ""
         ) : type == "update" ? (
-          <label className="label justify-start text-xl">
-            {t("birthDate")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {defaultValues?.birth_date}
-            </span>
-          </label>
+          <LabelValue
+            label={t("birthDate")}
+            value={defaultValues?.birth_date}
+            color={"info"}
+          />
         ) : (
           <Datepicker name={"birth_date"} label={t("birthDate")} />
         )}
@@ -216,12 +213,11 @@ const PatientForm = ({
             defaultValue={defaultValues ? defaultValues?.address?.name : ""}
           />
         ) : (
-          <label className="label justify-start text-xl">
-            {t("address")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateClient(defaultValues?.address?.name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("address")}
+            value={TranslateClient(defaultValues?.address?.name)}
+            color={"neutral"}
+          />
         )}
         {type != "update" ? (
           <ApiSelect
@@ -243,12 +239,10 @@ const PatientForm = ({
             }
           />
         ) : (
-          <label className="label justify-start text-xl">
-            {t("city")} :{" "}
-            <span className="ml-2 badge badge-outline  ">
-              {TranslateClient(defaultValues?.address?.city?.name)}
-            </span>
-          </label>
+          <LabelValue
+            label={t("city")}
+            value={TranslateClient(defaultValues?.address?.city?.name)}
+          />
         )}
       </Grid>
       {type != "update" ? (
@@ -260,14 +254,11 @@ const PatientForm = ({
           maxFields={2}
         />
       ) : (
-        <label className="label justify-start text-xl">
-          {t("phone")} :{" "}
-          <span className="ml-2 badge badge-outline  ">
-            {defaultValues?.phone_numbers?.map((e) => {
-              return e;
-            })}
-          </span>
-        </label>
+        <Label label={t("phone")} col={true}>
+          {defaultValues?.phone_numbers?.map((e) => {
+            return <Value>{e}</Value>;
+          })}
+        </Label>
       )}
       {appointment ? (
         ""

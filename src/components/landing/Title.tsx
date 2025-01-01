@@ -17,11 +17,11 @@ const Title = async () => {
         <div
           className={`opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
         >
-          <p className="tex-[#6685A3]">{t("give_full_control")}</p>
-          <p className="tex-[#6685A3]">{t("your_clinics_operations")}</p>
-          <p className="tex-[#6685A3]">{t("from_appointments_to_invoicing")}</p>
-          <p className="tex-[#6685A3]">{t("start_free_trial")}</p>
-          <p className="tex-[#6685A3]">{t("how_easy")}</p>
+          <p className="text-[#6685A3] rtl:leading-loose">{t("give_full_control")}</p>
+          <p className="text-[#6685A3] rtl:leading-loose">{t("your_clinics_operations")}</p>
+          <p className="text-[#6685A3] rtl:leading-loose">{t("from_appointments_to_invoicing")}</p>
+          <p className="text-[#6685A3] rtl:leading-loose">{t("start_free_trial")}</p>
+          <p className="text-[#6685A3] rtl:leading-loose">{t("how_easy")}</p>
         </div>
         <Link href={"/#start"} className={"mt-12"}>
           <AuthSubmitButton>{t("get_started")}</AuthSubmitButton>

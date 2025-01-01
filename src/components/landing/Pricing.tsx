@@ -71,7 +71,11 @@ const Pricing = async () => {
               </h1>
               <h2 className="text-[20px] text-[#013567] font-thin">
                 {item.price} {t("iqd")}{" "}
-                <span className="text-[#D9D9D9] text-[14px]">/ {t("mo")}</span>
+                {item.title == t("1_month") && (
+                  <span className="text-[#D9D9D9] text-[14px]">
+                    / {t("mo")}
+                  </span>
+                )}
               </h2>
 
               <ul className="my-5 list-disc">
@@ -85,20 +89,20 @@ const Pricing = async () => {
                 ))}
               </ul>
 
-              {item.featured ? (
-                <AuthSubmitButton type="button" className={"px-10 py-1"}>
-                  {t("start")}
-                </AuthSubmitButton>
-              ) : (
-                <Link href={"/#start"}>
+              <Link href={"/#start"}>
+                {item.featured ? (
+                  <AuthSubmitButton type="button" className={"px-10 py-1"}>
+                    {t("start")}
+                  </AuthSubmitButton>
+                ) : (
                   <button
                     type="button"
                     className="rounded-full text-[#2ECBCC] border border-[#2ECBCC] text-[14px] px-10 py-1 hover:bg-gradient-to-r hover:from-[#5DE8E9] hover:to-[#2CCACB] hover:text-white"
                   >
                     {t("start")}
                   </button>
-                </Link>
-              )}
+                )}
+              </Link>
 
               {item.featured ? (
                 <div className="mt-3 flex items-center justify-center">

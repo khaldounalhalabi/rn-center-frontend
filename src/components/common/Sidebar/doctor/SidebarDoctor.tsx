@@ -51,41 +51,88 @@ const SidebarDoctor = ({
   const [searchTerm, setSearchTerm] = useState("");
   const sidebarItems = [
     {
-      search: "dashboard,لوحةالقيادة,داشبورد",
+      search: t("dashboard"),
       title: t("dashboard"),
       link: "/doctor",
       role: "",
     },
     {
-      search: "clinic schedules,schedules,clinic,schedule,مواعيد العيادة",
+      search: t("clinicDetails"),
+      title: t("clinicDetails"),
+      link: "/doctor/clinic-details",
+      role: "",
+    },
+    {
+      search: t("clinicsSchedules"),
       title: t("clinicsSchedules"),
       link: "/doctor/clinic/schedules",
       role: PermissionsDoctor.MANGE_SCHEDULES,
     },
     {
-      search:
-        "clinic holidays,clinic,holidays,holiday,العطل,عطل العيادة,عيادة,ال",
+      search: t("clinic_holidays"),
       title: t("clinic_holidays"),
       link: "/doctor/clinic/holidays",
       role: PermissionsDoctor.MANAGE_HOLIDAYS,
     },
     {
-      search: "medicines,medicine,الدواء,علاج,ادوية",
+      search: t("medicines"),
       title: t("medicines"),
       link: "/doctor/medicines",
       role: PermissionsDoctor.MANAGE_MEDICINES,
     },
     {
-      search: "appointment,appointments,موعد,مواعيد",
+      search: t("appointment"),
       title: t("appointment"),
       link: "/doctor/appointment",
       role: PermissionsDoctor.MANAGE_APPOINTMENTS,
     },
     {
-      search: "patients,patient,مرضى,مريض",
+      search: t("patients"),
       title: t("patients"),
       link: "/doctor/patients",
       role: PermissionsDoctor.MANAGE_PATIENTS,
+    },
+    {
+      search: t("offers"),
+      title: t("offers"),
+      link: "/doctor/offer",
+      role: PermissionsDoctor.MANAGE_OFFERS,
+    },
+    {
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+      link: "/doctor/transaction",
+      title: t("transaction"),
+      search: t("transaction"),
+    },
+    {
+      link: "/doctor/appointment-deductions",
+      title: t("appointmentDeductions"),
+      search: t("appointmentDeductions"),
+      role: PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
+    },
+    {
+      link: "/doctor/service",
+      title: t("services"),
+      search: t("services"),
+      role: PermissionsDoctor.MANAGE_SERVICE,
+    },
+    {
+      link: "/doctor/staff",
+      title: t("staff"),
+      search: t("staff"),
+      role: PermissionsDoctor.MANAGE_EMPLOYEES,
+    },
+    {
+      link: "/doctor/contact-and-payment",
+      title: t("contact_and_payment"),
+      search: t("contact_and_payment"),
+      role: "",
+    },
+    {
+      link: "/doctor/contract",
+      title: t("contract"),
+      search: t("contract"),
+      role: "",
     },
   ];
   const filteredItems = sidebarItems.filter((item) =>
@@ -130,7 +177,7 @@ const SidebarDoctor = ({
           </div>
           <input
             type={"text"}
-            placeholder={"Search"}
+            placeholder={t("search")}
             className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
                     border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
             onChange={(e) => {

@@ -57,11 +57,10 @@ export function TranslateClient(
 }
 
 export const TranslateStatusOrTypeClient = (value?: string) => {
+  const t = useTranslations("types_statuses");
   if (!value) {
     return "";
   }
-  const t = useTranslations("types_statuses");
-
   return t(value as any);
 };
 

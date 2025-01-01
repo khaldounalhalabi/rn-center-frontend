@@ -256,8 +256,8 @@ const PatientForm = ({
         />
       ) : (
         <Label label={t("phone")} col={true}>
-          {defaultValues?.phone_numbers?.map((e) => {
-            return <Value color={"warning-content"}>{e}</Value>;
+          {defaultValues?.phone_numbers?.map((e,index) => {
+            return <Value key={index} color={"warning-content"}>{e}</Value>;
           })}
         </Label>
       )}

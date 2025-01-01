@@ -258,3 +258,7 @@ html {
 [dir="rtl"] .animate-fade-in {
     animation: fade-in-left 0.8s ease-out forwards;
 }
+
+[dir="rtl"] .select {
+    background-position: initial !important;
+}

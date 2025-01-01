@@ -193,7 +193,7 @@ const AppointmentStatusColumn = ({
             </div>
           ) : (
             <select
-              className={`select select-bordered text-sm font-medium w-fit 
+              className={`select select-bordered text-sm font-medium
           ${
             appointmentState?.status == AppointmentStatusEnum.CHECKOUT
               ? "text-[#0089c1]"

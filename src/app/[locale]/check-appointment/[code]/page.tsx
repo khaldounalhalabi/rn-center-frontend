@@ -237,12 +237,14 @@ const Page = async ({ params: { code } }: { params: { code: string } }) => {
                         ""}
                     </>
                   ) : (
-                    <>
-                      {" "}
-                      {t("approximate_waiting_time")}
-                      {": "}
-                      {appointment.remaining_time?.split(",")?.[0] ?? ""}
-                    </>
+                    appointment?.status != AppointmentStatusEnum.CHECKOUT && (
+                      <>
+                        {" "}
+                        {t("approximate_waiting_time")}
+                        {": "}
+                        {appointment.remaining_time?.split(",")?.[0] ?? ""}
+                      </>
+                    )
                   )}
                 </p>
               </div>

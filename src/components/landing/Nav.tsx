@@ -20,7 +20,7 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
             <img
               src={"/pom.png"}
               alt={".."}
-              className={"md:w-16 md:h-16 w-10 h-10"}
+              className={"md:h-auto md:h-auto w-10 h-10"}
             />
           </div>
         </div>

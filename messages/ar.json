@@ -1476,7 +1476,8 @@
     "Current Month": "الشهر الحالي",
     "Current Year": "السنة الحالية",
     "Custom Date": "تاريخ مخصص",
-    "no_data": "لا يوجد بيانات"
+    "no_data": "لا يوجد بيانات",
+    "status_changed": "تم تغيير الحالة"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1516,6 +1517,8 @@
     "loading" : "جاري التحميل",
     "search": "بحث",
     "arabic": "العربية",
-    "english": "الانكليزية"
+    "english": "الانكليزية",
+    "appointment_status_checkin_warning": "تحديد هذا الموعد كموعد عند الطبيب سوف يجعل كل المواعيد السابقة مكتملة",
+    "are_you_sure": "هل أنت متأكد ؟"
   }
 }

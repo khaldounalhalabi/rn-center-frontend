@@ -5,15 +5,14 @@ import { SystemOffers } from "@/Models/SystemOffer";
 import { Offers } from "@/Models/Offers";
 import HandleCalcOffers from "@/hooks/HandleCalcOffers";
 import { useTranslations } from "next-intl";
-import {
-  TranslateClient,
-  TranslateStatusOrTypeClient,
-} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Label } from "../ui/LabelsValues/Label";
 import { LabelValue } from "../ui/LabelsValues/LabelValue";
 import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
 import XMark from "@/components/icons/XMark";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
+import { Value } from "@/components/common/ui/LabelsValues/Value";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const Overview = ({
   appointment,
@@ -51,11 +50,11 @@ const Overview = ({
           />
         </Label>
 
-        <LabelValue
-          label={t("type")}
-          value={TranslateStatusOrTypeClient(appointment?.type)}
-          color={"primary"}
-        />
+        <Label label={t("type")}>
+          <Value color={"primary"}>
+            <TranslatableEnum value={appointment?.type} />
+          </Value>
+        </Label>
 
         <Label label={t("is_revision")}>
           {appointment?.is_revision ? (

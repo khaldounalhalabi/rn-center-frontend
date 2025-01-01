@@ -5,6 +5,7 @@ import { AppointmentDeductions } from "@/Models/AppointmentDeductions";
 import AppointmentDeductionsStatusArray from "@/enum/AppointmentDeductionsStatus";
 import { AppointmentDeductionsService } from "@/services/AppointmentDeductionsService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const AppointmentDeductionStatusColumn = ({
   appointmentDeduction,
@@ -24,7 +25,7 @@ const AppointmentDeductionStatusColumn = ({
       .then((res) => {
         setSelected(status);
         setLoading(false);
-        toast.success("Status Changed!");
+        toast.success(<TranslatableEnum value={"status_changed"} />);
       });
   };
 

@@ -11,6 +11,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -50,7 +52,7 @@ const AppointmentStatusColumn = ({
               .then((res) => {
                 setSelected(res.data.status);
                 setLoading(false);
-                toast.success("Status Changed!");
+                toast.success(<TranslatableEnum value={"status_changed"} />);
               });
           } else {
             setSelected(appointmentState?.status);
@@ -64,7 +66,7 @@ const AppointmentStatusColumn = ({
         })
         .then((res) => {
           setLoading(false);
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         });
     }
   };
@@ -100,7 +102,7 @@ const AppointmentStatusColumn = ({
       .then((res) => {
         if (res.code == 200) {
           closeModal();
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         }
         return res;
       });

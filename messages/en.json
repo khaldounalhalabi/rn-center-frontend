@@ -1465,7 +1465,8 @@
     "Current Month": "Current Month",
     "Current Year": "Current Year",
     "Custom Date": "Custom Date",
-    "no_data": "No data"
+    "no_data": "No data",
+    "status_changed": "Status changed"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1505,6 +1506,8 @@
     "loading": "Loading",
     "search": "Search",
     "arabic": "Arabic",
-    "english": "English"
+    "english": "English",
+    "appointment_status_checkin_warning": "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
+    "are_you_sure": "Are you sure?"
   }
 }

@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import { Appointment } from "@/Models/Appointment";
 import PrescriptionsTable from "@/components/doctor/appointment/PrescriptionsTable";
 import { useTranslations } from "next-intl";
-import dynamic from "next/dynamic";
+import Overview from "@/components/common/Appointment/Overview";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,12 +16,6 @@ const AppointmentOverview = ({
   appointment?: Appointment | undefined;
 }) => {
   const t = useTranslations("common.appointment.show");
-  const AppointmentDetails = dynamic(
-    () => import("@/components/common/Appointment/Overview"),
-    {
-      ssr: false,
-    },
-  );
   return (
     <div className={"w-full"}>
       <Tab.Group>
@@ -55,7 +49,7 @@ const AppointmentOverview = ({
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel className={"w-full"}>
-            <AppointmentDetails appointment={appointment} userType={"doctor"} />
+            <Overview appointment={appointment} userType={"doctor"} />
           </Tab.Panel>
           <Tab.Panel className={"w-full"}>
             <PrescriptionsTable appointment={appointment} />

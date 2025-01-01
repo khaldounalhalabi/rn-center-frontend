@@ -14,6 +14,7 @@ import {
 } from "@/enum/AppointmentStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { useTranslations } from "next-intl";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -27,6 +28,7 @@ const AppointmentStatusColumn = ({
   const [appointmentState, setAppointment] = useState<Appointment | undefined>(
     appointment,
   );
+  const t = useTranslations("components");
 
   const [loading, setLoading] = useState(false);
 
@@ -43,13 +45,15 @@ const AppointmentStatusColumn = ({
     if (status === AppointmentStatusEnum.CHECKIN) {
       swal
         .fire({
-          title: "Are you sure?",
-          text: "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
+          title: t("are_you_sure"),
+          text: t("appointment_status_checkin_warning"),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
+          confirmButtonText: t("yes"),
+          cancelButtonText: t("cancel"),
+          denyButtonText: t("no"),
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -58,7 +62,7 @@ const AppointmentStatusColumn = ({
               .then((res) => {
                 setLoading(false);
                 setSelected(res.data.status);
-                toast.success("Status Changed!");
+                toast.success(<TranslatableEnum value={"status_changed"} />);
               });
           } else {
             setLoading(false);
@@ -74,7 +78,7 @@ const AppointmentStatusColumn = ({
         .then(() => {
           setLoading(false);
           setSelected(AppointmentStatusEnum.BOOKED);
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         });
     } else {
       return AppointmentService.make<AppointmentService>(userType)
@@ -82,7 +86,7 @@ const AppointmentStatusColumn = ({
         .then(() => {
           setLoading(false);
           setSelected(status);
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         });
     }
   };
@@ -109,7 +113,7 @@ const AppointmentStatusColumn = ({
       .then((res) => {
         if (res.code === 200) {
           closeModal();
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         }
         return res;
       });
@@ -219,6 +223,7 @@ const AppointmentStatusColumn = ({
                 appointment?.status ?? "",
               ).map((e, index) => (
                 <option
+                  value={e}
                   key={index}
                   className={`block truncate  ${
                     e == AppointmentStatusEnum.CHECKOUT

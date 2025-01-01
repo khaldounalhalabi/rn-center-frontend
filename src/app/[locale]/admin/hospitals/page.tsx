@@ -14,6 +14,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
 import { toast } from "react-toastify";
 import AllHospitalStatus from "@/enum/HospitalStatus";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const Page = () => {
   const t = useTranslations("admin.hospitals.table");
@@ -21,7 +22,7 @@ const Page = () => {
     return await HospitalService.make<HospitalService>("admin")
       .toggleStatus(id)
       .then((res) => {
-        toast.success("Status Changed!");
+        toast.success(<TranslatableEnum value={"status_changed"} />);
       });
   };
   const tableData: DataTableData<Hospital> = {

@@ -5,7 +5,6 @@ import Textarea from "@/components/common/ui/textArea/Textarea";
 import { AppointmentService } from "@/services/AppointmentService";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 import { toast } from "react-toastify";
-import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 export default function SelectPopOver({
@@ -48,7 +47,7 @@ export default function SelectPopOver({
       .then((res) => {
         if (res.code == 200) {
           closeModal();
-          toast.success("Status Changed!");
+          toast.success(<TranslatableEnum value={"status_changed"} />);
         }
         return res;
       });
@@ -86,9 +85,11 @@ export default function SelectPopOver({
                             : ""
               }`}
             >
-              {translatedStatusTypeItem
-                ? <TranslatableEnum value={selected}/>
-                : selected}
+              {translatedStatusTypeItem ? (
+                <TranslatableEnum value={selected} />
+              ) : (
+                selected
+              )}
             </span>
           </Listbox.Button>
           <Transition
@@ -130,9 +131,11 @@ export default function SelectPopOver({
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {translatedStatusTypeItem
-                          ? (<TranslatableEnum value={person}/>)
-                          : person}
+                        {translatedStatusTypeItem ? (
+                          <TranslatableEnum value={person} />
+                        ) : (
+                          person
+                        )}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"></span>

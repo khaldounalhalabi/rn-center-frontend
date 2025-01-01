@@ -21,7 +21,7 @@ const AuthSubmitButton: React.FC<ButtonAttr> = ({
       disabled={disabled || isSubmitting}
     >
       {children}
-      <span className="absolute top-[7%] right-[12%] w-1 h-1 ">
+      <span className="absolute top-[7%] right-[13%] w-1 h-1 ">
         <LineC className={""} />
       </span>
 

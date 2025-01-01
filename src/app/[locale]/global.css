@@ -260,5 +260,7 @@ html {
 }
 
 [dir="rtl"] .select {
-    background-position: initial !important;
+    background-position: right center !important;
+    background-image: none;
+    appearance: auto;
 }

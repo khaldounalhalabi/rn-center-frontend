@@ -2,7 +2,11 @@ import { ApiResponse } from "@/Http/Response";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
-import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const TableBody = ({
   tableData,
@@ -39,8 +43,9 @@ const TableBody = ({
                           ? TranslateClient(
                               getNestedPropertyValue(item, schema.name),
                             )
-                          : getNestedPropertyValue(item, schema.name) ??
-                            TranslateStatusOrTypeClient("no_data")}
+                          : getNestedPropertyValue(item, schema.name) ?? (
+                              <TranslatableEnum value={"no_data"} />
+                            )}
                       </td>
                     );
                   } else if (schema.render && schema.name) {
@@ -58,8 +63,9 @@ const TableBody = ({
                             ? TranslateClient(
                                 getNestedPropertyValue(item, schema.name),
                               )
-                            : getNestedPropertyValue(item, schema.name) ??
-                              TranslateStatusOrTypeClient("no_data"),
+                            : getNestedPropertyValue(item, schema.name) ?? (
+                                <TranslatableEnum value={"no_data"} />
+                              ),
                           item,
                           setHidden,
                           revalidate,
@@ -89,7 +95,7 @@ const TableBody = ({
                         }
                         {...schema.cellProps}
                       >
-                        {TranslateStatusOrTypeClient("no_data")}
+                        <TranslatableEnum value={"no_data"} />
                       </td>
                     );
                 })}

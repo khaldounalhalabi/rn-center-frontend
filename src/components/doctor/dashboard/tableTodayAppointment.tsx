@@ -5,10 +5,7 @@ import DataTable, {
 import React from "react";
 import { Appointment } from "@/Models/Appointment";
 import { Link } from "@/navigation";
-import {
-  TranslateClient,
-  TranslateStatusOrTypeClient,
-} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import ActionsButtons, {
   Buttons,
@@ -20,6 +17,7 @@ import { getCookieClient } from "@/Actions/clientCookies";
 import { useLocale, useTranslations } from "next-intl";
 import { Role } from "@/enum/Role";
 import { PermissionsDoctor } from "@/enum/Permissions";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const handleCopyLink = (id: number | undefined) => {
   navigator.clipboard.writeText(`${window.location.href}/${id}`);
@@ -111,16 +109,13 @@ const TableTodayAppointment = () => {
       {
         name: "type",
         label: `${t("type")}`,
-        render: (data) =>
-          data == "online" ? (
-            <span className={`badge badge-success`}>
-              {TranslateStatusOrTypeClient(data)}
-            </span>
-          ) : (
-            <span className={`badge badge-neutral`}>
-              {TranslateStatusOrTypeClient(data)}
-            </span>
-          ),
+        render: (data) => (
+          <span
+            className={`badge ${data == "online" ? "badge-success" : "badge-neutral"}`}
+          >
+            <TranslatableEnum value={data} />
+          </span>
+        ),
         sortable: true,
       },
       {

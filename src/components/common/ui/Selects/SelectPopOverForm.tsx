@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { useFormContext } from "react-hook-form";
-import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 export default function SelectPopOverFrom({
   required = false,
@@ -41,7 +41,11 @@ export default function SelectPopOverFrom({
             <span
               className={`text-start block truncate ${selected == "checkout" ? "text-neutral" : selected == "cancelled" ? "text-warning" : selected == "pending" ? "text-primary" : selected == "checkin" ? "text-success" : selected == "booked" ? "text-error" : selected == "completed" ? "text-info" : ""}`}
             >
-              {translatedStatusTypeItem ? TranslateStatusOrTypeClient(selected):selected}
+              {translatedStatusTypeItem ? (
+                <TranslatableEnum value={selected} />
+              ) : (
+                selected
+              )}
             </span>
           </Listbox.Button>
           <Transition
@@ -71,9 +75,11 @@ export default function SelectPopOverFrom({
                           selected ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {translatedStatusTypeItem
-                          ? TranslateStatusOrTypeClient(person)
-                          : person}
+                        {translatedStatusTypeItem ? (
+                          <TranslatableEnum value={person} />
+                        ) : (
+                          person
+                        )}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"></span>

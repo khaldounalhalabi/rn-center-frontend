@@ -13,7 +13,7 @@ import {
   AppointmentStatusesFilter,
 } from "@/enum/AppointmentStatus";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -184,7 +184,7 @@ const AppointmentStatusColumn = ({
                       : ""
                 }`}
               >
-                {TranslateStatusOrTypeClient(selected)}
+                <TranslatableEnum value={selected} />
               </span>
             </div>
           ) : (
@@ -236,7 +236,7 @@ const AppointmentStatusColumn = ({
                                 : ""
                   }`}
                 >
-                  {TranslateStatusOrTypeClient(e)}
+                  <TranslatableEnum value={e} />
                 </option>
               ))}
             </select>

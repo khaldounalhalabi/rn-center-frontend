@@ -1,6 +1,7 @@
+"use client";
 import { Translatable } from "@/Models/Translatable";
 import { getCookieClient } from "@/Actions/clientCookies";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 export function TranslateClient(
   val: string | undefined | null,
@@ -55,7 +56,6 @@ export function TranslateClient(
   }
 }
 
-
 export const TranslateStatusOrTypeClient = (value?: string) => {
   if (!value) {
     return "";
@@ -64,3 +64,4 @@ export const TranslateStatusOrTypeClient = (value?: string) => {
 
   return t(value as any);
 };
+

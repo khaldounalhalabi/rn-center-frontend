@@ -27,6 +27,7 @@ import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface filterExportType {
   year: string;
@@ -106,7 +107,7 @@ const Page = () => {
         name: "status",
         label: `${t("status")}`,
         sortable: true,
-        render: (status) => TranslateStatusOrTypeClient(status),
+        render: (status) => <TranslatableEnum value={status}/>,
       },
       {
         name: "date",
@@ -130,7 +131,7 @@ const Page = () => {
                 </div>
               ) : (
                 <span className={"badge badge-warning"}>
-                  {TranslateStatusOrTypeClient("no_data")}
+                  <TranslatableEnum value={"no_data"}/>
                 </span>
               )}
             </>

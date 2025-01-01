@@ -37,6 +37,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface filterExportType {
   year: string;
@@ -133,7 +134,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>{TranslateStatusOrTypeClient("no_data")}</span>
+                <span className={"badge badge-warning"}>
+                  <TranslatableEnum value={"no_data"} />
+                </span>
               )}
             </>
           );
@@ -143,7 +146,7 @@ const Page = () => {
         name: "type",
         label: `${t("type")}`,
         sortable: true,
-        render: (type) => TranslateStatusOrTypeClient(type),
+        render: (type) => <TranslatableEnum value={type}/>,
       },
       {
         name: "amount",
@@ -204,7 +207,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>{TranslateStatusOrTypeClient("no_data")}</span>
+                <span className={"badge badge-warning"}>
+                  <TranslatableEnum value={"no_data"}/>
+                </span>
               )}
             </>
           );

@@ -37,6 +37,7 @@ import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import AppointmentDeductionStatusColumn from "@/components/admin/appointment-deductions/AppointmentDeductionStatusColumn";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface filterExportType {
   year: string;
@@ -197,7 +198,7 @@ const Page = () => {
                 </div>
               ) : (
                 <span className={"badge badge-warning"}>
-                  {TranslateStatusOrTypeClient("no_data")}
+                  <TranslatableEnum value={"no_data"}/>
                 </span>
               )}
             </>
@@ -219,7 +220,7 @@ const Page = () => {
                 </p>
               ) : (
                 <span className={"badge badge-warning"}>
-                  {TranslateStatusOrTypeClient("no_data")}
+                  <TranslatableEnum value={"no_data"}/>
                 </span>
               )}
             </>
@@ -273,7 +274,7 @@ const Page = () => {
                 </div>
               ) : (
                 <span className={"badge badge-warning"}>
-                  {TranslateStatusOrTypeClient("no_data")}
+                  <TranslatableEnum value={"no_data"}/>
                 </span>
               )}
             </>

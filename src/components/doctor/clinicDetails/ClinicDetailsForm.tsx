@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { Navigate } from "@/Actions/navigate";
@@ -21,6 +21,7 @@ import { SpecialityService } from "@/services/SpecialityService";
 import TextAreaMap from "@/components/common/ui/textArea/TextAreaMap";
 import Gallery from "@/components/common/ui/Gallery";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
   const t = useTranslations("doctor.clinic-details.edit");
@@ -34,7 +35,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           .then((ress) => {
             window.localStorage.setItem(
               "user",
-              JSON.stringify(ress?.data ?? undefined)
+              JSON.stringify(ress?.data ?? undefined),
             );
             return res;
           });
@@ -143,7 +144,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             api={(page, search): Promise<ApiResponse<Hospital>> =>
               HospitalService.make<HospitalService>("doctor").getAllHospital(
                 page,
-                search
+                search,
               )
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
@@ -160,7 +161,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
             placeHolder={"Select Speciality Name ..."}
             api={(page?: number | undefined, search?: string | undefined) =>
               SpecialityService.make<SpecialityService>(
-                "doctor"
+                "doctor",
               ).getAllSpecialities(page, search)
             }
             getOptionLabel={(item) => TranslateClient(item.name)}
@@ -211,7 +212,9 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{TranslateStatusOrTypeClient("no_data")}</span>
+              <span className="text-lg badge badge-neutral">
+                <TranslatableEnum value={"no_data"} />
+              </span>
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@
 
 import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 import {useTranslations} from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const SelectFilter = ({
   data,
@@ -37,7 +38,7 @@ const SelectFilter = ({
         <option value={undefined}>{t("select_item")}</option>
         {data.map((item, index) => (
           <option value={item == "all" ? "" : item} key={index}>
-            {translated ? TranslateStatusOrTypeClient(item) : item}
+            {translated ? (<TranslatableEnum value={item}/>) : item}
           </option>
         ))}
       </select>

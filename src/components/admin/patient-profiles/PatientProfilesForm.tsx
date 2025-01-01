@@ -17,6 +17,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const PatientProfilesForm = ({
   defaultValues = undefined,
@@ -134,7 +135,7 @@ const PatientProfilesForm = ({
             ) : (
               <div className="flex items-center">
                 <label className="label"> {t("image")} : </label>
-                <span className="text-lg badge badge-neutral">{TranslateStatusOrTypeClient("no_data")}</span>
+                <span className="text-lg badge badge-neutral"><TranslatableEnum value={"no_data"}/></span>
               </div>
             )}
           </div>

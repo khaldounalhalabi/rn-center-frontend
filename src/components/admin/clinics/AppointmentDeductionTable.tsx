@@ -27,8 +27,7 @@ import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import {TranslateStatusOrTypeServer} from "@/Helpers/TranslationsServer";
-import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface filterExportType {
   year: string;
@@ -199,7 +198,9 @@ const AppointmentDeductionTable = ({ clinicId }: { clinicId: number }) => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>{TranslateStatusOrTypeClient("no_data")}</span>
+                <span className={"badge badge-warning"}>
+                  <TranslatableEnum value={"no_data"} />
+                </span>
               )}
             </>
           );

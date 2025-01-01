@@ -22,6 +22,7 @@ import { Navigate } from "@/Actions/navigate";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { useTranslations } from "next-intl";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const OfferForm = ({
   defaultValues = undefined,
@@ -158,7 +159,7 @@ const OfferForm = ({
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">
-                {TranslateStatusOrTypeClient("no_data")}
+                <TranslatableEnum value={"no_data"}/>
               </span>
             </div>
           )}

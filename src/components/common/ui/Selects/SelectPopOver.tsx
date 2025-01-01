@@ -6,6 +6,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 import { toast } from "react-toastify";
 import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 export default function SelectPopOver({
   id,
@@ -86,7 +87,7 @@ export default function SelectPopOver({
               }`}
             >
               {translatedStatusTypeItem
-                ? TranslateStatusOrTypeClient(selected)
+                ? <TranslatableEnum value={selected}/>
                 : selected}
             </span>
           </Listbox.Button>
@@ -130,7 +131,7 @@ export default function SelectPopOver({
                         }`}
                       >
                         {translatedStatusTypeItem
-                          ? TranslateStatusOrTypeClient(person)
+                          ? (<TranslatableEnum value={person}/>)
                           : person}
                       </span>
                       {selected ? (

@@ -28,6 +28,7 @@ import { ApiResponse } from "@/Http/Response";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
 import { Value } from "@/components/common/ui/LabelsValues/Value";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const PatientForm = ({
   defaultValues = undefined,
@@ -287,7 +288,9 @@ const PatientForm = ({
               ) : (
                 <div className="flex items-center">
                   <label className="label"> {t("image")} : </label>
-                  <span className="text-lg badge badge-neutral">{TranslateStatusOrTypeClient("no_data")}</span>
+                  <span className="text-lg badge badge-neutral">
+                    <TranslatableEnum value={"no_data"} />
+                  </span>
                 </div>
               )}
             </div>

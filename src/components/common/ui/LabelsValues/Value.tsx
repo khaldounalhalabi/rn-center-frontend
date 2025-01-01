@@ -1,3 +1,4 @@
+"use client";
 import React, { HTMLProps, ReactNode } from "react";
 import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
 

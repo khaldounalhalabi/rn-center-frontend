@@ -30,7 +30,7 @@ const SelectFilter = ({
     <label className={"text-start label flex flex-col items-start"}>
       {label ?? ""}
       <select
-        className={"!text-start select select-bordered !flex-start "}
+        className={"!text-start select select-bordered !flex-start min-w-[150px]"}
         defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
         onChange={onChange ?? false}

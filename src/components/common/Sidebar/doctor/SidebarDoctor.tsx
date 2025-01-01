@@ -140,7 +140,7 @@ const SidebarDoctor = ({
   );
   return (
     <div
-      className={`lg:block sidebar w-full !overflow-visible  min-h-screen overflow-y-hidden lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
+      className={`lg:block sidebar w-full overflow-y-scroll h-screen lg:w-[25%] lg:max-w-[300px]  lg:translate-y-0 z-20 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300 lg:bg-white
        ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
        ${
          openNavBar.sm
@@ -186,7 +186,7 @@ const SidebarDoctor = ({
           />
         </div>
         <ul
-          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform overflow-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform ${openNavBar.md ? " hidden " : ""}`}
         >
           {searchTerm ? (
             filteredItems?.map((item, index) => (
@@ -400,9 +400,9 @@ const SidebarDoctor = ({
         </ul>
       </div>
       <div
-        className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
+        className={`mt-5 ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
-        <ul className={""}>
+        <ul>
           <SidebarIcon link={"/doctor"} title={t("dashboard")}>
             <DashBordIcon className={`h-7 w-7 `} />
           </SidebarIcon>

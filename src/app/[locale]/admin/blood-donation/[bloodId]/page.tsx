@@ -4,7 +4,9 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { BloodDonationService } from "@/services/BloodDonationService";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {
+  TranslateStatusOrTypeServer,
+} from "@/Helpers/TranslationsServer";
 import { BloodDonation } from "@/Models/BloodDonation";
 import { getTranslations } from "next-intl/server";
 
@@ -70,7 +72,12 @@ const page = async ({
         </label>
       </Grid>
       <label className={"label"}>{t("notes")} :</label>
-      <textarea defaultValue={res?.notes ?? "No Data"} disabled={true} />
+      <textarea
+        defaultValue={
+          res?.notes ?? (await TranslateStatusOrTypeServer("no_data"))
+        }
+        disabled={true}
+      />
     </PageCard>
   );
 };

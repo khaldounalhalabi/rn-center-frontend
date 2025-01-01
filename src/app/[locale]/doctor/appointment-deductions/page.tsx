@@ -129,7 +129,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  {TranslateStatusOrTypeClient("no_data")}
+                </span>
               )}
             </>
           );

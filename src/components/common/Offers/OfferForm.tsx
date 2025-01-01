@@ -8,7 +8,10 @@ import { OffersService } from "@/services/OffersService";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
@@ -39,7 +42,7 @@ const OfferForm = ({
     ) {
       return OffersService.make<OffersService>(typePage).update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await OffersService.make<OffersService>(typePage).store(data);
@@ -50,7 +53,7 @@ const OfferForm = ({
   };
   const [locale, setLocale] = useState<"en" | "ar">("en");
   const [typeOffers, setTypeOffers] = useState(
-    defaultValues?.type ?? "percentage"
+    defaultValues?.type ?? "percentage",
   );
   const { image, ...res } = defaultValues ?? { image: [] };
   return (
@@ -154,7 +157,9 @@ const OfferForm = ({
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <span className="text-lg badge badge-neutral">
+                {TranslateStatusOrTypeClient("no_data")}
+              </span>
             </div>
           )}
         </div>

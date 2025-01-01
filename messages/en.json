@@ -1464,7 +1464,8 @@
     "Last Year": "Last Year",
     "Current Month": "Current Month",
     "Current Year": "Current Year",
-    "Custom Date": "Custom Date"
+    "Custom Date": "Custom Date",
+    "no_data": "No data"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1502,6 +1503,8 @@
     "unread_notifications": "Unread notifications",
     "load_more": "Show more",
     "loading": "Loading",
-    "search": "Search"
+    "search": "Search",
+    "arabic": "Arabic",
+    "english": "English"
   }
 }

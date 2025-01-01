@@ -7,6 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { OffersService } from "@/services/OffersService";
 import { Offers } from "@/Models/Offers";
 import { useTranslations } from "next-intl";
+import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 
 const Page = () => {
   const t = useTranslations("admin.offer.table");
@@ -48,7 +49,7 @@ const Page = () => {
                   <span className="badge badge-warning">{t("iqd")}</span>
                 </span>
               ) : (
-                <span className="badge badge-warning">No Data</span>
+                <span className="badge badge-warning">{TranslateStatusOrTypeClient("no_data")}</span>
               )}
             </div>
           );

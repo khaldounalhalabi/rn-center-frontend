@@ -8,6 +8,7 @@ import { SystemOffers } from "@/Models/SystemOffer";
 import Gallery from "@/components/common/ui/Gallery";
 import ClinicTable from "@/components/admin/system-offer/ClinicTable";
 import { getTranslations } from "next-intl/server";
+import { TranslateStatusOrTypeServer } from "@/Helpers/TranslationsServer";
 
 const page = async ({
   params: { systemId },
@@ -63,14 +64,18 @@ const page = async ({
       <textarea
         className="textarea textarea-bordered h-24 w-full"
         disabled={true}
-        defaultValue={res?.description ?? "No Data"}
+        defaultValue={
+          res?.description ?? (await TranslateStatusOrTypeServer("no_data"))
+        }
       />
       {res?.image?.length != 0 ? (
         <Gallery media={res?.image ? res?.image : []} />
       ) : (
         <div className="flex items-center">
           <label className="label"> {t("image")} : </label>
-          <span className="text-lg badge badge-neutral">No Data</span>
+          <span className="text-lg badge badge-neutral">
+            {await TranslateStatusOrTypeServer("no_data")}
+          </span>
         </div>
       )}
       <hr className={"my-4"} />

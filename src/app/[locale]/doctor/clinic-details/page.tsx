@@ -244,7 +244,9 @@ const page = async () => {
           ) : (
             <div className="flex justify-between items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{"No Data"}</span>
+              <span className="text-lg badge badge-neutral">
+                {await TranslateStatusOrTypeServer("no_data")}
+              </span>
             </div>
           )}
         </div>

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
 import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { Navigate } from "@/Actions/navigate";
@@ -211,7 +211,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           ) : (
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">No Data</span>
+              <span className="text-lg badge badge-neutral">{TranslateStatusOrTypeClient("no_data")}</span>
             </div>
           )}
         </div>

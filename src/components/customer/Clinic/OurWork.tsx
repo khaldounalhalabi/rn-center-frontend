@@ -2,8 +2,9 @@ import { Clinic } from "@/Models/Clinic";
 import Gallery from "@/components/common/ui/Gallery";
 import React from "react";
 import Card from "@/components/common/ui/Card";
+import { TranslateStatusOrTypeServer } from "@/Helpers/TranslationsServer";
 
-const OurWork = ({ clinic }: { clinic: Clinic }) => {
+const OurWork = async ({ clinic }: { clinic: Clinic }) => {
   return (
     <Card>
       <div>
@@ -12,7 +13,9 @@ const OurWork = ({ clinic }: { clinic: Clinic }) => {
         ) : (
           <div className="flex items-center">
             <label className="label"> {"Image"} : </label>
-            <span className="text-lg badge badge-neutral">No Data</span>
+            <span className="text-lg badge badge-neutral">
+              {await TranslateStatusOrTypeServer("no_data")}
+            </span>
           </div>
         )}
       </div>

@@ -7,14 +7,14 @@ export const NotificationHandler = ({
   handle,
   children,
   key = undefined,
-  isPermenant = false,
+  isPermanent = false,
 }: {
   handle: (payload: NotificationPayload) => void;
   key?: string;
-  isPermenant?: boolean;
+  isPermanent?: boolean;
   children?: ReactNode;
 }) => {
-  const process = HandleNotification(handle, isPermenant, key);
+  const process = HandleNotification(handle, isPermanent, key);
   useEffect(() => {
     process.process();
   }, []);

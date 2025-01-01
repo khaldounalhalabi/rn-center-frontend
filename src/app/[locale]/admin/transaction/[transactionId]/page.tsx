@@ -3,10 +3,11 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {TranslateStatusOrTypeServer} from "@/Helpers/TranslationsServer";
 import { TransactionService } from "@/services/TransactionService";
 import { Transactions } from "@/Models/Transactions";
 import { getTranslations } from "next-intl/server";
+import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 
 const page = async ({
   params: { transactionId },
@@ -49,7 +50,7 @@ const page = async ({
         <label className="label justify-start text-xl">
           {t("date")} :{" "}
           <span className="ml-2 badge badge-accent  ">
-            {res?.date ?? "No Data"}
+            {res?.date ?? await TranslateStatusOrTypeServer("no_data")}
           </span>
         </label>
       </Grid>

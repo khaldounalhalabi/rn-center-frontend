@@ -2,7 +2,7 @@ import { ApiResponse } from "@/Http/Response";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 
 const TableBody = ({
   tableData,
@@ -40,7 +40,7 @@ const TableBody = ({
                               getNestedPropertyValue(item, schema.name),
                             )
                           : getNestedPropertyValue(item, schema.name) ??
-                            "No Data"}
+                            TranslateStatusOrTypeClient("no_data")}
                       </td>
                     );
                   } else if (schema.render && schema.name) {
@@ -59,7 +59,7 @@ const TableBody = ({
                                 getNestedPropertyValue(item, schema.name),
                               )
                             : getNestedPropertyValue(item, schema.name) ??
-                                "No Data",
+                              TranslateStatusOrTypeClient("no_data"),
                           item,
                           setHidden,
                           revalidate,
@@ -89,7 +89,7 @@ const TableBody = ({
                         }
                         {...schema.cellProps}
                       >
-                        No Data
+                        {TranslateStatusOrTypeClient("no_data")}
                       </td>
                     );
                 })}
@@ -100,7 +100,7 @@ const TableBody = ({
       ) : (
         <tr>
           <td colSpan={tableData.schema.length} className={"text-center p-3"}>
-            No Data
+            {TranslateStatusOrTypeClient("no_data")}
           </td>
         </tr>
       )}

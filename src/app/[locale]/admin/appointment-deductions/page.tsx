@@ -5,7 +5,10 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -193,7 +196,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  {TranslateStatusOrTypeClient("no_data")}
+                </span>
               )}
             </>
           );
@@ -213,7 +218,9 @@ const Page = () => {
                   {TranslateClient(transaction?.clinic?.user?.last_name)}
                 </p>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  {TranslateStatusOrTypeClient("no_data")}
+                </span>
               )}
             </>
           );
@@ -265,7 +272,9 @@ const Page = () => {
                   </Link>
                 </div>
               ) : (
-                <span className={"badge badge-warning"}>No Data</span>
+                <span className={"badge badge-warning"}>
+                  {TranslateStatusOrTypeClient("no_data")}
+                </span>
               )}
             </>
           );

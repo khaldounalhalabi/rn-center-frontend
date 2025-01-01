@@ -1475,7 +1475,8 @@
     "Last Year": "السنة الفائتة",
     "Current Month": "الشهر الحالي",
     "Current Year": "السنة الحالية",
-    "Custom Date": "تاريخ مخصص"
+    "Custom Date": "تاريخ مخصص",
+    "no_data": "لا يوجد بيانات"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1513,6 +1514,8 @@
     "unread_notifications": "إشعارات غير مقروءة",
     "load_more": "عرض المزيد",
     "loading" : "جاري التحميل",
-    "search": "بحث"
+    "search": "بحث",
+    "arabic": "العربية",
+    "english": "الانكليزية"
   }
 }

@@ -72,7 +72,7 @@ const NotificationsPopover = () => {
             refetchCount();
           }
         }}
-        isPermenant={true}
+        isPermanent={true}
       />
       <div
         className={"relative w-8 h-full cursor-pointer"}

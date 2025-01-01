@@ -256,7 +256,7 @@ const PatientForm = ({
       ) : (
         <Label label={t("phone")} col={true}>
           {defaultValues?.phone_numbers?.map((e) => {
-            return <Value>{e}</Value>;
+            return <Value color={"warning-content"}>{e}</Value>;
           })}
         </Label>
       )}
@@ -287,7 +287,7 @@ const PatientForm = ({
               ) : (
                 <div className="flex items-center">
                   <label className="label"> {t("image")} : </label>
-                  <span className="text-lg badge badge-neutral">No Data</span>
+                  <span className="text-lg badge badge-neutral">{TranslateStatusOrTypeClient("no_data")}</span>
                 </div>
               )}
             </div>

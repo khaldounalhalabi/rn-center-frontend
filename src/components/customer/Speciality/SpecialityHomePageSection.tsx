@@ -25,7 +25,7 @@ const SpecialityHomePageSection = async () => {
                   "h-[250px] flex flex-col justify-between p-6 rounded-xl border border-[#F2F1F9]"
                 }
               >
-                <div className={"w-full h-[45%]"}>
+                <div className={"w-full h-[40%]"}>
                   <img
                     className={"w-full h-full rounded-t-xl object-contain"}
                     src={getMedia(speciality.image?.[0])}

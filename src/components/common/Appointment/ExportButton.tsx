@@ -2,6 +2,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
 import HandleExportExcel from "@/hooks/HandleExportExcel";
 import { getCookieClient } from "@/Actions/clientCookies";
+import {useTranslations} from "next-intl";
 
 const ExportButton = ({
   data,
@@ -10,6 +11,7 @@ const ExportButton = ({
   data: { year: string; month: string };
   close: any;
 }) => {
+  const t = useTranslations("components")
   const { isLoading, handleExportData } = HandleExportExcel();
   const token = getCookieClient("token");
   const handleExport = () => {
@@ -32,7 +34,7 @@ const ExportButton = ({
       className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       onClick={handleExport}
     >
-      {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : "Apply"}
+      {isLoading ? <LoadingSpin className={"w-6 h-6"} /> : t("apply")}
     </button>
   );
 };

@@ -187,7 +187,10 @@ function ApiSelect<TResponse, TData>({
   };
 
   return (
-    <div className="relative w-full select-none" ref={fullContainer}>
+    <div
+      className={`relative w-full select-none ${styles?.baseContainerClasses ?? ""}`}
+      ref={fullContainer}
+    >
       <label
         className={`flex ${styles?.labelClasses ?? "label font-medium justify-start select-text"}`}
       >
@@ -317,7 +320,9 @@ function ApiSelect<TResponse, TData>({
           )}
         </div>
       </div>
-      <p className="text-error min-h-5">{validationError}</p>
+      {validationError && (
+        <p className="text-error min-h-5">{validationError}</p>
+      )}
     </div>
   );
 }

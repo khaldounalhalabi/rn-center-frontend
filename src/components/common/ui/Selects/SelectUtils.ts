@@ -51,6 +51,7 @@ export interface IApiSelectProps<TResponse, TData> {
     dropDownItemsContainerClasses?: string;
     dropDownContainerMaxHeight?: number;
     placeholder?: string;
+    baseContainerClasses?:string
   };
   onChange?: (e: ChangeEvent) => void;
   inputProps?: SelectInputProps;

@@ -88,7 +88,7 @@ const SubscriptionForm = ({
 
         <Input
           required={true}
-          unit={t("iqd")}
+          unit={"iqd"}
           type={"number"}
           placeholder={"John"}
           label={t("cost")}

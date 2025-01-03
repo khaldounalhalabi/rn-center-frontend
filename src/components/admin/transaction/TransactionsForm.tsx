@@ -63,7 +63,7 @@ const OfferForm = ({
           label={t("amount")}
           required={true}
           type="number"
-          unit={t("iqd")}
+          unit={"iqd"}
         />
         <DateTimePickerRang
           required={true}

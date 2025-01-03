@@ -2,6 +2,7 @@ import React from "react";
 import PrescriptionsForm from "@/components/common/prescriptions/PrescriptionsForm";
 import { AppointmentService } from "@/services/AppointmentService";
 import { getTranslations } from "next-intl/server";
+import PageCard from "@/components/common/ui/PageCard";
 
 const page = async ({
   params: { appointmentId },
@@ -14,11 +15,10 @@ const page = async ({
       appointmentId,
     );
   return (
-    <div>
+    <PageCard>
       <h2 className="card-title mt-8 ml-8">{t("addPrescription")}</h2>
-
       <PrescriptionsForm appointment={appointment?.data} userType={"doctor"} />
-    </div>
+    </PageCard>
   );
 };
 

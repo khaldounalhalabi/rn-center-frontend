@@ -27,7 +27,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   ...props
 }) => {
   placeholder = undefined;
-  const currentLocale = useLocale() as "en" | "ar" | undefined;
+  const currentLocale = useLocale() as "en" | "ar";
   const [selectedLocale, setSelectedLocale] = useState<Locales>(
     locale ?? currentLocale ?? "en",
   );
@@ -40,8 +40,8 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
   } = useFormContext();
 
   useEffect(() => {
-    setSelectedLocale(locale ?? "en");
-  }, [locale]);
+    setSelectedLocale(locale ?? currentLocale);
+  }, [locale , currentLocale]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = event.target.value;

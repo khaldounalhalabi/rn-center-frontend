@@ -120,6 +120,9 @@ const MultiMedicinesInput = ({
                 required={true}
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}
+                styles={{
+                  baseContainerClasses:"p-2 flex flex-col justify-between h-full"
+                }}
                 api={(page, search) =>
                   MedicineService.make<MedicineService>(
                     userType
@@ -150,7 +153,6 @@ const MultiMedicinesInput = ({
                   onChange={(e) =>
                     handleInputChange(index, e.target.value, "dosage")
                   }
-                  placeholder={"dosage..."}
                   defaultValue={
                     medicines?.[index].dosage
                       ? medicines?.[index].dosage

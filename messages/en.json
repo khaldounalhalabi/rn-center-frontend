@@ -1409,7 +1409,8 @@
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "our_pom": "POM"
+    "our_pom": "POM",
+    "doctor": "Doctor"
   },
   "types_statuses": {
     "active": "Active",
@@ -1479,7 +1480,11 @@
   },
   "units": {
     "min": "min",
-    "IQD": "IQD"
+    "IQD": "IQD",
+    "iqd": "IQD",
+    "%": "%",
+    "day": "day",
+    "month": "month"
   },
   "components": {
     "submit": "Submit",
@@ -1508,6 +1513,7 @@
     "arabic": "Arabic",
     "english": "English",
     "appointment_status_checkin_warning": "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
-    "are_you_sure": "Are you sure?"
+    "are_you_sure": "Are you sure?",
+    "apply": "Apply"
   }
 }

@@ -18,7 +18,7 @@
     "staff": "الطاقم",
     "offers": "العروض",
     "accountantManagement": "الصندوق المحاسبي",
-    "transaction": "العمليات",
+    "transaction": "المعاملات",
     "appointmentDeductions": "استقطاعات النظام",
     "availableDepartments": "الاقسام المتاحة",
     "hospitalsManagement": "إدارة المستشفيات",
@@ -1420,7 +1420,8 @@
     "name": "الاسم",
     "email": "البريد الإلكتروني",
     "message": "الرسالة",
-    "our_pom": "كوكبنا"
+    "our_pom": "كوكبنا",
+    "doctor": "طبيب"
   },
   "types_statuses": {
     "active": "فعال",
@@ -1490,7 +1491,11 @@
   },
   "units": {
     "min": "دقيقة",
-    "IQD": "د.ع"
+    "IQD": "د.ع",
+    "iqd": "د.ع",
+    "%": "%",
+    "day": "يوم",
+    "month": "شهر"
   },
   "components": {
     "submit": "حفظ",
@@ -1519,6 +1524,7 @@
     "arabic": "العربية",
     "english": "الانكليزية",
     "appointment_status_checkin_warning": "تحديد هذا الموعد كموعد عند الطبيب سوف يجعل كل المواعيد السابقة مكتملة",
-    "are_you_sure": "هل أنت متأكد ؟"
+    "are_you_sure": "هل أنت متأكد ؟",
+    "apply": "تطبيق"
   }
 }

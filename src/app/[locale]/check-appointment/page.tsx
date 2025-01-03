@@ -4,19 +4,18 @@ import { getTranslations } from "next-intl/server";
 import CheckAppointmentForm from "@/components/landing/CheckAppointmentForm";
 import Footer from "@/components/landing/Footer";
 
-const navItems = [
-  {
-    title: "Home",
-    link: "/#home",
-  },
-  {
-    link: "#footer",
-    title: "Contact us",
-  },
-];
-
 const Page = async () => {
   const t = await getTranslations("landing");
+  const navItems = [
+    {
+      title: t("home"),
+      link: "/#home",
+    },
+    {
+      link: "#footer",
+      title: t("contact_us"),
+    },
+  ];
   return (
     <Providers>
       <div

@@ -109,7 +109,7 @@ const OfferForm = ({
           label={t("value")}
           required={true}
           type="number"
-          unit={typeOffers == "percentage" ? "%" : t("iqd")}
+          unit={typeOffers == "percentage" ? "%" : "iqd"}
         />
         {typePage == "doctor" ? (
           <div className={`flex gap-5 p-2 items-center`}>

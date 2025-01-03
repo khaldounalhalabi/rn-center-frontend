@@ -1,8 +1,10 @@
 import { SpecialityService } from "@/services/SpecialityService";
 import TranslateServer from "@/Helpers/TranslationsServer";
 import { getMedia } from "@/Models/Media";
+import { getTranslations } from "next-intl/server";
 
 const SpecialityHomePageSection = async () => {
+  const t = await getTranslations("landing");
   const data = await SpecialityService.make<SpecialityService>(
     "public",
   ).indexWithPagination(1, undefined, undefined, undefined, 6);
@@ -20,10 +22,10 @@ const SpecialityHomePageSection = async () => {
               <div
                 key={index}
                 className={
-                  "h-[250px] flex flex-col gap-1 p-6 rounded-xl border border-[#F2F1F9]"
+                  "h-[250px] flex flex-col justify-between p-6 rounded-xl border border-[#F2F1F9]"
                 }
               >
-                <div className={"w-full h-[60%]"}>
+                <div className={"w-full h-[45%]"}>
                   <img
                     className={"w-full h-full rounded-t-xl object-contain"}
                     src={getMedia(speciality.image?.[0])}
@@ -36,8 +38,9 @@ const SpecialityHomePageSection = async () => {
                   }
                 >
                   <p className={"text-[#737791] text-start text-xs md:text-sm"}>
-                    {/*{speciality.clinics_count ?? 0} Doctor*/}
-                    {Math.floor(Math.random() * (100 - 50 + 1) + 50)} Doctor
+                    {/*{speciality.clinics_count ?? 0} {t("doctor")}*/}
+                    {Math.floor(Math.random() * (100 - 50 + 1) + 50)}{" "}
+                    {t("doctor")}
                   </p>
                   <h2
                     className={"text-[#151D48] text-start text-xs md:text-sm"}

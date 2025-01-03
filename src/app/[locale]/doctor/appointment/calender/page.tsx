@@ -196,7 +196,7 @@ const CalendarComponent = () => {
                 <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
                   <Dialog.Title
                     as="h3"
-                    className="font-medium text-gray-900 text-lg leading-6"
+                    className="text-start font-medium text-gray-900 text-lg leading-6"
                   >
                     {t("filters")}
                   </Dialog.Title>

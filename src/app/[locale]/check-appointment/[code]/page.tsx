@@ -12,17 +12,17 @@ import Footer from "@/components/landing/Footer";
 import React from "react";
 
 const Page = async ({ params: { code } }: { params: { code: string } }) => {
+  const t = await getTranslations("landing");
   const navItems = [
     {
-      title: "Home",
+      title: t("home"),
       link: "/#home",
     },
     {
-      link: `/check-appointment/${code}/#footer`,
-      title: "Contact us",
+      link: `#footer`,
+      title: t("contact_us"),
     },
   ];
-  const t = await getTranslations("landing");
   const locale = await getLocale();
   const appointment = (
     await AppointmentService.make<AppointmentService>("public").getByCode(code)

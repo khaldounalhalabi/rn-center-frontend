@@ -15,7 +15,7 @@ const Title = async () => {
       <div id={"home"} className={"flex flex-col items-start px-5 md:px-0"}>
         <HomeTitle />
         <div
-          className={`max-w-[65%] text-wrap opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
+          className={`max-w-[65%] md:max-w-full text-wrap opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
         >
           <p className="text-[#6685A3] rtl:leading-loose">
             {t("give_full_control")} {" "}

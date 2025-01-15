@@ -32,20 +32,8 @@ const CKTextEditor = ({
   } = useFormContext();
   return (
     <>
-      <input {...register(`${name}`)} hidden={true}/>
-      {label && (
-        <label className={"label w-fit"}>
-          {label == SettingKeysEnum.ContactNumber1
-            ? t("ContactNumber1")
-            : label == SettingKeysEnum.ContactNumber2
-              ? t("ContactNumber2")
-              : label == SettingKeysEnum.TermsAndServices
-                ? t("TermsAndServices")
-                : label == SettingKeysEnum.DaysBeforeExpirationNotification
-                  ? t("DaysBefore")
-                  : t("ZainCashNumber")}
-        </label>
-      )}
+      <input {...register(`${name}`)} hidden={true} />
+      {label && <label className={"label w-fit"}>{label}</label>}
       <CKEditor
         // @ts-ignore
         editor={ClassicEditor}
@@ -54,7 +42,7 @@ const CKTextEditor = ({
             items: ["undo", "redo", "|", "bold", "italic"],
           },
           plugins: [Bold, Essentials, Italic, Mention, Paragraph, Undo],
-          initialData: defaultValue ?? "<p>Put your thoughts here</p>",
+          initialData: defaultValue ?? "",
         }}
         onChange={(event, editor) => {
           setValue(name, editor.getData());

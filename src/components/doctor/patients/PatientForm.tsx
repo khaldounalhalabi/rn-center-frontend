@@ -89,7 +89,7 @@ const PatientForm = ({
       ) : (
         ""
       )}
-      <Grid md={"2"}>
+      <Grid md={"3"}>
         {type != "update" ? (
           <TranslatableInput
             required={true}
@@ -138,6 +138,71 @@ const PatientForm = ({
             color={"warning"}
           />
         )}
+      </Grid>
+      <Grid md={"2"}>
+        {type != "update" ? (
+          <ApiSelect
+            required={true}
+            name={"address.city_id"}
+            label={t("city")}
+            placeHolder={"Select City Name ..."}
+            api={(page?: number | undefined, search?: string | undefined) =>
+              CityService.make<CityService>("doctor").getAllCities(page, search)
+            }
+            getOptionLabel={(item) => TranslateClient(item.name)}
+            optionValue={"id"}
+            defaultValues={
+              defaultValues?.address?.city
+                ? [defaultValues?.address?.city]
+                : doctor?.address?.city
+                  ? [doctor?.address?.city]
+                  : []
+            }
+          />
+        ) : (
+          <LabelValue
+            label={t("city")}
+            value={TranslateClient(defaultValues?.address?.city?.name)}
+          />
+        )}
+        {type != "update" ? (
+          <TranslatableInput
+            required={false}
+            locales={["en", "ar"]}
+            type={"text"}
+            label={t("address")}
+            name={"address.name"}
+            locale={locale}
+            defaultValue={defaultValues ? defaultValues?.address?.name : ""}
+          />
+        ) : (
+          <LabelValue
+            label={t("address")}
+            value={TranslateClient(defaultValues?.address?.name)}
+            color={"neutral"}
+          />
+        )}
+      </Grid>
+      {type != "update" ? (
+        <MultiInput
+          type={"tel"}
+          name={"phone_numbers"}
+          label={t("phone")}
+          required={true}
+          maxFields={2}
+        />
+      ) : (
+        <Label label={t("phone")} col={true}>
+          {defaultValues?.phone_numbers?.map((e, index) => {
+            return (
+              <Value key={index} color={"warning-content"}>
+                {e}
+              </Value>
+            );
+          })}
+        </Label>
+      )}
+      <Grid md={"2"}>
         {appointment ? (
           ""
         ) : type == "update" ? (
@@ -202,65 +267,6 @@ const PatientForm = ({
         )}
       </Grid>
 
-      <Grid md={2}>
-        {type != "update" ? (
-          <TranslatableInput
-            required={false}
-            locales={["en", "ar"]}
-            type={"text"}
-            label={t("address")}
-            name={"address.name"}
-            locale={locale}
-            defaultValue={defaultValues ? defaultValues?.address?.name : ""}
-          />
-        ) : (
-          <LabelValue
-            label={t("address")}
-            value={TranslateClient(defaultValues?.address?.name)}
-            color={"neutral"}
-          />
-        )}
-        {type != "update" ? (
-          <ApiSelect
-            required={true}
-            name={"address.city_id"}
-            label={t("city")}
-            placeHolder={"Select City Name ..."}
-            api={(page?: number | undefined, search?: string | undefined) =>
-              CityService.make<CityService>("doctor").getAllCities(page, search)
-            }
-            getOptionLabel={(item) => TranslateClient(item.name)}
-            optionValue={"id"}
-            defaultValues={
-              defaultValues?.address?.city
-                ? [defaultValues?.address?.city]
-                : doctor?.address?.city
-                  ? [doctor?.address?.city]
-                  : []
-            }
-          />
-        ) : (
-          <LabelValue
-            label={t("city")}
-            value={TranslateClient(defaultValues?.address?.city?.name)}
-          />
-        )}
-      </Grid>
-      {type != "update" ? (
-        <MultiInput
-          type={"tel"}
-          name={"phone_numbers"}
-          label={t("phone")}
-          required={true}
-          maxFields={2}
-        />
-      ) : (
-        <Label label={t("phone")} col={true}>
-          {defaultValues?.phone_numbers?.map((e,index) => {
-            return <Value key={index} color={"warning-content"}>{e}</Value>;
-          })}
-        </Label>
-      )}
       {appointment ? (
         ""
       ) : (

@@ -48,9 +48,10 @@ const AppointmentSpeechButton = ({
   };
 
   return (
-    <button className="btn btn-sm btn-square">
-      <SpeechIcon className="w-6 h-6 text-black" onClick={speak} />
-    </button>
+    // <button className="btn btn-sm btn-square">
+    //   <SpeechIcon className="w-6 h-6 text-black" onClick={speak} />
+    // </button>
+    <></>
   );
 };
 

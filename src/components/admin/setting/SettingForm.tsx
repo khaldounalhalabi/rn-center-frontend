@@ -14,7 +14,8 @@ import CKTextEditor from "@/components/common/ui/CKEditor";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
-import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
   const t = useTranslations("admin.setting");
@@ -28,13 +29,15 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
         return res;
       });
   };
-  const { image, ...res } = defaultValues ?? { image: TranslateStatusOrTypeClient("no_data") };
+  const { image, ...res } = defaultValues ?? {
+    image: TranslateStatusOrTypeClient("no_data"),
+  };
   return (
     <Form handleSubmit={handleSubmit} defaultValues={res}>
       {EditorRequiredSettings.includes(defaultValues.label) ? (
         <CKTextEditor
           name={"value"}
-          label={defaultValues?.label?.replace(/_/g, " ")}
+          label={TranslateStatusOrTypeClient(defaultValues?.label)}
           defaultValue={defaultValues ? defaultValues?.value : undefined}
         />
       ) : SettingKeysEnum.ZainCashQr === defaultValues.label ? (
@@ -46,21 +49,24 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
               />
             ) : (
               <div className="flex items-center">
-                <label className="label"> {t("image")} : </label>
+                <label className="label">
+                  {" "}
+                  <TranslatableEnum value={defaultValues.label} /> :{" "}
+                </label>
                 <span className="text-lg badge badge-neutral">
                   {t("noData")}
                 </span>
               </div>
             )}
           </div>
-          <ImageUploader name={"image"} label={t("image")} />
+          <ImageUploader name={"image"} label={TranslateStatusOrTypeClient(defaultValues?.label)} />
         </>
       ) : (
         <Grid md={2}>
           <Input
             required={true}
             name={"value"}
-            label={defaultValues?.label?.replace(/_/g, " ")}
+            label={TranslateStatusOrTypeClient(defaultValues?.label)}
             placeholder={"value ...."}
             type="text"
             defaultValue={defaultValues ? defaultValues?.value : undefined}

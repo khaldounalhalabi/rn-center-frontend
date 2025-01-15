@@ -159,7 +159,7 @@ const AppointmentStatusColumn = ({
                 <Textarea
                   name={"cancellation_reason"}
                   required={true}
-                  label={"Cancellation Reason"}
+                  label={t("cancellation_reason")}
                 />
               </Form>
             </Dialog.Panel>

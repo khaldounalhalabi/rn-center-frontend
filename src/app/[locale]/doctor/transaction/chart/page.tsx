@@ -117,6 +117,7 @@ const Page: React.FC = () => {
                   return setDataRange(date);
                 }
               }}
+              translated={true}
             />
           </div>
           <Grid md={2}>

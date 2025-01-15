@@ -5,7 +5,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import React from "react";
 import { getMedia } from "@/Models/Media";
 import RoundedImage from "@/components/common/RoundedImage";
-import TranslateServer from "@/Helpers/TranslationsServer";
+import TranslateServer, {TranslateStatusOrTypeServer} from "@/Helpers/TranslationsServer";
 import { StaffService } from "@/services/StaffService";
 import { Phone } from "@/Models/Phone";
 import Grid from "@/components/common/ui/Grid";
@@ -84,7 +84,7 @@ const page = async ({
           value={await TranslateServer(res?.address?.city?.name)}
           color={"secondary"}
         />
-        <LabelValue label={t("gender")} value={res?.gender} />
+        <LabelValue label={t("gender")} value={await TranslateStatusOrTypeServer(res?.gender)} />
         <LabelValue label={t("blood")} value={res?.blood_group} />
         <LabelValue
           label={t("isBlocked")}

@@ -49,7 +49,7 @@ const Footer = () => {
             <Link
               target={"_blank"}
               href={
-                "https://www.instagram.com/planetofmedicine/profilecard/?igsh=MWQyMjFsamExcXYwZg=="
+                "https://www.instagram.com/planetofmedicine"
               }
             >
               <InstagramIcon />

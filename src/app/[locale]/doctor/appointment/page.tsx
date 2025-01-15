@@ -234,9 +234,9 @@ const Page = () => {
               showUrl={`/doctor/appointment/${data?.id}`}
               setHidden={setHidden}
             >
-              <>
-                <AppointmentSpeechButton message={message} language={lang} />
-              </>
+              {/*<>*/}
+              {/*  <AppointmentSpeechButton message={message} language={lang} />*/}
+              {/*</>*/}
             </ActionsButtons>
           );
         },

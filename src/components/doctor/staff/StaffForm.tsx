@@ -408,13 +408,13 @@ const StaffForm = ({
           ) : (
             <div className="flex justify-between items-center">
               <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{"No Image"}</span>
+              <span className="text-lg badge badge-neutral">{t("no_image")}</span>
             </div>
           )
         ) : (
           ""
         )}
-        <ImageUploader name={"image"} label={t("icon")} />
+        <ImageUploader name={"image"} label={t("image")} />
         {type == "update" && role != "clinic-employee" ? (
           <button
             type="button"

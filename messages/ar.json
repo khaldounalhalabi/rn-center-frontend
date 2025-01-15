@@ -35,7 +35,7 @@
     "contract": "العقد",
     "join_requests": "طلبات الانضمام",
     "clinic_management": "إدارة العيادة",
-    "search" : "بحث"
+    "search": "بحث"
   },
   "admin": {
     "clinic": {
@@ -793,7 +793,8 @@
         "mapIframe": "الموقع على الخريطة",
         "image": "الصورة",
         "gender": "الجنس",
-        "icon": "الأيقونة"
+        "icon": "الأيقونة",
+        "no_image": "لا يوجد صورة"
       },
       "show": {
         "staffDetails": "تفاصيل الموظف",
@@ -911,7 +912,8 @@
         "clinic_details": "بيانات العيادة",
         "clinic_name": "اسم العيادة",
         "update_date": "تعديل التاريخ",
-        "clinic_appointment_cost": "كلفة الموعد في العيادة"
+        "clinic_appointment_cost": "كلفة الموعد في العيادة",
+        "cancellation_reason": "سبب الإلغاء"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
@@ -988,7 +990,7 @@
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشف",
         "actions": "الخيارات",
-        "delete_profile_warning": "حذف هذا السجل سيحذف فقط البيانات الطبية الخاصة بالمريض و ليس مله الكامل"
+        "delete_profile_warning": "يؤدي هذا الاجراء لحذف البيانات الطبية الخاصة بالمريض و ليس ملفه بالكامل"
       },
       "show": {
         "patientDetails": "تفاصيل المريض",
@@ -1233,7 +1235,7 @@
       "todayRegisteredPatients": "المرضى المسجلين اليوم",
       "totalAppointments": "مجموع الحجوزات",
       "todayAppointments": "حجوزات اليوم",
-      "nextAppointments": "الماعيد القادمة",
+      "nextAppointments": "الحجوزات القادمة",
       "monthlyAppointments": "الحجوزات الشهرية",
       "earningsFromAppointments": "الدخل من الحجوزات",
       "completedAppointments": "الحجوزات المكتملة",
@@ -1464,8 +1466,8 @@
     "female": "أنثى",
     "percentage": "نسبة مئوية",
     "fixed": "قيمة ثابتة",
-    "income": "مدخول",
-    "outcome": "مصروف",
+    "income": "وارد",
+    "outcome": "صادر",
     "system_debt": "دين للنظام",
     "debt_to_me": "دين لي",
     "system debt": "دين للنظام",
@@ -1478,7 +1480,15 @@
     "Current Year": "السنة الحالية",
     "Custom Date": "تاريخ مخصص",
     "no_data": "لا يوجد بيانات",
-    "status_changed": "تم تغيير الحالة"
+    "status_changed": "تم تغيير الحالة",
+    "terms_of_service": "بنود الخدمة",
+    "zain_cash_number": "رقم زين كاش",
+    "contact_number_1": "هاتف التواصل 1",
+    "contact_number_2": "هاتف التواصل 2",
+    "days_before_notify_for_expiration": "الأيام قبل الإشعار بانتهاء الاشتراك",
+    "clinic_contract": "عقد العيادة",
+    "zain_cash_qr": "رمز QR لزين كاش",
+    "payment_way_description": "شرح حول طريقة الدفع"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1519,12 +1529,13 @@
     "you_have": "لديك",
     "unread_notifications": "إشعارات غير مقروءة",
     "load_more": "عرض المزيد",
-    "loading" : "جاري التحميل",
+    "loading": "جاري التحميل",
     "search": "بحث",
     "arabic": "العربية",
     "english": "الانكليزية",
     "appointment_status_checkin_warning": "تحديد هذا الموعد كموعد عند الطبيب سوف يجعل كل المواعيد السابقة مكتملة",
     "are_you_sure": "هل أنت متأكد ؟",
-    "apply": "تطبيق"
+    "apply": "تطبيق",
+    "cancellation_reason": "سبب الإلغاء"
   }
 }

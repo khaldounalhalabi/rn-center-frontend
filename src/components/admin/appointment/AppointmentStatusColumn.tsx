@@ -11,8 +11,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import {TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { useTranslations } from "next-intl";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -26,6 +26,7 @@ const AppointmentStatusColumn = ({
   const [selected, setSelected] = useState(appointmentState?.status);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("components");
   const handleSelectStatus = (
     status: string,
     id: number,
@@ -35,13 +36,14 @@ const AppointmentStatusColumn = ({
     if (status == AppointmentStatusEnum.CHECKIN) {
       swal
         .fire({
-          title: "Are you sure?",
-          text: "marking this appointment as checkin will cause all previous appointments which marked as checkin to be checkout!",
+          title: t("are_you_sure"),
+          text: t("appointment_status_checkin_warning"),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
+          confirmButtonText: t("yes"),
+          cancelButtonText: t("cancel"),
         })
         .then((result) => {
           if (result.isConfirmed) {

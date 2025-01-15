@@ -791,7 +791,8 @@
         "mapIframe": "Map iframe",
         "image": "Image",
         "gender": "Gender",
-        "icon": "Icon"
+        "icon": "Icon",
+        "no_image": "No Image"
       },
       "show": {
         "staffDetails": "Staff Details",
@@ -901,7 +902,8 @@
         "clinic_details": "Clinic details",
         "clinic_name": "Clinic name",
         "update_date": "Update date",
-        "clinic_appointment_cost": "Clinic appointment cost"
+        "clinic_appointment_cost": "Clinic appointment cost",
+        "cancellation_reason": "Cancellation Reason"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",
@@ -1134,7 +1136,8 @@
         "clinicBalance": "Clinic Balance",
         "balance": "Balance",
         "pendingAmount": "Pending Amount",
-        "export": "Export to excel"
+        "export": "Export to excel",
+        "iqd": "IQD"
       },
       "create": {
         "addTransaction": "Add Transaction",
@@ -1467,7 +1470,15 @@
     "Current Year": "Current Year",
     "Custom Date": "Custom Date",
     "no_data": "No data",
-    "status_changed": "Status changed"
+    "status_changed": "Status changed",
+    "terms_of_service": "Terms of service",
+    "zain_cash_number": "Zain cash number",
+    "contact_number_1": "Contact phone 1",
+    "contact_number_2": "Contact phone 2",
+    "days_before_notify_for_expiration": "Days count before notify the user of his expired subscription",
+    "clinic_contract": "Clinic contract",
+    "zain_cash_qr": "Zain cash QR code",
+    "payment_way_description": "Description about how to pay"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1514,6 +1525,7 @@
     "english": "English",
     "appointment_status_checkin_warning": "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
     "are_you_sure": "Are you sure?",
-    "apply": "Apply"
+    "apply": "Apply",
+    "cancellation_reason": "Cancellation Reason"
   }
 }

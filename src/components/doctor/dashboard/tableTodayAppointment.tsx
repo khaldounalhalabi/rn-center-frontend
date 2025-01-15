@@ -158,7 +158,7 @@ const TableTodayAppointment = () => {
               setHidden={setHidden}
             >
               <>
-                <AppointmentSpeechButton message={message} language={lang} />
+                {/*<AppointmentSpeechButton message={message} language={lang} />*/}
               </>
             </ActionsButtons>
           );

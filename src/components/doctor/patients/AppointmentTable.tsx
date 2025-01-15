@@ -163,7 +163,7 @@ const AppointmentTable = ({ customer }: { customer: Customer }) => {
                     }
                   }}
                 />
-                <AppointmentSpeechButton message={message} language={lang} />
+                {/*<AppointmentSpeechButton message={message} language={lang} />*/}
               </>
             </ActionsButtons>
           );

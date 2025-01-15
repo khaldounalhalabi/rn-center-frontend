@@ -1,3 +1,4 @@
+"use client";
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import Form from "@/components/common/ui/Form";
@@ -6,6 +7,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 import { toast } from "react-toastify";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { useTranslations } from "next-intl";
 
 export default function SelectPopOver({
   id,
@@ -28,6 +30,7 @@ export default function SelectPopOver({
 }) {
   const [selected, setSelected] = useState(status);
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("components");
 
   function closeModal() {
     setIsOpen(false);
@@ -165,7 +168,7 @@ export default function SelectPopOver({
                 <Textarea
                   name={"cancellation_reason"}
                   required={true}
-                  label={"Cancellation Reason"}
+                  label={t("cancellation_reason")}
                 />
               </Form>
             </Dialog.Panel>

@@ -564,7 +564,7 @@ const AppointmentForm = ({
         />
         {status == AppointmentStatusEnum.CANCELLED ? (
           <Textarea
-            label={"Cancellation Reason"}
+            label={t("cancellation_reason")}
             name={"cancellation_reason"}
           />
         ) : (

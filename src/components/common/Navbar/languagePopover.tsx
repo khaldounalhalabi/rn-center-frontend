@@ -4,8 +4,7 @@ import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
-import { usePathname, useRouter } from "@/navigation";
-import { useSearchParams } from "next/navigation";
+import { Link, usePathname } from "@/navigation";
 import { useTranslations } from "next-intl";
 
 const LanguagePopover = () => {
@@ -15,14 +14,7 @@ const LanguagePopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopLang);
   }, []);
-  const router = useRouter();
   const pathname = usePathname();
-  const params = useSearchParams();
-  const setLanguage = (locale: string) => {
-    router.replace(pathname + `?${params.toString()}`, {
-      locale: locale,
-    });
-  };
 
   return (
     <div
@@ -48,24 +40,22 @@ const LanguagePopover = () => {
         role="menu"
       >
         <div>
-          <button
-            onClick={() => setLanguage("en")}
-            className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
-          >
-            <img
-              className="w-7 h-7"
-              src="https://img.icons8.com/color/48/usa.png"
-              alt="usa"
-            />
-            <h3>{t("english")}</h3>
-          </button>
-          <button
-            onClick={() => setLanguage("ar")}
-            className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer"
-          >
-            <IraqFlagIcon className={"w-7 h-7"} />
-            <h3>{t("arabic")}</h3>
-          </button>
+          <Link href={pathname} locale={"en"}>
+            <button className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer">
+              <img
+                className="w-7 h-7"
+                src="https://img.icons8.com/color/48/usa.png"
+                alt="usa"
+              />
+              <h3>{t("english")}</h3>
+            </button>
+          </Link>
+          <Link href={pathname} locale={"ar"}>
+            <button className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer">
+              <IraqFlagIcon className={"w-7 h-7"} />
+              <h3>{t("arabic")}</h3>
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -186,7 +186,7 @@ const SidebarDoctor = ({
           />
         </div>
         <ul
-          className={` space-y-1 mt-2 px-4 pt-3 pb-6 h-[calc(100vh-64px)] text-black ease-in-out duration-500 transform ${openNavBar.md ? " hidden " : ""}`}
+          className={`h-full overflow-y-scroll space-y-1 mt-2 px-4 pt-3 pb-6 text-black ease-in-out duration-500 transform ${openNavBar.md ? " hidden " : ""}`}
         >
           {searchTerm ? (
             filteredItems?.map((item, index) => (

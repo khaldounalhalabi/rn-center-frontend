@@ -2,17 +2,8 @@ import { UseFormReturn } from "react-hook-form";
 import { sanitizeString } from "@/Helpers/ObjectHelpers";
 
 export enum ApiErrorType {
-  CONNECTION_ERROR = "connection-error",
-  UNAUTHORIZED = "unauthorized",
-  UNAUTHENTICATED = "unAuthenticated",
-  BadRequestException = "BadRequestException",
   UNKNOWN_ERROR = "unknown-error",
-  NOT_FOUND = "not-found",
-  Validation = "error-validation",
-  NotRegister = "not-register",
-  Admin = "admin",
   Customer = "customer",
-  Doctor = "doctor",
 }
 
 export interface ValidationError {
@@ -36,7 +27,6 @@ export class ApiResponse<T> {
   public code: number;
   public message: string | ValidationError | undefined | null;
   public paginate: ApiResponsePagination | undefined | null;
-  public blob?: any;
   public headers?: any;
 
   constructor(

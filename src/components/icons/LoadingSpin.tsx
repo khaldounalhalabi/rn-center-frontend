@@ -1,5 +1,4 @@
 import { IconAttributes } from "@/types/IconAttributes";
-import React from "react";
 
 const LoadingSpin: ({ ...props }: IconAttributes) => React.JSX.Element = ({
   ...props

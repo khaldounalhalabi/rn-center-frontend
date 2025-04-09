@@ -11,36 +11,27 @@ import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicIcon from "@/components/icons/ClinicIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
 import SchedulesIcon from "@/components/icons/SchedulesIcon";
-import HolidaysIcon from "@/components/icons/HolidaysIcon";
 import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
-import HospitalsIcon from "@/components/icons/HospitalsIcon";
 import CategoryIcon from "@/components/icons/CategoryIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
-import UsersIcon from "@/components/icons/UsersIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
-import SubscriptionIcon from "@/components/icons/SubscriptionIcon";
-import BlockedItemIcon from "@/components/icons/BlockedItemIcon";
-import EnquirieIcon from "@/components/icons/EnquirieIcon";
-import OfferIcon from "@/components/icons/OfferIcon";
 import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
 import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
-import BloodIcon from "@/components/icons/BloodIcon";
-import CompactHospitalIcon from "@/components/icons/CompactHospitalIcon";
-import AvailableDepartmentIcon from "@/components/icons/AvailableDepartmentIcon";
-import SystemOfferIcon from "@/components/icons/SystemOfferIcon";
 import SidebarEnIcon from "@/components/icons/SidebarIconEn";
-import CompacTransactiontIcon from "@/components/icons/CompacTransactiontIcon";
-import AppointmentDeductionstIcon from "@/components/icons/AppointmentDeductionIcon";
-import SettingIcon from "@/components/icons/SettingIcon";
 import SidebarArIcon from "@/components/icons/SidebarArIcon";
-import SettingManagementIcon from "@/components/icons/SettingManagementIcon";
 import ServiceManagementIcon from "@/components/icons/ServiceManagementIcon";
-import OffersManagementIcon from "@/components/icons/OffersManagementIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
-import PlusIcon from "@/components/icons/PlusIcon";
+
+interface SidebarItem {
+  search: string;
+  title: string;
+  link?: string;
+  children?: SidebarItem[];
+  icon?: any;
+}
 
 const SidebarAdmin = ({
   openNavBar,
@@ -58,129 +49,116 @@ const SidebarAdmin = ({
   const t = useTranslations("sideBar");
   const local = useLocale();
 
-  // @ts-ignore
   const [searchTerm, setSearchTerm] = useState("");
 
-  const sidebarItems = [
+  const sidebarItems: SidebarItem[] = [
     {
       search: t("dashboard"),
       title: t("dashboard"),
       link: "/admin",
+      icon: <DashBordIcon className={`h-7 w-7 `} />,
     },
     {
-      search: t("clinics"),
-      title: t("clinics"),
-      link: "/admin/clinics",
-    },
-    {
-      search: t("clinicsSchedules"),
-      title: t("clinicsSchedules"),
-      link: "/admin/clinics/schedules",
-    },
-    {
-      search: t("clinicsHolidays"),
-      title: t("clinicsHolidays"),
-      link: "/admin/clinics/holidays",
-    },
-    {
-      search: t("subscriptions"),
-      title: t("subscriptions"),
-      link: "/admin/subscriptions",
-    },
-    {
-      search: t("specialties"),
-      title: t("specialties"),
-      link: "/admin/speciality",
-    },
-    {
-      search: t("medicines"),
-      title: t("medicines"),
-      link: "/admin/medicines",
+      search: t("clinicsManagement"),
+      title: t("clinicsManagement"),
+      link: undefined,
+      icon: <ClinicIcon className={`h-9 w-9 `} />,
+      children: [
+        {
+          search: t("clinics"),
+          title: t("clinics"),
+          link: "/admin/clinics",
+          children: undefined,
+          icon: <ClinicsShowIcon className={`h-6 w-6 mx-2`} />,
+        },
+        {
+          search: t("clinicsSchedules"),
+          title: t("clinicsSchedules"),
+          link: "/admin/clinics/schedules",
+          children: undefined,
+          icon: <SchedulesIcon className={`h-6 w-6 mx-2`} />,
+        },
+        {
+          search: t("specialties"),
+          title: t("specialties"),
+          link: "/admin/speciality",
+          children: undefined,
+          icon: <SpecialitiesIcon className={`h-8 w-8`} />,
+        },
+        {
+          search: t("medicines"),
+          title: t("medicines"),
+          link: "/admin/medicines",
+          children: undefined,
+          icon: <MedicineIcon className={`h-8 w-8`} />,
+        },
+      ],
     },
     {
       search: t("appointment"),
       title: t("appointment"),
       link: "/admin/appointment",
+      children: undefined,
+      icon: <AppointmentIcon className={`h-8 w-8`} />,
     },
     {
-      search: t("patients"),
-      title: t("patients"),
-      link: "/admin/patients",
-    },
-    {
-      search: t("patientProfiles"),
-      title: t("patientProfiles"),
-      link: "/admin/patient-profiles",
-    },
-    {
-      search: t("offers"),
-      title: t("offers"),
-      link: "/admin/offer",
-    },
-    {
-      search: t("systemOffers"),
-      title: t("systemOffers"),
-      link: "/admin/system-offer",
+      search: t("patientsManagement"),
+      title: t("patientsManagement"),
+      link: undefined,
+      icon: <PatientMangerIcon className={`h-9 w-9 `} />,
+      children: [
+        {
+          search: t("patients"),
+          title: t("patients"),
+          link: "/admin/patients",
+          children: undefined,
+          icon: <PatientIcon className={`h-7 w-7`} />,
+        },
+        {
+          search: t("patientProfiles"),
+          title: t("patientProfiles"),
+          link: "/admin/patient-profiles",
+          children: undefined,
+          icon: <PatientProfilesIcon className={`h-7 w-7`} />,
+        },
+      ],
     },
     {
       search: t("services"),
       title: t("services"),
-      link: "/admin/service",
-    },
-    {
-      search: t("serviceCategories"),
-      title: t("serviceCategories"),
-      link: "/admin/category",
-    },
-    {
-      search: t("hospitals"),
-      title: t("hospitals"),
-      link: "/admin/hospitals",
-    },
-    {
-      search: t("availableDepartments"),
-      title: t("availableDepartments"),
-      link: "/admin/hospital-departments",
-    },
-    {
-      search: t("users"),
-      title: t("users"),
-      link: "/admin/user",
-    },
-    {
-      search: t("bloodDonation"),
-      title: t("bloodDonation"),
-      link: "/admin/blood-donation",
-    },
-    {
-      search: t("enquiries"),
-      title: t("enquiries"),
-      link: "/admin/enquiries",
-    },
-    {
-      search: t("settings"),
-      title: t("settings"),
-      link: "/admin/setting",
-    },
-    {
-      search: t("appointmentDeductions"),
-      title: t("appointmentDeductions"),
-      link: "/admin/appointment-deductions",
+      link: undefined,
+      icon: <ServiceManagementIcon className={`h-9 w-9 `} />,
+      children: [
+        {
+          search: t("services"),
+          title: t("services"),
+          link: "/admin/service",
+          children: undefined,
+          icon: <ServiceIcon className={`h-8 w-8`} />,
+        },
+        {
+          search: t("serviceCategories"),
+          title: t("serviceCategories"),
+          link: "/admin/category",
+          children: undefined,
+          icon: <CategoryIcon className={`h-8 w-8`} />,
+        },
+      ],
     },
     {
       search: t("transaction"),
       title: t("transaction"),
       link: "/admin/transaction",
-    },
-    {
-      search: t("join_requests"),
-      title: t("join_requests"),
-      link: "/admin/transaction",
+      icon: <TransactionIcon className={`h-8 w-8 `} />,
     },
   ];
 
-  const filteredItems = sidebarItems.filter((item) =>
-    item.search.toLowerCase().includes(searchTerm.toLowerCase()),
+  const filteredItems = sidebarItems.filter(
+    (item) =>
+      item.search.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item?.children?.map((child) =>
+        child.search?.toLowerCase()?.includes(searchTerm.toLowerCase()),
+      )?.length,
   );
 
   return (
@@ -247,234 +225,38 @@ const SidebarAdmin = ({
             ))
           ) : (
             <>
-              <SidebarItem
-                setOpenNavBar={setOpenNavBar}
-                openNavBar={openNavBar}
-                link={"/admin"}
-              >
-                {" "}
-                {t("dashboard")}
-              </SidebarItem>
-              <SidebarCompactItem
-                title={t("clinicsManagement")}
-                links={[
-                  "/admin/clinics",
-                  "/admin/clinics/schedules",
-                  "/admin/clinics/holidays",
-                  "/admin/subscriptions",
-                  "/admin/speciality",
-                  "/admin/medicines",
-                ]}
-              >
-                <div className="flex flex-col">
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/clinics"}
-                  >
-                    {" "}
-                    {t("clinics")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/clinics/schedules"}
-                  >
-                    {t("clinicsSchedules")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/clinics/holidays"}
-                  >
-                    {t("clinicsHolidays")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/subscriptions"}
-                  >
-                    {t("subscriptions")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/speciality"}
-                  >
-                    {t("specialties")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/medicines"}
-                  >
-                    {t("medicines")}
-                  </SidebarItem>
-                </div>
-              </SidebarCompactItem>
-              <div className="flex flex-col">
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/appointment"}
-                >
-                  {t("appointment")}
-                </SidebarItem>
-                <SidebarCompactItem
-                  title={t("patientsManagement")}
-                  links={["/admin/patients", "/admin/patient-profiles"]}
-                >
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/patients"}
-                  >
-                    {t("patients")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/patient-profiles"}
-                  >
-                    {t("patientProfiles")}
-                  </SidebarItem>
-                </SidebarCompactItem>
-
-                <SidebarCompactItem
-                  title={t("offersManagement")}
-                  links={["/admin/offer", "/admin/system-offer"]}
-                >
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/offer"}
-                  >
-                    {t("offers")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/system-offer"}
-                  >
-                    {t("systemOffers")}
-                  </SidebarItem>
-                </SidebarCompactItem>
-                <SidebarCompactItem
-                  title={t("accountantManagement")}
-                  links={[
-                    "/admin/transaction",
-                    "/admin/appointment-deductions",
-                  ]}
-                >
-                  <div className="flex flex-col">
-                    <SidebarItem
-                      setOpenNavBar={setOpenNavBar}
-                      openNavBar={openNavBar}
-                      link={"/admin/transaction"}
+              {sidebarItems.map((item, index) => {
+                if (item.children) {
+                  return (
+                    <SidebarCompactItem
+                      key={index * 40}
+                      links={item.children.map((child) => child.link ?? "")}
+                      title={item.title}
                     >
-                      {t("transaction")}
-                    </SidebarItem>
-                    <SidebarItem
-                      setOpenNavBar={setOpenNavBar}
-                      openNavBar={openNavBar}
-                      link={"/admin/appointment-deductions"}
-                    >
-                      {t("appointmentDeductions")}
-                    </SidebarItem>
-                  </div>
-                </SidebarCompactItem>
-
-                <SidebarCompactItem
-                  title={t("services")}
-                  links={["/admin/category", "/admin/service"]}
-                >
-                  <div className="flex flex-col">
-                    <SidebarItem
-                      setOpenNavBar={setOpenNavBar}
-                      openNavBar={openNavBar}
-                      link={"/admin/category"}
-                    >
-                      {t("serviceCategories")}
-                    </SidebarItem>
-                    <SidebarItem
-                      setOpenNavBar={setOpenNavBar}
-                      openNavBar={openNavBar}
-                      link={"/admin/service"}
-                    >
-                      {t("services")}
-                    </SidebarItem>
-                  </div>
-                </SidebarCompactItem>
-
-                <SidebarCompactItem
-                  title={t("hospitalsManagement")}
-                  links={["/admin/hospitals", "/admin/hospital-departments"]}
-                >
+                      {item.children.map((child, childIndex) => (
+                        <SidebarItem
+                          key={childIndex * 10}
+                          openNavBar={openNavBar}
+                          setOpenNavBar={setOpenNavBar}
+                          link={child.link}
+                        >
+                          {child.title}
+                        </SidebarItem>
+                      ))}
+                    </SidebarCompactItem>
+                  );
+                }
+                return (
                   <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
                     openNavBar={openNavBar}
-                    link={"/admin/hospitals"}
-                  >
-                    {t("hospitals")}
-                  </SidebarItem>
-                  <SidebarItem
                     setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/hospital-departments"}
+                    link={item.link}
+                    key={index * 40}
                   >
-                    {t("availableDepartments")}
+                    {item.title}
                   </SidebarItem>
-                </SidebarCompactItem>
-
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/user"}
-                >
-                  {t("users")}
-                </SidebarItem>
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/blood-donation"}
-                >
-                  {t("bloodDonation")}
-                </SidebarItem>
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/enquiries"}
-                >
-                  {t("enquiries")}
-                </SidebarItem>
-
-                <SidebarCompactItem
-                  title={t("settings")}
-                  links={["/admin/setting", "/admin/blocked-item"]}
-                >
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/setting"}
-                  >
-                    {t("settings")}
-                  </SidebarItem>
-                  <SidebarItem
-                    setOpenNavBar={setOpenNavBar}
-                    openNavBar={openNavBar}
-                    link={"/admin/blocked-item"}
-                  >
-                    {t("blockedItems")}
-                  </SidebarItem>
-                </SidebarCompactItem>
-                <SidebarItem
-                  setOpenNavBar={setOpenNavBar}
-                  openNavBar={openNavBar}
-                  link={"/admin/join-requests"}
-                >
-                  {t("join_requests")}
-                </SidebarItem>
-              </div>
+                );
+              })}
             </>
           )}
         </ul>
@@ -483,154 +265,36 @@ const SidebarAdmin = ({
         className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
       >
         <ul className={"bg-white"}>
-          <SidebarIcon link={"/admin"} title={t("dashboard")}>
-            <DashBordIcon className={`h-7 w-7 `} />
-          </SidebarIcon>
-          <SidebarCompactIcon
-            title={t("clinicsManagement")}
-            icon={<ClinicIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/clinics"} title={t("clinics")}>
-                <ClinicsShowIcon className={`h-6 w-6 mx-2`} />
-              </SidebarIcon>
+          {sidebarItems.map((item, index) => {
+            if (item.children) {
+              return (
+                <SidebarCompactIcon
+                  key={index * 30}
+                  title={item.title}
+                  icon={item.icon}
+                >
+                  {item.children.map((child, childIndex) => (
+                    <SidebarIcon
+                      key={childIndex * 20}
+                      link={child.link ?? ""}
+                      title={child.title}
+                    >
+                      {child.icon}
+                    </SidebarIcon>
+                  ))}
+                </SidebarCompactIcon>
+              );
+            }
+            return (
               <SidebarIcon
-                link={"/admin/clinics/schedules"}
-                title={t("clinicsSchedules")}
+                key={index * 30}
+                link={item.link ?? ""}
+                title={item.title}
               >
-                <SchedulesIcon className={`h-6 w-6 mx-2`} />
+                {item.icon}
               </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/clinics/holidays"}
-                title={t("clinicsHolidays")}
-              >
-                <HolidaysIcon className={`h-6 w-6 mx-2`} />
-              </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/subscriptions"}
-                title={"Subscriptions"}
-              >
-                <SubscriptionIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-              <SidebarIcon link={"/admin/speciality"} title={t("specialties")}>
-                <SpecialitiesIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-              <SidebarIcon link={"/admin/medicines"} title={"Medicines"}>
-                <MedicineIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarIcon link={"/admin/appointment"} title={t("appointment")}>
-            <AppointmentIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarCompactIcon
-            title={"Patients Management"}
-            icon={<PatientMangerIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/patients"} title={"Patients"}>
-                <PatientIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/patient-profiles"}
-                title={"Patient Profiles"}
-              >
-                <PatientProfilesIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarCompactIcon
-            title={t("offersManagement")}
-            icon={<OffersManagementIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/offer"} title={"Offers"}>
-                <OfferIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/system-offer"}
-                title={"Blood Donation"}
-              >
-                <SystemOfferIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarCompactIcon
-            title={"Accountant Management"}
-            icon={<CompacTransactiontIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/transaction"} title={"Transaction"}>
-                <TransactionIcon className={`h-8 w-8 `} />
-              </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/appointment-deductions"}
-                title={"Appointment Deductions"}
-              >
-                <AppointmentDeductionstIcon className={`h-8 w-8 `} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarCompactIcon
-            title={"Service"}
-            icon={<ServiceManagementIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon
-                link={"/admin/category"}
-                title={t("serviceCategories")}
-              >
-                <CategoryIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-              <SidebarIcon link={"/admin/service"} title={t("services")}>
-                <ServiceIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-
-          <SidebarCompactIcon
-            title={"Hospitals Management"}
-            icon={<CompactHospitalIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/hospitals"} title={t("hospitals")}>
-                <HospitalsIcon className={`h-9 w-9`} />
-              </SidebarIcon>
-              <SidebarIcon
-                link={"/admin/hospital-departments"}
-                title={t("hospitals")}
-              >
-                <AvailableDepartmentIcon className={`h-9 w-9`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-
-          <SidebarIcon link={"/admin/user"} title={"Users"}>
-            <UsersIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/blood-donation"} title={"Blood Donation"}>
-            <BloodIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-          <SidebarIcon link={"/admin/enquiries"} title={"Enquiries"}>
-            <EnquirieIcon className={`h-8 w-8`} />
-          </SidebarIcon>
-
-          <SidebarCompactIcon
-            title={"Settings Management"}
-            icon={<SettingManagementIcon className={`h-9 w-9 `} />}
-          >
-            <div className="flex flex-col">
-              <SidebarIcon link={"/admin/setting"} title={"Settings"}>
-                <SettingIcon className={`h-8 w-8`} />
-              </SidebarIcon>
-              <SidebarIcon link={"/admin/blocked-item"} title={"Blocked Items"}>
-                <BlockedItemIcon className={`h-7 w-7`} />
-              </SidebarIcon>
-            </div>
-          </SidebarCompactIcon>
-          <SidebarIcon link={"/admin/join-requests"} title={t("join_requests")}>
-            <PlusIcon className={`h-8 w-8`} />
-          </SidebarIcon>
+            );
+          })}
         </ul>
       </div>
     </div>

@@ -8,7 +8,6 @@ import { Navigate } from "@/Actions/navigate";
 import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
-import { Role } from "@/enum/Role";
 import { useTranslations } from "next-intl";
 
 interface LoginProps {
@@ -18,46 +17,23 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ url, pageType }) => {
   const [error, setError] = useState(false);
-  const [errorBlocked, setErrorBlocked] = useState();
-  const [contractError, setContractError] = useState<string | undefined>(
-    undefined,
-  );
 
-  const handleSubmit = (data: { email: string; password: string }) => {
+  const handleSubmit = (data: { phone: string; password: string }) => {
     setError(false);
     return POST<AuthResponse>(url, data).then((res: any) => {
       if (res.code == 401) {
         setError(true);
         return res;
-      } else if (res.code == 430 || res.code == 431 || res.code == 432) {
-        setErrorBlocked(res?.message);
-        return res;
       } else {
         Array.isArray(res?.data?.user?.role)
           ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
               setCookieClient("role", e.name);
-              if (e.name == Role.CLINIC_EMPLOYEE) {
-                const permissions = res.data.user.permissions;
-                return setCookieClient("permissions", permissions.toString());
-              } else {
-                return setCookieClient("permissions", "dffds%2Cfdsf");
-              }
             })
           : false;
         return res;
       }
     });
   };
-
-  function clinicDidntAgreeOnContract(data: ApiResponse<AuthResponse>) {
-    return (
-      pageType == "doctor" &&
-      data.code == 200 &&
-      data?.data?.user &&
-      data?.data?.user?.clinic &&
-      !data?.data?.user?.clinic?.agreed_on_contract
-    );
-  }
 
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     window.localStorage.setItem(
@@ -67,15 +43,7 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
     setCookieClient("token", data?.data?.token ?? "");
     setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
     setCookieClient("user-type", pageType);
-    if (clinicDidntAgreeOnContract(data)) {
-      if (data?.data?.user?.role?.[0].name == Role.CLINIC_EMPLOYEE) {
-        setContractError("Clinic owner must agree on the system contract");
-      } else {
-        Navigate("/auth/contract");
-      }
-    } else {
-      Navigate(`/${pageType}`);
-    }
+    Navigate(`/${pageType}`);
   };
   const t = useTranslations("auth");
   return (
@@ -92,10 +60,10 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
         >
           <div className="flex flex-col gap-5">
             <Input
-              name="email"
-              type="email"
-              label={t("email")}
-              placeholder="Enter Your Email"
+              name="phone"
+              type="tel"
+              label={t("phone")}
+              placeholder="Enter your phone number"
             />
             <Input
               name="password"
@@ -107,19 +75,6 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
 
           {error && (
             <p className="my-3 p-2 w-full text-error text-sm">{t("err")}.</p>
-          )}
-          {errorBlocked ? (
-            <p className="my-3 p-2 w-full text-error text-sm">{errorBlocked}</p>
-          ) : (
-            ""
-          )}
-
-          {contractError ? (
-            <p className="my-3 p-2 w-full text-error text-sm">
-              {contractError}
-            </p>
-          ) : (
-            ""
           )}
 
           <div className="flex justify-center opacity-80 mt-4 gap-1">

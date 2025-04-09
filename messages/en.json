@@ -1288,6 +1288,7 @@
     "welcomeBack": "Welcome Back",
     "signIn": "Sign In",
     "email": "Email",
+    "phone": "Phone",
     "password": "Password",
     "confirm-password": "Confirm Password",
     "err": "The email or password is incorrect. Try again or click Forgot Password",

@@ -8,10 +8,7 @@ import { OffersService } from "@/services/OffersService";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
-import {
-  TranslateClient,
-  TranslateStatusOrTypeClient,
-} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
@@ -159,7 +156,7 @@ const OfferForm = ({
             <div className="flex items-center">
               <label className="label"> {t("image")} : </label>
               <span className="text-lg badge badge-neutral">
-                <TranslatableEnum value={"no_data"}/>
+                <TranslatableEnum value={"no_data"} />
               </span>
             </div>
           )}

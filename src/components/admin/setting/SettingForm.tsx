@@ -59,7 +59,10 @@ const SettingForm = ({ defaultValues }: { defaultValues: Setting }) => {
               </div>
             )}
           </div>
-          <ImageUploader name={"image"} label={TranslateStatusOrTypeClient(defaultValues?.label)} />
+          <ImageUploader
+            name={"image"}
+            label={TranslateStatusOrTypeClient(defaultValues?.label)}
+          />
         </>
       ) : (
         <Grid md={2}>

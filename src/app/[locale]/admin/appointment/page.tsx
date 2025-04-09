@@ -114,11 +114,15 @@ const Page = () => {
         name: "is_revision",
         label: t("is_revision"),
         render: (is_revision) =>
-            is_revision ? (
-                <span className={"flex items-center justify-center"}><CheckMarkIcon className={"text-success h-6 w-6"} /></span>
-            ) : (
-                <span className={"flex items-center justify-center"}><XMark className={"text-error h-6 w-6"} /></span>
-            ),
+          is_revision ? (
+            <span className={"flex items-center justify-center"}>
+              <CheckMarkIcon className={"text-success h-6 w-6"} />
+            </span>
+          ) : (
+            <span className={"flex items-center justify-center"}>
+              <XMark className={"text-error h-6 w-6"} />
+            </span>
+          ),
       },
       {
         name: "total_cost",

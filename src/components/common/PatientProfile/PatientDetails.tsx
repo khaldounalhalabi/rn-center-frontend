@@ -1,4 +1,7 @@
-import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import {
+  TranslateClient,
+  TranslateStatusOrTypeClient,
+} from "@/Helpers/TranslationsClient";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import { Customer } from "@/Models/Customer";
@@ -22,7 +25,7 @@ const PatientDetails = ({
   };
   const otherData = patient?.currentClinicPatientProfile?.other_data
     ? convertObjectToArray(
-        JSON.parse(patient?.currentClinicPatientProfile?.other_data)
+        JSON.parse(patient?.currentClinicPatientProfile?.other_data),
       )
     : [];
   return (

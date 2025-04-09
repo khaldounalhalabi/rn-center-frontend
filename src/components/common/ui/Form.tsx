@@ -5,7 +5,7 @@ import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Form = ({
   className,
@@ -35,7 +35,7 @@ const Form = ({
   submitButtonClasses?: string;
 }) => {
   const t = useTranslations("components");
-  if(!buttonText){
+  if (!buttonText) {
     buttonText = t("submit");
   }
   // @ts-ignore

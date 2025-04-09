@@ -22,11 +22,11 @@ const HolidayForm = ({
     if (type === "update" && defaultValues?.id) {
       return ClinicHolidayService.make<ClinicHolidayService>("doctor").update(
         defaultValues.id,
-        data
+        data,
       );
     } else {
       return await ClinicHolidayService.make<ClinicHolidayService>(
-        "doctor"
+        "doctor",
       ).store(data);
     }
   };

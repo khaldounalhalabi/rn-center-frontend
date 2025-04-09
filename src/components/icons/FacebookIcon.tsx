@@ -1,7 +1,7 @@
-const FacebookIcon = ({...props}) => {
+const FacebookIcon = ({ ...props }) => {
   return (
     <svg
-        {...props}
+      {...props}
       width="14"
       height="27"
       viewBox="0 0 14 27"

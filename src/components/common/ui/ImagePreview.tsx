@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, HTMLProps, ImgHTMLAttributes, useState } from "react";
+import { Fragment, HTMLProps, useState } from "react";
 
 const ImagePreview = ({
   src,
@@ -21,7 +21,7 @@ const ImagePreview = ({
   return (
     <>
       <img
-          alt={"..."}
+        alt={"..."}
         src={src}
         onClick={openModal}
         className={className ?? "" + "cursor-pointer"}
@@ -53,7 +53,7 @@ const ImagePreview = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="bg-transparent p-6 max-w-lg text-left transform transition-all overflow-hidden align-middle">
-                  <img src={src} alt={"..."}/>
+                  <img src={src} alt={"..."} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

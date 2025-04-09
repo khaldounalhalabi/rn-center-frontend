@@ -2,28 +2,29 @@
 import React, { useState } from "react";
 import SearchIcon from "@/components/icons/SearchIcon";
 import XMark from "@/components/icons/XMark";
-import {useQuery} from "@tanstack/react-query";
-import {SearchService} from "@/services/SearchService.ts";
+import { useQuery } from "@tanstack/react-query";
+import { SearchService } from "@/services/SearchService.ts";
 import ListCards from "@/components/customer/ListCards";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const Navbar = () => {
   const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
-  const [search,setSearch] = useState('')
-  const [searchApi,setSearchApi] = useState('')
+  const [search, setSearch] = useState("");
+  const [searchApi, setSearchApi] = useState("");
   setTimeout(() => {
-    setSearchApi(search)
+    setSearchApi(search);
   }, 500);
-  const {data ,isLoading} = useQuery({
-    queryKey:['search',searchApi],
-    queryFn:async ()=>{
-      return await SearchService.make<SearchService>().indexWithPagination(undefined,searchApi)
-    }
-  })
+  const { data, isLoading } = useQuery({
+    queryKey: ["search", searchApi],
+    queryFn: async () => {
+      return await SearchService.make<SearchService>().indexWithPagination(
+        undefined,
+        searchApi,
+      );
+    },
+  });
 
-
-
-  const res = data?.data ?data?.data :[]
+  const res = data?.data ? data?.data : [];
 
   return (
     <>
@@ -43,7 +44,7 @@ const Navbar = () => {
           />
           <div className={"w-full flex justify-center  relative"}>
             <div
-              className={`absolute flex gap-2  top-0 items-center left-[5%] ${search?"hidden":""}`}
+              className={`absolute flex gap-2  top-0 items-center left-[5%] ${search ? "hidden" : ""}`}
             >
               <SearchIcon className={"w-7 h-7  opacity-60"} />
               <h2
@@ -56,28 +57,41 @@ const Navbar = () => {
             </div>
             <input
               type={"text"}
-              onChange={(e)=>{setSearch(e.target.value)}}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
               className="block  w-[95%]   kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
                     border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
             />
           </div>
         </div>
-        <div className={'w-full mt-6 border-t-2 border-pom flex flex-col'}>
-          {isLoading?<div className={'w-full flex mt-4 justify-center'}><LoadingSpin className={'w-6 h-6'}/></div>:res?.map((e,index)=>{
-            return (
+        <div className={"w-full mt-6 border-t-2 border-pom flex flex-col"}>
+          {isLoading ? (
+            <div className={"w-full flex mt-4 justify-center"}>
+              <LoadingSpin className={"w-6 h-6"} />
+            </div>
+          ) : (
+            res?.map((e, index) => {
+              return (
                 <ListCards
-                    containerClass={'min-h-[150px]'}
-                    key={index}
-                 image={<div className={''}><h4 >{e.key}</h4></div>}
-                 url={e.url}
+                  containerClass={"min-h-[150px]"}
+                  key={index}
+                  image={
+                    <div className={""}>
+                      <h4>{e.key}</h4>
+                    </div>
+                  }
+                  url={e.url}
                 >
-                   <div className={'border-l-2 border-pom pl-4'}>
-                     <div><h4>{e.label}</h4></div>
-
-                   </div>
+                  <div className={"border-l-2 border-pom pl-4"}>
+                    <div>
+                      <h4>{e.label}</h4>
+                    </div>
+                  </div>
                 </ListCards>
-            )
-          })}
+              );
+            })
+          )}
         </div>
       </div>
       <div className="navbar bg-base-100 max-h-[98px]">

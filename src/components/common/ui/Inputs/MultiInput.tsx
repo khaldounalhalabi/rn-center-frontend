@@ -7,7 +7,7 @@ import {
   sanitizeString,
 } from "@/Helpers/ObjectHelpers";
 import { useFormContext } from "react-hook-form";
-import {useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface MultiInputProps extends InputProps {
   name: string;
@@ -135,7 +135,10 @@ const MultiInput: React.FC<MultiInputProps> = ({
           onClick={() => addInput()}
           disabled={inputs.length >= maxFields}
         >
-          {t("add")} {locale == "en" && "new"} {label?.replace("ال" , '') ?? sanitizeString(name ?? "")?.replace("ال" , '')} {locale == "ar" && "جديد"}
+          {t("add")} {locale == "en" && "new"}{" "}
+          {label?.replace("ال", "") ??
+            sanitizeString(name ?? "")?.replace("ال", "")}{" "}
+          {locale == "ar" && "جديد"}
         </button>
       </div>
     </>

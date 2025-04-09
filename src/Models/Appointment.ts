@@ -32,7 +32,7 @@ export interface Appointment {
   last_cancelled_log?: AppointmentLogs;
   before_appointments_count?: number;
   remaining_time?: string;
-  is_revision:boolean;
+  is_revision: boolean;
 }
 
 export interface groupedByMonth {

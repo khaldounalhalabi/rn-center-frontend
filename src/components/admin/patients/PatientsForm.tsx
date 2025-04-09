@@ -36,7 +36,7 @@ const PatientsForm = ({
     ) {
       return PatientsService.make<PatientsService>("admin").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await PatientsService.make<PatientsService>("admin").store(data);

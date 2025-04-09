@@ -12,7 +12,6 @@ import {
 import "ckeditor5/ckeditor5.css";
 import { useFormContext } from "react-hook-form";
 import React from "react";
-import { SettingKeysEnum } from "@/enum/SettingKeysEnum";
 import { useTranslations } from "next-intl";
 
 const CKTextEditor = ({

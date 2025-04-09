@@ -18,10 +18,9 @@ const Title = async () => {
           className={`md:max-w-[65%] max-w-full text-wrap opacity-60 text-[20px] lg:text-[20px] md:text-[15px] 2xl:text-[20px] mt-8`}
         >
           <p className="text-[#6685A3] rtl:leading-loose">
-            {t("give_full_control")} {" "}
-            {t("your_clinics_operations")} {" "}
-            {t("from_appointments_to_invoicing")}. {" "}
-            {t("start_free_trial")} {t("how_easy")} {" "}
+            {t("give_full_control")} {t("your_clinics_operations")}{" "}
+            {t("from_appointments_to_invoicing")}. {t("start_free_trial")}{" "}
+            {t("how_easy")}{" "}
           </p>
         </div>
         <Link href={"/#start"} className={"mt-12"}>

@@ -69,7 +69,7 @@ const PrescriptionsTable = ({
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await PrescriptionService.make<PrescriptionService>(
-        "doctor"
+        "doctor",
       ).getAllAppointmentPrescriptions(
         appointment?.id ?? 0,
         page,
@@ -77,7 +77,7 @@ const PrescriptionsTable = ({
         sortCol,
         sortDir,
         perPage,
-        params
+        params,
       ),
   };
   return <DataTable {...tableData} />;

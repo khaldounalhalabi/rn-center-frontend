@@ -29,11 +29,11 @@ const OfferForm = ({
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor"
+        "doctor",
       ).update(defaultValues?.id ?? id, data);
     } else {
       return await ClinicTransactionService.make<ClinicTransactionService>(
-        "doctor"
+        "doctor",
       ).store(data);
     }
   };

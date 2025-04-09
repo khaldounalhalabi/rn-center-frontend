@@ -29,11 +29,11 @@ const SubscriptionForm = ({
     ) {
       return SubscriptionsService.make<SubscriptionsService>("admin").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await SubscriptionsService.make<SubscriptionsService>(
-        "admin"
+        "admin",
       ).store(data);
     }
   };

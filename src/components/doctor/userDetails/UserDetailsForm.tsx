@@ -24,7 +24,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         setReFetch(!reFetch);
         window.localStorage.setItem(
           "user",
-          JSON.stringify(res?.data.user ?? undefined)
+          JSON.stringify(res?.data.user ?? undefined),
         );
         return res;
       });

@@ -47,9 +47,7 @@ const Page = async () => {
   return (
     <Providers>
       <div
-        className={
-          " text-[#013567] relative overflow-x-hidden md:px-0 px-2"
-        }
+        className={" text-[#013567] relative overflow-x-hidden md:px-0 px-2"}
       >
         <Nav links={navItems} />
         <div className={"flex mt-4 md:px-[10%] relative"}>

@@ -5,7 +5,7 @@ import Grid from "@/components/common/ui/Grid";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
-import {TranslateClient, TranslateStatusOrTypeClient} from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Navigate } from "@/Actions/navigate";
 import { PatientProfiles } from "@/Models/PatientProfiles";
 import { PatientProfilesService } from "@/services/PatientProfilesService";
@@ -45,17 +45,17 @@ const PatientProfilesForm = ({
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return PatientProfilesService.make<PatientProfilesService>(
-        "admin"
+        "admin",
       ).update(defaultValues?.id ?? id, dataSend);
     } else {
       return await PatientProfilesService.make<PatientProfilesService>(
-        "admin"
+        "admin",
       ).store(dataSend);
     }
   };
   const onSuccess = () => {
     Navigate(
-      patientId ? `/admin/patients/${patientId}` : `/admin/patient-profiles`
+      patientId ? `/admin/patients/${patientId}` : `/admin/patient-profiles`,
     );
   };
 
@@ -92,7 +92,7 @@ const PatientProfilesForm = ({
               api={(page, search) =>
                 CustomerService.make<CustomerService>().indexWithPagination(
                   page,
-                  search
+                  search,
                 )
               }
               defaultValues={
@@ -135,7 +135,9 @@ const PatientProfilesForm = ({
             ) : (
               <div className="flex items-center">
                 <label className="label"> {t("image")} : </label>
-                <span className="text-lg badge badge-neutral"><TranslatableEnum value={"no_data"}/></span>
+                <span className="text-lg badge badge-neutral">
+                  <TranslatableEnum value={"no_data"} />
+                </span>
               </div>
             )}
           </div>

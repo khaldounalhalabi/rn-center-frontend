@@ -34,7 +34,7 @@ const ServiceForm = ({
     ) {
       return ServiceService.make<ServiceService>("doctor").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await ServiceService.make<ServiceService>("doctor").store(data);
@@ -69,7 +69,7 @@ const ServiceForm = ({
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
             await CategoryService.make<CategoryService>().getAllCategory(
               page,
-              search
+              search,
             )
           }
           getOptionLabel={(option: ServiceCategory) =>

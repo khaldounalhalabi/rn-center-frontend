@@ -83,7 +83,9 @@ const SpecialityForm = ({
             </div>
           )}
         </div>
-      ) : false}
+      ) : (
+        false
+      )}
       <div className="my-3">
         <ImageUploader name={"image"} />
       </div>

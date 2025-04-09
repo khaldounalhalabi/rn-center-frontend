@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import SpeechIcon from "@/components/icons/SpeechIcon";
 import { swal } from "@/Helpers/UIHelpers";
 import { toast } from "react-toastify";
 

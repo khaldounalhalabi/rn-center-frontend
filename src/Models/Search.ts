@@ -1,8 +1,5 @@
-
-
-
 export interface Search {
-    "key": string,
-    "label": string,
-    "url": string
+  key: string;
+  label: string;
+  url: string;
 }

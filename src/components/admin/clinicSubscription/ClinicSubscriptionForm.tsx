@@ -48,11 +48,11 @@ const ClinicSubscriptionForm = ({
       (defaultValues?.id != undefined || id != undefined)
     ) {
       return ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin"
+        "admin",
       ).update(defaultValues?.id ?? id, send);
     } else {
       return await ClinicSubscriptionService.make<ClinicSubscriptionService>(
-        "admin"
+        "admin",
       ).store(send);
     }
   };
@@ -71,7 +71,7 @@ const ClinicSubscriptionForm = ({
           api={(page, search): Promise<ApiResponse<Subscriptions[]>> =>
             SubscriptionsService.make<SubscriptionsService>().indexWithPagination(
               page,
-              search
+              search,
             )
           }
           placeHolder={"Select Subscription Name ..."}

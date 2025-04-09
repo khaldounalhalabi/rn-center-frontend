@@ -15,7 +15,6 @@ import AppointmentStatuses, {
 } from "@/enum/AppointmentStatus";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
-import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { Customer } from "@/Models/Customer";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useLocale, useTranslations } from "next-intl";

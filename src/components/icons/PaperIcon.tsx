@@ -23,5 +23,4 @@ const PaperIcon: React.FC<IconAttributes> = ({
   );
 };
 
-
 export default PaperIcon;

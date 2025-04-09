@@ -63,4 +63,3 @@ export const TranslateStatusOrTypeClient = (value?: string) => {
   }
   return t(value as any);
 };
-

@@ -41,7 +41,7 @@ const TranslatableTextArea: React.FC<TranslatableTextAreaProps> = ({
 
   useEffect(() => {
     setSelectedLocale(locale ?? currentLocale);
-  }, [locale , currentLocale]);
+  }, [locale, currentLocale]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = event.target.value;

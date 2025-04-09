@@ -36,7 +36,11 @@ const Home = () => {
           />
         </div>
 
-        <div className={"w-full flex flex-col justify-start items-start px-4 md:p-0"}>
+        <div
+          className={
+            "w-full flex flex-col justify-start items-start px-4 md:p-0"
+          }
+        >
           <CardsAppointmentDoctor
             statisticsRes={statisticsRes}
             isLoading={isLoading}

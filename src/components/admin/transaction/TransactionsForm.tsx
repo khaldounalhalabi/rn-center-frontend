@@ -30,11 +30,11 @@ const OfferForm = ({
     ) {
       return TransactionService.make<TransactionService>("admin").update(
         defaultValues?.id ?? id,
-        data
+        data,
       );
     } else {
       return await TransactionService.make<TransactionService>("admin").store(
-        data
+        data,
       );
     }
   };

@@ -10,7 +10,6 @@ import AppointmentStatusColumn from "@/components/doctor/appointment/Appointment
 import ActionsButtons, {
   Buttons,
 } from "@/components/common/Datatable/ActionsButtons";
-import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";

@@ -19,7 +19,9 @@ const CardsAppointmentDoctor = ({
   return (
     <div className={"grid grid-cols-1 md:grid-cols-3 w-full gap-2"}>
       <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
-        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
+        <div
+          className={"flex justify-between items-center gap-1 w-full flex-wrap"}
+        >
           <div>{t("totalAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -31,7 +33,9 @@ const CardsAppointmentDoctor = ({
         </div>
       </Card>
       <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
-        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
+        <div
+          className={"flex justify-between items-center gap-1 w-full flex-wrap"}
+        >
           <div>{t("todayAppointments")}</div>
           <div>
             {isLoading || isFetching ? (
@@ -43,7 +47,9 @@ const CardsAppointmentDoctor = ({
         </div>
       </Card>
       <Card className={"my-4 mx-0 bg-white rounded-2xl w-full"}>
-        <div className={"flex justify-between items-center gap-1 w-full flex-wrap"}>
+        <div
+          className={"flex justify-between items-center gap-1 w-full flex-wrap"}
+        >
           <div>{t("nextAppointments")}</div>
           <div>
             {isLoading || isFetching ? (

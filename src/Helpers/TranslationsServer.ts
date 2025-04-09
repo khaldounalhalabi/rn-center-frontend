@@ -1,6 +1,5 @@
 "use server";
 import { getLocale, getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
 
 const TranslateServer = async (
   val: string | undefined | null,
@@ -50,4 +49,3 @@ export const TranslateStatusOrTypeServer = async (value?: string) => {
 
   return t(value as any);
 };
-

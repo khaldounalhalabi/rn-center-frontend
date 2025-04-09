@@ -53,9 +53,7 @@ const Page = () => {
             baseUrl={`/doctor/customers`}
             editUrl={`/doctor/patients/${data?.id}/edit`}
             showUrl={`/doctor/patients/${data?.id}`}
-            deleteMessage={
-              t("delete_profile_warning")
-            }
+            deleteMessage={t("delete_profile_warning")}
           ></ActionsButtons>
         ),
       },

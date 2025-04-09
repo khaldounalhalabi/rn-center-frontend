@@ -2,7 +2,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
 import HandleExportExcel from "@/hooks/HandleExportExcel";
 import { getCookieClient } from "@/Actions/clientCookies";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 
 const ExportButton = ({
   data,
@@ -11,7 +11,7 @@ const ExportButton = ({
   data: { year: string; month: string };
   close: any;
 }) => {
-  const t = useTranslations("components")
+  const t = useTranslations("components");
   const { isLoading, handleExportData } = HandleExportExcel();
   const token = getCookieClient("token");
   const handleExport = () => {

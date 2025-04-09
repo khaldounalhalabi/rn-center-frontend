@@ -13,7 +13,6 @@ import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import AppointmentStatuses from "@/enum/AppointmentStatus";
 import AppointmentStatusColumn from "@/components/doctor/appointment/AppointmentStatusColumn";
 import { toast } from "react-toastify";
-import AppointmentSpeechButton from "@/components/doctor/appointment/AppointmentSpeechButton";
 import ExportButton from "@/components/common/Appointment/ExportButton";
 import { Link } from "@/navigation";
 import CalenderIcon from "@/components/icons/CalenderIcon";
@@ -178,9 +177,13 @@ const Page = () => {
         label: t("is_revision"),
         render: (is_revision) =>
           is_revision ? (
-            <span className={"flex items-center justify-center"}><CheckMarkIcon className={"text-success h-6 w-6"} /></span>
+            <span className={"flex items-center justify-center"}>
+              <CheckMarkIcon className={"text-success h-6 w-6"} />
+            </span>
           ) : (
-            <span className={"flex items-center justify-center"}><XMark className={"text-error h-6 w-6"} /></span>
+            <span className={"flex items-center justify-center"}>
+              <XMark className={"text-error h-6 w-6"} />
+            </span>
           ),
       },
       {

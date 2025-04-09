@@ -42,7 +42,7 @@ const MultiMedicinesInput = ({
             dose_interval: "Every Morning",
             comment: "",
           },
-        ]
+        ],
   );
   const addMedicine = () => {
     const newMedicine = {
@@ -59,7 +59,7 @@ const MultiMedicinesInput = ({
   const handleInputChange = (
     index: number,
     value: string | number | undefined,
-    name: string
+    name: string,
   ) => {
     const updatedMedicines = [...medicines];
     // @ts-ignore
@@ -121,11 +121,12 @@ const MultiMedicinesInput = ({
                 placeHolder={"Medicine name ..."}
                 name={`medicines[${index}].medicine_id`}
                 styles={{
-                  baseContainerClasses:"p-2 flex flex-col justify-between h-full"
+                  baseContainerClasses:
+                    "p-2 flex flex-col justify-between h-full",
                 }}
                 api={(page, search) =>
                   MedicineService.make<MedicineService>(
-                    userType
+                    userType,
                   ).indexWithPagination(page, search)
                 }
                 label={t("medicineName")}
@@ -238,7 +239,7 @@ const MultiMedicinesInput = ({
                             : 0;
                           if (id != 0) {
                             return PrescriptionService.make<PrescriptionService>(
-                              userType
+                              userType,
                             )
                               .deleteMedicine(id ?? 0)
                               .then(() => {

@@ -20,7 +20,7 @@ export interface IApiSelectProps<TResponse, TData> {
     page?: number,
     search?: string,
     isLast?: boolean,
-    totalPages?: number
+    totalPages?: number,
   ) => Promise<ApiResponse<TResponse>>;
   isMultiple?: boolean;
   optionLabel?: keyof TData;
@@ -32,7 +32,7 @@ export interface IApiSelectProps<TResponse, TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;
@@ -51,7 +51,7 @@ export interface IApiSelectProps<TResponse, TData> {
     dropDownItemsContainerClasses?: string;
     dropDownContainerMaxHeight?: number;
     placeholder?: string;
-    baseContainerClasses?:string
+    baseContainerClasses?: string;
   };
   onChange?: (e: ChangeEvent) => void;
   inputProps?: SelectInputProps;
@@ -59,7 +59,7 @@ export interface IApiSelectProps<TResponse, TData> {
   getNextPage?: (
     prevPage: number,
     isLast: boolean,
-    totalPages: number
+    totalPages: number,
   ) => number;
   onClear?: () => void;
   onRemoveSelected?: (item: Option) => void;
@@ -77,7 +77,7 @@ export interface ISelectProps<TData> {
     selectedItem?: TData,
     selected?: Option[],
     setSelected?: React.Dispatch<React.SetStateAction<Option[]>>,
-    event?: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => void;
   defaultValues?: TData[] | Option[];
   placeHolder?: string;

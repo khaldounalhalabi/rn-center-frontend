@@ -1,7 +1,7 @@
 import SetNewPassword from "@/components/common/Auth/SetNewPassword";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {
-  const apiSetNewPasswordDoctor: string = `doctor/reset-password`;
-  return <SetNewPassword url={apiSetNewPasswordDoctor} pageType={"doctor"} />;
+  return <SetNewPassword role={RoleEnum.DOCTOR} />;
 };
 export default page;

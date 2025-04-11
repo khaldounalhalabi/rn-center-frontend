@@ -13,29 +13,28 @@ export const authMiddleware = async (request: NextRequest) => {
     canAccessSecretary: true,
   };
 
-  if (await hasAccessToThisUrl(path, RoleEnum.ADMIN)) {
+  if (await cannotAccessUrl(path, RoleEnum.ADMIN)) {
     access.canAccessAdmin = false;
   }
 
-  if (await hasAccessToThisUrl(path, RoleEnum.SECRETARY)) {
+  if (await cannotAccessUrl(path, RoleEnum.SECRETARY)) {
     access.canAccessSecretary = false;
   }
 
-  if (await hasAccessToThisUrl(path, RoleEnum.DOCTOR)) {
+  if (await cannotAccessUrl(path, RoleEnum.DOCTOR)) {
     access.canAccessDoctor = false;
   }
 
-  if (await hasAccessToThisUrl(path, RoleEnum.CUSTOMER)) {
+  if (await cannotAccessUrl(path, RoleEnum.CUSTOMER)) {
     access.canAccessCustomer = false;
   }
 
   return access;
 };
 
-const hasAccessToThisUrl = async (url: string, role: RoleEnum) => {
-  const locale = getCookieServer("NEXT_LOCALE");
+const cannotAccessUrl = async (url: string, role: RoleEnum) => {
+  const locale = await getCookieServer("NEXT_LOCALE");
   const userRole = await getRole();
-  const token = getToken();
-
-  return url.includes(`${locale}/${role}`) && userRole != role && token;
+  const token = await getToken();
+  return url.includes(`${locale}/${role}`) && (userRole != role || !token);
 };

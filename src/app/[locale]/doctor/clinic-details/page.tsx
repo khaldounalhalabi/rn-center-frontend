@@ -14,7 +14,7 @@ import { Phone } from "@/Models/Phone";
 import Gallery from "@/components/common/ui/Gallery";
 import { getTranslations } from "next-intl/server";
 import { getCookieServer } from "@/Actions/serverCookies";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
 import { PermissionsDoctor } from "@/enum/Permissions";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
@@ -63,7 +63,7 @@ const page = async () => {
           <Link
             href={`/doctor/clinic-details/edit`}
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE)
                 ? "hidden"
                 : ""

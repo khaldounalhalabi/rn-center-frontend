@@ -14,7 +14,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
-import Roles from "@/enum/Role";
+import Roles from "@/enum/RoleEnum";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import { useTranslations } from "next-intl";

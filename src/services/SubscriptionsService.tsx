@@ -5,7 +5,7 @@ import { GET } from "@/Http/Http";
 
 export class SubscriptionsService extends BaseService<Subscriptions> {
   public getBaseUrl(): string {
-    return `${this.actor}/subscriptions`;
+    return `${this.role}/subscriptions`;
   }
 
   public async getAllSubscriptions(

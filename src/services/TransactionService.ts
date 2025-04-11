@@ -5,11 +5,11 @@ import { GET } from "@/Http/Http";
 
 export class TransactionService extends BaseService<Transactions> {
   public getBaseUrl(): string {
-    return `${this.actor}/transactions`;
+    return `${this.role}/transactions`;
   }
 
   public async getSummary(): Promise<ApiResponse<AdminSummary>> {
-    const res = await GET<AdminSummary>(`${this.actor}/transactions/summary`);
+    const res = await GET<AdminSummary>(`${this.role}/transactions/summary`);
     return await this.errorHandler(res);
   }
 }

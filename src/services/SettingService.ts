@@ -4,7 +4,7 @@ import { GET, POST } from "@/Http/Http";
 
 export class SettingService extends BaseService<Setting> {
   public getBaseUrl(): string {
-    return `${this.actor}/settings`;
+    return `${this.role}/settings`;
   }
 
   public async getByLabel(label: string) {

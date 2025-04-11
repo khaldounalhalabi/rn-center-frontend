@@ -5,7 +5,7 @@ import { GET } from "@/Http/Http";
 
 export class NotificationService extends BaseService<Notification> {
   public getBaseUrl(): string {
-    return `${this.actor}/notifications`;
+    return `${this.role}/notifications`;
   }
 
   public async indexWithPagination(

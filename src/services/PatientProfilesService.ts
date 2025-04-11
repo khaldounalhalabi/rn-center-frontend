@@ -5,7 +5,7 @@ import { GET } from "@/Http/Http";
 
 export class PatientProfilesService extends BaseService<PatientProfiles> {
   public getBaseUrl(): string {
-    return `${this.actor}/patient-profiles`;
+    return `${this.role}/patient-profiles`;
   }
 
   public async getCustomerPatientProfiles(
@@ -18,7 +18,7 @@ export class PatientProfilesService extends BaseService<PatientProfiles> {
     params?: object,
   ): Promise<ApiResponse<PatientProfiles[]>> {
     const res = await GET<PatientProfiles[]>(
-      `${this.actor}/customers/${patientId}/patient-profiles`,
+      `${this.role}/customers/${patientId}/patient-profiles`,
       {
         page: page,
         search: search,

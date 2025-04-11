@@ -5,12 +5,12 @@ import { GET } from "@/Http/Http";
 
 export class HospitalService extends BaseService<Hospital> {
   public getBaseUrl(): string {
-    return `${this.actor}/hospitals`;
+    return `${this.role}/hospitals`;
   }
 
   public async toggleStatus(hospitaltId: number): Promise<ApiResponse<any>> {
     const res = await GET<any>(
-      `${this.actor}/hospitals/${hospitaltId}/toggle-status`,
+      `${this.role}/hospitals/${hospitaltId}/toggle-status`,
       undefined,
       this.headers,
     );

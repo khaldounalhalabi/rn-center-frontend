@@ -3,6 +3,6 @@ import { Department } from "@/Models/Departments";
 
 export class DepartmentsService extends BaseService<Department> {
   public getBaseUrl(): string {
-    return `${this.actor}/available-departments`;
+    return `${this.role}/available-departments`;
   }
 }

@@ -43,6 +43,10 @@ export class ApiResponse<T> {
     this.paginate = paginate;
   }
 
+  public isNotAuthorized = () => this.code == 401;
+
+  public ok = () => this.code == 200;
+
   public getValidationError(): [string, string][] | undefined {
     return this.message &&
       typeof this.message != "string" &&

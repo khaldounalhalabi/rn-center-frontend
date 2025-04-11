@@ -3,6 +3,6 @@ import { AvailableDepartment } from "@/Models/AvailableDepartment";
 
 export class AvailableDepartmentService extends BaseService<AvailableDepartment> {
   public getBaseUrl(): string {
-    return `${this.actor}/available-departments`;
+    return `${this.role}/available-departments`;
   }
 }

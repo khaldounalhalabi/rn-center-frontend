@@ -11,7 +11,7 @@ import { Appointment } from "@/Models/Appointment";
 
 export class AppointmentDeductionsService extends BaseService<AppointmentDeductions> {
   getBaseUrl(): string {
-    return `${this.actor}/appointment-deductions`;
+    return `${this.role}/appointment-deductions`;
   }
 
   public async getAdminSummary(): Promise<
@@ -36,14 +36,14 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     clinicId: number,
   ): Promise<ApiResponse<ClinicAppointmentDeductionSummary>> {
     const res = await GET<ClinicAppointmentDeductionSummary>(
-      `${this.actor}/clinics/${clinicId}/appointment-deductions/summary`,
+      `${this.role}/clinics/${clinicId}/appointment-deductions/summary`,
     );
     return await this.errorHandler(res);
   }
 
   public async getEarningsByYear(): Promise<ApiResponse<Earning>> {
     const res = await GET<Earning>(
-      `${this.actor}/appointment-deductions/earnings`,
+      `${this.role}/appointment-deductions/earnings`,
     );
     return await this.errorHandler(res);
   }
@@ -52,7 +52,7 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     clinicId: number,
   ): Promise<ApiResponse<Appointment>> {
     const res = await GET<Appointment>(
-      `${this.actor}/appointment-deductions/${clinicId}/toggle-status`,
+      `${this.role}/appointment-deductions/${clinicId}/toggle-status`,
     );
     return await this.errorHandler(res);
   }
@@ -67,7 +67,7 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     params?: object,
   ): Promise<ApiResponse<AppointmentDeductions[]>> {
     const res = await GET<AppointmentDeductions[]>(
-      `${this.actor}/clinics/${clinicId}/appointment-deductions`,
+      `${this.role}/clinics/${clinicId}/appointment-deductions`,
       {
         page: page,
         search: search,
@@ -86,7 +86,7 @@ export class AppointmentDeductionsService extends BaseService<AppointmentDeducti
     ids: number[];
   }): Promise<ApiResponse<any>> {
     const res = await POST<any>(
-      `${this.actor}/appointment-deductions/bulk/toggle-status`,
+      `${this.role}/appointment-deductions/bulk/toggle-status`,
       data,
     );
     return await this.errorHandler(res);

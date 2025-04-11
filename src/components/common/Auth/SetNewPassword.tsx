@@ -4,29 +4,16 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
 
-const SetNewPassword = ({
-  url,
-  pageType,
-}: {
-  url: string;
-  pageType: string;
-}) => {
+const SetNewPassword = ({ role }: { role: RoleEnum }) => {
   const handleSubmit = (data: {
-    reset_password_code: string;
     password: string;
     password_confirmation: string;
   }) => {
-    const code = window.localStorage.getItem(pageType + "code");
-    const dataSend = {
-      reset_password_code: code,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-    };
-    return AuthService.make<AuthService>().setNewPassword(
-      url,
-      dataSend,
-      pageType,
+    return AuthService.make<AuthService>(role).resetPassword(
+      data.password,
+      data.password_confirmation,
     );
   };
   const t = useTranslations("auth");
@@ -59,7 +46,6 @@ const SetNewPassword = ({
               placeholder="Reset New Password"
             />
           </div>
-          <div className={`flex justify-center items-center mt-3`}></div>
         </Form>
       </div>
     </div>

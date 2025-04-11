@@ -14,7 +14,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { toast } from "react-toastify";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { useLocale, useTranslations } from "next-intl";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
 import { PermissionsDoctor } from "@/enum/Permissions";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
@@ -30,7 +30,7 @@ const TableTodayAppointment = () => {
   const permissionsArray: string[] = permissions?.split(",") ?? [""];
   const role = getCookieClient("role");
   const tableData: DataTableData<Appointment> = {
-    createUrl: `${role === Role.CLINIC_EMPLOYEE && permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "/doctor/appointment/create" : role === Role.CLINIC_EMPLOYEE && !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "" : "/doctor/appointment/create"}`,
+    createUrl: `${role === RoleEnum.CLINIC_EMPLOYEE && permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "/doctor/appointment/create" : role === RoleEnum.CLINIC_EMPLOYEE && !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS) ? "" : "/doctor/appointment/create"}`,
     title: `${t("todayAppointments")}`,
     schema: [
       {
@@ -79,7 +79,7 @@ const TableTodayAppointment = () => {
         render: (_status, appointment, setHidden, revalidate) => {
           return (
             <div className={"flex items-center justify-center"}>
-              {role === Role.CLINIC_EMPLOYEE &&
+              {role === RoleEnum.CLINIC_EMPLOYEE &&
               permissionsArray.includes(
                 PermissionsDoctor.MANAGE_APPOINTMENTS,
               ) ? (
@@ -88,7 +88,7 @@ const TableTodayAppointment = () => {
                   appointment={appointment}
                   revalidate={revalidate}
                 />
-              ) : role === Role.CLINIC_EMPLOYEE &&
+              ) : role === RoleEnum.CLINIC_EMPLOYEE &&
                 !permissionsArray.includes(
                   PermissionsDoctor.MANAGE_APPOINTMENTS,
                 ) ? (
@@ -136,12 +136,12 @@ const TableTodayAppointment = () => {
           const button: Buttons[] =
             data?.type == "online" && data.status == "checkout"
               ? ["show"]
-              : role === Role.CLINIC_EMPLOYEE &&
+              : role === RoleEnum.CLINIC_EMPLOYEE &&
                   permissionsArray.includes(
                     PermissionsDoctor.MANAGE_APPOINTMENTS,
                   )
                 ? ["edit", "show"]
-                : role === Role.CLINIC_EMPLOYEE &&
+                : role === RoleEnum.CLINIC_EMPLOYEE &&
                     !permissionsArray.includes(
                       PermissionsDoctor.MANAGE_APPOINTMENTS,
                     )

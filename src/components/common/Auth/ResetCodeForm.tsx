@@ -1,36 +1,25 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Input from "@/components/common/ui/Inputs/Input";
-import { POST } from "@/Http/Http";
-import HandleTimer from "@/hooks/HandleTimer";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { toast } from "react-toastify";
 
-const ResetCodeForm = ({
-  url,
-  urlResendCode,
-  pageType,
-}: {
-  url: string;
-  urlResendCode: string;
-  pageType: string;
-}) => {
-  const [minutes, setMinutes] = useState(15);
-  const [seconds, setSeconds] = useState(0);
-  HandleTimer(minutes, seconds, setMinutes, setSeconds);
-  const HandleClickResetButton = () => {
-    setMinutes(1);
-    setSeconds(0);
-    const email = {
-      email: window.localStorage.getItem(pageType),
-    };
-    return POST(urlResendCode, email);
+const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
+  const handleResendButton = () => {
+    AuthService.make<AuthService>(role)
+      .resendVerificationCode()
+      .then((res) => {
+        if (res.ok()) {
+          toast.success((res?.message as string) ?? "success");
+        }
+      });
   };
 
-  const handleSubmit = (data: { reset_password_code: string }) => {
-    window.localStorage.setItem(pageType + "code", data.reset_password_code);
-    return AuthService.make<AuthService>().submitResetCode(url, data, pageType);
+  const handleSubmit = (data: { code: string }) => {
+    return AuthService.make<AuthService>(role).checkResetCode(data.code);
   };
   const t = useTranslations("auth");
   return (
@@ -50,19 +39,14 @@ const ResetCodeForm = ({
         </div>
         <Form handleSubmit={handleSubmit} buttonText={t("send")}>
           <Input
-            name="reset_password_code"
+            name="code"
             type="text"
             label={t("code")}
             placeholder="Enter Reset Code"
-          ></Input>
-          <div className="pl-2 w-1/2">
-            <p>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </p>
-          </div>
+          />
           <div className="w-full text-left">
             <p
-              onClick={HandleClickResetButton}
+              onClick={handleResendButton}
               className="mt-3 pl-2 text-blue-600 text-sm cursor-pointer"
             >
               {t("resendThecode")} ?

@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
 import ResetPasswordRequest from "@/components/common/Auth/ResetPasswordRequest";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {
-  const apiResetPasswordDoctor: string = `doctor/password-reset-request`;
-  return (
-    <ResetPasswordRequest url={apiResetPasswordDoctor} typePage={"doctor"} />
-  );
+  return <ResetPasswordRequest role={RoleEnum.ADMIN} />;
 };
 
 export default page;

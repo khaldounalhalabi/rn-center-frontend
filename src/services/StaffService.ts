@@ -5,7 +5,7 @@ import { PUT } from "@/Http/Http";
 
 export class StaffService extends BaseService<Staff> {
   public getBaseUrl(): string {
-    return `${this.actor}/clinic-employees`;
+    return `${this.role}/clinic-employees`;
   }
 
   public async updateEmployeePermissions(
@@ -13,7 +13,7 @@ export class StaffService extends BaseService<Staff> {
     data: any,
   ): Promise<ApiResponse<any>> {
     const res = await PUT<any>(
-      `${this.actor}/clinic-employees/${staffId}/update-permissions`,
+      `${this.role}/clinic-employees/${staffId}/update-permissions`,
       data,
     );
     return await this.errorHandler(res);

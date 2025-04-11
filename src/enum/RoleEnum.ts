@@ -1,12 +1,12 @@
-export enum Role {
+export enum RoleEnum {
   ADMIN = "admin",
   CUSTOMER = "customer",
   DOCTOR = "doctor",
-  CLINIC_EMPLOYEE = "clinic-employee",
+  SECRETARY = "secretary",
 }
 
 const Roles = (): string[] => {
-  return Object.values(Role);
+  return Object.values(RoleEnum);
 };
 
 export default Roles;

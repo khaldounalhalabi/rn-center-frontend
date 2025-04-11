@@ -5,10 +5,10 @@ import { GET } from "@/Http/Http";
 
 export class SpecialityService extends BaseService<Speciality> {
   public getBaseUrl(): string {
-    if (this.actor == "public") {
+    if (this.role == "public") {
       return `/specialities`;
     } else {
-      return `${this.actor}/specialities`;
+      return `${this.role}/specialities`;
     }
   }
 

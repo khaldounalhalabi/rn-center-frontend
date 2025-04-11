@@ -5,14 +5,14 @@ import { DELETE, GET } from "@/Http/Http";
 
 export class PrescriptionService extends BaseService<Prescription> {
   public getBaseUrl(): string {
-    return `${this.actor}/prescriptions`;
+    return `${this.role}/prescriptions`;
   }
 
   public async deleteMedicine(
     medicineId: number,
   ): Promise<ApiResponse<MedicineData[]>> {
     const res = await DELETE<MedicineData[]>(
-      `${this.actor}/prescriptions/medicine-data/${medicineId}`,
+      `${this.role}/prescriptions/medicine-data/${medicineId}`,
       undefined,
       this.headers,
     );
@@ -29,7 +29,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     params?: object,
   ): Promise<ApiResponse<Prescription[]>> {
     const res = await GET<Prescription[]>(
-      `${this.actor}/appointments/${appointmentId}/prescriptions`,
+      `${this.role}/appointments/${appointmentId}/prescriptions`,
       {
         page: page,
         search: search,
@@ -53,7 +53,7 @@ export class PrescriptionService extends BaseService<Prescription> {
     params?: object,
   ): Promise<ApiResponse<Prescription[]>> {
     const res = await GET<Prescription[]>(
-      `${this.actor}/customers/${patientId}/prescriptions`,
+      `${this.role}/customers/${patientId}/prescriptions`,
       {
         page: page,
         search: search,

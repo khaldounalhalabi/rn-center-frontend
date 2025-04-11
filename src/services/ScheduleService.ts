@@ -7,14 +7,14 @@ export class ScheduleService extends BaseService<
   Schedule | SchedulesCollection
 > {
   public getBaseUrl(): string {
-    return `${this.actor}/schedules`;
+    return `${this.role}/schedules`;
   }
 
   public async getClinicSchedules(
     clinicId: number,
   ): Promise<ApiResponse<SchedulesCollection>> {
     const res = await GET(
-      `${this.actor}/clinics/${clinicId}/schedules`,
+      `${this.role}/clinics/${clinicId}/schedules`,
       undefined,
       this.headers,
     );
@@ -22,7 +22,7 @@ export class ScheduleService extends BaseService<
   }
 
   public async getDoctorSchedules(): Promise<ApiResponse<SchedulesCollection>> {
-    const res = await GET(`${this.actor}/schedules`, undefined, this.headers);
+    const res = await GET(`${this.role}/schedules`, undefined, this.headers);
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }
 }

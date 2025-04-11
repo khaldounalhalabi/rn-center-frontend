@@ -5,7 +5,7 @@ import { GET } from "@/Http/Http";
 
 export class OffersService extends BaseService<Offers> {
   public getBaseUrl(): string {
-    return `${this.actor}/offers`;
+    return `${this.role}/offers`;
   }
 
   public async getOffersByClinic(

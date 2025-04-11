@@ -1,25 +1,24 @@
 import { Navigate } from "@/Actions/navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
-import { Actors } from "@/types";
-import { deleteCookieServer, getCookieServer } from "@/Actions/serverCookies";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { deleteRole, deleteTokens } from "@/Actions/HelperActions";
 
 export class BaseService<T> {
   protected static instance?: BaseService<any>;
   public baseUrl = "/";
-  public actor: string = "customer";
+  public role: string = "customer";
   protected headers: Record<string, any> = {};
 
   protected constructor() {}
 
   public static make<Service extends BaseService<any>>(
-    actor: Actors = "admin",
+    role: RoleEnum = RoleEnum.ADMIN,
   ): Service {
     if (!this.instance) {
       this.instance = new this();
     }
-    this.instance.actor = actor;
+    this.instance.role = role;
 
     this.instance.baseUrl = this.instance.getBaseUrl();
 
@@ -134,60 +133,9 @@ export class BaseService<T> {
     res: ApiResponse<T> | ApiResponse<T[]>,
   ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
     if (res.code == 401 || res.code == 403) {
-      await deleteCookieServer("token");
-      await deleteCookieServer("refresh_token");
-      await deleteCookieServer("user-type");
-      await deleteCookieServer("role");
-      await deleteCookieServer("permissions");
-      await Navigate(`/auth/${this.actor}/login`);
-    }
-    if (res.code == 432) {
-      await deleteCookieServer("token");
-      await deleteCookieServer("refresh_token");
-      await deleteCookieServer("user-type");
-      await deleteCookieServer("role");
-      await deleteCookieServer("permissions");
-      await Navigate(`/432`);
-    }
-    if (res.code == 430) {
-      await deleteCookieServer("token");
-      await deleteCookieServer("refresh_token");
-      await deleteCookieServer("user-type");
-      await deleteCookieServer("role");
-      await deleteCookieServer("permissions");
-      await Navigate(`/430`);
-    }
-    if (res.code == 431) {
-      await deleteCookieServer("token");
-      await deleteCookieServer("refresh_token");
-      await deleteCookieServer("user-type");
-      await deleteCookieServer("role");
-      await deleteCookieServer("permissions");
-      await Navigate(`/auth/${this.actor}/login`);
-    }
-
-    if (res.code == 434) {
-      await deleteCookieServer("token");
-      await deleteCookieServer("refresh_token");
-      await deleteCookieServer("user-type");
-      await deleteCookieServer("role");
-      await deleteCookieServer("permissions");
-      await Navigate("/auth/customer/verify-code");
-    }
-
-    if (res.code == 435) {
-      if (
-        (await getCookieServer("user-type")) == Role.DOCTOR &&
-        (await getCookieServer("role")) == Role.CLINIC_EMPLOYEE
-      ) {
-        await deleteCookieServer("token");
-        await deleteCookieServer("refresh_token");
-        await deleteCookieServer("user-type");
-        await deleteCookieServer("role");
-        await deleteCookieServer("permissions");
-        await Navigate(`/auth/${this.actor}/login`);
-      }
-      await Navigate("/auth/contract");
+      await deleteTokens();
+      await deleteRole();
+      await Navigate(`/auth/${this.role}/login`);
     }
     return res;
   }

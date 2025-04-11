@@ -5,7 +5,7 @@ import { POST } from "@/Http/Http";
 
 export class EnquiriesService extends BaseService<Enquiries> {
   public getBaseUrl(): string {
-    return `${this.actor}/enquiries`;
+    return `${this.role}/enquiries`;
   }
 
   public async reply(
@@ -13,7 +13,7 @@ export class EnquiriesService extends BaseService<Enquiries> {
     data: { title: string; body: string },
   ): Promise<ApiResponse<boolean>> {
     const res = await POST<boolean>(
-      `${this.actor}/enquiries/${enquiriesId}/reply`,
+      `${this.role}/enquiries/${enquiriesId}/reply`,
       data,
       this.headers,
     );

@@ -4,22 +4,11 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
 
-const ResetPasswordRequest = ({
-  url,
-  typePage,
-}: {
-  url: string;
-  typePage: string;
-}) => {
-  const handleSubmit = (data: { email: string }) => {
-    window.localStorage.setItem(typePage, data.email);
-
-    return AuthService.make<AuthService>().requestResetPasswordRequest(
-      url,
-      data,
-      typePage,
-    );
+const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
+  const handleSubmit = (data: { phone: string }) => {
+    return AuthService.make<AuthService>(role).passwordResetRequest(data.phone);
   };
   const t = useTranslations("auth");
   return (
@@ -35,17 +24,17 @@ const ResetPasswordRequest = ({
           <h1 className="font-bold text-2xl sm:text-3xl">
             {t("resetPassword")}
           </h1>
-          <h4 className="mt-4 text-gray-500">{t("enteryourEmailAddress")}</h4>
+          <h4 className="mt-4 text-gray-500">{t("enter_your_phone")}</h4>
         </div>
         <Form
           handleSubmit={handleSubmit}
-          buttonText={t("sendResetPasswordEmail")}
+          buttonText={t("send_reset_password_code")}
         >
           <Input
-            name="email"
-            type="text"
-            label={t("email")}
-            placeholder="Enter Email"
+            name="phone"
+            type="tel"
+            label={t("phone")}
+            placeholder="0912345678"
           />
         </Form>
       </div>

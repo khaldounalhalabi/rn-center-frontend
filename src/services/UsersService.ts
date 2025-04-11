@@ -5,12 +5,12 @@ import { DELETE, GET } from "@/Http/Http";
 
 export class UsersService extends BaseService<User> {
   getBaseUrl(): string {
-    return `${this.actor}/users`;
+    return `${this.role}/users`;
   }
 
   public async toggleArchive(userId: number): Promise<ApiResponse<User>> {
     const res = await DELETE<User>(
-      `${this.actor}/users/${userId}/toggle-archive`,
+      `${this.role}/users/${userId}/toggle-archive`,
       undefined,
       this.headers,
     );
@@ -19,7 +19,7 @@ export class UsersService extends BaseService<User> {
 
   public async toggleBlock(userId: number): Promise<ApiResponse<User>> {
     const res = await GET<User>(
-      `${this.actor}/users/${userId}/toggle-block`,
+      `${this.role}/users/${userId}/toggle-block`,
       undefined,
       this.headers,
     );

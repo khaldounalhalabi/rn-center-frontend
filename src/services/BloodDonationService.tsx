@@ -4,7 +4,7 @@ import { ApiResponse } from "@/Http/Response";
 
 export class BloodDonationService extends BaseService<BloodDonation> {
   public getBaseUrl(): string {
-    return `${this.actor}/blood-donation-requests`;
+    return `${this.role}/blood-donation-requests`;
   }
 
   public async getAvailable(

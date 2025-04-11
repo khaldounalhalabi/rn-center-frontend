@@ -9,18 +9,18 @@ import {
 
 export class StatisticService extends BaseService<Statistics> {
   getBaseUrl(): string {
-    return `${this.actor}/statistics`;
+    return `${this.role}/statistics`;
   }
 
   public async doctorIndexPageStatistics(): Promise<ApiResponse<Statistics>> {
-    const res = await GET<Statistics>(`${this.actor}/statistics/index-page`);
+    const res = await GET<Statistics>(`${this.role}/statistics/index-page`);
     return await this.errorHandler(res);
   }
 
   public async adminIndexPageStatistics(): Promise<
     ApiResponse<AdminStatistics>
   > {
-    const res = await GET<AdminStatistics>(`${this.actor}/statistics/index`);
+    const res = await GET<AdminStatistics>(`${this.role}/statistics/index`);
     return await this.errorHandler(res);
   }
 

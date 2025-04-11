@@ -16,7 +16,7 @@ import OfferIcon from "@/components/icons/OfferIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
 import { getCookieClient } from "@/Actions/clientCookies";
 import { PermissionsDoctor } from "@/enum/Permissions";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
 import ClinicIcon from "@/components/icons/ClinicIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
 import StaffIcon from "@/components/icons/StaffIcon";
@@ -196,7 +196,7 @@ const SidebarDoctor = ({
                 link={item.link}
                 key={index}
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(item.role)
                     ? "hidden"
                     : ""
@@ -236,7 +236,7 @@ const SidebarDoctor = ({
                     setOpenNavBar={setOpenNavBar}
                     openNavBar={openNavBar}
                     className={
-                      role == Role.CLINIC_EMPLOYEE &&
+                      role == RoleEnum.CLINIC_EMPLOYEE &&
                       !permissionsArray.includes(
                         PermissionsDoctor.MANGE_SCHEDULES,
                       )
@@ -252,7 +252,7 @@ const SidebarDoctor = ({
                     openNavBar={openNavBar}
                     link={"/doctor/clinic/holidays"}
                     className={
-                      role == Role.CLINIC_EMPLOYEE &&
+                      role == RoleEnum.CLINIC_EMPLOYEE &&
                       !permissionsArray.includes(
                         PermissionsDoctor.MANAGE_HOLIDAYS,
                       )
@@ -267,7 +267,7 @@ const SidebarDoctor = ({
                     openNavBar={openNavBar}
                     link={"/doctor/medicines"}
                     className={
-                      role == Role.CLINIC_EMPLOYEE &&
+                      role == RoleEnum.CLINIC_EMPLOYEE &&
                       !permissionsArray.includes(
                         PermissionsDoctor.MANAGE_MEDICINES,
                       )
@@ -281,7 +281,7 @@ const SidebarDoctor = ({
               </SidebarCompactItem>
               <SidebarItem
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(
                     PermissionsDoctor.MANAGE_APPOINTMENTS,
                   )
@@ -299,7 +299,7 @@ const SidebarDoctor = ({
                 openNavBar={openNavBar}
                 link={"/doctor/patients"}
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
                     ? "hidden"
                     : ""
@@ -312,7 +312,7 @@ const SidebarDoctor = ({
                 openNavBar={openNavBar}
                 link={"/doctor/offer"}
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
                     ? "hidden"
                     : ""
@@ -322,7 +322,7 @@ const SidebarDoctor = ({
               </SidebarItem>
               <SidebarCompactItem
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(
                     PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
                   )
@@ -357,7 +357,7 @@ const SidebarDoctor = ({
                 openNavBar={openNavBar}
                 link={"/doctor/service"}
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
                     ? "hidden"
                     : ""
@@ -371,7 +371,7 @@ const SidebarDoctor = ({
                 openNavBar={openNavBar}
                 link={"/doctor/staff"}
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
                     ? "hidden"
                     : ""
@@ -419,7 +419,7 @@ const SidebarDoctor = ({
               </SidebarIcon>
               <SidebarIcon
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANGE_SCHEDULES)
                     ? "hidden"
                     : ""
@@ -431,7 +431,7 @@ const SidebarDoctor = ({
               </SidebarIcon>
               <SidebarIcon
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_HOLIDAYS)
                     ? "hidden"
                     : ""
@@ -443,7 +443,7 @@ const SidebarDoctor = ({
               </SidebarIcon>
               <SidebarIcon
                 className={
-                  role == Role.CLINIC_EMPLOYEE &&
+                  role == RoleEnum.CLINIC_EMPLOYEE &&
                   !permissionsArray.includes(PermissionsDoctor.MANAGE_MEDICINES)
                     ? "hidden"
                     : ""
@@ -457,7 +457,7 @@ const SidebarDoctor = ({
           </SidebarCompactIcon>
           <SidebarIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.MANAGE_APPOINTMENTS)
                 ? "hidden"
                 : ""
@@ -469,7 +469,7 @@ const SidebarDoctor = ({
           </SidebarIcon>
           <SidebarIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.MANAGE_PATIENTS)
                 ? "hidden"
                 : ""
@@ -481,7 +481,7 @@ const SidebarDoctor = ({
           </SidebarIcon>
           <SidebarIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.MANAGE_OFFERS)
                 ? "hidden"
                 : ""
@@ -493,7 +493,7 @@ const SidebarDoctor = ({
           </SidebarIcon>
           <SidebarCompactIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(
                 PermissionsDoctor.ACCOUNTANT_MANAGEMENT,
               )
@@ -518,7 +518,7 @@ const SidebarDoctor = ({
 
           <SidebarIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.MANAGE_SERVICE)
                 ? "hidden"
                 : ""
@@ -531,7 +531,7 @@ const SidebarDoctor = ({
 
           <SidebarIcon
             className={
-              role == Role.CLINIC_EMPLOYEE &&
+              role == RoleEnum.CLINIC_EMPLOYEE &&
               !permissionsArray.includes(PermissionsDoctor.MANAGE_EMPLOYEES)
                 ? "hidden"
                 : ""

@@ -5,7 +5,7 @@ import { GET } from "@/Http/Http";
 
 export class CategoryService extends BaseService<ServiceCategory> {
   public getBaseUrl(): string {
-    return `${this.actor}/service-categories`;
+    return `${this.role}/service-categories`;
   }
 
   public async getAllCategory(

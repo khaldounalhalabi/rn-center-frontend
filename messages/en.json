@@ -1291,7 +1291,7 @@
     "phone": "Phone",
     "password": "Password",
     "confirm-password": "Confirm Password",
-    "err": "The email or password is incorrect. Try again or click Forgot Password",
+    "err": "The phone or password is incorrect. Try again or click Forgot Password",
     "forgetPassword": "Forget Password ?",
     "resetPassword": "Reset Password",
     "Login": "Login",
@@ -1305,7 +1305,9 @@
     "save": "Save",
     "join_request": "Don't have an account ?",
     "join_us": "Send a joining request",
-    "send_us_join_request": "Send a join request"
+    "send_us_join_request": "Send a join request",
+    "enter_your_phone": "Enter your phone number",
+    "send_reset_password_code": "Send reset password code"
   },
   "contact_and_payment": {
     "phone": "Contact us",

@@ -6,7 +6,7 @@ import { Appointment } from "@/Models/Appointment";
 
 export class CustomerService extends BaseService<Customer> {
   public getBaseUrl(): string {
-    return `${this.actor}/customers`;
+    return `${this.role}/customers`;
   }
 
   public async getAdminCustomerLastVisit(
@@ -14,7 +14,7 @@ export class CustomerService extends BaseService<Customer> {
     clinicId: number,
   ): Promise<ApiResponse<Appointment>> {
     const res = await GET<Appointment>(
-      `${this.actor}/customers/${customerId}/clinics/${clinicId}/last-appointment`,
+      `${this.role}/customers/${customerId}/clinics/${clinicId}/last-appointment`,
     );
     return await this.errorHandler(res);
   }
@@ -23,7 +23,7 @@ export class CustomerService extends BaseService<Customer> {
     customerId: number,
   ): Promise<ApiResponse<Appointment>> {
     const res = await GET<Appointment>(
-      `${this.actor}/customers/${customerId}/last-appointment`,
+      `${this.role}/customers/${customerId}/last-appointment`,
     );
     return await this.errorHandler(res);
   }
@@ -39,7 +39,7 @@ export class CustomerService extends BaseService<Customer> {
     params?: object,
   ): Promise<ApiResponse<Customer[]>> {
     const res = await GET<Customer[]>(
-      `${this.actor}/clinics/${clinicId}/customers`,
+      `${this.role}/clinics/${clinicId}/customers`,
       {
         page: page,
         search: search,
@@ -62,7 +62,7 @@ export class CustomerService extends BaseService<Customer> {
     params?: object,
   ): Promise<ApiResponse<Recent>> {
     const res = await GET<Recent>(
-      `${this.actor}/customers/recent`,
+      `${this.role}/customers/recent`,
       {
         page: page,
         search: search,

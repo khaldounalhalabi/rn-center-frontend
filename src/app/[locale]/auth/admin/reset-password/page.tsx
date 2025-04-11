@@ -1,11 +1,9 @@
 import React from "react";
 import ResetPasswordRequest from "@/components/common/Auth/ResetPasswordRequest";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {
-  const apiResetPasswordAdmin: string = `admin/password-reset-request`;
-  return (
-    <ResetPasswordRequest url={apiResetPasswordAdmin} typePage={"admin"} />
-  );
+  return <ResetPasswordRequest role={RoleEnum.ADMIN} />;
 };
 
 export default page;

@@ -5,10 +5,10 @@ import { GET } from "@/Http/Http";
 
 export class ClinicsService extends BaseService<Clinic> {
   getBaseUrl(): string {
-    if (this.actor == "public") {
+    if (this.role == "public") {
       return `/clinics`;
     }
-    return `${this.actor}/clinics`;
+    return `${this.role}/clinics`;
   }
 
   public async getClinicsBySubscription(
@@ -21,7 +21,7 @@ export class ClinicsService extends BaseService<Clinic> {
     params?: object,
   ): Promise<ApiResponse<Clinic[]>> {
     const res = await GET<Clinic[]>(
-      `${this.actor}/subscriptions/${subscriptionId}/clinics`,
+      `${this.role}/subscriptions/${subscriptionId}/clinics`,
       {
         page: page,
         search: search,
@@ -45,7 +45,7 @@ export class ClinicsService extends BaseService<Clinic> {
     params?: object,
   ): Promise<ApiResponse<Clinic[]>> {
     const res = await GET<Clinic[]>(
-      `${this.actor}/system-offers/${offerId}/clinics`,
+      `${this.role}/system-offers/${offerId}/clinics`,
       {
         page: page,
         search: search,

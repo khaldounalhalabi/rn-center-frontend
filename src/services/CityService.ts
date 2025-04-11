@@ -5,10 +5,10 @@ import { GET } from "@/Http/Http";
 
 export class CityService extends BaseService<City> {
   getBaseUrl(): string {
-    if (this.actor == "public") {
+    if (this.role == "public") {
       return `cities`;
     }
-    return `${this.actor}/cities`;
+    return `${this.role}/cities`;
   }
 
   public async getAllCities(

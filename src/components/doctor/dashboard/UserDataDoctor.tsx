@@ -9,7 +9,7 @@ import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useLocale, useTranslations } from "next-intl";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
 import { PermissionsDoctor } from "@/enum/Permissions";
 import { getCookieClient } from "@/Actions/clientCookies";
 import ArrowLeft from "@/components/icons/ArrowLeft";
@@ -95,7 +95,7 @@ const UserDataDoctor = ({
             </h2>
             <p className="text-sm md:text-base">{user?.email}</p>
           </div>
-          {role == Role.CLINIC_EMPLOYEE &&
+          {role == RoleEnum.CLINIC_EMPLOYEE &&
           !permissionsArray.includes(PermissionsDoctor.EDIT_CLINIC_PROFILE) ? (
             false
           ) : (

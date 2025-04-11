@@ -3,47 +3,31 @@ import React, { useState } from "react";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
-import { POST } from "@/Http/Http";
-import { Navigate } from "@/Actions/navigate";
-import { setCookieClient } from "@/Actions/clientCookies";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse } from "@/Models/User";
 import { useTranslations } from "next-intl";
+import { AuthService } from "@/services/AuthService";
+import useUser from "@/hooks/UserHook";
+import { RoleEnum } from "@/enum/RoleEnum";
 
-interface LoginProps {
-  url: string;
-  pageType: string;
-}
-
-const Login: React.FC<LoginProps> = ({ url, pageType }) => {
+const Login = ({ role }: { role: RoleEnum }) => {
   const [error, setError] = useState(false);
 
-  const handleSubmit = (data: { phone: string; password: string }) => {
+  const handleSubmit = async (data: { phone: string; password: string }) => {
     setError(false);
-    return POST<AuthResponse>(url, data).then((res: any) => {
-      if (res.code == 401) {
-        setError(true);
-        return res;
-      } else {
-        Array.isArray(res?.data?.user?.role)
-          ? res?.data?.user.role?.forEach((e: { id: number; name: string }) => {
-              setCookieClient("role", e.name);
-            })
-          : false;
-        return res;
-      }
-    });
-  };
-
-  const handleSuccess = (data: ApiResponse<AuthResponse>) => {
-    window.localStorage.setItem(
-      "user",
-      JSON.stringify(data?.data?.user ?? undefined),
+    let response = await AuthService.make<AuthService>(role).login(
+      data.phone,
+      data.password,
     );
-    setCookieClient("token", data?.data?.token ?? "");
-    setCookieClient("refresh_token", data?.data?.refresh_token ?? "");
-    setCookieClient("user-type", pageType);
-    Navigate(`/${pageType}`);
+
+    if (response.isNotAuthorized()) {
+      setError(true);
+    }
+    return response;
+  };
+  const { setUser } = useUser();
+  const handleSuccess = (data: ApiResponse<AuthResponse>) => {
+    setUser(data?.data?.user);
   };
   const t = useTranslations("auth");
   return (
@@ -80,23 +64,12 @@ const Login: React.FC<LoginProps> = ({ url, pageType }) => {
           <div className="flex justify-center opacity-80 mt-4 gap-1">
             <h4>{t("forgetPassword")}</h4>
             <Link
-              href={`/auth/${pageType}/reset-password`}
+              href={`/auth/${role}/reset-password`}
               className="text-blue-600 ml-1"
             >
               {t("resetPassword")}
             </Link>
           </div>
-          {pageType == "doctor" && (
-            <div className="flex justify-center opacity-80 mt-4 gap-1">
-              <h4>{t("join_request")}</h4>
-              <Link
-                href={`/auth/${pageType}/join-request`}
-                className="text-blue-600 ml-1"
-              >
-                {t("join_us")}
-              </Link>
-            </div>
-          )}
         </Form>
       </div>
     </div>

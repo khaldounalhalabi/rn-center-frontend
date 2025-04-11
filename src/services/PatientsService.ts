@@ -3,6 +3,6 @@ import { Customer } from "@/Models/Customer";
 
 export class PatientsService extends BaseService<Customer> {
   public getBaseUrl(): string {
-    return `${this.actor}/customers`;
+    return `${this.role}/customers`;
   }
 }

@@ -5,10 +5,10 @@ import { GET } from "@/Http/Http";
 
 export class SystemOffersService extends BaseService<SystemOffers> {
   public getBaseUrl(): string {
-    if (this.actor == "public") {
+    if (this.role == "public") {
       return `/system-offers`;
     } else {
-      return `${this.actor}/system-offers`;
+      return `${this.role}/system-offers`;
     }
   }
 

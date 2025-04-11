@@ -5,7 +5,7 @@ import { ApiResponse } from "@/Http/Response";
 
 export class ClinicSubscriptionService extends BaseService<ClinicSubscription> {
   public getBaseUrl(): string {
-    return `${this.actor}/clinic-subscriptions`;
+    return `${this.role}/clinic-subscriptions`;
   }
 
   public async getClinicSubscriptions(
@@ -18,7 +18,7 @@ export class ClinicSubscriptionService extends BaseService<ClinicSubscription> {
     params?: object,
   ): Promise<ApiResponse<ClinicSubscription[]>> {
     const res = await GET<ClinicSubscription[]>(
-      `${this.actor}/clinics/${clinicId}/subscriptions`,
+      `${this.role}/clinics/${clinicId}/subscriptions`,
       {
         page: page,
         search: search,

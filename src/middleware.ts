@@ -1,7 +1,8 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { getCookieServer } from "./Actions/serverCookies";
 import { locales } from "./navigation";
+import { authMiddleware } from "@/middlewares/auth-middleware";
+import { getCookieServer } from "@/Actions/serverCookies";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -13,44 +14,38 @@ export const config = {
   matcher: ["/", "/(ar|en)/:path*"],
 };
 
-async function authenticationMiddleware(req: NextRequest) {
-  const path = `${req.nextUrl.pathname}`;
-  const access = await getCookieServer("user-type");
+export default async function middleware(request: NextRequest) {
+  const access = await authMiddleware(request);
   const locale = await getCookieServer("NEXT_LOCALE");
-  if (
-    (!access && path.includes(`${locale}/admin`)) ||
-    ((access == "customer" || access == "doctor") &&
-      path.includes(`${locale}/admin`))
-  ) {
+
+  if (!access.canAccessAdmin) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,
-      req.nextUrl.origin,
+      request.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (
-    (!access && path.includes(`${locale}/customer`)) ||
-    ((access == "admin" || access == "doctor") &&
-      path.includes(`${locale}/customer`))
-  ) {
-    const absolutURL = new URL(`${locale}`, req.nextUrl.origin);
+
+  if (!access.canAccessCustomer) {
+    const absolutURL = new URL(`${locale}`, request.nextUrl.origin);
     return NextResponse.redirect(absolutURL.toString());
   }
-  if (
-    (!access && path.includes(`${locale}/doctor`)) ||
-    ((access == "customer" || access == "admin") &&
-      path.includes(`${locale}/doctor`))
-  ) {
+
+  if (!access.canAccessDoctor) {
     const absolutURL = new URL(
       `${locale}/auth/doctor/login`,
-      req.nextUrl.origin,
+      request.nextUrl.origin,
     );
     return NextResponse.redirect(absolutURL.toString());
   }
 
-  return translationMiddleware(req);
-}
+  if (!access.canAccessSecretary) {
+    const absolutURL = new URL(
+      `${locale}/auth/secretary/login`,
+      request.nextUrl.origin,
+    );
+    return NextResponse.redirect(absolutURL.toString());
+  }
 
-export default async function middleware(req: NextRequest) {
-  return await authenticationMiddleware(req);
+  return translationMiddleware(request);
 }

@@ -5,7 +5,7 @@ import { ApiResponse } from "@/Http/Response";
 
 export class UserService extends BaseService<User | string> {
   getBaseUrl(): string {
-    return `${this.actor}/users`;
+    return `${this.role}/users`;
   }
 
   public toggleArchive = async (userId: number | undefined) => {

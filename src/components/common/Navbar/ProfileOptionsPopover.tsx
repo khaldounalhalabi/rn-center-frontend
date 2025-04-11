@@ -16,7 +16,7 @@ import { AuthService } from "@/services/AuthService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { ReFetchPhoto } from "@/app/[locale]/providers";
 import { useTranslations } from "next-intl";
-import { Role } from "@/enum/Role";
+import { RoleEnum } from "@/enum/RoleEnum";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 
@@ -37,7 +37,7 @@ const ProfileOptionsPopover = () => {
         .GetUserDetails()
         .then((res) => {
           // @ts-ignore
-          if (res?.data?.role[0]?.name == Role.CLINIC_EMPLOYEE) {
+          if (res?.data?.role[0]?.name == RoleEnum.CLINIC_EMPLOYEE) {
             const permissions = res?.data?.permissions ?? [""];
             setCookieClient("permissions", permissions?.toString());
           } else {

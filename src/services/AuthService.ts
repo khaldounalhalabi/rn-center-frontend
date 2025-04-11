@@ -1,79 +1,114 @@
 import { Navigate } from "@/Actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse, User } from "@/Models/User";
-import { setServerCookie } from "@/Actions/serverCookies";
 import { GET, POST, PUT } from "@/Http/Http";
 import { BaseService } from "./BaseService";
 import { Clinic } from "@/Models/Clinic";
+import {
+  getOtp,
+  getPhone,
+  setOtp,
+  setPhone,
+  setRole,
+  setToken,
+} from "@/Actions/HelperActions";
 
 export class AuthService extends BaseService<AuthResponse> {
   public successStatus: boolean = false;
-  private locale: string = "en";
+
+  getBaseUrl(): string {
+    return `/${this.role}`;
+  }
 
   public static async getCurrentActor() {
     const res = await GET<string>("/check-role");
     return res.data;
   }
 
-  public async login(url: string, dataForm: object, pageType: string) {
-    const response = await POST<AuthResponse>(url, dataForm).then(
-      (res: ApiResponse<AuthResponse>) => {
-        if (res.code == 200) {
-          setServerCookie("token", res?.data?.token ?? "");
-          setServerCookie("refresh_token", res?.data?.refresh_token ?? "");
-          this.successStatus = true;
-        }
+  public async login(phone: string, password: string) {
+    const response = await POST<AuthResponse>(`${this.baseUrl}/login`, {
+      phone: phone,
+      password: password,
+    }).then((res: ApiResponse<AuthResponse>) => {
+      if (res.ok()) {
+        setToken(res?.data?.token, res?.data?.refresh_token);
+        setRole(res?.data?.user?.role);
+        this.successStatus = true;
+      }
 
-        return res;
+      return res;
+    });
+    if (this.successStatus) {
+      await Navigate(`/${this.role}`);
+    }
+
+    return response;
+  }
+
+  public async checkResetCode(code: string) {
+    const response = await POST<null>(
+      `${this.baseUrl}/check-reset-password-code`,
+      {
+        reset_password_code: code,
       },
-    );
-    if (this.successStatus) await Navigate(`/${pageType}`);
+    ).then((response) => {
+      this.successStatus = response.ok();
+      return response;
+    });
 
-    const userType = await AuthService.getCurrentActor();
-    await setServerCookie("user-type", userType);
+    if (this.successStatus) {
+      await setOtp(code);
+      await Navigate(`/auth/${this.baseUrl}/set-new-password`);
+    }
 
     return response;
   }
 
-  public async submitResetCode(
-    url: string,
-    dataForm: object,
-    pageType: string,
-  ) {
-    const response = await POST<null>(url, dataForm).then((e) => {
-      this.successStatus = e.code == 200;
-      return e;
+  public async resendVerificationCode() {
+    const phone = await getPhone();
+    if (!phone) {
+      await Navigate(`/auth/${this.role}/reset-password`);
+    }
+
+    return await POST<null>(`${this.baseUrl}/resend-verification-code`, {
+      phone: phone,
+    }).then((response) => {
+      if (response.ok()) {
+        setPhone(phone);
+      }
+      return response;
+    });
+  }
+
+  public async passwordResetRequest(phone: string) {
+    const response = await POST<null>(
+      `${this.baseUrl}/password-reset-request`,
+      { phone: phone },
+    ).then((response) => {
+      this.successStatus = response.ok();
+      setPhone(phone);
+      return response;
     });
 
-    if (this.successStatus)
-      await Navigate(`/auth/${pageType}/set-new-password`);
+    if (this.successStatus) {
+      await Navigate(`/auth/${this.role}/reset-password-code`);
+    }
 
     return response;
   }
 
-  public async requestResetPasswordRequest(
-    url: string,
-    dataForm: object,
-    typePage: string,
-  ) {
-    const response = await POST<null>(url, dataForm).then((e) => {
-      this.successStatus = e.code == 200;
-      return e;
+  public async resetPassword(password: string, passwordConfirmation: string) {
+    const code = await getOtp();
+    const response = await POST<boolean>(`${this.baseUrl}/reset-password`, {
+      reset_password_code: code,
+      password: password,
+      password_confirmation: passwordConfirmation,
+    }).then((response) => {
+      this.successStatus = response.ok();
+      return response;
     });
 
-    if (this.successStatus)
-      await Navigate(`/auth/${typePage}/reset-password-code`);
-
-    return response;
-  }
-
-  public async setNewPassword(url: string, dataForm: object, pageType: string) {
-    const response = await POST<boolean>(url, dataForm).then((e) => {
-      this.successStatus = e.code == 200;
-      return e;
-    });
-
-    if (this.successStatus) await Navigate(`/auth/${pageType}/login`);
+    if (this.successStatus) await Navigate(`/auth/${this.role}/login`);
     return response;
   }
 
@@ -89,27 +124,24 @@ export class AuthService extends BaseService<AuthResponse> {
   }
 
   public async GetUserDetails(): Promise<ApiResponse<User>> {
-    const res = await GET<User>(`${this.actor}/me`);
+    const res = await GET<User>(`${this.role}/me`);
     return await this.errorHandler(res);
   }
 
   public async GetClinicDetails(): Promise<ApiResponse<Clinic>> {
-    const res = await GET<Clinic>(`${this.actor}/clinic`);
+    const res = await GET<Clinic>(`${this.role}/clinic`);
     return await this.errorHandler(res);
   }
 
   public async UpdateUserDetails(
     data: any,
   ): Promise<ApiResponse<AuthResponse>> {
-    const res = await POST<AuthResponse>(
-      `${this.actor}/update-user-data`,
-      data,
-    );
+    const res = await POST<AuthResponse>(`${this.role}/update-user-data`, data);
     return await this.errorHandler(res);
   }
 
   public async UpdateClinicDetails(data: any): Promise<ApiResponse<Clinic>> {
-    const res = await PUT<Clinic>(`${this.actor}/clinic/update`, data);
+    const res = await PUT<Clinic>(`${this.role}/clinic/update`, data);
     return await this.errorHandler(res);
   }
 

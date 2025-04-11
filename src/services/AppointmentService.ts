@@ -6,20 +6,20 @@ import { AvailableTime } from "@/Models/AvailableTime";
 
 export class AppointmentService extends BaseService<Appointment> {
   public getBaseUrl(): string {
-    return `${this.actor}/appointments`;
+    return `${this.role}/appointments`;
   }
 
   public async getAvailableTimes(
     clinicId: number,
   ): Promise<ApiResponse<AvailableTime>> {
     const res = await GET<AvailableTime>(
-      `${this.actor}/clinics/${clinicId}/available-times`,
+      `${this.role}/clinics/${clinicId}/available-times`,
     );
     return await this.errorHandler(res);
   }
 
   public async getAvailableTimesClinic(): Promise<ApiResponse<AvailableTime>> {
-    const res = await GET<AvailableTime>(`${this.actor}/available-times`);
+    const res = await GET<AvailableTime>(`${this.role}/available-times`);
     return await this.errorHandler(res);
   }
 
@@ -27,7 +27,7 @@ export class AppointmentService extends BaseService<Appointment> {
     year: string,
   ): Promise<ApiResponse<groupedByMonth>> {
     const res = await GET<groupedByMonth>(
-      `${this.actor}/appointments/all/group-by-month?year=${year}`,
+      `${this.role}/appointments/all/group-by-month?year=${year}`,
     );
     return await this.errorHandler(res);
   }
@@ -36,7 +36,7 @@ export class AppointmentService extends BaseService<Appointment> {
     year: string,
   ): Promise<ApiResponse<groupedByMonth>> {
     const res = await GET<groupedByMonth>(
-      `${this.actor}/appointments/completed/group-by-month?year=${year}`,
+      `${this.role}/appointments/completed/group-by-month?year=${year}`,
     );
     return await this.errorHandler(res);
   }
@@ -46,7 +46,7 @@ export class AppointmentService extends BaseService<Appointment> {
     data: { status: string; cancellation_reason?: string },
   ): Promise<ApiResponse<Appointment>> {
     const res = await POST<Appointment>(
-      `${this.actor}/appointments/${appointmentId}/toggle-status`,
+      `${this.role}/appointments/${appointmentId}/toggle-status`,
       data,
     );
     return await this.errorHandler(res);
@@ -57,7 +57,7 @@ export class AppointmentService extends BaseService<Appointment> {
     data: { date: string },
   ): Promise<ApiResponse<Appointment>> {
     const res = await PUT<Appointment>(
-      `${this.actor}/appointments/${appointmentId}/update-date`,
+      `${this.role}/appointments/${appointmentId}/update-date`,
       data,
     );
     return await this.errorHandler(res);
@@ -73,7 +73,7 @@ export class AppointmentService extends BaseService<Appointment> {
     params?: object,
   ): Promise<ApiResponse<Appointment[]>> {
     const res = await GET<Appointment[]>(
-      `${this.actor}/clinics/${clinicId}/appointments`,
+      `${this.role}/clinics/${clinicId}/appointments`,
       {
         page: page,
         search: search,
@@ -88,7 +88,7 @@ export class AppointmentService extends BaseService<Appointment> {
   }
 
   public async exportExcel() {
-    const res = await GET<any>(`${this.actor}/appointments/export`);
+    const res = await GET<any>(`${this.role}/appointments/export`);
     return await res;
   }
 
@@ -102,7 +102,7 @@ export class AppointmentService extends BaseService<Appointment> {
     params?: object,
   ): Promise<ApiResponse<Appointment[]>> {
     const res = await GET<Appointment[]>(
-      `${this.actor}/customers/${customerId}/appointments`,
+      `${this.role}/customers/${customerId}/appointments`,
       {
         page: page,
         search: search,

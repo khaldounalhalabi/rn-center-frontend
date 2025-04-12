@@ -1,27 +1,28 @@
-"use client";
+import { useCallback, useEffect, useState } from "react";
 import { User } from "@/Models/User";
-import { useEffect, useState } from "react";
+import { RoleEnum } from "@/enum/RoleEnum";
+
+const USER_STORAGE_KEY = "user";
 
 const useUser = () => {
-  const [data, setData] = useState<User | undefined>(undefined);
-
-  const setUser = (user?: User) => {
-    if (user) {
-      window.localStorage.setItem("user", JSON.stringify(user));
-    }
-  };
-
+  const [user, updateUser] = useState<User | undefined>(undefined);
   useEffect(() => {
-    const localStorageUser = window.localStorage.getItem("user");
-    if (localStorageUser) {
-      setData(JSON.parse(localStorageUser));
+    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+    if (storedUser) {
+      updateUser(JSON.parse(storedUser));
     }
   }, []);
 
-  return {
-    user: data,
-    setUser: setUser,
-  };
+  const setUser = useCallback((newUser: User) => {
+    if (newUser) {
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
+    } else {
+      localStorage.removeItem(USER_STORAGE_KEY);
+    }
+    updateUser(newUser);
+  }, []);
+
+  return { user, setUser, role: user?.role ?? RoleEnum.CUSTOMER };
 };
 
 export default useUser;

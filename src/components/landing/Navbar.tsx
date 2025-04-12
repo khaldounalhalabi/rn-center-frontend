@@ -6,8 +6,9 @@ import Close from "@/components/icons/Close";
 import CheckUserImg from "@/components/landing/CheckUserImg";
 import { Link as TranslatableLink } from "@/navigation";
 import LanguagePopover from "@/components/common/Navbar/languagePopover";
+import Config from "@/config";
 
-const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
+const Navbar = ({ links }: { links: { title: string; link: string }[] }) => {
   const [openNav, setOpenNav] = useState(false);
   const HandleClose = () => {
     setOpenNav(false);
@@ -18,7 +19,7 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
         <div className="navbar-start">
           <div className="dropdown">
             <img
-              src={"/pom.png"}
+              src={Config.full_logo_path}
               alt={".."}
               className={"md:h-auto w-10 h-10"}
             />
@@ -100,4 +101,4 @@ const Nav = ({ links }: { links: { title: string; link: string }[] }) => {
   );
 };
 
-export default Nav;
+export default Navbar;

@@ -9,6 +9,7 @@ import UserDataDoctor from "@/components/doctor/dashboard/UserDataDoctor";
 import CardsAppointmentDoctor from "@/components/doctor/dashboard/CardsAppointmentDoctor";
 import TableTodayAppointment from "@/components/doctor/dashboard/tableTodayAppointment";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const Home = () => {
   const {
@@ -19,7 +20,7 @@ const Home = () => {
     queryKey: ["statistics"],
     queryFn: async () => {
       return await StatisticService.make<StatisticService>(
-        "doctor",
+        RoleEnum.DOCTOR,
       ).doctorIndexPageStatistics();
     },
   });

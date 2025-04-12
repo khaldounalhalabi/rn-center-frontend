@@ -1,20 +1,20 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import UserDetailsForm from "@/components/doctor/userDetails/UserDetailsForm";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
+import { getRole } from "@/Actions/HelperActions";
+import UserDetailsForm from "@/components/common/Auth/UserDetailsForm";
 
 const page = async () => {
-  const UserDetails = (
-    await AuthService.make<AuthService>("doctor").GetUserDetails()
-  ).data;
+  const role = await getRole();
+  const user = (await AuthService.make<AuthService>(role).userDetails()).data;
   const t = await getTranslations("details");
   return (
     <PageCard>
       <h2 className="card-title">{t("editUserDetails")}</h2>
       <UserDetailsForm
         defaultValues={{
-          ...UserDetails,
+          ...user,
         }}
       />
     </PageCard>

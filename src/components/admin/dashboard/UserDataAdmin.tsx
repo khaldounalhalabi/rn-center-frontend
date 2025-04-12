@@ -1,13 +1,12 @@
 "use client";
 import { AdminStatistics } from "@/Models/Statistics";
-import { User } from "@/Models/User";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import RoundedImage from "@/components/common/RoundedImage";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ArrowRight from "@/components/icons/ArrowRight";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import useUser from "@/hooks/UserHook";
 
 const UserDataAdmin = ({
   statisticsRes,
@@ -18,7 +17,7 @@ const UserDataAdmin = ({
   isLoading: boolean;
   isFetching: boolean;
 }) => {
-  const user: User = HandleGetUserData();
+  const { user } = useUser();
   const t = useTranslations("common.dashboard");
   const thisMonth = Number(statisticsRes?.total_deductions_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_deductions_prev_month ?? 0);

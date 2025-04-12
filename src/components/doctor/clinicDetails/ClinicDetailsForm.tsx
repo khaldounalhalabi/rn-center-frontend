@@ -31,7 +31,7 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
       .UpdateClinicDetails(data)
       .then((res) => {
         AuthService.make<AuthService>("doctor")
-          .GetUserDetails()
+          .userDetails()
           .then((ress) => {
             window.localStorage.setItem(
               "user",

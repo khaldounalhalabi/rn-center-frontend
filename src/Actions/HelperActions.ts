@@ -37,7 +37,9 @@ export async function setOtp(code?: string) {
 }
 
 export async function getOtp(): Promise<string | undefined> {
-  return await getCookieServer("otp_code");
+  const otp = await getCookieServer("otp_code");
+  await deleteCookieServer("otp_code");
+  return otp;
 }
 
 export async function setPhone(phone?: string) {
@@ -45,5 +47,7 @@ export async function setPhone(phone?: string) {
 }
 
 export async function getPhone(): Promise<string | undefined> {
-  return await getCookieServer("phone");
+  const phone = await getCookieServer("phone");
+  await deleteCookieServer("phone");
+  return phone;
 }

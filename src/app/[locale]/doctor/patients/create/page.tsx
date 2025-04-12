@@ -7,7 +7,7 @@ import { AuthService } from "@/services/AuthService";
 const page = async () => {
   const t = await getTranslations("common.patient.create");
   const doctor = await AuthService.make<AuthService>("doctor")
-    .GetUserDetails()
+    .userDetails()
     .then((res) => res.data);
 
   return (

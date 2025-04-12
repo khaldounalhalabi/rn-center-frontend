@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { ApiErrorType, ApiResponse } from "@/Http/Response";
 import { getCookieServer } from "@/Actions/serverCookies";
+import { getToken } from "@/Actions/HelperActions";
 
 export const GET = async <T>(
   url: string,
@@ -42,7 +43,7 @@ const http = async <T>(
   data?: object | undefined,
 ): Promise<ApiResponse<T>> => {
   let lang = await getCookieServer("NEXT_LOCALE");
-  const token = (await getCookieServer("token")) ?? "";
+  const token = await getToken();
   const h = {
     "Content-Type": "multipart/form-data",
     Accept: "application/json",

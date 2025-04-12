@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "@/components/landing/Nav";
+import Navbar from "@/components/landing/Navbar";
 import LandingIcon from "@/components/icons/landingIcon";
 import LandingLinIcon from "@/components/icons/LandinLinIcon";
 import Title from "@/components/landing/Title";
@@ -49,7 +49,7 @@ const Page = async () => {
       <div
         className={" text-[#013567] relative overflow-x-hidden md:px-0 px-2"}
       >
-        <Nav links={navItems} />
+        <Navbar links={navItems} />
         <div className={"flex mt-4 md:px-[10%] relative"}>
           <LandingLinIcon className={"w-full absolute top-0 left-0 z-10"} />
           <div className={"md:w-1/2 w-full z-20"}>

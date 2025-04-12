@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SearchService } from "@/services/SearchService.ts";
 import ListCards from "@/components/customer/ListCards";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import Config from "@/config";
 
 const Navbar = () => {
   const [showSearchForm, setShowSearchForm] = useState<boolean>(false);
@@ -100,7 +101,7 @@ const Navbar = () => {
             Hey, Mustafa 👋
           </h1>
           <img
-            src={"/pom.png"}
+            src={Config.full_logo_path}
             alt={".."}
             className={"w-[5%] h-[5%] md:block hidden"}
           ></img>

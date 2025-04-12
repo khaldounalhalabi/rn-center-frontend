@@ -1,5 +1,5 @@
 import Providers from "@/app/[locale]/providers";
-import Nav from "@/components/landing/Nav";
+import Navbar from "@/components/landing/Navbar";
 import { getTranslations } from "next-intl/server";
 import CheckAppointmentForm from "@/components/landing/CheckAppointmentForm";
 import Footer from "@/components/landing/Footer";
@@ -23,7 +23,7 @@ const Page = async () => {
           " text-[#013567] relative overflow-x-hidden md:px-0 px-2 h-screen"
         }
       >
-        <Nav links={navItems} />
+        <Navbar links={navItems} />
         <div
           className={"flex justify-center items-center w-full h-[80%] my-10"}
         >

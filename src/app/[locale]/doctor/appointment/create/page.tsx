@@ -3,7 +3,7 @@ import AppointmentForm from "@/components/doctor/appointment/AppointmentForm";
 import { AuthService } from "@/services/AuthService";
 
 const page = async () => {
-  const actor = await AuthService.make<AuthService>("doctor").GetUserDetails();
+  const actor = await AuthService.make<AuthService>("doctor").userDetails();
 
   return <AppointmentForm type="store" clinic={actor.data} />;
 };

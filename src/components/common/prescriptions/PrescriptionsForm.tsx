@@ -12,7 +12,8 @@ import { Appointment } from "@/Models/Appointment";
 import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslations } from "next-intl";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
+import { RoleEnum } from "@/enum/RoleEnum";
+import useUser from "@/hooks/UserHook";
 
 const PrescriptionsForm = ({
   userType = "admin",
@@ -22,7 +23,7 @@ const PrescriptionsForm = ({
   customerId,
   type = "store",
 }: {
-  userType?: "admin" | "doctor";
+  userType?: RoleEnum;
   defaultValues?: Prescription;
   appointment?: Appointment;
   id?: number;
@@ -30,11 +31,11 @@ const PrescriptionsForm = ({
   type?: "store" | "update";
 }) => {
   const t = useTranslations("common.prescription.create");
-  const clinicId = HandleGetUserData();
+  const { user } = useUser();
   const handleSubmit = async (data: PrescriptionsDataSend) => {
     const sendData: PrescriptionsDataSend = customerId
       ? {
-          clinic_id: clinicId?.clinic?.id,
+          clinic_id: user?.clinic?.id,
           customer_id: customerId,
           physical_information: data.physical_information,
           problem_description: data.problem_description,

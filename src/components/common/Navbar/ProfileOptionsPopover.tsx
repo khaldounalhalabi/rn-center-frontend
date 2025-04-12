@@ -1,24 +1,12 @@
 "use client";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
-import { User } from "@/Models/User";
-import {
-  deleteCookieClient,
-  getCookieClient,
-  setCookieClient,
-} from "@/Actions/clientCookies";
-import { useQuery } from "@tanstack/react-query";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { ReFetchPhoto } from "@/app/[locale]/providers";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
-import { RealTimeEvents } from "@/Models/NotificationPayload";
-import { NotificationHandler } from "@/components/common/NotificationHandler";
+import useUser from "@/hooks/UserHook";
 
 const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
@@ -26,47 +14,14 @@ const ProfileOptionsPopover = () => {
   useEffect(() => {
     HandleClickOutSide(ref, setOpenPopProfile);
   }, []);
-  const actor = getCookieClient("user-type");
-  const { reFetch } = useContext(ReFetchPhoto);
+  const { role, user } = useUser();
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["user", reFetch],
-    queryFn: async () => {
-      // @ts-ignore
-      return await AuthService.make<AuthService>(actor)
-        .GetUserDetails()
-        .then((res) => {
-          // @ts-ignore
-          if (res?.data?.role[0]?.name == RoleEnum.CLINIC_EMPLOYEE) {
-            const permissions = res?.data?.permissions ?? [""];
-            setCookieClient("permissions", permissions?.toString());
-          } else {
-            setCookieClient("permissions", "dffds%2Cfdsf");
-          }
-          return res;
-        });
-    },
-  });
   const t = useTranslations("nav");
-  const res: User | undefined = data?.data;
-  const imageUrl = data?.data?.image?.[0]?.file_url;
   return (
     <div
       ref={ref}
       className={openPopProfile ? " relative" : "overflow-clip relative"}
     >
-      <NotificationHandler
-        handle={(payload) => {
-          if (
-            payload.getNotificationType() == RealTimeEvents.PermissionChange
-          ) {
-            refetch().then(() => {
-              window.document.location.reload();
-            });
-          }
-        }}
-        isPermanent={true}
-      />
       <div
         onClick={() => OpenAndClose(openPopProfile, setOpenPopProfile)}
         className={
@@ -75,11 +30,7 @@ const ProfileOptionsPopover = () => {
             : " w-7 h-7"
         }
       >
-        {!isLoading ? (
-          <RoundedImage src={imageUrl ?? "/user.png"} alt={"user-profile"} />
-        ) : (
-          <LoadingSpin className={"w-5 h-5"} />
-        )}
+        <RoundedImage src={"/user.png"} alt={"user-profile"} />
       </div>
 
       <div
@@ -97,14 +48,10 @@ const ProfileOptionsPopover = () => {
         }}
       >
         <div className="px-4 my-3">
-          <div className="text-sm ">
-            {TranslateClient(res?.first_name)}{" "}
-            {TranslateClient(res?.middle_name)}{" "}
-            {TranslateClient(res?.last_name)}
-          </div>
+          <div className="text-sm ">{user?.full_name}</div>
           <div className="overflow-hidden whitespace-nowrap">
             <div className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
-              {res?.email}
+              {user?.phone}
             </div>
           </div>
         </div>
@@ -112,38 +59,22 @@ const ProfileOptionsPopover = () => {
         <Link
           onClick={() => setOpenPopProfile(false)}
           suppressHydrationWarning
-          href={`/${actor}/user-details`}
-          className="opacity-[0.8]"
+          href={`/${role}/user-details`}
+          className="opacity-[0.8] w-full"
         >
-          <button className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200">
+          <button className="text-start px-4 w-full py-1 cursor-pointer hover:bg-blue-200">
             {t("profile")}
           </button>
         </Link>
-        {actor == "doctor" ? (
-          <Link
-            className="text-start px-4 py-1 cursor-pointer hover:bg-blue-200 opacity-[0.8]"
-            suppressHydrationWarning
-            onClick={() => setOpenPopProfile(false)}
-            href={`/doctor/clinic-details`}
-          >
-            <button>{t("clinicProfile")}</button>
-          </Link>
-        ) : (
-          ""
-        )}
-        <div className="py-3 px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
-          <Link
-            href={`/auth/${actor}/login`}
+        <div className="py-3 w-full px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
+          <button
+            className={"w-full text-start"}
             onClick={() => {
-              deleteCookieClient("token");
-              deleteCookieClient("user-type");
-              deleteCookieClient("refresh_token");
-              deleteCookieClient("role");
-              deleteCookieClient("permissions");
+              AuthService.make<AuthService>(role).logout();
             }}
           >
             {t("logout")}
-          </Link>
+          </button>
         </div>
       </div>
     </div>

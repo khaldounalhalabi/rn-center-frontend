@@ -4,8 +4,6 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { Link } from "@/navigation";
 import ArrowRight from "@/components/icons/ArrowRight";
 import React from "react";
-import { User } from "@/Models/User";
-import HandleGetUserData from "@/hooks/HandleGetUserAndClinic";
 import { Statistics } from "@/Models/Statistics";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useLocale, useTranslations } from "next-intl";
@@ -13,6 +11,7 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import { PermissionsDoctor } from "@/enum/Permissions";
 import { getCookieClient } from "@/Actions/clientCookies";
 import ArrowLeft from "@/components/icons/ArrowLeft";
+import useUser from "@/hooks/UserHook";
 
 const UserDataDoctor = ({
   statisticsRes,
@@ -24,7 +23,7 @@ const UserDataDoctor = ({
   isLoading: boolean;
 }) => {
   const t = useTranslations("common.dashboard");
-  const user: User = HandleGetUserData();
+  const { user } = useUser();
   const thisMonth = Number(statisticsRes?.total_income_current_month ?? 0);
   const lastMonth = Number(statisticsRes?.total_income_prev_month ?? 0);
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Providers from "@/app/[locale]/providers";
-import NavProvider from "@/app/[locale]/doctor/NavProvider";
+import NavProvider from "@/components/common/NavProvider";
 
 const Layout = ({
   children,

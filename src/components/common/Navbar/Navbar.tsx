@@ -8,17 +8,8 @@ import LanguagePopover from "@/components/common/Navbar/languagePopover";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
-import dynamic from "next/dynamic";
 import ArrowLeft from "@/components/icons/ArrowLeft";
-import DynamicLoading from "@/components/icons/DynamicLoading";
-
-const ProfileOptionsPopover = dynamic(
-  () => import("@/components/common/Navbar/ProfileOptionsPopover"),
-  {
-    ssr: false,
-    loading: DynamicLoading,
-  },
-);
+import ProfileOptionsPopover from "@/components/common/Navbar/ProfileOptionsPopover";
 
 const Navbar = ({
   openNavBar,

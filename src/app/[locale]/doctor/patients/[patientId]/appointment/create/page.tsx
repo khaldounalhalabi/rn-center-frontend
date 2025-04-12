@@ -11,7 +11,7 @@ const page = async ({
   const patient = (
     await PatientsService.make<PatientsService>("doctor").show(patientId)
   ).data;
-  const clinic = await AuthService.make<AuthService>("doctor").GetUserDetails();
+  const clinic = await AuthService.make<AuthService>("doctor").userDetails();
   return (
     <AppointmentForm type="store" patient={patient} clinic={clinic?.data} />
   );

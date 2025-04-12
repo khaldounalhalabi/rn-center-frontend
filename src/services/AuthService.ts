@@ -5,6 +5,8 @@ import { GET, POST, PUT } from "@/Http/Http";
 import { BaseService } from "./BaseService";
 import { Clinic } from "@/Models/Clinic";
 import {
+  deleteRole,
+  deleteTokens,
   getOtp,
   getPhone,
   setOtp,
@@ -18,11 +20,6 @@ export class AuthService extends BaseService<AuthResponse> {
 
   getBaseUrl(): string {
     return `/${this.role}`;
-  }
-
-  public static async getCurrentActor() {
-    const res = await GET<string>("/check-role");
-    return res.data;
   }
 
   public async login(phone: string, password: string) {
@@ -123,7 +120,7 @@ export class AuthService extends BaseService<AuthResponse> {
     return response;
   }
 
-  public async GetUserDetails(): Promise<ApiResponse<User>> {
+  public async userDetails(): Promise<ApiResponse<User>> {
     const res = await GET<User>(`${this.role}/me`);
     return await this.errorHandler(res);
   }
@@ -133,7 +130,7 @@ export class AuthService extends BaseService<AuthResponse> {
     return await this.errorHandler(res);
   }
 
-  public async UpdateUserDetails(
+  public async updateUserDetails(
     data: any,
   ): Promise<ApiResponse<AuthResponse>> {
     const res = await POST<AuthResponse>(`${this.role}/update-user-data`, data);
@@ -148,4 +145,10 @@ export class AuthService extends BaseService<AuthResponse> {
   public async agreeOnContract() {
     return this.errorHandler(await GET<boolean>(`doctor/contract/agree`));
   }
+
+  public logout = async () => {
+    await deleteTokens();
+    await deleteRole();
+    await Navigate(`/auth/${this.role}/login`);
+  };
 }

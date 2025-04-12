@@ -13,7 +13,7 @@ const page = async ({
       appointmentId,
     )
   ).data;
-  const actor = await AuthService.make<AuthService>("doctor").GetUserDetails();
+  const actor = await AuthService.make<AuthService>("doctor").userDetails();
 
   return (
     <AppointmentForm

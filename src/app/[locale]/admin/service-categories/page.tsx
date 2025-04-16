@@ -5,14 +5,15 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ServiceCategory } from "@/Models/ServiceCategory";
-import { CategoryService } from "@/services/CategoryService";
+import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import DeleteCategoryButton from "@/components/common/ServiceCategory/DeleteCategoryButton";
+import { RoleEnum } from "@/enum/RoleEnum";
 
-const Page = () => {
+const ServiceCategoriesIndexPage = () => {
   const t = useTranslations("admin.category.table");
   const tableData: DataTableData<ServiceCategory> = {
-    createUrl: `/admin/category/create`,
+    createUrl: `/admin/service-categories/create`,
     title: `${t("category")}`,
     schema: [
       {
@@ -22,7 +23,7 @@ const Page = () => {
       },
       {
         name: "name",
-        label: `${t("category")}`,
+        label: `${t("category-name")}`,
         sortable: true,
         translatable: true,
       },
@@ -32,9 +33,9 @@ const Page = () => {
           <ActionsButtons
             id={data?.id}
             buttons={["edit", "show"]}
-            baseUrl={`/admin/category`}
-            editUrl={`/admin/category/${data?.id}/edit`}
-            showUrl={`/admin/category/${data?.id}`}
+            baseUrl={`/admin/service-categories`}
+            editUrl={`/admin/service-categories/${data?.id}/edit`}
+            showUrl={`/admin/service-categories/${data?.id}`}
             setHidden={setHidden}
           >
             <DeleteCategoryButton id={data?.id} setHidden={setHidden} />
@@ -43,16 +44,11 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await CategoryService.make<CategoryService>("admin").indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await ServiceCategoryService.make<ServiceCategoryService>(
+        RoleEnum.ADMIN,
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
   return <DataTable {...tableData} />;
 };
 
-export default Page;
+export default ServiceCategoriesIndexPage;

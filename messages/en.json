@@ -190,8 +190,9 @@
     },
     "category": {
       "table": {
-        "category": "Category",
-        "actions": "Actions"
+        "category": "Service Categories",
+        "actions": "Actions",
+        "category-name": "Category Name"
       },
       "show": {
         "categoryDetails": "Category Details",

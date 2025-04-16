@@ -96,6 +96,28 @@ const Sidebar = ({
       ],
     },
     {
+      search: t("services"),
+      title: t("services"),
+      link: undefined,
+      icon: <ServiceManagementIcon className={`h-9 w-9 `} />,
+      children: [
+        {
+          search: t("serviceCategories"),
+          title: t("serviceCategories"),
+          link: "/admin/service-categories",
+          children: undefined,
+          icon: <CategoryIcon className={`h-8 w-8`} />,
+        },
+        {
+          search: t("services"),
+          title: t("services"),
+          link: "/admin/service",
+          children: undefined,
+          icon: <ServiceIcon className={`h-8 w-8`} />,
+        },
+      ],
+    },
+    {
       search: t("holidays"),
       title: t("holidays"),
       link: "/admin/holidays",
@@ -130,28 +152,7 @@ const Sidebar = ({
         },
       ],
     },
-    {
-      search: t("services"),
-      title: t("services"),
-      link: undefined,
-      icon: <ServiceManagementIcon className={`h-9 w-9 `} />,
-      children: [
-        {
-          search: t("services"),
-          title: t("services"),
-          link: "/admin/service",
-          children: undefined,
-          icon: <ServiceIcon className={`h-8 w-8`} />,
-        },
-        {
-          search: t("serviceCategories"),
-          title: t("serviceCategories"),
-          link: "/admin/category",
-          children: undefined,
-          icon: <CategoryIcon className={`h-8 w-8`} />,
-        },
-      ],
-    },
+
     {
       search: t("transaction"),
       title: t("transaction"),

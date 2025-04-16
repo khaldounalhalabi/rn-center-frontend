@@ -190,8 +190,9 @@
     },
     "category": {
       "table": {
-        "category": "الفئة",
-        "actions": "خيارات"
+        "category": "فئات الخدمات",
+        "actions": "خيارات",
+        "category-name": "اسم الفئة"
       },
       "show": {
         "categoryDetails": "تفاصيل الفئة",

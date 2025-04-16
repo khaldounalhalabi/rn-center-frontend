@@ -8,7 +8,7 @@ import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ApiResponse } from "@/Http/Response";
-import { CategoryService } from "@/services/CategoryService";
+import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 import Input from "@/components/common/ui/Inputs/Input";
@@ -67,7 +67,7 @@ const ServiceForm = ({
           placeHolder={"Select Category Name ..."}
           required={true}
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
-            await CategoryService.make<CategoryService>().getAllCategory(
+            await ServiceCategoryService.make<ServiceCategoryService>().getAllCategory(
               page,
               search,
             )

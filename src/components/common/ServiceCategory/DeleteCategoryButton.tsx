@@ -2,7 +2,7 @@ import Trash from "@/components/icons/Trash";
 import { swal } from "@/Helpers/UIHelpers";
 import { toast } from "react-toastify";
 import React from "react";
-import { CategoryService } from "@/services/CategoryService";
+import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 
 export interface ActionsButtonsProps<T> {
   data?: T;
@@ -37,7 +37,7 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
             .then((result) => {
               if (result.isConfirmed) {
                 if (dataId) {
-                  CategoryService.make()
+                  ServiceCategoryService.make()
                     .delete(dataId)
                     .then(() => {
                       toast.success("Deleted!");

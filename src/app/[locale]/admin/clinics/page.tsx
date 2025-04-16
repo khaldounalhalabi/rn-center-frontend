@@ -1,18 +1,18 @@
 "use client";
-import React, { ChangeEvent } from "react";
+import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import { Clinic } from "@/Models/Clinic";
 import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
-import { UserService } from "@/services/UserService";
-import { cities } from "@/constants/Cities";
 import { useTranslations } from "next-intl";
-import ArchiveButton from "@/components/common/ArchiveButton";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import SubscriptionStatuses from "@/enum/SubscriptionStatus";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import WeekDaySelect from "@/components/common/WeekDaySelect";
+import { RoleEnum } from "@/enum/RoleEnum";
+import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import Grid from "@/components/common/ui/Grid";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -25,69 +25,20 @@ const Page = () => {
         sortable: true,
       },
       {
-        name: "name",
-        sortable: true,
-        label: `${t("clinic")}`,
-        translatable: true,
-      },
-      {
-        name: "user.first_name",
+        name: "user.full_name",
         sortable: true,
         label: `${t("doctor")}`,
-        render: (_first_name, clinic) => {
-          return (
-            <p>
-              {TranslateClient(clinic?.user?.first_name)}{" "}
-              {TranslateClient(clinic?.user?.middle_name)}{" "}
-              {TranslateClient(clinic?.user?.last_name)}
-            </p>
-          );
-        },
-      },
-      {
-        name: "user.address.city.name",
-        sortable: true,
-        label: `${t("city")}`,
-        translatable: true,
       },
       {
         label: `${t("phone")}`,
-        render: (_undefined, clinic) =>
-          clinic?.user?.phones ? clinic?.user?.phones[0]?.phone : "",
+        name: "user.phone",
+        sortable: true,
       },
       {
-        label: `${t("subscriptionStatus")}`,
-        name: "subscription_status",
+        label: `${t("gender")}`,
+        name: "user.gender",
         sortable: true,
-        render: (data) =>
-          data == "active" ? (
-            <span className={`badge badge-success`}>{t("active")}</span>
-          ) : (
-            <span className={`badge badge-error`}>{t("inActive")}</span>
-          ),
-      },
-      {
-        label: `${t("archived?")}`,
-        name: "user.is_archived",
-        sortable: true,
-        render: (data) =>
-          data ? (
-            <span className={`badge badge-error`}>{t("archived")}</span>
-          ) : (
-            <span className={`badge badge-success`}>{t("notArchived")}</span>
-          ),
-      },
-      {
-        name: "approximate_appointment_time",
-        label: `${t("approximateAppointmentTime")}`,
-        render: (_undefined, clinic, setHidden, revalidate) => {
-          return (
-            <span className="badge-neutral badge">
-              {clinic?.approximate_appointment_time} {t("min")}
-            </span>
-          );
-        },
-        sortable: true,
+        render: (gender) => <TranslatableEnum value={gender} />,
       },
       {
         name: "total_appointments",
@@ -102,76 +53,43 @@ const Page = () => {
       },
       {
         label: `${t("actions")}`,
-        render: (_undefined, clinic, setHidden, revalidate) => (
+        render: (_undefined, clinic, setHidden) => (
           <ActionsButtons
             id={clinic?.id}
-            buttons={["edit", "show"]}
+            buttons={["edit", "show", "delete"]}
             baseUrl={`/admin/clinics`}
-          >
-            <ArchiveButton
-              data={clinic}
-              id={clinic?.user_id}
-              api={UserService}
-              revalidate={revalidate}
-              user={"admin"}
-            />
-          </ActionsButtons>
+            setHidden={setHidden}
+          />
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicsService.make<ClinicsService>("admin").indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await ClinicsService.make<ClinicsService>(
+        RoleEnum.ADMIN,
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     title: `${t("clinics")} :`,
     filter: (params, setParams) => {
       return (
-        <div className={"w-full grid grid-cols-1"}>
-          <label className={"label"}>
-            {t("archived")} :
-            <input
-              type="checkbox"
-              className={"checkbox"}
-              defaultChecked={params.is_archived}
-              onChange={(event) => {
-                const { checked } = event.target;
-                setParams({ ...params, is_archived: checked ? 1 : 0 });
+        <Grid md={1}>
+          <Label label={t("available_day")} col>
+            <WeekDaySelect
+              onChange={(e) => {
+                // @ts-ignore
+                setParams({ ...params, day_of_week: e.target?.value });
               }}
+              defaultValue={params.day_of_week}
             />
-          </label>
-          <label className="label">
-            {t("city")} :
-            <select
-              className="select-bordered select"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                setParams({ ...params, city_name: e.target.value });
+          </Label>
+
+          <Label label={t("available_time")} col>
+            <TimePickerFilter
+              onChange={(time) => {
+                setParams({ ...params, available_time: time?.format("HH:mm") });
               }}
-            >
-              {cities.map((city, index) => (
-                <option
-                  key={index}
-                  value={city.name}
-                  selected={params.city_name == city.name}
-                >
-                  {TranslateClient(city.name)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="label">{t("status")} :</label>
-          <SelectFilter
-            data={SubscriptionStatuses()}
-            selected={params.subscription_status ?? ""}
-            onChange={(event: any) => {
-              setParams({ ...params, subscription_status: event.target.value });
-            }}
-          />
-        </div>
+              defaultValue={params.available_time}
+            />
+          </Label>
+        </Grid>
       );
     },
   };

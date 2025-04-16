@@ -115,7 +115,10 @@
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
         "iqd": "د.ع",
-        "min": "دقيقة"
+        "min": "دقيقة",
+        "phone": "رقم الهاتف",
+        "update_title": "تعديل معلومات الطبيب",
+        "working_start_year": "سنة بدء العمل"
       },
       "table": {
         "clinics": "العيادات",
@@ -133,7 +136,10 @@
         "approximateAppointmentTime": "الوقت المقدر للحجز",
         "total-appointments": "إجمالي الحجوزات",
         "subscriptionStatus": "حالة الاشتراك",
-        "min": "دقيقة"
+        "min": "دقيقة",
+        "available_day": "متوفر في",
+        "available_time": "الوقت المتوفر",
+        "gender": "الجنس"
       }
     },
     "holidays": {

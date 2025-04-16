@@ -31,7 +31,11 @@ const Page = () => {
         name: "clinic.user.full_name",
         label: `${t("doctor_name")}`,
         sortable: true,
-        translatable: true,
+        render: (name, service) => (
+          <Link className={"btn"} href={`/admin/clinics/${service?.clinic_id}`}>
+            {service?.clinic?.user?.full_name}
+          </Link>
+        ),
       },
       {
         name: "approximate_duration",

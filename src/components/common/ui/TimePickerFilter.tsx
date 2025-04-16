@@ -11,7 +11,7 @@ const TimepickerFilter = ({
   defaultValue?: string;
 }) => {
   return (
-    <label className="flex flex-col items-start gap-2 label">
+    <label className="flex flex-col items-start gap-2 label w-full">
       <TimePicker
         onChange={onChange}
         defaultValue={defaultValue ? dayjs(defaultValue, "HH:mm") : undefined}

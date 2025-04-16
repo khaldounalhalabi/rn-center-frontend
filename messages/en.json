@@ -115,7 +115,10 @@
         "subscriptionType": "Subscription Type",
         "deductionCost": "Deduction Cost",
         "iqd": "IQD",
-        "min": "min"
+        "min": "min",
+        "phone": "Phone",
+        "update_title": "Update doctor details",
+        "working_start_year": "Working start year"
       },
       "table": {
         "clinics": "Clinics",
@@ -133,7 +136,10 @@
         "approximateAppointmentTime": "Approximate Appointment Time",
         "total-appointments": "Total Appointments",
         "subscriptionStatus": "Subscription Status",
-        "min": "min"
+        "min": "min",
+        "available_day": "Available in",
+        "available_time": "Available time",
+        "gender": "Gender"
       }
     },
     "holidays": {
@@ -279,7 +285,8 @@
         "approximateDuration": "Approximate Duration",
         "price": "Price",
         "iqd": "د.ع",
-        "image": "Image"}
+        "image": "Image"
+      }
     },
     "speciality": {
       "table": {

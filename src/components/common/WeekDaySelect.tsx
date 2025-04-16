@@ -17,7 +17,7 @@ const WeekDaySelect: React.FC<HTMLProps<HTMLSelectElement>> = ({
 }) => {
   const t = useTranslations("week_days");
   return (
-    <select {...props}>
+    <select {...props} className={"select w-full"}>
       {weeKDays.map((day) => (
         <option
           value={day}

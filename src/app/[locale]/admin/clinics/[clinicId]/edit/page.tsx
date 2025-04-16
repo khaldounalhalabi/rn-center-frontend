@@ -1,9 +1,10 @@
 import React from "react";
 import { ApiResponse } from "@/Http/Response";
-import { AddOrUpdateClinicForm, Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/Models/Clinic";
 import { ClinicsService } from "@/services/ClinicsService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";
+import { getTranslations } from "next-intl/server";
 
 const Page = async ({
   params: { clinicId },
@@ -13,35 +14,11 @@ const Page = async ({
   const data: ApiResponse<Clinic> =
     await ClinicsService.make<ClinicsService>().show(clinicId);
   const clinic = data.data;
-
-  const defaultValues: AddOrUpdateClinicForm = {
-    ...clinic,
-    // @ts-ignore
-    user: {
-      ...clinic?.user,
-      photo: clinic?.user?.image,
-      image: [],
-    },
-    phone_numbers: clinic?.user?.phones?.map((ph) => ph.phone),
-    address: {
-      ...clinic?.user?.address,
-      city_id: clinic?.user?.address?.city_id,
-      map_iframe: clinic.user?.address?.map_iframe,
-    },
-    speciality_ids:
-      clinic && clinic.specialities
-        ? clinic?.specialities?.map((spec) => spec.id)
-        : [],
-    hospital_id: clinic?.hospital_id,
-    specialities: clinic?.specialities,
-  };
+  const t = await getTranslations("admin.clinic.create-edit");
   return (
     <PageCard>
-      <ClinicForm
-        type={"update"}
-        defaultValues={{ ...clinic, ...defaultValues }}
-        id={clinic?.id}
-      />
+      <h2 className="card-title">{t("update_title")}</h2>
+      <ClinicForm type={"update"} defaultValues={clinic} />
     </PageCard>
   );
 };

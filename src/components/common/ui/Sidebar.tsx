@@ -24,6 +24,7 @@ import SidebarEnIcon from "@/components/icons/SidebarIconEn";
 import SidebarArIcon from "@/components/icons/SidebarArIcon";
 import ServiceManagementIcon from "@/components/icons/ServiceManagementIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
+import HolidaysIcon from "@/components/icons/HolidaysIcon";
 
 interface SidebarItem {
   search: string;
@@ -33,7 +34,7 @@ interface SidebarItem {
   icon?: any;
 }
 
-const SidebarAdmin = ({
+const Sidebar = ({
   openNavBar,
   setOpenNavBar,
 }: {
@@ -93,6 +94,12 @@ const SidebarAdmin = ({
           icon: <MedicineIcon className={`h-8 w-8`} />,
         },
       ],
+    },
+    {
+      search: t("holidays"),
+      title: t("holidays"),
+      link: "/admin/holidays",
+      icon: <HolidaysIcon className={`h-7 w-7 `} />,
     },
     {
       search: t("appointment"),
@@ -301,4 +308,4 @@ const SidebarAdmin = ({
   );
 };
 
-export default SidebarAdmin;
+export default Sidebar;

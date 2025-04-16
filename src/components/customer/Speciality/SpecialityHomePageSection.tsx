@@ -1,14 +1,14 @@
 import { SpecialityService } from "@/services/SpecialityService";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import { getMedia } from "@/Models/Media";
 import { getTranslations } from "next-intl/server";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const SpecialityHomePageSection = async () => {
   const t = await getTranslations("landing");
   const data = await SpecialityService.make<SpecialityService>(
-    "public",
+    RoleEnum.PUBLIC,
   ).indexWithPagination(1, undefined, undefined, undefined, 6);
-  const arrayData = Array.isArray(data?.data) ? data.data : [];
+  const arrayData = data?.data ?? [];
   return (
     <>
       <div id={"specialities"} className={"my-8 flex px-[13%] w-full"}>
@@ -45,7 +45,7 @@ const SpecialityHomePageSection = async () => {
                   <h2
                     className={"text-[#151D48] text-start text-xs md:text-sm"}
                   >
-                    {await TranslateServer(speciality.name)}
+                    {speciality.name}
                   </h2>
                 </div>
               </div>

@@ -35,7 +35,8 @@
     "contract": "Contract",
     "join_requests": "Join Requests",
     "clinic_management": "Clinic management",
-    "search": "search"
+    "search": "search",
+    "holidays": "Holidays"
   },
   "admin": {
     "clinic": {

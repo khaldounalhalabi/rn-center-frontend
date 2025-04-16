@@ -35,7 +35,8 @@
     "contract": "العقد",
     "join_requests": "طلبات الانضمام",
     "clinic_management": "إدارة العيادة",
-    "search": "بحث"
+    "search": "بحث",
+    "holidays": "العطل"
   },
   "admin": {
     "clinic": {

@@ -3,6 +3,7 @@ export enum RoleEnum {
   CUSTOMER = "customer",
   DOCTOR = "doctor",
   SECRETARY = "secretary",
+  PUBLIC = "public",
 }
 
 const Roles = (): string[] => {

@@ -1,35 +1,30 @@
 "use client";
 import Form from "@/components/common/ui/Form";
-import TranslatableInput from "@/components/common/ui/Inputs/TranslatableInput";
-import React, { useState } from "react";
+import React from "react";
 import { Speciality } from "@/Models/Speciality";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { SpecialityService } from "@/services/SpecialityService";
-import InputTags from "@/components/common/ui/InputTags";
 import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
+import Input from "@/components/common/ui/Inputs/Input";
+import Grid from "@/components/common/ui/Grid";
 
 const SpecialityForm = ({
   defaultValues = undefined,
-  id,
   type = "store",
 }: {
   defaultValues?: Speciality;
-  id?: number;
   type?: "store" | "update";
 }) => {
   const { image, ...values } = defaultValues ?? { image: [] };
 
   const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
-    if (
-      type == "update" &&
-      (defaultValues?.id != undefined || id != undefined)
-    ) {
+    if (type == "update" && defaultValues?.id) {
       return await SpecialityService.make<SpecialityService>().update(
-        defaultValues?.id ?? id,
+        defaultValues?.id,
         data,
       );
     } else {
@@ -39,56 +34,31 @@ const SpecialityForm = ({
   const onSuccess = () => {
     Navigate(`/admin/speciality`);
   };
-  const [locale, setLocale] = useState<"en" | "ar">("en");
-
   const array = defaultValues?.tags?.split(",") ?? [];
   return (
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
       defaultValues={values}
-      setLocale={setLocale}
     >
-      <div>
-        <TranslatableInput
+      <Grid>
+        <Input
           required={true}
-          locales={["en", "ar"]}
           type={"text"}
-          placeholder={"John"}
           label={t("specialityName")}
           name={"name"}
-          locale={locale}
         />
-      </div>
-      <div className="my-3">
-        <InputTags name={"tags"} label={`${t("tags")} :`} />
-      </div>
-      <div className="my-3">
-        <Textarea
-          name={"description"}
-          label={`${t("description")} :`}
-          defaultValue={array ?? []}
-        />
-      </div>
-      {type == "update" ? (
-        <div className={"col-span-2"}>
-          {defaultValues?.image?.length != 0 ? (
-            <Gallery
-              media={defaultValues?.image ? defaultValues?.image : [""]}
-            />
-          ) : (
-            <div className="flex items-center">
-              <label className="label"> {t("image")} : </label>
-              <span className="text-lg badge badge-neutral">{t("noData")}</span>
-            </div>
-          )}
-        </div>
-      ) : (
-        false
+      </Grid>
+
+      <Textarea
+        name={"description"}
+        label={`${t("description")}`}
+        defaultValue={array ?? []}
+      />
+      {type == "update" && defaultValues?.image?.length != 0 && (
+        <Gallery media={defaultValues?.image} />
       )}
-      <div className="my-3">
-        <ImageUploader name={"image"} />
-      </div>
+      <ImageUploader name={"image"} />
     </Form>
   );
 };

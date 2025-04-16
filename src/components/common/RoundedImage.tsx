@@ -1,13 +1,10 @@
-import React from "react";
+import React, { HTMLProps } from "react";
 
-const RoundedImage = ({
+const RoundedImage: React.FC<HTMLProps<HTMLImageElement>> = ({
   className,
   src,
   alt = undefined,
-}: {
-  className?: string | undefined | null;
-  src: string;
-  alt: string | undefined | null;
+  ...props
 }) => {
   return (
     <div className={`rounded-full h-full ${className}`}>
@@ -21,6 +18,7 @@ const RoundedImage = ({
           overflow: "hidden",
           borderRadius: "50%",
         }}
+        {...props}
       />
     </div>
   );

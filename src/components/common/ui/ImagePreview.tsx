@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, HTMLProps, useState } from "react";
+import RoundedImage from "@/components/common/RoundedImage";
 
 const ImagePreview = ({
   src,
@@ -20,7 +21,7 @@ const ImagePreview = ({
 
   return (
     <>
-      <img
+      <RoundedImage
         alt={"..."}
         src={src}
         onClick={openModal}

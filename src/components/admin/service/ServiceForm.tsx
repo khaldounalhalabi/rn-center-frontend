@@ -116,7 +116,7 @@ const ServiceForm = ({
       />
       {type == "update" && (
         <Label label={t("image")}>
-          <Gallery media={defaultValues?.icon ? defaultValues?.icon : [""]} />
+          <Gallery media={defaultValues?.icon} />
         </Label>
       )}
       <ImageUploader name={"icon"} label={t("image")} />

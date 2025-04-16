@@ -55,7 +55,7 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
                 return handleDeleteImage(img?.id ?? 0);
               }}
               className={
-                "btn btn-circle btn-error btn-xs absolute -top-5 -left-1 cursor-pointer"
+                "btn btn-circle btn-error btn-xs absolute -top-3 -left-1 cursor-pointer"
               }
             >
               <Trash className={"w-4 h-4 fill-white stroke-error"} />

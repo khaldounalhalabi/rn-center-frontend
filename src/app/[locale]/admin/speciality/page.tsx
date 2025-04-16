@@ -23,7 +23,6 @@ const Page = () => {
         name: "name",
         label: `${t("speciality")}`,
         sortable: true,
-        translatable: true,
       },
       {
         label: `${t("actions")}`,

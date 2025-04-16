@@ -1542,5 +1542,16 @@
     "are_you_sure": "هل أنت متأكد ؟",
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء"
+  },
+  "holidays": {
+    "from": "من",
+    "to": "إلى",
+    "reason": "السبب",
+    "actions": "الخيارات",
+    "holidays": "العطل",
+    "create": "إضافة عطلة جديدة",
+    "edit": "تعديل",
+    "holiday_details": "بيانات العطلة",
+    "update_title": "تعديل العطلة"
   }
 }

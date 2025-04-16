@@ -3,62 +3,53 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import { HolidayService } from "@/services/HolidayService";
 import { Holiday } from "@/Models/Holiday";
-import Grid from "@/components/common/ui/Grid";
-import TranslatableTextArea from "@/components/common/ui/textArea/TranslatableTextarea";
-import Datepicker from "@/components/common/ui/Date/Datepicker";
-import { useTranslations } from "next-intl";
 import { Navigate } from "@/Actions/navigate";
+import Grid from "@/components/common/ui/Grid";
+import { useTranslations } from "next-intl";
+import Datepicker from "@/components/common/ui/Date/Datepicker";
+import Textarea from "@/components/common/ui/textArea/Textarea";
 
-const HolidayForm = ({
+const HolidaysForm = ({
   defaultValues = undefined,
   type = "store",
 }: {
   defaultValues?: Holiday;
-  id?: number;
   type?: "store" | "update";
 }) => {
-  const t = useTranslations("doctor.holidays.create");
+  const t = useTranslations("holidays");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return HolidayService.make<HolidayService>("doctor").update(
+      return HolidayService.make<HolidayService>().update(
         defaultValues.id,
         data,
       );
     } else {
-      return await HolidayService.make<HolidayService>(
-        "doctor",
-      ).store(data);
+      return await HolidayService.make<HolidayService>().store(data);
     }
   };
 
-  const onSuccess = () => {
-    Navigate(`/doctor/clinic/holidays`);
-  };
   return (
     <Form
       handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
+      onSuccess={() => {
+        Navigate(`/admin/holidays`);
+      }}
       defaultValues={defaultValues}
     >
       <Grid md={2}>
-        <Datepicker
-          required={true}
-          name={"start_date"}
-          label={t("startHoliday")}
-        />
-        <Datepicker required={true} name={"end_date"} label={t("endHoliday")} />
+        <Datepicker required={true} name={"from"} label={t("from")} />
+        <Datepicker required={true} name={"to"} label={t("to")} />
       </Grid>
       <div className="my-3">
-        <TranslatableTextArea
+        <Textarea
           required={true}
           defaultValue={defaultValues?.reason}
           label={t("reason")}
           name={"reason"}
-          locales={["en", "ar"]}
         />
       </div>
     </Form>
   );
 };
 
-export default HolidayForm;
+export default HolidaysForm;

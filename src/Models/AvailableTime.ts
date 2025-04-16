@@ -1,4 +1,4 @@
-import { ClinicHoliday } from "@/Models/ClinicHoliday";
+import { Holiday } from "@/Models/Holiday";
 
 export interface ClinicScheduleEntry {
   id: number;
@@ -19,5 +19,5 @@ export interface TimeSlot {
 export interface AvailableTime {
   booked_times: any;
   clinic_schedule: Record<string, ClinicScheduleEntry[]>;
-  clinic_holidays: ClinicHoliday[];
+  clinic_holidays: Holiday[];
 }

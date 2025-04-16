@@ -1532,5 +1532,16 @@
     "are_you_sure": "Are you sure?",
     "apply": "Apply",
     "cancellation_reason": "Cancellation Reason"
+  },
+  "holidays": {
+    "from": "From",
+    "to": "To",
+    "reason": "Reason",
+    "actions": "Actions",
+    "holidays": "Holidays",
+    "create": "Add new holiday",
+    "edit": "Edit",
+    "holiday_details": "Holiday details",
+    "update_title": "Edit holiday"
   }
 }

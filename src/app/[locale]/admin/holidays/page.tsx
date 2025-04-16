@@ -3,17 +3,19 @@ import { useTranslations } from "next-intl";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import { ServiceCategory } from "@/Models/ServiceCategory";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import DeleteCategoryButton from "@/components/common/ServiceCategory/DeleteCategoryButton";
-import { CategoryService } from "@/services/CategoryService";
 import React from "react";
+import { HolidayService } from "@/services/HolidayService";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { Holiday } from "@/Models/Holiday";
+import DatePickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import dayjs from "dayjs";
 
 const HolidaysIndexPage = () => {
-  const t = useTranslations("admin.category.table");
-  const tableData: DataTableData<ServiceCategory> = {
-    createUrl: `/admin/category/create`,
-    title: `${t("category")}`,
+  const t = useTranslations("holidays");
+  const tableData: DataTableData<Holiday> = {
+    createUrl: `/admin/holidays/create`,
+    title: `${t("holidays")}`,
     schema: [
       {
         name: "id",
@@ -21,36 +23,52 @@ const HolidaysIndexPage = () => {
         sortable: true,
       },
       {
-        name: "name",
-        label: `${t("category")}`,
+        name: "reason",
+        label: `${t("reason")}`,
         sortable: true,
-        translatable: true,
+        cellProps: {
+          className: "max-w-1/3 overflow-ellipsis",
+        },
+      },
+      {
+        name: "from",
+        label: `${t("from")}`,
+        sortable: true,
+      },
+      {
+        name: "to",
+        label: t("to"),
+        sortable: true,
       },
       {
         label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
           <ActionsButtons
             id={data?.id}
-            buttons={["edit", "show"]}
-            baseUrl={`/admin/category`}
-            editUrl={`/admin/category/${data?.id}/edit`}
-            showUrl={`/admin/category/${data?.id}`}
+            buttons={["edit", "show", "delete"]}
+            baseUrl={`/admin/holidays`}
             setHidden={setHidden}
-          >
-            <DeleteCategoryButton id={data?.id} setHidden={setHidden} />
-          </ActionsButtons>
+          />
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await CategoryService.make<CategoryService>("admin").indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await HolidayService.make<HolidayService>(
+        RoleEnum.ADMIN,
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+
+    filter: (params, setParams) => {
+      return (
+        <div className={"w-full"}>
+          <DatePickerFilter
+            onChange={(date) => {
+              setParams({ ...params, date: date?.format("YYYY-MM-DD") });
+            }}
+            defaultValue={params?.date}
+          />
+        </div>
+      );
+    },
   };
   return <DataTable {...tableData} />;
 };

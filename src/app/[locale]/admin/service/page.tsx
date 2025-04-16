@@ -7,6 +7,8 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Service } from "@/Models/Service";
 import { ServiceService } from "@/services/ServiceService";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { Link } from "@/navigation";
 
 const Page = () => {
   const t = useTranslations("admin.service.table");
@@ -26,8 +28,8 @@ const Page = () => {
         translatable: true,
       },
       {
-        name: "clinic.name",
-        label: `${t("clinic")}`,
+        name: "clinic.user.full_name",
+        label: `${t("doctor_name")}`,
         sortable: true,
         translatable: true,
       },
@@ -42,10 +44,18 @@ const Page = () => {
         ),
       },
       {
-        name: "serviceCategory.name",
+        name: "service_category_id",
         label: `${t("category")}`,
         sortable: true,
         translatable: true,
+        render: (_item, service) => (
+          <Link
+            href={`/admin/service-categories/${service?.service_category_id}`}
+            className={"btn"}
+          >
+            {service?.service_category?.name}
+          </Link>
+        ),
       },
       {
         name: "price",
@@ -58,18 +68,6 @@ const Page = () => {
           </p>
         ),
       },
-      {
-        name: "status",
-        label: `${t("status")}`,
-        sortable: true,
-        render: (data) =>
-          data == "active" ? (
-            <span className={`badge badge-success`}>{t("active")}</span>
-          ) : (
-            <span className={`badge badge-error`}>{t("inActive")}</span>
-          ),
-      },
-
       {
         label: `${t("actions")}`,
         render: (_undefined, data, setHidden) => (
@@ -85,14 +83,9 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ServiceService.make<ServiceService>("admin").indexWithPagination(
-        page,
-        search,
-        sortCol,
-        sortDir,
-        perPage,
-        params,
-      ),
+      await ServiceService.make<ServiceService>(
+        RoleEnum.ADMIN,
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
   return <DataTable {...tableData} />;
 };

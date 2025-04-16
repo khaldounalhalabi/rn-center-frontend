@@ -1,14 +1,16 @@
 "use client";
 import ImagePreview from "./ImagePreview";
 import { getMedia, Media } from "@/Models/Media";
-import XMark from "@/components/icons/XMark";
 import { MediaService } from "@/services/MediaService";
 import { swal } from "@/Helpers/UIHelpers";
 import { useState, useTransition } from "react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "@/navigation";
+import { useTranslations } from "next-intl";
+import Trash from "@/components/icons/Trash";
 
-const Gallery = ({ media }: { media: Media[] | string[] }) => {
+const Gallery = ({ media }: { media: Media[] | undefined }) => {
+  const t = useTranslations("components");
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
   const isMutating: boolean = isPending || isTransitionStarted;
@@ -43,22 +45,23 @@ const Gallery = ({ media }: { media: Media[] | string[] }) => {
     <div className={`my-10 grid gap-6 grid-cols-2 md:grid-cols-6 w-full`}>
       {isMutating ? (
         <LoadingSpin className={"w-7 h-7"} />
+      ) : !media || media?.length <= 0 ? (
+        <span className="text-lg badge badge-neutral">{t("no_data")}</span>
       ) : (
-        media.map((img, index) => (
+        media?.map((img, index) => (
           <div key={index} className="h-32 relative">
             <div
               onClick={() => {
-                // @ts-ignore
                 return handleDeleteImage(img?.id ?? 0);
               }}
               className={
-                "rounded-full border-[1px] hover:bg-gray-300 absolute  w-fit border-gray-600 cursor-pointer p-1"
+                "btn btn-circle btn-error btn-xs absolute -top-5 -left-1 cursor-pointer"
               }
             >
-              <XMark className={"w-4 h-4 fill-error stroke-error"} />
+              <Trash className={"w-4 h-4 fill-white stroke-error"} />
             </div>
             <ImagePreview
-              src={typeof img == "string" ? img : getMedia(img)}
+              src={getMedia(img)}
               className={
                 "h-full w-full object-contain rounded-md cursor-pointer"
               }

@@ -241,7 +241,7 @@
     "service": {
       "table": {
         "service": "Service",
-        "clinic": "Clinic",
+        "doctor_name": "Doctor Name",
         "approximateDuration": "Approximate Duration",
         "category": "Category",
         "price": "Price",
@@ -278,8 +278,8 @@
         "category": "Category",
         "approximateDuration": "Approximate Duration",
         "price": "Price",
-        "iqd": "د.ع"
-      }
+        "iqd": "د.ع",
+        "image": "Image"}
     },
     "speciality": {
       "table": {
@@ -1532,7 +1532,8 @@
     "appointment_status_checkin_warning": "Marking this appointment as checkin will cause all previous appointments marked as checkin to be checkout!",
     "are_you_sure": "Are you sure?",
     "apply": "Apply",
-    "cancellation_reason": "Cancellation Reason"
+    "cancellation_reason": "Cancellation Reason",
+    "no_data": "No data"
   },
   "holidays": {
     "from": "From",

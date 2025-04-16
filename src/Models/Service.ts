@@ -8,10 +8,9 @@ export interface Service {
   approximate_duration: number;
   service_category_id: number;
   price: number;
-  status: string;
   description: string;
   clinic_id: number;
-  serviceCategory?: ServiceCategory;
+  service_category?: ServiceCategory;
   clinic?: Clinic;
   icon?: Media[];
 }

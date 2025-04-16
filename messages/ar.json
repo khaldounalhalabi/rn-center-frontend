@@ -241,7 +241,7 @@
     "service": {
       "table": {
         "service": "الخدمات",
-        "clinic": "العيادة",
+        "doctor_name": "اسم الطبيب",
         "approximateDuration": "مدة الخدمة التقريبية",
         "category": "الفئة",
         "price": "السعر",
@@ -278,7 +278,8 @@
         "approximateDuration": "المدة التقريبية",
         "price": "السعر",
         "iqd": "د.ع",
-        "min": "دقيقة"
+        "min": "دقيقة",
+        "image": "الصورة"
       }
     },
     "speciality": {
@@ -1542,7 +1543,8 @@
     "appointment_status_checkin_warning": "تحديد هذا الموعد كموعد عند الطبيب سوف يجعل كل المواعيد السابقة مكتملة",
     "are_you_sure": "هل أنت متأكد ؟",
     "apply": "تطبيق",
-    "cancellation_reason": "سبب الإلغاء"
+    "cancellation_reason": "سبب الإلغاء",
+    "no_data": "لا يوجد بيانات"
   },
   "holidays": {
     "from": "من",

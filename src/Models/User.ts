@@ -1,4 +1,5 @@
 import { RoleEnum } from "@/enum/RoleEnum";
+import GenderEnum from "@/enum/GenderEnum";
 
 export interface User {
   id?: number;

@@ -43,7 +43,7 @@ const page = async ({
 
         <LabelValue
           label={t("category")}
-          value={await TranslateServer(res?.serviceCategory?.name)}
+          value={await TranslateServer(res?.service_category?.name)}
           color={"error"}
         />
         <LabelValue

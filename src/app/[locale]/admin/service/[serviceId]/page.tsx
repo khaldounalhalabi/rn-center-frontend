@@ -6,10 +6,12 @@ import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import Gallery from "@/components/common/ui/Gallery";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Value } from "@/components/common/ui/LabelsValues/Value";
 
-const page = async ({
+const ServiceShowPage = async ({
   params: { serviceId },
 }: {
   params: { serviceId: number };
@@ -26,106 +28,50 @@ const page = async ({
         </Link>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label">
-          {t("serviceName")} En:{" "}
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {(await TranslateServer(res?.name, true))?.en}
-          </span>
-        </label>
-        <label className="label">
-          {t("serviceName")} Ar:{" "}
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {(await TranslateServer(res?.name, true)).ar}
-          </span>
-        </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("category")} :
-          {res?.serviceCategory?.name ? (
-            <span className="badge badge-error">
-              {await TranslateServer(res?.serviceCategory.name)}
-            </span>
-          ) : (
-            <span className="text-lg badge-accent">{t("noData")}</span>
-          )}
-        </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("clinicName")} :
-          {res?.clinic?.name ? (
-            <span className="badge badge-primary">
-              {`${await TranslateServer(res?.clinic.name)}`}
-            </span>
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("approximateDuration")} :
-          {res?.approximate_duration ? (
-            <span className="badge badge-accent" suppressHydrationWarning>
-              {res?.approximate_duration.toLocaleString()}
-            </span>
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
+        <LabelValue label={t("serviceName")} value={res.name} />
+        <Label label={t("category")}>
+          <Link
+            href={`/admin/service-categories/${res?.service_category?.id}`}
+            className={"hover:underline"}
+          >
+            <Value value={res?.service_category?.name} color={"accent"} />
+          </Link>
+        </Label>
 
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("price")} :
-          {res?.price ? (
-            <span className="badge badge-accent" suppressHydrationWarning>
-              {res?.price.toLocaleString()} {t("iqd")}
-            </span>
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
-        <label className="flex flex-wrap items-center gap-1 w-full label">
-          {t("status")} :
-          {res?.status ? (
-            <span className="badge badge-success">{res?.status}</span>
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
+        <Label label={t("clinicName")}>
+          <Link href={`/admin/clinics/${res.clinic_id}`}>
+            <Value value={res?.clinic?.user?.full_name} color={"error"} />
+          </Link>
+        </Label>
+
+        <LabelValue
+          label={t("approximateDuration")}
+          value={res?.approximate_duration}
+          color={"base-content"}
+        />
+
+        <LabelValue
+          label={t("price")}
+          value={`
+              ${res?.price.toLocaleString()} ${t("iqd")}
+            `}
+          color={"secondary"}
+        />
       </Grid>
       <Grid md={1}>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("description")} EN :
-          {res?.status ? (
-            <textarea
-              rows={4}
-              value={(await TranslateServer(res?.description, true)).en}
-              className="textarea-bordered w-full text-lg textarea"
-              readOnly={true}
-            />
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
-        <label className="flex flex-wrap items-center gap-2 w-full label">
-          {t("description")} AR :
-          {res?.status ? (
-            <textarea
-              rows={4}
-              value={(await TranslateServer(res?.description, true)).ar}
-              className="textarea-bordered w-full text-lg textarea"
-              readOnly={true}
-            />
-          ) : (
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          )}
-        </label>
-        {res?.icon && res?.icon?.length > 0 ? (
-          <Gallery media={res?.icon ? res?.icon : [""]} />
-        ) : (
-          <div className="flex justify-between items-center">
-            <label className="label"> {t("image")} : </label>
-            <span className="text-lg badge badge-neutral">{t("noData")}</span>
-          </div>
-        )}
+        <LabelValue
+          label={t("description")}
+          value={res?.description}
+          col={true}
+          color={"brand-primary"}
+        />
+
+        <Label label={t("image")} col>
+          <Gallery media={res?.icon} />
+        </Label>
       </Grid>
     </PageCard>
   );
 };
 
-export default page;
+export default ServiceShowPage;

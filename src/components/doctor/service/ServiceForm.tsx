@@ -79,8 +79,8 @@ const ServiceForm = ({
           name={"service_category_id"}
           label={t("category")}
           defaultValues={
-            defaultValues?.serviceCategory?.id
-              ? [defaultValues?.serviceCategory]
+            defaultValues?.service_category?.id
+              ? [defaultValues?.service_category]
               : []
           }
         />

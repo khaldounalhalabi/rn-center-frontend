@@ -15,9 +15,7 @@ export const HandleDatePicker = (
     : [];
   const lastDay = dayjs().add(range - 1, "day");
   const isHoliday = data?.clinic_holidays
-    ? data.clinic_holidays.some((e) =>
-        day.isBetween(e.start_date, e.end_date, "day", "[]"),
-      )
+    ? data.clinic_holidays.some((e) => day.isBetween(e.from, e.to, "day", "[]"))
     : true;
 
   const dateStr = day.format("YYYY-MM-DD 00:00:00");

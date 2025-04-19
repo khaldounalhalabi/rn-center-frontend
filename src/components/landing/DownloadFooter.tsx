@@ -11,11 +11,12 @@ import { CityService } from "@/services/CityService";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { City } from "@/Models/City";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const DownloadFooter: React.FC = () => {
   const t = useTranslations("landing");
   const handleSubmit = async (data: any) => {
-    return await JoinRequestService.make<JoinRequestService>("public")
+    return await JoinRequestService.make<JoinRequestService>(RoleEnum.PUBLIC)
       .store(data)
       .then((res) => {
         console.log(res);
@@ -91,7 +92,7 @@ const DownloadFooter: React.FC = () => {
                   search?: string | undefined,
                 ): Promise<ApiResponse<City[]>> =>
                   await CityService.make<CityService>(
-                    "public",
+                    RoleEnum.PUBLIC,
                   ).indexWithPagination(page, search)
                 }
                 getOptionLabel={(item: City) => TranslateClient(item.name)}

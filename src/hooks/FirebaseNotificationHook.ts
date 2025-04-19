@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/Helpers/Firebase";
 import { GET, POST } from "@/Http/Http";
-import { getCookieClient } from "@/Actions/clientCookies";
+import useUser from "@/hooks/UserHook";
 
 const useFcmToken = () => {
   const [token, setToken] = useState("");
   const [notificationPermissionStatus, setNotificationPermissionStatus] =
     useState("");
   const [isClient, setIsClient] = useState(false);
+  const { role } = useUser();
 
   useEffect(() => {
     setIsClient(true);
@@ -26,14 +27,13 @@ const useFcmToken = () => {
                 "BIutuhaOvqImTR8RpGVoDLHDSzeJay1fAXWes5wWtLmLLBKkyOxUebJA2fQu3hfiwhHq51BKfzDT-tni6ndtVcM",
             });
 
-            const actor = getCookieClient("user-type") ?? "customer";
             let prevToken = await GET<{ fcm_token: string }>(
-              `${actor}/fcm/get-token`,
+              `${role}/fcm/get-token`,
             ).then((res) => {
               return res?.data?.fcm_token;
             });
             if (currentToken != prevToken) {
-              await POST(`${actor}/fcm/store-token`, {
+              await POST(`${role}/fcm/store-token`, {
                 fcm_token: currentToken,
               });
               setToken(currentToken);

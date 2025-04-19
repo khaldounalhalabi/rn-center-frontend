@@ -2,10 +2,11 @@ import { BaseService } from "@/services/BaseService";
 import { SystemOffers } from "@/Models/SystemOffer";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 export class SystemOffersService extends BaseService<SystemOffers> {
   public getBaseUrl(): string {
-    if (this.role == "public") {
+    if (this.role == RoleEnum.PUBLIC) {
       return `/system-offers`;
     } else {
       return `${this.role}/system-offers`;

@@ -7,7 +7,7 @@ import { deleteRole, deleteTokens } from "@/Actions/HelperActions";
 export class BaseService<T> {
   protected static instance?: BaseService<any>;
   public baseUrl = "/";
-  public role: string = "customer";
+  public role: string = RoleEnum.CUSTOMER;
   protected headers: Record<string, any> = {};
 
   protected constructor() {}

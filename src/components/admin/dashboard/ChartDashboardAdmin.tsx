@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const ChartDashboardAdmin = () => {
   const {
@@ -20,7 +21,7 @@ const ChartDashboardAdmin = () => {
     queryKey: ["ChartAdmin"],
     queryFn: async () => {
       return await AppointmentDeductionsService.make<AppointmentDeductionsService>(
-        "admin",
+        RoleEnum.ADMIN,
       ).getEarningsByYear();
     },
   });

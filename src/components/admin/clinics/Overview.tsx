@@ -4,9 +4,7 @@ import { Clinic } from "@/Models/Clinic";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
-import { Value } from "@/components/common/ui/LabelsValues/Value";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {
   const t = useTranslations("admin.clinic.show");

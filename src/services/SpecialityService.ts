@@ -2,10 +2,11 @@ import { Speciality } from "@/Models/Speciality";
 import { BaseService } from "@/services/BaseService";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
+import {RoleEnum} from "@/enum/RoleEnum";
 
 export class SpecialityService extends BaseService<Speciality> {
   public getBaseUrl(): string {
-    if (this.role == "public") {
+    if (this.role == RoleEnum.PUBLIC) {
       return `/specialities`;
     } else {
       return `${this.role}/specialities`;

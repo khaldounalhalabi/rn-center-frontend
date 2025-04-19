@@ -2,10 +2,11 @@ import { BaseService } from "@/services/BaseService";
 import { Clinic } from "@/Models/Clinic";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
+import {RoleEnum} from "@/enum/RoleEnum";
 
 export class ClinicsService extends BaseService<Clinic> {
   getBaseUrl(): string {
-    if (this.role == "public") {
+    if (this.role == RoleEnum.PUBLIC) {
       return `/clinics`;
     }
     return `${this.role}/clinics`;

@@ -5,6 +5,7 @@ import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { getMedia } from "@/Models/Media";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
 import React from "react";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const SpecialityList = () => {
   const { data, isPending, isFetchingNextPage, fetchNextPage, hasNextPage } =
@@ -12,7 +13,7 @@ const SpecialityList = () => {
       queryKey: ["Clinic-customer"],
       queryFn: async ({ pageParam }) => {
         return await SpecialityService.make<SpecialityService>(
-          "public",
+          RoleEnum.PUBLIC,
         ).indexWithPagination(pageParam, undefined, undefined, undefined, 6);
       },
       initialPageParam: 1,

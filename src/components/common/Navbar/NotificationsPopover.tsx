@@ -5,23 +5,22 @@ import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
-import { getCookieClient } from "@/Actions/clientCookies";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Actors } from "@/types";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import CircleCheckMark from "@/components/icons/CircleCheckMark";
 import { Link } from "@/navigation";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
 import { useTranslations } from "next-intl";
+import useUser from "@/hooks/UserHook";
 
 const NotificationsPopover = () => {
   const t = useTranslations("components");
   const [openPopNot, setOpenPopNot] = useState<boolean>(false);
-  const userType = getCookieClient("user-type") as Actors;
+  const { role } = useUser();
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
     await NotificationService.make<NotificationService>(
-      userType,
+      role,
     ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
     data: notifications,
@@ -51,7 +50,7 @@ const NotificationsPopover = () => {
     queryKey: ["notifications_count"],
     queryFn: async () =>
       await NotificationService.make<NotificationService>(
-        userType,
+        role,
       ).getUnreadCount(),
   });
 
@@ -150,7 +149,7 @@ const NotificationsPopover = () => {
                       className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
                       onClick={() => {
                         NotificationService.make<NotificationService>(
-                          userType,
+                          role,
                         ).markAsRead(notification.id);
                       }}
                     >
@@ -161,7 +160,7 @@ const NotificationsPopover = () => {
                       onClick={() => {
                         if (!n.read_at) {
                           NotificationService.make<NotificationService>(
-                            userType,
+                            role,
                           ).markAsRead(notification.id);
                           refetch();
                           refetchCount();

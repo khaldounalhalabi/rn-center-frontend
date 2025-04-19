@@ -9,11 +9,12 @@ import InstagramIcon from "@/components/icons/instaIcon";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
 import { EnquiriesService } from "@/services/EnquiriesService";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const Footer = () => {
   const t = useTranslations("landing");
   const handleSubmit = async (data: any) => {
-    return await EnquiriesService.make<EnquiriesService>("public")
+    return await EnquiriesService.make<EnquiriesService>(RoleEnum.PUBLIC)
       .store(data)
       .then((res) => {
         return res;

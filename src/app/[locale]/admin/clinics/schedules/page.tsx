@@ -28,7 +28,7 @@ const Page = () => {
       },
       {
         label: `${t("actions")}`,
-        render: (_undefined, clinic, setHidden) => (
+        render: (_undefined, clinic) => (
           <ActionsButtons
             id={clinic?.id}
             buttons={["edit", "delete"]}

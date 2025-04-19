@@ -6,10 +6,11 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicsService } from "@/services/ClinicsService";
-import { Link } from "@/navigation";
 import WeekDaySelect from "@/components/common/WeekDaySelect";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
+import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const Page = () => {
   const t = useTranslations("admin.schedules.table");
@@ -21,35 +22,10 @@ const Page = () => {
         sortable: true,
       },
       {
-        name: "user.first_name",
+        name: "user.full_name",
         label: `${t("clinic")}`,
         sortable: true,
-        render: (_data, clinic) => {
-          return (
-            <Link
-              href={`/admin/clinics/${clinic?.id}`}
-              className={`flex flex-col items-start btn btn-ghost p-1 hover:text-pom`}
-            >
-              <p>{TranslateClient(clinic?.name)}</p>
-            </Link>
-          );
-        },
       },
-      {
-        name: "user.first_name",
-        sortable: true,
-        label: `${t("doctor")}`,
-        render: (_first_name, clinic) => {
-          return (
-            <p>
-              {TranslateClient(clinic?.user?.first_name)}{" "}
-              {TranslateClient(clinic?.user?.middle_name)}{" "}
-              {TranslateClient(clinic?.user?.last_name)}
-            </p>
-          );
-        },
-      },
-
       {
         label: `${t("actions")}`,
         render: (_undefined, clinic, setHidden) => (
@@ -57,32 +33,39 @@ const Page = () => {
             id={clinic?.id}
             buttons={["edit", "delete"]}
             baseUrl={`/admin/clinics/schedules`}
-            setHidden={setHidden}
-            deleteUrl={`/admin/clinics/${clinic?.id}`}
+            deleteUrl={`/admin/clinics/${clinic?.id}/schedules`}
             editUrl={`/admin/clinics/schedules/${clinic?.id}`}
           />
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicsService.make<ClinicsService>("admin")
-        .setHeaders({ filtered: true })
-        .indexWithPagination(page, search, sortCol, sortDir, perPage, params),
-    createUrl: `/admin/clinics/schedules/create`,
+      await ClinicsService.make<ClinicsService>(
+        RoleEnum.ADMIN,
+      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     title: `${t("clinicSchedules")}`,
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
-          <label className={"label"}>
-            {t("day")} :
+          <Label label={t("day")} col>
             <WeekDaySelect
               className="w-full max-w-xs select-bordered select-sm select"
               defaultValue={params.day_of_week}
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                 setParams({ ...params, day_of_week: event.target.value });
               }}
+              label={t("day")}
             />
-          </label>
+          </Label>
+
+          <Label label={t("time")} col>
+            <TimePickerFilter
+              defaultValue={params.available_time}
+              onChange={(time) => {
+                setParams({ ...params, available_time: time?.format("HH:mm") });
+              }}
+            />
+          </Label>
         </div>
       );
     },

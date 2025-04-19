@@ -11,7 +11,6 @@ import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Form from "@/components/common/ui/Form";
 import Input from "@/components/common/ui/Inputs/Input";
 import { ScheduleService } from "@/services/ScheduleService";
@@ -38,12 +37,10 @@ const ClinicScheduleForm = ({
   method,
   defaultValues,
   clinic_id,
-  appointment_gap,
 }: {
   method: "store" | "update";
   defaultValues?: SchedulesTimes;
   clinic_id?: number;
-  appointment_gap?: number;
 }) => {
   const locale = useLocale();
   const [schedule, setSchedule] = useState<SchedulesTimes>({
@@ -206,20 +203,9 @@ const ClinicScheduleForm = ({
               }
               label={t("clinicName")}
               optionValue={"id"}
-              getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
+              getOptionLabel={(data: Clinic) => data.user?.full_name}
             />
           )}
-
-          <Input
-            required={true}
-            name={"appointment_gap"}
-            type={"number"}
-            unit={"min"}
-            label={t("appointmentGap")}
-            placeholder={"appointment gap ..."}
-            defaultValue={appointment_gap ?? undefined}
-          />
-
           {method == "update" && (
             <Input
               required={true}

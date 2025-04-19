@@ -179,7 +179,8 @@
         "actions": "الخيارات",
         "startTime": "وقت البدء",
         "endTime": "وقت النهاية",
-        "day": "اليوم"
+        "day": "اليوم",
+        "time": "الوقت"
       },
       "show": {
         "holidayDetails": "تفاصيل الإجازة",
@@ -1550,7 +1551,8 @@
     "are_you_sure": "هل أنت متأكد ؟",
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء",
-    "no_data": "لا يوجد بيانات"
+    "no_data": "لا يوجد بيانات",
+    "select_day" : "اختر يوم"
   },
   "holidays": {
     "from": "من",

@@ -10,14 +10,11 @@ const Page = async ({
   const data =
     await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
 
-  const { appointment_gap, ...schedules } = data.data;
-
   return (
     <ScheduleForm
-      defaultValues={schedules}
+      defaultValues={data.data}
       method={"update"}
       clinic_id={clinicId}
-      appointment_gap={appointment_gap}
     />
   );
 };

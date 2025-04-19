@@ -179,7 +179,8 @@
         "actions": "Actions",
         "startTime": "Start Time",
         "endTime": "End Time",
-        "day": "Day"
+        "day": "Day",
+        "time": "Time"
       },
       "show": {
         "holidayDetails": "Holiday Details",
@@ -1540,7 +1541,8 @@
     "are_you_sure": "Are you sure?",
     "apply": "Apply",
     "cancellation_reason": "Cancellation Reason",
-    "no_data": "No data"
+    "no_data": "No data" ,
+    "select_day" : "Select a day"
   },
   "holidays": {
     "from": "From",

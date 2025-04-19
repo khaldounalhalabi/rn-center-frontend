@@ -25,7 +25,7 @@ const useUser = () => {
     updateUser(newUser);
   }, []);
 
-  const role = isInitialized ? user?.role ?? RoleEnum.CUSTOMER : undefined;
+  const role = isInitialized ? user?.role ?? RoleEnum.PUBLIC : undefined;
 
   return { user, setUser, role };
 };

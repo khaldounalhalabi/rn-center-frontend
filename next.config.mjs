@@ -19,11 +19,9 @@ const withPWA = withPWAInit({
 });
 const nextConfig = {
   env: {
-    // localApi: 'http://localhost/POM/public/api/',
-    localApi: "http://localhost/rn-center-backend/public/api/",
-    // localApi: "https://dev.api.planetofmedicine.com/api/",
-    firebase_key:
-      "BIutuhaOvqImTR8RpGVoDLHDSzeJay1fAXWes5wWtLmLLBKkyOxUebJA2fQu3hfiwhHq51BKfzDT-tni6ndtVcM",
+    // localApi: "http://localhost/rn-center-backend/public/api/",
+    localApi: "https://rn.cubeta.io/api/",
+    firebase_key: "",
   },
 };
 

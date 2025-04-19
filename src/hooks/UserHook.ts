@@ -6,14 +6,17 @@ const USER_STORAGE_KEY = "user";
 
 const useUser = () => {
   const [user, updateUser] = useState<User | undefined>(undefined);
+  const [isInitialized, setIsInitialized] = useState(false);
+
   useEffect(() => {
     const storedUser = localStorage.getItem(USER_STORAGE_KEY);
     if (storedUser) {
       updateUser(JSON.parse(storedUser));
     }
+    setIsInitialized(true);
   }, []);
 
-  const setUser = useCallback((newUser: User) => {
+  const setUser = useCallback((newUser: User | undefined) => {
     if (newUser) {
       localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
     } else {
@@ -22,7 +25,9 @@ const useUser = () => {
     updateUser(newUser);
   }, []);
 
-  return { user, setUser, role: user?.role ?? RoleEnum.CUSTOMER };
+  const role = isInitialized ? user?.role ?? RoleEnum.CUSTOMER : undefined;
+
+  return { user, setUser, role };
 };
 
 export default useUser;

@@ -4,10 +4,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import NotificationProvider from "@/components/common/NotificationProvider";
 import { useLocale } from "next-intl";
+import useUser from "@/hooks/UserHook";
+import LoadingScreen from "@/components/common/ui/LoadingScreen";
 
 interface ReFetchPhotoContextType {
   reFetch: boolean;
@@ -22,6 +24,7 @@ const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
 export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
 const Providers = ({ children }: { children: React.ReactNode }) => {
   useFcmToken();
+  const { role } = useUser();
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -33,21 +36,20 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       },
     },
   });
-  const [reFetch, setReFetch] = useState(false);
   const locale = useLocale();
-  return (
-    <ReFetchPhoto.Provider value={{ reFetch, setReFetch }}>
-      <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <ToastContainer rtl={locale == "ar"} />
-          <NotificationProvider>
-            <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
-              {children}
-            </div>
-          </NotificationProvider>
-        </LocalizationProvider>
-      </QueryClientProvider>
-    </ReFetchPhoto.Provider>
+  return !role ? (
+    <LoadingScreen />
+  ) : (
+    <QueryClientProvider client={queryClient}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <ToastContainer rtl={locale == "ar"} />
+        <NotificationProvider>
+          <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
+            {children}
+          </div>
+        </NotificationProvider>
+      </LocalizationProvider>
+    </QueryClientProvider>
   );
 };
 export default Providers;

@@ -921,7 +921,7 @@
         "editBtn": "Edit",
         "clinicName": "Clinic Name",
         "doctorName": "Doctor Name",
-        "customerName": "Customer Name",
+        "customerName": "Patient Name",
         "serviceName": "Service Name",
         "overview": "Overview",
         "logs": "Logs",
@@ -946,7 +946,9 @@
         "event": "Event",
         "actions": "Actions",
         "is_revision": "Is Revision ?",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "remaining_time": "Remaining Time",
+        "service_cost": "Service cost"
       }
     },
     "patient": {
@@ -1541,8 +1543,8 @@
     "are_you_sure": "Are you sure?",
     "apply": "Apply",
     "cancellation_reason": "Cancellation Reason",
-    "no_data": "No data" ,
-    "select_day" : "Select a day"
+    "no_data": "No data",
+    "select_day": "Select a day"
   },
   "holidays": {
     "from": "From",

@@ -18,6 +18,7 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");
@@ -69,6 +70,7 @@ const Page = () => {
         name: "type",
         label: t("type"),
         sortable: true,
+        render: (type) => <TranslatableEnum value={type} />,
       },
       {
         name: "total_cost",

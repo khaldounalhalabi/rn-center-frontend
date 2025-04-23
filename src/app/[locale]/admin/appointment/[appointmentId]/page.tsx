@@ -4,10 +4,11 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Appointment } from "@/Models/Appointment";
-import AppointmentOverview from "@/components/admin/appointment/AppointmentOverviw";
-import Grid from "@/components/common/ui/Grid";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import { getTranslations } from "next-intl/server";
+import Grid from "@/components/common/ui/Grid";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import Tabs from "@/components/common/ui/Tabs";
 
 const page = async ({
   params: { appointmentId },
@@ -17,50 +18,95 @@ const page = async ({
   const t = await getTranslations("common.appointment.show");
   const data =
     await AppointmentService.make<AppointmentService>().show(appointmentId);
-  const res: Appointment = data?.data;
+  const appointment: Appointment = data?.data;
   return (
     <PageCard>
       <div className="flex justify-between items-center w-full h-24">
         <h2 className="card-title">{t("appointmentDetails")}</h2>
-        <Link href={`/admin/appointment/${res.id}/edit`}>
+        <Link href={`/admin/appointment/${appointment.id}/edit`}>
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
         </Link>
       </div>
-      <div className={"card p-5 bg-base-200 my-3"}>
-        <Grid md={"2"}>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("clinicName")} :{" "}
-            <span className="ml-2 badge badge-success ">
-              {await TranslateServer(res?.clinic?.name)}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("doctorName")} :{" "}
-            <span className="ml-2 badge badge-accent  ">
-              {await TranslateServer(res?.clinic?.user?.first_name)}{" "}
-              {await TranslateServer(res?.clinic?.user?.middle_name)}{" "}
-              {await TranslateServer(res?.clinic?.user?.last_name)}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("customerName")} :{" "}
-            <span className="ml-2 badge badge-neutral ">
-              {await TranslateServer(res?.customer?.user?.first_name)}{" "}
-              {await TranslateServer(res?.customer?.user?.middle_name)}{" "}
-              {await TranslateServer(res?.customer?.user?.last_name)}{" "}
-            </span>
-          </label>
-          <label className="label justify-start text-xl items-start flex flex-col md:block">
-            {t("serviceName")} :{" "}
-            <span className="ml-2 badge badge-primary  ">
-              {await TranslateServer(res?.service?.name)}
-            </span>
-          </label>
-        </Grid>
-        <div className="px-2 sm:px-0 py-16 w-full">
-          <AppointmentOverview appointment={res} />
-        </div>
-      </div>
+      <Grid>
+        <LabelValue
+          label={t("doctorName")}
+          value={appointment.clinic?.user?.full_name}
+        />
+
+        <LabelValue
+          label={t("customerName")}
+          value={appointment.customer?.user?.full_name}
+          color={"success"}
+        />
+
+        <LabelValue
+          label={t("serviceName")}
+          value={appointment?.service?.name}
+          color={"accent"}
+        />
+
+        <LabelValue
+          label={t("date")}
+          value={appointment?.date_time}
+          color={"error"}
+        />
+        <LabelValue
+          label={t("status")}
+          value={<TranslatableEnum value={appointment?.status} />}
+          color={"info"}
+        />
+        <LabelValue
+          label={t("totalCost")}
+          value={appointment?.total_cost}
+          color={"warning"}
+        />
+        <LabelValue
+          label={t("service_cost")}
+          value={appointment?.service?.price}
+          color={"brand-primary"}
+        />
+        <LabelValue
+          label={t("extraFees")}
+          value={appointment?.extra_fees}
+          color={"title"}
+        />
+        <LabelValue
+          label={t("discount")}
+          value={appointment?.discount}
+          color={"warning-content"}
+        />
+        <LabelValue
+          label={t("type")}
+          value={<TranslatableEnum value={appointment?.type} />}
+          color={"secondary"}
+        />
+
+        <LabelValue
+          label={t("appointmentSequence")}
+          value={appointment?.appointment_sequence}
+          color={"neutral"}
+        />
+
+        <LabelValue
+          label={t("remaining_time")}
+          value={appointment?.remaining_time}
+          color={"title"}
+        />
+      </Grid>
+      <LabelValue label={t("note")} value={appointment?.note} col />
+
+      <Tabs
+        tabs={[
+          {
+            title: t("logs"),
+            render: <></>,
+          },
+          {
+            title: t("prescriptions"),
+            render: <></>,
+          },
+        ]}
+      />
     </PageCard>
   );
 };

@@ -956,7 +956,9 @@
         "event": "الحدث",
         "actions": "الخيارات",
         "is_revision": "مراجعة ؟",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "remaining_time": "الوقت المتبقي",
+        "service_cost": "سعر الخدمة"
       }
     },
     "patient": {
@@ -1552,7 +1554,7 @@
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء",
     "no_data": "لا يوجد بيانات",
-    "select_day" : "اختر يوم"
+    "select_day": "اختر يوم"
   },
   "holidays": {
     "from": "من",

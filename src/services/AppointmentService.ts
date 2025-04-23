@@ -1,8 +1,9 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment, groupedByMonth } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
-import { GET, POST, PUT } from "@/Http/Http";
+import { GET, PUT } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 
 export class AppointmentService extends BaseService<Appointment> {
   public getBaseUrl(): string {
@@ -43,11 +44,16 @@ export class AppointmentService extends BaseService<Appointment> {
 
   public async toggleStatus(
     appointmentId: number,
-    data: { status: string; cancellation_reason?: string },
+    status: AppointmentStatusEnum,
+    cancellationReason?: string | undefined,
   ): Promise<ApiResponse<Appointment>> {
-    const res = await POST<Appointment>(
-      `${this.role}/appointments/${appointmentId}/toggle-status`,
-      data,
+    const res = await PUT<Appointment>(
+      `${this.role}/appointments/change-status`,
+      {
+        status: status,
+        appointment_id: appointmentId,
+        cancellation_reason: cancellationReason,
+      },
     );
     return await this.errorHandler(res);
   }

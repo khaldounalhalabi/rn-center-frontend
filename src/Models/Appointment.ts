@@ -1,38 +1,26 @@
-import { Clinic } from "./Clinic";
-import { Customer } from "./Customer";
-import { Service } from "./Service";
-import { SystemOffers } from "@/Models/SystemOffer";
-import { Offers } from "@/Models/Offers";
-import { AppointmentLogs } from "@/Models/AppointmentLog";
+import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
+import { Service } from "@/Models/Service";
+import { Clinic } from "@/Models/Clinic";
+import { Customer } from "@/Models/Customer";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
 
 export interface Appointment {
   id: number;
   customer_id: number;
   clinic_id: number;
-  note: string;
   service_id: number;
+  note?: string;
   extra_fees: number;
   total_cost: number;
-  type: string;
-  date: string;
-  status: string;
-  device_type?: string;
-  appointment_sequence?: string;
-  customer?: Customer;
-  clinic?: Clinic;
-  service?: Service;
-  system_offers?: SystemOffers[];
-  offers?: Offers[];
+  type: AppointmentTypeEnum;
+  status: AppointmentStatusEnum;
+  date_time: string;
+  appointment_sequence: number;
+  remaining_time: string;
   discount: number;
-  cancellation_reason?: string;
-  appointment_unique_code: string;
-  last_booked_log?: AppointmentLogs;
-  last_check_in_log?: AppointmentLogs;
-  last_check_out_log?: AppointmentLogs;
-  last_cancelled_log?: AppointmentLogs;
-  before_appointments_count?: number;
-  remaining_time?: string;
-  is_revision: boolean;
+  service?: Service;
+  clinic?: Clinic;
+  customer?: Customer;
 }
 
 export interface groupedByMonth {

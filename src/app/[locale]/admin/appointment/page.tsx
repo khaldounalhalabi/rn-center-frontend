@@ -6,30 +6,21 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import AppointmentStatuses from "@/enum/AppointmentStatus";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
-import { toast } from "react-toastify";
 import { Link } from "@/navigation";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "@/components/common/NotificationHandler";
-import PercentBadge from "@/components/icons/PercentBadge";
-import CheckMarkIcon from "@/components/icons/CheckMarkIcon";
-import XMark from "@/components/icons/XMark";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { getEnumValues } from "@/Helpers/Enums";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
+import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");
-  const handleCopyLink = (id: number | undefined) => {
-    navigator.clipboard.writeText(`${window.location.href}/${id}`);
-    toast.success("Link Has Been Copied Successfully");
-  };
-
-  const statusData = AppointmentStatuses();
-  const typeData = ["online", "manual", "all"];
   const tableData: DataTableData<Appointment> = {
     createUrl: `/admin/appointment/create`,
     title: `${t("appointments")}`,
@@ -38,118 +29,62 @@ const Page = () => {
         name: "id",
         sortable: true,
         label: "id",
-        render: (_id, appointment) => {
-          return (
-            <button
-              type={"button"}
-              className="btn btn-sm"
-              onClick={() => handleCopyLink(appointment?.id)}
-            >
-              {appointment?.id}
-            </button>
-          );
-        },
       },
       {
-        name: "clinic.name",
-        sortable: true,
-        label: `${t("clinicName")}`,
-        translatable: true,
+        name: "clinic.user.full_name",
+        label: t("doctorName"),
+        render: (doctorName, record) => (
+          <Link href={`/admin/clinics/${record?.clinic_id}`} className={"btn"}>
+            {doctorName}
+          </Link>
+        ),
       },
       {
-        name: "clinic.user.first_name",
-        sortable: true,
-        label: `${t("doctorName")}`,
-        render: (_first_name, appointment) => {
-          return (
-            <p>
-              {TranslateClient(appointment?.clinic?.user?.first_name)}{" "}
-              {TranslateClient(appointment?.clinic?.user?.middle_name)}{" "}
-              {TranslateClient(appointment?.clinic?.user?.last_name)}
-            </p>
-          );
-        },
-      },
-      {
-        name: "customer.user.first_name",
-        sortable: true,
-        label: `${t("patientName")}`,
-        render: (_first_name, appointment) => {
-          return (
-            <Link
-              href={`/admin/patients/${appointment?.customer_id}`}
-              className={`btn`}
-            >
-              {TranslateClient(appointment?.customer?.user?.first_name)}{" "}
-              {TranslateClient(appointment?.customer?.user?.middle_name)}{" "}
-              {TranslateClient(appointment?.customer?.user?.last_name)}
-            </Link>
-          );
-        },
+        name: "customer.user.full_name",
+        label: t("patientName"),
+        render: (patientName, record) => (
+          <Link
+            href={`/admin/patients/${record?.customer_id}`}
+            className={"btn"}
+          >
+            {patientName}
+          </Link>
+        ),
       },
       {
         name: "status",
         label: `${t("status")}`,
-        render: (_status, appointment, setHidden, revalidate) => {
+        render: (_status, appointment) => {
           return (
-            <div className={"flex items-center justify-center"}>
-              <AppointmentStatusColumn appointment={appointment} />
-            </div>
+            appointment && (
+              <div className={"flex items-center justify-center"}>
+                <AppointmentStatusColumn appointment={appointment} />
+              </div>
+            )
           );
         },
         sortable: true,
       },
       {
         name: "type",
-        label: `${t("type")}`,
-        render: (data) =>
-          data == "online" ? (
-            <span className={` text-[#00a96e]`}>{t("online")}</span>
-          ) : (
-            <span className={` text-[#2b3440]`}>{t("manual")}</span>
-          ),
+        label: t("type"),
         sortable: true,
       },
       {
-        name: "is_revision",
-        label: t("is_revision"),
-        render: (is_revision) =>
-          is_revision ? (
-            <span className={"flex items-center justify-center"}>
-              <CheckMarkIcon className={"text-success h-6 w-6"} />
-            </span>
-          ) : (
-            <span className={"flex items-center justify-center"}>
-              <XMark className={"text-error h-6 w-6"} />
-            </span>
-          ),
-      },
-      {
         name: "total_cost",
-        label: `${t("totalCost")}`,
-        render: (data, appointment: Appointment | undefined) => (
-          <span className="flex items-center justify-between gap-1">
-            {data?.toLocaleString() + " " + t("iqd")}{" "}
-            {(appointment?.system_offers?.length ?? 0) > 0 && (
-              <PercentBadge className="text-[#00a96e] h-6 w-6" />
-            )}
-          </span>
-        ),
+        label: t("totalCost"),
+        sortable: true,
       },
 
       {
         name: "appointment_sequence",
-        label: `${t("sequence")}`,
-      },
-      {
-        name: "date",
-        label: `${t("date")}`,
+        label: t("sequence"),
         sortable: true,
       },
       {
-        name: "appointment_unique_code",
-        label: `${t("appointment_unique_code")}`,
-        sortable: false,
+        name: "date_time",
+        label: t("date"),
+        sortable: true,
       },
       {
         label: `${t("actions")}`,
@@ -183,7 +118,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await AppointmentService.make<AppointmentService>("admin")
+      await AppointmentService.make<AppointmentService>(RoleEnum.ADMIN)
         .indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         .then((res) => {
           return res;
@@ -194,7 +129,7 @@ const Page = () => {
           <label className={"label"}>
             {t("status")} :
             <SelectFilter
-              data={["all", ...statusData]}
+              data={getEnumValues(AppointmentStatusEnum)}
               selected={params.status ?? "all"}
               onChange={(event: any) => {
                 setParams({ ...params, status: event.target.value });
@@ -204,8 +139,8 @@ const Page = () => {
           <label className="label">
             {t("type")} :
             <SelectFilter
-              data={typeData}
-              selected={params.type ?? "online"}
+              data={getEnumValues(AppointmentTypeEnum)}
+              selected={params.type}
               onChange={(event: any) => {
                 setParams({ ...params, type: event.target.value });
               }}

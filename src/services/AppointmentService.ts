@@ -1,9 +1,9 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment, groupedByMonth } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
-import { GET, PUT } from "@/Http/Http";
+import { GET, POST, PUT } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
-import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 
 export class AppointmentService extends BaseService<Appointment> {
   public getBaseUrl(): string {
@@ -12,9 +12,11 @@ export class AppointmentService extends BaseService<Appointment> {
 
   public async getAvailableTimes(
     clinicId: number,
-  ): Promise<ApiResponse<AvailableTime>> {
-    const res = await GET<AvailableTime>(
-      `${this.role}/clinics/${clinicId}/available-times`,
+    date: string,
+  ): Promise<ApiResponse<string[]>> {
+    const res = await POST<string[]>(
+      `${this.role}/clinics/available-appointments-times`,
+      { date: date, clinic_id: clinicId },
     );
     return await this.errorHandler(res);
   }
@@ -94,8 +96,7 @@ export class AppointmentService extends BaseService<Appointment> {
   }
 
   public async exportExcel() {
-    const res = await GET<any>(`${this.role}/appointments/export`);
-    return await res;
+    return await GET<any>(`${this.role}/appointments/export`);
   }
 
   public async getCustomerAppointments(

@@ -913,7 +913,8 @@
         "clinic_name": "Clinic name",
         "update_date": "Update date",
         "clinic_appointment_cost": "Clinic appointment cost",
-        "cancellation_reason": "Cancellation Reason"
+        "cancellation_reason": "Cancellation Reason",
+        "time": "Time"
       },
       "show": {
         "cancellationReason": "Cancellation Reason",

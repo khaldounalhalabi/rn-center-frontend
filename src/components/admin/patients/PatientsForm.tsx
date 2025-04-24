@@ -12,7 +12,7 @@ import { TranslateClient } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import dayjs from "dayjs";
-import { PatientsService } from "@/services/PatientsService";
+import { PatientService } from "@/services/PatientService";
 import { AddOrUpdateCustomer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
@@ -34,12 +34,12 @@ const PatientsForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PatientsService.make<PatientsService>("admin").update(
+      return PatientService.make<PatientService>("admin").update(
         defaultValues?.id ?? id,
         data,
       );
     } else {
-      return await PatientsService.make<PatientsService>("admin").store(data);
+      return await PatientService.make<PatientService>("admin").store(data);
     }
   };
   const onSuccess = () => {

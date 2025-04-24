@@ -9,6 +9,7 @@ import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import Tabs from "@/components/common/ui/Tabs";
+import AppointmentLogsTable from "@/components/admin/appointment/AppointmentLogsTable";
 
 const page = async ({
   params: { appointmentId },
@@ -98,12 +99,12 @@ const page = async ({
       <Tabs
         tabs={[
           {
-            title: t("logs"),
+            title: t("prescriptions"),
             render: <></>,
           },
           {
-            title: t("prescriptions"),
-            render: <></>,
+            title: t("logs"),
+            render: <AppointmentLogsTable appointment={appointment} />,
           },
         ]}
       />

@@ -14,7 +14,7 @@ import {
 } from "@/Helpers/TranslationsClient";
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import { PatientsService } from "@/services/PatientsService";
+import { PatientService } from "@/services/PatientService";
 import { AddOrUpdateCustomer, Customer } from "@/Models/Customer";
 import Gallery from "@/components/common/ui/Gallery";
 import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
@@ -53,12 +53,12 @@ const PatientForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return PatientsService.make<PatientsService>("doctor").update(
+      return PatientService.make<PatientService>("doctor").update(
         defaultValues?.id ?? id,
         data,
       );
     } else {
-      return await PatientsService.make<PatientsService>("doctor").store(data);
+      return await PatientService.make<PatientService>("doctor").store(data);
     }
   };
   const onSuccess = (res: ApiResponse<Customer>) => {

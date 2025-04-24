@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import PatientForm from "@/components/doctor/patients/PatientForm";
-import { PatientsService } from "@/services/PatientsService";
+import { PatientService } from "@/services/PatientService";
 import { getTranslations } from "next-intl/server";
 
 const page = async ({
@@ -12,7 +12,7 @@ const page = async ({
   const t = await getTranslations("common.patient.create");
 
   const patient = (
-    await PatientsService.make<PatientsService>("doctor").show(patientId)
+    await PatientService.make<PatientService>("doctor").show(patientId)
   ).data;
   const defaultValues = {
     ...patient,

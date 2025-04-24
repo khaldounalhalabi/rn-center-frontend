@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import { Link } from "@/navigation";
 import { User } from "@/Models/User";
 import { Phone } from "@/Models/Phone";
-import { PatientsService } from "@/services/PatientsService";
+import { PatientService } from "@/services/PatientService";
 import RoundedImage from "@/components/common/RoundedImage";
 import { getMedia } from "@/Models/Media";
 import TranslateServer from "@/Helpers/TranslationsServer";
@@ -19,7 +19,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.patient.show");
 
-  const data = await PatientsService.make<PatientsService>().show(patientId);
+  const data = await PatientService.make<PatientService>().show(patientId);
   const user: User | undefined = data?.data.user;
   const patient: Customer = data?.data;
   return (

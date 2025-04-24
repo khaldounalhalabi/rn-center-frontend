@@ -1,7 +1,7 @@
 "use client";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { DatePicker, PickerValidDate } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useFormContext } from "react-hook-form";
 import React from "react";
 import styles from "../../../../app/[locale]/datepicker.module.css";
@@ -11,11 +11,15 @@ const Datepicker = ({
   label,
   required = false,
   shouldDisableDate,
+  onChange,
+  df = undefined,
 }: {
   name: string;
   label?: string;
   required?: boolean;
   shouldDisableDate?: (day: PickerValidDate) => boolean;
+  onChange?: (date: Dayjs | null) => void;
+  df?: string;
 }) => {
   const {
     setValue,
@@ -34,8 +38,11 @@ const Datepicker = ({
       <DatePicker
         onChange={(val): void => {
           setValue(name, val?.format("YYYY-MM-DD") ?? "");
+          if (onChange) {
+            onChange(val);
+          }
         }}
-        defaultValue={defaultValue ? dayjs(defaultValue) : undefined}
+        defaultValue={dayjs(defaultValue ?? df)}
         // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}

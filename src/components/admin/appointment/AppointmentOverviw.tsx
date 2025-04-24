@@ -3,7 +3,7 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import Overview from "@/components/common/Appointment/Overview";
 import { Appointment } from "@/Models/Appointment";
-import AppointmentLogs from "@/components/admin/appointment/AppointmentLogs";
+import AppointmentLogsTable from "@/components/admin/appointment/AppointmentLogsTable";
 import PrescriptionsTable from "@/components/admin/appointment/PrescriptionsTable";
 import { useTranslations } from "next-intl";
 
@@ -66,7 +66,7 @@ const AppointmentOverview = ({
             <Overview appointment={appointment} />
           </Tab.Panel>
           <Tab.Panel className={"w-full"}>
-            <AppointmentLogs appointment={appointment} />
+            <AppointmentLogsTable appointment={appointment} />
           </Tab.Panel>
           <Tab.Panel className={"w-full"}>
             <PrescriptionsTable appointment={appointment} />

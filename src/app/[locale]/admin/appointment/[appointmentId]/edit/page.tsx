@@ -2,8 +2,8 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import AppointmentForm from "@/components/admin/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import { getTranslations } from "next-intl/server";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = async ({
   params: { appointmentId },
@@ -13,13 +13,10 @@ const page = async ({
   const t = await getTranslations("common.appointment.create");
 
   const appointment = (
-    await AppointmentService.make<AppointmentService>("admin").show(
+    await AppointmentService.make<AppointmentService>(RoleEnum.ADMIN).show(
       appointmentId,
     )
   ).data;
-  const availableTimes = await AppointmentService.make<AppointmentService>(
-    "admin",
-  ).getAvailableTimes(appointment.clinic_id);
 
   return (
     <PageCard>
@@ -27,16 +24,10 @@ const page = async ({
       <label className={""}>
         {t("patientName")} :{" "}
         <span className={"badge"}>
-          {TranslateServer(appointment?.customer?.user?.full_name)}
+          {appointment?.customer?.user?.full_name}
         </span>
       </label>
-      <AppointmentForm
-        type={"update"}
-        defaultValues={{
-          ...appointment,
-        }}
-        availableTimes={availableTimes.data}
-      />
+      <AppointmentForm type={"update"} defaultValues={appointment} />
     </PageCard>
   );
 };

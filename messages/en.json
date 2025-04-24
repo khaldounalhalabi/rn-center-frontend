@@ -993,7 +993,10 @@
         "archived": "Archived",
         "notArchived": "Not Archived",
         "actions": "Actions",
-        "delete_profile_warning": "Deleting this record will delete just the stored medical details of this patient not his entire profile"
+        "delete_profile_warning": "Deleting this record will delete just the stored medical details of this patient not his entire profile",
+        "blood_group": "Blood group",
+        "phone": "Phone",
+        "gender": "Gender"
       },
       "show": {
         "patientDetails": "Patient Details",
@@ -1020,7 +1023,25 @@
         "note": "Note",
         "medicalCondition": "Medical Condition",
         "lastAppointment": "Last Appointment",
-        "appointments_count": "Appointments count"
+        "appointments_count": "Appointments count",
+        "joined_at": "Joined at"
+      },
+      "attachments": {
+        "title": "Patient Attachments",
+        "file_name": "File Name",
+        "file_type": "File Type",
+        "size": "Size",
+        "actions": "Actions",
+        "delete": "Delete",
+        "no_attachments": "No attachments available",
+        "delete_confirmation": "Are you sure?",
+        "delete_warning": "You won't be able to revert this!",
+        "confirm_delete": "Yes, delete it!",
+        "cancel": "Cancel",
+        "deleted": "Deleted!",
+        "delete_success": "The attachment has been deleted successfully.",
+        "delete_failed": "Failed to delete the attachment.",
+        "error": "Error"
       }
     },
     "prescription": {

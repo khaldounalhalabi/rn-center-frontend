@@ -17,8 +17,6 @@ import ServiceIcon from "@/components/icons/ServiceIcon";
 import AppointmentIcon from "@/components/icons/AppointmentIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
-import PatientProfilesIcon from "@/components/icons/PatientProfilesIcon";
-import PatientMangerIcon from "@/components/icons/PatientMangerIcon";
 import TransactionIcon from "@/components/icons/TransactionIcon";
 import SidebarEnIcon from "@/components/icons/SidebarIconEn";
 import SidebarArIcon from "@/components/icons/SidebarArIcon";
@@ -131,28 +129,12 @@ const Sidebar = ({
       icon: <AppointmentIcon className={`h-8 w-8`} />,
     },
     {
-      search: t("patientsManagement"),
-      title: t("patientsManagement"),
-      link: undefined,
-      icon: <PatientMangerIcon className={`h-9 w-9 `} />,
-      children: [
-        {
-          search: t("patients"),
-          title: t("patients"),
-          link: "/admin/patients",
-          children: undefined,
-          icon: <PatientIcon className={`h-7 w-7`} />,
-        },
-        {
-          search: t("patientProfiles"),
-          title: t("patientProfiles"),
-          link: "/admin/patient-profiles",
-          children: undefined,
-          icon: <PatientProfilesIcon className={`h-7 w-7`} />,
-        },
-      ],
+      search: t("patients"),
+      title: t("patients"),
+      link: "/admin/patients",
+      children: undefined,
+      icon: <PatientIcon className={`h-7 w-7`} />,
     },
-
     {
       search: t("transaction"),
       title: t("transaction"),

@@ -963,6 +963,23 @@
       }
     },
     "patient": {
+      "attachments": {
+        "title": "مرفقات المريض",
+        "file_name": "اسم الملف",
+        "file_type": "نوع الملف",
+        "size": "الحجم",
+        "actions": "إجراءات",
+        "delete": "حذف",
+        "no_attachments": "لا توجد مرفقات متاحة",
+        "delete_confirmation": "هل أنت متأكد؟",
+        "delete_warning": "لن تتمكن من التراجع عن هذا!",
+        "confirm_delete": "نعم، احذفه!",
+        "cancel": "إلغاء",
+        "deleted": "تم الحذف!",
+        "delete_success": "تم حذف المرفق بنجاح.",
+        "delete_failed": "فشل في حذف المرفق.",
+        "error": "خطأ"
+      },
       "create": {
         "birth-date": "تاريخ الميلاد",
         "noData": "لايوجد بيانات",
@@ -1003,7 +1020,10 @@
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشف",
         "actions": "الخيارات",
-        "delete_profile_warning": "يؤدي هذا الاجراء لحذف البيانات الطبية الخاصة بالمريض و ليس ملفه بالكامل"
+        "delete_profile_warning": "يؤدي هذا الاجراء لحذف البيانات الطبية الخاصة بالمريض و ليس ملفه بالكامل",
+        "blood_group": "زمرة الدم",
+        "phone": "رقم الهاتف",
+        "gender": "الجنس"
       },
       "show": {
         "patientDetails": "تفاصيل المريض",
@@ -1030,7 +1050,8 @@
         "note": "الملاحظات",
         "medicalCondition": "الحالة الطبية",
         "lastAppointment": "آخر حجز",
-        "appointments_count": "عدد الحجوزات"
+        "appointments_count": "عدد الحجوزات",
+        "joined_at": "انضم بتاريخ"
       }
     },
     "prescription": {

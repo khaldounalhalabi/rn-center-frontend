@@ -1,42 +1,16 @@
 import { User } from "@/Models/User";
-import { Address } from "@/Models/Address";
 import { Media } from "@/Models/Media";
-import { PatientProfiles } from "@/Models/PatientProfiles";
 
 export interface Customer {
   id: number;
-  medical_condition?: string;
   user_id: number;
-  user?: User;
-  currentClinicPatientProfile?: PatientProfiles;
-}
-
-export interface AddOrUpdateCustomer {
-  id?: number;
-  medical_condition?: string;
-  user_id?: number;
-  first_name?: string;
-  middle_name?: string;
-  last_name?: string;
-  email?: string;
-  birth_date?: string;
-  gender?: string;
-  blood_group?: string;
-  tags?: string | string[];
-  image?: Media[];
-  phone_numbers?: string[];
-  address?: Address;
-  password?: string;
-  password_confirmation?: string;
-  other_data?: string;
-  images?: Media[] | string[];
-  note?: string;
-}
-
-export interface Recent {
-  id: number;
-  user_id: number;
+  blood_group: string;
+  birth_date: string;
+  age: number;
   created_at: string;
-  total_appointments: number;
-  user: User;
+  health_status?: string;
+  notes?: string;
+  other_date?: { key: string; value: string }[];
+  user?: User;
+  attachments?: Media[];
 }

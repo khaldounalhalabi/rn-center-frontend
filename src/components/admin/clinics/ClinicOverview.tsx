@@ -4,7 +4,6 @@ import { Tab } from "@headlessui/react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
-import Appointments from "@/components/admin/clinics/Appointments";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -47,9 +46,7 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
           <Tab.Panel className={"w-full"}>
             <Overview clinic={clinic} />
           </Tab.Panel>
-          <Tab.Panel>
-            <Appointments clinicId={clinic?.id ?? 0} />
-          </Tab.Panel>
+          <Tab.Panel></Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

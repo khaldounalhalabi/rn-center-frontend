@@ -7,6 +7,7 @@ import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const UserDataView = async ({
   editUrl,
@@ -52,7 +53,7 @@ const UserDataView = async ({
         />
         <LabelValue
           label={t("gender")}
-          value={user?.gender}
+          value={<TranslatableEnum value={user?.gender} />}
           color={"warning"}
         />
       </Grid>

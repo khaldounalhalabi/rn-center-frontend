@@ -979,7 +979,10 @@
         "medicalCondition": "Medical Condition",
         "note": "Note",
         "image": "Image",
-        "supplementalImages": "Supplemental Images"
+        "supplementalImages": "Supplemental Images",
+        "healthStatus" : "Health status",
+        "attachments" : "Attachments",
+        "notes" : "Notes"
       },
       "table": {
         "patients": "patients",

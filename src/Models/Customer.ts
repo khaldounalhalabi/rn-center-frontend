@@ -6,11 +6,11 @@ export interface Customer {
   user_id: number;
   blood_group: string;
   birth_date: string;
-  age: number;
+  age: string;
   created_at: string;
   health_status?: string;
   notes?: string;
-  other_date?: { key: string; value: string }[];
+  other_data?: { key: string; value: string }[];
   user?: User;
   attachments?: Media[];
 }

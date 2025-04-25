@@ -5,8 +5,9 @@ import { useTranslations } from "next-intl";
 import { MediaService } from "@/services/MediaService";
 import Swal from "sweetalert2";
 import Trash from "@/components/icons/Trash";
-import Link from "next/link";
 import DownloadIcon from "@/components/icons/DownloadIcon";
+import downloadFile from "@/hooks/DownloadFile";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 interface MediaTableProps {
   media: Media[];
@@ -17,10 +18,48 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   const t = useTranslations("common.patient.attachments");
   const [attachments, setAttachments] = useState<Media[]>(media);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const { download, isLoading: isDownloading } = downloadFile();
 
   const getFileName = (url: string): string => {
     const urlParts = url.split("/");
     return urlParts[urlParts.length - 1];
+  };
+
+  const getFileExtension = (url: string): string => {
+    // First try to get extension from the URL
+    const fileName = getFileName(url);
+    const extensionMatch = fileName.match(/\.([^.]+)$/);
+    
+    if (extensionMatch && extensionMatch[1]) {
+      return extensionMatch[1].toLowerCase();
+    }
+    
+    // If no extension found in URL, try to extract from MIME type
+    const mimeToExtensionMap: Record<string, string> = {
+      'application/pdf': 'pdf',
+      'image/jpeg': 'jpg',
+      'image/jpg': 'jpg',
+      'image/png': 'png',
+      'image/gif': 'gif',
+      'image/webp': 'webp',
+      'application/msword': 'doc',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+      'application/vnd.ms-excel': 'xls',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+      'text/plain': 'txt',
+      'application/zip': 'zip',
+      'application/vnd.rar': 'rar',
+      'video/mp4': 'mp4',
+      'audio/mpeg': 'mp3'
+    };
+    
+    // Find the file in attachments to check its mime type
+    const fileItem = attachments.find(item => item.file_url === url);
+    if (fileItem && fileItem.file_type) {
+      return mimeToExtensionMap[fileItem.file_type] || 'unknown';
+    }
+    
+    return 'unknown';
   };
 
   const handleDelete = async (mediaId: number) => {
@@ -97,7 +136,11 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                   {getFileName(item.file_url)}
                 </a>
               </td>
-              <td>{item.file_type}</td>
+              <td>
+                <span className="badge badge-ghost uppercase">
+                  {getFileExtension(item.file_url)}
+                </span>
+              </td>
               <td>{Math.round(item.size / 1024)} KB</td>
               <td className={"flex items-center gap-1 justify-center"}>
                 <button
@@ -111,14 +154,19 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                     <Trash />
                   )}
                 </button>
-                <Link
-                  href={item?.file_url}
+                <button
                   className={"btn btn-info btn-square btn-sm text-white"}
-                  download={item.file_url}
-                  target={"_blank"}
+                  onClick={() => {
+                    download(item.file_url);
+                  }}
+                  disabled={isDownloading}
                 >
-                  <DownloadIcon className={"w-5 h-5"} />
-                </Link>
+                  {isDownloading ? (
+                    <LoadingSpin />
+                  ) : (
+                    <DownloadIcon className={"w-5 h-5"} />
+                  )}
+                </button>
               </td>
             </tr>
           ))}

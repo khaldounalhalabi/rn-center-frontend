@@ -31,7 +31,7 @@ const page = async ({
         <LabelValue label={t("birthDate")} value={patient?.birth_date} />
         <LabelValue label={t("age")} value={patient?.age} />
         <LabelValue label={t("joined_at")} value={patient?.created_at} />
-        {patient.other_date?.map((item, index) => (
+        {patient.other_data?.map((item, index) => (
           <LabelValue key={index} label={item.key} value={item.value} />
         ))}
       </Grid>

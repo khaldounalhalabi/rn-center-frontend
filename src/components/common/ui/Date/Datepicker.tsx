@@ -3,7 +3,7 @@ import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { DatePicker, PickerValidDate } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../../../app/[locale]/datepicker.module.css";
 
 const Datepicker = ({
@@ -27,7 +27,7 @@ const Datepicker = ({
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
-  const defaultValue = getNestedPropertyValue(defaultValues, name);
+  const defaultValue = df ?? getNestedPropertyValue(defaultValues, name);
 
   return (
     <label className="flex flex-col items-start gap-2 label">
@@ -42,7 +42,7 @@ const Datepicker = ({
             onChange(val);
           }
         }}
-        defaultValue={dayjs(defaultValue ?? df)}
+        defaultValue={dayjs(defaultValue)}
         // slotProps={{ textField: { size: 'small' } }}
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}

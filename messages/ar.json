@@ -1006,7 +1006,10 @@
         "medicalCondition": "الحالة الطبية",
         "note": "ملاحظات",
         "image": "الصورة",
-        "supplementalImages": "صور مساعدة"
+        "supplementalImages": "صور مساعدة",
+        "healthStatus": "الحالة الصحية",
+        "attachments": "المرفقات",
+        "notes": "ملاحظات"
       },
       "table": {
         "patients": "المرضى",

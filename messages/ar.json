@@ -923,7 +923,8 @@
         "clinic_name": "اسم العيادة",
         "update_date": "تعديل التاريخ",
         "clinic_appointment_cost": "كلفة الموعد في العيادة",
-        "cancellation_reason": "سبب الإلغاء"
+        "cancellation_reason": "سبب الإلغاء",
+        "time": "Time"
       },
       "show": {
         "cancellationReason": "سبب الالغاء",
@@ -956,10 +957,29 @@
         "event": "الحدث",
         "actions": "الخيارات",
         "is_revision": "مراجعة ؟",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "remaining_time": "الوقت المتبقي",
+        "service_cost": "سعر الخدمة"
       }
     },
     "patient": {
+      "attachments": {
+        "title": "مرفقات المريض",
+        "file_name": "اسم الملف",
+        "file_type": "نوع الملف",
+        "size": "الحجم",
+        "actions": "إجراءات",
+        "delete": "حذف",
+        "no_attachments": "لا توجد مرفقات متاحة",
+        "delete_confirmation": "هل أنت متأكد؟",
+        "delete_warning": "لن تتمكن من التراجع عن هذا!",
+        "confirm_delete": "نعم، احذفه!",
+        "cancel": "إلغاء",
+        "deleted": "تم الحذف!",
+        "delete_success": "تم حذف المرفق بنجاح.",
+        "delete_failed": "فشل في حذف المرفق.",
+        "error": "خطأ"
+      },
       "create": {
         "birth-date": "تاريخ الميلاد",
         "noData": "لايوجد بيانات",
@@ -986,7 +1006,10 @@
         "medicalCondition": "الحالة الطبية",
         "note": "ملاحظات",
         "image": "الصورة",
-        "supplementalImages": "صور مساعدة"
+        "supplementalImages": "صور مساعدة",
+        "healthStatus": "الحالة الصحية",
+        "attachments": "المرفقات",
+        "notes": "ملاحظات"
       },
       "table": {
         "patients": "المرضى",
@@ -1000,7 +1023,10 @@
         "archived": "مؤرشف",
         "notArchived": "غير مؤرشف",
         "actions": "الخيارات",
-        "delete_profile_warning": "يؤدي هذا الاجراء لحذف البيانات الطبية الخاصة بالمريض و ليس ملفه بالكامل"
+        "delete_profile_warning": "يؤدي هذا الاجراء لحذف البيانات الطبية الخاصة بالمريض و ليس ملفه بالكامل",
+        "blood_group": "زمرة الدم",
+        "phone": "رقم الهاتف",
+        "gender": "الجنس"
       },
       "show": {
         "patientDetails": "تفاصيل المريض",
@@ -1027,7 +1053,8 @@
         "note": "الملاحظات",
         "medicalCondition": "الحالة الطبية",
         "lastAppointment": "آخر حجز",
-        "appointments_count": "عدد الحجوزات"
+        "appointments_count": "عدد الحجوزات",
+        "joined_at": "انضم بتاريخ"
       }
     },
     "prescription": {
@@ -1552,7 +1579,7 @@
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء",
     "no_data": "لا يوجد بيانات",
-    "select_day" : "اختر يوم"
+    "select_day": "اختر يوم"
   },
   "holidays": {
     "from": "من",

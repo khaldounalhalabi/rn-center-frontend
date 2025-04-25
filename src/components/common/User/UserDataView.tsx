@@ -1,4 +1,5 @@
 "use server";
+import { User } from "@/Models/User";
 import { getTranslations } from "next-intl/server";
 import PageCard from "@/components/common/ui/PageCard";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
@@ -6,9 +7,17 @@ import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
-import { User } from "@/Models/User";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
-const UserDetails = async ({ user }: { user?: User }) => {
+const UserDataView = async ({
+  editUrl,
+  user,
+  children,
+}: {
+  editUrl?: string;
+  user?: User;
+  children?: React.ReactNode;
+}) => {
   const t = await getTranslations("details");
   return (
     <PageCard>
@@ -19,9 +28,11 @@ const UserDetails = async ({ user }: { user?: User }) => {
           </h2>
           <LabelValue label={t("phone")} value={user?.phone} />
         </div>
-        <Link href={`/${user?.role}/user-details/edit`}>
-          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
-        </Link>
+        {editUrl && (
+          <Link href={editUrl}>
+            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+          </Link>
+        )}
       </div>
       <hr />
       <Grid>
@@ -42,12 +53,13 @@ const UserDetails = async ({ user }: { user?: User }) => {
         />
         <LabelValue
           label={t("gender")}
-          value={user?.gender}
+          value={<TranslatableEnum value={user?.gender} />}
           color={"warning"}
         />
       </Grid>
+      {children}
     </PageCard>
   );
 };
 
-export default UserDetails;
+export default UserDataView;

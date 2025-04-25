@@ -3,6 +3,7 @@ import { Appointment, groupedByMonth } from "@/Models/Appointment";
 import { ApiResponse } from "@/Http/Response";
 import { GET, POST, PUT } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 
 export class AppointmentService extends BaseService<Appointment> {
   public getBaseUrl(): string {
@@ -11,9 +12,11 @@ export class AppointmentService extends BaseService<Appointment> {
 
   public async getAvailableTimes(
     clinicId: number,
-  ): Promise<ApiResponse<AvailableTime>> {
-    const res = await GET<AvailableTime>(
-      `${this.role}/clinics/${clinicId}/available-times`,
+    date: string,
+  ): Promise<ApiResponse<string[]>> {
+    const res = await POST<string[]>(
+      `${this.role}/clinics/available-appointments-times`,
+      { date: date, clinic_id: clinicId },
     );
     return await this.errorHandler(res);
   }
@@ -43,11 +46,16 @@ export class AppointmentService extends BaseService<Appointment> {
 
   public async toggleStatus(
     appointmentId: number,
-    data: { status: string; cancellation_reason?: string },
+    status: AppointmentStatusEnum,
+    cancellationReason?: string | undefined,
   ): Promise<ApiResponse<Appointment>> {
-    const res = await POST<Appointment>(
-      `${this.role}/appointments/${appointmentId}/toggle-status`,
-      data,
+    const res = await PUT<Appointment>(
+      `${this.role}/appointments/change-status`,
+      {
+        status: status,
+        appointment_id: appointmentId,
+        cancellation_reason: cancellationReason,
+      },
     );
     return await this.errorHandler(res);
   }
@@ -88,8 +96,7 @@ export class AppointmentService extends BaseService<Appointment> {
   }
 
   public async exportExcel() {
-    const res = await GET<any>(`${this.role}/appointments/export`);
-    return await res;
+    return await GET<any>(`${this.role}/appointments/export`);
   }
 
   public async getCustomerAppointments(

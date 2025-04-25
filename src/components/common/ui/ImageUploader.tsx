@@ -6,7 +6,7 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, { useEffect } from "react";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { useTranslations } from "next-intl";
 
@@ -14,10 +14,12 @@ const ImageUploader = ({
   name,
   isMultiple = false,
   label = undefined,
+  acceptedFileTypes = ["image/jpeg", "image/png", "image/jpg"],
 }: {
   name: string;
   isMultiple?: boolean;
   label?: string;
+  acceptedFileTypes?: string[];
 }) => {
   const t = useTranslations("components");
   registerPlugin(
@@ -30,6 +32,10 @@ const ImageUploader = ({
     setValue,
     formState: { errors },
   } = useFormContext();
+
+  useEffect(() => {
+    setValue(name, undefined);
+  }, []);
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
@@ -51,7 +57,7 @@ const ImageUploader = ({
                 : "";
             }
           }}
-          acceptedFileTypes={["image/jpeg", "image/png", "image/jpg"]}
+          acceptedFileTypes={acceptedFileTypes}
           labelIdle={t("image_uploader_placeholder")}
           storeAsFile={true}
           allowMultiple={isMultiple}

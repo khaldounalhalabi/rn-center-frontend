@@ -136,7 +136,7 @@ const Input: React.FC<InputProps> = ({
           type={type == "password" && hidden ? "password" : type}
           step={"any"}
         />
-        <p className={`text-error text-sm min-h-5`}>{error}</p>
+        <p className={`text-error text-sm`}>{error}</p>
       </div>
     );
 };

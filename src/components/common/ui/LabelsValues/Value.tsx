@@ -1,6 +1,7 @@
 "use client";
 import React, { HTMLProps, ReactNode } from "react";
 import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import { DaisyUiColor, DaisyUIColors } from "@/types/DaisyUiColor";
 
 interface ValueProps extends HTMLProps<HTMLDivElement> {
   value?: any;
@@ -10,7 +11,7 @@ interface ValueProps extends HTMLProps<HTMLDivElement> {
 
 export const Value: React.FC<ValueProps> = ({
   value,
-  color = "primary-content",
+  color = undefined,
   children,
   className,
   ...props
@@ -31,6 +32,9 @@ export const Value: React.FC<ValueProps> = ({
     showedValue = TranslateStatusOrTypeClient("no_data");
   } else if (typeof value == "string" && value.includes("NaN")) {
     showedValue = 0;
+  }
+  if (!color) {
+    color = DaisyUIColors[Math.floor(Math.random() * DaisyUIColors.length)];
   }
   return (
     <div

@@ -19,7 +19,6 @@ const Textarea: React.FC<textAreaType> = ({
   dir,
   defaultValue,
   required = false,
-
   ...props
 }) => {
   const {

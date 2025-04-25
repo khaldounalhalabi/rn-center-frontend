@@ -74,7 +74,6 @@ const page = async ({
         <LabelValue
           label={t("discount")}
           value={appointment?.discount}
-          color={"warning"}
         />
         <LabelValue
           label={t("type")}

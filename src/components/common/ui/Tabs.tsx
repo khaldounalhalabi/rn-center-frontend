@@ -36,7 +36,7 @@ const Tabs = ({
       </Tab.List>
       <Tab.Panels className="mt-2">
         {tabs.map((tab, index) => (
-          <Tab.Panel className={"w-full"} key={index}>
+          <Tab.Panel key={index} className={"w-full"}>
             {typeof tab.render == "function" ? tab.render() : tab.render}
           </Tab.Panel>
         ))}

@@ -19,6 +19,7 @@ const Tabs = ({
       <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
         {tabs.map((tab, index) => (
           <Tab
+            key={index}
             className={({ selected }) =>
               classNames(
                 "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
@@ -35,7 +36,7 @@ const Tabs = ({
       </Tab.List>
       <Tab.Panels className="mt-2">
         {tabs.map((tab, index) => (
-          <Tab.Panel className={"w-full"}>
+          <Tab.Panel key={index} className={"w-full"}>
             {typeof tab.render == "function" ? tab.render() : tab.render}
           </Tab.Panel>
         ))}

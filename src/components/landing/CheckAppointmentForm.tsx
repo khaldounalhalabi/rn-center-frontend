@@ -8,6 +8,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { ApiResponse } from "@/Http/Response";
 import { Appointment } from "@/Models/Appointment";
 import { Navigate } from "@/Actions/navigate";
+import { RoleEnum } from "@/enum/RoleEnum";
 
 const CheckAppointmentForm = () => {
   const t = useTranslations("landing");
@@ -16,7 +17,7 @@ const CheckAppointmentForm = () => {
     <div className={"flex justify-center items-center w-full"}>
       <Form
         handleSubmit={(data: { code: string }) => {
-          return AppointmentService.make<AppointmentService>("public")
+          return AppointmentService.make<AppointmentService>(RoleEnum.PUBLIC)
             .getByCode(data.code)
             .then((res) => {
               if (!res.data) {
@@ -27,7 +28,7 @@ const CheckAppointmentForm = () => {
         }}
         onSuccess={(res: ApiResponse<Appointment>) => {
           if (res.data) {
-            Navigate(`/check-appointment/${res.data?.appointment_unique_code}`);
+            Navigate(`/check-appointment/#`);
           }
         }}
         className={"w-full flex flex-col justify-center items-center"}

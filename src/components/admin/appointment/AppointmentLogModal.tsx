@@ -84,7 +84,6 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                               <td>{e.happen_in}</td>
                               <td>
                                 {TranslateClient(e.actor?.first_name)}{" "}
-                                {TranslateClient(e.actor?.middle_name)}{" "}
                                 {TranslateClient(e.actor?.last_name)}
                               </td>
                               <td>{e?.event}</td>

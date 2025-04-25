@@ -77,8 +77,8 @@ const AppointmentStatusColumn = ({
           handleSelect(event.target.value as AppointmentStatusEnum);
         }}
       >
-        {getEnumValues(AppointmentStatusEnum).map((status) => (
-          <option value={status}>
+        {getEnumValues(AppointmentStatusEnum).map((status , index) => (
+          <option key={index} value={status}>
             <TranslatableEnum value={status} />
           </option>
         ))}

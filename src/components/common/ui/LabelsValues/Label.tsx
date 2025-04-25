@@ -1,4 +1,5 @@
 import { HTMLProps, ReactNode } from "react";
+import { DaisyUiColor } from "@/types/DaisyUiColor";
 
 interface LabelProps extends HTMLProps<HTMLLabelElement> {
   label?: string | any;

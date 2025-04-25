@@ -11,7 +11,7 @@ interface DownloadOptions {
   forceProxy?: boolean;
 }
 
-const downloadFile = () => {
+const useDownload = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -259,4 +259,4 @@ const downloadFile = () => {
   };
 };
 
-export default downloadFile;
+export default useDownload;

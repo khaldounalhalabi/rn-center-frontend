@@ -6,7 +6,7 @@ import { MediaService } from "@/services/MediaService";
 import Swal from "sweetalert2";
 import Trash from "@/components/icons/Trash";
 import DownloadIcon from "@/components/icons/DownloadIcon";
-import downloadFile from "@/hooks/DownloadFile";
+import useDownload from "@/hooks/DownloadFile";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 interface MediaTableProps {
@@ -18,7 +18,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   const t = useTranslations("common.patient.attachments");
   const [attachments, setAttachments] = useState<Media[]>(media);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const { download, isLoading: isDownloading } = downloadFile();
+  const { download, isLoading: isDownloading } = useDownload();
 
   const getFileName = (url: string): string => {
     const urlParts = url.split("/");

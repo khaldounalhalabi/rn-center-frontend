@@ -28,7 +28,7 @@ const CheckAppointmentForm = () => {
         }}
         onSuccess={(res: ApiResponse<Appointment>) => {
           if (res.data) {
-            Navigate(`/check-appointment/${res.data?.appointment_unique_code}`);
+            Navigate(`/check-appointment/#`);
           }
         }}
         className={"w-full flex flex-col justify-center items-center"}

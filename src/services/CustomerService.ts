@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Customer, Recent } from "@/Models/Customer";
+import { Customer } from "@/Models/Customer";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 import { Appointment } from "@/Models/Appointment";
@@ -60,8 +60,8 @@ export class CustomerService extends BaseService<Customer> {
     sortDir?: string,
     per_page?: number,
     params?: object,
-  ): Promise<ApiResponse<Recent>> {
-    const res = await GET<Recent>(
+  ): Promise<ApiResponse<Customer>> {
+    const res = await GET<Customer>(
       `${this.role}/customers/recent`,
       {
         page: page,

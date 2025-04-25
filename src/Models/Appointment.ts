@@ -2,7 +2,7 @@ import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 import { Service } from "@/Models/Service";
 import { Clinic } from "@/Models/Clinic";
 import { Customer } from "@/Models/Customer";
-import { AppointmentStatusEnum } from "@/enum/AppointmentStatus";
+import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 
 export interface Appointment {
   id: number;

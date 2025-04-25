@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Holiday } from "@/Models/Holiday";
 
-export class HolidayService extends BaseService<Holiday> {
+export class HolidayService extends BaseService<HolidayService, Holiday>() {
   public getBaseUrl(): string {
     return `${this.role}/holidays`;
   }

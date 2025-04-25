@@ -8,7 +8,10 @@ import {
 } from "@/Actions/serverCookies";
 import { Navigate } from "@/Actions/navigate";
 
-export class CustomerAuthService extends BaseService<AuthResponse> {
+export class CustomerAuthService extends BaseService<
+  CustomerAuthService,
+  AuthResponse
+>() {
   public getBaseUrl(): string {
     return "/customer";
   }

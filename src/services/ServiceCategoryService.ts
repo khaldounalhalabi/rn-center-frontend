@@ -3,7 +3,10 @@ import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class ServiceCategoryService extends BaseService<ServiceCategory> {
+export class ServiceCategoryService extends BaseService<
+  ServiceCategoryService,
+  ServiceCategory
+>() {
   public getBaseUrl(): string {
     return `${this.role}/service-categories`;
   }

@@ -4,139 +4,153 @@ import { ApiResponse } from "@/Http/Response";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { deleteRole, deleteTokens } from "@/Actions/HelperActions";
 
-export class BaseService<T> {
-  protected static instance?: BaseService<any>;
-  public baseUrl = "/";
-  public role: string = "customer";
-  protected headers: Record<string, any> = {};
+export function BaseService<SERVICE, MODEL>() {
+  return class BaseService {
+    protected static instance?: SERVICE;
+    public baseUrl = "/";
+    public role: string = "customer";
+    protected headers: Record<string, any> = {};
 
-  protected constructor() {}
+    protected constructor() {}
 
-  public static make<Service extends BaseService<any>>(
-    role: RoleEnum = RoleEnum.ADMIN,
-  ): Service {
-    if (!this.instance) {
-      this.instance = new this();
+    public static make<Service extends BaseService>(
+      role: RoleEnum = RoleEnum.ADMIN,
+    ): Service {
+      if (!this.instance) {
+        // @ts-ignore
+        this.instance = new this();
+      }
+      // @ts-ignore
+      this.instance.role = role;
+
+      // @ts-ignore
+      this.instance.baseUrl = this.instance.getBaseUrl();
+
+      // @ts-ignore
+      return this.instance as SERVICE;
     }
-    this.instance.role = role;
 
-    this.instance.baseUrl = this.instance.getBaseUrl();
+    public setHeaders(headers: Record<string, any> = {}) {
+      this.headers = headers;
+      return this;
+    }
 
-    return this.instance as Service;
-  }
+    public getBaseUrl() {
+      return "/";
+    }
 
-  public setHeaders(headers: Record<string, any> = {}) {
-    this.headers = headers;
-    return this;
-  }
+    public setBaseUrl(url: string): SERVICE {
+      this.baseUrl = url;
+      // @ts-ignore
+      return this;
+    }
 
-  public getBaseUrl() {
-    return "/";
-  }
+    public async all(): Promise<ApiResponse<MODEL[]>> {
+      const res: ApiResponse<MODEL[]> = await GET<MODEL[]>(
+        this.baseUrl + "/all",
+        undefined,
+        this.headers,
+      );
+      return await this.errorHandler(res);
+    }
 
-  public setBaseUrl(url: string): BaseService<T> {
-    this.baseUrl = url;
-    return this;
-  }
+    public async indexWithPagination(
+      page: number = 0,
+      search?: string,
+      sortCol?: string,
+      sortDir?: string,
+      per_page?: number,
+      params?: object,
+    ): Promise<ApiResponse<MODEL[]>> {
+      const res: ApiResponse<MODEL[]> = await GET<MODEL[]>(
+        this.baseUrl,
+        {
+          page: page,
+          search: search,
+          sort_col: sortCol,
+          sort_dir: sortDir,
+          per_page: per_page,
+          ...params,
+        },
+        this.headers,
+      );
 
-  public async all(): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET<T[]>(
-      this.baseUrl + "/all",
-      undefined,
-      this.headers,
-    );
-    return await this.errorHandler(res);
-  }
+      return await this.errorHandler(res);
+    }
 
-  public async indexWithPagination(
-    page: number = 0,
-    search?: string,
-    sortCol?: string,
-    sortDir?: string,
-    per_page?: number,
-    params?: object,
-  ): Promise<ApiResponse<T[]>> {
-    const res: ApiResponse<T[]> = await GET<T[]>(
-      this.baseUrl,
-      {
-        page: page,
-        search: search,
-        sort_col: sortCol,
-        sort_dir: sortDir,
-        per_page: per_page,
-        ...params,
-      },
-      this.headers,
-    );
+    public async store(
+      data: any,
+      headers?: object,
+    ): Promise<ApiResponse<MODEL>> {
+      const res: ApiResponse<MODEL> = await POST<MODEL>(this.baseUrl, data, {
+        ...headers,
+        ...this.headers,
+      });
+      return await this.errorHandler(res);
+    }
 
-    return await this.errorHandler(res);
-  }
+    public async delete(id?: number): Promise<ApiResponse<boolean>> {
+      let res: ApiResponse<boolean>;
+      if (id) {
+        res = await DELETE<boolean>(
+          this.baseUrl + "/" + id,
+          undefined,
+          this.headers,
+        );
+      } else res = await DELETE<boolean>(this.baseUrl, undefined, this.headers);
+      return await this.errorHandler(res);
+    }
 
-  public async store(data: any, headers?: object): Promise<ApiResponse<T>> {
-    const res: ApiResponse<T> = await POST<T>(this.baseUrl, data, {
-      ...headers,
-      ...this.headers,
-    });
-    return await this.errorHandler(res);
-  }
-
-  public async delete(id?: number): Promise<ApiResponse<boolean>> {
-    let res: ApiResponse<boolean>;
-    if (id) {
-      res = await DELETE<boolean>(
+    public async show(id?: number): Promise<ApiResponse<MODEL>> {
+      if (!id) {
+        await Navigate("/404");
+      }
+      const res = await GET<MODEL>(
         this.baseUrl + "/" + id,
         undefined,
         this.headers,
       );
-    } else res = await DELETE<boolean>(this.baseUrl, undefined, this.headers);
-    return await this.errorHandler(res);
-  }
-
-  public async show(id?: number): Promise<ApiResponse<T>> {
-    if (!id) {
-      await Navigate("/404");
+      if (res.code == 404) {
+        await Navigate("/404");
+      }
+      return await this.errorHandler(res);
     }
-    const res = await GET<T>(this.baseUrl + "/" + id, undefined, this.headers);
-    if (res.code == 404) {
-      await Navigate("/404");
-    }
-    return await this.errorHandler(res);
-  }
 
-  public async update(
-    id?: number,
-    data?: any,
-    headers?: object,
-  ): Promise<ApiResponse<T>> {
-    if (!id) {
-      await Navigate("/404");
+    public async update(
+      id?: number,
+      data?: any,
+      headers?: object,
+    ): Promise<ApiResponse<MODEL>> {
+      if (!id) {
+        await Navigate("/404");
+      }
+      const res = await PUT<MODEL>(this.baseUrl + "/" + id, data, {
+        ...headers,
+        ...this.headers,
+      });
+      if (res.code == 404) {
+        await Navigate("/404");
+      }
+      return await this.errorHandler(res);
     }
-    const res = await PUT<T>(this.baseUrl + "/" + id, data, {
-      ...headers,
-      ...this.headers,
-    });
-    if (res.code == 404) {
-      await Navigate("/404");
+
+    public async errorHandler<ResType>(
+      res: ApiResponse<ResType>,
+    ): Promise<Promise<ApiResponse<ResType>>>;
+
+    public async errorHandler<ResType>(
+      res: ApiResponse<ResType[]>,
+    ): Promise<Promise<ApiResponse<ResType[]>>>;
+
+    public async errorHandler(
+      res: ApiResponse<MODEL> | ApiResponse<MODEL[]>,
+    ): Promise<Promise<ApiResponse<MODEL>> | Promise<ApiResponse<MODEL[]>>> {
+      if (res.code == 401 || res.code == 403) {
+        await deleteTokens();
+        await deleteRole();
+        await Navigate(`/auth/${this.role}/login`);
+      }
+      return res;
     }
-    return await this.errorHandler(res);
-  }
-
-  public async errorHandler<ResType>(
-    res: ApiResponse<ResType>,
-  ): Promise<Promise<ApiResponse<ResType>>>;
-
-  public async errorHandler<ResType>(
-    res: ApiResponse<ResType[]>,
-  ): Promise<Promise<ApiResponse<ResType[]>>>;
-
-  public async errorHandler(
-    res: ApiResponse<T> | ApiResponse<T[]>,
-  ): Promise<Promise<ApiResponse<T>> | Promise<ApiResponse<T[]>>> {
-    if (res.code == 401 || res.code == 403) {
-      await deleteTokens();
-      await deleteRole();
-      await Navigate(`/auth/${this.role}/login`);
-    }
-    return res;
-  }
+  };
 }

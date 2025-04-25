@@ -7,7 +7,10 @@ import {
   StatisticsPublic,
 } from "@/Models/Statistics";
 
-export class StatisticService extends BaseService<Statistics> {
+export class StatisticService extends BaseService<
+  StatisticService,
+  Statistics
+>() {
   getBaseUrl(): string {
     return `${this.role}/statistics`;
   }

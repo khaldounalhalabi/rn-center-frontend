@@ -3,7 +3,7 @@ import { AllName, Service } from "@/Models/Service";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class ServiceService extends BaseService<Service> {
+export class ServiceService extends BaseService<ServiceService, Service>() {
   public getBaseUrl(): string {
     return `${this.role}/services`;
   }

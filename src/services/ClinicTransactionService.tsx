@@ -3,7 +3,10 @@ import { ClinicSummary, ClinicTransaction } from "@/Models/ClinicTransaction";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class ClinicTransactionService extends BaseService<ClinicTransaction> {
+export class ClinicTransactionService extends BaseService<
+  ClinicTransactionService,
+  ClinicTransaction
+>() {
   public getBaseUrl(): string {
     return `doctor/clinic-transactions`;
   }

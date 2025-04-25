@@ -4,7 +4,7 @@ import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 import { Appointment } from "@/Models/Appointment";
 
-export class CustomerService extends BaseService<Customer> {
+export class CustomerService extends BaseService<CustomerService, Customer>() {
   public getBaseUrl(): string {
     return `${this.role}/customers`;
   }

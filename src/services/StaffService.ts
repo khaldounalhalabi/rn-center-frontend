@@ -3,7 +3,7 @@ import { Staff } from "@/Models/Staff";
 import { ApiResponse } from "@/Http/Response";
 import { PUT } from "@/Http/Http";
 
-export class StaffService extends BaseService<Staff> {
+export class StaffService extends BaseService<StaffService, Staff>() {
   public getBaseUrl(): string {
     return `${this.role}/clinic-employees`;
   }

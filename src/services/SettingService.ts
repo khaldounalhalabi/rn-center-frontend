@@ -2,7 +2,7 @@ import { BaseService } from "@/services/BaseService";
 import { Setting } from "@/Models/setting";
 import { GET, POST } from "@/Http/Http";
 
-export class SettingService extends BaseService<Setting> {
+export class SettingService extends BaseService<SettingService, Setting>() {
   public getBaseUrl(): string {
     return `${this.role}/settings`;
   }

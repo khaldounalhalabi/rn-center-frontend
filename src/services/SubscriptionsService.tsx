@@ -3,7 +3,10 @@ import { Subscriptions } from "@/Models/Subscriptions";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class SubscriptionsService extends BaseService<Subscriptions> {
+export class SubscriptionsService extends BaseService<
+  SubscriptionsService,
+  Subscriptions
+>() {
   public getBaseUrl(): string {
     return `${this.role}/subscriptions`;
   }

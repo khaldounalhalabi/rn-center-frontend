@@ -3,7 +3,10 @@ import { BaseService } from "@/services/BaseService";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class SpecialityService extends BaseService<Speciality> {
+export class SpecialityService extends BaseService<
+  SpecialityService,
+  Speciality
+>() {
   public getBaseUrl(): string {
     if (this.role == "public") {
       return `/specialities`;

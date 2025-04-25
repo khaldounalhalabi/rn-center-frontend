@@ -3,7 +3,10 @@ import { BaseService } from "./BaseService";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class NotificationService extends BaseService<Notification> {
+export class NotificationService extends BaseService<
+  NotificationService,
+  Notification
+>() {
   public getBaseUrl(): string {
     return `${this.role}/notifications`;
   }

@@ -3,7 +3,10 @@ import { SystemOffers } from "@/Models/SystemOffer";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class SystemOffersService extends BaseService<SystemOffers> {
+export class SystemOffersService extends BaseService<
+  SystemOffersService,
+  SystemOffers
+>() {
   public getBaseUrl(): string {
     if (this.role == "public") {
       return `/system-offers`;

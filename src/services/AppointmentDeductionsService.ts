@@ -9,7 +9,10 @@ import { ApiResponse } from "@/Http/Response";
 import { GET, POST } from "@/Http/Http";
 import { Appointment } from "@/Models/Appointment";
 
-export class AppointmentDeductionsService extends BaseService<AppointmentDeductions> {
+export class AppointmentDeductionsService extends BaseService<
+  AppointmentDeductionsService,
+  AppointmentDeductions
+>() {
   getBaseUrl(): string {
     return `${this.role}/appointment-deductions`;
   }

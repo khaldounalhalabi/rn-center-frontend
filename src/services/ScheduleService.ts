@@ -4,8 +4,9 @@ import { Schedule, SchedulesCollection } from "@/Models/Schedule";
 import { GET } from "@/Http/Http";
 
 export class ScheduleService extends BaseService<
+  ScheduleService,
   Schedule | SchedulesCollection
-> {
+>() {
   public getBaseUrl(): string {
     return `${this.role}/schedules`;
   }

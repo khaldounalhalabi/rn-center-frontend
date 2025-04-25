@@ -26,14 +26,18 @@ import { Navigate } from "@/Actions/navigate";
 const AppointmentForm = ({
   defaultValues = undefined,
   type,
+  defaultClinicId,
+  redirect = "/admin/appointment",
 }: {
   defaultValues?: Appointment;
   type?: "store" | "update";
+  defaultClinicId?: number;
+  redirect: string;
 }) => {
   const t = useTranslations("common.appointment.create");
   const [date, setDate] = useState<Dayjs | null>(dayjs());
   const [clinicId, setClinicId] = useState<number | undefined>(
-    defaultValues?.clinic_id,
+    defaultClinicId ?? defaultValues?.clinic_id,
   );
   const [clinic, setClinic] = useState<Clinic | undefined>(
     defaultValues?.clinic,
@@ -97,6 +101,10 @@ const AppointmentForm = ({
     const dateTime = date?.format("YYYY-MM-DD") + " " + data.time;
     const service = AppointmentService.make();
 
+    if (defaultClinicId) {
+      data = { ...data, clinic_id: defaultClinicId };
+    }
+
     if (type == "store") {
       return service.store({ ...data, date_time: dateTime });
     } else {
@@ -111,7 +119,7 @@ const AppointmentForm = ({
     <Form
       handleSubmit={handleSubmit}
       onSuccess={() => {
-        Navigate("/admin/appointment");
+        Navigate(redirect);
       }}
     >
       <Grid>
@@ -135,30 +143,30 @@ const AppointmentForm = ({
               isMultiple={false}
               closeOnSelect={false}
             />
-
-            <ApiSelect
-              required={true}
-              name={"clinic_id"}
-              label={t("clinicName")}
-              api={(page?: number | undefined, search?: string | undefined) =>
-                ClinicsService.make<ClinicsService>().indexWithPagination(
-                  page,
-                  search,
-                )
-              }
-              getOptionLabel={(option: Clinic) => option?.user?.full_name}
-              optionValue={"id"}
-              defaultValues={
-                defaultValues?.clinic ? [defaultValues.clinic] : []
-              }
-              isMultiple={false}
-              closeOnSelect={false}
-              onChange={(event) => {
-                // @ts-ignore
-                setClinicId(event.target?.value);
-              }}
-            />
           </>
+        )}
+
+        {type == "store" && !defaultClinicId && (
+          <ApiSelect
+            required={true}
+            name={"clinic_id"}
+            label={t("clinicName")}
+            api={(page?: number | undefined, search?: string | undefined) =>
+              ClinicsService.make<ClinicsService>().indexWithPagination(
+                page,
+                search,
+              )
+            }
+            getOptionLabel={(option: Clinic) => option?.user?.full_name}
+            optionValue={"id"}
+            defaultValues={defaultValues?.clinic ? [defaultValues.clinic] : []}
+            isMultiple={false}
+            closeOnSelect={false}
+            onChange={(event) => {
+              // @ts-ignore
+              setClinicId(event.target?.value);
+            }}
+          />
         )}
         <ApiSelect
           required={true}

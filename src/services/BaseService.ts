@@ -15,7 +15,7 @@ export function BaseService<SERVICE, MODEL>() {
 
     public static make<Service extends BaseService>(
       role: RoleEnum = RoleEnum.ADMIN,
-    ): Service {
+    ): SERVICE {
       if (!this.instance) {
         // @ts-ignore
         this.instance = new this();

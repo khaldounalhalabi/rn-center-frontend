@@ -7,7 +7,6 @@ import { Clinic } from "@/Models/Clinic";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
-import Grid from "@/components/common/ui/Grid";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const Page = async ({

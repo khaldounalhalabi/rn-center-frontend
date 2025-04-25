@@ -8,7 +8,6 @@ import { Appointment } from "@/Models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
-import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import { Link } from "@/navigation";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
@@ -19,6 +18,7 @@ import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 
 const Page = () => {
   const t = useTranslations("common.appointment.table");

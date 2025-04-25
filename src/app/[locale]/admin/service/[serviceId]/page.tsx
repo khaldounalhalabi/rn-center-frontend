@@ -47,7 +47,6 @@ const ServiceShowPage = async ({
         <LabelValue
           label={t("approximateDuration")}
           value={res?.approximate_duration}
-          color={"base-content"}
         />
 
         <LabelValue

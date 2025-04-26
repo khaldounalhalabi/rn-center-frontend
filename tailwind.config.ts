@@ -44,6 +44,21 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    safelist: [
+      {
+        pattern: /^grid-cols-\d+$/,
+        variants: [
+          "lg",
+          "hover",
+          "focus",
+          "lg:hover",
+          "md",
+          "sm",
+          "md:hover",
+          "sm:hover",
+        ],
+      },
+    ],
   },
 };
 export default config;

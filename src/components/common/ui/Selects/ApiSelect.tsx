@@ -90,7 +90,7 @@ function ApiSelect<TResponse, TData>({
       retryDelay: 100,
     });
   useEffect(() => {
-    refetch().then((r) => r);
+    refetch();
     setSelected(df);
   }, [revalidate]);
   const handleClickOutside = (event: MouseEvent) => {

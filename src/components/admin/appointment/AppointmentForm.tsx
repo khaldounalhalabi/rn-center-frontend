@@ -22,16 +22,19 @@ import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { Navigate } from "@/Actions/navigate";
+import useIsHoliday from "@/hooks/IsHoliday";
 
 const AppointmentForm = ({
   defaultValues = undefined,
   type,
   defaultClinicId,
   redirect = "/admin/appointment",
+  defaultCustomerId,
 }: {
   defaultValues?: Appointment;
   type?: "store" | "update";
   defaultClinicId?: number;
+  defaultCustomerId?: number;
   redirect: string;
 }) => {
   const t = useTranslations("common.appointment.create");
@@ -58,6 +61,8 @@ const AppointmentForm = ({
   const [totalCost, setTotalCost] = useState<number>(
     defaultValues?.total_cost ?? 0,
   );
+
+  const isHoliday = useIsHoliday();
 
   useEffect(() => {
     if (clinicId) {
@@ -105,6 +110,10 @@ const AppointmentForm = ({
       data = { ...data, clinic_id: defaultClinicId };
     }
 
+    if (defaultCustomerId) {
+      data = { ...data, customer_id: defaultCustomerId };
+    }
+
     if (type == "store") {
       return service.store({ ...data, date_time: dateTime });
     } else {
@@ -123,27 +132,24 @@ const AppointmentForm = ({
       }}
     >
       <Grid>
-        {type == "store" && (
-          <>
-            <ApiSelect
-              required={true}
-              name={"customer_id"}
-              label={t("patient")}
-              api={(page?: number | undefined, search?: string | undefined) =>
-                CustomerService.make<CustomerService>().indexWithPagination(
-                  page,
-                  search,
-                )
-              }
-              getOptionLabel={(option: Customer) => option?.user?.full_name}
-              optionValue={"id"}
-              defaultValues={
-                defaultValues?.customer ? [defaultValues.customer] : []
-              }
-              isMultiple={false}
-              closeOnSelect={false}
-            />
-          </>
+        {type == "store" && !defaultCustomerId && (
+          <ApiSelect
+            required={true}
+            name={"customer_id"}
+            label={t("patient")}
+            api={(page?: number | undefined, search?: string | undefined) =>
+              CustomerService.make<CustomerService>().indexWithPagination(
+                page,
+                search,
+              )
+            }
+            getOptionLabel={(option: Customer) => option?.user?.full_name}
+            optionValue={"id"}
+            defaultValues={
+              defaultValues?.customer ? [defaultValues.customer] : []
+            }
+            isMultiple={false}
+          />
         )}
 
         {type == "store" && !defaultClinicId && (
@@ -161,7 +167,6 @@ const AppointmentForm = ({
             optionValue={"id"}
             defaultValues={defaultValues?.clinic ? [defaultValues.clinic] : []}
             isMultiple={false}
-            closeOnSelect={false}
             onChange={(event) => {
               // @ts-ignore
               setClinicId(event.target?.value);
@@ -171,9 +176,10 @@ const AppointmentForm = ({
         <ApiSelect
           required={true}
           name={"service_id"}
-          label={t("service")}
+          label={t("serviceName")}
           api={(page?: number | undefined, search?: string | undefined) =>
-            ServiceService.make<ServiceService>().indexWithPagination(
+            ServiceService.make<ServiceService>().getClinicService(
+              clinicId,
               page,
               search,
             )
@@ -182,11 +188,11 @@ const AppointmentForm = ({
           optionValue={"id"}
           defaultValues={defaultValues?.service ? [defaultValues.service] : []}
           isMultiple={false}
-          closeOnSelect={false}
           onChange={(e) => {
             //@ts-ignore
             setServiceId(e.target?.value);
           }}
+          revalidate={clinicId}
         />
 
         <Select
@@ -194,6 +200,7 @@ const AppointmentForm = ({
           label={t("status")}
           name={"status"}
           defaultValue={defaultValues?.status}
+          translatable={true}
         />
         <Input
           type={"number"}
@@ -222,7 +229,7 @@ const AppointmentForm = ({
           }}
           defaultValue={defaultValues?.discount ?? 0}
         />
-        <div className={"col-span-2 flex items-center justify-between"}>
+        <div className={"md:col-span-2 flex items-center justify-between"}>
           <span className={"badge badge-ghost"}>{t("totalCost")}</span>
           <span>{totalCost}</span>
         </div>
@@ -233,6 +240,7 @@ const AppointmentForm = ({
           }}
           df={date?.format("YYYY-MM-DD")}
           name={"date"}
+          shouldDisableDate={(date) => isHoliday(date)}
         />
         {isLoadingAvailableTimes ? (
           <div className={"flex items-center justify-center"}>

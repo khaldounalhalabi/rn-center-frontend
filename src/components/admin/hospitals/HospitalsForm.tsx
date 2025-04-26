@@ -144,7 +144,7 @@ const HospitalsForm = ({
         />
 
         {type == "update" ? (
-          <div className={"col-span-2"}>
+          <div className={"md:col-span-2"}>
             {defaultValues?.photos?.length != 0 ? (
               <Gallery
                 media={defaultValues?.photos ? defaultValues?.photos : [""]}
@@ -166,7 +166,7 @@ const HospitalsForm = ({
       <ImageUploader name={"images"} isMultiple={true} label={t("image")} />
       <TextAreaMap
         required={true}
-        className={"col-span-2"}
+        className={"md:col-span-2"}
         name="address.map_iframe"
         label={t("mapIframe")}
       />

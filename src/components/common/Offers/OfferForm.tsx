@@ -149,7 +149,7 @@ const OfferForm = ({
         defaultValue={defaultValues?.note ?? ""}
       />
       {type == "update" ? (
-        <div className={"col-span-2"}>
+        <div className={"md:col-span-2"}>
           {defaultValues?.image?.length != 0 ? (
             <Gallery media={defaultValues?.image ? defaultValues?.image : []} />
           ) : (

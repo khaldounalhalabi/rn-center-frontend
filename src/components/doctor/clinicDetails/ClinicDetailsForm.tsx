@@ -196,13 +196,13 @@ const ClinicDetailsForm = ({ defaultValues }: { defaultValues: Clinic }) => {
           />
         </Grid>
         <TextAreaMap
-          className={"col-span-2"}
+          className={"md:col-span-2"}
           name="address.map_iframe"
           label={t("map")}
           required={true}
         />
         <Textarea name="about_us" label={t("about")} required={true} />
-        <div className={"col-span-2"}>
+        <div className={"md:col-span-2"}>
           {defaultValues?.work_gallery?.length != 0 ? (
             <Gallery
               media={

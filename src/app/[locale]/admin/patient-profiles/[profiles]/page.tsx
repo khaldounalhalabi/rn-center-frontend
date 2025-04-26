@@ -78,7 +78,7 @@ const page = async ({
           defaultValue={res?.medical_condition ?? ""}
         />
 
-        <div className={"col-span-2"}>
+        <div className={"md:col-span-2"}>
           {res?.images?.length != 0 ? (
             <Gallery media={res?.images ? res?.images : []} />
           ) : (

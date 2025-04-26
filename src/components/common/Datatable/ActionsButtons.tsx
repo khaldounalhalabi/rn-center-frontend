@@ -79,7 +79,8 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                 .then((result) => {
                   if (result.isConfirmed) {
                     if (dataId) {
-                      BaseService.make()
+                      BaseService<any, any>()
+                        .make()
                         .setBaseUrl(aUrl)
                         .delete()
                         .then(() => {
@@ -119,7 +120,8 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                 .then((result) => {
                   if (result.isConfirmed) {
                     if (dataId) {
-                      BaseService.make()
+                      BaseService<any, any>()
+                        .make()
                         .setBaseUrl(dUrl)
                         .delete()
                         .then(() => {

@@ -2,14 +2,22 @@
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React, { HTMLProps } from "react";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 interface SelectProps extends HTMLProps<HTMLSelectElement> {
   name: string;
   items: string[] | number[] | undefined;
   label?: string;
+  translatable?: boolean;
 }
 
-const Select: React.FC<SelectProps> = ({ name, items, label, ...props }) => {
+const Select: React.FC<SelectProps> = ({
+  name,
+  items,
+  label,
+  translatable = false,
+  ...props
+}) => {
   const {
     setValue,
     formState: { errors, defaultValues },
@@ -27,7 +35,7 @@ const Select: React.FC<SelectProps> = ({ name, items, label, ...props }) => {
       >
         {items?.map((item, index) => (
           <option value={item} key={index}>
-            {item}
+            {translatable ? <TranslatableEnum value={`${item}`} /> : item}
           </option>
         ))}
       </select>

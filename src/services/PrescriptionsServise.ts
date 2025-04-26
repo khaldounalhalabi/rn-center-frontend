@@ -3,7 +3,10 @@ import { MedicineData, Prescription } from "@/Models/Prescriptions";
 import { ApiResponse } from "@/Http/Response";
 import { DELETE, GET } from "@/Http/Http";
 
-export class PrescriptionService extends BaseService<Prescription> {
+export class PrescriptionService extends BaseService<
+  PrescriptionService,
+  Prescription
+>() {
   public getBaseUrl(): string {
     return `${this.role}/prescriptions`;
   }

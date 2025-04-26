@@ -1,8 +1,14 @@
 import { BaseService } from "@/services/BaseService";
 import { Holiday } from "@/Models/Holiday";
+import { GET } from "@/Http/Http";
 
-export class HolidayService extends BaseService<Holiday> {
+export class HolidayService extends BaseService<HolidayService, Holiday>() {
   public getBaseUrl(): string {
     return `${this.role}/holidays`;
   }
+
+  public activeHolidays = async () => {
+    const response = await GET<Holiday[]>(`${this.role}/holidays/active`);
+    return this.errorHandler(response);
+  };
 }

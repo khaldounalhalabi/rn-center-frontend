@@ -4,7 +4,10 @@ import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 import {RoleEnum} from "@/enum/RoleEnum";
 
-export class SpecialityService extends BaseService<Speciality> {
+export class SpecialityService extends BaseService<
+  SpecialityService,
+  Speciality
+>() {
   public getBaseUrl(): string {
     if (this.role == RoleEnum.PUBLIC) {
       return `/specialities`;

@@ -3,7 +3,10 @@ import { AppointmentLogs } from "@/Models/AppointmentLog";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class AppointmentLogsService extends BaseService<AppointmentLogs> {
+export class AppointmentLogsService extends BaseService<
+  AppointmentLogsService,
+  AppointmentLogs
+>() {
   public getBaseUrl(): string {
     return `${this.role}/appointment-logs`;
   }

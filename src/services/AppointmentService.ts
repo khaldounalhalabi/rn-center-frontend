@@ -5,7 +5,10 @@ import { GET, POST, PUT } from "@/Http/Http";
 import { AvailableTime } from "@/Models/AvailableTime";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 
-export class AppointmentService extends BaseService<Appointment> {
+export class AppointmentService extends BaseService<
+  AppointmentService,
+  Appointment
+>() {
   public getBaseUrl(): string {
     return `${this.role}/appointments`;
   }

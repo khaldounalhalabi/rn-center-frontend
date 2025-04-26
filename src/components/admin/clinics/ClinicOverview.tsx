@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
-import { Tab } from "@headlessui/react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
+import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable";
+import { AppointmentService } from "@/services/AppointmentService";
+import { RoleEnum } from "@/enum/RoleEnum";
+import Tabs from "@/components/common/ui/Tabs";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -13,42 +16,36 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
   const t = useTranslations("admin.clinic.show");
   return (
     <div className={"w-full"}>
-      <Tab.Group>
-        <Tab.List className="flex md:flex-row flex-col space-x-1 rounded-xl bg-blue-900/20 p-1">
-          <Tab
-            className={({ selected }) =>
-              classNames(
-                "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                selected
-                  ? "bg-white text-blue-700 shadow"
-                  : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
-              )
-            }
-          >
-            {t("overview")}
-          </Tab>
-          <Tab
-            className={({ selected }) =>
-              classNames(
-                "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                selected
-                  ? "bg-white text-blue-400 shadow"
-                  : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
-              )
-            }
-          >
-            {t("appointments")}
-          </Tab>
-        </Tab.List>
-        <Tab.Panels className="mt-2">
-          <Tab.Panel className={"w-full"}>
-            <Overview clinic={clinic} />
-          </Tab.Panel>
-          <Tab.Panel></Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
+      <Tabs
+        tabs={[
+          {
+            title: t("overview"),
+            render: <Overview clinic={clinic} />,
+          },
+          {
+            title: t("appointments"),
+            render: (
+              <AppointmentsTable
+                without={["clinic.user.full_name"]}
+                createUrl={`/admin/clinics/${clinic?.id}/appointments/create`}
+                api={async (page, search, sortCol, sortDir, perPage, params) =>
+                  await AppointmentService.make(
+                    RoleEnum.ADMIN,
+                  ).getClinicAppointments(
+                    clinic?.id ?? 0,
+                    page,
+                    search,
+                    sortCol,
+                    sortDir,
+                    perPage,
+                    params,
+                  )
+                }
+              />
+            ),
+          },
+        ]}
+      />
     </div>
   );
 };

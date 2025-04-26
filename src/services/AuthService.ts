@@ -15,7 +15,7 @@ import {
   setToken,
 } from "@/Actions/HelperActions";
 
-export class AuthService extends BaseService<AuthResponse> {
+export class AuthService extends BaseService<AuthService, AuthResponse>() {
   public successStatus: boolean = false;
 
   getBaseUrl(): string {

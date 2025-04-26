@@ -3,7 +3,10 @@ import { AdminSummary, Transactions } from "@/Models/Transactions";
 import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 
-export class TransactionService extends BaseService<Transactions> {
+export class TransactionService extends BaseService<
+  TransactionService,
+  Transactions
+>() {
   public getBaseUrl(): string {
     return `${this.role}/transactions`;
   }

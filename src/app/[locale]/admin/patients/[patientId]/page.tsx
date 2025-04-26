@@ -6,8 +6,7 @@ import { getTranslations } from "next-intl/server";
 import UserDataView from "@/components/common/User/UserDataView";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
-import MediaTable from "@/components/patient/MediaTable";
-import Tabs from "@/components/common/ui/Tabs";
+import PatientsOverview from "@/components/admin/patients/PatientsOverview";
 
 const page = async ({
   params: { patientId },
@@ -32,22 +31,12 @@ const page = async ({
         <LabelValue label={t("age")} value={patient?.age} />
         <LabelValue label={t("joined_at")} value={patient?.created_at} />
         {patient.other_data?.map((item, index) => (
-          <LabelValue key={index} label={item.key} value={item.value} />
+          <div className={"md:col-span-2"}>
+            <LabelValue key={index} label={item.key} value={item.value} col />
+          </div>
         ))}
       </Grid>
-
-      <Tabs
-        tabs={[
-          {
-            title: attachmentsT("title"),
-            render: <MediaTable media={patient.attachments || []} />,
-          },
-          {
-            title: "appointments",
-            render: <></>,
-          },
-        ]}
-      />
+      <PatientsOverview patient={patient} />
     </UserDataView>
   );
 };

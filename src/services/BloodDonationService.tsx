@@ -2,7 +2,10 @@ import { BaseService } from "@/services/BaseService";
 import { BloodDonation } from "@/Models/BloodDonation";
 import { ApiResponse } from "@/Http/Response";
 
-export class BloodDonationService extends BaseService<BloodDonation> {
+export class BloodDonationService extends BaseService<
+  BloodDonationService,
+  BloodDonation
+>() {
   public getBaseUrl(): string {
     return `${this.role}/blood-donation-requests`;
   }

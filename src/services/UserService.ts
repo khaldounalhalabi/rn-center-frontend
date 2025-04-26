@@ -3,7 +3,7 @@ import { User } from "@/Models/User";
 import { DELETE } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 
-export class UserService extends BaseService<User | string> {
+export class UserService extends BaseService<UserService, User | string>() {
   getBaseUrl(): string {
     return `${this.role}/users`;
   }

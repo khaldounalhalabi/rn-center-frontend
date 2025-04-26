@@ -4,7 +4,7 @@ import { ApiResponse } from "@/Http/Response";
 import { GET } from "@/Http/Http";
 import {RoleEnum} from "@/enum/RoleEnum";
 
-export class ClinicsService extends BaseService<Clinic> {
+export class ClinicsService extends BaseService<ClinicsService, Clinic>() {
   getBaseUrl(): string {
     if (this.role == RoleEnum.PUBLIC) {
       return `/clinics`;

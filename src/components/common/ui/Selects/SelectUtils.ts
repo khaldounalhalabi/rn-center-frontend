@@ -15,7 +15,7 @@ export interface SelectInputProps
 export interface IApiSelectProps<TResponse, TData> {
   required?: boolean;
   type?: string | undefined;
-  revalidate?: string;
+  revalidate?: any;
   api: (
     page?: number,
     search?: string,

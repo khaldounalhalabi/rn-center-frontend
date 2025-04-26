@@ -27,7 +27,11 @@ const page = async ({
           {appointment?.customer?.user?.full_name}
         </span>
       </label>
-      <AppointmentForm type={"update"} defaultValues={appointment} />
+      <AppointmentForm
+        type={"update"}
+        defaultValues={appointment}
+        redirect={"/admin/appointments"}
+      />
     </PageCard>
   );
 };

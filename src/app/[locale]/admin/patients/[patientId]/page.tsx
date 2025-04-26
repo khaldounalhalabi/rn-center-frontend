@@ -31,8 +31,8 @@ const page = async ({
         <LabelValue label={t("age")} value={patient?.age} />
         <LabelValue label={t("joined_at")} value={patient?.created_at} />
         {patient.other_data?.map((item, index) => (
-          <div className={"md:col-span-2"}>
-            <LabelValue key={index} label={item.key} value={item.value} col />
+          <div key={index}  className={"md:col-span-2"}>
+            <LabelValue label={item.key} value={item.value} col />
           </div>
         ))}
       </Grid>

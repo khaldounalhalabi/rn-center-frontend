@@ -8,7 +8,7 @@ const page = async () => {
   return (
     <PageCard>
       <h2 className="card-title">{t("createAppointment")}</h2>
-      <AppointmentForm type="store" />
+      <AppointmentForm type="store" redirect={"/admin/appointments"}/>
     </PageCard>
   );
 };

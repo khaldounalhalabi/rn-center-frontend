@@ -30,7 +30,7 @@ const page = async ({
       <AppointmentForm
         type={"update"}
         defaultValues={appointment}
-        redirect={"/admin/appointment"}
+        redirect={"/admin/appointments"}
       />
     </PageCard>
   );

@@ -37,12 +37,7 @@ const MedicinesForm = ({
       }}
     >
       <Grid md={"2"}>
-        <Input
-          name={"name"}
-          label={t("medicineName")}
-          type="text"
-          defaultValue={defaultValues ? defaultValues?.name : undefined}
-        />
+        <Input name={"name"} label={t("medicineName")} type="text" />
         <Input type={"number"} name={"quantity"} label={t("quantity")} />
         <Input type={"text"} name={"barcode"} label={t("barcode_value")} />
       </Grid>

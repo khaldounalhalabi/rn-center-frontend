@@ -1141,14 +1141,20 @@
         "medicineName": "اسم الدواء",
         "actions": "أجراءات",
         "clinicName": "اسم العيادة",
-        "doctorName": "اسم الطييب"
+        "doctorName": "اسم الطييب",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       },
       "create": {
         "addMedicines": "إضافة دواء",
         "editMedicine": "تعديل الدواء",
         "clinicName": "اسم العيادة",
         "medicineName": "اسم الدواء",
-        "description": "الوصف"
+        "description": "الوصف",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       },
       "show": {
         "medicinesDetails": "تفاصيل الدواء",
@@ -1156,7 +1162,10 @@
         "medicineName": "اسم الدواء",
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الطبيب",
-        "description": "وصف"
+        "description": "وصف",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       }
     },
     "transaction": {
@@ -1529,7 +1538,9 @@
     "days_before_notify_for_expiration": "الأيام قبل الإشعار بانتهاء الاشتراك",
     "clinic_contract": "عقد العيادة",
     "zain_cash_qr": "رمز QR لزين كاش",
-    "payment_way_description": "شرح حول طريقة الدفع"
+    "payment_way_description": "شرح حول طريقة الدفع",
+    "exists": "متوفر",
+    "out_of_stock": "غير متوفر"
   },
   "week_days": {
     "saturday": "السبت",

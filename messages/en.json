@@ -980,9 +980,9 @@
         "note": "Note",
         "image": "Image",
         "supplementalImages": "Supplemental Images",
-        "healthStatus" : "Health status",
-        "attachments" : "Attachments",
-        "notes" : "Notes"
+        "healthStatus": "Health status",
+        "attachments": "Attachments",
+        "notes": "Notes"
       },
       "table": {
         "patients": "patients",
@@ -1131,14 +1131,20 @@
         "medicineName": "Medicine Name",
         "actions": "Actions",
         "clinicName": "Clinic Name",
-        "doctorName": "Doctor Name"
+        "doctorName": "Doctor Name",
+        "quantity": "Quantity",
+        "status": "Status",
+        "barcode_value": "Barcode value"
       },
       "create": {
         "addMedicines": "Add Medicine",
         "editMedicine": "Edit Medicine",
         "clinicName": "Clinic Name",
         "medicineName": "Medicine Name",
-        "description": "Description"
+        "description": "Description",
+        "quantity": "Quantity",
+        "status": "Status",
+        "barcode_value": "Barcode value"
       },
       "show": {
         "medicinesDetails": "Medicines Details",
@@ -1146,7 +1152,10 @@
         "medicineName": "Medicine Name",
         "clinicName": "Clinic Name",
         "doctorName": "Doctor Name",
-        "description": "Description"
+        "description": "Description",
+        "quantity": "Quantity",
+        "status": "Status",
+        "barcode_value": "Barcode value"
       }
     },
     "transaction": {
@@ -1519,7 +1528,9 @@
     "days_before_notify_for_expiration": "Days count before notify the user of his expired subscription",
     "clinic_contract": "Clinic contract",
     "zain_cash_qr": "Zain cash QR code",
-    "payment_way_description": "Description about how to pay"
+    "payment_way_description": "Description about how to pay",
+    "exists": "Exists",
+    "out_of_stock": "Out of stock"
   },
   "week_days": {
     "saturday": "Saturday",

@@ -5,8 +5,9 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
-import TranslateServer from "@/Helpers/TranslationsServer";
 import { getTranslations } from "next-intl/server";
+import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const page = async ({
   params: { medicinesId },
@@ -26,28 +27,17 @@ const page = async ({
         </Link>
       </div>
       <Grid md={2} gap={5}>
-        <label className="label">
-          {t("medicineName")}
-          <span className="bg-base-200 px-2 rounded-xl text-lg">
-            {res?.name}
-          </span>
-        </label>
-        <label className="label">
-          {t("clinicName")}
-          <span className="badge-primary px-2 rounded-xl text-lg">
-            {await TranslateServer(res?.clinic?.name)}
-          </span>
-        </label>
+        <LabelValue label={t("medicineName")} value={res?.name} />
+        <LabelValue
+          label={t("status")}
+          value={<TranslatableEnum value={res?.status} />}
+        />
+        <LabelValue label={t("quantity")} value={res?.quantity} />
+        <LabelValue label={t("barcode_value")} value={res?.barcode} />
+        <div className={"md:col-span-2"}>
+          <LabelValue label={t("description")} col value={res?.description} />
+        </div>
       </Grid>
-
-      <div className="w-full">
-        <label className="label">{t("description")} :</label>
-        <textarea
-          className="w-full p-2"
-          disabled={true}
-          defaultValue={res?.description ?? ""}
-        ></textarea>
-      </div>
     </PageCard>
   );
 };

@@ -1,89 +1,50 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import React from "react";
-import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
-import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
-import { ClinicsService } from "@/services/ClinicsService";
-import { Clinic } from "@/Models/Clinic";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
+import { MedicineService } from "@/services/MedicinesSevice";
+import { RoleEnum } from "@/enum/RoleEnum";
+import { Navigate } from "@/Actions/navigate";
 
 const MedicinesForm = ({
   defaultValues = undefined,
-  typePage = "admin",
-  id,
   type = "store",
-  closeModal,
 }: {
-  typePage?: "admin" | "doctor" | "customer";
   defaultValues?: Medicine;
-  id?: number;
   type?: "store" | "update" | "prescription";
-  closeModal?: any;
 }) => {
   const t = useTranslations("common.medicine.create");
   const handleSubmit = async (data: any) => {
-    if (
-      type === "update" &&
-      (defaultValues?.id != undefined || id != undefined)
-    ) {
-      return await MedicineService.make<MedicineService>(typePage)
-        .update(defaultValues?.id ?? id, data)
-        .then((res) => {
-          if (res.code == 200) {
-            Navigate(`/${typePage}/medicines`);
-          }
-          return res;
-        });
-    } else {
-      return await MedicineService.make<MedicineService>(typePage)
-        .store(data)
-        .then((res) => {
-          if (res.code == 200) {
-            if (type == "prescription") {
-              closeModal(data.name);
-            } else {
-              Navigate(`/${typePage}/medicines`);
-            }
-          }
-          return res;
-        });
+    const service = MedicineService.make(RoleEnum.ADMIN);
+
+    if (type == "store") {
+      return await service.store(data);
     }
+
+    return await service.update(defaultValues?.id, data);
   };
 
   return (
-    <Form handleSubmit={handleSubmit} defaultValues={defaultValues}>
+    <Form
+      handleSubmit={handleSubmit}
+      defaultValues={defaultValues}
+      onSuccess={() => {
+        Navigate("/admin/medicines");
+      }}
+    >
       <Grid md={"2"}>
-        {typePage == "admin" ? (
-          <ApiSelect
-            required={true}
-            placeHolder={"Select Clinic name ..."}
-            name={"clinic_id"}
-            api={(page, search) =>
-              ClinicsService.make<ClinicsService>()
-                .setHeaders({ filtered: true })
-                .indexWithPagination(page, search)
-            }
-            label={t("clinicName")}
-            optionValue={"id"}
-            defaultValues={defaultValues?.clinic ? [defaultValues?.clinic] : []}
-            getOptionLabel={(data: Clinic) => TranslateClient(data.name)}
-          />
-        ) : (
-          ""
-        )}
         <Input
           name={"name"}
           label={t("medicineName")}
-          placeholder={"name ...."}
           type="text"
           defaultValue={defaultValues ? defaultValues?.name : undefined}
         />
+        <Input type={"number"} name={"quantity"} label={t("quantity")} />
+        <Input type={"text"} name={"barcode"} label={t("barcode_value")} />
       </Grid>
       <Textarea
         label={t("description")}

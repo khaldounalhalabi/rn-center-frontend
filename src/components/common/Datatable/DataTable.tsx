@@ -12,6 +12,7 @@ import TablePaginator from "@/components/common/Datatable/TablePaginator";
 import FilterIcon from "@/components/icons/FilterIcon";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslations } from "next-intl";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 export interface FilterParam {
   [key: string]: any;
@@ -133,7 +134,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                       as="h3"
                       className="text-start font-medium text-gray-900 text-lg leading-6"
                     >
-                      {t("filters")}
+                      <Label label={t("filters")} />
                     </Dialog.Title>
                     <div className="mt-2">
                       {tableData.filter(tempParams, setTempParams)}

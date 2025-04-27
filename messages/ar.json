@@ -1145,7 +1145,10 @@
       "dosage_interval": "الفترة بين الجرعات",
       "comment": "ملاحظات",
       "status": "الحالة",
-      "actions": "الخيارات"
+      "actions": "الخيارات",
+      "doctor": "الطبيب",
+      "patient": "المريض",
+      "appointment_date": "تاريخ الموعد"
     },
     "medicine": {
       "table": {

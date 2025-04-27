@@ -32,6 +32,37 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
           label={t("prescribed_at")}
           value={prescription?.created_at}
         />
+        {prescription?.clinic && (
+          <Label label={t("doctor")}>
+            <Link
+              href={`/admin/clinics/${prescription?.clinic_id}`}
+              className={"btn btn-sm"}
+            >
+              {prescription?.clinic?.user?.full_name}
+            </Link>
+          </Label>
+        )}
+
+        {prescription?.customer && (
+          <Label label={t("patient")}>
+            <Link
+              href={`/admin/patients/${prescription?.customer_id}`}
+              className={"btn btn-sm"}
+            >
+              {prescription?.customer?.user?.full_name}
+            </Link>
+          </Label>
+        )}
+        {prescription?.appointment && (
+          <Label label={t("appointment_date")}>
+            <Link
+              href={`/admin/appointment/${prescription?.appointment_id}`}
+              className={"btn btn-sm"}
+            >
+              {prescription?.appointment?.date_time}
+            </Link>
+          </Label>
+        )}
         {prescription?.other_data?.map((item, index) => (
           <div className={"md:col-span-2"} key={index}>
             <LabelValue label={item.key} value={item.value} col />

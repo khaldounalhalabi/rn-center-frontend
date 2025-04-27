@@ -1135,7 +1135,10 @@
       "dosage_interval": "Dose interval",
       "comment": "Comment",
       "status": "status",
-      "actions": "Actions"
+      "actions": "Actions",
+      "doctor": "Doctor",
+      "patient": "Patient",
+      "appointment_date": "Appointment date"
     },
     "medicine": {
       "table": {

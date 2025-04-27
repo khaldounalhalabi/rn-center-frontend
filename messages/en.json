@@ -1123,7 +1123,17 @@
         "problemDescription": "Problem Description",
         "nextVisit": "Next Visit",
         "date": "Date"
-      }
+      },
+      "no_prescription": "No prescription exists.",
+      "next_visit": "Next visit date",
+      "prescribed_at": "Prescribed at",
+      "medicines": "Medicines",
+      "medicine_name": "Medicine name",
+      "dosage": "Dosage",
+      "dosage_interval": "Dose interval",
+      "comment": "Comment",
+      "status": "status",
+      "actions": "Actions"
     },
     "medicine": {
       "table": {
@@ -1530,7 +1540,9 @@
     "zain_cash_qr": "Zain cash QR code",
     "payment_way_description": "Description about how to pay",
     "exists": "Exists",
-    "out_of_stock": "Out of stock"
+    "out_of_stock": "Out of stock",
+    "given": "Given",
+    "not_given": "Didn't give"
   },
   "week_days": {
     "saturday": "Saturday",

@@ -1,41 +1,12 @@
-import { Customer } from "@/Models/Customer";
-import { Clinic } from "@/Models/Clinic";
-import { Medicine } from "./Medicines";
+import MedicinePrescription from "@/Models/MedicinePrescription";
 
 export interface Prescription {
   id: number;
   clinic_id: number;
   customer_id: number;
-  physical_information?: string;
-  problem_description?: string;
-  test?: string;
+  appointment_id: number;
+  other_data: { key: string; value: string }[];
+  created_at: string;
   next_visit?: string;
-  clinic?: Clinic;
-  customer?: Customer;
-  medicines_data?: MedicineData[];
-}
-
-export interface MedicineData {
-  id?: number;
-  medicine_id: number;
-  dosage?: string;
-  duration?: string;
-  time?: string;
-  dose_interval?: string;
-  comment?: string;
-  medicine?: Medicine;
-  prescription_id?: number;
-}
-
-export interface PrescriptionsDataSend {
-  clinic_id: number;
-  customer_id: number;
-  appointment_id?: number;
-  physical_information: string;
-  problem_description: string;
-  next_visit: string;
-  test: string;
-  medicines?: MedicineData;
-  next?: number;
-  visit?: string;
+  medicines?: MedicinePrescription[];
 }

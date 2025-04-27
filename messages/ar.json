@@ -1133,7 +1133,17 @@
         "problemDescription": "وصف المشكلة",
         "nextVisit": "الزيارة التالية",
         "date": "التاريخ"
-      }
+      },
+      "no_prescription": "لا توجد وصفة طبية",
+      "next_visit": "موعد الزيارة القادمة",
+      "prescribed_at": "تاريخ الوصف",
+      "medicines": "الأدوية",
+      "medicine_name": "اسم الدواء",
+      "dosage": "الجرعة",
+      "dosage_interval": "الفترة بين الجرعات",
+      "comment": "ملاحظات",
+      "status": "الحالة",
+      "actions": "الخيارات"
     },
     "medicine": {
       "table": {
@@ -1540,7 +1550,9 @@
     "zain_cash_qr": "رمز QR لزين كاش",
     "payment_way_description": "شرح حول طريقة الدفع",
     "exists": "متوفر",
-    "out_of_stock": "غير متوفر"
+    "out_of_stock": "غير متوفر",
+    "given" : "تم الصرف",
+    "not_given" : "لم يتم الصرف"
   },
   "week_days": {
     "saturday": "السبت",

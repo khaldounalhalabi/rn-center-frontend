@@ -10,6 +10,7 @@ import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import Tabs from "@/components/common/ui/Tabs";
 import AppointmentLogsTable from "@/components/admin/appointment/AppointmentLogsTable";
+import PrescriptionDetails from "@/components/common/prescriptions/PrescriptionDetails";
 
 const page = async ({
   params: { appointmentId },
@@ -71,10 +72,7 @@ const page = async ({
           value={appointment?.extra_fees}
           color={"title"}
         />
-        <LabelValue
-          label={t("discount")}
-          value={appointment?.discount}
-        />
+        <LabelValue label={t("discount")} value={appointment?.discount} />
         <LabelValue
           label={t("type")}
           value={<TranslatableEnum value={appointment?.type} />}
@@ -98,7 +96,7 @@ const page = async ({
         tabs={[
           {
             title: t("prescriptions"),
-            render: <></>,
+            render: <PrescriptionDetails prescription={appointment?.prescription} />,
           },
           {
             title: t("logs"),

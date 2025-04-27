@@ -3,6 +3,7 @@ import { Service } from "@/Models/Service";
 import { Clinic } from "@/Models/Clinic";
 import { Customer } from "@/Models/Customer";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
+import { Prescription } from "@/Models/Prescriptions";
 
 export interface Appointment {
   id: number;
@@ -21,6 +22,7 @@ export interface Appointment {
   service?: Service;
   clinic?: Clinic;
   customer?: Customer;
+  prescription?: Prescription;
 }
 
 export interface groupedByMonth {

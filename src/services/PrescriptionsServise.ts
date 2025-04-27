@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { MedicineData, Prescription } from "@/Models/Prescriptions";
+import { Prescription } from "@/Models/Prescriptions";
 import { ApiResponse } from "@/Http/Response";
 import { DELETE, GET } from "@/Http/Http";
 

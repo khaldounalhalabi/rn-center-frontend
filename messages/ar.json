@@ -1064,7 +1064,9 @@
         "patientName": "اسم المريض",
         "nextVisit": "الزيارة التالية",
         "actions": "الخيارات",
-        "prescriptions": "الوصفات الطبية"
+        "prescriptions": "الوصفات الطبية",
+        "appointment_date": "تاريخ الموعد",
+        "prescribed_at": "تاريخ الوصف"
       },
       "create": {
         "addPrescription": "إضافة وصفة طبية",
@@ -1133,7 +1135,20 @@
         "problemDescription": "وصف المشكلة",
         "nextVisit": "الزيارة التالية",
         "date": "التاريخ"
-      }
+      },
+      "no_prescription": "لا توجد وصفة طبية",
+      "next_visit": "موعد الزيارة القادمة",
+      "prescribed_at": "تاريخ الوصف",
+      "medicines": "الأدوية",
+      "medicine_name": "اسم الدواء",
+      "dosage": "الجرعة",
+      "dosage_interval": "الفترة بين الجرعات",
+      "comment": "ملاحظات",
+      "status": "الحالة",
+      "actions": "الخيارات",
+      "doctor": "الطبيب",
+      "patient": "المريض",
+      "appointment_date": "تاريخ الموعد"
     },
     "medicine": {
       "table": {
@@ -1141,14 +1156,20 @@
         "medicineName": "اسم الدواء",
         "actions": "أجراءات",
         "clinicName": "اسم العيادة",
-        "doctorName": "اسم الطييب"
+        "doctorName": "اسم الطييب",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       },
       "create": {
         "addMedicines": "إضافة دواء",
         "editMedicine": "تعديل الدواء",
         "clinicName": "اسم العيادة",
         "medicineName": "اسم الدواء",
-        "description": "الوصف"
+        "description": "الوصف",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       },
       "show": {
         "medicinesDetails": "تفاصيل الدواء",
@@ -1156,7 +1177,10 @@
         "medicineName": "اسم الدواء",
         "clinicName": "اسم العيادة",
         "doctorName": "اسم الطبيب",
-        "description": "وصف"
+        "description": "وصف",
+        "quantity": "الكمية",
+        "status": "الحالة",
+        "barcode_value": "قيمة الباركود"
       }
     },
     "transaction": {
@@ -1529,7 +1553,11 @@
     "days_before_notify_for_expiration": "الأيام قبل الإشعار بانتهاء الاشتراك",
     "clinic_contract": "عقد العيادة",
     "zain_cash_qr": "رمز QR لزين كاش",
-    "payment_way_description": "شرح حول طريقة الدفع"
+    "payment_way_description": "شرح حول طريقة الدفع",
+    "exists": "متوفر",
+    "out_of_stock": "غير متوفر",
+    "given" : "تم الصرف",
+    "not_given" : "لم يتم الصرف"
   },
   "week_days": {
     "saturday": "السبت",

@@ -2,6 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { ChangeEventHandler } from "react";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const SelectFilter = ({
   data,
@@ -13,37 +15,38 @@ const SelectFilter = ({
   setStatus,
   status,
   translated = false,
+  sm = false,
+  col = true,
 }: {
   data: any[];
   selected?: any[] | any;
   name?: string;
   isMultiple?: boolean;
   label?: string;
-  onChange?: any;
+  onChange?: ChangeEventHandler<HTMLSelectElement> | undefined;
   setStatus?: React.Dispatch<string>;
   status?: string;
   translated?: boolean;
+  sm?: boolean;
+  col?: boolean;
 }) => {
   const t = useTranslations("components");
   return (
-    <label className={"text-start label flex flex-col items-start"}>
-      {label ?? ""}
+    <Label label={label} col={col ?? false}>
       <select
-        className={
-          "!text-start select select-bordered !flex-start min-w-[150px]"
-        }
+        className={`!text-start select select-bordered ${sm && "select-sm"} flex-start w-full`}
         defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
-        onChange={onChange ?? false}
+        onChange={onChange}
       >
-        <option value={undefined}>{t("select_item")}</option>
+        <option value={""}>{t("select_item")}</option>
         {data.map((item, index) => (
           <option value={item == "all" ? "" : item} key={index}>
             {translated ? <TranslatableEnum value={item} /> : item}
           </option>
         ))}
       </select>
-    </label>
+    </Label>
   );
 };
 

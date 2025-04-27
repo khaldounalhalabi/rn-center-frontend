@@ -7,6 +7,7 @@ import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
+import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 
 const PatientsOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");
@@ -39,6 +40,10 @@ const PatientsOverview = ({ patient }: { patient: Customer }) => {
               createUrl={`/admin/patients/${patient?.id}/appointments/create`}
             />
           ),
+        },
+        {
+          title: t("prescriptions"),
+          render: <PrescriptionTable patientId={patient?.id} />,
         },
       ]}
     />

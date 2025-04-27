@@ -1,9 +1,10 @@
-import { Clinic } from "@/Models/Clinic";
+import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
 
 export interface Medicine {
   id?: number;
   name: string;
   description?: string;
-  clinic_id: number;
-  clinic?: Clinic;
+  status: MedicineStatusEnum;
+  barcode?: string;
+  quantity?: number;
 }

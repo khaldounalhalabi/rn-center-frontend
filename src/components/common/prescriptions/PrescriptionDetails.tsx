@@ -1,5 +1,5 @@
+"use server";
 import React from "react";
-import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
@@ -7,38 +7,34 @@ import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { Prescription } from "@/Models/Prescriptions";
+import { getTranslations } from "next-intl/server";
 
 interface PrescriptionDetailsProps {
   prescription?: Prescription;
 }
 
-const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = ({
+const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
   prescription,
 }) => {
-  const t = useTranslations("common.prescription");
+  const t = await getTranslations("common.prescription");
 
   if (!prescription) {
-    return <div className="text-center text-gray-500">{t("no_prescription")}</div>;
+    return (
+      <div className="text-center text-gray-500">{t("no_prescription")}</div>
+    );
   }
 
   return (
     <div className={"w-full flex gap-2"}>
       <Grid>
-        <LabelValue
-          label={t("next_visit")}
-          value={prescription?.next_visit}
-        />
+        <LabelValue label={t("next_visit")} value={prescription?.next_visit} />
         <LabelValue
           label={t("prescribed_at")}
           value={prescription?.created_at}
         />
         {prescription?.other_data?.map((item, index) => (
           <div className={"md:col-span-2"} key={index}>
-            <LabelValue
-              label={item.key}
-              value={item.value}
-              col
-            />
+            <LabelValue label={item.key} value={item.value} col />
           </div>
         ))}
         <div className={"md:col-span-2"}>
@@ -56,37 +52,33 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {prescription?.medicines?.map(
-                  (medicineData, index) => (
-                    <tr key={index}>
-                      <th>{medicineData?.medicine_id}</th>
-                      <td>
-                        <Link
-                          className={"btn"}
-                          href={`/admin/medicines/${medicineData?.medicine_id}`}
-                        >
-                          {medicineData?.medicine?.name}
-                        </Link>
-                      </td>
-                      <td>{medicineData?.dosage}</td>
-                      <td>{medicineData?.dose_interval}</td>
-                      <td>{medicineData?.comment}</td>
-                      <td>
-                        <TranslatableEnum
-                          value={medicineData?.status}
-                        />
-                      </td>
-                      <td>
-                        <Link
-                          href={`/admin/medicines/${medicineData?.medicine_id}`}
-                          className={"btn btn-square btn-sm"}
-                        >
-                          <Eye className={"text-primary"} />
-                        </Link>
-                      </td>
-                    </tr>
-                  ),
-                )}
+                {prescription?.medicines?.map((medicineData, index) => (
+                  <tr key={index}>
+                    <th>{medicineData?.medicine_id}</th>
+                    <td>
+                      <Link
+                        className={"btn"}
+                        href={`/admin/medicines/${medicineData?.medicine_id}`}
+                      >
+                        {medicineData?.medicine?.name}
+                      </Link>
+                    </td>
+                    <td>{medicineData?.dosage}</td>
+                    <td>{medicineData?.dose_interval}</td>
+                    <td>{medicineData?.comment}</td>
+                    <td>
+                      <TranslatableEnum value={medicineData?.status} />
+                    </td>
+                    <td>
+                      <Link
+                        href={`/admin/medicines/${medicineData?.medicine_id}`}
+                        className={"btn btn-square btn-sm"}
+                      >
+                        <Eye className={"text-primary"} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Label>

@@ -84,13 +84,6 @@ const Sidebar = ({
           children: undefined,
           icon: <SpecialitiesIcon className={`h-8 w-8`} />,
         },
-        {
-          search: t("medicines"),
-          title: t("medicines"),
-          link: "/admin/medicines",
-          children: undefined,
-          icon: <MedicineIcon className={`h-8 w-8`} />,
-        },
       ],
     },
     {
@@ -134,6 +127,13 @@ const Sidebar = ({
       link: "/admin/patients",
       children: undefined,
       icon: <PatientIcon className={`h-7 w-7`} />,
+    },
+    {
+      search: t("medicines"),
+      title: t("medicines"),
+      link: "/admin/medicines",
+      children: undefined,
+      icon: <MedicineIcon className={`h-8 w-8`} />,
     },
     {
       search: t("transaction"),

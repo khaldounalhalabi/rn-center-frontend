@@ -70,9 +70,6 @@ const PatientsOverview = ({
           <Tab.Panel>
             <AppointmentTable customer={patient} />
           </Tab.Panel>
-          <Tab.Panel>
-            <PrescriptionsTable patient={patient} />
-          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

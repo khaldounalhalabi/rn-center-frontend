@@ -1064,7 +1064,9 @@
         "patientName": "اسم المريض",
         "nextVisit": "الزيارة التالية",
         "actions": "الخيارات",
-        "prescriptions": "الوصفات الطبية"
+        "prescriptions": "الوصفات الطبية",
+        "appointment_date": "تاريخ الموعد",
+        "prescribed_at": "تاريخ الوصف"
       },
       "create": {
         "addPrescription": "إضافة وصفة طبية",

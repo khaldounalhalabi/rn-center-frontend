@@ -1,16 +1,13 @@
 import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
 import SelectPopOver from "@/components/common/ui/Selects/SelectPopOver";
-import Trash from "@/components/icons/Trash";
 import React, { useEffect, useState, useTransition } from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicines";
 import { useRouter } from "@/navigation";
 import { useFormContext } from "react-hook-form";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { MedicineData } from "@/Models/Prescriptions";
-import { PrescriptionService } from "@/services/PrescriptionsServise";
-import { swal } from "@/Helpers/UIHelpers";
 import { useTranslations } from "next-intl";
+import MedicinePrescription from "@/Models/MedicinePrescription";
 
 const MultiMedicinesInput = ({
   userType = "admin",
@@ -20,7 +17,7 @@ const MultiMedicinesInput = ({
   reloadSelect,
 }: {
   userType?: "admin" | "doctor";
-  defaultValues?: MedicineData[];
+  defaultValues?: MedicinePrescription[];
   type: string;
   reloadSelect: string;
 }) => {
@@ -30,7 +27,7 @@ const MultiMedicinesInput = ({
     : [];
 
   const { setValue } = useFormContext();
-  const [medicines, setMedicines] = useState<MedicineData[]>(
+  const [medicines, setMedicines] = useState<MedicinePrescription[]>(
     Array.isArray(defaultValues)
       ? dataDefault
       : [
@@ -219,43 +216,6 @@ const MultiMedicinesInput = ({
                   }
                 />
               </div>
-              <Trash
-                onClick={() => {
-                  swal
-                    .fire({
-                      title: "Are you sure?",
-                      text: "You won't to Delete this!",
-                      icon: "warning",
-                      showCancelButton: true,
-                      confirmButtonColor: "#3085d6",
-                      cancelButtonColor: "#d33",
-                      confirmButtonText: "Yes!",
-                    })
-                    .then((result) => {
-                      if (result.isConfirmed) {
-                        if (type == "update") {
-                          const id = Array.isArray(defaultValues)
-                            ? defaultValues?.[index]?.id
-                            : 0;
-                          if (id != 0) {
-                            return PrescriptionService.make<PrescriptionService>(
-                              userType,
-                            )
-                              .deleteMedicine(id ?? 0)
-                              .then(() => {
-                                deleteMedicineForm(index);
-                              });
-                          } else {
-                            deleteMedicineForm(index);
-                          }
-                        } else {
-                          deleteMedicineForm(index);
-                        }
-                      }
-                    });
-                }}
-                className="hover:border-2 mt-3 hover:border-red-500 rounded-xl w-8 h-8 text-error cursor-pointer"
-              />
             </div>
           </div>
         ))

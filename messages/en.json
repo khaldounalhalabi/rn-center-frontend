@@ -1054,7 +1054,9 @@
         "patientName": "Patient Name",
         "nextVisit": "Next Visit",
         "actions": "Actions",
-        "prescriptions": "Prescriptions"
+        "prescriptions": "Prescriptions",
+        "appointment_date": "Appointment date",
+        "prescribed_at": "Prescribed at"
       },
       "create": {
         "addPrescription": "Add Prescription",

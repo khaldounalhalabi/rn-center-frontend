@@ -2,10 +2,9 @@
 import Form from "@/components/common/ui/Form";
 import React, { Fragment, useState } from "react";
 import { Navigate } from "@/Actions/navigate";
-import { Prescription, PrescriptionsDataSend } from "@/Models/Prescriptions";
+import { Prescription } from "@/Models/Prescriptions";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
 import PageCard from "@/components/common/ui/PageCard";
-import MultiMedicinesInput from "@/components/common/prescriptions/MultiMedicinesInput";
 import PhysicalForm from "@/components/common/prescriptions/PhysicalForm";
 import TestForm from "@/components/common/prescriptions/TestForm";
 import { Appointment } from "@/Models/Appointment";
@@ -16,7 +15,6 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import useUser from "@/hooks/UserHook";
 
 const PrescriptionsForm = ({
-  userType = "admin",
   defaultValues = undefined,
   appointment,
   id,
@@ -32,8 +30,8 @@ const PrescriptionsForm = ({
 }) => {
   const t = useTranslations("common.prescription.create");
   const { user } = useUser();
-  const handleSubmit = async (data: PrescriptionsDataSend) => {
-    const sendData: PrescriptionsDataSend = customerId
+  const handleSubmit = async (data: any) => {
+    const sendData = customerId
       ? {
           clinic_id: user?.clinic?.id,
           customer_id: customerId,
@@ -147,12 +145,6 @@ const PrescriptionsForm = ({
               {t("newMedicine")}
             </button>
           </div>
-          <MultiMedicinesInput
-            userType={userType}
-            defaultValues={defaultValues?.medicines_data ?? undefined}
-            type={type}
-            reloadSelect={reloadSelect}
-          />
         </PageCard>
         <PageCard>
           <PhysicalForm

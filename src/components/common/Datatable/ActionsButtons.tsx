@@ -8,6 +8,7 @@ import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { ApiResponse } from "@/Http/Response";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -23,6 +24,7 @@ export interface ActionsButtonsProps<T> {
   showUrl?: string;
   setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void;
   deleteMessage?: string;
+  deleteHandler?: (response: ApiResponse<any>) => void;
 }
 
 const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
@@ -37,6 +39,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   setHidden,
   children,
   deleteMessage,
+  deleteHandler = undefined,
 }) => {
   const t = useTranslations("components");
   const dataId = id ?? data?.id ?? undefined;
@@ -83,7 +86,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .make()
                         .setBaseUrl(aUrl)
                         .delete()
-                        .then(() => {
+                        .then((response: ApiResponse<any>) => {
                           toast.success(t("archived"));
 
                           if (setHidden) {
@@ -124,11 +127,15 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .make()
                         .setBaseUrl(dUrl)
                         .delete()
-                        .then(() => {
+                        .then((response: ApiResponse<any>) => {
                           toast.success(t("deleted"));
 
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);
+                          }
+
+                          if (deleteHandler) {
+                            deleteHandler(response);
                           }
                         })
                         .catch(() => swal.fire(t("errored"), "", "error"));

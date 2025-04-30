@@ -2,41 +2,33 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import SelectPopOverFrom from "@/components/common/ui/Selects/SelectPopOverForm";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
-import { Transactions } from "@/Models/Transactions";
-import TransactionTypeArray, { TransactionType } from "@/enum/TransactionType";
+import { Transaction } from "@/Models/Transaction";
 import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enum/RoleEnum";
+import Select from "@/components/common/ui/Selects/Select";
+import { getEnumValues } from "@/Helpers/Enums";
+import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
 
-const OfferForm = ({
+const TransactionForm = ({
   defaultValues = undefined,
-  id,
   type = "store",
 }: {
-  defaultValues?: Transactions;
-  id?: number;
+  defaultValues?: Transaction;
   type?: "store" | "update";
 }) => {
   const t = useTranslations("common.transaction.create");
 
   const handleSubmit = async (data: any) => {
-    if (
-      type === "update" &&
-      (defaultValues?.id != undefined || id != undefined)
-    ) {
-      return TransactionService.make<TransactionService>("admin").update(
-        defaultValues?.id ?? id,
-        data,
-      );
-    } else {
-      return await TransactionService.make<TransactionService>("admin").store(
-        data,
-      );
+    const service = TransactionService.make(RoleEnum.ADMIN);
+    if (type === "update") {
+      return await service.update(defaultValues?.id, data);
     }
+    return await service.store(data);
   };
   const onSuccess = () => {
     Navigate(`/admin/transaction`);
@@ -49,13 +41,11 @@ const OfferForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        <SelectPopOverFrom
+        <Select
           name={"type"}
-          handleSelect={(type: string) => {}}
-          status={defaultValues?.type ?? TransactionType.INCOME}
-          ArraySelect={TransactionTypeArray()}
-          required={true}
-          label={`${t("type")} :`}
+          items={getEnumValues(TransactionTypeEnum)}
+          label={`${t("type")}`}
+          defaultValue={defaultValues?.type}
         />
         <Input
           placeholder={"amount ... "}
@@ -80,4 +70,4 @@ const OfferForm = ({
   );
 };
 
-export default OfferForm;
+export default TransactionForm;

@@ -5,50 +5,34 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TransactionService } from "@/services/TransactionService";
-import { Transactions } from "@/Models/Transactions";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import { Transaction } from "@/Models/Transaction";
 import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
-import TransactionTypeArray from "@/enum/TransactionType";
-import InputFilter from "@/components/common/ui/Inputs/InputFilter";
-import dayjs from "dayjs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Grid from "@/components/common/ui/Grid";
-import PageCard from "@/components/common/ui/PageCard";
-import BalanceIcon from "@/components/icons/BalanceIcon";
-import PendingAmountIcon from "@/components/icons/PendingAmountIcon";
-import {
-  NotificationPayload,
-  RealTimeEvents,
-} from "@/Models/NotificationPayload";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { NotificationHandler } from "@/components/common/NotificationHandler";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import { RoleEnum } from "@/enum/RoleEnum";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { getEnumValues } from "@/Helpers/Enums";
+import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import { Link } from "@/navigation";
 
 const Page = () => {
   const t = useTranslations("common.transaction.table");
 
   const {
     data: balance,
-    isLoading,
-    refetch,
+    isFetching,
+    refetch: refetchBalance,
   } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
-      return await TransactionService.make<TransactionService>(
-        "admin",
-      ).getSummary();
+      return await TransactionService.make(RoleEnum.ADMIN).balance();
     },
   });
 
-  const queryClient = useQueryClient();
-  const revalidateTable = () => {
-    queryClient.invalidateQueries({
-      queryKey: [`tableData_/admin/transaction/create_Transactions`],
-    });
-  };
-
-  const tableData: DataTableData<Transactions> = {
+  const tableData: DataTableData<Transaction> = {
     createUrl: `/admin/transaction/create`,
     title: `${t("transactions")}`,
     schema: [
@@ -58,43 +42,31 @@ const Page = () => {
         sortable: true,
       },
       {
-        name: "actor.first_name",
+        name: "actor.full_name",
         sortable: true,
         label: `${t("sender")}`,
-        render: (_first_name, data) => {
-          return (
-            <p>
-              {TranslateClient(data?.actor?.first_name)}{" "}
-              {TranslateClient(data?.actor?.middle_name)}{" "}
-              {TranslateClient(data?.actor?.last_name)}
-            </p>
-          );
-        },
-      },
-      {
-        name: "actor.email",
-        label: `${t("email")}`,
-        sortable: true,
+        //   TODO: add user page button to get to the actor page
       },
       {
         name: "type",
         label: `${t("type")}`,
         sortable: true,
+        render: (type, transaction) => (
+          <span
+            className={`badge ${transaction?.type == TransactionTypeEnum.INCOME ? "badge-success" : "badge-error"}`}
+          >
+            <TranslatableEnum value={type} />
+          </span>
+        ),
       },
       {
         name: "amount",
         label: `${t("amount")}`,
         sortable: true,
-        render: (_amount, transaction) => (
-          <span
-            className={`${transaction?.type == "system_debt" ? "badge badge-error" : transaction?.type == "debt_to_me" ? "badge badge-success" : ""}`}
-          >
-            {transaction?.type == "income"
-              ? "+"
-              : transaction?.type == "outcome"
-                ? "-"
-                : ""}
-            {transaction?.amount.toLocaleString()}
+        render: (amount, transaction) => (
+          <span>
+            {transaction?.type == TransactionTypeEnum.INCOME ? "+ " : "- "}
+            {amount}
           </span>
         ),
       },
@@ -104,55 +76,84 @@ const Page = () => {
         sortable: true,
       },
       {
+        name: "appointment_id",
+        label: `${t("appointmentDate")}`,
+        sortable: true,
+        render: (appointmentId, transaction) => {
+          return transaction?.appointment_id ? (
+            <Link
+              href={`/admin/appointment/${transaction?.appointment_id}`}
+              className={"btn"}
+            >
+              {transaction?.appointment?.date_time}
+            </Link>
+          ) : (
+            <TranslatableEnum value={"no_data"} />
+          );
+        },
+      },
+      {
         label: `${t("actions")}`,
-        render: (_undefined, data, setHidden) => (
-          <ActionsButtons
-            id={data?.id}
-            buttons={["edit", "show", "delete"]}
-            baseUrl={`/admin/transactions`}
-            editUrl={`/admin/transaction/${data?.id}/edit`}
-            showUrl={`/admin/transaction/${data?.id}`}
-            setHidden={setHidden}
-          />
-        ),
+        render: (_undefined, data, setHidden) => {
+          const deleteHandler = () => {
+            refetchBalance();
+          };
+          return (
+            <ActionsButtons
+              id={data?.id}
+              buttons={["edit", "show", "delete"]}
+              baseUrl={`/admin/transactions`}
+              editUrl={`/admin/transaction/${data?.id}/edit`}
+              showUrl={`/admin/transaction/${data?.id}`}
+              deleteHandler={deleteHandler}
+              setHidden={setHidden}
+            />
+          );
+        },
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await TransactionService.make<TransactionService>(
-        "admin",
+        RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
-        <div className={"w-full  grid grid-cols-1"}>
-          <label className={"label"}>{t("amountFrom")} :</label>
-          <InputFilter
-            type="number"
-            defaultValue={params?.amount?.[0] ?? 0}
-            onChange={(event: any) => {
-              const data = event.target.value
-                ? [event.target.value, params?.amount?.[1] ?? 99999]
-                : event.target.value;
-              setParams({ ...params, amount: data });
+        <div className={"w-full grid grid-cols-1"}>
+          <Label label={t("amount")}>
+            <input
+              className={"input input-xs input-bordered justify-self-end"}
+              type={"number"}
+              onChange={(e) => {
+                setParams({
+                  ...params,
+                  amount: ["0", `${e.target?.value}`],
+                });
+              }}
+              defaultValue={params?.amount?.[1] ?? 0}
+              value={params?.amount?.[1] ?? 0}
+            />
+          </Label>
+          <input
+            type="range"
+            min={0}
+            max="10000000"
+            value={params?.amount?.[1] ?? "0"}
+            onChange={(e) => {
+              setParams({
+                ...params,
+                amount: ["0", `${e.target?.value}`],
+              });
             }}
-          />
-          <label className={"label"}>{t("amountTo")} :</label>
-          <InputFilter
-            type="number"
-            defaultValue={params?.amount?.[1] ?? 99999}
-            onChange={(event: any) => {
-              const data = event.target.value
-                ? [params?.amount?.[0] ?? 0, event.target.value]
-                : event.target.value;
-              setParams({ ...params, amount: data });
-            }}
+            className="range range-xs"
           />
           <label className="label">{t("type")} :</label>
           <SelectFilter
-            data={TransactionTypeArray()}
-            selected={params.type ?? "income"}
+            data={getEnumValues(TransactionTypeEnum)}
+            selected={params.type}
             onChange={(event: any) => {
               setParams({ ...params, type: event.target.value });
             }}
+            translated
           />
 
           <label className="label">{t("startDate")} :</label>
@@ -160,28 +161,20 @@ const Page = () => {
             onChange={(time: any) => {
               setParams({
                 ...params,
-                date: [
-                  time?.format("YYYY-MM-DD") + " 00:00:01",
-                  params?.date?.[1] ??
-                    dayjs().format("YYYY-MM-DD") + " 23:59:59",
-                ],
+                date: [time?.format("YYYY-MM-DD"), params?.date?.[1]],
               });
             }}
-            defaultValue={params?.date?.[0] ?? ""}
+            defaultValue={params?.date?.[0]}
           />
           <label className="label">{t("endDate")} :</label>
           <DatepickerFilter
             onChange={(time: any) => {
               setParams({
                 ...params,
-                date: [
-                  params?.date?.[0] ??
-                    dayjs().format("YYYY-MM-DD") + " 00:00:01",
-                  time?.format("YYYY-MM-DD") + " 23:59:59",
-                ],
+                date: [params?.date?.[0], time?.format("YYYY-MM-DD")],
               });
             }}
-            defaultValue={params?.date?.[1] ?? ""}
+            defaultValue={params?.date?.[1]}
           />
         </div>
       );
@@ -189,50 +182,20 @@ const Page = () => {
   };
   return (
     <>
-      <NotificationHandler
-        handle={(payload: NotificationPayload) => {
-          if (payload.getNotificationType() == RealTimeEvents.BalanceChange) {
-            refetch();
-            revalidateTable();
-          }
-        }}
-      />
-      <Grid>
-        <PageCard>
-          <label className={"card-title"}>{t("balance")}</label>
-          <div className={"my-4 flex items-center justify-between"}>
-            <div className={"p-4 rounded-full bg-green-100"}>
-              <BalanceIcon
-                className={"w-9 h-9 bg-green-100 rounded-full fill-green-600"}
-              />
-            </div>
-            {isLoading ? (
-              <LoadingSpin className="w-6 h-6" />
-            ) : (
-              <span suppressHydrationWarning className=" mx-4 text-2xl">
-                {Number(balance?.data?.balance ?? 0).toLocaleString()}{" "}
-                {t("iqd")}
-              </span>
-            )}
-          </div>
-        </PageCard>
-        <PageCard>
-          <label className={"card-title"}>{t("pendingAmount")}</label>
-          <div className={"my-4 flex items-center justify-between"}>
-            <div className={"p-4 rounded-full bg-indigo-100"}>
-              <PendingAmountIcon className={"w-9 h-9 fill-indigo-600"} />
-            </div>
-            {isLoading ? (
-              <LoadingSpin className="w-6 h-6" />
-            ) : (
-              <span suppressHydrationWarning className=" mx-4 text-2xl">
-                {Number(balance?.data?.pending_amount ?? 0).toLocaleString()}{" "}
-                {t("iqd")}
-              </span>
-            )}
-          </div>
-        </PageCard>
-      </Grid>
+      <div
+        className={
+          "bg-base-100 flex items-center justify-between m-3 p-3 rounded-md shadow-md"
+        }
+      >
+        <Label label={t("balance")} />
+        {isFetching ? (
+          <LoadingSpin />
+        ) : (
+          <span className={"badge bg-brand-primary font-bold"}>
+            {balance?.data?.balance}
+          </span>
+        )}
+      </div>
       <DataTable {...tableData} />
     </>
   );

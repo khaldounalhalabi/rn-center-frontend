@@ -29,7 +29,7 @@ const page = async ({
       </div>
       <Grid md={2} gap={5}>
         <LabelValue label={t("actor_name")} value={res?.actor?.full_name} />
-        //   TODO: add user page button to get to the actor page
+        {/*TODO: add user page button to get to the actor page*/}
         <LabelValue
           label={t("type")}
           value={<TranslatableEnum value={res?.type} />}

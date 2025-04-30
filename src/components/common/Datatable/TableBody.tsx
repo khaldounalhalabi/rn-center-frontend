@@ -67,7 +67,7 @@ const TableBody = ({
                                 <TranslatableEnum value={"no_data"} />
                               ),
                           item,
-
+                          setHidden,
                         )}
                       </td>
                     );
@@ -81,7 +81,7 @@ const TableBody = ({
                         }
                         {...schema.cellProps}
                       >
-                        {schema.render(undefined, item)}
+                        {schema.render(undefined, item,setHidden)}
                       </td>
                     );
                   } else

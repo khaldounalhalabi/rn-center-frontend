@@ -20,6 +20,7 @@ import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import { ApiResponse } from "@/Http/Response";
+import { Label } from "@/components/common/ui/LabelsValues/Label";
 
 const AppointmentsTable = ({
   without,
@@ -138,8 +139,7 @@ const AppointmentsTable = ({
     filter: (params, setParams) => {
       return (
         <div className={"w-full grid grid-cols-1"}>
-          <label className={"label"}>
-            {t("status")} :
+          <Label label={t("status")} col>
             <SelectFilter
               data={getEnumValues(AppointmentStatusEnum)}
               selected={params.status ?? "all"}
@@ -147,9 +147,8 @@ const AppointmentsTable = ({
                 setParams({ ...params, status: event.target.value });
               }}
             />
-          </label>
-          <label className="label">
-            {t("type")} :
+          </Label>
+          <Label label={t("type")} col>
             <SelectFilter
               data={getEnumValues(AppointmentTypeEnum)}
               selected={params.type}
@@ -157,16 +156,15 @@ const AppointmentsTable = ({
                 setParams({ ...params, type: event.target.value });
               }}
             />
-          </label>
-          <label className="label">
-            {t("date")} :
+          </Label>
+          <Label label={t("date")}>
             <DatepickerFilter
               onChange={(time: any) => {
                 setParams({ ...params, date: time?.format("YYYY-MM-DD") });
               }}
               defaultValue={params.date}
             />
-          </label>
+          </Label>
         </div>
       );
     },

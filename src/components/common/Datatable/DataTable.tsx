@@ -14,10 +14,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
 
-export interface FilterParam {
-  [key: string]: any;
-}
-
 export interface DataTableSchema<T> {
   name?: string;
   label: string;
@@ -48,9 +44,11 @@ export interface DataTableData<T> {
     params?: object,
   ) => Promise<ApiResponse<T> | ApiResponse<T[]>>;
   filter?: (
-    params: FilterParam,
+    params: Record<string, any>,
     setParams: (
-      value: ((prevState: FilterParam) => FilterParam) | FilterParam,
+      value:
+        | ((prevState: Record<string, any>) => Record<string, any>)
+        | Record<string, any>,
     ) => void,
   ) => ReactNode | React.JSX.Element | undefined | null;
 }
@@ -147,6 +145,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                         onClick={() => {
                           setParams(tempParams);
                           setOpenFilter(false);
+                          setPage(1);
                         }}
                       >
                         {t("apply")}
@@ -159,6 +158,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                           setTempParams({});
                           setParams({});
                           setOpenFilter(false);
+                          setPage(1);
                         }}
                       >
                         {t("resetFilters")}

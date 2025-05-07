@@ -36,7 +36,9 @@
     "join_requests": "طلبات الانضمام",
     "clinic_management": "إدارة العيادة",
     "search": "بحث",
-    "holidays": "العطل"
+    "holidays": "العطل",
+    "attendance": "جدول الدوام",
+    "secretaries": "السكرتاريا"
   },
   "admin": {
     "clinic": {
@@ -1619,5 +1621,14 @@
     "edit": "تعديل",
     "holiday_details": "بيانات العطلة",
     "update_title": "تعديل العطلة"
+  },
+  "secretaries": {
+    "name": "الاسم",
+    "phone": "رقم الهاتف",
+    "gender": "الجنس",
+    "phone_verified_at": "تم تأكيد الهاتف في",
+    "actions" : "الخيارات",
+    "secretaries": "السكرتاريا",
+    "edit_title": "تعديل على بيانات موظف السكرتاريا"
   }
 }

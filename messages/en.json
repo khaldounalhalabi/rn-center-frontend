@@ -36,7 +36,9 @@
     "join_requests": "Join Requests",
     "clinic_management": "Clinic management",
     "search": "search",
-    "holidays": "Holidays"
+    "holidays": "Holidays",
+    "attendance": "Attendance",
+    "secretaries": "Secretaries"
   },
   "admin": {
     "clinic": {
@@ -1609,5 +1611,14 @@
     "edit": "Edit",
     "holiday_details": "Holiday details",
     "update_title": "Edit holiday"
+  },
+  "secretaries": {
+    "name": "Name",
+    "phone": "Phone",
+    "gender": "Gender",
+    "phone_verified_at": "Phone verified at",
+    "actions": "Actions",
+    "secretaries": "Secretaries",
+    "edit_title": "Edit secretary"
   }
 }

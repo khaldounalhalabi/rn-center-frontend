@@ -1,5 +1,7 @@
 import { RoleEnum } from "@/enum/RoleEnum";
 import GenderEnum from "@/enum/GenderEnum";
+import AttendanceLog from "@/Models/AttendanceLog";
+import { Clinic } from "@/Models/Clinic";
 
 export interface User {
   id?: number;
@@ -11,6 +13,8 @@ export interface User {
   phone_verified_at?: string;
   gender: GenderEnum;
   role: RoleEnum;
+  attendance_by_date?: AttendanceLog[];
+  clinic?: Clinic;
 }
 
 export interface AuthResponse {

@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { User } from "@/Models/User";
 import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
 import dayjs from "dayjs";
 import StatusLegend from "./StatusLegend";
 import { Link } from "@/navigation";
 import { RoleEnum } from "@/enum/RoleEnum";
+import Pencil from "@/components/icons/Pencil";
+import Dialog from "@/components/common/ui/Dialog";
+import AttendanceForm from "@/components/attendance/AttendanceForm";
 
 interface UserTimelineItemProps {
   user?: User;
+  date?: string;
 }
 
-const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user }) => {
+const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
+  const [openEditModal, setOpenEditModal] = useState(false);
   const getStatusColor = (status: AttendanceLogStatusEnum) => {
     switch (status) {
       case AttendanceLogStatusEnum.ON_TIME:
@@ -32,27 +37,48 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user }) => {
 
   return (
     <div className="p-6">
-      <div className="flex items-center mb-4">
-        <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-          <span className="text-gray-600 font-bold">
-            {user?.first_name.charAt(0)}
-            {user?.last_name.charAt(0)}
-          </span>
+      <div className={"w-full flex items-center justify-between mb-4"}>
+        <div className="flex items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-4">
+            <span className="text-gray-600 font-bold">
+              {user?.first_name.charAt(0)}
+              {user?.last_name.charAt(0)}
+            </span>
+          </div>
+          <div>
+            <Link
+              href={
+                user?.role == RoleEnum.SECRETARY
+                  ? `/admin/secretaries/${user.id}`
+                  : `/admin/clinics/${user?.clinic?.id}`
+              }
+              className="text-lg font-semibold btn btn-sm"
+            >
+              {user?.full_name}
+            </Link>
+            <p className="text-gray-600">{user?.role}</p>
+          </div>
         </div>
-        <div>
-          <Link
-            href={
-              user?.role == RoleEnum.SECRETARY
-                ? `/admin/secretaries/${user.id}`
-                : `/admin/clinics/${user?.clinic?.id}`
-            }
-            className="text-lg font-semibold btn btn-sm"
+        <div className={"flex items-center"}>
+          <button
+            className={"btn btn-square btn-sm"}
+            onClick={() => setOpenEditModal((prevState) => !prevState)}
           >
-            {user?.full_name}
-          </Link>
-          <p className="text-gray-600">{user?.role}</p>
+            <Pencil className={"w-6 h-6 text-success"} />
+          </button>
         </div>
       </div>
+
+      <Dialog open={openEditModal}>
+        <AttendanceForm
+          date={date ?? ""}
+          userId={user?.id ?? 0}
+          attendances={user?.attendance_by_date ?? []}
+          setClose={() => {
+            setOpenEditModal((prevState) => !prevState);
+          }}
+        />
+      </Dialog>
 
       {user?.attendance_by_date && user?.attendance_by_date.length > 0 ? (
         <div className="mt-4">

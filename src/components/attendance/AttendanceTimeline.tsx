@@ -115,7 +115,11 @@ const AttendanceTimeline: React.FC = () => {
 
           <div className="divide-y divide-gray-200 max-h-[70vh] overflow-auto">
             {allUsers.map((user, index) => (
-              <UserTimelineItem key={`${user?.id}-${index}`} user={user} />
+              <UserTimelineItem
+                key={`${user?.id}-${index}`}
+                user={user}
+                date={selectedDate}
+              />
             ))}
 
             {/* Loading indicator for the next page */}

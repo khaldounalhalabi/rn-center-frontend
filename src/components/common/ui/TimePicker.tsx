@@ -10,10 +10,12 @@ const Timepicker = ({
   name,
   label,
   required = false,
+  df = undefined,
 }: {
   name: string;
   label?: string;
   required?: boolean;
+  df?: string;
 }) => {
   const {
     setValue,
@@ -21,7 +23,7 @@ const Timepicker = ({
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
-  const defaultValue = getNestedPropertyValue(defaultValues, name);
+  const defaultValue = df ?? getNestedPropertyValue(defaultValues, name);
 
   return (
     <label className="flex flex-col items-start gap-2 label">

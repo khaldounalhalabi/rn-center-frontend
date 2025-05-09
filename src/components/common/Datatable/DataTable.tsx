@@ -65,12 +65,6 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
   const queryClient = useQueryClient();
-
-  const revalidate = () => {
-    queryClient.invalidateQueries({
-      queryKey: [`tableData_${tableData.createUrl}_${tableData.title}`],
-    });
-  };
   const { isPending, data, isPlaceholderData, isRefetching, refetch } =
     useQuery({
       queryKey: [

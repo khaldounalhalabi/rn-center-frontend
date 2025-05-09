@@ -21,8 +21,9 @@ const AttendanceForm = ({
   setClose: () => void;
 }) => {
   const handleSubmit = async (data: any) => {
-    data = { ...data, attendance_at: date };
-    return AttendanceLogService.make().editOrCreateUserAttendance(userId, data);
+    const formData = { ...data, attendance_at: date };
+    console.log(formData);
+    return AttendanceLogService.make().editOrCreateUserAttendance(userId, formData);
   };
 
   const extractLogs = (data: AttendanceLog[]) => {
@@ -45,7 +46,15 @@ const AttendanceForm = ({
     return logs;
   };
 
-  const logs = extractLogs(attendances);
+  let logs = extractLogs(attendances);
+  logs =  logs.length > 0
+    ? logs
+    : [
+      {
+        attend_from: dayjs().format("HH:mm"),
+        attend_to: dayjs().format("HH:mm"),
+      },
+    ];
 
   const [fields, setFields] = useState<
     {
@@ -53,12 +62,19 @@ const AttendanceForm = ({
       attend_to: string | undefined;
     }[]
   >(
-    logs.length > 0 ? logs : [{ attend_from: undefined, attend_to: undefined }],
+    logs.length > 0
+      ? logs
+      : [
+          {
+            attend_from: dayjs().format("HH:mm"),
+            attend_to: dayjs().format("HH:mm"),
+          },
+        ],
   );
 
   useEffect(() => {
     setFields(extractLogs(attendances));
-  });
+  }, []);
 
   const addField = () => {
     setFields((prevState) => [
@@ -68,16 +84,24 @@ const AttendanceForm = ({
   };
 
   const removeField = (index: number) => {
-    fields.splice(index, 1);
-    setFields([...fields]);
+    if (index === 1) {
+      setFields([]);
+      return;
+    }
+    const newFields = [...fields];
+    newFields.splice(index, 1);
+    setFields(newFields);
+  };
+
+  const onSuccess = async () => {
+    setClose();
   };
 
   return (
     <Form
       handleSubmit={handleSubmit}
-      onSuccess={() => {
-        setClose();
-      }}
+      onSuccess={onSuccess}
+      defaultValues={logs}
     >
       {fields?.map((inputs, index) => (
         <div
@@ -85,14 +109,14 @@ const AttendanceForm = ({
           key={index}
         >
           <Timepicker
-            name={`attendance_shifts[${index}][attend_from]`}
+            name={`attendance_shifts.${index}.attend_from`}
             label={"From"}
-            df={inputs.attend_from ?? dayjs().format("HH:mm")}
+            df={inputs.attend_from}
           />
           <Timepicker
-            name={`attendance_shifts[${index}][attend_to]`}
+            name={`attendance_shifts.${index}.attend_to`}
             label={"To"}
-            df={inputs.attend_to ?? dayjs().format("HH:mm")}
+            df={inputs.attend_to}
           />
           <button className={"btn btn-square"} type={"button"}>
             <Trash

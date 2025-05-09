@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/Http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./PrimaryButton";
 import { toast } from "react-toastify";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 const Form = ({
   className,
@@ -14,7 +14,6 @@ const Form = ({
   onSuccess,
   defaultValues = {},
   buttonText = undefined,
-  setLocale = undefined,
   showToastMessage = true,
   disabled = false,
   defaultButton = true,
@@ -59,13 +58,6 @@ const Form = ({
     return res;
   };
 
-  const locale = useLocale() as "en" | "ar";
-  const [lang, setLang] = useState<"en" | "ar">(locale);
-  useEffect(() => {
-    if (setLocale) {
-      setLocale(lang);
-    }
-  }, [lang]);
   return (
     <FormProvider {...methods}>
       <form
@@ -73,29 +65,6 @@ const Form = ({
         encType="multipart/form-data"
         className={`${className}`}
       >
-        {setLocale ? (
-          <div
-            dir="ltr"
-            className="h-8 w-full flex-row flex justify-center items-center"
-          >
-            <div className="w-36  h-8 flex">
-              <p
-                className={`w-1/2 h-full pt-1 rounded-l-2xl text-center cursor-pointer ${lang == "en" ? "bg-black text-white" : "bg-gray-300 text-black "}`}
-                onClick={() => setLang("en")}
-              >
-                English
-              </p>
-              <p
-                className={`w-1/2 h-full pt-1 rounded-r-2xl text-center cursor-pointer ${lang == "ar" ? "bg-black text-white" : "bg-gray-300 text-black "}`}
-                onClick={() => setLang("ar")}
-              >
-                Arabic
-              </p>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
         {children}
         <div
           className={`flex ${submitButtonClasses} items-center my-5`}

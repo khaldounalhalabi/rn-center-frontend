@@ -12,10 +12,16 @@ import AttendanceForm from "@/components/attendance/AttendanceForm";
 interface UserTimelineItemProps {
   user?: User;
   date?: string;
+  refetch?: CallableFunction;
 }
 
-const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
+const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
+  user,
+  date,
+  refetch,
+}) => {
   const [openEditModal, setOpenEditModal] = useState(false);
+
   const getStatusColor = (status: AttendanceLogStatusEnum) => {
     switch (status) {
       case AttendanceLogStatusEnum.ON_TIME:
@@ -37,7 +43,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
 
   return (
     <div className="p-6">
-      <div className={"w-full flex items-center justify-between mb-4"}>
+      <div className="w-full flex items-center justify-between mb-4">
         <div className="flex items-center">
           <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-4">
             <span className="text-gray-600 font-bold">
@@ -48,7 +54,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
           <div>
             <Link
               href={
-                user?.role == RoleEnum.SECRETARY
+                user?.role === RoleEnum.SECRETARY
                   ? `/admin/secretaries/${user.id}`
                   : `/admin/clinics/${user?.clinic?.id}`
               }
@@ -59,12 +65,12 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
             <p className="text-gray-600">{user?.role}</p>
           </div>
         </div>
-        <div className={"flex items-center"}>
+        <div className="flex items-center">
           <button
-            className={"btn btn-square btn-sm"}
+            className="btn btn-square btn-sm"
             onClick={() => setOpenEditModal((prevState) => !prevState)}
           >
-            <Pencil className={"w-6 h-6 text-success"} />
+            <Pencil className="w-6 h-6 text-success" />
           </button>
         </div>
       </div>
@@ -76,6 +82,9 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
           attendances={user?.attendance_by_date ?? []}
           setClose={() => {
             setOpenEditModal((prevState) => !prevState);
+            if (refetch) {
+              refetch();
+            }
           }}
         />
       </Dialog>
@@ -83,48 +92,43 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({ user, date }) => {
       {user?.attendance_by_date && user?.attendance_by_date.length > 0 ? (
         <div className="mt-4">
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute h-1 w-full bg-gray-200 top-4"></div>
+            <div className="absolute h-1 w-full bg-gray-200 top-5"></div>
+            {Array.from({ length: 25 }, (_, i) => i).map((hour) => {
+              const leftPosition = (hour / 24) * 100;
+              return (
+                <div
+                  key={hour}
+                  className="absolute text-xs text-gray-500"
+                  style={{
+                    left: `${leftPosition}%`,
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  {`${hour.toString().padStart(2, "0")}:00`}
+                </div>
+              );
+            })}
 
             {/* Timeline events */}
             <div className="relative flex justify-between items-center h-8 my-10">
-              {/* Working hours representation: 8AM to 8PM */}
-              <div className="text-xs text-gray-500 absolute left-0 -bottom-6">
-                8:00
-              </div>
-              <div className="text-xs text-gray-500 absolute left-1/4 -bottom-6">
-                11:00
-              </div>
-              <div className="text-xs text-gray-500 absolute left-1/2 -bottom-6">
-                14:00
-              </div>
-              <div className="text-xs text-gray-500 absolute left-3/4 -bottom-6">
-                17:00
-              </div>
-              <div className="text-xs text-gray-500 absolute right-0 -bottom-6">
-                20:00
-              </div>
-
               {user.attendance_by_date.map((log) => {
-                // Calculate position based on time (assuming 8AM-8PM workday)
                 const time = dayjs(log.attend_at);
-                const hours = time.hour() + time.minute() / 60;
-                // Position calculation (8AM = 0%, 8PM = 100%)
-                const position = ((hours - 8) / 12) * 100;
+                const totalMinutes = time.hour() * 60 + time.minute();
+                const position = (totalMinutes / (24 * 60)) * 100; // Position calculation for full day
 
                 return (
                   <div
                     key={log.id}
                     className={`absolute w-4 h-4 rounded-full ${getStatusColor(log.status)} z-10`}
-                    style={{ left: `${position}%` }}
+                    style={{ left: `${position - 0.4}%`, bottom: "5%" }}
                     title={`${log.type}: ${formatTime(log.attend_at)} - ${log.status}`}
                   >
-                    <div className="absolute -top-8 -left-10 w-20 text-xs text-center">
-                      <span className="font-bold">
+                    <div className="absolute -top-12 -left-5 text-xs text-center">
+                      <span className="font-bold border-l">
                         {formatTime(log.attend_at)}
                       </span>
                       <br />
-                      <span className="capitalize">{log.type}</span>
+                      <span className="capitalize text-xs">{log.type}</span>
                     </div>
                   </div>
                 );

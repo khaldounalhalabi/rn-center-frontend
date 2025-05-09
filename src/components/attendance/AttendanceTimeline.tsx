@@ -27,6 +27,8 @@ const AttendanceTimeline: React.FC = () => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
+    isRefetching,
+    isPending,
   } = useInfiniteQuery({
     queryKey: ["attendance", selectedDate],
     queryFn: async ({ pageParam = 1 }) => {
@@ -73,7 +75,7 @@ const AttendanceTimeline: React.FC = () => {
         <span className={"text-3xl font-bold "}>Attendance Timeline</span>
       </div>
 
-      {isLoading && (
+      {(isLoading || isPending || isRefetching) && (
         <div className="flex justify-center items-center h-64">
           <LoadingSpin className={"w-10 h-10 text-brand-primary"} />
         </div>
@@ -98,50 +100,53 @@ const AttendanceTimeline: React.FC = () => {
         </div>
       )}
 
-      {data && allUsers.length > 0 && (
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <div className="px-6 bg-gray-50 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center">
-            <h2 className="text-xl font-semibold">
-              Attendance Date: {dayjs(selectedDate).format("MMMM D, YYYY")}
-            </h2>
-            <DatepickerFilter
-              onChange={handleDateChange}
-              defaultValue={selectedDate}
-            />
-            {/*<p className="text-gray-600">*/}
-            {/*  Status: {attendanceInfo?.status || "N/A"}*/}
-            {/*</p>*/}
-          </div>
-
-          <div className="divide-y divide-gray-200 max-h-[70vh] overflow-auto">
-            {allUsers.map((user, index) => (
-              <UserTimelineItem
-                key={`${user?.id}-${index}`}
-                user={user}
-                date={selectedDate}
+      {data &&
+        allUsers.length > 0 &&
+        !(isLoading || isPending || isRefetching) && (
+          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="px-6 bg-gray-50 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center">
+              <h2 className="text-xl font-semibold">
+                Attendance Date: {dayjs(selectedDate).format("MMMM D, YYYY")}
+              </h2>
+              <DatepickerFilter
+                onChange={handleDateChange}
+                defaultValue={selectedDate}
               />
-            ))}
+              {/*<p className="text-gray-600">*/}
+              {/*  Status: {attendanceInfo?.status || "N/A"}*/}
+              {/*</p>*/}
+            </div>
 
-            {/* Loading indicator for the next page */}
-            <div
-              ref={loadMoreRef}
-              className="flex justify-center items-center py-4"
-            >
-              {isFetchingNextPage ? (
-                <LoadingSpin className={"w-6 h-6 text-brand-primary"} />
-              ) : hasNextPage ? (
-                <div className="h-8"></div> // Spacer to trigger intersection observer
-              ) : (
-                allUsers.length > 0 && (
-                  <p className="text-gray-500 text-sm text-center">
-                    No more records to load
-                  </p>
-                )
-              )}
+            <div className="divide-y divide-gray-200 max-h-[70vh] overflow-auto">
+              {allUsers.map((user, index) => (
+                <UserTimelineItem
+                  key={`${user?.id}-${index}`}
+                  user={user}
+                  date={selectedDate}
+                  refetch={refetch}
+                />
+              ))}
+
+              {/* Loading indicator for the next page */}
+              <div
+                ref={loadMoreRef}
+                className="flex justify-center items-center py-4"
+              >
+                {isFetchingNextPage ? (
+                  <LoadingSpin className={"w-6 h-6 text-brand-primary"} />
+                ) : hasNextPage ? (
+                  <div className="h-8"></div> // Spacer to trigger intersection observer
+                ) : (
+                  allUsers.length > 0 && (
+                    <p className="text-gray-500 text-sm text-center">
+                      No more records to load
+                    </p>
+                  )
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
       {data && allUsers.length === 0 && (
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">

@@ -5,7 +5,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { MedicineService } from "@/services/MedicinesSevice";
-import { Medicine } from "@/Models/Medicines";
+import { Medicine } from "@/Models/Medicine";
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { RoleEnum } from "@/enum/RoleEnum";

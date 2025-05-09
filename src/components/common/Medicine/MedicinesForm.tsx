@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import { Medicine } from "@/Models/Medicines";
+import { Medicine } from "@/Models/Medicine";
 import Input from "@/components/common/ui/Inputs/Input";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";

@@ -1,1 +1,0 @@
-export type Actors = "admin" | "clinic" | "doctor" | "customer" | "public";

@@ -1,5 +1,4 @@
 import { Clinic } from "@/Models/Clinic";
-import { Hospital } from "@/Models/Hospital";
 
 export interface Schedule {
   id?: number;
@@ -8,8 +7,6 @@ export interface Schedule {
   day_of_week: WeekDay | string;
   clinic_id?: number;
   clinic?: Clinic;
-  hospital_id?: number;
-  hospital?: Hospital;
 }
 
 export type WeekDay =

@@ -13,8 +13,3 @@ export interface Transaction {
   appointment_id?: number;
   appointment?: Appointment;
 }
-
-export interface AdminSummary {
-  balance: number;
-  pending_amount: number;
-}

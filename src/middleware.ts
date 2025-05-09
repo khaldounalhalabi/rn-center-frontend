@@ -18,6 +18,14 @@ export default async function middleware(request: NextRequest) {
   const access = await authMiddleware(request);
   const locale = await getCookieServer("NEXT_LOCALE");
 
+  const { pathname } = request.nextUrl;
+
+  // Redirect / to /admin
+  if (pathname === `/${locale}`) {
+    const absolutURL = new URL(`${locale}/admin`, request.nextUrl.origin);
+    return NextResponse.redirect(absolutURL.toString());
+  }
+
   if (!access.canAccessAdmin) {
     const absolutURL = new URL(
       `${locale}/auth/admin/login`,

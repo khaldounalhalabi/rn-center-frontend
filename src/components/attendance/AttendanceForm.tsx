@@ -5,9 +5,9 @@ import Form from "@/components/common/ui/Form";
 import { useEffect, useState } from "react";
 import AttendanceLogTypeEnum from "@/enum/AttendanceLogTypeEnum";
 import dayjs from "dayjs";
-import PlusIcon from "@/components/icons/PlusIcon";
 import Trash from "@/components/icons/Trash";
 import Timepicker from "@/components/common/ui/TimePicker";
+import { useTranslations } from "next-intl";
 
 const AttendanceForm = ({
   attendances = [],
@@ -20,6 +20,7 @@ const AttendanceForm = ({
   userId: number;
   setClose: () => void;
 }) => {
+  const t = useTranslations("attendance");
   const handleSubmit = async (data: any) => {
     const formData = { ...data, attendance_at: date };
     console.log(formData);
@@ -105,17 +106,17 @@ const AttendanceForm = ({
     >
       {fields?.map((inputs, index) => (
         <div
-          className={"flex items-center gap-10 justify-between w-full"}
+          className={"flex w-full items-center justify-between gap-10"}
           key={index}
         >
           <Timepicker
             name={`attendance_shifts.${index}.attend_from`}
-            label={"From"}
+            label={t("from")}
             df={inputs.attend_from}
           />
           <Timepicker
             name={`attendance_shifts.${index}.attend_to`}
-            label={"To"}
+            label={t("to")}
             df={inputs.attend_to}
           />
           <button className={"btn btn-square"} type={"button"}>
@@ -123,21 +124,19 @@ const AttendanceForm = ({
               onClick={() => {
                 removeField(index);
               }}
-              className={"w-6 h-6 text-error"}
+              className={"h-6 w-6 text-error"}
             />
           </button>
         </div>
       ))}
-      <div className={"flex justify-end items-center"}>
+      <div className={"my-5 flex items-center justify-end"}>
         <button
-          className={"btn btn-sm btn-square"}
+          className={"btn btn-sm"}
           type={"button"}
           onClick={() => {
             addField();
           }}
-        >
-          <PlusIcon />
-        </button>
+        >{t("add_slot")}</button>
       </div>
     </Form>
   );

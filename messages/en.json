@@ -1549,7 +1549,17 @@
     "exists": "Exists",
     "out_of_stock": "Out of stock",
     "given": "Given",
-    "not_given": "Didn't give"
+    "not_given": "Didn't give",
+    "secretary": "Secretary",
+    "doctor": "Doctor",
+    "admin": "Admin",
+    "customer": "Patient",
+    "checkin_attendance": "Checkin",
+    "checkout_attendance": "Checkout",
+    "on_time": "On time",
+    "late": "Late",
+    "over_time": "Over time",
+    "early_leave": "Early leave"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1620,5 +1630,14 @@
     "actions": "Actions",
     "secretaries": "Secretaries",
     "edit_title": "Edit secretary"
+  },
+  "attendance": {
+    "attendance_timeline": "Attendance Timeline",
+    "no_more": "No more records to load",
+    "no_records": "No attendance records found for this date.",
+    "attendance_date": "Attendance date",
+    "from" : "From",
+    "to" : "To",
+    "add_slot" : "Add new slot"
   }
 }

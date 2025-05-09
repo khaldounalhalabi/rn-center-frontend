@@ -20,7 +20,7 @@ export class UserService extends BaseService<UserService, User>() {
     const response = await GET<UsersWithAttendance>(
       `${this.role}/users/attendances`,
       {
-        date: date,
+        attendance_at: date,
         search: search,
         sort_col: sortCol,
         sort_dir: sortDir,

@@ -8,6 +8,8 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
 import Dialog from "@/components/common/ui/Dialog";
 import AttendanceForm from "@/components/attendance/AttendanceForm";
+import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import { useTranslations } from "next-intl";
 
 interface UserTimelineItemProps {
   user?: User;
@@ -20,6 +22,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
   date,
   refetch,
 }) => {
+  const t = useTranslations("attendance");
   const [openEditModal, setOpenEditModal] = useState(false);
 
   const getStatusColor = (status: AttendanceLogStatusEnum) => {
@@ -43,10 +46,10 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
 
   return (
     <div className="p-6">
-      <div className="w-full flex items-center justify-between mb-4">
+      <div className="mb-4 flex w-full items-center justify-between">
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-4">
-            <span className="text-gray-600 font-bold">
+          <div className="ltr:mr-4 rtl:ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-300">
+            <span className="font-bold text-gray-600">
               {user?.first_name.charAt(0)}
               {user?.last_name.charAt(0)}
             </span>
@@ -58,11 +61,13 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                   ? `/admin/secretaries/${user.id}`
                   : `/admin/clinics/${user?.clinic?.id}`
               }
-              className="text-lg font-semibold btn btn-sm"
+              className="btn btn-sm text-lg font-semibold"
             >
               {user?.full_name}
             </Link>
-            <p className="text-gray-600">{user?.role}</p>
+            <p className="text-gray-600">
+              <TranslatableEnum value={user?.role} />
+            </p>
           </div>
         </div>
         <div className="flex items-center">
@@ -70,7 +75,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             className="btn btn-square btn-sm"
             onClick={() => setOpenEditModal((prevState) => !prevState)}
           >
-            <Pencil className="w-6 h-6 text-success" />
+            <Pencil className="h-6 w-6 text-success" />
           </button>
         </div>
       </div>
@@ -92,7 +97,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
       {user?.attendance_by_date && user?.attendance_by_date.length > 0 ? (
         <div className="mt-4">
           <div className="relative">
-            <div className="absolute h-1 w-full bg-gray-200 top-5"></div>
+            <div className="absolute top-5 h-1 w-full bg-gray-200"></div>
             {Array.from({ length: 25 }, (_, i) => i).map((hour) => {
               const leftPosition = (hour / 24) * 100;
               return (
@@ -110,7 +115,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             })}
 
             {/* Timeline events */}
-            <div className="relative flex justify-between items-center h-8 my-10">
+            <div className="relative my-20 flex h-8 items-center justify-between">
               {user.attendance_by_date.map((log) => {
                 const time = dayjs(log.attend_at);
                 const totalMinutes = time.hour() * 60 + time.minute();
@@ -119,16 +124,18 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                 return (
                   <div
                     key={log.id}
-                    className={`absolute w-4 h-4 rounded-full ${getStatusColor(log.status)} z-10`}
+                    className={`absolute h-4 w-4 rounded-full ${getStatusColor(log.status)} z-10`}
                     style={{ left: `${position - 0.4}%`, bottom: "5%" }}
                     title={`${log.type}: ${formatTime(log.attend_at)} - ${log.status}`}
                   >
-                    <div className="absolute -top-12 -left-5 text-xs text-center">
-                      <span className="font-bold border-l">
+                    <div className="absolute ltr:-start-4 rtl:-start-2 -top-20 text-center text-xs">
+                      <span className="font-bold">
                         {formatTime(log.attend_at)}
                       </span>
                       <br />
-                      <span className="capitalize text-xs">{log.type}</span>
+                      <span className="text-xs capitalize">
+                        <TranslatableEnum value={`${log.type}_attendance`} />
+                      </span>
                     </div>
                   </div>
                 );
@@ -141,9 +148,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
           </div>
         </div>
       ) : (
-        <p className="text-gray-500 italic">
-          No attendance records for this date
-        </p>
+        <p className="italic text-gray-500">{t("no_records")}</p>
       )}
     </div>
   );

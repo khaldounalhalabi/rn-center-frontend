@@ -7,8 +7,10 @@ import UserTimelineItem from "./UserTimelineItem";
 import { useInView } from "react-intersection-observer";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import { useTranslations } from "next-intl";
 
 const AttendanceTimeline: React.FC = () => {
+  const t = useTranslations("attendance");
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs().format("YYYY-MM-DD"),
   );
@@ -71,19 +73,19 @@ const AttendanceTimeline: React.FC = () => {
 
   return (
     <div className="container mb-2">
-      <div className="mb-2 flex items-center justify-between">
-        <span className={"text-3xl font-bold "}>Attendance Timeline</span>
+      <div className="mb-2 flex items-center justify-between text-start">
+        <span className={"text-3xl font-bold"}>{t("attendance_timeline")}</span>
       </div>
 
       {(isLoading || isPending || isRefetching) && (
-        <div className="flex justify-center items-center h-64">
-          <LoadingSpin className={"w-10 h-10 text-brand-primary"} />
+        <div className="flex h-64 items-center justify-center">
+          <LoadingSpin className={"h-10 w-10 text-brand-primary"} />
         </div>
       )}
 
       {isError && (
         <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
           role="alert"
         >
           <strong className="font-bold">Error!</strong>
@@ -93,7 +95,7 @@ const AttendanceTimeline: React.FC = () => {
           </span>
           <button
             onClick={() => refetch()}
-            className="mt-2 bg-red-200 hover:bg-red-300 text-red-800 px-3 py-1 rounded-md text-sm"
+            className="mt-2 rounded-md bg-red-200 px-3 py-1 text-sm text-red-800 hover:bg-red-300"
           >
             Try Again
           </button>
@@ -103,10 +105,10 @@ const AttendanceTimeline: React.FC = () => {
       {data &&
         allUsers.length > 0 &&
         !(isLoading || isPending || isRefetching) && (
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="px-6 bg-gray-50 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center">
-              <h2 className="text-xl font-semibold">
-                Attendance Date: {dayjs(selectedDate).format("MMMM D, YYYY")}
+          <div className="overflow-hidden rounded-lg bg-white shadow-md">
+            <div className="flex flex-col items-center justify-between border-b border-gray-200 bg-gray-50 px-6 md:flex-row">
+              <h2 className="text-xl font-semibold text-start">
+                {t("attendance_date")}: {dayjs(selectedDate).format("MMMM D, YYYY")}
               </h2>
               <DatepickerFilter
                 onChange={handleDateChange}
@@ -117,7 +119,7 @@ const AttendanceTimeline: React.FC = () => {
               {/*</p>*/}
             </div>
 
-            <div className="divide-y divide-gray-200 max-h-[70vh] overflow-auto">
+            <div className="max-h-[70vh] divide-y divide-gray-200 overflow-auto">
               {allUsers.map((user, index) => (
                 <UserTimelineItem
                   key={`${user?.id}-${index}`}
@@ -130,16 +132,16 @@ const AttendanceTimeline: React.FC = () => {
               {/* Loading indicator for the next page */}
               <div
                 ref={loadMoreRef}
-                className="flex justify-center items-center py-4"
+                className="flex items-center justify-center py-4"
               >
                 {isFetchingNextPage ? (
-                  <LoadingSpin className={"w-6 h-6 text-brand-primary"} />
+                  <LoadingSpin className={"h-6 w-6 text-brand-primary"} />
                 ) : hasNextPage ? (
                   <div className="h-8"></div> // Spacer to trigger intersection observer
                 ) : (
                   allUsers.length > 0 && (
-                    <p className="text-gray-500 text-sm text-center">
-                      No more records to load
+                    <p className="text-center text-sm text-gray-500">
+                      {t("no_more")}
                     </p>
                   )
                 )}
@@ -149,9 +151,9 @@ const AttendanceTimeline: React.FC = () => {
         )}
 
       {data && allUsers.length === 0 && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+        <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
           <p className="text-yellow-700">
-            No attendance records found for this date.
+            {t("no_records")}
           </p>
         </div>
       )}

@@ -36,7 +36,9 @@
     "join_requests": "طلبات الانضمام",
     "clinic_management": "إدارة العيادة",
     "search": "بحث",
-    "holidays": "العطل"
+    "holidays": "العطل",
+    "attendance": "جدول الدوام",
+    "secretaries": "السكرتاريا"
   },
   "admin": {
     "clinic": {
@@ -1557,7 +1559,17 @@
     "exists": "متوفر",
     "out_of_stock": "غير متوفر",
     "given" : "تم الصرف",
-    "not_given" : "لم يتم الصرف"
+    "not_given": "لم يتم الصرف",
+    "secretary": "موظف سكرتاريا",
+    "doctor": "طيبب",
+    "admin": "مدير",
+    "customer": "مريض",
+    "checkin_attendance": "بدأ الدوام",
+    "checkout_attendance": "نهاية الدوام",
+    "on_time": "على الوقت",
+    "late": "متأخر",
+    "over_time": "إضافي",
+    "early_leave": "غادر باكراً"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1619,5 +1631,23 @@
     "edit": "تعديل",
     "holiday_details": "بيانات العطلة",
     "update_title": "تعديل العطلة"
+  },
+  "secretaries": {
+    "name": "الاسم",
+    "phone": "رقم الهاتف",
+    "gender": "الجنس",
+    "phone_verified_at": "تم تأكيد الهاتف في",
+    "actions" : "الخيارات",
+    "secretaries": "السكرتاريا",
+    "edit_title": "تعديل على بيانات موظف السكرتاريا"
+  },
+  "attendance": {
+    "attendance_timeline": "جدول الدوام",
+    "no_more": "ليس هناك بيانات ليتم عرضها",
+    "no_records": "لا يوجد دوام في هذا التاريخ",
+    "attendance_date": "التاريخ",
+    "from" : "من",
+    "to" : "إلى",
+    "add_slot" : "إضافة فترة جديدة"
   }
 }

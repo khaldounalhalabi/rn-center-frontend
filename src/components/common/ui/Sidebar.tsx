@@ -23,6 +23,8 @@ import SidebarArIcon from "@/components/icons/SidebarArIcon";
 import ServiceManagementIcon from "@/components/icons/ServiceManagementIcon";
 import SearchIcon from "@/components/icons/SearchIcon";
 import HolidaysIcon from "@/components/icons/HolidaysIcon";
+import InDoorIcon from "@/components/icons/InDoorIcon";
+import StaffIcon from "@/components/icons/StaffIcon";
 
 interface SidebarItem {
   search: string;
@@ -140,6 +142,18 @@ const Sidebar = ({
       title: t("transaction"),
       link: "/admin/transaction",
       icon: <TransactionIcon className={`h-8 w-8 `} />,
+    },
+    {
+      search: t("attendance"),
+      title: t("attendance"),
+      link: "/admin/attendance",
+      icon: <InDoorIcon className={"h-8 w-8"} />,
+    },
+    {
+      search: t("secretaries"),
+      title: t("secretaries"),
+      link: "/admin/secretaries",
+      icon: <StaffIcon className={"h-8 w-8"} />,
     },
   ];
 

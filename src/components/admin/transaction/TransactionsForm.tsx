@@ -7,7 +7,7 @@ import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
 import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
@@ -61,7 +61,7 @@ const TransactionForm = ({
           label={`${t("date")} :`}
         />
       </Grid>
-      <Textarea
+      <FormTextarea
         label={t("notes")}
         name={"description"}
         defaultValue={defaultValues?.description ?? ""}

@@ -16,7 +16,7 @@ import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepic
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/inputs/KeyValueMultipleInput";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 
 const PatientsForm = ({
@@ -90,13 +90,13 @@ const PatientsForm = ({
         />
       </Grid>
       <KeyValueMultipleInput name={"other_data"} label={t("otherData")} />
-      <Textarea
+      <FormTextarea
         name={"health_status"}
         label={t("healthStatus")}
         defaultValue={customer?.health_status}
       />
 
-      <Textarea
+      <FormTextarea
         name={"notes"}
         label={t("notes")}
         defaultValue={customer?.notes}

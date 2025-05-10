@@ -12,7 +12,7 @@ interface textAreaType {
   required?: boolean;
 }
 
-const Textarea: React.FC<textAreaType> = ({
+const FormTextarea: React.FC<textAreaType> = ({
   className,
   label,
   name,
@@ -50,4 +50,4 @@ const Textarea: React.FC<textAreaType> = ({
   );
 };
 
-export default Textarea;
+export default FormTextarea;

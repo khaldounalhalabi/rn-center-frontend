@@ -4,7 +4,7 @@ import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Medicine } from "@/Models/Medicine";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { RoleEnum } from "@/enum/RoleEnum";
@@ -41,7 +41,7 @@ const MedicineForm = ({
         <FormInput type={"number"} name={"quantity"} label={t("quantity")} />
         <FormInput type={"text"} name={"barcode"} label={t("barcode_value")} />
       </Grid>
-      <Textarea
+      <FormTextarea
         label={t("description")}
         name={"description"}
         defaultValue={defaultValues ? defaultValues?.description : undefined}

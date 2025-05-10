@@ -19,7 +19,7 @@ import FormSelect from "@/components/common/ui/selects/FormSelect";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Navigate } from "@/Actions/navigate";
 import useIsHoliday from "@/hooks/IsHoliday";
 import { useAppointmentForm } from "@/hooks/AppointmentFormHook";
@@ -252,7 +252,7 @@ const AppointmentForm = memo(
           {timeSelector}
         </Grid>
 
-        <Textarea
+        <FormTextarea
           name="note"
           label={t("note")}
           defaultValue={defaultValues?.note}

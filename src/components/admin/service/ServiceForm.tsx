@@ -16,7 +16,7 @@ import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { RoleEnum } from "@/enum/RoleEnum";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const ServiceForm = ({
@@ -110,7 +110,7 @@ const ServiceForm = ({
           label={t("price")}
         />
       </Grid>
-      <Textarea
+      <FormTextarea
         name={"description"}
         defaultValue={defaultValues?.description ?? ""}
       />

@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import { Speciality } from "@/Models/Speciality";
-import Textarea from "@/components/common/ui/text-inputs/Textarea";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { SpecialityService } from "@/services/SpecialityService";
 import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
@@ -50,7 +50,7 @@ const SpecialityForm = ({
         />
       </Grid>
 
-      <Textarea
+      <FormTextarea
         name={"description"}
         label={`${t("description")}`}
         defaultValue={array ?? []}

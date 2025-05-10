@@ -26,7 +26,7 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   return {
-    title: locale === "ar" ? "كوكب الطب" : "Planet of Medicine",
+    title: locale === "ar" ? "كوكب الطب" : "Planet of medicine",
     description:
       locale === "ar"
         ? "منصة متكاملة لإدارة العيادات الطبية وحجز المواعيد عبر الإنترنت بسهولة. خدمات مميزة ستوفر لك تجربة احترافية ومريحة."

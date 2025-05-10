@@ -10,7 +10,7 @@ import { MedicineService } from "@/services/MedicinesSevice";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { Navigate } from "@/Actions/navigate";
 
-const MedicinesForm = ({
+const MedicineForm = ({
   defaultValues = undefined,
   type = "store",
 }: {
@@ -50,4 +50,4 @@ const MedicinesForm = ({
   );
 };
 
-export default MedicinesForm;
+export default MedicineForm;

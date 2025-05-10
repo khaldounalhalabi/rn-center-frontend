@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
-import MedicinesForm from "@/components/common/Medicine/MedicinesForm";
+import MedicineForm from "@/components/common/medicine/MedicineForm";
 import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enum/RoleEnum";
 
@@ -21,7 +21,7 @@ const page = async ({
   return (
     <PageCard>
       <h2 className="card-title">{t("editMedicine")}</h2>
-      <MedicinesForm type={"update"} defaultValues={medicines} />
+      <MedicineForm type={"update"} defaultValues={medicines} />
     </PageCard>
   );
 };

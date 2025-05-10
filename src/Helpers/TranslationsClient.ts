@@ -1,6 +1,6 @@
 "use client";
 import { Translatable } from "@/Models/Translatable";
-import { getCookieClient } from "@/actions/clientCookies";
+import { getCookieClient } from "@/actions/ClientCookies";
 import { useTranslations } from "next-intl";
 
 export function TranslateClient(

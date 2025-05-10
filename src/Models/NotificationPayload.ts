@@ -1,5 +1,5 @@
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import { getCookieClient } from "@/actions/clientCookies";
+import { getCookieClient } from "@/actions/ClientCookies";
 
 export class NotificationPayload {
   public collapseKey?: string;

@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { ApiErrorType, ApiResponse } from "@/Http/Response";
-import { getCookieServer } from "@/actions/serverCookies";
+import { getCookieServer } from "@/actions/ServerCookies";
 import { getToken } from "@/actions/HelperActions";
 
 export const GET = async <T>(

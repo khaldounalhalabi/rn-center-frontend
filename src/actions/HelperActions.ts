@@ -3,7 +3,7 @@ import {
   deleteCookieServer,
   getCookieServer,
   setServerCookie,
-} from "@/actions/serverCookies";
+} from "@/actions/ServerCookies";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 export async function setToken(token?: string, refreshToken?: string) {

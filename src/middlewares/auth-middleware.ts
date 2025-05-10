@@ -2,7 +2,7 @@
 import { NextRequest } from "next/server";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { getRole, getToken } from "@/actions/HelperActions";
-import { getCookieServer } from "@/actions/serverCookies";
+import { getCookieServer } from "@/actions/ServerCookies";
 
 export const authMiddleware = async (request: NextRequest) => {
   const path = `${request.nextUrl.pathname}`;

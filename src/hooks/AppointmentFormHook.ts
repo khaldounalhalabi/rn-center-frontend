@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Service } from "@/models/Service";
@@ -23,40 +23,40 @@ export const useAppointmentForm = ({
 }: UseAppointmentFormProps) => {
   // Date state
   const [date, setDate] = useState<Dayjs | null>(
-    defaultValues?.date_time ? dayjs(defaultValues.date_time) : dayjs()
+    defaultValues?.date_time ? dayjs(defaultValues.date_time) : dayjs(),
   );
-  
+
   // Clinic state
   const [clinicId, setClinicId] = useState<number | undefined>(
-    defaultClinicId ?? defaultValues?.clinic_id
+    defaultClinicId ?? defaultValues?.clinic_id,
   );
   const [clinic, setClinic] = useState<Clinic | undefined>(
-    defaultValues?.clinic
+    defaultValues?.clinic,
   );
-  
+
   // Service state
   const [serviceId, setServiceId] = useState<number | undefined>(
-    defaultValues?.service_id
+    defaultValues?.service_id,
   );
   const [service, setService] = useState<Service | undefined>(
-    defaultValues?.service
+    defaultValues?.service,
   );
-  
+
   // Extra fees and discounts
   const [extras, setExtras] = useState({
     extra_fees: defaultValues?.extra_fees ?? 0,
     discount: defaultValues?.discount ?? 0,
   });
-  
+
   // Total cost calculation
   const [totalCost, setTotalCost] = useState<number>(
-    defaultValues?.total_cost ?? 0
+    defaultValues?.total_cost ?? 0,
   );
 
   // Fetch clinic data when clinicId changes
   useEffect(() => {
     let isMounted = true;
-    
+
     if (clinicId) {
       ClinicsService.make<ClinicsService>()
         .show(clinicId)
@@ -66,7 +66,7 @@ export const useAppointmentForm = ({
           }
         });
     }
-    
+
     return () => {
       isMounted = false;
     };
@@ -75,7 +75,7 @@ export const useAppointmentForm = ({
   // Fetch service data when serviceId changes
   useEffect(() => {
     let isMounted = true;
-    
+
     if (serviceId) {
       ServiceService.make<ServiceService>()
         .show(serviceId)
@@ -85,7 +85,7 @@ export const useAppointmentForm = ({
           }
         });
     }
-    
+
     return () => {
       isMounted = false;
     };
@@ -97,7 +97,7 @@ export const useAppointmentForm = ({
       (service?.price ?? 0) +
         (extras?.extra_fees ?? 0) -
         (extras?.discount ?? 0) +
-        (clinic?.appointment_cost ?? 0)
+        (clinic?.appointment_cost ?? 0),
     );
   }, [service, extras, clinic]);
 
@@ -118,28 +118,31 @@ export const useAppointmentForm = ({
   }, []);
 
   // Form submission handler
-  const handleSubmit = useCallback((data: any) => {
-    const dateTime = date?.format("YYYY-MM-DD") + " " + data.time;
-    const service = AppointmentService.make();
+  const handleSubmit = useCallback(
+    (data: any) => {
+      const dateTime = date?.format("YYYY-MM-DD") + " " + data.time;
+      const service = AppointmentService.make();
 
-    if (defaultClinicId) {
-      data = { ...data, clinic_id: defaultClinicId };
-    }
+      if (defaultClinicId) {
+        data = { ...data, clinic_id: defaultClinicId };
+      }
 
-    if (defaultCustomerId) {
-      data = { ...data, customer_id: defaultCustomerId };
-    }
+      if (defaultCustomerId) {
+        data = { ...data, customer_id: defaultCustomerId };
+      }
 
-    if (type === "store") {
-      return service.store({ ...data, date_time: dateTime });
-    } else {
-      return service.update(defaultValues?.id ?? 0, {
-        ...defaultValues,
-        ...data,
-        date_time: dateTime,
-      });
-    }
-  }, [date, defaultClinicId, defaultCustomerId, defaultValues, type]);
+      if (type === "store") {
+        return service.store({ ...data, date_time: dateTime });
+      } else {
+        return service.update(defaultValues?.id ?? 0, {
+          ...defaultValues,
+          ...data,
+          date_time: dateTime,
+        });
+      }
+    },
+    [date, defaultClinicId, defaultCustomerId, defaultValues, type],
+  );
 
   return {
     date,
@@ -154,6 +157,6 @@ export const useAppointmentForm = ({
     setExtraFees,
     setDiscount,
     totalCost,
-    handleSubmit
+    handleSubmit,
   };
 };

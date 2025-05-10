@@ -31,10 +31,10 @@ const Login = ({ role }: { role: RoleEnum }) => {
   };
   const t = useTranslations("auth");
   return (
-    <div className="relative w-full h-screen">
-      <div className="absolute top-1/2  left-1/2 bg-white p-8 rounded-2xl w-full md:w-6/12 max-w-[455px] -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-col items-center mb-4 w-full">
-          <h1 className="font-bold text-2xl sm:text-3xl">{t("signIn")}</h1>
+    <div className="relative h-screen w-full">
+      <div className="absolute left-1/2 top-1/2 w-full max-w-[455px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-8 md:w-6/12">
+        <div className="mb-4 flex w-full flex-col items-center">
+          <h1 className="text-2xl font-bold sm:text-3xl">{t("signIn")}</h1>
           <h4 className="mt-4 text-gray-500">{t("welcomeBack")}!</h4>
         </div>
         <Form
@@ -58,14 +58,14 @@ const Login = ({ role }: { role: RoleEnum }) => {
           </div>
 
           {error && (
-            <p className="my-3 p-2 w-full text-error text-sm">{t("err")}.</p>
+            <p className="my-3 w-full p-2 text-sm text-error">{t("err")}.</p>
           )}
 
-          <div className="flex justify-center opacity-80 mt-4 gap-1">
+          <div className="mt-4 flex justify-center gap-1 opacity-80">
             <h4>{t("forgetPassword")}</h4>
             <Link
               href={`/auth/${role}/reset-password`}
-              className="text-blue-600 ml-1"
+              className="ml-1 text-blue-600"
             >
               {t("resetPassword")}
             </Link>

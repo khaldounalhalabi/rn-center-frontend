@@ -17,13 +17,13 @@ const TablePaginator = ({
   const locale = useLocale();
 
   return (
-    <div className="flex justify-end border-gray-200 px-4 py-2 border-t rounded-b-lg">
-      <ol className={`flex justify-end items-center gap-1 font-medium text-xs`}>
+    <div className="flex justify-end rounded-b-lg border-t border-gray-200 px-4 py-2">
+      <ol className={`flex items-center justify-end gap-1 text-xs font-medium`}>
         <li>
           <button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
             disabled={data?.paginate?.is_first ?? true}
-            className="btn btn-sm btn-square bg-pom disabled:btn-neutral disabled:text-black cursor-pointer"
+            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
           >
             <div className="tooltip" data-tip={t("prevPage")}>
               {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
@@ -39,7 +39,7 @@ const TablePaginator = ({
               }
             }}
             disabled={data?.paginate?.is_last ?? true}
-            className="btn btn-sm btn-square bg-pom disabled:btn-neutral disabled:text-black cursor-pointer"
+            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
           >
             <div className="tooltip" data-tip={t("nextPage")}>
               {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}

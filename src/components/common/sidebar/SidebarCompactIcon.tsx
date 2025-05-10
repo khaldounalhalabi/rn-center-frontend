@@ -14,9 +14,9 @@ const SidebarCompactIcon = ({
 }) => {
   return (
     <li className={`group/comp ${className}`}>
-      <details className=" [&_summary::-webkit-details-marker]:hidden">
-        <summary className="flex cursor-pointer items-center justify-center w-full h-12 px-2 my-1 ">
-          <span className="text-sm font-medium flex cursor-pointer items-center justify-center  text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-2xl w-full h-full">
+      <details className="[&_summary::-webkit-details-marker]:hidden">
+        <summary className="my-1 flex h-12 w-full cursor-pointer items-center justify-center px-2">
+          <span className="flex h-full w-full cursor-pointer items-center justify-center rounded-2xl text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700">
             {" "}
             {icon}{" "}
           </span>

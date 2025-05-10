@@ -15,10 +15,10 @@ const SidebarIcon = ({
   const path = usePathname();
   return (
     <>
-      <div className={`w-full h-12 px-2 my-1 ${className}`}>
+      <div className={`my-1 h-12 w-full px-2 ${className}`}>
         <Link
           href={link}
-          className={`w-full h-full ${path == link ? "bg-gray-200" : ""}  hover:bg-gray-200 rounded-2xl cursor-pointer flex justify-center items-center`}
+          className={`h-full w-full ${path == link ? "bg-gray-200" : ""} flex cursor-pointer items-center justify-center rounded-2xl hover:bg-gray-200`}
         >
           {children}
         </Link>

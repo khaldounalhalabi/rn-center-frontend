@@ -9,7 +9,6 @@ import { HolidayService } from "@/services/HolidayService";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Holiday } from "@/models/Holiday";
 import DatePickerFilter from "@/components/common/ui/date-time-pickers/Datepicker";
-import dayjs from "dayjs";
 
 const HolidaysIndexPage = () => {
   const t = useTranslations("holidays");

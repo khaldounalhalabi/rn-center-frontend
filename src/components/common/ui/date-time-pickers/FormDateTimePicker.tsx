@@ -26,7 +26,7 @@ const FormDateTimePicker = ({
   const defaultValue = getNestedPropertyValue(defaultValues, name);
 
   return (
-    <label className="flex flex-col items-start gap-2 label">
+    <label className="label flex flex-col items-start gap-2">
       <p>
         {label ?? ""}
         {required ? <span className="ml-1 text-red-600">*</span> : false}
@@ -39,7 +39,7 @@ const FormDateTimePicker = ({
         className={styles.datePicker}
         shouldDisableDate={shouldDisableDate ?? undefined}
       />
-      {error ? <p className="text-error text-sm">{error}</p> : ""}
+      {error ? <p className="text-sm text-error">{error}</p> : ""}
     </label>
   );
 };

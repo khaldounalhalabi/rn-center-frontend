@@ -42,28 +42,28 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
   };
 
   return (
-    <div className={`my-10 grid gap-6 grid-cols-2 md:grid-cols-6 w-full`}>
+    <div className={`my-10 grid w-full grid-cols-2 gap-6 md:grid-cols-6`}>
       {isMutating ? (
-        <LoadingSpin className={"w-7 h-7"} />
+        <LoadingSpin className={"h-7 w-7"} />
       ) : !media || media?.length <= 0 ? (
-        <span className="text-lg badge badge-neutral">{t("no_data")}</span>
+        <span className="badge badge-neutral text-lg">{t("no_data")}</span>
       ) : (
         media?.map((img, index) => (
-          <div key={index} className="h-32 relative">
+          <div key={index} className="relative h-32">
             <div
               onClick={() => {
                 return handleDeleteImage(img?.id ?? 0);
               }}
               className={
-                "btn btn-circle btn-error btn-xs absolute -top-3 -left-1 cursor-pointer"
+                "btn btn-circle btn-error btn-xs absolute -left-1 -top-3 cursor-pointer"
               }
             >
-              <Trash className={"w-4 h-4 fill-white stroke-error"} />
+              <Trash className={"h-4 w-4 fill-white stroke-error"} />
             </div>
             <ImagePreview
               src={getMedia(img)}
               className={
-                "h-full w-full object-contain rounded-md cursor-pointer"
+                "h-full w-full cursor-pointer rounded-md object-contain"
               }
             />
           </div>

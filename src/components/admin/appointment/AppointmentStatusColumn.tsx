@@ -48,7 +48,7 @@ const AppointmentStatusColumn = ({
   };
 
   return loading ? (
-    <LoadingSpin className={"w-6 h-6"} />
+    <LoadingSpin className={"h-6 w-6"} />
   ) : (
     <>
       <Dialog open={open}>
@@ -62,7 +62,7 @@ const AppointmentStatusColumn = ({
             <textarea
               name={"cancellation_reason"}
               defaultValue={""}
-              className={"w-full textarea"}
+              className={"textarea w-full"}
               onChange={(e) => {
                 setCancellationReason(e.target.value);
               }}
@@ -72,7 +72,7 @@ const AppointmentStatusColumn = ({
       </Dialog>
       <select
         defaultValue={selectedStatus}
-        className={"select select-bordered text-sm font-medium w-fit"}
+        className={"select select-bordered w-fit text-sm font-medium"}
         onChange={(event) => {
           handleSelect(event.target.value as AppointmentStatusEnum);
         }}

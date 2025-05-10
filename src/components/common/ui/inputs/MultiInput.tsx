@@ -80,17 +80,17 @@ const MultiInput: React.FC<MultiInputProps> = ({
         ""
       )}
 
-      <div className={"grid grid-cols-1 md:grid-cols-2 gap-2"}>
+      <div className={"grid grid-cols-1 gap-2 md:grid-cols-2"}>
         {inputs.map((field: any, index: number) => {
           return (
             <div className={"flex flex-col items-start"} key={index}>
-              <div className={`flex justify-between items-center w-full gap-2`}>
+              <div className={`flex w-full items-center justify-between gap-2`}>
                 <input
                   key={`a-${index}`}
                   type={type}
                   className={
                     className ??
-                    `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+                    `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
                   }
                   {...props}
                   defaultValue={field ?? ""}
@@ -128,10 +128,10 @@ const MultiInput: React.FC<MultiInputProps> = ({
         })}
       </div>
 
-      <div className={`flex items-center m-3`}>
+      <div className={`m-3 flex items-center`}>
         <button
           type={"button"}
-          className={`btn btn-sm btn-neutral`}
+          className={`btn btn-neutral btn-sm`}
           onClick={() => addInput()}
           disabled={inputs.length >= maxFields}
         >

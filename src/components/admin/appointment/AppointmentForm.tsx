@@ -128,7 +128,7 @@ const AppointmentForm = memo(
       if (isLoadingAvailableTimes) {
         return (
           <div className="flex items-center justify-center">
-            <LoadingSpin className="w-8 h-8" />
+            <LoadingSpin className="h-8 w-8" />
           </div>
         );
       }
@@ -238,7 +238,7 @@ const AppointmentForm = memo(
             onInput={handleDiscountChange}
             defaultValue={defaultValues?.discount ?? 0}
           />
-          <div className="md:col-span-2 flex items-center justify-between">
+          <div className="flex items-center justify-between md:col-span-2">
             <span className="badge badge-ghost">{t("totalCost")}</span>
             <span>{totalCost}</span>
           </div>

@@ -1,5 +1,5 @@
 const page = () => {
-  return <div className="w-full h-full text-2xl text-center">404</div>;
+  return <div className="h-full w-full text-center text-2xl">404</div>;
 };
 
 export default page;

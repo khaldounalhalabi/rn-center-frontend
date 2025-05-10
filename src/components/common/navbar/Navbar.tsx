@@ -25,9 +25,9 @@ const Navbar = ({
   const path = usePathname();
   return (
     <nav
-      className={`w-full h-16 relative bg-white shadow-md flex justify-between max-h-20 px-2 items-center py-4 col-span-4 lg:col-span-3`}
+      className={`relative col-span-4 flex h-16 max-h-20 w-full items-center justify-between bg-white px-2 py-4 shadow-md lg:col-span-3`}
     >
-      <div className={`flex w-[inherit] justify-start gap-3 items-center`}>
+      <div className={`flex w-[inherit] items-center justify-start gap-3`}>
         <MenuIcon
           className={`h-6 w-6 cursor-pointer lg:hidden`}
           onClick={() => setOpenNavBar({ sm: !openNavBar.sm, md: false })}
@@ -35,13 +35,13 @@ const Navbar = ({
         <button
           type="button"
           disabled={path === "/admin" || path === "/doctor"}
-          className={`p-2 hidden  ${path == "/admin" || path == "/doctor" ? "hidden" : "lg:block"} h-full rounded-full hover:bg-gray-300 cursor-pointer`}
+          className={`hidden p-2 ${path == "/admin" || path == "/doctor" ? "hidden" : "lg:block"} h-full cursor-pointer rounded-full hover:bg-gray-300`}
           onClick={() => rout.back()}
         >
-          <ArrowLeft className={"w-5 h-5"} />
+          <ArrowLeft className={"h-5 w-5"} />
         </button>
       </div>
-      <div className={`flex justify-between items-center gap-2 `}>
+      <div className={`flex items-center justify-between gap-2`}>
         <LanguagePopover />
         <NotificationsPopover />
         <ProfileOptionsPopover />

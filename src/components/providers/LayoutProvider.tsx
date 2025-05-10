@@ -13,9 +13,9 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   return (
-    <div className="flex flex-row ">
+    <div className="flex flex-row">
       <Sidebar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
-      <div className={`flex-grow transition-all duration-300 w-[75%] h-full`}>
+      <div className={`h-full w-[75%] flex-grow transition-all duration-300`}>
         <Navbar openNavBar={openNavBar} setOpenNavBar={setOpenNavBar} />
         <div>{children}</div>
       </div>

@@ -138,7 +138,7 @@ const AppointmentsTable = ({
     title: `${t("appointments")}`,
     filter: (params, setParams) => {
       return (
-        <div className={"w-full grid grid-cols-1"}>
+        <div className={"grid w-full grid-cols-1"}>
           <Label label={t("status")} col>
             <Select
               data={getEnumValues(AppointmentStatusEnum)}

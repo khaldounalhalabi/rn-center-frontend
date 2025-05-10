@@ -77,7 +77,7 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-col items-start gap-2">
+    <div className="flex w-full flex-col items-start gap-2">
       {label && (
         <label className="label justify-start">
           {label}
@@ -85,7 +85,7 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
         </label>
       )}
 
-      <div className="w-full flex flex-col gap-3">
+      <div className="flex w-full flex-col gap-3">
         {fields.map((field, index) => (
           <div key={index} className="flex items-center gap-2">
             <input
@@ -113,12 +113,12 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
           </div>
         ))}
 
-        {error && <p className="text-error text-sm">{error.message}</p>}
+        {error && <p className="text-sm text-error">{error.message}</p>}
 
         <div className="self-start">
           <button
             type="button"
-            className="btn btn-sm btn-neutral mt-2"
+            className="btn btn-neutral btn-sm mt-2"
             onClick={addField}
             disabled={fields.length >= maxFields}
           >

@@ -7,7 +7,7 @@ const RoundedImage: React.FC<HTMLProps<HTMLImageElement>> = ({
   ...props
 }) => {
   return (
-    <div className={`rounded-full h-full ${className}`}>
+    <div className={`h-full rounded-full ${className}`}>
       <img
         className={`size-fit w-full cursor-pointer`}
         src={src}

@@ -57,27 +57,27 @@ const Sidebar = ({
       search: t("dashboard"),
       title: t("dashboard"),
       link: "/admin",
-      icon: <DashBordIcon className={`h-7 w-7 `} />,
+      icon: <DashBordIcon className={`h-7 w-7`} />,
     },
     {
       search: t("clinicsManagement"),
       title: t("clinicsManagement"),
       link: undefined,
-      icon: <ClinicIcon className={`h-9 w-9 `} />,
+      icon: <ClinicIcon className={`h-9 w-9`} />,
       children: [
         {
           search: t("clinics"),
           title: t("clinics"),
           link: "/admin/clinics",
           children: undefined,
-          icon: <ClinicsShowIcon className={`h-6 w-6 mx-2`} />,
+          icon: <ClinicsShowIcon className={`mx-2 h-6 w-6`} />,
         },
         {
           search: t("clinicsSchedules"),
           title: t("clinicsSchedules"),
           link: "/admin/clinics/schedules",
           children: undefined,
-          icon: <SchedulesIcon className={`h-6 w-6 mx-2`} />,
+          icon: <SchedulesIcon className={`mx-2 h-6 w-6`} />,
         },
         {
           search: t("specialties"),
@@ -92,7 +92,7 @@ const Sidebar = ({
       search: t("services"),
       title: t("services"),
       link: undefined,
-      icon: <ServiceManagementIcon className={`h-9 w-9 `} />,
+      icon: <ServiceManagementIcon className={`h-9 w-9`} />,
       children: [
         {
           search: t("serviceCategories"),
@@ -114,7 +114,7 @@ const Sidebar = ({
       search: t("holidays"),
       title: t("holidays"),
       link: "/admin/holidays",
-      icon: <HolidaysIcon className={`h-7 w-7 `} />,
+      icon: <HolidaysIcon className={`h-7 w-7`} />,
     },
     {
       search: t("appointment"),
@@ -141,7 +141,7 @@ const Sidebar = ({
       search: t("transaction"),
       title: t("transaction"),
       link: "/admin/transaction",
-      icon: <TransactionIcon className={`h-8 w-8 `} />,
+      icon: <TransactionIcon className={`h-8 w-8`} />,
     },
     {
       search: t("attendance"),
@@ -167,25 +167,23 @@ const Sidebar = ({
 
   return (
     <div
-      className={`lg:block sidebar w-full !overflow-visible h-full overflow-y-scroll md:overflow-y-hidden lg:w-[25%] lg:max-w-[300px] lg:translate-y-0 z-50 lg:sticky lg:top-0 bg-white  lg:flex-col lg:justify-between lg:border-e ease-in-out duration-300
-       ${openNavBar.md ? " !w-16 " : " lg:w-[35%]"}
-       ${
-         openNavBar.sm
-           ? "absolute  translate-y-0 ease-in-out duration-500"
-           : "absolute h-0 translate-y-[-300vh] ease-in-out duration-700"
-       }`}
+      className={`sidebar z-50 h-full w-full !overflow-visible overflow-y-scroll bg-white duration-300 ease-in-out md:overflow-y-hidden lg:sticky lg:top-0 lg:block lg:w-[25%] lg:max-w-[300px] lg:translate-y-0 lg:flex-col lg:justify-between lg:border-e ${openNavBar.md ? "!w-16" : "lg:w-[35%]"} ${
+        openNavBar.sm
+          ? "absolute translate-y-0 duration-500 ease-in-out"
+          : "absolute h-0 translate-y-[-300vh] duration-700 ease-in-out"
+      }`}
     >
-      <div className={"h-screen md:h-full bg-white"}>
+      <div className={"h-screen bg-white md:h-full"}>
         <div
-          className={`px-4 flex py-4 justify-between items-center place-content-center rounded-lg h-20 text-xs ${openNavBar.md ? " !justify-center !p-0" : ""}`}
+          className={`flex h-20 place-content-center items-center justify-between rounded-lg px-4 py-4 text-xs ${openNavBar.md ? "!justify-center !p-0" : ""}`}
         >
           {local == "en" ? (
             <SidebarEnIcon
-              className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}
+              className={`h-full w-64 ${openNavBar.md ? "!hidden" : "md:block"}`}
             />
           ) : (
             <SidebarArIcon
-              className={`w-64 h-full  ${openNavBar.md ? " !hidden" : "md:block"}`}
+              className={`h-full w-64 ${openNavBar.md ? "!hidden" : "md:block"}`}
             />
           )}
 
@@ -196,24 +194,23 @@ const Sidebar = ({
             }
           />
         </div>
-        <div className={`px-4 relative ${openNavBar.md ? " hidden " : ""}`}>
+        <div className={`relative px-4 ${openNavBar.md ? "hidden" : ""}`}>
           <div
-            className={`absolute flex gap-2  top-4 items-center  ${local == "ar" ? "left-[8%]" : "right-[8%]"}`}
+            className={`absolute top-4 flex items-center gap-2 ${local == "ar" ? "left-[8%]" : "right-[8%]"}`}
           >
-            <SearchIcon className={"w-5 h-5  opacity-60"} />
+            <SearchIcon className={"h-5 w-5 opacity-60"} />
           </div>
           <input
             type={"text"}
             placeholder={t("search")}
-            className="block  w-full  kodchasan py-2.5 px-0  bg-transparent border-0 border-b-2
-                    border-[#c1d5df] appearance-none  focus:outline-none focus:ring-0 focus:border-[#1FB8B9]"
+            className="kodchasan block w-full appearance-none border-0 border-b-2 border-[#c1d5df] bg-transparent px-0 py-2.5 focus:border-[#1FB8B9] focus:outline-none focus:ring-0"
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}
           />
         </div>
         <ul
-          className={`space-y-1 px-4 py-5 h-screen md:h-[85vh] text-black ease-in-out duration-500 transform overflow-y-scroll ${openNavBar.md ? " hidden " : ""}`}
+          className={`h-screen transform space-y-1 overflow-y-scroll px-4 py-5 text-black duration-500 ease-in-out md:h-[85vh] ${openNavBar.md ? "hidden" : ""}`}
         >
           {searchTerm ? (
             filteredItems?.map((item, index) => (
@@ -266,7 +263,7 @@ const Sidebar = ({
         </ul>
       </div>
       <div
-        className={`mt-5 overflow-scroll ease-in-out h-[calc(100vh-64px)] duration-300 ${openNavBar.md ? "w-full" : " hidden"}`}
+        className={`mt-5 h-[calc(100vh-64px)] overflow-scroll duration-300 ease-in-out ${openNavBar.md ? "w-full" : "hidden"}`}
       >
         <ul className={"bg-white"}>
           {sidebarItems.map((item, index) => {

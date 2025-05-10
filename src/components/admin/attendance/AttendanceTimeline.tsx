@@ -107,8 +107,9 @@ const AttendanceTimeline: React.FC = () => {
         !(isLoading || isPending || isRefetching) && (
           <div className="overflow-hidden rounded-lg bg-white shadow-md">
             <div className="flex flex-col items-center justify-between border-b border-gray-200 bg-gray-50 px-6 md:flex-row">
-              <h2 className="text-xl font-semibold text-start">
-                {t("attendance_date")}: {dayjs(selectedDate).format("MMMM D, YYYY")}
+              <h2 className="text-start text-xl font-semibold">
+                {t("attendance_date")}:{" "}
+                {dayjs(selectedDate).format("MMMM D, YYYY")}
               </h2>
               <Datepicker
                 onChange={handleDateChange}
@@ -152,9 +153,7 @@ const AttendanceTimeline: React.FC = () => {
 
       {data && allUsers.length === 0 && (
         <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
-          <p className="text-yellow-700">
-            {t("no_records")}
-          </p>
+          <p className="text-yellow-700">{t("no_records")}</p>
         </div>
       )}
     </div>

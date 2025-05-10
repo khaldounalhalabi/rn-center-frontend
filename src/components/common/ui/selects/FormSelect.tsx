@@ -26,7 +26,7 @@ const FormSelect: React.FC<SelectProps> = ({
   const error = getNestedPropertyValue(errors, `${name}.message`);
 
   return (
-    <div className={"flex flex-col items-start w-full"}>
+    <div className={"flex w-full flex-col items-start"}>
       <label className={"label text-nowrap"}>{label}</label>
       <select
         className={"select select-bordered w-full"}

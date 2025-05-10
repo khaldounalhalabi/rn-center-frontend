@@ -9,6 +9,7 @@ export interface Schedule {
   clinic_id?: number;
   clinic?: Clinic;
 }
+
 export interface SchedulesCollection {
   saturday: Schedule[];
   sunday: Schedule[];

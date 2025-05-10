@@ -18,8 +18,8 @@ const AppointmentLogsTable = async ({
   const t = await getTranslations("common.appointment.show");
 
   return (
-    <div className={"card p-5 bg-base-200 my-3 w-full"}>
-      <div className="overflow-x-auto bg-white rounded-xl">
+    <div className={"card my-3 w-full bg-base-200 p-5"}>
+      <div className="overflow-x-auto rounded-xl bg-white">
         <table className="table">
           <thead>
             <tr>

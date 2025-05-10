@@ -20,9 +20,9 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
   const dataId = id ?? data?.id ?? undefined;
 
   return (
-    <button className="btn btn-sm btn-square">
+    <button className="btn btn-square btn-sm">
       <Trash
-        className="w-6 h-6 text-error"
+        className="h-6 w-6 text-error"
         onClick={() => {
           swal
             .fire({

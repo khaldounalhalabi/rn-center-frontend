@@ -85,16 +85,16 @@ const UserForm = ({
             type="tel"
           />
           <div
-            className={`flex flex-col md:flex-row gap-5 py-11 px-2 md:items-center`}
+            className={`flex flex-col gap-5 px-2 py-11 md:flex-row md:items-center`}
           >
-            <label className={`bg-pom p-2 rounded-md text-white`}>
+            <label className={`rounded-md bg-pom p-2 text-white`}>
               {t("gender")}:
             </label>
             <FormInput
               name={"gender"}
               label={t("male")}
               type="radio"
-              className="radio radio-info"
+              className="radio-info radio"
               value={GenderEnum.MALE}
               defaultChecked={user?.gender == GenderEnum.MALE}
             />
@@ -103,7 +103,7 @@ const UserForm = ({
               name={"gender"}
               label={t("female")}
               type="radio"
-              className="radio radio-info"
+              className="radio-info radio"
               value={GenderEnum.FEMALE}
               defaultChecked={user?.gender == GenderEnum.FEMALE}
             />

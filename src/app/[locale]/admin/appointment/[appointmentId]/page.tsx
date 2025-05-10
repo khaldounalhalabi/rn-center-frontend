@@ -23,7 +23,7 @@ const page = async ({
   const appointment: Appointment = data?.data;
   return (
     <PageCard>
-      <div className="flex justify-between items-center w-full h-24">
+      <div className="flex h-24 w-full items-center justify-between">
         <h2 className="card-title">{t("appointmentDetails")}</h2>
         <Link href={`/admin/appointment/${appointment.id}/edit`}>
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
@@ -96,7 +96,9 @@ const page = async ({
         tabs={[
           {
             title: t("prescriptions"),
-            render: <PrescriptionDetails prescription={appointment?.prescription} />,
+            render: (
+              <PrescriptionDetails prescription={appointment?.prescription} />
+            ),
           },
           {
             title: t("logs"),

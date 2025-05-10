@@ -24,7 +24,10 @@ const AttendanceForm = ({
   const handleSubmit = async (data: any) => {
     const formData = { ...data, attendance_at: date };
     console.log(formData);
-    return AttendanceLogService.make().editOrCreateUserAttendance(userId, formData);
+    return AttendanceLogService.make().editOrCreateUserAttendance(
+      userId,
+      formData,
+    );
   };
 
   const extractLogs = (data: AttendanceLog[]) => {
@@ -48,14 +51,15 @@ const AttendanceForm = ({
   };
 
   let logs = extractLogs(attendances);
-  logs =  logs.length > 0
-    ? logs
-    : [
-      {
-        attend_from: dayjs().format("HH:mm"),
-        attend_to: dayjs().format("HH:mm"),
-      },
-    ];
+  logs =
+    logs.length > 0
+      ? logs
+      : [
+          {
+            attend_from: dayjs().format("HH:mm"),
+            attend_to: dayjs().format("HH:mm"),
+          },
+        ];
 
   const [fields, setFields] = useState<
     {
@@ -136,7 +140,9 @@ const AttendanceForm = ({
           onClick={() => {
             addField();
           }}
-        >{t("add_slot")}</button>
+        >
+          {t("add_slot")}
+        </button>
       </div>
     </Form>
   );

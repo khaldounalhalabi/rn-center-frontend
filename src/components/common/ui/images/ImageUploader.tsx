@@ -39,7 +39,7 @@ const ImageUploader = ({
 
   const error = getNestedPropertyValue(errors, `${name}.message`);
   return (
-    <div className={`flex justify-center  flex-col my-3`}>
+    <div className={`my-3 flex flex-col justify-center`}>
       {label ? <label className={"label"}>{label} :</label> : ""}
       <div className={`w-full`}>
         <FilePond
@@ -63,7 +63,7 @@ const ImageUploader = ({
           allowMultiple={isMultiple}
         />
       </div>
-      {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+      {error ? <p className={`text-sm text-error`}>{error}</p> : ""}
     </div>
   );
 };

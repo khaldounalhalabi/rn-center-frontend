@@ -48,7 +48,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
     <div className="p-6">
       <div className="mb-4 flex w-full items-center justify-between">
         <div className="flex items-center">
-          <div className="ltr:mr-4 rtl:ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-300">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 ltr:mr-4 rtl:ml-4">
             <span className="font-bold text-gray-600">
               {user?.first_name.charAt(0)}
               {user?.last_name.charAt(0)}
@@ -128,7 +128,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                     style={{ left: `${position - 0.4}%`, bottom: "5%" }}
                     title={`${log.type}: ${formatTime(log.attend_at)} - ${log.status}`}
                   >
-                    <div className="absolute ltr:-start-4 rtl:-start-2 -top-20 text-center text-xs">
+                    <div className="absolute -top-20 text-center text-xs ltr:-start-4 rtl:-start-2">
                       <span className="font-bold">
                         {formatTime(log.attend_at)}
                       </span>

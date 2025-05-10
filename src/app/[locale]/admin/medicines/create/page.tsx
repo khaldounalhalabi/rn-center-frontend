@@ -1,6 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
 import MedicineForm from "@/components/common/medicine/MedicineForm";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 const Page = async () => {

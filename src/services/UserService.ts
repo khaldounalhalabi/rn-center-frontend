@@ -41,26 +41,34 @@ export class UserService extends BaseService<UserService, User>() {
     per_page?: number,
     params?: Record<string, any>,
   ) => {
-    const response = await GET<User[]>(`${this.role}/users/secretaries`, {
-      search: search,
-      sort_col: sortCol,
-      sort_dir: sortDir,
-      per_page: per_page,
-      page: page || 1,
-      ...params,
-    } , this.headers);
+    const response = await GET<User[]>(
+      `${this.role}/users/secretaries`,
+      {
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        page: page || 1,
+        ...params,
+      },
+      this.headers,
+    );
 
     return this.errorHandler(response);
   };
 
   public storeSecretary = async (
     data: Record<string, any> | undefined,
-    headers: Record<string, any> ={},
+    headers: Record<string, any> = {},
   ) => {
-    const response: ApiResponse<User> = await POST<User>(`/admin/users/secretaries`, data, {
-      ...headers,
-      ...this.headers,
-    });
+    const response: ApiResponse<User> = await POST<User>(
+      `/admin/users/secretaries`,
+      data,
+      {
+        ...headers,
+        ...this.headers,
+      },
+    );
     return await this.errorHandler(response);
   };
 }

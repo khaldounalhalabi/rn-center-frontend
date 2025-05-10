@@ -77,7 +77,7 @@ const Page = () => {
           <Label label={t("quantity") + " >"} col>
             <input
               type={"number"}
-              className={"input input-bordered input-sm w-full"}
+              className={"input input-sm input-bordered w-full"}
               onChange={(e) => {
                 setParams({
                   ...params,
@@ -91,7 +91,7 @@ const Page = () => {
           <Label label={t("quantity") + " <"} col>
             <input
               type={"number"}
-              className={"input input-bordered input-sm w-full"}
+              className={"input input-sm input-bordered w-full"}
               onChange={(e) => {
                 setParams({
                   ...params,

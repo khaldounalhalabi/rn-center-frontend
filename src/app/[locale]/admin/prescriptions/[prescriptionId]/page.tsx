@@ -14,7 +14,7 @@ const Page = async ({
     ?.data;
   return (
     <PageCard>
-      <div className="flex justify-between items-center w-full h-24">
+      <div className="flex h-24 w-full items-center justify-between">
         <h2 className="card-title">{t("prescriptionsDetails")}</h2>
       </div>
       <PrescriptionDetails prescription={prescription} />

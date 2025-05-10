@@ -39,7 +39,7 @@ const TableHead = ({
             }
             {...header.headerProps}
           >
-            <div className={`flex justify-between items-center gap-2`}>
+            <div className={`flex items-center justify-between gap-2`}>
               {header.label}
 
               {header.sortable ? (

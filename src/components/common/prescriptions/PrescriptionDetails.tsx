@@ -25,7 +25,7 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
   }
 
   return (
-    <div className={"w-full flex gap-2"}>
+    <div className={"flex w-full gap-2"}>
       <Grid>
         <LabelValue label={t("next_visit")} value={prescription?.next_visit} />
         <LabelValue
@@ -70,7 +70,7 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
         ))}
         <div className={"md:col-span-2"}>
           <Label label={t("medicines")} col>
-            <table className="table table-auto w-full">
+            <table className="table w-full table-auto">
               <thead>
                 <tr>
                   <th>id</th>

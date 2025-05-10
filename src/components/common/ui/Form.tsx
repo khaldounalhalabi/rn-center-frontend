@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
@@ -67,7 +67,7 @@ const Form = ({
       >
         {children}
         <div
-          className={`flex ${submitButtonClasses} items-center my-5`}
+          className={`flex ${submitButtonClasses} my-5 items-center`}
           onClick={() => {
             methods.clearErrors();
           }}
@@ -83,7 +83,7 @@ const Form = ({
               {buttonText}{" "}
               {methods.formState.isSubmitting && (
                 <span className="mx-1">
-                  <LoadingSpin className="w-6 h-6 text-white" />
+                  <LoadingSpin className="h-6 w-6 text-white" />
                 </span>
               )}
             </PrimaryButton>

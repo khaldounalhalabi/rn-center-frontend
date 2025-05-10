@@ -21,9 +21,9 @@ const UserDataView = async ({
   const t = await getTranslations("details");
   return (
     <PageCard>
-      <div className="flex justify-between items-center w-full h-fit">
+      <div className="flex h-fit w-full items-center justify-between">
         <div className={"flex flex-col items-center justify-between"}>
-          <h2 className="card-title ">
+          <h2 className="card-title">
             {t("name")} : {user?.full_name}
           </h2>
           <LabelValue label={t("phone")} value={user?.phone} />

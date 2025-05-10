@@ -49,25 +49,25 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
 
   return (
-    <div className={`flex justify-between items-center gap-2`}>
+    <div className={`flex items-center justify-between gap-2`}>
       {buttons.includes("show") ? (
-        <Link href={sUrl} className="btn btn-sm btn-square">
-          <Eye className="w-6 h-6 text-primary" />
+        <Link href={sUrl} className="btn btn-square btn-sm">
+          <Eye className="h-6 w-6 text-primary" />
         </Link>
       ) : (
         ""
       )}
       {buttons.includes("edit") ? (
-        <Link href={eUrl} className="btn btn-sm btn-square">
-          <Pencil className="w-6 h-6 text-success" />
+        <Link href={eUrl} className="btn btn-square btn-sm">
+          <Pencil className="h-6 w-6 text-success" />
         </Link>
       ) : (
         ""
       )}
       {buttons.includes("archive") ? (
-        <button className="btn btn-sm btn-square">
+        <button className="btn btn-square btn-sm">
           <ArchiveIcon
-            className="w-6 h-6 text-warning"
+            className="h-6 w-6 text-warning"
             onClick={() => {
               swal
                 .fire({
@@ -106,9 +106,9 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
         ""
       )}
       {buttons.includes("delete") ? (
-        <button className="btn btn-sm btn-square">
+        <button className="btn btn-square btn-sm">
           <Trash
-            className="w-6 h-6 text-error"
+            className="h-6 w-6 text-error"
             onClick={() => {
               swal
                 .fire({

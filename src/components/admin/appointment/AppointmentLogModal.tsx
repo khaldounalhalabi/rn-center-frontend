@@ -14,9 +14,9 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (
-    <div className="btn btn-sm btn-square">
+    <div className="btn btn-square btn-sm">
       <LogsIcon
-        className="w-6 h-6 text-warning"
+        className="h-6 w-6 text-warning"
         onClick={async () => {
           setOpenLogs(!openLogs);
           if (appointmentId) {
@@ -47,7 +47,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex justify-center items-center   p-4 min-h-full text-center">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -57,15 +57,15 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-[50vw] text-left transform transition-all overflow-hidden align-middle">
+                <Dialog.Panel className="w-full max-w-[50vw] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="font-medium text-gray-900 text-lg leading-6"
+                    className="text-lg font-medium leading-6 text-gray-900"
                   >
                     {t("logs")}
                   </Dialog.Title>
                   {logs ? (
-                    <div className="overflow-x-auto bg-white rounded-xl mt-4">
+                    <div className="mt-4 overflow-x-auto rounded-xl bg-white">
                       <table className="table">
                         <thead>
                           <tr>
@@ -93,7 +93,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
                       </table>
                     </div>
                   ) : (
-                    <div className="my-4 w-full flex justify-center items-center">
+                    <div className="my-4 flex w-full items-center justify-center">
                       <LoadingSpin className="h-8 w-8 text-primary" />
                     </div>
                   )}

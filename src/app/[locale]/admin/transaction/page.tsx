@@ -118,7 +118,7 @@ const Page = () => {
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     filter: (params, setParams) => {
       return (
-        <div className={"w-full grid grid-cols-1"}>
+        <div className={"grid w-full grid-cols-1"}>
           <Label label={t("amount")}>
             <input
               className={"input input-xs input-bordered justify-self-end"}
@@ -184,7 +184,7 @@ const Page = () => {
     <>
       <div
         className={
-          "bg-base-100 flex items-center justify-between m-3 p-3 rounded-md shadow-md"
+          "m-3 flex items-center justify-between rounded-md bg-base-100 p-3 shadow-md"
         }
       >
         <Label label={t("balance")} />

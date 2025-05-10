@@ -31,11 +31,11 @@ const Radio: React.FC<RadioProps> = ({
   const defaultValue = getNestedPropertyValue(defaultValues, name);
 
   return (
-    <div className="flex self-end items-center w-full gap-5">
+    <div className="flex w-full items-center gap-5 self-end">
       {label && (
-        <label className="bg-pom p-3 rounded-md text-white">{label}</label>
+        <label className="rounded-md bg-pom p-3 text-white">{label}</label>
       )}
-      <div className="flex gap-5 items-center">
+      <div className="flex items-center gap-5">
         {options.map((option, index) => (
           <div key={index} className="flex items-center gap-2">
             <input
@@ -52,7 +52,7 @@ const Radio: React.FC<RadioProps> = ({
           </div>
         ))}
       </div>
-      {error && <p className="text-error text-sm">{error}</p>}
+      {error && <p className="text-sm text-error">{error}</p>}
     </div>
   );
 };

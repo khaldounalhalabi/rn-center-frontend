@@ -111,7 +111,7 @@ const DataTable = (tableData: DataTableData<any>) => {
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex justify-center items-center p-4 min-h-full text-center">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -121,10 +121,10 @@ const DataTable = (tableData: DataTableData<any>) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="bg-white shadow-xl p-6 rounded-2xl w-full max-w-md text-left transform transition-all overflow-hidden align-middle">
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-start font-medium text-gray-900 text-lg leading-6"
+                      className="text-start text-lg font-medium leading-6 text-gray-900"
                     >
                       <Label label={t("filters")} />
                     </Dialog.Title>
@@ -132,10 +132,10 @@ const DataTable = (tableData: DataTableData<any>) => {
                       {tableData.filter(tempParams, setTempParams)}
                     </div>
 
-                    <div className="flex justify-between items-center mt-4">
+                    <div className="mt-4 flex items-center justify-between">
                       <button
                         type="button"
-                        className="inline-flex justify-center bg-blue-100 hover:bg-blue-200 px-4 py-2 border border-transparent rounded-md font-medium text-blue-900 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setParams(tempParams);
                           setOpenFilter(false);
@@ -147,7 +147,7 @@ const DataTable = (tableData: DataTableData<any>) => {
 
                       <button
                         type="button"
-                        className="inline-flex justify-center bg-error hover:bg-red-600 px-4 py-2 border border-transparent rounded-md font-medium text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setTempParams({});
                           setParams({});
@@ -167,7 +167,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       ) : (
         ""
       )}
-      <div className={`card bg-base-100 shadow-xl m-3`}>
+      <div className={`card m-3 bg-base-100 shadow-xl`}>
         <div className={`card-body`}>
           {tableData.title ? (
             <h1 className={"card-title"}>{tableData.title}</h1>
@@ -175,12 +175,12 @@ const DataTable = (tableData: DataTableData<any>) => {
             ""
           )}
           <div
-            className={`card-actions w-full flex justify-between items-center`}
+            className={`card-actions flex w-full items-center justify-between`}
           >
             <div className={"flex gap-1"}>
               {tableData.createUrl ? (
                 <Link href={tableData.createUrl ?? "#"}>
-                  <button className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]">
+                  <button className="rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] p-2 hover:bg-[#1fb8b9]">
                     <DocumentPlus className={`h-6 w-6`} />
                   </button>
                 </Link>
@@ -190,7 +190,7 @@ const DataTable = (tableData: DataTableData<any>) => {
               {tableData?.filter ? (
                 <div>
                   <button
-                    className="p-2  rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] hover:bg-[#1fb8b9]"
+                    className="rounded-full border-[1px] border-[#44c4c5] bg-[#8fdbdc] p-2 hover:bg-[#1fb8b9]"
                     onClick={() => setOpenFilter((prevState) => !prevState)}
                   >
                     <FilterIcon />
@@ -201,9 +201,9 @@ const DataTable = (tableData: DataTableData<any>) => {
               )}
               {tableData.extraButton ? <>{tableData.extraButton}</> : ""}
             </div>
-            <div className={"flex justify-between items-center gap-1"}>
+            <div className={"flex items-center justify-between gap-1"}>
               <select
-                className="w-full max-w-xs select-bordered select-sm select"
+                className="select select-bordered select-sm w-full max-w-xs"
                 onChange={(e) => {
                   setPage(1);
                   setSearch("");
@@ -217,10 +217,10 @@ const DataTable = (tableData: DataTableData<any>) => {
                 <option value={75}>75</option>
                 <option value={500}>500</option>
               </select>
-              <label className="flex items-center relative gap-2 w-full">
+              <label className="relative flex w-full items-center gap-2">
                 <input
                   type="text"
-                  className="input-bordered input input-sm w-full"
+                  className="input input-sm input-bordered w-full"
                   placeholder={t("search")}
                   value={search}
                   onChange={(e) => {
@@ -230,19 +230,19 @@ const DataTable = (tableData: DataTableData<any>) => {
                   dir={"ltr"}
                 />
                 <SearchIcon
-                  className={`w-4 h-4 opacity-70 absolute top-2 right-2`}
+                  className={`absolute right-2 top-2 h-4 w-4 opacity-70`}
                 />
               </label>
             </div>
           </div>
-          <div className="border-gray-200 border rounded-lg">
-            <div className="rounded-t-lg overflow-x-auto relative">
+          <div className="rounded-lg border border-gray-200">
+            <div className="relative overflow-x-auto rounded-t-lg">
               {isPending && !isRefetching ? (
-                <div className="top-1/2 left-1/2 z-10 absolute flex justify-center items-center bg-transparent/5 opacity-70 m-auto w-full h-full text-center transform -translate-x-1/2 -translate-y-1/2">
-                  <LoadingSpin className="w-8 h-8" />
+                <div className="absolute left-1/2 top-1/2 z-10 m-auto flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center bg-transparent/5 text-center opacity-70">
+                  <LoadingSpin className="h-8 w-8" />
                 </div>
               ) : null}
-              <table className="relative bg-white scroll-my-0 divide-y-2 divide-gray-200 min-w-full text-sm overflow-y-hidden">
+              <table className="relative min-w-full scroll-my-0 divide-y-2 divide-gray-200 overflow-y-hidden bg-white text-sm">
                 <TableHead
                   schema={tableData.schema}
                   setSortDir={setSortDir}

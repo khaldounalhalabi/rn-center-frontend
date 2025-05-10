@@ -21,7 +21,7 @@ const ServiceShowPage = async ({
   const res: Service = data?.data;
   return (
     <PageCard>
-      <div className="flex justify-between items-center w-full h-24">
+      <div className="flex h-24 w-full items-center justify-between">
         <h2 className="card-title">{t("serviceDetails")}</h2>
         <Link href={`/admin/service/${res.id}/edit`}>
           <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>

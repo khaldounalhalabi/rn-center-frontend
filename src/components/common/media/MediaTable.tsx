@@ -29,37 +29,39 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
     // First try to get extension from the URL
     const fileName = getFileName(url);
     const extensionMatch = fileName.match(/\.([^.]+)$/);
-    
+
     if (extensionMatch && extensionMatch[1]) {
       return extensionMatch[1].toLowerCase();
     }
-    
+
     // If no extension found in URL, try to extract from MIME type
     const mimeToExtensionMap: Record<string, string> = {
-      'application/pdf': 'pdf',
-      'image/jpeg': 'jpg',
-      'image/jpg': 'jpg',
-      'image/png': 'png',
-      'image/gif': 'gif',
-      'image/webp': 'webp',
-      'application/msword': 'doc',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
-      'application/vnd.ms-excel': 'xls',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
-      'text/plain': 'txt',
-      'application/zip': 'zip',
-      'application/vnd.rar': 'rar',
-      'video/mp4': 'mp4',
-      'audio/mpeg': 'mp3'
+      "application/pdf": "pdf",
+      "image/jpeg": "jpg",
+      "image/jpg": "jpg",
+      "image/png": "png",
+      "image/gif": "gif",
+      "image/webp": "webp",
+      "application/msword": "doc",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        "docx",
+      "application/vnd.ms-excel": "xls",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        "xlsx",
+      "text/plain": "txt",
+      "application/zip": "zip",
+      "application/vnd.rar": "rar",
+      "video/mp4": "mp4",
+      "audio/mpeg": "mp3",
     };
-    
+
     // Find the file in attachments to check its mime type
-    const fileItem = attachments.find(item => item.file_url === url);
+    const fileItem = attachments.find((item) => item.file_url === url);
     if (fileItem && fileItem.file_type) {
-      return mimeToExtensionMap[fileItem.file_type] || 'unknown';
+      return mimeToExtensionMap[fileItem.file_type] || "unknown";
     }
-    
-    return 'unknown';
+
+    return "unknown";
   };
 
   const handleDelete = async (mediaId: number) => {
@@ -109,7 +111,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   };
 
   if (!attachments || attachments.length === 0) {
-    return <div className="text-center py-4">{t("no_attachments")}</div>;
+    return <div className="py-4 text-center">{t("no_attachments")}</div>;
   }
 
   return (
@@ -142,7 +144,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                 </span>
               </td>
               <td>{Math.round(item.size / 1024)} KB</td>
-              <td className={"flex items-center gap-1 justify-center"}>
+              <td className={"flex items-center justify-center gap-1"}>
                 <button
                   className="btn btn-square btn-sm text-error"
                   onClick={() => handleDelete(item.id)}
@@ -155,7 +157,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                   )}
                 </button>
                 <button
-                  className={"btn btn-info btn-square btn-sm text-white"}
+                  className={"btn btn-square btn-info btn-sm text-white"}
                   onClick={() => {
                     download(item.file_url);
                   }}
@@ -164,7 +166,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                   {isDownloading ? (
                     <LoadingSpin />
                   ) : (
-                    <DownloadIcon className={"w-5 h-5"} />
+                    <DownloadIcon className={"h-5 w-5"} />
                   )}
                 </button>
               </td>

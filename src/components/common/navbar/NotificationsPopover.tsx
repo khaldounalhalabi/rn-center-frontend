@@ -61,7 +61,7 @@ const NotificationsPopover = () => {
   return (
     <div
       ref={ref}
-      className={`${openPopNot ? " relative" : "overflow-clip relative"} max-h-72`}
+      className={`${openPopNot ? "relative" : "relative overflow-clip"} max-h-72`}
     >
       <NotificationHandler
         handle={(payload) => {
@@ -73,20 +73,20 @@ const NotificationsPopover = () => {
         isPermanent={true}
       />
       <div
-        className={"relative w-8 h-full cursor-pointer"}
-        onClick={() => setOpenPopNot(prevState => !prevState)}
+        className={"relative h-full w-8 cursor-pointer"}
+        onClick={() => setOpenPopNot((prevState) => !prevState)}
       >
         <NotificationsIcon
           className={
             openPopNot
-              ? `h-6 w-6 cursor-pointer text-[#909CA6] fill-blue-500`
-              : "h-6 w-6 cursor-pointer text-[#909CA6] fill-[#909CA6]"
+              ? `h-6 w-6 cursor-pointer fill-blue-500 text-[#909CA6]`
+              : "h-6 w-6 cursor-pointer fill-[#909CA6] text-[#909CA6]"
           }
         />
         {(notificationsCount?.data ?? 0) > 0 ? (
           <span
             className={
-              "absolute -top-1 text-[100%] right-[0px] border-error rounded-full text-error"
+              "absolute -top-1 right-[0px] rounded-full border-error text-[100%] text-error"
             }
           >
             {notificationsCount?.data}
@@ -99,8 +99,8 @@ const NotificationsPopover = () => {
       <div
         className={
           openPopNot
-            ? "absolute md:end-0 -end-3 md:w-[360px] w-[80vw] z-20 mt-2 top-10 divide-y divide-gray-100 rounded-2xl bg-white opacity-100  transition-x-0 ease-in-out  duration-500 "
-            : "absolute transition-x-[-200px] opacity-0 ease-in-out duration-500 "
+            ? "transition-x-0 absolute -end-3 top-10 z-20 mt-2 w-[80vw] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 duration-500 ease-in-out md:end-0 md:w-[360px]"
+            : "transition-x-[-200px] absolute opacity-0 duration-500 ease-in-out"
         }
         role="menu"
         style={{
@@ -141,11 +141,11 @@ const NotificationsPopover = () => {
                 return (
                   <div
                     key={index}
-                    className="flex justify-between items-center mx-2"
+                    className="mx-2 flex items-center justify-between"
                   >
                     <Link
                       href={n.getUrl()}
-                      className="p-3 w-full cursor-pointer hover:bg-gray-300 border-b-gray-100 rounded-md"
+                      className="w-full cursor-pointer rounded-md border-b-gray-100 p-3 hover:bg-gray-300"
                       onClick={() => {
                         NotificationService.make<NotificationService>(
                           role,
@@ -155,7 +155,7 @@ const NotificationsPopover = () => {
                       {n.getMessage()}
                     </Link>
                     <button
-                      className=" hover:bg-gray-300 p-3 rounded-md"
+                      className="rounded-md p-3 hover:bg-gray-300"
                       onClick={() => {
                         if (!n.read_at) {
                           NotificationService.make<NotificationService>(
@@ -167,7 +167,7 @@ const NotificationsPopover = () => {
                       }}
                     >
                       <CircleCheckMark
-                        className={`h-6 w-6 text-success ${n.read_at ? "fill-success cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`h-6 w-6 text-success ${n.read_at ? "cursor-not-allowed fill-success" : "cursor-pointer"}`}
                         solid={!!n.read_at}
                       />
                     </button>
@@ -177,15 +177,15 @@ const NotificationsPopover = () => {
             )
           )}
           {isFetchingNextPage ? (
-            <p className="text-center py-3">Loading notifications ...</p>
+            <p className="py-3 text-center">Loading notifications ...</p>
           ) : (
             ""
           )}
         </div>
-        <div className="px-8 py-6 flex items-center justify-center w-full">
+        <div className="flex w-full items-center justify-center px-8 py-6">
           {hasNextPage ? (
             <button
-              className="btn text-pom font-bold text-[0.875rem] flex items-center justify-between"
+              className="btn flex items-center justify-between text-[0.875rem] font-bold text-pom"
               onClick={() => {
                 fetchNextPage();
               }}

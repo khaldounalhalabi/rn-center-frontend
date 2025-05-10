@@ -14,7 +14,7 @@ const Datepicker = ({
   label?: string;
 }) => {
   return (
-    <label className="flex flex-col items-start gap-2 label">
+    <label className="label flex flex-col items-start gap-2">
       <p>{label ?? ""}</p>
       <DatePicker
         onChange={onChange}

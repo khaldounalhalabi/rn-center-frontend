@@ -13,9 +13,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.transaction.create");
   const transaction = (
-    await TransactionService.make(RoleEnum.ADMIN).show(
-      transactionId,
-    )
+    await TransactionService.make(RoleEnum.ADMIN).show(transactionId)
   ).data;
   return (
     <PageCard>

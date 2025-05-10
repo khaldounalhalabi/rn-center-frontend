@@ -10,6 +10,7 @@ export class PrescriptionService extends BaseService<
   public getBaseUrl(): string {
     return `${this.role}/prescriptions`;
   }
+
   public async getAllPatientPrescriptions(
     patientId: number,
     page: number = 0,

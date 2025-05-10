@@ -124,15 +124,15 @@ const ClinicForm = ({
           isMultiple={true}
           closeOnSelect={false}
         />
-        <div className={`flex gap-5 items-center`}>
-          <label className={`bg-pom p-2 rounded-md text-white`}>
+        <div className={`flex items-center gap-5`}>
+          <label className={`rounded-md bg-pom p-2 text-white`}>
             {t("gender")}:
           </label>
           <FormInput
             name={"user.gender"}
             label={t("male")}
             type="radio"
-            className="radio radio-info"
+            className="radio-info radio"
             value={"male"}
             defaultChecked={
               defaultValues?.user?.gender
@@ -144,7 +144,7 @@ const ClinicForm = ({
             name={"user.gender"}
             label={t("female")}
             type="radio"
-            className="radio radio-info"
+            className="radio-info radio"
             value={"female"}
             defaultChecked={defaultValues?.user?.gender == "female"}
           />

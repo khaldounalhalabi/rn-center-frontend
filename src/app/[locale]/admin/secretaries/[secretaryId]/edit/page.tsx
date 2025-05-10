@@ -10,7 +10,7 @@ const Page = async ({
   params: { secretaryId: number };
 }) => {
   const user = (await UserService.make(RoleEnum.ADMIN).show(secretaryId))?.data;
-  const t = await getTranslations("secretaries")
+  const t = await getTranslations("secretaries");
 
   return (
     <PageCard>

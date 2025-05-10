@@ -55,12 +55,12 @@ const FormInput: React.FC<InputProps> = ({
   const error = getNestedPropertyValue(errors, `${name}.message`);
   if (type == "password") {
     return (
-      <div className={`flex flex-col items-start w-full`}>
+      <div className={`flex w-full flex-col items-start`}>
         {label ? (
           <label className={"label w-fit"}>
             {label}
             {unit ? (
-              <span className="ml-1 ">
+              <span className="ml-1">
                 (
                 <span className="text-green-500">
                   {translateUnit(unit as any)}
@@ -81,36 +81,36 @@ const FormInput: React.FC<InputProps> = ({
             {...register(`${name}`)}
             className={
               className ??
-              `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+              `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
             }
             type={!hidden ? "text" : "password"}
           />
           {!hidden ? (
             <ClosedEye
-              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
+              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
               onClick={() => setHidden((prevState) => !prevState)}
             />
           ) : (
             <Eye
-              className={`absolute w-6 h-6 right-1 top-3 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
+              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
               onClick={() => setHidden((prevState) => !prevState)}
             />
           )}
         </div>
 
-        <p className={`text-error text-sm min-h-5`}>{error}</p>
+        <p className={`min-h-5 text-sm text-error`}>{error}</p>
       </div>
     );
   } else
     return (
       <div
-        className={`flex ${type == `radio` || type == "checkbox" ? `items-center gap-2` : "flex-col"} items-start w-full`}
+        className={`flex ${type == `radio` || type == "checkbox" ? `items-center gap-2` : "flex-col"} w-full items-start`}
       >
         {label ? (
           <label className={"label text-nowrap"}>
             {label}
             {unit ? (
-              <span className="ml-1 ">
+              <span className="ml-1">
                 (
                 <span className="text-green-500">
                   {translateUnit(unit as any)}
@@ -130,13 +130,13 @@ const FormInput: React.FC<InputProps> = ({
           {...register(`${name}`)}
           className={
             className ??
-            `input input-bordered w-full ${error ? "border-error" : ""} focus:outline-pom focus:border-pom`
+            `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
           }
           min={min}
           type={type == "password" && hidden ? "password" : type}
           step={"any"}
         />
-        <p className={`text-error text-sm`}>{error}</p>
+        <p className={`text-sm text-error`}>{error}</p>
       </div>
     );
 };

@@ -12,7 +12,7 @@ const PrimaryButton: React.FC<ButtonAttr> = ({
 }) => {
   return (
     <button
-      className={`btn bg-pom text-white hover:text-pom hover:bg-white hover:border-pom ${className}`}
+      className={`btn bg-pom text-white hover:border-pom hover:bg-white hover:text-pom ${className}`}
       {...props}
     >
       {children}

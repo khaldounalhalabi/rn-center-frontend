@@ -61,7 +61,7 @@ export default async function RootLayout({
       dir={locale == "ar" ? "rtl" : "ltr"}
     >
       <body
-        className={`${inter.className} ${kodChasan.variable} ${CairoFont.variable} min-h-screen  ${locale == "ar" ? "Cairo" : "kodchasan"}`}
+        className={`${inter.className} ${kodChasan.variable} ${CairoFont.variable} min-h-screen ${locale == "ar" ? "Cairo" : "kodchasan"}`}
       >
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>

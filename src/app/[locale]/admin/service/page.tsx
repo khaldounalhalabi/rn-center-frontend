@@ -42,8 +42,8 @@ const Page = () => {
         label: `${t("approximateDuration")}`,
         sortable: true,
         render: (data) => (
-          <p className="text-center flex justify-evenly">
-            {data} <span className={"badge-success badge "}>{t("min")}</span>
+          <p className="flex justify-evenly text-center">
+            {data} <span className={"badge badge-success"}>{t("min")}</span>
           </p>
         ),
       },

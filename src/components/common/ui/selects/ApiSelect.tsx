@@ -192,7 +192,7 @@ function ApiSelect<TResponse, TData>({
       ref={fullContainer}
     >
       <label
-        className={`flex ${styles?.labelClasses ?? "label font-medium justify-start select-text"}`}
+        className={`flex ${styles?.labelClasses ?? "label select-text justify-start font-medium"}`}
       >
         {label ?? ""}
         {required ? <span className="ml-1 text-red-600">*</span> : false}
@@ -215,10 +215,10 @@ function ApiSelect<TResponse, TData>({
 
       <div
         onClick={() => handleOpen()}
-        className={`flex justify-between cursor-pointer ${styles?.selectClasses ?? "border-gray-300 p-3 border rounded-sm w-full text-gray-700 sm:text-sm"}`}
+        className={`flex cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-sm border border-gray-300 p-3 text-gray-700 sm:text-sm"}`}
       >
         <div
-          className="flex justify-between items-center w-full"
+          className="flex w-full items-center justify-between"
           role="listbox"
           aria-expanded={isOpen}
           aria-activedescendant={
@@ -247,13 +247,13 @@ function ApiSelect<TResponse, TData>({
                 {styles?.loadingIcon ? (
                   styles.loadingIcon()
                 ) : (
-                  <LoadingSpin className="w-full h-full text-pom" />
+                  <LoadingSpin className="h-full w-full text-pom" />
                 )}
               </div>
             )}
             {selected.length > 0 && clearable ? (
               <XMark
-                className="w-5 h-5"
+                className="h-5 w-5"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelected([]);
@@ -263,13 +263,13 @@ function ApiSelect<TResponse, TData>({
             ) : (
               ""
             )}
-            <ChevronDown className="w-5 h-5 font-extrabold hover:text-gray-600" />
+            <ChevronDown className="h-5 w-5 font-extrabold hover:text-gray-600" />
           </div>
         </div>
         <div
           className={
             isOpen
-              ? `absolute overflow-y-scroll left-0 !z-50 ${styles?.dropDownItemsContainerClasses ?? " px-3 pb-3 rounded-lg border border-gray-200 shadow-2xl bg-white w-full"}`
+              ? `absolute left-0 !z-50 overflow-y-scroll ${styles?.dropDownItemsContainerClasses ?? "w-full rounded-lg border border-gray-200 bg-white px-3 pb-3 shadow-2xl"}`
               : "hidden"
           }
           style={{
@@ -281,7 +281,7 @@ function ApiSelect<TResponse, TData>({
         >
           <div className={`sticky top-0 bg-inherit`}>
             <input
-              className={`${styles?.searchInputClasses ?? "focus:border-pom p-1 my-2 focus:outline-pom rounded-md w-full"}`}
+              className={`${styles?.searchInputClasses ?? "my-2 w-full rounded-md p-1 focus:border-pom focus:outline-pom"}`}
               onClick={(e) => handleClickingOnSearchInput(e)}
               onChange={(e) => handleSearchChange(e)}
               value={search ?? ""}
@@ -299,13 +299,11 @@ function ApiSelect<TResponse, TData>({
             return items?.map((item, index) => (
               <div
                 key={index}
-                className={`
-                              ${
-                                include(getOption(item), selected)
-                                  ? `${styles?.selectedDropDownItemClasses ?? "bg-pom border-pom"}`
-                                  : ""
-                              }
-                              ${styles?.dropDownItemClasses ?? "cursor-pointer hover:border-pom hover:bg-pom my-1 p-2 rounded-md w-full text-black"}`}
+                className={` ${
+                  include(getOption(item), selected)
+                    ? `${styles?.selectedDropDownItemClasses ?? "border-pom bg-pom"}`
+                    : ""
+                } ${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 text-black hover:border-pom hover:bg-pom"}`}
                 onClick={(e) => handleChoseItem(e, item)}
               >
                 {getOption(item).label ?? ""}
@@ -314,14 +312,14 @@ function ApiSelect<TResponse, TData>({
           })}
 
           {isFetching && (
-            <div className="flex justify-center items-center my-2 w-full">
+            <div className="my-2 flex w-full items-center justify-center">
               {t("loading")} ...
             </div>
           )}
         </div>
       </div>
       {validationError && (
-        <p className="text-error min-h-5">{validationError}</p>
+        <p className="min-h-5 text-error">{validationError}</p>
       )}
     </div>
   );

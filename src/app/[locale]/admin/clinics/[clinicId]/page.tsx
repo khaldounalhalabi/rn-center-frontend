@@ -24,15 +24,15 @@ const Page = async ({
     <PageCard>
       <div
         className={
-          "flex flex-col md:flex-row justify-between items-center w-full"
+          "flex w-full flex-col items-center justify-between md:flex-row"
         }
       >
-        <h1 className={"card-title !text-center md:text-start w-full"}>
+        <h1 className={"card-title w-full !text-center md:text-start"}>
           {t("name")}
         </h1>
         <div
           className={
-            "flex flex-col md:flex-row gap-1 items-center justify-end w-full"
+            "flex w-full flex-col items-center justify-end gap-1 md:flex-row"
           }
         >
           <Link href={`${clinicId}/edit`}>
@@ -40,17 +40,17 @@ const Page = async ({
           </Link>
         </div>
       </div>
-      <div className={"card p-5 bg-base-200 my-3 "}>
-        <div className={`flex flex-col md:flex-row items-center gap-3`}>
+      <div className={"card my-3 bg-base-200 p-5"}>
+        <div className={`flex flex-col items-center gap-3 md:flex-row`}>
           <div className={"flex flex-col"}>
-            <h2 className={"font-bold text-lg"}>{clinic?.user?.full_name}</h2>
+            <h2 className={"text-lg font-bold"}>{clinic?.user?.full_name}</h2>
             <p>{clinic?.user?.phone}</p>
           </div>
         </div>
-        <div className={"grid grid-cols-1 md:grid-cols-3 gap-3 w-full"}>
+        <div className={"grid w-full grid-cols-1 gap-3 md:grid-cols-3"}>
           <div
             className={
-              "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
             }
           >
             <h1 suppressHydrationWarning>
@@ -60,7 +60,7 @@ const Page = async ({
           </div>
           <div
             className={
-              "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
             }
           >
             <h1 suppressHydrationWarning>
@@ -70,7 +70,7 @@ const Page = async ({
           </div>
           <div
             className={
-              "card card-bordered bg-base-100 w-full p-5 flex flex-col justify-between"
+              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
             }
           >
             <h1 suppressHydrationWarning>
@@ -80,7 +80,7 @@ const Page = async ({
           </div>
         </div>
       </div>
-      <div className="px-2 sm:px-0 pb-16 pt-10 w-full">
+      <div className="w-full px-2 pb-16 pt-10 sm:px-0">
         <ClinicOverview clinic={clinic} />
       </div>
     </PageCard>

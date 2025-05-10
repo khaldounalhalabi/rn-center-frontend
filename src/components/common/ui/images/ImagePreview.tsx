@@ -43,7 +43,7 @@ const ImagePreview = ({
           </Transition.Child>
 
           <div className="fixed inset-0 w-full overflow-y-auto">
-            <div className="flex justify-center items-center p-4 w-full min-h-full text-center">
+            <div className="flex min-h-full w-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -53,7 +53,7 @@ const ImagePreview = ({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-transparent p-6 max-w-lg text-left transform transition-all overflow-hidden align-middle">
+                <Dialog.Panel className="max-w-lg transform overflow-hidden bg-transparent p-6 text-left align-middle transition-all">
                   <img src={src} alt={"..."} />
                 </Dialog.Panel>
               </Transition.Child>

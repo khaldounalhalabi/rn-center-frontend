@@ -35,7 +35,7 @@ const TableBody = ({
                         key={`${schema.label} - ${index}`}
                         className={
                           schema.cellProps?.className ??
-                          "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
+                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
                         }
                         {...schema.cellProps}
                       >
@@ -54,7 +54,7 @@ const TableBody = ({
                         key={`${schema.label} - ${index}`}
                         className={
                           schema.cellProps?.className ??
-                          "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
+                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
                         }
                         {...schema.cellProps}
                       >
@@ -77,11 +77,11 @@ const TableBody = ({
                         key={`${schema.label} - ${index}`}
                         className={
                           schema.cellProps?.className ??
-                          "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
+                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
                         }
                         {...schema.cellProps}
                       >
-                        {schema.render(undefined, item,setHidden)}
+                        {schema.render(undefined, item, setHidden)}
                       </td>
                     );
                   } else
@@ -90,7 +90,7 @@ const TableBody = ({
                         key={index}
                         className={
                           schema.cellProps?.className ??
-                          "whitespace-nowrap px-4 py-2 font-medium text-gray-900 border"
+                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
                         }
                         {...schema.cellProps}
                       >
@@ -104,7 +104,7 @@ const TableBody = ({
         })
       ) : (
         <tr>
-          <td colSpan={tableData.schema.length} className={"text-center p-3"}>
+          <td colSpan={tableData.schema.length} className={"p-3 text-center"}>
             {TranslateStatusOrTypeClient("no_data")}
           </td>
         </tr>

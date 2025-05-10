@@ -45,7 +45,7 @@ const SidebarItem = ({
     >
       <Link
         href={link}
-        className={`block rounded-lg px-4 py-4 my-1 text-sm font-medium ${active}`}
+        className={`my-1 block rounded-lg px-4 py-4 text-sm font-medium ${active}`}
       >
         {children}
       </Link>

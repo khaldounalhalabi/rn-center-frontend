@@ -42,10 +42,10 @@ const FormTextarea: React.FC<textAreaType> = ({
         id="message"
         rows={4}
         dir={dir}
-        className="text-sm textarea textarea-bordered w-full"
+        className="textarea textarea-bordered w-full text-sm"
         defaultValue={defaultValue ? defaultValue : ""}
       />
-      {error ? <p className={`text-error text-sm`}>{error}</p> : ""}
+      {error ? <p className={`text-sm text-error`}>{error}</p> : ""}
     </div>
   );
 };

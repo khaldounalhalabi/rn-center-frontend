@@ -1,6 +1,6 @@
 import { BaseService } from "@/services/BaseService";
 import AttendanceLog from "@/Models/AttendanceLog";
-import { POST } from "@/Http/Http";
+import { POST } from "@/http/Http";
 
 class AttendanceLogService extends BaseService<
   AttendanceLogService,

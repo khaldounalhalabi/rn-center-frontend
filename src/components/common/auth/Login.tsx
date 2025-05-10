@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { AuthResponse } from "@/Models/User";
 import { useTranslations } from "next-intl";
 import { AuthService } from "@/services/AuthService";

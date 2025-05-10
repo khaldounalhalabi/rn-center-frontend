@@ -1,5 +1,5 @@
 import React from "react";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { Clinic } from "@/Models/Clinic";
 import { ClinicsService } from "@/services/ClinicsService";
 import PageCard from "@/components/common/ui/PageCard";

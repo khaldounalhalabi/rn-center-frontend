@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { ApiErrorType, ApiResponse } from "@/Http/Response";
+import { ApiErrorType, ApiResponse } from "@/http/Response";
 import { getServerCookie } from "@/actions/ServerCookies";
 import { getToken } from "@/actions/HelperActions";
 

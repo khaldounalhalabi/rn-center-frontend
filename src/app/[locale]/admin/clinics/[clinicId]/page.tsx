@@ -2,7 +2,7 @@ import React from "react";
 import PageCard from "@/components/common/ui/PageCard";
 import { ClinicsService } from "@/services/ClinicsService";
 import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { Clinic } from "@/Models/Clinic";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";

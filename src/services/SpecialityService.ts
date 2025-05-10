@@ -1,7 +1,7 @@
 import { Speciality } from "@/Models/Speciality";
 import { BaseService } from "@/services/BaseService";
-import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET } from "@/http/Http";
 import {RoleEnum} from "@/enum/RoleEnum";
 
 export class SpecialityService extends BaseService<

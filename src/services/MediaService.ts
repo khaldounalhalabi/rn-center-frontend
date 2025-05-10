@@ -1,6 +1,6 @@
 import { BaseService } from "@/services/BaseService";
-import { ApiResponse } from "@/Http/Response";
-import { DELETE } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { DELETE } from "@/http/Http";
 import { Medicine } from "@/Models/Medicine";
 
 export class MediaService extends BaseService<MediaService, Medicine>() {

@@ -6,7 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import { ServiceCategory } from "@/Models/ServiceCategory";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import { ClinicsService } from "@/services/ClinicsService";

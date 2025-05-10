@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Appointment } from "@/Models/Appointment";
-import { ApiResponse } from "@/Http/Response";
-import { GET, POST, PUT } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET, POST, PUT } from "@/http/Http";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 
 export class AppointmentService extends BaseService<

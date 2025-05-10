@@ -8,7 +8,7 @@ import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 

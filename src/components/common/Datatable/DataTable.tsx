@@ -1,6 +1,6 @@
 "use client";
 import React, { Fragment, ReactNode, ThHTMLAttributes, useState } from "react";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DocumentPlus from "@/components/icons/DocumentPlus";

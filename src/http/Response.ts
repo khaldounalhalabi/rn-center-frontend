@@ -3,7 +3,6 @@ import { sanitizeString } from "@/helpers/ObjectHelpers";
 
 export enum ApiErrorType {
   UNKNOWN_ERROR = "unknown-error",
-  Customer = "customer",
 }
 
 export interface ValidationError {

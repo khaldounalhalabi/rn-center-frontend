@@ -1,8 +1,8 @@
 import { BaseService } from "@/services/BaseService";
 import { User } from "@/Models/User";
-import { GET, POST } from "@/Http/Http";
+import { GET, POST } from "@/http/Http";
 import { UsersWithAttendance } from "@/Models/Attendance";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 
 export class UserService extends BaseService<UserService, User>() {
   getBaseUrl(): string {

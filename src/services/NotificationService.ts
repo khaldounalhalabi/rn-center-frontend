@@ -1,7 +1,7 @@
 import { Notification } from "@/Models/NotificationPayload";
 import { BaseService } from "./BaseService";
-import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET } from "@/http/Http";
 
 export class NotificationService extends BaseService<
   NotificationService,

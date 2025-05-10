@@ -1,6 +1,6 @@
 import { Navigate } from "@/actions/Navigate";
-import { DELETE, GET, POST, PUT } from "@/Http/Http";
-import { ApiResponse } from "@/Http/Response";
+import { DELETE, GET, POST, PUT } from "@/http/Http";
+import { ApiResponse } from "@/http/Response";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { deleteRole, deleteTokens } from "@/actions/HelperActions";
 

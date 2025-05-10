@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Customer } from "@/Models/Customer";
-import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET } from "@/http/Http";
 import { Appointment } from "@/Models/Appointment";
 
 export class CustomerService extends BaseService<CustomerService, Customer>() {

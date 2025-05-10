@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";

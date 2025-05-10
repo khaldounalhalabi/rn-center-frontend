@@ -1,7 +1,7 @@
 import { Navigate } from "@/actions/Navigate";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { AuthResponse, User } from "@/Models/User";
-import { GET, POST, PUT } from "@/Http/Http";
+import { GET, POST, PUT } from "@/http/Http";
 import { BaseService } from "./BaseService";
 import { Clinic } from "@/Models/Clinic";
 import {

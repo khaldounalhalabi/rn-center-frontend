@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import React, { ChangeEvent, HTMLProps, ReactNode } from "react";
 
 export interface Option {

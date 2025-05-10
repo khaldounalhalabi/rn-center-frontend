@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/helpers/Firebase";
-import { GET, POST } from "@/Http/Http";
+import { GET, POST } from "@/http/Http";
 import useUser from "@/hooks/UserHook";
 
 const useFcmToken = () => {

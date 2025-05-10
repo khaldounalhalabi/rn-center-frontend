@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { AppointmentLogs } from "@/Models/AppointmentLog";
-import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET } from "@/http/Http";
 
 export class AppointmentLogsService extends BaseService<
   AppointmentLogsService,

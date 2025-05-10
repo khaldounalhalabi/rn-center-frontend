@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 import { Transaction } from "@/Models/Transaction";
-import { ApiResponse } from "@/Http/Response";
-import { GET } from "@/Http/Http";
+import { ApiResponse } from "@/http/Response";
+import { GET } from "@/http/Http";
 import Balance from "@/Models/Balance";
 
 export class TransactionService extends BaseService<

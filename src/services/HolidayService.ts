@@ -1,6 +1,6 @@
 import { BaseService } from "@/services/BaseService";
 import { Holiday } from "@/Models/Holiday";
-import { GET } from "@/Http/Http";
+import { GET } from "@/http/Http";
 
 export class HolidayService extends BaseService<HolidayService, Holiday>() {
   public getBaseUrl(): string {

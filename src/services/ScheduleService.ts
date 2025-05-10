@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import { Schedule, SchedulesCollection } from "@/Models/Schedule";
-import { GET } from "@/Http/Http";
+import { GET } from "@/http/Http";
 
 export class ScheduleService extends BaseService<
   ScheduleService,

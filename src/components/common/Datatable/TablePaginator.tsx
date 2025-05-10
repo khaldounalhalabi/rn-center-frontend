@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/Http/Response";
+import { ApiResponse } from "@/http/Response";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";

@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/PrimaryButton";
+import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";

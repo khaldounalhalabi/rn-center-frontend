@@ -1559,7 +1559,14 @@
     "on_time": "On time",
     "late": "Late",
     "over_time": "Over time",
-    "early_leave": "Early leave"
+    "early_leave": "Early leave",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday"
   },
   "week_days": {
     "saturday": "Saturday",

@@ -1,4 +1,4 @@
-export enum daysType {
+enum WeekDayEnum {
   SATURDAY = "saturday",
   SUNDAY = "sunday",
   MONDAY = "monday",
@@ -8,8 +8,4 @@ export enum daysType {
   FRIDAY = "friday",
 }
 
-const daysArray = (): string[] => {
-  return Object.values(daysType);
-};
-
-export default daysArray;
+export default WeekDayEnum;

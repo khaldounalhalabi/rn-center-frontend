@@ -8,11 +8,13 @@ import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
-import WeekDaySelect from "@/components/common/ui/selects/WeekDaySelect";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
+import Select from "@/components/common/ui/selects/Select";
+import { getEnumValues } from "@/Helpers/Enums";
+import WeekDayEnum from "@/enum/WeekDayEnum";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -71,15 +73,15 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <Grid md={1}>
-          <Label label={t("available_day")} col>
-            <WeekDaySelect
-              onChange={(e) => {
-                // @ts-ignore
-                setParams({ ...params, day_of_week: e.target?.value });
-              }}
-              defaultValue={params.day_of_week}
-            />
-          </Label>
+          <Select
+            onChange={(e) => {
+              setParams({ ...params, day_of_week: e.target?.value });
+            }}
+            selected={params.day_of_week}
+            data={getEnumValues(WeekDayEnum)}
+            translated={true}
+            label={t("available_day")}
+          />
 
           <Label label={t("available_time")} col>
             <TimePickerFilter

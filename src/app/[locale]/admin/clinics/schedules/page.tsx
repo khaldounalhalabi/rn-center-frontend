@@ -6,11 +6,13 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicsService } from "@/services/ClinicsService";
-import WeekDaySelect from "@/components/common/ui/selects/WeekDaySelect";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { getEnumValues } from "@/Helpers/Enums";
+import WeekDayEnum from "@/enum/WeekDayEnum";
+import Select from "@/components/common/ui/selects/Select";
 
 const Page = () => {
   const t = useTranslations("admin.schedules.table");
@@ -46,17 +48,16 @@ const Page = () => {
     title: `${t("clinicSchedules")}`,
     filter: (params, setParams) => {
       return (
-        <div className={"w-full grid grid-cols-1"}>
-          <Label label={t("day")} col>
-            <WeekDaySelect
-              className="w-full max-w-xs select-bordered select-sm select"
-              defaultValue={params.day_of_week}
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                setParams({ ...params, day_of_week: event.target.value });
-              }}
-              label={t("day")}
-            />
-          </Label>
+        <div className={"grid w-full grid-cols-1"}>
+          <Select
+            onChange={(e) => {
+              setParams({ ...params, day_of_week: e.target?.value });
+            }}
+            selected={params.day_of_week}
+            data={getEnumValues(WeekDayEnum)}
+            translated={true}
+            label={t("day")}
+          />
 
           <Label label={t("time")} col>
             <TimePickerFilter

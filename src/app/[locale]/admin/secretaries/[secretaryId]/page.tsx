@@ -1,6 +1,6 @@
 import { UserService } from "@/services/UserService";
 import { RoleEnum } from "@/enum/RoleEnum";
-import UserDataView from "@/components/common/User/UserDataView";
+import UserDataView from "@/components/common/user/UserDataView";
 
 const Page = async ({
   params: { secretaryId },

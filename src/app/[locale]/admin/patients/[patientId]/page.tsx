@@ -3,7 +3,7 @@ import { User } from "@/Models/User";
 import { PatientService } from "@/services/PatientService";
 import { Customer } from "@/Models/Customer";
 import { getTranslations } from "next-intl/server";
-import UserDataView from "@/components/common/User/UserDataView";
+import UserDataView from "@/components/common/user/UserDataView";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";

@@ -2,7 +2,7 @@ import { User } from "@/Models/User";
 import React from "react";
 import { AuthService } from "@/services/AuthService";
 import { getRole } from "@/Actions/HelperActions";
-import UserDataView from "@/components/common/User/UserDataView";
+import UserDataView from "@/components/common/user/UserDataView";
 
 const page = async () => {
   const role = await getRole();

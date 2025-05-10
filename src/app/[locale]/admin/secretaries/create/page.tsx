@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import UserForm from "@/components/common/User/UserForm";
+import UserForm from "@/components/common/user/UserForm";
 
 const Page = async () => {
   const t = await getTranslations("details");

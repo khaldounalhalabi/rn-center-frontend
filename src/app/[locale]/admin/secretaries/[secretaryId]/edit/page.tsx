@@ -1,7 +1,7 @@
 import { UserService } from "@/services/UserService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import PageCard from "@/components/common/ui/PageCard";
-import UserForm from "@/components/common/User/UserForm";
+import UserForm from "@/components/common/user/UserForm";
 import { getTranslations } from "next-intl/server";
 
 const Page = async ({

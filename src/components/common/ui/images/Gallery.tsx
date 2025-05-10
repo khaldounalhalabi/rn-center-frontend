@@ -2,7 +2,7 @@
 import ImagePreview from "./ImagePreview";
 import { getMedia, Media } from "@/Models/Media";
 import { MediaService } from "@/services/MediaService";
-import { swal } from "@/Helpers/UIHelpers";
+import { swal } from "@/helpers/UIHelpers";
 import { useState, useTransition } from "react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "@/navigation";

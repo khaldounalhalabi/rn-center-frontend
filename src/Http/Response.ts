@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { sanitizeString } from "@/Helpers/ObjectHelpers";
+import { sanitizeString } from "@/helpers/ObjectHelpers";
 
 export enum ApiErrorType {
   UNKNOWN_ERROR = "unknown-error",

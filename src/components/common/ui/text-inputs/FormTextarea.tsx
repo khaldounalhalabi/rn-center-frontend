@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 
 interface textAreaType {
   className?: string;

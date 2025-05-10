@@ -5,7 +5,7 @@ import Trash from "@/components/icons/Trash";
 import {
   getNestedPropertyValue,
   sanitizeString,
-} from "@/Helpers/ObjectHelpers";
+} from "@/helpers/ObjectHelpers";
 import { useFormContext } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 

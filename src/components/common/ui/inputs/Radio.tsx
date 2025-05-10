@@ -1,7 +1,7 @@
 "use client";
 import React, { HTMLProps } from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 
 interface RadioOption {
   label: string | React.ReactNode;

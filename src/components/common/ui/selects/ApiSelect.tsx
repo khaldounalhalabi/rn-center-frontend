@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { IApiSelectProps, isEqual, isOption, Option } from "./SelectUtils";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import XMark from "@/components/icons/XMark";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import ChevronDown from "@/components/icons/ChevronDown";

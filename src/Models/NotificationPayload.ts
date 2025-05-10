@@ -1,4 +1,4 @@
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { getClientCookie } from "@/actions/ClientCookies";
 
 export class NotificationPayload {

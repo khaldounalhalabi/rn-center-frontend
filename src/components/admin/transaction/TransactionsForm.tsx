@@ -11,7 +11,7 @@ import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
 
 const TransactionForm = ({

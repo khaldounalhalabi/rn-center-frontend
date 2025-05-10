@@ -1,5 +1,5 @@
 import Trash from "@/components/icons/Trash";
-import { swal } from "@/Helpers/UIHelpers";
+import { swal } from "@/helpers/UIHelpers";
 import { toast } from "react-toastify";
 import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";

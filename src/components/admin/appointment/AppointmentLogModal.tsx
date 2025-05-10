@@ -4,7 +4,7 @@ import LogsIcon from "@/components/icons/Logs";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { Dialog, Transition } from "@headlessui/react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { TranslateClient } from "@/Helpers/TranslationsClient";
+import { TranslateClient } from "@/helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
 
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {

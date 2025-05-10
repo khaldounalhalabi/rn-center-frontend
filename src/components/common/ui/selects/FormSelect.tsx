@@ -1,6 +1,6 @@
 "use client";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import React, { HTMLProps } from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 

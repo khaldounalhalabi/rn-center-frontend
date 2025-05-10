@@ -1,7 +1,7 @@
 "use client";
 import React, { HTMLProps, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import ClosedEye from "@/components/icons/ClosedEye";
 import Eye from "@/components/icons/Eye";
 import { useLocale, useTranslations } from "next-intl";

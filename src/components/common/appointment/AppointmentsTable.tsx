@@ -15,7 +15,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import { Appointment } from "@/Models/Appointment";
 import Select from "@/components/common/ui/selects/Select";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";

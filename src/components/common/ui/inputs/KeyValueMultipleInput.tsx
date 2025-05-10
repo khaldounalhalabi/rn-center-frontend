@@ -1,7 +1,7 @@
 "use client";
 import React, { HTMLProps, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import Trash from "@/components/icons/Trash";
 import { useTranslations } from "next-intl";
 

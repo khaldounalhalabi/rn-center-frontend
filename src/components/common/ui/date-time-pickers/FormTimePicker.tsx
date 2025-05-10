@@ -1,5 +1,5 @@
 "use client";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";

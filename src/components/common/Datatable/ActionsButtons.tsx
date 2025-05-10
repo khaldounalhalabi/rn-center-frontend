@@ -3,7 +3,7 @@ import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import React from "react";
-import { swal } from "@/Helpers/UIHelpers";
+import { swal } from "@/helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";

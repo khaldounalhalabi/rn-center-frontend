@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
-import clickOutsideHandler from "@/Helpers/ClickOutsideHandler";
+import clickOutsideHandler from "@/helpers/ClickOutsideHandler";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 import { Link, usePathname } from "@/navigation";
 import { useTranslations } from "next-intl";

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/ui/images/RoundedImage";
-import clickOutsideHandler from "@/Helpers/ClickOutsideHandler";
+import clickOutsideHandler from "@/helpers/ClickOutsideHandler";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";

@@ -1,6 +1,6 @@
 "use client";
 import React, { HTMLProps, ReactNode } from "react";
-import { TranslateStatusOrTypeClient } from "@/Helpers/TranslationsClient";
+import { TranslateStatusOrTypeClient } from "@/helpers/TranslationsClient";
 import { DaisyUiColor, DaisyUIColors } from "@/types/DaisyUiColor";
 
 interface ValueProps extends HTMLProps<HTMLDivElement> {

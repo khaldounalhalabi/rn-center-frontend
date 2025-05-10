@@ -18,7 +18,7 @@ import { Navigate } from "@/actions/Navigate";
 import { useLocale, useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enum/WeekDayEnum";
 
 dayjs.extend(plugin);

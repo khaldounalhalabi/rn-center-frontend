@@ -17,7 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AppointmentService } from "@/services/AppointmentService";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Navigate } from "@/actions/Navigate";

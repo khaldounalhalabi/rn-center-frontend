@@ -1,11 +1,11 @@
 import { ApiResponse } from "@/Http/Response";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import React from "react";
 import { DataTableData } from "@/components/common/Datatable/DataTable";
 import {
   TranslateClient,
   TranslateStatusOrTypeClient,
-} from "@/Helpers/TranslationsClient";
+} from "@/helpers/TranslationsClient";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const TableBody = ({

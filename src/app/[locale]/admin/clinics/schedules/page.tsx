@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enum/WeekDayEnum";
 import Select from "@/components/common/ui/selects/Select";
 

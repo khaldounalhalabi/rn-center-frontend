@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMessaging, getToken } from "firebase/messaging";
-import firebaseApp from "@/Helpers/Firebase";
+import firebaseApp from "@/helpers/Firebase";
 import { GET, POST } from "@/Http/Http";
 import useUser from "@/hooks/UserHook";
 

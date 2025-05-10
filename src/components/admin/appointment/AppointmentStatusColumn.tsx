@@ -1,6 +1,6 @@
 "use client";
 import { Appointment } from "@/Models/Appointment";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useState } from "react";

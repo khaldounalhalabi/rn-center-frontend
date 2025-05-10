@@ -13,7 +13,7 @@ import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicke
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
 import Select from "@/components/common/ui/selects/Select";
-import { getEnumValues } from "@/Helpers/Enums";
+import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enum/WeekDayEnum";
 
 const Page = () => {

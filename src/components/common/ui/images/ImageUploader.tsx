@@ -7,7 +7,7 @@ import "filepond/dist/filepond.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import { useFormContext } from "react-hook-form";
 import React, { useEffect } from "react";
-import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { useTranslations } from "next-intl";
 
 const ImageUploader = ({

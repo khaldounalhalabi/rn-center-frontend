@@ -12,7 +12,7 @@ import Radio from "@/components/common/ui/Inputs/Radio";
 import { getEnumValues } from "@/Helpers/Enums";
 import GenderEnum from "@/enum/GenderEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/Inputs/KeyValueMultipleInput";
@@ -77,7 +77,7 @@ const PatientsForm = ({
             value: gender,
           }))}
         />
-        <Datepicker
+        <FormDatepicker
           name={"birth_date"}
           label={t("birthDate")}
           df={customer?.birth_date}

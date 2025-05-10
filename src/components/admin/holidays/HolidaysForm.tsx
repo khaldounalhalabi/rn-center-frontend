@@ -6,7 +6,7 @@ import { Holiday } from "@/Models/Holiday";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { useTranslations } from "next-intl";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 
 const HolidaysForm = ({
@@ -37,8 +37,8 @@ const HolidaysForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={2}>
-        <Datepicker required={true} name={"from"} label={t("from")} />
-        <Datepicker required={true} name={"to"} label={t("to")} />
+        <FormDatepicker required={true} name={"from"} label={t("from")} />
+        <FormDatepicker required={true} name={"to"} label={t("to")} />
       </Grid>
       <div className="my-3">
         <Textarea

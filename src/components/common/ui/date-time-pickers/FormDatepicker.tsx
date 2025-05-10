@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import React, { useEffect } from "react";
 import styles from "../../../../app/[locale]/datepicker.module.css";
 
-const Datepicker = ({
+const FormDatepicker = ({
   name,
   label,
   required = false,
@@ -52,4 +52,4 @@ const Datepicker = ({
   );
 };
 
-export default Datepicker;
+export default FormDatepicker;

@@ -12,7 +12,7 @@ import { Clinic } from "@/Models/Clinic";
 import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Input from "@/components/common/ui/Inputs/Input";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import { useQuery } from "@tanstack/react-query";
 import { AppointmentService } from "@/services/AppointmentService";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
@@ -242,7 +242,7 @@ const AppointmentForm = memo(
             <span className="badge badge-ghost">{t("totalCost")}</span>
             <span>{totalCost}</span>
           </div>
-          <Datepicker
+          <FormDatepicker
             label={t("date")}
             onChange={handleDateChange}
             df={date?.format("YYYY-MM-DD")}

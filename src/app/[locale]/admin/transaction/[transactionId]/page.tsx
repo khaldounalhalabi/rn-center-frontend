@@ -7,7 +7,7 @@ import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
 import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const page = async ({
   params: { transactionId },

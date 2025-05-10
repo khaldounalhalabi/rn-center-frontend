@@ -2,7 +2,7 @@
 import { Appointment } from "@/Models/Appointment";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useState } from "react";
 import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";

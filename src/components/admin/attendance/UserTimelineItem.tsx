@@ -7,7 +7,7 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
 import Dialog from "@/components/common/ui/Dialog";
 import AttendanceForm from "@/components/admin/attendance/AttendanceForm";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useTranslations } from "next-intl";
 import StatusLegend from "@/components/admin/attendance/StatusLegend";
 

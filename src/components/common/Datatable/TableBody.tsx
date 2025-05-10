@@ -6,7 +6,7 @@ import {
   TranslateClient,
   TranslateStatusOrTypeClient,
 } from "@/Helpers/TranslationsClient";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const TableBody = ({
   tableData,

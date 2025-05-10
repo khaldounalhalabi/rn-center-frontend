@@ -7,7 +7,7 @@ import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const UserDataView = async ({
   editUrl,

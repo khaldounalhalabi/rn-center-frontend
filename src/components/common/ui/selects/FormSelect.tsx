@@ -2,7 +2,7 @@
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import React, { HTMLProps } from "react";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 interface SelectProps extends HTMLProps<HTMLSelectElement> {
   name: string;

@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/Models/Medicine";
 import { useTranslations } from "next-intl";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";

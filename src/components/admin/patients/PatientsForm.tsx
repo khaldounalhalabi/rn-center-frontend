@@ -11,7 +11,7 @@ import FormInput from "@/components/common/ui/inputs/FormInput";
 import Radio from "@/components/common/ui/inputs/Radio";
 import { getEnumValues } from "@/Helpers/Enums";
 import GenderEnum from "@/enum/GenderEnum";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";

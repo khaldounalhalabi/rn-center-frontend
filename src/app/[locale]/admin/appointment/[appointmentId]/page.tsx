@@ -7,7 +7,7 @@ import { Appointment } from "@/Models/Appointment";
 import { getTranslations } from "next-intl/server";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Tabs from "@/components/common/ui/Tabs";
 import AppointmentLogsTable from "@/components/admin/appointment/AppointmentLogsTable";
 import PrescriptionDetails from "@/components/common/prescriptions/PrescriptionDetails";

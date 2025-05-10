@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { ChangeEventHandler } from "react";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 

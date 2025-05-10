@@ -4,7 +4,7 @@ import React from "react";
 import { TransactionService } from "@/services/TransactionService";
 import TransactionsForm from "@/components/admin/transaction/TransactionsForm";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const page = async ({
   params: { transactionId },

@@ -3,7 +3,7 @@ import React from "react";
 import { ServiceService } from "@/services/ServiceService";
 import ServiceForm from "@/components/admin/service/ServiceForm";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const ServiceEditPage = async ({
   params: { serviceId },

@@ -19,7 +19,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";
 import { getEnumValues } from "@/helpers/Enums";
-import WeekDayEnum from "@/enum/WeekDayEnum";
+import WeekDayEnum from "@/enums/WeekDayEnum";
 
 dayjs.extend(plugin);
 const ClinicScheduleForm = ({

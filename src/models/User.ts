@@ -1,5 +1,5 @@
-import { RoleEnum } from "@/enum/RoleEnum";
-import GenderEnum from "@/enum/GenderEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
+import GenderEnum from "@/enums/GenderEnum";
 import AttendanceLog from "@/models/AttendanceLog";
 import { Clinic } from "@/models/Clinic";
 

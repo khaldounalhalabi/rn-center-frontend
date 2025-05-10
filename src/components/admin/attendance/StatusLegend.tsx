@@ -1,5 +1,5 @@
 import React from "react";
-import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
+import AttendanceLogStatusEnum from "@/enums/AttendanceLogStatusEnum";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const StatusLegend: React.FC = () => {

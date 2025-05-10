@@ -2,7 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { HolidayService } from "@/services/HolidayService";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import HolidaysForm from "@/components/admin/holidays/HolidaysForm";
 
 const EditHolidayPage = async ({

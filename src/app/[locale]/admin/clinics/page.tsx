@@ -8,13 +8,13 @@ import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
-import WeekDayEnum from "@/enum/WeekDayEnum";
+import WeekDayEnum from "@/enums/WeekDayEnum";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");

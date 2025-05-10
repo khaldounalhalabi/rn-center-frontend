@@ -7,7 +7,7 @@ import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { ServiceCategory } from "@/models/ServiceCategory";
 import { useTranslations } from "next-intl";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const ServiceCategoryForm = ({
   defaultValues = undefined,

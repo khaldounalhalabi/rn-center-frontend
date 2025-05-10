@@ -9,10 +9,10 @@ import { Transaction } from "@/models/Transaction";
 import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import { getEnumValues } from "@/helpers/Enums";
-import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
+import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
 
 const TransactionForm = ({
   defaultValues = undefined,

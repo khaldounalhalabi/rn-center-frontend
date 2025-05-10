@@ -1,5 +1,5 @@
 import { UserService } from "@/services/UserService";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import PageCard from "@/components/common/ui/PageCard";
 import UserForm from "@/components/common/user/UserForm";
 import { getTranslations } from "next-intl/server";

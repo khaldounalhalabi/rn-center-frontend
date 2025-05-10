@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { User } from "@/models/User";
-import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
+import AttendanceLogStatusEnum from "@/enums/AttendanceLogStatusEnum";
 import dayjs from "dayjs";
 import { Link } from "@/navigation";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
 import Dialog from "@/components/common/ui/Dialog";
 import AttendanceForm from "@/components/admin/attendance/AttendanceForm";

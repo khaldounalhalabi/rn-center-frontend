@@ -3,7 +3,7 @@ import React from "react";
 import AppointmentForm from "@/components/admin/appointment/AppointmentForm";
 import { AppointmentService } from "@/services/AppointmentService";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const page = async ({
   params: { appointmentId },

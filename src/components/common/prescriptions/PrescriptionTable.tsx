@@ -7,7 +7,7 @@ import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PrescriptionService } from "@/services/PrescriptionsServise";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const PrescriptionTable = ({ patientId }: { patientId: number }) => {
   const t = useTranslations("common.prescription.table");

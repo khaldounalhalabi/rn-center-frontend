@@ -18,7 +18,7 @@ import { AppointmentService } from "@/services/AppointmentService";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getEnumValues } from "@/helpers/Enums";
-import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
+import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Navigate } from "@/actions/Navigate";
 import useIsHoliday from "@/hooks/IsHoliday";

@@ -15,7 +15,7 @@ import { Clinic } from "@/models/Clinic";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/images/Gallery";
 import ImageUploader from "@/components/common/ui/images/ImageUploader";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 

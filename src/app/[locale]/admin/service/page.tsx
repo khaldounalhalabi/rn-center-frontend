@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Service } from "@/models/Service";
 import { ServiceService } from "@/services/ServiceService";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { Link } from "@/navigation";
 
 const Page = () => {

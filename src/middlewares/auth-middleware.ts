@@ -1,6 +1,6 @@
 "use server";
 import { NextRequest } from "next/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { getRole, getToken } from "@/actions/HelperActions";
 import { getServerCookie } from "@/actions/ServerCookies";
 

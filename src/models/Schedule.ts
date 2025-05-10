@@ -1,5 +1,5 @@
 import { Clinic } from "@/models/Clinic";
-import WeekDayEnum from "@/enum/WeekDayEnum";
+import WeekDayEnum from "@/enums/WeekDayEnum";
 
 export interface Schedule {
   id?: number;

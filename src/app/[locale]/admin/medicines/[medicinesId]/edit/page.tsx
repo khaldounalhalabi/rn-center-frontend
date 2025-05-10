@@ -3,7 +3,7 @@ import React from "react";
 import { MedicineService } from "@/services/MedicinesSevice";
 import MedicineForm from "@/components/common/medicine/MedicineForm";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const page = async ({
   params: { medicinesId },

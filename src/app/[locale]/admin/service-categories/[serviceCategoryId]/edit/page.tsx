@@ -3,7 +3,7 @@ import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import ServiceCategoryForm from "@/components/admin/service-category/ServiceCategoryForm";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const page = async ({
   params: { serviceCategoryId },

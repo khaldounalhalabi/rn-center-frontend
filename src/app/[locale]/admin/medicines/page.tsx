@@ -8,10 +8,10 @@ import { MedicineService } from "@/services/MedicinesSevice";
 import { Medicine } from "@/models/Medicine";
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
-import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
+import MedicineStatusEnum from "@/enums/MedicineStatusEnum";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import Grid from "@/components/common/ui/Grid";
 

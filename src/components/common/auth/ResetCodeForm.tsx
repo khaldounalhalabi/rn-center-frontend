@@ -4,7 +4,7 @@ import FormInput from "@/components/common/ui/inputs/FormInput";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { toast } from "react-toastify";
 
 const ResetCodeForm = ({ role }: { role: RoleEnum }) => {

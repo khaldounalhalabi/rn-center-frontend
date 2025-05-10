@@ -8,7 +8,7 @@ import { ServiceCategory } from "@/models/ServiceCategory";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import DeleteCategoryButton from "@/components/common/service-category/DeleteCategoryButton";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const ServiceCategoriesIndexPage = () => {
   const t = useTranslations("admin.category.table");

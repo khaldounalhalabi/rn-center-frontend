@@ -5,7 +5,7 @@ import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
 import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
 
 const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {

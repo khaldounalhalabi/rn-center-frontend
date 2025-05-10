@@ -7,11 +7,11 @@ import { Clinic } from "@/models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicsService } from "@/services/ClinicsService";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { getEnumValues } from "@/helpers/Enums";
-import WeekDayEnum from "@/enum/WeekDayEnum";
+import WeekDayEnum from "@/enums/WeekDayEnum";
 import Select from "@/components/common/ui/selects/Select";
 
 const Page = () => {

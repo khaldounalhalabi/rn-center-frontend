@@ -3,7 +3,7 @@ import AttendanceLog from "@/models/AttendanceLog";
 import AttendanceLogService from "@/services/AttendanceLogService";
 import Form from "@/components/common/ui/Form";
 import { useEffect, useState } from "react";
-import AttendanceLogTypeEnum from "@/enum/AttendanceLogTypeEnum";
+import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import dayjs from "dayjs";
 import Trash from "@/components/icons/Trash";
 import FormTimePicker from "@/components/common/ui/date-time-pickers/FormTimePicker";

@@ -1,7 +1,7 @@
 import { Navigate } from "@/actions/Navigate";
 import { DELETE, GET, POST, PUT } from "@/http/Http";
 import { ApiResponse } from "@/http/Response";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { deleteRole, deleteTokens } from "@/actions/HelperActions";
 
 export function BaseService<SERVICE, MODEL>() {

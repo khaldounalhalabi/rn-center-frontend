@@ -5,7 +5,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import React from "react";
 import { UserService } from "@/services/UserService";
 import { User } from "@/models/User";

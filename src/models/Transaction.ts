@@ -1,5 +1,5 @@
 import { User } from "@/models/User";
-import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
+import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
 import { Appointment } from "@/models/Appointment";
 
 export interface Transaction {

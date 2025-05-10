@@ -4,7 +4,7 @@ import {
   getServerCookie,
   setServerCookie,
 } from "@/actions/ServerCookies";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 export async function setToken(token?: string, refreshToken?: string) {
   await setServerCookie("token", token ?? "");

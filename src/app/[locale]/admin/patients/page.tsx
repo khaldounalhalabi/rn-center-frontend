@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { PatientService } from "@/services/PatientService";
 import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const Page = () => {
   const t = useTranslations("common.patient.table");

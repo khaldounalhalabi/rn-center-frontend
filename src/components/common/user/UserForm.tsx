@@ -6,7 +6,7 @@ import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
-import GenderEnum from "@/enum/GenderEnum";
+import GenderEnum from "@/enums/GenderEnum";
 import { UserService } from "@/services/UserService";
 import { User } from "@/models/User";
 

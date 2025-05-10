@@ -7,7 +7,7 @@ import { Clinic } from "@/models/Clinic";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const Page = async ({
   params: { clinicId },

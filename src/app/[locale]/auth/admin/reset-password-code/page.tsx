@@ -1,5 +1,5 @@
 import ResetCodeForm from "@/components/common/auth/ResetCodeForm";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const page = () => {
   return <ResetCodeForm role={RoleEnum.ADMIN} />;

@@ -4,7 +4,7 @@ import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
 import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import MediaTable from "@/components/common/media/MediaTable";

@@ -9,7 +9,7 @@ import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";
 import Dialog from "@/components/common/ui/Dialog";
-import GenderEnum from "@/enum/GenderEnum";
+import GenderEnum from "@/enums/GenderEnum";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { role, setUser } = useUser();

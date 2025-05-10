@@ -8,7 +8,7 @@ import { AuthResponse } from "@/models/User";
 import { useTranslations } from "next-intl";
 import { AuthService } from "@/services/AuthService";
 import useUser from "@/hooks/UserHook";
-import { RoleEnum } from "@/enum/RoleEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const Login = ({ role }: { role: RoleEnum }) => {
   const [error, setError] = useState(false);

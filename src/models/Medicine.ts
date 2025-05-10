@@ -1,4 +1,4 @@
-import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
+import MedicineStatusEnum from "@/enums/MedicineStatusEnum";
 
 export interface Medicine {
   id?: number;

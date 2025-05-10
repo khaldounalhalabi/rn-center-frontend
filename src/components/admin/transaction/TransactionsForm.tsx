@@ -7,7 +7,7 @@ import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
 import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import FormSelect from "@/components/common/ui/selects/FormSelect";

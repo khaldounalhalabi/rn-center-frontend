@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import { Speciality } from "@/Models/Speciality";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 import { SpecialityService } from "@/services/SpecialityService";
 import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";

@@ -4,7 +4,7 @@ import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Medicine } from "@/Models/Medicine";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 import { useTranslations } from "next-intl";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { RoleEnum } from "@/enum/RoleEnum";

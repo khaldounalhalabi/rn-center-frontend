@@ -7,7 +7,7 @@ import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { useTranslations } from "next-intl";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 
 const HolidaysForm = ({
   defaultValues = undefined,

@@ -16,7 +16,7 @@ import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { RoleEnum } from "@/enum/RoleEnum";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const ServiceForm = ({

@@ -16,7 +16,7 @@ import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepic
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/inputs/KeyValueMultipleInput";
-import Textarea from "@/components/common/ui/textArea/Textarea";
+import Textarea from "@/components/common/ui/text-inputs/Textarea";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 
 const PatientsForm = ({

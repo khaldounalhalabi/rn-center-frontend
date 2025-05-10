@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "@/components/common/Navbar/Navbar";
-import Sidebar from "@/components/common/Sidebar/Sidebar";
+import Sidebar from "@/components/common/sidebar/Sidebar";
 
 const NavProvider = ({ children }: { children: React.ReactNode }) => {
   const [openNavBar, setOpenNavBar] = useState<{

@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import "@/app/[locale]/global.css";
-import SidebarItem from "@/components/common/Sidebar/SidebarItem";
+import SidebarItem from "@/components/common/sidebar/SidebarItem";
 import { useLocale, useTranslations } from "next-intl";
 import MenuIcon from "@/components/icons/MenuIcon";
-import SidebarIcon from "@/components/common/Sidebar/SidebarIcon";
-import SidebarCompactIcon from "@/components/common/Sidebar/SidebarCompactIcon";
-import SidebarCompactItem from "@/components/common/Sidebar/SidebarCompactItem";
+import SidebarIcon from "@/components/common/sidebar/SidebarIcon";
+import SidebarCompactIcon from "@/components/common/sidebar/SidebarCompactIcon";
+import SidebarCompactItem from "@/components/common/sidebar/SidebarCompactItem";
 import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicIcon from "@/components/icons/ClinicIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";

@@ -5,27 +5,21 @@ import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { ChangeEventHandler } from "react";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
 
-const SelectFilter = ({
+const Select = ({
   data,
-  name,
   selected = [],
   isMultiple = false,
   label = undefined,
   onChange,
-  setStatus,
-  status,
   translated = false,
   sm = false,
   col = true,
 }: {
   data: any[];
   selected?: any[] | any;
-  name?: string;
   isMultiple?: boolean;
   label?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement> | undefined;
-  setStatus?: React.Dispatch<string>;
-  status?: string;
   translated?: boolean;
   sm?: boolean;
   col?: boolean;
@@ -34,7 +28,7 @@ const SelectFilter = ({
   return (
     <Label label={label} col={col ?? false}>
       <select
-        className={`!text-start select select-bordered ${sm && "select-sm"} flex-start w-full`}
+        className={`select select-bordered !text-start ${sm && "select-sm"} flex-start w-full`}
         defaultValue={selected ?? null}
         multiple={isMultiple ?? false}
         onChange={onChange}
@@ -50,4 +44,4 @@ const SelectFilter = ({
   );
 };
 
-export default SelectFilter;
+export default Select;

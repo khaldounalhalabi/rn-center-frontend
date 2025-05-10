@@ -14,7 +14,7 @@ import DataTable, {
   DataTableSchema,
 } from "@/components/common/Datatable/DataTable";
 import { Appointment } from "@/Models/Appointment";
-import SelectFilter from "@/components/common/ui/selects/SelectFilter";
+import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
@@ -140,7 +140,7 @@ const AppointmentsTable = ({
       return (
         <div className={"w-full grid grid-cols-1"}>
           <Label label={t("status")} col>
-            <SelectFilter
+            <Select
               data={getEnumValues(AppointmentStatusEnum)}
               selected={params.status ?? "all"}
               onChange={(event: any) => {
@@ -149,7 +149,7 @@ const AppointmentsTable = ({
             />
           </Label>
           <Label label={t("type")} col>
-            <SelectFilter
+            <Select
               data={getEnumValues(AppointmentTypeEnum)}
               selected={params.type}
               onChange={(event: any) => {

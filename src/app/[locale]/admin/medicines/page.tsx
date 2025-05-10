@@ -9,7 +9,7 @@ import { Medicine } from "@/Models/Medicine";
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { RoleEnum } from "@/enum/RoleEnum";
-import SelectFilter from "@/components/common/ui/selects/SelectFilter";
+import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
@@ -64,7 +64,7 @@ const Page = () => {
     filter: (params, setParams) => {
       return (
         <Grid md={1}>
-          <SelectFilter
+          <Select
             label={t("status")}
             data={getEnumValues(MedicineStatusEnum)}
             translated

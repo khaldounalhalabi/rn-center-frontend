@@ -6,7 +6,7 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
-import SelectFilter from "@/components/common/ui/selects/SelectFilter";
+import Select from "@/components/common/ui/selects/Select";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
@@ -147,7 +147,7 @@ const Page = () => {
             className="range range-xs"
           />
           <label className="label">{t("type")} :</label>
-          <SelectFilter
+          <Select
             data={getEnumValues(TransactionTypeEnum)}
             selected={params.type}
             onChange={(event: any) => {

@@ -13,7 +13,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.transaction.create");
   const transaction = (
-    await TransactionService.make<TransactionService>(RoleEnum.ADMIN).show(
+    await TransactionService.make(RoleEnum.ADMIN).show(
       transactionId,
     )
   ).data;

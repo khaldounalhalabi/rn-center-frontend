@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import React from "react";
 import styles from "../../../../app/[locale]/datepicker.module.css";
 
-const DateTimePickerRang = ({
+const FormDateTimePicker = ({
   name,
   label,
   required = false,
@@ -44,4 +44,4 @@ const DateTimePickerRang = ({
   );
 };
 
-export default DateTimePickerRang;
+export default FormDateTimePicker;

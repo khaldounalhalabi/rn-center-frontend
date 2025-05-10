@@ -6,7 +6,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
-import DateTimePickerRang from "@/components/common/ui/date-time-pickers/DateTimePickerRang";
+import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
@@ -55,7 +55,7 @@ const TransactionForm = ({
           type="number"
           unit={"iqd"}
         />
-        <DateTimePickerRang
+        <FormDateTimePicker
           required={true}
           name={"date"}
           label={`${t("date")} :`}

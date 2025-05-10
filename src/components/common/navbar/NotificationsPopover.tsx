@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
-import OpenAndClose from "@/hooks/OpenAndClose";
 import useClickOutside from "@/hooks/UseClickOutside";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
@@ -75,7 +74,7 @@ const NotificationsPopover = () => {
       />
       <div
         className={"relative w-8 h-full cursor-pointer"}
-        onClick={() => OpenAndClose(openPopNot, setOpenPopNot)}
+        onClick={() => setOpenPopNot(prevState => !prevState)}
       >
         <NotificationsIcon
           className={

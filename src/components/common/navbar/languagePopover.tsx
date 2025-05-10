@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
-import OpenAndClose from "@/hooks/OpenAndClose";
 import useClickOutside from "@/hooks/UseClickOutside";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 import { Link, usePathname } from "@/navigation";
@@ -19,17 +18,17 @@ const LanguagePopover = () => {
   return (
     <div
       ref={ref}
-      className={openPopLang ? " relative" : "overflow-clip relative"}
+      className={openPopLang ? "relative" : "relative overflow-clip"}
     >
       <LanguageIcon
         className={`h-6 w-6 cursor-pointer`}
-        onClick={() => OpenAndClose(openPopLang, setOpenPopLang)}
+        onClick={() => setOpenPopLang((prevState) => !prevState)}
       />
       <div
         className={
           openPopLang
-            ? "absolute end-0 w-[180px] z-50 mt-2 top-10 divide-y divide-gray-100 rounded-2xl bg-white opacity-100  transition-x-0 ease-in-out  duration-500 "
-            : "absolute transition-x-[-200px] opacity-0 ease-in-out duration-500 "
+            ? "transition-x-0 absolute end-0 top-10 z-50 mt-2 w-[180px] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 duration-500 ease-in-out"
+            : "transition-x-[-200px] absolute opacity-0 duration-500 ease-in-out"
         }
         style={{
           boxShadow:
@@ -41,9 +40,9 @@ const LanguagePopover = () => {
       >
         <div>
           <Link href={pathname} locale={"en"}>
-            <button className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer">
+            <button className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-4 py-2 text-start hover:bg-blue-200">
               <img
-                className="w-7 h-7"
+                className="h-7 w-7"
                 src="https://img.icons8.com/color/48/usa.png"
                 alt="usa"
               />
@@ -51,8 +50,8 @@ const LanguagePopover = () => {
             </button>
           </Link>
           <Link href={pathname} locale={"ar"}>
-            <button className="flex items-center text-start gap-2 w-full hover:bg-blue-200 px-4 py-2 rounded-xl cursor-pointer">
-              <IraqFlagIcon className={"w-7 h-7"} />
+            <button className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-4 py-2 text-start hover:bg-blue-200">
+              <IraqFlagIcon className={"h-7 w-7"} />
               <h3>{t("arabic")}</h3>
             </button>
           </Link>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/ui/images/RoundedImage";
-import OpenAndClose from "@/hooks/OpenAndClose";
 import useClickOutside from "@/hooks/UseClickOutside";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
@@ -20,14 +19,14 @@ const ProfileOptionsPopover = () => {
   return (
     <div
       ref={ref}
-      className={openPopProfile ? " relative" : "overflow-clip relative"}
+      className={openPopProfile ? "relative" : "relative overflow-clip"}
     >
       <div
-        onClick={() => OpenAndClose(openPopProfile, setOpenPopProfile)}
+        onClick={() => setOpenPopProfile((prevState) => !prevState)}
         className={
           openPopProfile
-            ? "rounded-full w-7 h-7 border-2 border-blue-500 "
-            : " w-7 h-7"
+            ? "h-7 w-7 rounded-full border-2 border-blue-500"
+            : "h-7 w-7"
         }
       >
         <RoundedImage src={"/user.png"} alt={"user-profile"} />
@@ -36,8 +35,8 @@ const ProfileOptionsPopover = () => {
       <div
         className={
           openPopProfile
-            ? "absolute end-0 w-[200px] z-10 mt-2 top-10 divide-y divide-gray-100 rounded-2xl bg-white opacity-100  transition-x-0 ease-in-out  duration-500 "
-            : "absolute transition-x-[-200px] opacity-0 ease-in-out duration-500 "
+            ? "transition-x-0 absolute end-0 top-10 z-10 mt-2 w-[200px] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 duration-500 ease-in-out"
+            : "transition-x-[-200px] absolute opacity-0 duration-500 ease-in-out"
         }
         role="menu"
         style={{
@@ -47,10 +46,10 @@ const ProfileOptionsPopover = () => {
             ", 0px 3px 14px 2px rgba(145, 158, 171, 0.12)",
         }}
       >
-        <div className="px-4 my-3">
-          <div className="text-sm ">{user?.full_name}</div>
+        <div className="my-3 px-4">
+          <div className="text-sm">{user?.full_name}</div>
           <div className="overflow-hidden whitespace-nowrap">
-            <div className="opacity-[0.6]  inline-block animate-marquee pl-[100%]">
+            <div className="inline-block animate-marquee pl-[100%] opacity-[0.6]">
               {user?.phone}
             </div>
           </div>
@@ -60,13 +59,13 @@ const ProfileOptionsPopover = () => {
           onClick={() => setOpenPopProfile(false)}
           suppressHydrationWarning
           href={`/${role}/user-details`}
-          className="opacity-[0.8] w-full"
+          className="w-full opacity-[0.8]"
         >
-          <button className="text-start px-4 w-full py-1 cursor-pointer hover:bg-blue-200">
+          <button className="w-full cursor-pointer px-4 py-1 text-start hover:bg-blue-200">
             {t("profile")}
           </button>
         </Link>
-        <div className="py-3 w-full px-4 text-red-600 rounded-b-2xl cursor-pointer hover:bg-red-200 hover:text-white">
+        <div className="w-full cursor-pointer rounded-b-2xl px-4 py-3 text-red-600 hover:bg-red-200 hover:text-white">
           <button
             className={"w-full text-start"}
             onClick={() => {

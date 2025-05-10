@@ -6,7 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { useTranslations } from "next-intl";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const ServiceCategoryForm = ({

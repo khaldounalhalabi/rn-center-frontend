@@ -7,15 +7,15 @@ import { Customer } from "@/Models/Customer";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/Inputs/Input";
-import Radio from "@/components/common/ui/Inputs/Radio";
+import Input from "@/components/common/ui/inputs/Input";
+import Radio from "@/components/common/ui/inputs/Radio";
 import { getEnumValues } from "@/Helpers/Enums";
 import GenderEnum from "@/enum/GenderEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
-import KeyValueMultipleInput from "@/components/common/ui/Inputs/KeyValueMultipleInput";
+import KeyValueMultipleInput from "@/components/common/ui/inputs/KeyValueMultipleInput";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 

@@ -8,7 +8,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import Grid from "@/components/common/ui/Grid";
 
 const SpecialityForm = ({

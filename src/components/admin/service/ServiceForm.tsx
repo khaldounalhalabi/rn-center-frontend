@@ -10,7 +10,7 @@ import { ApiResponse } from "@/Http/Response";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import { ClinicsService } from "@/services/ClinicsService";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/Gallery";

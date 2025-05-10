@@ -4,7 +4,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import Grid from "@/components/common/ui/Grid";
 import GenderEnum from "@/enum/GenderEnum";
 import { UserService } from "@/services/UserService";

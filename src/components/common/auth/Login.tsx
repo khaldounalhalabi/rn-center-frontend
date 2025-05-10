@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
 import { ApiResponse } from "@/Http/Response";

@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";

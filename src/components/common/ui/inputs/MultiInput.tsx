@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { InputProps } from "@/components/common/ui/Inputs/Input";
+import { InputProps } from "@/components/common/ui/inputs/Input";
 import Trash from "@/components/icons/Trash";
 import {
   getNestedPropertyValue,

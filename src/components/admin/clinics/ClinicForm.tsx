@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { SpecialityService } from "@/services/SpecialityService";
 import { ClinicsService } from "@/services/ClinicsService";
 import Form from "@/components/common/ui/Form";

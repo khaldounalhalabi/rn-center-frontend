@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/Inputs/Input";
+import Input from "@/components/common/ui/inputs/Input";
 import { Navigate } from "@/Actions/navigate";
 import { User } from "@/Models/User";
 import { AuthService } from "@/services/AuthService";

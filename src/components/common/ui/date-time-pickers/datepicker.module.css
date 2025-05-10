@@ -1,48 +1,48 @@
 .datePicker {
-    padding: 0 !important;
-    width: 100% !important;
+  padding: 0 !important;
+  width: 100% !important;
 }
 
 .datePickerField {
-    width: 100% !important;
-    padding: 5px !important;
-    height: 0 !important;
+  width: 100% !important;
+  padding: 5px !important;
+  height: 0 !important;
 }
 
 .datePickerRoot {
-    border-radius: 9px !important;
-    width: 100% !important;
-    padding: 5px !important;
-    height: 0 !important;
+  border-radius: 9px !important;
+  width: 100% !important;
+  padding: 5px !important;
+  height: 0 !important;
 }
 
 .datePickerRoot:hover {
-    border-color: #D2D4D7 !important;
-    padding: 5px !important;
-    height: 0 !important;
+  border-color: #d2d4d7 !important;
+  padding: 5px !important;
+  height: 0 !important;
 }
 
 .datePickerRoot:focus {
-    outline-color: #007BFF !important;
-    border-color: #007BFF !important;
-    padding: 5px !important;
-    height: 0 !important;
+  outline-color: #007bff !important;
+  border-color: #007bff !important;
+  padding: 5px !important;
+  height: 0 !important;
 }
 
 .datePickerInput {
-    padding: 5px !important;
-    border: 1px solid;
-    border-radius: 0.25rem;
-    width: 100%;
+  padding: 5px !important;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  width: 100%;
 }
 
 /* Styles for TimePicker */
 .timePickerWrapper {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .timePickerInput {
-    padding: 0 !important;
-    border: 1px solid;
-    border-radius: 50px;
+  padding: 0 !important;
+  border: 1px solid;
+  border-radius: 50px;
 }

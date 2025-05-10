@@ -1,4 +1,4 @@
-import AttendanceTimeline from "@/components/attendance/AttendanceTimeline";
+import AttendanceTimeline from "@/components/admin/attendance/AttendanceTimeline";
 import PageCard from "@/components/common/ui/PageCard";
 
 const Page = async () => {

@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { User } from "@/Models/User";
 import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
 import dayjs from "dayjs";
-import StatusLegend from "./StatusLegend";
 import { Link } from "@/navigation";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
 import Dialog from "@/components/common/ui/Dialog";
-import AttendanceForm from "@/components/attendance/AttendanceForm";
+import AttendanceForm from "@/components/admin/attendance/AttendanceForm";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { useTranslations } from "next-intl";
+import StatusLegend from "@/components/admin/attendance/StatusLegend";
 
 interface UserTimelineItemProps {
   user?: User;

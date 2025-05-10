@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { UserService } from "@/services/UserService";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import dayjs, { Dayjs } from "dayjs";
-import UserTimelineItem from "./UserTimelineItem";
 import { useInView } from "react-intersection-observer";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
 import { useTranslations } from "next-intl";
+import UserTimelineItem from "@/components/admin/attendance/UserTimelineItem";
 
 const AttendanceTimeline: React.FC = () => {
   const t = useTranslations("attendance");

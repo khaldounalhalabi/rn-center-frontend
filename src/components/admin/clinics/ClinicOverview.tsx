@@ -3,7 +3,7 @@ import React from "react";
 import { Clinic } from "@/Models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
-import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable";
+import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";

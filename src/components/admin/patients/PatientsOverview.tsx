@@ -2,7 +2,7 @@
 import React from "react";
 import { Customer } from "@/Models/Customer";
 import { useTranslations } from "next-intl";
-import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable";
+import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";

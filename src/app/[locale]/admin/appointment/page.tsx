@@ -2,7 +2,7 @@
 import React from "react";
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
-import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable";
+import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 
 const Page = () => {
   return (

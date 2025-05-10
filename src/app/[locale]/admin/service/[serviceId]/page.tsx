@@ -7,9 +7,9 @@ import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 import Gallery from "@/components/common/ui/Gallery";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
-import { Value } from "@/components/common/ui/LabelsValues/Value";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
+import { Value } from "@/components/common/ui/labels-and-values/Value";
 
 const ServiceShowPage = async ({
   params: { serviceId },

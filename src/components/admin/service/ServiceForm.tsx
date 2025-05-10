@@ -17,7 +17,7 @@ import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Textarea from "@/components/common/ui/textArea/Textarea";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const ServiceForm = ({
   defaultValues = undefined,

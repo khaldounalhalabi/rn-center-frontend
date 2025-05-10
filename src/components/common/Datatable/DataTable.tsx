@@ -12,7 +12,7 @@ import TablePaginator from "@/components/common/Datatable/TablePaginator";
 import FilterIcon from "@/components/icons/FilterIcon";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTranslations } from "next-intl";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 export interface DataTableSchema<T> {
   name?: string;

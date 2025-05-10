@@ -3,7 +3,7 @@ import React from "react";
 import { Clinic } from "@/Models/Clinic";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const Overview = ({ clinic }: { clinic?: Clinic | undefined | null }) => {

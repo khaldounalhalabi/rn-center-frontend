@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { ChangeEventHandler } from "react";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const Select = ({
   data,

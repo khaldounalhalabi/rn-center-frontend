@@ -6,7 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
 import { getTranslations } from "next-intl/server";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 
 const page = async ({

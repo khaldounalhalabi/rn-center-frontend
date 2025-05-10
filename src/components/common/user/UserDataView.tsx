@@ -2,7 +2,7 @@
 import { User } from "@/Models/User";
 import { getTranslations } from "next-intl/server";
 import PageCard from "@/components/common/ui/PageCard";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Link } from "@/navigation";
 import PrimaryButton from "@/components/common/ui/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";

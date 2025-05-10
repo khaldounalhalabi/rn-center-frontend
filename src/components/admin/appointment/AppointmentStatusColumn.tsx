@@ -7,7 +7,7 @@ import { useState } from "react";
 import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { AppointmentService } from "@/services/AppointmentService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 

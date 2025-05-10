@@ -5,7 +5,7 @@ import { Customer } from "@/Models/Customer";
 import { getTranslations } from "next-intl/server";
 import UserDataView from "@/components/common/user/UserDataView";
 import Grid from "@/components/common/ui/Grid";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import PatientsOverview from "@/components/admin/patients/PatientsOverview";
 
 const page = async ({

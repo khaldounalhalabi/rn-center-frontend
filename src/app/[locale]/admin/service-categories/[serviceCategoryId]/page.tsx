@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { getTranslations } from "next-intl/server";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 
 const page = async ({
   params: { serviceCategoryId },

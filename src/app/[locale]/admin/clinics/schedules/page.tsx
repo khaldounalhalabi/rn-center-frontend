@@ -9,7 +9,7 @@ import { ClinicsService } from "@/services/ClinicsService";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { getEnumValues } from "@/Helpers/Enums";
 import WeekDayEnum from "@/enum/WeekDayEnum";
 import Select from "@/components/common/ui/selects/Select";

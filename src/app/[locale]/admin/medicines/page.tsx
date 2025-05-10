@@ -12,7 +12,7 @@ import { RoleEnum } from "@/enum/RoleEnum";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import Grid from "@/components/common/ui/Grid";
 
 const Page = () => {

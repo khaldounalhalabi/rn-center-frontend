@@ -6,9 +6,9 @@ import { SpecialityService } from "@/services/SpecialityService";
 import { Speciality } from "@/Models/Speciality";
 import { getTranslations } from "next-intl/server";
 import Grid from "@/components/common/ui/Grid";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import Gallery from "@/components/common/ui/Gallery";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const page = async ({
   params: { specialityId },

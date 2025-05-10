@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 import { HolidayService } from "@/services/HolidayService";
-import { LabelValue } from "@/components/common/ui/LabelsValues/LabelValue";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 
 const HolidayShowPage = async ({
   params: { holidayId },

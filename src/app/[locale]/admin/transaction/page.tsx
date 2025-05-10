@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { getEnumValues } from "@/Helpers/Enums";
 import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
 import LoadingSpin from "@/components/icons/LoadingSpin";

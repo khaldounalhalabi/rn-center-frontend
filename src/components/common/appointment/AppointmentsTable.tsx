@@ -20,7 +20,7 @@ import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/Http/Response";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 
 const AppointmentsTable = ({
   without,

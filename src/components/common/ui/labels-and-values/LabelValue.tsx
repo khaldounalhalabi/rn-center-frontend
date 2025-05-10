@@ -1,5 +1,5 @@
-import { Value } from "@/components/common/ui/LabelsValues/Value";
-import { Label } from "@/components/common/ui/LabelsValues/Label";
+import { Value } from "@/components/common/ui/labels-and-values/Value";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { DaisyUiColor, DaisyUIColors } from "@/types/DaisyUiColor";
 
 export const LabelValue = ({

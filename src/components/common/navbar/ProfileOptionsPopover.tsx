@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/ui/images/RoundedImage";
-import useClickOutside from "@/hooks/UseClickOutside";
+import clickOutsideHandler from "@/Helpers/ClickOutsideHandler";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
@@ -11,7 +11,7 @@ const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    useClickOutside(ref, setOpenPopProfile);
+    clickOutsideHandler(ref, setOpenPopProfile);
   }, []);
   const { role, user } = useUser();
 

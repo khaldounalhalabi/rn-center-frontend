@@ -1,6 +1,6 @@
 import React from "react";
 
-const useClickOutside = (
+const clickOutsideHandler = (
   ref: React.RefObject<HTMLDivElement> | React.RefObject<HTMLUListElement>,
   setOpenPopProfile: React.Dispatch<boolean>,
 ) => {
@@ -15,4 +15,4 @@ const useClickOutside = (
   };
 };
 
-export default useClickOutside;
+export default clickOutsideHandler;

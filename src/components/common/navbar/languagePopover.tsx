@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
-import useClickOutside from "@/hooks/UseClickOutside";
+import clickOutsideHandler from "@/Helpers/ClickOutsideHandler";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 import { Link, usePathname } from "@/navigation";
 import { useTranslations } from "next-intl";
@@ -11,7 +11,7 @@ const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    useClickOutside(ref, setOpenPopLang);
+    clickOutsideHandler(ref, setOpenPopLang);
   }, []);
   const pathname = usePathname();
 

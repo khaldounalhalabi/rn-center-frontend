@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
-import useClickOutside from "@/hooks/UseClickOutside";
+import clickOutsideHandler from "@/Helpers/ClickOutsideHandler";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -55,7 +55,7 @@ const NotificationsPopover = () => {
 
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    useClickOutside(ref, setOpenPopNot);
+    clickOutsideHandler(ref, setOpenPopNot);
   }, []);
 
   return (

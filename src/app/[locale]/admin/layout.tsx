@@ -1,6 +1,6 @@
 import React from "react";
 import Providers from "@/app/[locale]/providers";
-import NavProvider from "@/components/common/NavProvider";
+import LayoutProvider from "@/components/providers/LayoutProvider";
 
 const Layout = ({
   children,
@@ -20,7 +20,7 @@ const Layout = ({
           <div
             className={`w-full col-start-1 col-span-4 md:col-start-2 md:col-span-4 h-screen overflow-y-scroll`}
           >
-            <NavProvider> {children}</NavProvider>
+            <LayoutProvider> {children}</LayoutProvider>
           </div>
         </Providers>
       </main>

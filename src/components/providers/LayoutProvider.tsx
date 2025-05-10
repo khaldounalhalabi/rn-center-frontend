@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/common/navbar/Navbar";
 import Sidebar from "@/components/common/sidebar/Sidebar";
 
-const NavProvider = ({ children }: { children: React.ReactNode }) => {
+const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   const [openNavBar, setOpenNavBar] = useState<{
     sm: boolean;
     md: boolean;
@@ -23,4 +23,4 @@ const NavProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default NavProvider;
+export default LayoutProvider;

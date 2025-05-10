@@ -1,5 +1,5 @@
 import React from "react";
-import Providers from "@/app/[locale]/providers";
+import Providers from "@/components/providers/providers";
 import LayoutProvider from "@/components/providers/LayoutProvider";
 
 const Layout = ({

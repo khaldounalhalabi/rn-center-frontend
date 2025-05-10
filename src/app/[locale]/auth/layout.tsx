@@ -1,6 +1,6 @@
 import "@/app/[locale]/global.css";
 import React from "react";
-import Providers from "../providers";
+import Providers from "@/components/providers/providers";
 
 const Layout = ({
   children,

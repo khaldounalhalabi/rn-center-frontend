@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
@@ -33,13 +33,13 @@ const SetNewPassword = ({ role }: { role: RoleEnum }) => {
         </div>
         <Form handleSubmit={handleSubmit} buttonText={t("save")}>
           <div className={"flex flex-col gap-5"}>
-            <Input
+            <FormInput
               name="password"
               type={"text"}
               label={t("password")}
               placeholder="Enter New Password"
             />
-            <Input
+            <FormInput
               name="password_confirmation"
               type="text"
               label={t("confirm-password")}

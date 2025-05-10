@@ -12,7 +12,7 @@ import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import Form from "@/components/common/ui/Form";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/Actions/navigate";
 import { useLocale, useTranslations } from "next-intl";
@@ -207,7 +207,7 @@ const ClinicScheduleForm = ({
             />
           )}
           {method == "update" && (
-            <Input
+            <FormInput
               required={true}
               name={"clinic_id"}
               type={"number"}

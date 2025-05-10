@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Navigate } from "@/Actions/navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
@@ -47,7 +47,7 @@ const TransactionForm = ({
           label={`${t("type")}`}
           defaultValue={defaultValues?.type}
         />
-        <Input
+        <FormInput
           placeholder={"amount ... "}
           name={"amount"}
           label={t("amount")}

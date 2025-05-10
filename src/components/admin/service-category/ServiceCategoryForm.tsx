@@ -6,7 +6,7 @@ import Grid from "@/components/common/ui/Grid";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { useTranslations } from "next-intl";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const ServiceCategoryForm = ({
@@ -46,7 +46,7 @@ const ServiceCategoryForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        <Input
+        <FormInput
           required={true}
           type={"text"}
           label={`${t("serviceCategoryName")}`}

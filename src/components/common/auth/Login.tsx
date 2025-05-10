@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Link } from "@/navigation";
 import Form from "@/components/common/ui/Form";
 import { ApiResponse } from "@/Http/Response";
@@ -43,13 +43,13 @@ const Login = ({ role }: { role: RoleEnum }) => {
           buttonText={t("Login")}
         >
           <div className="flex flex-col gap-5">
-            <Input
+            <FormInput
               name="phone"
               type="tel"
               label={t("phone")}
               placeholder="Enter your phone number"
             />
-            <Input
+            <FormInput
               name="password"
               label={t("password")}
               type="password"

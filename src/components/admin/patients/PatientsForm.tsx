@@ -7,7 +7,7 @@ import { Customer } from "@/Models/Customer";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import Radio from "@/components/common/ui/inputs/Radio";
 import { getEnumValues } from "@/Helpers/Enums";
 import GenderEnum from "@/enum/GenderEnum";
@@ -51,19 +51,19 @@ const PatientsForm = ({
       defaultValues={customer}
     >
       <Grid>
-        <Input
+        <FormInput
           type={"text"}
           name={"first_name"}
           defaultValue={customer?.user?.first_name}
           label={t("firstName")}
         />
-        <Input
+        <FormInput
           type={"text"}
           name={"last_name"}
           defaultValue={customer?.user?.last_name}
           label={t("lastName")}
         />
-        <Input
+        <FormInput
           type={"tel"}
           name={"phone"}
           defaultValue={customer?.user?.phone}

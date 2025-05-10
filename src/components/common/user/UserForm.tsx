@@ -4,7 +4,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
 import GenderEnum from "@/enum/GenderEnum";
 import { UserService } from "@/services/UserService";
@@ -45,13 +45,13 @@ const UserForm = ({
           defaultValues={user}
         >
           <h1 className={"label"}>{t("resetPassword")}</h1>
-          <Input
+          <FormInput
             placeholder={"Password...  "}
             name={"password"}
             label={t("password")}
             type="password"
           />
-          <Input
+          <FormInput
             placeholder={"Confirmation...  "}
             name={"password_confirmation"}
             label={t("confirm-password")}
@@ -65,20 +65,20 @@ const UserForm = ({
         defaultValues={user}
       >
         <Grid md={"2"}>
-          <Input
+          <FormInput
             type={"text"}
             placeholder={"John"}
             label={t("first-Name")}
             name={"first_name"}
           />
 
-          <Input
+          <FormInput
             type={"text"}
             placeholder={"John"}
             label={t("last-name")}
             name={"last_name"}
           />
-          <Input
+          <FormInput
             placeholder={"0912345678"}
             name={"phone"}
             label={t("phone")}
@@ -90,7 +90,7 @@ const UserForm = ({
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>
-            <Input
+            <FormInput
               name={"gender"}
               label={t("male")}
               type="radio"
@@ -99,7 +99,7 @@ const UserForm = ({
               defaultChecked={user?.gender == GenderEnum.MALE}
             />
 
-            <Input
+            <FormInput
               name={"gender"}
               label={t("female")}
               type="radio"
@@ -118,12 +118,12 @@ const UserForm = ({
             </button>
           ) : (
             <>
-              <Input
+              <FormInput
                 type={"password"}
                 name={"password"}
                 label={t("password")}
               />
-              <Input
+              <FormInput
                 type={"password"}
                 name={"password_confirmation"}
                 label={t("confirm-password")}

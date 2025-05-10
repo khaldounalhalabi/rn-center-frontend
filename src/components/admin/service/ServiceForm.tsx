@@ -10,7 +10,7 @@ import { ApiResponse } from "@/Http/Response";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import { ClinicsService } from "@/services/ClinicsService";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/Gallery";
@@ -50,7 +50,7 @@ const ServiceForm = ({
       defaultValues={rest}
     >
       <Grid md={"2"}>
-        <Input
+        <FormInput
           required={true}
           type={"text"}
           label={t("serviceName")}
@@ -91,7 +91,7 @@ const ServiceForm = ({
               : []
           }
         />
-        <Input
+        <FormInput
           required={true}
           name={"approximate_duration"}
           type={"number"}
@@ -100,7 +100,7 @@ const ServiceForm = ({
           placeholder={`${t("approximateDuration")} :`}
           label={t("approximateDuration")}
         />
-        <Input
+        <FormInput
           required={true}
           name={"price"}
           type={"number"}

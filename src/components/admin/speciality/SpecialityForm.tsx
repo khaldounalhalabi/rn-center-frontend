@@ -8,7 +8,7 @@ import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import Gallery from "@/components/common/ui/Gallery";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
 
 const SpecialityForm = ({
@@ -42,7 +42,7 @@ const SpecialityForm = ({
       defaultValues={values}
     >
       <Grid>
-        <Input
+        <FormInput
           required={true}
           type={"text"}
           label={t("specialityName")}

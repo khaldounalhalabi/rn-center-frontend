@@ -27,7 +27,7 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   min?: number;
 }
 
-const Input: React.FC<InputProps> = ({
+const FormInput: React.FC<InputProps> = ({
   className,
   label,
   name,
@@ -141,4 +141,4 @@ const Input: React.FC<InputProps> = ({
     );
 };
 
-export default Input;
+export default FormInput;

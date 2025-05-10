@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
@@ -38,7 +38,7 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
           <h4 className="mt-4 text-gray-500">{t("enterResetPasswordCode")}</h4>
         </div>
         <Form handleSubmit={handleSubmit} buttonText={t("send")}>
-          <Input
+          <FormInput
             name="code"
             type="text"
             label={t("code")}

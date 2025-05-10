@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import { Medicine } from "@/Models/Medicine";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
 import { MedicineService } from "@/services/MedicinesSevice";
@@ -37,9 +37,9 @@ const MedicineForm = ({
       }}
     >
       <Grid md={"2"}>
-        <Input name={"name"} label={t("medicineName")} type="text" />
-        <Input type={"number"} name={"quantity"} label={t("quantity")} />
-        <Input type={"text"} name={"barcode"} label={t("barcode_value")} />
+        <FormInput name={"name"} label={t("medicineName")} type="text" />
+        <FormInput type={"number"} name={"quantity"} label={t("quantity")} />
+        <FormInput type={"text"} name={"barcode"} label={t("barcode_value")} />
       </Grid>
       <Textarea
         label={t("description")}

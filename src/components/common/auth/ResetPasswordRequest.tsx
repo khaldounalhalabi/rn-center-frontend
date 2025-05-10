@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
@@ -30,7 +30,7 @@ const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
           handleSubmit={handleSubmit}
           buttonText={t("send_reset_password_code")}
         >
-          <Input
+          <FormInput
             name="phone"
             type="tel"
             label={t("phone")}

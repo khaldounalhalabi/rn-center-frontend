@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Navigate } from "@/Actions/navigate";
 import { User } from "@/Models/User";
 import { AuthService } from "@/services/AuthService";
@@ -40,13 +40,13 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
       <Dialog open={isOpen}>
         <Form handleSubmit={handleSubmit} onSuccess={onSuccess}>
           <h1 className={"label"}>{t("resetPassword")}</h1>
-          <Input
+          <FormInput
             placeholder={"Password...  "}
             name={"password"}
             label={t("password")}
             type="password"
           />
-          <Input
+          <FormInput
             placeholder={"Confirmation...  "}
             name={"password_confirmation"}
             label={t("confirm-password")}
@@ -60,20 +60,20 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         defaultValues={defaultValues}
       >
         <Grid md={"2"}>
-          <Input
+          <FormInput
             type={"text"}
             placeholder={"John"}
             label={t("first-Name")}
             name={"first_name"}
           />
 
-          <Input
+          <FormInput
             type={"text"}
             placeholder={"John"}
             label={t("last-name")}
             name={"last_name"}
           />
-          <Input
+          <FormInput
             placeholder={"0912345678"}
             name={"phone"}
             label={t("phone")}
@@ -85,7 +85,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             <label className={`bg-pom p-2 rounded-md text-white`}>
               {t("gender")}:
             </label>
-            <Input
+            <FormInput
               name={"gender"}
               label={t("male")}
               type="radio"
@@ -94,7 +94,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
               defaultChecked={defaultValues?.gender == GenderEnum.MALE}
             />
 
-            <Input
+            <FormInput
               name={"gender"}
               label={t("female")}
               type="radio"

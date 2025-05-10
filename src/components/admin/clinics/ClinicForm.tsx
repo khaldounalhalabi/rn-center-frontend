@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
-import Input from "@/components/common/ui/inputs/Input";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { SpecialityService } from "@/services/SpecialityService";
 import { ClinicsService } from "@/services/ClinicsService";
 import Form from "@/components/common/ui/Form";
@@ -42,13 +42,13 @@ const ClinicForm = ({
       }}
     >
       <Grid md={2}>
-        <Input
+        <FormInput
           type={"text"}
           label={t("first-Name")}
           name={"user.first_name"}
           required={true}
         />
-        <Input
+        <FormInput
           type={"text"}
           label={t("last-name")}
           name={"user.last_name"}
@@ -56,14 +56,14 @@ const ClinicForm = ({
         />
         {type == "store" && (
           <>
-            <Input
+            <FormInput
               name={"user.password"}
               type={"text"}
               placeholder={"Password"}
               label={t("password")}
               required={true}
             />
-            <Input
+            <FormInput
               name={"user.password_confirmation"}
               type={"text"}
               placeholder={"Confirm Password"}
@@ -73,7 +73,7 @@ const ClinicForm = ({
           </>
         )}
 
-        <Input
+        <FormInput
           name={"user.phone"}
           type={"tel"}
           label={t("phone")}
@@ -87,7 +87,7 @@ const ClinicForm = ({
             return !day.isBefore(dayjs().subtract(20, "year"));
           }}
         />
-        <Input
+        <FormInput
           name={"appointment_cost"}
           type={"number"}
           unit={"iqd"}
@@ -95,14 +95,14 @@ const ClinicForm = ({
           label={t("cost")}
           required={true}
         />
-        <Input
+        <FormInput
           name={"max_appointments"}
           type={"number"}
           step={"any"}
           label={t("max-appointments")}
           required={true}
         />
-        <Input
+        <FormInput
           name={"working_start_year"}
           type={"year"}
           label={t("working_start_year")}
@@ -128,7 +128,7 @@ const ClinicForm = ({
           <label className={`bg-pom p-2 rounded-md text-white`}>
             {t("gender")}:
           </label>
-          <Input
+          <FormInput
             name={"user.gender"}
             label={t("male")}
             type="radio"
@@ -140,7 +140,7 @@ const ClinicForm = ({
                 : true
             }
           />
-          <Input
+          <FormInput
             name={"user.gender"}
             label={t("female")}
             type="radio"

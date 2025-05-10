@@ -6,7 +6,7 @@ import { Holiday } from "@/Models/Holiday";
 import { Navigate } from "@/Actions/navigate";
 import Grid from "@/components/common/ui/Grid";
 import { useTranslations } from "next-intl";
-import Datepicker from "@/components/common/ui/Date/Datepicker";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 
 const HolidaysForm = ({

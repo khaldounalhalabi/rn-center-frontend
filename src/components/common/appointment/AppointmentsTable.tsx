@@ -18,7 +18,7 @@ import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import DatepickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
 import { ApiResponse } from "@/Http/Response";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
 

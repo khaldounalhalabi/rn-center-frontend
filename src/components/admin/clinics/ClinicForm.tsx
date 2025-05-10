@@ -8,7 +8,7 @@ import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
 import { Navigate } from "@/Actions/navigate";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import Datepicker from "@/components/common/ui/Date/Datepicker";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import dayjs from "dayjs";
 import { Clinic } from "@/Models/Clinic";
 

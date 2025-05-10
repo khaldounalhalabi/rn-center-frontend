@@ -9,7 +9,7 @@ import { Transaction } from "@/Models/Transaction";
 import Select from "@/components/common/ui/selects/Select";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import DatepickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { Label } from "@/components/common/ui/LabelsValues/Label";

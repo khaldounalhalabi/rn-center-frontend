@@ -8,7 +8,7 @@ import React from "react";
 import { HolidayService } from "@/services/HolidayService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { Holiday } from "@/Models/Holiday";
-import DatePickerFilter from "@/components/common/ui/Date/DatePickerFilter";
+import DatePickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
 import dayjs from "dayjs";
 
 const HolidaysIndexPage = () => {

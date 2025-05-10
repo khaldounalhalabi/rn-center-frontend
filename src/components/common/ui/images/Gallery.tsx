@@ -1,5 +1,5 @@
 "use client";
-import ImagePreview from "../ImagePreview";
+import ImagePreview from "./ImagePreview";
 import { getMedia, Media } from "@/Models/Media";
 import { MediaService } from "@/services/MediaService";
 import { swal } from "@/Helpers/UIHelpers";

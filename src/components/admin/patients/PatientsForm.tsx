@@ -17,7 +17,7 @@ import FormSelect from "@/components/common/ui/selects/FormSelect";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/inputs/KeyValueMultipleInput";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
-import ImageUploader from "@/components/common/ui/ImageUploader";
+import ImageUploader from "@/components/common/ui/images/ImageUploader";
 
 const PatientsForm = ({
   customer = undefined,

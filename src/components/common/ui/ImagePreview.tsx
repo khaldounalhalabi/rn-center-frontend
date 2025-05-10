@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, HTMLProps, useState } from "react";
-import RoundedImage from "@/components/common/RoundedImage";
+import RoundedImage from "@/components/common/ui/images/RoundedImage";
 
 const ImagePreview = ({
   src,

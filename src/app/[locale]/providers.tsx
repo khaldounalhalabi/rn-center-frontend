@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createContext, Dispatch, SetStateAction } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
-import NotificationProvider from "@/components/common/NotificationProvider";
+import NotificationProvider from "@/components/providers/NotificationProvider";
 import { useLocale } from "next-intl";
 import useUser from "@/hooks/UserHook";
 import LoadingScreen from "@/components/common/ui/LoadingScreen";

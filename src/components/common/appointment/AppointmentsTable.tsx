@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { NotificationHandler } from "@/components/common/NotificationHandler";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import { RealTimeEvents } from "@/Models/NotificationPayload";
 import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import React from "react";

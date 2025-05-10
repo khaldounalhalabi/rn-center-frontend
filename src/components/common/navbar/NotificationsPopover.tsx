@@ -9,7 +9,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import CircleCheckMark from "@/components/icons/CircleCheckMark";
 import { Link } from "@/navigation";
-import { NotificationHandler } from "@/components/common/NotificationHandler";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";
 

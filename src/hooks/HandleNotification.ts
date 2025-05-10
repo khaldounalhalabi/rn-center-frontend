@@ -1,7 +1,7 @@
 import {
   Handler,
   NotificationsHandlersContext,
-} from "@/components/common/NotificationProvider";
+} from "@/components/providers/NotificationProvider";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import { useContext } from "react";
 

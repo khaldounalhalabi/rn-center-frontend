@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import RoundedImage from "@/components/common/RoundedImage";
+import RoundedImage from "@/components/common/ui/images/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
 import HandleClickOutSide from "@/hooks/HandleClickOutSide";
 import { Link } from "@/navigation";

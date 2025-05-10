@@ -1,6 +1,6 @@
 "use client";
 import { Translatable } from "@/Models/Translatable";
-import { getCookieClient } from "@/actions/ClientCookies";
+import { getClientCookie } from "@/actions/ClientCookies";
 import { useTranslations } from "next-intl";
 
 export function TranslateClient(
@@ -31,7 +31,7 @@ export function TranslateClient(
       return tr;
     }
     let locale = "en";
-    locale = getCookieClient("NEXT_LOCALE") ?? "en";
+    locale = getClientCookie("NEXT_LOCALE") ?? "en";
     if (locale == "en") {
       if (tr.en) {
         return tr.en.trim() != "" ? tr.en : tr.ar ?? "";

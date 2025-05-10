@@ -1,15 +1,15 @@
 "use client";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
-export function setCookieClient(key: string, value: string) {
+export function setClientCookie(key: string, value: string) {
   return setCookie(key, value);
 }
 
-export function getCookieClient(key: string) {
+export function getClientCookie(key: string) {
   const coc: string | undefined = getCookie(key);
   return coc ? coc : "";
 }
 
-export function deleteCookieClient(key: string) {
+export function deleteClientCookie(key: string) {
   return deleteCookie(key);
 }

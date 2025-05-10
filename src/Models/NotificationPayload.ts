@@ -1,5 +1,5 @@
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
-import { getCookieClient } from "@/actions/ClientCookies";
+import { getClientCookie } from "@/actions/ClientCookies";
 
 export class NotificationPayload {
   public collapseKey?: string;
@@ -110,7 +110,7 @@ export class NotificationPayload {
   }
 
   public getMessage() {
-    const locale = getCookieClient("NEXT_LOCALE") ?? "en";
+    const locale = getClientCookie("NEXT_LOCALE") ?? "en";
     if (locale == "ar") {
       return this.message_ar;
     } else {

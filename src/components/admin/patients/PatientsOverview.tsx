@@ -2,12 +2,12 @@
 import React from "react";
 import { Customer } from "@/Models/Customer";
 import { useTranslations } from "next-intl";
-import MediaTable from "@/components/patient/MediaTable";
 import AppointmentsTable from "@/components/common/Appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
+import MediaTable from "@/components/common/media/MediaTable";
 
 const PatientsOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");

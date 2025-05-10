@@ -1,7 +1,7 @@
 import { BaseService } from "@/services/BaseService";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import { GET, POST } from "@/http/Http";
-import { UsersWithAttendance } from "@/Models/Attendance";
+import { UsersWithAttendance } from "@/models/Attendance";
 import { ApiResponse } from "@/http/Response";
 
 export class UserService extends BaseService<UserService, User>() {

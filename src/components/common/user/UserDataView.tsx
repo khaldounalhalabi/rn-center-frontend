@@ -1,5 +1,5 @@
 "use server";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import { getTranslations } from "next-intl/server";
 import PageCard from "@/components/common/ui/PageCard";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";

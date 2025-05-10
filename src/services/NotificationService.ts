@@ -1,4 +1,4 @@
-import { Notification } from "@/Models/NotificationPayload";
+import { Notification } from "@/models/NotificationPayload";
 import { BaseService } from "./BaseService";
 import { ApiResponse } from "@/http/Response";
 import { GET } from "@/http/Http";

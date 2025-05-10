@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import AttendanceLog from "@/Models/AttendanceLog";
+import AttendanceLog from "@/models/AttendanceLog";
 import { POST } from "@/http/Http";
 
 class AttendanceLogService extends BaseService<

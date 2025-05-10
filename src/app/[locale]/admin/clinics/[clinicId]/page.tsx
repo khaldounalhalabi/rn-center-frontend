@@ -3,7 +3,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import { ClinicsService } from "@/services/ClinicsService";
 import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { ApiResponse } from "@/http/Response";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import ClinicOverview from "@/components/admin/clinics/ClinicOverview";
 import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";

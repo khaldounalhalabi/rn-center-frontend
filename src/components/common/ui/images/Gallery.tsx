@@ -1,6 +1,6 @@
 "use client";
 import ImagePreview from "./ImagePreview";
-import { getMedia, Media } from "@/Models/Media";
+import { getMedia, Media } from "@/models/Media";
 import { MediaService } from "@/services/MediaService";
 import { swal } from "@/helpers/UIHelpers";
 import { useState, useTransition } from "react";

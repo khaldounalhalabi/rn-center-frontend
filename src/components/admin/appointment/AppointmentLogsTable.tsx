@@ -1,7 +1,7 @@
 import React from "react";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
-import { AppointmentLogs as AppointmentLogsModel } from "@/Models/AppointmentLog";
+import { AppointmentLogs as AppointmentLogsModel } from "@/models/AppointmentLog";
 import { getTranslations } from "next-intl/server";
 
 const AppointmentLogsTable = async ({

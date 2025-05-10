@@ -1,4 +1,4 @@
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import WeekDayEnum from "@/enum/WeekDayEnum";
 
 export interface Schedule {

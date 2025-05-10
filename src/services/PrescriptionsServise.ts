@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Prescription } from "@/Models/Prescriptions";
+import { Prescription } from "@/models/Prescriptions";
 import { ApiResponse } from "@/http/Response";
 import { GET } from "@/http/Http";
 

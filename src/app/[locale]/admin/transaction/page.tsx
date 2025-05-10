@@ -5,7 +5,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/Models/Transaction";
+import { Transaction } from "@/models/Transaction";
 import Select from "@/components/common/ui/selects/Select";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";

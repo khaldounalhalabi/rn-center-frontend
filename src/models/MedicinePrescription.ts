@@ -1,5 +1,5 @@
 import MedicinePrescriptionStatusEnum from "@/enum/MedicinePrescriptionStatusEnum";
-import { Medicine } from "@/Models/Medicine";
+import { Medicine } from "@/models/Medicine";
 
 interface MedicinePrescription {
   id: number;

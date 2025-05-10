@@ -4,7 +4,7 @@ import React from "react";
 import { Navigate } from "@/actions/Navigate";
 import Grid from "@/components/common/ui/Grid";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
-import { ServiceCategory } from "@/Models/ServiceCategory";
+import { ServiceCategory } from "@/models/ServiceCategory";
 import { useTranslations } from "next-intl";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { RoleEnum } from "@/enum/RoleEnum";

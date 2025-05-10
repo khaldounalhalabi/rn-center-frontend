@@ -4,7 +4,7 @@ import firebaseApp from "@/helpers/Firebase";
 import {
   NotificationPayload,
   NotificationPayloadData,
-} from "@/Models/NotificationPayload";
+} from "@/models/NotificationPayload";
 import { getMessaging, onMessage } from "firebase/messaging";
 import {
   createContext,

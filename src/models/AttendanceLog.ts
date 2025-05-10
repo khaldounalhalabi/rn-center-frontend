@@ -1,6 +1,6 @@
 import AttendanceLogTypeEnum from "@/enum/AttendanceLogTypeEnum";
 import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 
 interface AttendanceLog {
   id: number;

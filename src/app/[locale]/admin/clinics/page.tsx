@@ -3,7 +3,7 @@ import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";

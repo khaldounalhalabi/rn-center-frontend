@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import React from "react";
 import { HolidayService } from "@/services/HolidayService";
 import { RoleEnum } from "@/enum/RoleEnum";
-import { Holiday } from "@/Models/Holiday";
+import { Holiday } from "@/models/Holiday";
 import DatePickerFilter from "@/components/common/ui/date-time-pickers/Datepicker";
 import dayjs from "dayjs";
 

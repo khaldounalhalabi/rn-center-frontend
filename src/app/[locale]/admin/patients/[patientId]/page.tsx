@@ -1,7 +1,7 @@
 import React from "react";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import { PatientService } from "@/services/PatientService";
-import { Customer } from "@/Models/Customer";
+import { Customer } from "@/models/Customer";
 import { getTranslations } from "next-intl/server";
 import UserDataView from "@/components/common/user/UserDataView";
 import Grid from "@/components/common/ui/Grid";

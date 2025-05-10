@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { MedicineService } from "@/services/MedicinesSevice";
-import { Medicine } from "@/Models/Medicine";
+import { Medicine } from "@/models/Medicine";
 import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";

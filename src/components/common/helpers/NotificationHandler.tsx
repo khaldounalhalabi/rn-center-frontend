@@ -1,5 +1,5 @@
 "use client";
-import { NotificationPayload } from "@/Models/NotificationPayload";
+import { NotificationPayload } from "@/models/NotificationPayload";
 import { ReactNode, useEffect } from "react";
 import { HandleNotification } from "@/hooks/HandleNotification";
 

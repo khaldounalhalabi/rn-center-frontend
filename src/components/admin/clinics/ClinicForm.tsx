@@ -10,7 +10,7 @@ import { Navigate } from "@/actions/Navigate";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import dayjs from "dayjs";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 
 const ClinicForm = ({
   type = "store",

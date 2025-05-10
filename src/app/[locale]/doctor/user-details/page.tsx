@@ -1,4 +1,4 @@
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import React from "react";
 import { AuthService } from "@/services/AuthService";
 import { getRole } from "@/actions/HelperActions";

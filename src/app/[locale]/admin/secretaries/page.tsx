@@ -8,7 +8,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { RoleEnum } from "@/enum/RoleEnum";
 import React from "react";
 import { UserService } from "@/services/UserService";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 
 const Page = () => {
   const t = useTranslations("secretaries");

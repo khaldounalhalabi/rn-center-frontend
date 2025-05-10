@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Medicine } from "@/Models/Medicine";
+import { Medicine } from "@/models/Medicine";
 
 export class MedicineService extends BaseService<MedicineService, Medicine>() {
   public getBaseUrl(): string {

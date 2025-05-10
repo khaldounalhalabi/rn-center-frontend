@@ -1,5 +1,5 @@
 import { BaseService } from "@/services/BaseService";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 import { ApiResponse } from "@/http/Response";
 import { GET, POST, PUT } from "@/http/Http";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";

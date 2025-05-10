@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import AttendanceLogStatusEnum from "@/enum/AttendanceLogStatusEnum";
 import dayjs from "dayjs";
 import { Link } from "@/navigation";

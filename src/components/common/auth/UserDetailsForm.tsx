@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Navigate } from "@/actions/Navigate";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";

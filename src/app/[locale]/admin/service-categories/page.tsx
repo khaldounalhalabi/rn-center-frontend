@@ -4,7 +4,7 @@ import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { ServiceCategory } from "@/Models/ServiceCategory";
+import { ServiceCategory } from "@/models/ServiceCategory";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
 import DeleteCategoryButton from "@/components/common/service-category/DeleteCategoryButton";

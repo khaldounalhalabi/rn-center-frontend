@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import React from "react";
-import { Speciality } from "@/Models/Speciality";
+import { Speciality } from "@/models/Speciality";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { SpecialityService } from "@/services/SpecialityService";
 import { Navigate } from "@/actions/Navigate";

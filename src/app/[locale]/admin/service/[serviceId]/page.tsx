@@ -3,7 +3,7 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import { ServiceService } from "@/services/ServiceService";
-import { Service } from "@/Models/Service";
+import { Service } from "@/models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 import Gallery from "@/components/common/ui/images/Gallery";

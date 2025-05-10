@@ -1,5 +1,5 @@
 "use client";
-import AttendanceLog from "@/Models/AttendanceLog";
+import AttendanceLog from "@/models/AttendanceLog";
 import AttendanceLogService from "@/services/AttendanceLogService";
 import Form from "@/components/common/ui/Form";
 import { useEffect, useState } from "react";

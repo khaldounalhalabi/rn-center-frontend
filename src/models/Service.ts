@@ -1,6 +1,6 @@
 import { Clinic } from "./Clinic";
-import { ServiceCategory } from "@/Models/ServiceCategory";
-import { Media } from "@/Models/Media";
+import { ServiceCategory } from "@/models/ServiceCategory";
+import { Media } from "@/models/Media";
 
 export interface Service {
   id: number;

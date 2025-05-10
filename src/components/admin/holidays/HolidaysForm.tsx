@@ -2,7 +2,7 @@
 import Form from "@/components/common/ui/Form";
 import React from "react";
 import { HolidayService } from "@/services/HolidayService";
-import { Holiday } from "@/Models/Holiday";
+import { Holiday } from "@/models/Holiday";
 import { Navigate } from "@/actions/Navigate";
 import Grid from "@/components/common/ui/Grid";
 import { useTranslations } from "next-intl";

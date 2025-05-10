@@ -1,6 +1,6 @@
 import React from "react";
 import { ApiResponse } from "@/http/Response";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import { ClinicsService } from "@/services/ClinicsService";
 import PageCard from "@/components/common/ui/PageCard";
 import ClinicForm from "@/components/admin/clinics/ClinicForm";

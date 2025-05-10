@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
 import clickOutsideHandler from "@/helpers/ClickOutsideHandler";
-import { NotificationPayload } from "@/Models/NotificationPayload";
+import { NotificationPayload } from "@/models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import LoadingSpin from "@/components/icons/LoadingSpin";

@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/Models/Transaction";
+import { Transaction } from "@/models/Transaction";
 import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";

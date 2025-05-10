@@ -1,7 +1,7 @@
 import { RoleEnum } from "@/enum/RoleEnum";
 import GenderEnum from "@/enum/GenderEnum";
-import AttendanceLog from "@/Models/AttendanceLog";
-import { Clinic } from "@/Models/Clinic";
+import AttendanceLog from "@/models/AttendanceLog";
+import { Clinic } from "@/models/Clinic";
 
 export interface User {
   id?: number;

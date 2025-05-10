@@ -1,5 +1,5 @@
-import { User } from "@/Models/User";
-import { Speciality } from "@/Models/Speciality";
+import { User } from "@/models/User";
+import { Speciality } from "@/models/Speciality";
 
 export type Clinic = {
   id: number;

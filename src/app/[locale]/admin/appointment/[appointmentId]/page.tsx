@@ -3,7 +3,7 @@ import React from "react";
 import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import { AppointmentService } from "@/services/AppointmentService";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 import { getTranslations } from "next-intl/server";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";

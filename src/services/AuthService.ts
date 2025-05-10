@@ -1,9 +1,9 @@
 import { Navigate } from "@/actions/Navigate";
 import { ApiResponse } from "@/http/Response";
-import { AuthResponse, User } from "@/Models/User";
+import { AuthResponse, User } from "@/models/User";
 import { GET, POST, PUT } from "@/http/Http";
 import { BaseService } from "./BaseService";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import {
   deleteRole,
   deleteTokens,

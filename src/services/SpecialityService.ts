@@ -1,4 +1,4 @@
-import { Speciality } from "@/Models/Speciality";
+import { Speciality } from "@/models/Speciality";
 import { BaseService } from "@/services/BaseService";
 import { ApiResponse } from "@/http/Response";
 import { GET } from "@/http/Http";

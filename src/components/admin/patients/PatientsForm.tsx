@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import { Navigate } from "@/actions/Navigate";
 import { PatientService } from "@/services/PatientService";
-import { Customer } from "@/Models/Customer";
+import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Grid from "@/components/common/ui/Grid";

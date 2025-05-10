@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const USER_STORAGE_KEY = "user";

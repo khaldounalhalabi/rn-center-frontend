@@ -1,7 +1,7 @@
-import MedicinePrescription from "@/Models/MedicinePrescription";
-import { Clinic } from "@/Models/Clinic";
-import { Customer } from "@/Models/Customer";
-import { Appointment } from "@/Models/Appointment";
+import MedicinePrescription from "@/models/MedicinePrescription";
+import { Clinic } from "@/models/Clinic";
+import { Customer } from "@/models/Customer";
+import { Appointment } from "@/models/Appointment";
 
 export interface Prescription {
   id: number;

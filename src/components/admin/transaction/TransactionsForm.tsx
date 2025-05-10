@@ -5,7 +5,7 @@ import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Navigate } from "@/actions/Navigate";
 import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/Models/Transaction";
+import { Transaction } from "@/models/Transaction";
 import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";

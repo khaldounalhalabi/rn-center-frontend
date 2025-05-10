@@ -1,6 +1,6 @@
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 
 export interface Transaction {
   id: number;

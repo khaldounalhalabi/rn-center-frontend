@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Customer } from "@/Models/Customer";
+import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
 import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";
 import { AppointmentService } from "@/services/AppointmentService";

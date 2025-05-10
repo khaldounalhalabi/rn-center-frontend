@@ -1,4 +1,4 @@
-import { Media } from "@/Models/Media";
+import { Media } from "@/models/Media";
 
 export interface Speciality {
   id: number;

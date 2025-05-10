@@ -6,7 +6,7 @@ import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { Prescription } from "@/Models/Prescriptions";
+import { Prescription } from "@/models/Prescriptions";
 import { getTranslations } from "next-intl/server";
 
 interface PrescriptionDetailsProps {

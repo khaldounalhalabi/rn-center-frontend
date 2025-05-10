@@ -2,7 +2,7 @@ import DataTable, {
   DataTableData,
   DataTableSchema,
 } from "@/components/common/Datatable/DataTable";
-import { Prescription } from "@/Models/Prescriptions";
+import { Prescription } from "@/models/Prescriptions";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";

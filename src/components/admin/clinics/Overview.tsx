@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";

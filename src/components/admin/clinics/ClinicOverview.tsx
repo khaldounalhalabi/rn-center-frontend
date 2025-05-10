@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Clinic } from "@/Models/Clinic";
+import { Clinic } from "@/models/Clinic";
 import Overview from "@/components/admin/clinics/Overview";
 import { useTranslations } from "next-intl";
 import AppointmentsTable from "@/components/common/appointment/AppointmentsTable";

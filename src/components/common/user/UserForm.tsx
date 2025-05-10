@@ -8,7 +8,7 @@ import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
 import GenderEnum from "@/enum/GenderEnum";
 import { UserService } from "@/services/UserService";
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 
 const UserForm = ({
   type,

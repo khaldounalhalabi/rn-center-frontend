@@ -2,7 +2,7 @@ import {
   Handler,
   NotificationsHandlersContext,
 } from "@/components/providers/NotificationProvider";
-import { NotificationPayload } from "@/Models/NotificationPayload";
+import { NotificationPayload } from "@/models/NotificationPayload";
 import { useContext } from "react";
 
 export const HandleNotification = (

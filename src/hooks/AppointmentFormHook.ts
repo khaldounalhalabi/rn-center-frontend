@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { Appointment } from "@/Models/Appointment";
-import { Clinic } from "@/Models/Clinic";
-import { Service } from "@/Models/Service";
+import { Appointment } from "@/models/Appointment";
+import { Clinic } from "@/models/Clinic";
+import { Service } from "@/models/Service";
 import { ClinicsService } from "@/services/ClinicsService";
 import { ServiceService } from "@/services/ServiceService";
 import { AppointmentService } from "@/services/AppointmentService";

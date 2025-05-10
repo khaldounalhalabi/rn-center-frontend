@@ -5,7 +5,7 @@ import DataTable, {
 } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SpecialityService } from "@/services/SpecialityService";
-import { Speciality } from "@/Models/Speciality";
+import { Speciality } from "@/models/Speciality";
 import { useTranslations } from "next-intl";
 
 const Page = () => {

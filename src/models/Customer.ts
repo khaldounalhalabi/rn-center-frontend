@@ -1,5 +1,5 @@
-import { User } from "@/Models/User";
-import { Media } from "@/Models/Media";
+import { User } from "@/models/User";
+import { Media } from "@/models/Media";
 
 export interface Customer {
   id: number;

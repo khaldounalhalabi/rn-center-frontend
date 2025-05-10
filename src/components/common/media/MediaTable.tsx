@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Media } from "@/Models/Media";
+import { Media } from "@/models/Media";
 import { useTranslations } from "next-intl";
 import { MediaService } from "@/services/MediaService";
 import Swal from "sweetalert2";

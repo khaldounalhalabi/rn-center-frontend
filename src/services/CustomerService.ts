@@ -1,8 +1,8 @@
 import { BaseService } from "@/services/BaseService";
-import { Customer } from "@/Models/Customer";
+import { Customer } from "@/models/Customer";
 import { ApiResponse } from "@/http/Response";
 import { GET } from "@/http/Http";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 
 export class CustomerService extends BaseService<CustomerService, Customer>() {
   public getBaseUrl(): string {

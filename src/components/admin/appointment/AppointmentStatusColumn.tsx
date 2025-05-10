@@ -1,5 +1,5 @@
 "use client";
-import { Appointment } from "@/Models/Appointment";
+import { Appointment } from "@/models/Appointment";
 import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";

@@ -1,4 +1,4 @@
-import { User } from "@/Models/User";
+import { User } from "@/models/User";
 
 interface Attendance {
   id: number;

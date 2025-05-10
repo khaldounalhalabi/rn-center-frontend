@@ -9,7 +9,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { RoleEnum } from "@/enum/RoleEnum";
-import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
+import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
 import Select from "@/components/common/ui/selects/Select";

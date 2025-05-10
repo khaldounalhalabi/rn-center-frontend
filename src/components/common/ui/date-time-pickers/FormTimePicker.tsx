@@ -4,9 +4,9 @@ import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useFormContext } from "react-hook-form";
 import React from "react";
-import styles from "./../../../app/[locale]/datepicker.module.css";
+import styles from "./datepicker.module.css";
 
-const Timepicker = ({
+const FormTimePicker = ({
   name,
   label,
   required = false,
@@ -44,4 +44,4 @@ const Timepicker = ({
   );
 };
 
-export default Timepicker;
+export default FormTimePicker;

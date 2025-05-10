@@ -1,9 +1,9 @@
 "use client";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import styles from "./../../../app/[locale]/datepicker.module.css";
+import styles from "./datepicker.module.css";
 
-const TimepickerFilter = ({
+const Timepicker = ({
   onChange,
   defaultValue,
 }: {
@@ -22,4 +22,4 @@ const TimepickerFilter = ({
   );
 };
 
-export default TimepickerFilter;
+export default Timepicker;

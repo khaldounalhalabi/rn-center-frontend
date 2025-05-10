@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import AttendanceLogTypeEnum from "@/enum/AttendanceLogTypeEnum";
 import dayjs from "dayjs";
 import Trash from "@/components/icons/Trash";
-import Timepicker from "@/components/common/ui/TimePicker";
+import FormTimePicker from "@/components/common/ui/date-time-pickers/FormTimePicker";
 import { useTranslations } from "next-intl";
 
 const AttendanceForm = ({
@@ -109,12 +109,12 @@ const AttendanceForm = ({
           className={"flex w-full items-center justify-between gap-10"}
           key={index}
         >
-          <Timepicker
+          <FormTimePicker
             name={`attendance_shifts.${index}.attend_from`}
             label={t("from")}
             df={inputs.attend_from}
           />
-          <Timepicker
+          <FormTimePicker
             name={`attendance_shifts.${index}.attend_to`}
             label={t("to")}
             df={inputs.attend_to}

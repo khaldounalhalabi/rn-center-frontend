@@ -4,7 +4,7 @@ import { DatePicker, PickerValidDate } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { useFormContext } from "react-hook-form";
 import React, { useEffect } from "react";
-import styles from "../../../../app/[locale]/datepicker.module.css";
+import styles from "./datepicker.module.css";
 
 const FormDatepicker = ({
   name,

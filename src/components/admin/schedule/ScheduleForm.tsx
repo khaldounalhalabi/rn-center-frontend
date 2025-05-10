@@ -14,7 +14,7 @@ import { Clinic } from "@/Models/Clinic";
 import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { ScheduleService } from "@/services/ScheduleService";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { useLocale, useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";

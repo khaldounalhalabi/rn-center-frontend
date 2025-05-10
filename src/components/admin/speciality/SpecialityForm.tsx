@@ -4,7 +4,7 @@ import React from "react";
 import { Speciality } from "@/Models/Speciality";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { SpecialityService } from "@/services/SpecialityService";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/images/ImageUploader";
 import Gallery from "@/components/common/ui/images/Gallery";

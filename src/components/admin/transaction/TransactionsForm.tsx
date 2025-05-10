@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import React from "react";
 import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
 import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";

@@ -3,7 +3,7 @@ import Form from "@/components/common/ui/Form";
 import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { User } from "@/Models/User";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";

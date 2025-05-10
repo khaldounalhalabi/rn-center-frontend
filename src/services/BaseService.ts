@@ -1,4 +1,4 @@
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { DELETE, GET, POST, PUT } from "@/Http/Http";
 import { ApiResponse } from "@/Http/Response";
 import { RoleEnum } from "@/enum/RoleEnum";

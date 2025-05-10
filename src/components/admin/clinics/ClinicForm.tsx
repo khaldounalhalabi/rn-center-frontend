@@ -6,7 +6,7 @@ import { SpecialityService } from "@/services/SpecialityService";
 import { ClinicsService } from "@/services/ClinicsService";
 import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import dayjs from "dayjs";

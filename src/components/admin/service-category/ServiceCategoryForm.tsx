@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import React from "react";
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import Grid from "@/components/common/ui/Grid";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { ServiceCategory } from "@/Models/ServiceCategory";

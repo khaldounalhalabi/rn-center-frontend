@@ -1,4 +1,4 @@
-import { Navigate } from "@/actions/navigate";
+import { Navigate } from "@/actions/Navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse, User } from "@/Models/User";
 import { GET, POST, PUT } from "@/Http/Http";

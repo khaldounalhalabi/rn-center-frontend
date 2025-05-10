@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import Input from "@/components/common/ui/Inputs/Input";
 import { RoleEnum } from "@/enum/RoleEnum";
 
-const CategoryForm = ({
+const ServiceCategoryForm = ({
   defaultValues = undefined,
   id,
   type = "store",
@@ -57,4 +57,4 @@ const CategoryForm = ({
   );
 };
 
-export default CategoryForm;
+export default ServiceCategoryForm;

@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import CategoryForm from "@/components/admin/service-category/CategoryForm";
+import ServiceCategoryForm from "@/components/admin/service-category/ServiceCategoryForm";
 import { getTranslations } from "next-intl/server";
 
 const page = async () => {
@@ -8,7 +8,7 @@ const page = async () => {
   return (
     <PageCard>
       <h2 className="card-title">{t("addCategory")}</h2>
-      <CategoryForm />
+      <ServiceCategoryForm />
     </PageCard>
   );
 };

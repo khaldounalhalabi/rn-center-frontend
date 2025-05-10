@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
-import ServiceCategoriesForm from "@/components/admin/service-category/CategoryForm";
+import ServiceCategoryForm from "@/components/admin/service-category/ServiceCategoryForm";
 import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enum/RoleEnum";
 
@@ -19,7 +19,7 @@ const page = async ({
   return (
     <PageCard>
       <h2 className="card-title">{t("editCategory")}</h2>
-      <ServiceCategoriesForm type={"update"} defaultValues={serviceCategory} />
+      <ServiceCategoryForm type={"update"} defaultValues={serviceCategory} />
     </PageCard>
   );
 };

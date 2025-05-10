@@ -1,5 +1,5 @@
 import React from "react";
-import Providers from "@/components/providers/providers";
+import AllProviders from "@/components/providers/AllProviders";
 import LayoutProvider from "@/components/providers/LayoutProvider";
 
 const Layout = ({
@@ -16,13 +16,13 @@ const Layout = ({
         }}
         className={` h-fit  w-full min-h-[calc(100vh-4rem)]`}
       >
-        <Providers>
+        <AllProviders>
           <div
             className={`col-start-1 col-span-4 md:col-start-2 md:col-span-4 h-screen overflow-y-scroll`}
           >
             <LayoutProvider> {children}</LayoutProvider>
           </div>
-        </Providers>
+        </AllProviders>
       </main>
     </div>
   );

@@ -4,25 +4,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createContext, Dispatch, SetStateAction } from "react";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import NotificationProvider from "@/components/providers/NotificationProvider";
 import { useLocale } from "next-intl";
 import useUser from "@/hooks/UserHook";
 import LoadingScreen from "@/components/common/ui/LoadingScreen";
+import React from "react";
 
-interface ReFetchPhotoContextType {
-  reFetch: boolean;
-  setReFetch: Dispatch<SetStateAction<boolean>>;
-}
-
-const defaultReFetchPhotoValue: ReFetchPhotoContextType = {
-  reFetch: false,
-  setReFetch: () => {},
-};
-
-export const ReFetchPhoto = createContext(defaultReFetchPhotoValue);
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const AllProviders = ({ children }: { children: React.ReactNode }) => {
   useFcmToken();
   const { role } = useUser();
   const queryClient = new QueryClient({
@@ -52,4 +41,4 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     </QueryClientProvider>
   );
 };
-export default Providers;
+export default AllProviders;

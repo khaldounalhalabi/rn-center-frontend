@@ -11,7 +11,7 @@ interface SelectProps extends HTMLProps<HTMLSelectElement> {
   translatable?: boolean;
 }
 
-const Select: React.FC<SelectProps> = ({
+const FormSelect: React.FC<SelectProps> = ({
   name,
   items,
   label,
@@ -44,4 +44,4 @@ const Select: React.FC<SelectProps> = ({
   );
 };
 
-export default Select;
+export default FormSelect;

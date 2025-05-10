@@ -15,7 +15,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { useQuery } from "@tanstack/react-query";
 import { AppointmentService } from "@/services/AppointmentService";
-import Select from "@/components/common/ui/selects/Select";
+import FormSelect from "@/components/common/ui/selects/FormSelect";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
@@ -134,7 +134,7 @@ const AppointmentForm = memo(
       }
 
       return (
-        <Select
+        <FormSelect
           label={t("time")}
           items={availableTimes?.data ?? []}
           name="time"
@@ -217,7 +217,7 @@ const AppointmentForm = memo(
             revalidate={clinicId}
           />
 
-          <Select
+          <FormSelect
             items={getEnumValues(AppointmentStatusEnum)}
             label={t("status")}
             name="status"

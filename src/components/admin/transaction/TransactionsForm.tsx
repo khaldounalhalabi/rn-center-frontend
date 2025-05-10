@@ -10,7 +10,7 @@ import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
-import Select from "@/components/common/ui/selects/Select";
+import FormSelect from "@/components/common/ui/selects/FormSelect";
 import { getEnumValues } from "@/Helpers/Enums";
 import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
 
@@ -41,7 +41,7 @@ const TransactionForm = ({
       defaultValues={defaultValues}
     >
       <Grid md={"2"}>
-        <Select
+        <FormSelect
           name={"type"}
           items={getEnumValues(TransactionTypeEnum)}
           label={`${t("type")}`}

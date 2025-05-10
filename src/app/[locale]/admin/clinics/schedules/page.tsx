@@ -6,7 +6,7 @@ import DataTable, {
 import { Clinic } from "@/Models/Clinic";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicsService } from "@/services/ClinicsService";
-import WeekDaySelect from "@/components/common/WeekDaySelect";
+import WeekDaySelect from "@/components/common/ui/Selects/WeekDaySelect";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/TimePickerFilter";

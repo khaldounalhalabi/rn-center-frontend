@@ -8,7 +8,7 @@ import { ClinicsService } from "@/services/ClinicsService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
-import WeekDaySelect from "@/components/common/WeekDaySelect";
+import WeekDaySelect from "@/components/common/ui/Selects/WeekDaySelect";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TimePickerFilter from "@/components/common/ui/TimePickerFilter";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";

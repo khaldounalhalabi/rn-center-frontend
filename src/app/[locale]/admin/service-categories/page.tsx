@@ -7,7 +7,7 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ServiceCategory } from "@/Models/ServiceCategory";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
-import DeleteCategoryButton from "@/components/common/ServiceCategory/DeleteCategoryButton";
+import DeleteCategoryButton from "@/components/common/service-category/DeleteCategoryButton";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const ServiceCategoriesIndexPage = () => {

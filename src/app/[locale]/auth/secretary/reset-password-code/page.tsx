@@ -1,4 +1,4 @@
-import ResetCodeForm from "@/components/common/Auth/ResetCodeForm";
+import ResetCodeForm from "@/components/common/auth/ResetCodeForm";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Login from "@/components/common/Auth/Login";
+import Login from "@/components/common/auth/Login";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {

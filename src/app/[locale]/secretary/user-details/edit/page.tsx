@@ -3,7 +3,7 @@ import React from "react";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
 import { getRole } from "@/Actions/HelperActions";
-import UserDetailsForm from "@/components/common/Auth/UserDetailsForm";
+import UserDetailsForm from "@/components/common/auth/UserDetailsForm";
 
 const page = async () => {
   const role = await getRole();

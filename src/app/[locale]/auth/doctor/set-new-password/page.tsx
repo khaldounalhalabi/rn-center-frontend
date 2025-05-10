@@ -1,4 +1,4 @@
-import SetNewPassword from "@/components/common/Auth/SetNewPassword";
+import SetNewPassword from "@/components/common/auth/SetNewPassword";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {

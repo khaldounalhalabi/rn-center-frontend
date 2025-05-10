@@ -1,5 +1,5 @@
 import React from "react";
-import ResetPasswordRequest from "@/components/common/Auth/ResetPasswordRequest";
+import ResetPasswordRequest from "@/components/common/auth/ResetPasswordRequest";
 import { RoleEnum } from "@/enum/RoleEnum";
 
 const page = () => {

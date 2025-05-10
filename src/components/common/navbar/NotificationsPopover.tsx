@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import HandleClickOutSide from "@/hooks/HandleClickOutSide";
+import useClickOutside from "@/hooks/UseClickOutside";
 import { NotificationPayload } from "@/Models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -56,7 +56,7 @@ const NotificationsPopover = () => {
 
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    HandleClickOutSide(ref, setOpenPopNot);
+    useClickOutside(ref, setOpenPopNot);
   }, []);
 
   return (

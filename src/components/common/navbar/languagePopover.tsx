@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LanguageIcon from "@/components/icons/LanguageIcon";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import HandleClickOutSide from "@/hooks/HandleClickOutSide";
+import useClickOutside from "@/hooks/UseClickOutside";
 import IraqFlagIcon from "@/components/icons/IraqFlagIcon";
 import { Link, usePathname } from "@/navigation";
 import { useTranslations } from "next-intl";
@@ -12,7 +12,7 @@ const LanguagePopover = () => {
   const [openPopLang, setOpenPopLang] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    HandleClickOutSide(ref, setOpenPopLang);
+    useClickOutside(ref, setOpenPopLang);
   }, []);
   const pathname = usePathname();
 

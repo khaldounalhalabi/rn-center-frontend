@@ -1,6 +1,6 @@
 import React from "react";
 
-const HandleClickOutSide = (
+const useClickOutside = (
   ref: React.RefObject<HTMLDivElement> | React.RefObject<HTMLUListElement>,
   setOpenPopProfile: React.Dispatch<boolean>,
 ) => {
@@ -15,4 +15,4 @@ const HandleClickOutSide = (
   };
 };
 
-export default HandleClickOutSide;
+export default useClickOutside;

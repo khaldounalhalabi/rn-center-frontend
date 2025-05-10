@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import RoundedImage from "@/components/common/ui/images/RoundedImage";
 import OpenAndClose from "@/hooks/OpenAndClose";
-import HandleClickOutSide from "@/hooks/HandleClickOutSide";
+import useClickOutside from "@/hooks/UseClickOutside";
 import { Link } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
@@ -12,7 +12,7 @@ const ProfileOptionsPopover = () => {
   const [openPopProfile, setOpenPopProfile] = useState<boolean>(false);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    HandleClickOutSide(ref, setOpenPopProfile);
+    useClickOutside(ref, setOpenPopProfile);
   }, []);
   const { role, user } = useUser();
 

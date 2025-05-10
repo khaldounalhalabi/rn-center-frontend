@@ -4,7 +4,7 @@ import dayjs, { Dayjs } from "dayjs";
 import styles from "../../../../app/[locale]/datepicker.module.css";
 import React from "react";
 
-const DatepickerFilter = ({
+const Datepicker = ({
   onChange,
   defaultValue,
   label,
@@ -28,4 +28,4 @@ const DatepickerFilter = ({
   );
 };
 
-export default DatepickerFilter;
+export default Datepicker;

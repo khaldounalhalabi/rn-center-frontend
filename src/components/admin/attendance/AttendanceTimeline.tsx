@@ -5,7 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import dayjs, { Dayjs } from "dayjs";
 import { useInView } from "react-intersection-observer";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import DatepickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { useTranslations } from "next-intl";
 import UserTimelineItem from "@/components/admin/attendance/UserTimelineItem";
 
@@ -110,7 +110,7 @@ const AttendanceTimeline: React.FC = () => {
               <h2 className="text-xl font-semibold text-start">
                 {t("attendance_date")}: {dayjs(selectedDate).format("MMMM D, YYYY")}
               </h2>
-              <DatepickerFilter
+              <Datepicker
                 onChange={handleDateChange}
                 defaultValue={selectedDate}
               />

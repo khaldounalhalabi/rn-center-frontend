@@ -18,7 +18,7 @@ import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";
-import DatepickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/Http/Response";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
 
@@ -158,7 +158,7 @@ const AppointmentsTable = ({
             />
           </Label>
           <Label label={t("date")}>
-            <DatepickerFilter
+            <Datepicker
               onChange={(time: any) => {
                 setParams({ ...params, date: time?.format("YYYY-MM-DD") });
               }}

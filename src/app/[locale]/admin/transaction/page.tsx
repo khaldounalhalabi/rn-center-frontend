@@ -9,7 +9,7 @@ import { Transaction } from "@/Models/Transaction";
 import Select from "@/components/common/ui/selects/Select";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import DatepickerFilter from "@/components/common/ui/date-time-pickers/DatePickerFilter";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { RoleEnum } from "@/enum/RoleEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { Label } from "@/components/common/ui/LabelsValues/Label";
@@ -157,7 +157,7 @@ const Page = () => {
           />
 
           <label className="label">{t("startDate")} :</label>
-          <DatepickerFilter
+          <Datepicker
             onChange={(time: any) => {
               setParams({
                 ...params,
@@ -167,7 +167,7 @@ const Page = () => {
             defaultValue={params?.date?.[0]}
           />
           <label className="label">{t("endDate")} :</label>
-          <DatepickerFilter
+          <Datepicker
             onChange={(time: any) => {
               setParams({
                 ...params,

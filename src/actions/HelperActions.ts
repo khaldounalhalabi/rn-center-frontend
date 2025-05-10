@@ -1,7 +1,7 @@
 "use server";
 import {
-  deleteCookieServer,
-  getCookieServer,
+  deleteServerCookie,
+  getServerCookie,
   setServerCookie,
 } from "@/actions/ServerCookies";
 import { RoleEnum } from "@/enum/RoleEnum";
@@ -12,12 +12,12 @@ export async function setToken(token?: string, refreshToken?: string) {
 }
 
 export async function getToken(): Promise<string | undefined> {
-  return (await getCookieServer("token")) as string | undefined;
+  return (await getServerCookie("token")) as string | undefined;
 }
 
 export async function deleteTokens() {
-  await deleteCookieServer("token");
-  await deleteCookieServer("refresh_token");
+  await deleteServerCookie("token");
+  await deleteServerCookie("refresh_token");
 }
 
 export async function setRole(role?: string) {
@@ -25,11 +25,11 @@ export async function setRole(role?: string) {
 }
 
 export async function getRole(): Promise<RoleEnum | undefined> {
-  return (await getCookieServer("role")) as RoleEnum | undefined;
+  return (await getServerCookie("role")) as RoleEnum | undefined;
 }
 
 export async function deleteRole() {
-  await deleteCookieServer("role");
+  await deleteServerCookie("role");
 }
 
 export async function setOtp(code?: string) {
@@ -37,8 +37,8 @@ export async function setOtp(code?: string) {
 }
 
 export async function getOtp(): Promise<string | undefined> {
-  const otp = await getCookieServer("otp_code");
-  await deleteCookieServer("otp_code");
+  const otp = await getServerCookie("otp_code");
+  await deleteServerCookie("otp_code");
   return otp;
 }
 
@@ -47,7 +47,7 @@ export async function setPhone(phone?: string) {
 }
 
 export async function getPhone(): Promise<string | undefined> {
-  const phone = await getCookieServer("phone");
-  await deleteCookieServer("phone");
+  const phone = await getServerCookie("phone");
+  await deleteServerCookie("phone");
   return phone;
 }

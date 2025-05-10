@@ -5,12 +5,12 @@ export async function setServerCookie(key: string, value: string) {
   return cookies().set(key, value);
 }
 
-export async function getCookieServer(
+export async function getServerCookie(
   key: string,
 ): Promise<string | undefined> {
   return cookies().get(key)?.value;
 }
 
-export async function deleteCookieServer(key: string) {
+export async function deleteServerCookie(key: string) {
   return cookies().delete(key);
 }

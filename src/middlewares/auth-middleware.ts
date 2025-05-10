@@ -2,7 +2,7 @@
 import { NextRequest } from "next/server";
 import { RoleEnum } from "@/enum/RoleEnum";
 import { getRole, getToken } from "@/actions/HelperActions";
-import { getCookieServer } from "@/actions/ServerCookies";
+import { getServerCookie } from "@/actions/ServerCookies";
 
 export const authMiddleware = async (request: NextRequest) => {
   const path = `${request.nextUrl.pathname}`;
@@ -33,7 +33,7 @@ export const authMiddleware = async (request: NextRequest) => {
 };
 
 const cannotAccessUrl = async (url: string, role: RoleEnum) => {
-  const locale = await getCookieServer("NEXT_LOCALE");
+  const locale = await getServerCookie("NEXT_LOCALE");
   const userRole = await getRole();
   const token = await getToken();
   return url.includes(`${locale}/${role}`) && (userRole != role || !token);

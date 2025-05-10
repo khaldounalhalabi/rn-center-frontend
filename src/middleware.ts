@@ -2,7 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales } from "./navigation";
 import { authMiddleware } from "@/middlewares/auth-middleware";
-import { getCookieServer } from "@/actions/ServerCookies";
+import { getServerCookie } from "@/actions/ServerCookies";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -16,7 +16,7 @@ export const config = {
 
 export default async function middleware(request: NextRequest) {
   const access = await authMiddleware(request);
-  const locale = await getCookieServer("NEXT_LOCALE");
+  const locale = await getServerCookie("NEXT_LOCALE");
 
   const { pathname } = request.nextUrl;
 

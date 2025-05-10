@@ -7,7 +7,7 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
+import { SchedulesCollection } from "@/Models/Schedule";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
@@ -18,32 +18,21 @@ import { Navigate } from "@/Actions/navigate";
 import { useLocale, useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";
+import { getEnumValues } from "@/Helpers/Enums";
+import WeekDayEnum from "@/enum/WeekDayEnum";
 
 dayjs.extend(plugin);
-
-const weeKDays: WeekDay[] = [
-  "saturday",
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-];
-
-interface SchedulesTimes extends Omit<SchedulesCollection, "appointment_gap"> {}
-
 const ClinicScheduleForm = ({
   method,
   defaultValues,
   clinic_id,
 }: {
   method: "store" | "update";
-  defaultValues?: SchedulesTimes;
+  defaultValues?: SchedulesCollection;
   clinic_id?: number;
 }) => {
   const locale = useLocale();
-  const [schedule, setSchedule] = useState<SchedulesTimes>({
+  const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
       defaultValues?.saturday || method == "update"
         ? defaultValues?.saturday ?? []
@@ -123,14 +112,14 @@ const ClinicScheduleForm = ({
           ],
   });
 
-  const handleAddTimeRange = (day: WeekDay) => {
+  const handleAddTimeRange = (day: WeekDayEnum) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: [...prevSchedule[day], { start_time: dayjs(), end_time: dayjs() }],
     }));
   };
 
-  const handleRemoveTimeRange = (day: WeekDay, index: number) => {
+  const handleRemoveTimeRange = (day: WeekDayEnum, index: number) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [day]: prevSchedule[day].filter((_, i: number) => i !== index),
@@ -138,7 +127,7 @@ const ClinicScheduleForm = ({
   };
 
   const handleChangeTimeRange = (
-    day: WeekDay,
+    day: WeekDayEnum,
     index: number,
     time: string,
     timeType: "start_time" | "end_time",
@@ -151,7 +140,7 @@ const ClinicScheduleForm = ({
     }));
   };
 
-  const handleCopySchedule = (fromDay: WeekDay, toDay: WeekDay) => {
+  const handleCopySchedule = (fromDay: WeekDayEnum, toDay: WeekDayEnum) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
       [toDay]: prevSchedule[fromDay],
@@ -186,7 +175,7 @@ const ClinicScheduleForm = ({
     <PageCard>
       <Form
         handleSubmit={onSubmit}
-        onSuccess={(res) => {
+        onSuccess={() => {
           Navigate(`/admin/clinics/schedules`);
         }}
       >
@@ -217,15 +206,15 @@ const ClinicScheduleForm = ({
             />
           )}
         </Grid>
-        {weeKDays.map((day) => (
+        {getEnumValues(WeekDayEnum).map((day) => (
           <div
             key={day}
-            className="flex justify-between items-center border-b border-b-gray-400"
+            className="flex items-center justify-between border-b border-b-gray-400"
           >
             <div className="p-3">
               <h2>{day.toUpperCase()}</h2>
               {schedule[day].map((timeRange, index) => (
-                <div key={index} className="flex items-center gap-1 my-1">
+                <div key={index} className="my-1 flex items-center gap-1">
                   <TimePicker
                     label=""
                     value={dayjs(timeRange.start_time, "HH:mm")}
@@ -260,23 +249,23 @@ const ClinicScheduleForm = ({
                     type="button"
                     onClick={() => handleRemoveTimeRange(day, index)}
                   >
-                    <Trash className="w-6 h-6 text-error" />
+                    <Trash className="h-6 w-6 text-error" />
                   </button>
                 </div>
               ))}
             </div>
             <div className="flex items-center gap-1">
               <button type="button" onClick={() => handleAddTimeRange(day)}>
-                <PlusIcon className="border-pom border rounded-sm w-6 h-6 text-pom" />
+                <PlusIcon className="h-6 w-6 rounded-sm border border-pom text-pom" />
               </button>
               <Popover className="relative">
-                {({ open }) => (
+                {() => (
                   <>
                     <Popover.Button
-                      className={"focus:outline-0 focus:border-0"}
+                      className={"focus:border-0 focus:outline-0"}
                       disabled={schedule[day].length == 0}
                     >
-                      <Copy className="w-6 h-6 text-pom" />
+                      <Copy className="h-6 w-6 text-pom" />
                     </Popover.Button>
                     <Transition
                       as={Fragment}
@@ -288,13 +277,13 @@ const ClinicScheduleForm = ({
                       leaveTo="opacity-0 translate-y-1"
                     >
                       <Popover.Panel
-                        className={`z-10 absolute bg-white max-w-32 transform ${locale == "en" ? "-translate-x-1/2" : "translate-x-1/2"}`}
+                        className={`absolute z-10 max-w-32 transform bg-white ${locale == "en" ? "-translate-x-1/2" : "translate-x-1/2"}`}
                       >
-                        <div className="shadow-lg rounded-lg overflow-hidden ring-1 ring-black/5">
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
                           <div className="flex flex-col">
-                            {weeKDays.map((d, index) => (
+                            {getEnumValues(WeekDayEnum).map((d, index) => (
                               <div
-                                className="flex justify-between items-center p-2"
+                                className="flex items-center justify-between p-2"
                                 key={index}
                               >
                                 {d}

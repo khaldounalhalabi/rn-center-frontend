@@ -8,10 +8,6 @@ import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enum/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
   const t = useTranslations("admin.clinic.show");
   return (

@@ -13,7 +13,7 @@ import { ClinicsService } from "@/services/ClinicsService";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Clinic } from "@/Models/Clinic";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import Gallery from "@/components/common/ui/Gallery";
+import Gallery from "@/components/common/ui/images/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { RoleEnum } from "@/enum/RoleEnum";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";

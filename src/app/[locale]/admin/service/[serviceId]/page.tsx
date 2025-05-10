@@ -6,7 +6,7 @@ import { ServiceService } from "@/services/ServiceService";
 import { Service } from "@/Models/Service";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
-import Gallery from "@/components/common/ui/Gallery";
+import Gallery from "@/components/common/ui/images/Gallery";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { Value } from "@/components/common/ui/labels-and-values/Value";

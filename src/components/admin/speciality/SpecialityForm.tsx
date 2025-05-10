@@ -7,7 +7,7 @@ import { SpecialityService } from "@/services/SpecialityService";
 import { Navigate } from "@/Actions/navigate";
 import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/ImageUploader";
-import Gallery from "@/components/common/ui/Gallery";
+import Gallery from "@/components/common/ui/images/Gallery";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
 

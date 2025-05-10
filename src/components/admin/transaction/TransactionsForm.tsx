@@ -10,7 +10,7 @@ import DateTimePickerRang from "@/components/common/ui/Date/DateTimePickerRang";
 import Textarea from "@/components/common/ui/textArea/Textarea";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enum/RoleEnum";
-import Select from "@/components/common/ui/Selects/Select";
+import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/Helpers/Enums";
 import TransactionTypeEnum from "@/enum/TransactionTypeEnum";
 

@@ -8,7 +8,7 @@ import Copy from "@/components/icons/Copy";
 import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
 import { SchedulesCollection, WeekDay } from "@/Models/Schedule";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/Models/Clinic";
 import Form from "@/components/common/ui/Form";

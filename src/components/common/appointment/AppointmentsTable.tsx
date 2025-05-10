@@ -14,7 +14,7 @@ import DataTable, {
   DataTableSchema,
 } from "@/components/common/Datatable/DataTable";
 import { Appointment } from "@/Models/Appointment";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import SelectFilter from "@/components/common/ui/selects/SelectFilter";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enum/AppointmentTypeEnum";

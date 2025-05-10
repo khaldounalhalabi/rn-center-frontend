@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { ClinicsService } from "@/services/ClinicsService";
 import Input from "@/components/common/ui/Inputs/Input";
 import { Clinic } from "@/Models/Clinic";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/Gallery";
 import ImageUploader from "@/components/common/ui/ImageUploader";
 import { RoleEnum } from "@/enum/RoleEnum";

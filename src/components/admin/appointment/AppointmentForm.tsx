@@ -2,7 +2,7 @@
 import { Appointment } from "@/Models/Appointment";
 import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
-import ApiSelect from "@/components/common/ui/Selects/ApiSelect";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import React, { memo, useCallback, useMemo } from "react";
 import { Customer } from "@/Models/Customer";
 import { CustomerService } from "@/services/CustomerService";
@@ -15,7 +15,7 @@ import Input from "@/components/common/ui/Inputs/Input";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
 import { useQuery } from "@tanstack/react-query";
 import { AppointmentService } from "@/services/AppointmentService";
-import Select from "@/components/common/ui/Selects/Select";
+import Select from "@/components/common/ui/selects/Select";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";

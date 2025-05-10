@@ -13,7 +13,7 @@ import { getEnumValues } from "@/Helpers/Enums";
 import GenderEnum from "@/enum/GenderEnum";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import Datepicker from "@/components/common/ui/Date/Datepicker";
-import Select from "@/components/common/ui/Selects/Select";
+import Select from "@/components/common/ui/selects/Select";
 import BloodGroupEnum from "@/enum/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/Inputs/KeyValueMultipleInput";
 import Textarea from "@/components/common/ui/textArea/Textarea";

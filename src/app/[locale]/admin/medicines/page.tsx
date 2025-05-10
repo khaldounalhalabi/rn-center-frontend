@@ -9,7 +9,7 @@ import { Medicine } from "@/Models/Medicine";
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/TranslatableEnum";
 import { RoleEnum } from "@/enum/RoleEnum";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import SelectFilter from "@/components/common/ui/selects/SelectFilter";
 import { getEnumValues } from "@/Helpers/Enums";
 import MedicineStatusEnum from "@/enum/MedicineStatusEnum";
 import { Label } from "@/components/common/ui/LabelsValues/Label";

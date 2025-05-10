@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/Helpers/ObjectHelpers";
 import { Locales, Translatable } from "@/Models/Translatable";
 import { TranslateClient } from "@/Helpers/TranslationsClient";
-import SelectedLocale from "../Selects/SelectLocale";
+import SelectedLocale from "@/components/common/ui/selects/SelectLocale";
 
 interface TranslatableInputProps extends HTMLProps<HTMLInputElement> {
   className?: string | undefined;

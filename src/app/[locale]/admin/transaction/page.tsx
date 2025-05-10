@@ -6,7 +6,7 @@ import DataTable, {
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { TransactionService } from "@/services/TransactionService";
 import { Transaction } from "@/Models/Transaction";
-import SelectFilter from "@/components/common/ui/Selects/SelectFilter";
+import SelectFilter from "@/components/common/ui/selects/SelectFilter";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import DatepickerFilter from "@/components/common/ui/Date/DatePickerFilter";

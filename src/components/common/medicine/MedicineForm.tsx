@@ -8,7 +8,7 @@ import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { useTranslations } from "next-intl";
 import { MedicineService } from "@/services/MedicinesSevice";
 import { RoleEnum } from "@/enum/RoleEnum";
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 
 const MedicineForm = ({
   defaultValues = undefined,

@@ -2,7 +2,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { AuthService } from "@/services/AuthService";
 import { getTranslations } from "next-intl/server";
-import { getRole } from "@/Actions/HelperActions";
+import { getRole } from "@/actions/HelperActions";
 import UserDetailsForm from "@/components/common/auth/UserDetailsForm";
 
 const page = async () => {

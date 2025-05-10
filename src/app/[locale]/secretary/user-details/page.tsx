@@ -1,7 +1,7 @@
 import { User } from "@/Models/User";
 import React from "react";
 import { AuthService } from "@/services/AuthService";
-import { getRole } from "@/Actions/HelperActions";
+import { getRole } from "@/actions/HelperActions";
 import UserDataView from "@/components/common/user/UserDataView";
 
 const page = async () => {

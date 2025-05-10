@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 import { useTranslations } from "next-intl";
 import Dialog from "@/components/common/ui/Dialog";
 import Form from "@/components/common/ui/Form";

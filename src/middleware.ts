@@ -2,7 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales } from "./navigation";
 import { authMiddleware } from "@/middlewares/auth-middleware";
-import { getCookieServer } from "@/Actions/serverCookies";
+import { getCookieServer } from "@/actions/serverCookies";
 
 const translationMiddleware = createMiddleware({
   locales: locales,

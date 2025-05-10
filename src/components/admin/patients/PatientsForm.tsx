@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/components/common/ui/Form";
 import React from "react";
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 import { PatientService } from "@/services/PatientService";
 import { Customer } from "@/Models/Customer";
 import { useTranslations } from "next-intl";

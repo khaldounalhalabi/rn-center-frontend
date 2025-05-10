@@ -1,4 +1,4 @@
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 import { ApiResponse } from "@/Http/Response";
 import { AuthResponse, User } from "@/Models/User";
 import { GET, POST, PUT } from "@/Http/Http";
@@ -13,7 +13,7 @@ import {
   setPhone,
   setRole,
   setToken,
-} from "@/Actions/HelperActions";
+} from "@/actions/HelperActions";
 
 export class AuthService extends BaseService<AuthService, AuthResponse>() {
   public successStatus: boolean = false;

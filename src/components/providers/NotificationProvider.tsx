@@ -1,5 +1,5 @@
 "use client";
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 import firebaseApp from "@/Helpers/Firebase";
 import {
   NotificationPayload,

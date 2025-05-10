@@ -20,7 +20,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { getEnumValues } from "@/Helpers/Enums";
 import { AppointmentStatusEnum } from "@/enum/AppointmentStatusEnum";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
-import { Navigate } from "@/Actions/navigate";
+import { Navigate } from "@/actions/navigate";
 import useIsHoliday from "@/hooks/IsHoliday";
 import { useAppointmentForm } from "@/hooks/AppointmentFormHook";
 

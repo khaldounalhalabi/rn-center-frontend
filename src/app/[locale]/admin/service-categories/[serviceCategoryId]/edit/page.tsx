@@ -1,7 +1,7 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
-import ServiceCategoriesForm from "@/components/admin/category/CategoryForm";
+import ServiceCategoriesForm from "@/components/admin/service-category/CategoryForm";
 import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enum/RoleEnum";
 

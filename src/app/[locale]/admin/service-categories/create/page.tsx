@@ -1,6 +1,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import CategoryForm from "@/components/admin/category/CategoryForm";
+import CategoryForm from "@/components/admin/service-category/CategoryForm";
 import { getTranslations } from "next-intl/server";
 
 const page = async () => {

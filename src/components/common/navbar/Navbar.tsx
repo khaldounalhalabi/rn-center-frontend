@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import MenuIcon from "@/components/icons/MenuIcon";
-import NotificationsPopover from "@/components/common/Navbar/NotificationsPopover";
-import LanguagePopover from "@/components/common/Navbar/languagePopover";
+import NotificationsPopover from "@/components/common/navbar/NotificationsPopover";
+import LanguagePopover from "@/components/common/navbar/languagePopover";
 import { useRouter } from "next/navigation";
 import { usePathname } from "@/navigation";
 import ArrowLeft from "@/components/icons/ArrowLeft";
-import ProfileOptionsPopover from "@/components/common/Navbar/ProfileOptionsPopover";
+import ProfileOptionsPopover from "@/components/common/navbar/ProfileOptionsPopover";
 
 const Navbar = ({
   openNavBar,

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Navbar from "@/components/common/Navbar/Navbar";
+import Navbar from "@/components/common/navbar/Navbar";
 import Sidebar from "@/components/common/sidebar/Sidebar";
 
 const NavProvider = ({ children }: { children: React.ReactNode }) => {

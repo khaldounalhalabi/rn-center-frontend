@@ -69,7 +69,7 @@ const Page = () => {
             data={getEnumValues(MedicineStatusEnum)}
             translated
             onChange={(e: { target: { value: any } }) => {
-              setParams({ ...params, status: e.target?.value });
+              setParams({ ...params, status: e });
             }}
             sm
             selected={[params?.status]}

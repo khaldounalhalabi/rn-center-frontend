@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { Link } from "@/navigation";
 import { RoleEnum } from "@/enums/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
-import Dialog from "@/components/common/ui/Dialog";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import AttendanceForm from "@/components/admin/attendance/AttendanceForm";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useTranslations } from "next-intl";
@@ -80,7 +80,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
         </div>
       </div>
 
-      <Dialog open={openEditModal}>
+      <DialogPopup open={openEditModal}>
         <AttendanceForm
           date={date ?? ""}
           userId={user?.id ?? 0}
@@ -92,7 +92,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             }
           }}
         />
-      </Dialog>
+      </DialogPopup>
 
       {user?.attendance_by_date && user?.attendance_by_date.length > 0 ? (
         <div className="mt-4">

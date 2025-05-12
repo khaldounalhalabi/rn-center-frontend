@@ -4,7 +4,7 @@ import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useState } from "react";
-import Dialog from "@/components/common/ui/Dialog";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
@@ -51,7 +51,7 @@ const AppointmentStatusColumn = ({
     <LoadingSpin className={"h-6 w-6"} />
   ) : (
     <>
-      <Dialog open={open}>
+      <DialogPopup open={open}>
         <Form
           handleSubmit={() => {
             setOpen(false);
@@ -69,7 +69,7 @@ const AppointmentStatusColumn = ({
             />
           </Label>
         </Form>
-      </Dialog>
+      </DialogPopup>
       <select
         defaultValue={selectedStatus}
         className={"select select-bordered w-fit text-sm font-medium"}

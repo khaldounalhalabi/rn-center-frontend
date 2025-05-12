@@ -139,32 +139,30 @@ const AppointmentsTable = ({
     filter: (params, setParams) => {
       return (
         <div className={"grid w-full grid-cols-1"}>
-          <Label label={t("status")} col>
-            <Select
-              data={getEnumValues(AppointmentStatusEnum)}
-              selected={params.status ?? "all"}
-              onChange={(event: any) => {
-                setParams({ ...params, status: event.target.value });
-              }}
-            />
-          </Label>
-          <Label label={t("type")} col>
-            <Select
-              data={getEnumValues(AppointmentTypeEnum)}
-              selected={params.type}
-              onChange={(event: any) => {
-                setParams({ ...params, type: event.target.value });
-              }}
-            />
-          </Label>
-          <Label label={t("date")}>
-            <Datepicker
-              onChange={(time: any) => {
-                setParams({ ...params, date: time?.format("YYYY-MM-DD") });
-              }}
-              defaultValue={params.date}
-            />
-          </Label>
+          <Select
+            data={getEnumValues(AppointmentStatusEnum)}
+            selected={params.status}
+            onChange={(event: string) => {
+              setParams({ ...params, status: event });
+            }}
+            label={t("status")}
+          />
+
+          <Select
+            label={t("type")}
+            data={getEnumValues(AppointmentTypeEnum)}
+            selected={params.type}
+            onChange={(event: string) => {
+              setParams({ ...params, type: event });
+            }}
+          />
+          <Datepicker
+            label={t("date")}
+            onChange={(time: any) => {
+              setParams({ ...params, date: time?.format("YYYY-MM-DD") });
+            }}
+            defaultValue={params.date}
+          />
         </div>
       );
     },

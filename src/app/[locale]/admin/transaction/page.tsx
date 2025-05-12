@@ -150,8 +150,8 @@ const Page = () => {
           <Select
             data={getEnumValues(TransactionTypeEnum)}
             selected={params.type}
-            onChange={(event: any) => {
-              setParams({ ...params, type: event.target.value });
+            onChange={(event: string) => {
+              setParams({ ...params, type: event });
             }}
             translated
           />

@@ -8,7 +8,7 @@ import { User } from "@/models/User";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";
-import Dialog from "@/components/common/ui/Dialog";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import GenderEnum from "@/enums/GenderEnum";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
@@ -37,7 +37,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const t = useTranslations("details");
   return (
     <>
-      <Dialog open={isOpen}>
+      <DialogPopup open={isOpen}>
         <Form handleSubmit={handleSubmit} onSuccess={onSuccess}>
           <h1 className={"label"}>{t("resetPassword")}</h1>
           <FormInput
@@ -53,7 +53,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
             type="password"
           />
         </Form>
-      </Dialog>
+      </DialogPopup>
       <Form
         handleSubmit={handleSubmit}
         onSuccess={onSuccess}

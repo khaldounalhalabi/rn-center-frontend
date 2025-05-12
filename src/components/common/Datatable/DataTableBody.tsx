@@ -7,8 +7,9 @@ import {
   TranslateStatusOrTypeClient,
 } from "@/helpers/TranslationsClient";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { TableBody, TableCell, TableRow } from "@/components/ui/shadcn/table";
 
-const TableBody = ({
+const DataTableBody = ({
   tableData,
   data,
   setHidden,
@@ -22,22 +23,18 @@ const TableBody = ({
   hidden: number[];
 }) => {
   return (
-    <tbody className="divide-y divide-gray-200">
+    <TableBody className="table-bordered border">
       {data?.data?.length ? (
         data?.data?.map((item: any, index: any) => {
           if (!hidden.includes(item.id ?? index)) {
             return (
-              <tr key={`${index}-${item.label}`}>
+              <TableRow key={`${index}-${item.label}`}>
                 {tableData.schema.map((schema, index) => {
                   if (!schema.render && schema.name) {
                     return (
-                      <td
+                      <TableCell
+                        className="text-center"
                         key={`${schema.label} - ${index}`}
-                        className={
-                          schema.cellProps?.className ??
-                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
-                        }
-                        {...schema.cellProps}
                       >
                         {schema?.translatable
                           ? TranslateClient(
@@ -46,17 +43,13 @@ const TableBody = ({
                           : getNestedPropertyValue(item, schema.name) ?? (
                               <TranslatableEnum value={"no_data"} />
                             )}
-                      </td>
+                      </TableCell>
                     );
                   } else if (schema.render && schema.name) {
                     return (
-                      <td
+                      <TableCell
+                        className="text-center"
                         key={`${schema.label} - ${index}`}
-                        className={
-                          schema.cellProps?.className ??
-                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
-                        }
-                        {...schema.cellProps}
                       >
                         {schema.render(
                           schema?.translatable
@@ -68,49 +61,42 @@ const TableBody = ({
                               ),
                           item,
                           setHidden,
+                          revalidate,
                         )}
-                      </td>
+                      </TableCell>
                     );
                   } else if (schema.render) {
                     return (
-                      <td
+                      <TableCell
+                        className="text-center"
                         key={`${schema.label} - ${index}`}
-                        className={
-                          schema.cellProps?.className ??
-                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
-                        }
-                        {...schema.cellProps}
                       >
-                        {schema.render(undefined, item, setHidden)}
-                      </td>
+                        {schema.render(undefined, item, setHidden, revalidate)}
+                      </TableCell>
                     );
                   } else
                     return (
-                      <td
-                        key={index}
-                        className={
-                          schema.cellProps?.className ??
-                          "whitespace-nowrap border px-4 py-2 font-medium text-gray-900"
-                        }
-                        {...schema.cellProps}
-                      >
+                      <TableCell className="text-center" key={index}>
                         <TranslatableEnum value={"no_data"} />
-                      </td>
+                      </TableCell>
                     );
                 })}
-              </tr>
+              </TableRow>
             );
           }
         })
       ) : (
-        <tr>
-          <td colSpan={tableData.schema.length} className={"p-3 text-center"}>
+        <TableRow>
+          <TableCell
+            colSpan={tableData.schema.length}
+            className={"p-3 text-center"}
+          >
             {TranslateStatusOrTypeClient("no_data")}
-          </td>
-        </tr>
+          </TableCell>
+        </TableRow>
       )}
-    </tbody>
+    </TableBody>
   );
 };
 
-export default TableBody;
+export default DataTableBody;

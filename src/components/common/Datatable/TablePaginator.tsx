@@ -3,6 +3,7 @@ import ChevronLeft from "@/components/icons/ChevronLeft";
 import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Button } from "@/components/ui/shadcn/button";
 
 const TablePaginator = ({
   data,
@@ -20,18 +21,19 @@ const TablePaginator = ({
     <div className="flex justify-end rounded-b-lg border-t border-gray-200 px-4 py-2">
       <ol className={`flex items-center justify-end gap-1 text-xs font-medium`}>
         <li>
-          <button
+          <Button
             onClick={() => setPage((old) => Math.max(old - 1, 0))}
             disabled={data?.paginate?.is_first ?? true}
-            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
+            size={"icon"}
           >
             <div className="tooltip" data-tip={t("prevPage")}>
               {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
             </div>
-          </button>
+          </Button>
         </li>
         <li>
-          <button
+          <Button
+            size={"icon"}
             type={"button"}
             onClick={() => {
               if (!data?.paginate?.is_last) {
@@ -39,12 +41,11 @@ const TablePaginator = ({
               }
             }}
             disabled={data?.paginate?.is_last ?? true}
-            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
           >
             <div className="tooltip" data-tip={t("nextPage")}>
               {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
             </div>
-          </button>
+          </Button>
         </li>
       </ol>
     </div>

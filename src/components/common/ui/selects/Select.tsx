@@ -2,44 +2,48 @@
 
 import { useTranslations } from "next-intl";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { ChangeEventHandler } from "react";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
+import {
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Select as ShadcnSelect,
+} from "@/components/ui/shadcn/select";
 
 const Select = ({
   data,
-  selected = [],
-  isMultiple = false,
+  selected = undefined,
   label = undefined,
   onChange,
   translated = false,
-  sm = false,
   col = true,
 }: {
   data: any[];
-  selected?: any[] | any;
-  isMultiple?: boolean;
+  selected?: string;
   label?: string;
-  onChange?: ChangeEventHandler<HTMLSelectElement> | undefined;
+  onChange?: ((value: string) => void) | undefined;
   translated?: boolean;
-  sm?: boolean;
   col?: boolean;
 }) => {
   const t = useTranslations("components");
   return (
-    <Label label={label} col={col ?? false}>
-      <select
-        className={`select select-bordered !text-start ${sm && "select-sm"} flex-start w-full`}
-        defaultValue={selected ?? null}
-        multiple={isMultiple ?? false}
-        onChange={onChange}
-      >
-        <option value={""}>{t("select_item")}</option>
-        {data.map((item, index) => (
-          <option value={item == "all" ? "" : item} key={index}>
-            {translated ? <TranslatableEnum value={item} /> : item}
-          </option>
-        ))}
-      </select>
+    <Label col={col} label={label}>
+      <ShadcnSelect defaultValue={selected} onValueChange={onChange}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={t("select_item")} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {data.map((item, index) => (
+              <SelectItem value={item == "all" ? "" : item} key={index}>
+                {translated ? <TranslatableEnum value={item} /> : item}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </ShadcnSelect>
     </Label>
   );
 };

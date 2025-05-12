@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
 
-const Dialog = ({
+const DialogPopup = ({
   open = false,
   children = undefined,
 }: {
@@ -60,4 +60,4 @@ const Dialog = ({
   );
 };
 
-export default Dialog;
+export default DialogPopup;

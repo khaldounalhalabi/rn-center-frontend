@@ -9,6 +9,7 @@ import Trash from "@/components/icons/Trash";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { ApiResponse } from "@/http/Response";
+import { Button } from "@/components/ui/shadcn/button";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -49,104 +50,68 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
 
   return (
-    <div className={`flex items-center justify-between gap-2`}>
+    <div className={`flex items-center justify-between gap-1`}>
       {buttons.includes("show") ? (
-        <Link href={sUrl} className="btn btn-square btn-sm">
-          <Eye className="h-6 w-6 text-primary" />
+        <Link href={sUrl}>
+          <Button size={"icon"}>
+            <Eye />
+          </Button>
         </Link>
       ) : (
         ""
       )}
       {buttons.includes("edit") ? (
-        <Link href={eUrl} className="btn btn-square btn-sm">
-          <Pencil className="h-6 w-6 text-success" />
+        <Link href={eUrl}>
+          <Button size={"icon"} variant={"secondary"}>
+            <Pencil />
+          </Button>
         </Link>
       ) : (
         ""
       )}
-      {buttons.includes("archive") ? (
-        <button className="btn btn-square btn-sm">
-          <ArchiveIcon
-            className="h-6 w-6 text-warning"
-            onClick={() => {
-              swal
-                .fire({
-                  title: t("archive_question"),
-                  showDenyButton: true,
-                  showCancelButton: true,
-                  confirmButtonText: t("yes"),
-                  denyButtonText: t("no"),
-                  cancelButtonText: t("cancel"),
-                  confirmButtonColor: "#007BFF",
-                })
-                .then((result) => {
-                  if (result.isConfirmed) {
-                    if (dataId) {
-                      BaseService<any, any>()
-                        .make()
-                        .setBaseUrl(aUrl)
-                        .delete()
-                        .then((response: ApiResponse<any>) => {
-                          toast.success(t("archived"));
-
-                          if (setHidden) {
-                            setHidden((prevState) => [dataId, ...prevState]);
-                          }
-                        })
-                        .catch(() => swal.fire(t("errored"), "", "error"));
-                    }
-                  } else if (result.isDenied) {
-                    swal.fire(t("didnt_archived"), "", "info");
-                  }
-                });
-            }}
-          />
-        </button>
-      ) : (
-        ""
-      )}
       {buttons.includes("delete") ? (
-        <button className="btn btn-square btn-sm">
-          <Trash
-            className="h-6 w-6 text-error"
-            onClick={() => {
-              swal
-                .fire({
-                  title: deleteMessage ?? t("delete_question"),
-                  showDenyButton: true,
-                  showCancelButton: true,
-                  confirmButtonText: t("yes"),
-                  denyButtonText: t("no"),
-                  cancelButtonText: t("cancel"),
-                  confirmButtonColor: "#007BFF",
-                })
-                .then((result) => {
-                  if (result.isConfirmed) {
-                    if (dataId) {
-                      BaseService<any, any>()
-                        .make()
-                        .setBaseUrl(dUrl)
-                        .delete()
-                        .then((response: ApiResponse<any>) => {
-                          toast.success(t("deleted"));
+        <Button
+          size={"icon"}
+          variant={"destructive"}
+          onClick={() => {
+            swal
+              .fire({
+                title: deleteMessage ?? t("delete_question"),
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: t("yes"),
+                denyButtonText: t("no"),
+                cancelButtonText: t("cancel"),
+                confirmButtonColor: "#007BFF",
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  if (dataId) {
+                    BaseService<any, any>()
+                      .make()
+                      .setBaseUrl(dUrl)
+                      .delete()
+                      .then((response: ApiResponse<any>) => {
+                        toast.success(t("deleted"));
 
-                          if (setHidden) {
-                            setHidden((prevState) => [dataId, ...prevState]);
-                          }
+                        if (setHidden) {
+                          setHidden((prevState) => [dataId, ...prevState]);
+                        }
 
-                          if (deleteHandler) {
-                            deleteHandler(response);
-                          }
-                        })
-                        .catch(() => swal.fire(t("errored"), "", "error"));
-                    }
-                  } else if (result.isDenied) {
-                    swal.fire(t("didnt_delete"), "", "info");
+                        if (deleteHandler) {
+                          deleteHandler(response);
+                        }
+                      })
+                      .catch(() => swal.fire(t("errored"), "", "error"));
                   }
-                });
-            }}
-          />
-        </button>
+                } else if (result.isDenied) {
+                  swal.fire(t("didnt_delete"), "", "info");
+                }
+              });
+          }}
+        >
+          <Trash />
+        </Button>
       ) : (
         ""
       )}

@@ -51,7 +51,7 @@ const Page = () => {
         <div className={"grid w-full grid-cols-1"}>
           <Select
             onChange={(e) => {
-              setParams({ ...params, day_of_week: e.target?.value });
+              setParams({ ...params, day_of_week: e });
             }}
             selected={params.day_of_week}
             data={getEnumValues(WeekDayEnum)}

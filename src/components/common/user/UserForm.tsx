@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Navigate } from "@/actions/Navigate";
 import { useTranslations } from "next-intl";
-import Dialog from "@/components/common/ui/Dialog";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import Grid from "@/components/common/ui/Grid";
@@ -38,7 +38,7 @@ const UserForm = ({
   const t = useTranslations("details");
   return (
     <>
-      <Dialog open={isOpen}>
+      <DialogPopup open={isOpen}>
         <Form
           handleSubmit={handleSubmit}
           onSuccess={onSuccess}
@@ -58,7 +58,7 @@ const UserForm = ({
             type="password"
           />
         </Form>
-      </Dialog>
+      </DialogPopup>
       <Form
         handleSubmit={handleSubmit}
         onSuccess={onSuccess}

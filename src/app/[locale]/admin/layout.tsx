@@ -3,6 +3,7 @@ import AllProviders from "@/components/providers/AllProviders";
 import { AppSidebar } from "@/components/ui/shadcn/app-sidebar";
 import { SiteHeader } from "@/components/ui/shadcn/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/shadcn/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const Layout = ({
   children,
@@ -18,25 +19,32 @@ const Layout = ({
         }}
         className={`h-fit min-h-[calc(100vh-4rem)] w-full`}
       >
-        <AllProviders>
-          <div
-            className={`col-span-4 col-start-1 h-screen w-full overflow-y-scroll md:col-span-4 md:col-start-2`}
-          >
-            <SidebarProvider>
-              <AppSidebar variant="inset" />
-              <SidebarInset>
-                <SiteHeader />
-                <div className="flex flex-1 flex-col">
-                  <div className="@container/main flex flex-1 flex-col gap-2">
-                    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                      {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AllProviders>
+            <div
+              className={`col-span-4 col-start-1 h-screen w-full overflow-y-scroll md:col-span-4 md:col-start-2`}
+            >
+              <SidebarProvider>
+                <AppSidebar variant="inset" />
+                <SidebarInset>
+                  <SiteHeader />
+                  <div className="flex flex-1 flex-col">
+                    <div className="@container/main flex flex-1 flex-col gap-2">
+                      <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                        {children}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </SidebarInset>
-            </SidebarProvider>
-          </div>
-        </AllProviders>
+                </SidebarInset>
+              </SidebarProvider>
+            </div>
+          </AllProviders>
+        </ThemeProvider>
       </main>
     </div>
   );

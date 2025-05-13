@@ -20,7 +20,7 @@ import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enums/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/http/Response";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
+import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
 
 const AppointmentsTable = ({
   without,
@@ -135,7 +135,6 @@ const AppointmentsTable = ({
   const tableData: DataTableData<Appointment> = {
     createUrl: createUrl,
     schema: schema.filter((item) => !without.includes(item.name ?? "")),
-    title: `${t("appointments")}`,
     filter: (params, setParams) => {
       return (
         <div className={"grid w-full grid-cols-1"}>
@@ -170,7 +169,14 @@ const AppointmentsTable = ({
       await api(page, search, sortCol, sortDir, perPage, params),
   };
 
-  return <DataTable {...tableData} />;
+  return (
+    <Card>
+      <CardHeader>{t("appointments")}</CardHeader>
+      <CardContent>
+        <DataTable {...tableData} />
+      </CardContent>
+    </Card>
+  );
 };
 
 export default AppointmentsTable;

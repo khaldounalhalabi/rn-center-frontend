@@ -1,18 +1,22 @@
 "use client";
-import React, { HTMLProps, useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
-import ClosedEye from "@/components/icons/ClosedEye";
-import Eye from "@/components/icons/Eye";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
 
-export interface InputProps extends HTMLProps<HTMLInputElement> {
+export interface InputProps {
   className?: string | undefined;
-  name?: string;
+  name: string;
   label?: string;
   type: string;
   required?: boolean;
-  setWatch?: React.Dispatch<number>;
   unit?:
     | "IQD"
     | "day"
@@ -25,120 +29,51 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
     | undefined
     | string;
   min?: number;
+  hidden?:boolean;
+  defaultValue?:string|number|undefined;
 }
 
 const FormInput: React.FC<InputProps> = ({
-  className,
   label,
   name,
-  type,
+  type = "text",
   required = false,
-  setWatch,
   unit,
   min = 0,
-  placeholder = undefined,
-  ...props
+  hidden = false,
+  defaultValue = undefined
 }) => {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useFormContext();
-  if (setWatch) {
-    setWatch(watch(name ?? ""));
-  }
-  const locale = useLocale();
-  const [hidden, setHidden] = useState(true);
-  placeholder = undefined;
+  const { control } = useFormContext();
+
   const translateUnit = useTranslations("units");
 
-  const error = getNestedPropertyValue(errors, `${name}.message`);
-  if (type == "password") {
-    return (
-      <div className={`flex w-full flex-col items-start`}>
-        {label ? (
-          <label className={"label w-fit"}>
-            {label}
-            {unit ? (
-              <span className="ml-1">
-                (
-                <span className="text-green-500">
-                  {translateUnit(unit as any)}
-                </span>
-                )
-              </span>
-            ) : (
-              ""
-            )}
-            {required ? <span className="ml-1 text-red-600">*</span> : false}
-          </label>
-        ) : (
-          ""
-        )}
-        <div className={"relative w-full"}>
-          <input
-            {...props}
-            {...register(`${name}`)}
-            className={
-              className ??
-              `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
-            }
-            type={!hidden ? "text" : "password"}
-          />
-          {!hidden ? (
-            <ClosedEye
-              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
-              onClick={() => setHidden((prevState) => !prevState)}
-            />
-          ) : (
-            <Eye
-              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
-              onClick={() => setHidden((prevState) => !prevState)}
-            />
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {label && (
+            <FormLabel>
+              {label} {unit && ` (${translateUnit(unit as any)})`}
+            </FormLabel>
           )}
-        </div>
-
-        <p className={`min-h-5 text-sm text-error`}>{error}</p>
-      </div>
-    );
-  } else
-    return (
-      <div
-        className={`flex ${type == `radio` || type == "checkbox" ? `items-center gap-2` : "flex-col"} w-full items-start`}
-      >
-        {label ? (
-          <label className={"label text-nowrap"}>
-            {label}
-            {unit ? (
-              <span className="ml-1">
-                (
-                <span className="text-green-500">
-                  {translateUnit(unit as any)}
-                </span>
-                )
-              </span>
-            ) : (
-              ""
-            )}
-            {required ? <span className="ml-1 text-red-600">*</span> : false}
-          </label>
-        ) : (
-          ""
-        )}
-        <input
-          {...props}
-          {...register(`${name}`)}
-          className={
-            className ??
-            `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
-          }
-          min={min}
-          type={type == "password" && hidden ? "password" : type}
-          step={"any"}
-        />
-        <p className={`text-sm text-error`}>{error}</p>
-      </div>
-    );
+          <FormControl>
+            <Input
+              {...field}
+              type={type}
+              required={required}
+              step={"any"}
+              min={min}
+              defaultValue={defaultValue}
+              hidden={hidden}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
 };
 
 export default FormInput;

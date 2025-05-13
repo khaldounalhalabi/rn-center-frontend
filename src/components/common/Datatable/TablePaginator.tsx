@@ -4,6 +4,12 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/shadcn/button";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/shadcn/tooltip";
+import { TooltipContent } from "@radix-ui/react-tooltip";
 
 const TablePaginator = ({
   data,
@@ -18,34 +24,48 @@ const TablePaginator = ({
   const locale = useLocale();
 
   return (
-    <div className="flex justify-end rounded-b-lg border-t border-gray-200 px-4 py-2">
-      <ol className={`flex items-center justify-end gap-1 text-xs font-medium`}>
+    <div className="flex justify-end px-4 mt-2">
+      <ol className={`flex items-center justify-end gap-1`}>
         <li>
-          <Button
-            onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={data?.paginate?.is_first ?? true}
-            size={"icon"}
-          >
-            <div className="tooltip" data-tip={t("prevPage")}>
-              {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
-            </div>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={() => setPage((old) => Math.max(old - 1, 0))}
+                  disabled={data?.paginate?.is_first ?? true}
+                  size={"icon"}
+                >
+                  {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className={"bg-foreground text-background text-sm p-2 rounded-md"}>
+                <p>{t("prevPage")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </li>
         <li>
-          <Button
-            size={"icon"}
-            type={"button"}
-            onClick={() => {
-              if (!data?.paginate?.is_last) {
-                setPage((old) => old + 1);
-              }
-            }}
-            disabled={data?.paginate?.is_last ?? true}
-          >
-            <div className="tooltip" data-tip={t("nextPage")}>
-              {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
-            </div>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size={"icon"}
+                  type={"button"}
+                  onClick={() => {
+                    if (!data?.paginate?.is_last) {
+                      setPage((old) => old + 1);
+                    }
+                  }}
+                  disabled={data?.paginate?.is_last ?? true}
+                >
+                  {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className={"bg-foreground text-background text-sm p-2 rounded-md"}>
+                <p>{t("nextPage")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </li>
       </ol>
     </div>

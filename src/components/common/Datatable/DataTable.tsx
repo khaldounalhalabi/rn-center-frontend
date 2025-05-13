@@ -94,7 +94,7 @@ const DataTable = (tableData: DataTableData<any>) => {
       <div className={"h-full w-full p-1"}>
         {tableData?.title && <h1>{tableData.title ?? ""}</h1>}
         <div
-          className={`card-actions my-4 flex w-full items-center justify-between`}
+          className={`my-4 flex w-full items-center justify-between`}
         >
           <div className={"flex gap-1"}>
             {tableData.createUrl ? (

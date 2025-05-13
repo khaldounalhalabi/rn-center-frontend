@@ -1325,7 +1325,8 @@
   "nav": {
     "clinicProfile": "بيانات العيادة",
     "profile": "الملف الشخصي",
-    "logout": "تسجيل خروج"
+    "logout": "تسجيل خروج",
+    "notifications": "الإشعارات"
   },
   "details": {
     "name": "الاسم",

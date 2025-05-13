@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { Button } from "@/components/ui/shadcn/button";
 
 const UserDataView = async ({
   editUrl,
@@ -30,7 +31,7 @@ const UserDataView = async ({
         </div>
         {editUrl && (
           <Link href={editUrl}>
-            <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+            <Button type={"button"}>{t("editBtn")}</Button>
           </Link>
         )}
       </div>

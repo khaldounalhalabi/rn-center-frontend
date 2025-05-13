@@ -2,7 +2,6 @@
 
 import {
   BellIcon,
-  CreditCardIcon,
   LogOutIcon,
   MoreVerticalIcon,
   UserCircleIcon,
@@ -25,9 +24,15 @@ import {
   useSidebar,
 } from "@/components/ui/shadcn/sidebar";
 import { User } from "@/models/User";
+import { useTranslations } from "next-intl";
+import { AuthService } from "@/services/AuthService";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { Link } from "@/navigation";
 
 export function NavUser({ user }: { user?: User }) {
   const { isMobile } = useSidebar();
+  const t = useTranslations("nav");
+  const role = user?.role ?? RoleEnum.PUBLIC;
 
   return (
     <SidebarMenu>
@@ -80,19 +85,25 @@ export function NavUser({ user }: { user?: User }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
-              </DropdownMenuItem>
+              <Link href={`/${role}/user-details`}>
+                <DropdownMenuItem>
+                  <UserCircleIcon />
+                  {t("profile")}
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>
                 <BellIcon />
-                Notifications
+                {t("notifications")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                AuthService.make<AuthService>(role).logout();
+              }}
+            >
               <LogOutIcon />
-              Log out
+              {t("logout")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

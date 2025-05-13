@@ -6,6 +6,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import PrimaryButton from "./buttons/PrimaryButton";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/shadcn/button";
 
 const Form = ({
   className,
@@ -76,17 +77,17 @@ const Form = ({
             ? otherSubmitButton(methods.formState.isSubmitting)
             : ""}
           {defaultButton && (
-            <PrimaryButton
+            <Button
               type="submit"
               disabled={methods.formState.isSubmitting || disabled}
             >
               {buttonText}{" "}
               {methods.formState.isSubmitting && (
                 <span className="mx-1">
-                  <LoadingSpin className="h-6 w-6 text-white" />
+                  <LoadingSpin className="h-6 w-6" />
                 </span>
               )}
-            </PrimaryButton>
+            </Button>
           )}
         </div>
       </form>

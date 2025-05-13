@@ -59,14 +59,12 @@ const ClinicForm = ({
             <FormInput
               name={"user.password"}
               type={"text"}
-              placeholder={"Password"}
               label={t("password")}
               required={true}
             />
             <FormInput
               name={"user.password_confirmation"}
               type={"text"}
-              placeholder={"Confirm Password"}
               label={t("confirm-password")}
               required={true}
             />
@@ -84,21 +82,19 @@ const ClinicForm = ({
           label={t("birth-date")}
           required={true}
           shouldDisableDate={(day) => {
-            return !day.isBefore(dayjs().subtract(20, "year"));
+            return !day?.isBefore(dayjs().subtract(20, "year"));
           }}
         />
         <FormInput
           name={"appointment_cost"}
           type={"number"}
           unit={"iqd"}
-          step={"any"}
           label={t("cost")}
           required={true}
         />
         <FormInput
           name={"max_appointments"}
           type={"number"}
-          step={"any"}
           label={t("max-appointments")}
           required={true}
         />
@@ -133,20 +129,12 @@ const ClinicForm = ({
             label={t("male")}
             type="radio"
             className="radio-info radio"
-            value={"male"}
-            defaultChecked={
-              defaultValues?.user?.gender
-                ? defaultValues?.user?.gender == "male"
-                : true
-            }
           />
           <FormInput
             name={"user.gender"}
             label={t("female")}
             type="radio"
             className="radio-info radio"
-            value={"female"}
-            defaultChecked={defaultValues?.user?.gender == "female"}
           />
         </div>
       </Grid>

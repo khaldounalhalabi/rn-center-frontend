@@ -9,12 +9,13 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { RoleEnum } from "@/enums/RoleEnum";
-import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
+import { Input } from "@/components/ui/shadcn/input";
+import dayjs from "dayjs";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -84,11 +85,15 @@ const Page = () => {
           />
 
           <Label label={t("available_time")} col>
-            <TimePickerFilter
-              onChange={(time) => {
-                setParams({ ...params, available_time: time?.format("HH:mm") });
+            <Input
+              onChange={(event) => {
+                setParams({
+                  ...params,
+                  available_time: event.target.value,
+                });
               }}
               defaultValue={params.available_time}
+              type={"time"}
             />
           </Label>
         </Grid>

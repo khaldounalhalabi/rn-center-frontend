@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import dayjs from "dayjs";
 import Trash from "@/components/icons/Trash";
-import FormTimePicker from "@/components/common/ui/date-time-pickers/FormTimePicker";
 import { useTranslations } from "next-intl";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 
 const AttendanceForm = ({
   attendances = [],
@@ -89,10 +89,6 @@ const AttendanceForm = ({
   };
 
   const removeField = (index: number) => {
-    if (index === 1) {
-      setFields([]);
-      return;
-    }
     const newFields = [...fields];
     newFields.splice(index, 1);
     setFields(newFields);
@@ -106,22 +102,24 @@ const AttendanceForm = ({
     <Form
       handleSubmit={handleSubmit}
       onSuccess={onSuccess}
-      defaultValues={logs}
+      defaultValues={{ attendance_at: date, attendance_shifts: fields }}
     >
       {fields?.map((inputs, index) => (
         <div
           className={"flex w-full items-center justify-between gap-10"}
           key={index}
         >
-          <FormTimePicker
+          <FormInput
             name={`attendance_shifts.${index}.attend_from`}
             label={t("from")}
-            df={inputs.attend_from}
+            defaultValue={inputs.attend_from}
+            type={"time"}
           />
-          <FormTimePicker
+          <FormInput
             name={`attendance_shifts.${index}.attend_to`}
             label={t("to")}
-            df={inputs.attend_to}
+            defaultValue={inputs.attend_to}
+            type={"time"}
           />
           <button className={"btn btn-square"} type={"button"}>
             <Trash

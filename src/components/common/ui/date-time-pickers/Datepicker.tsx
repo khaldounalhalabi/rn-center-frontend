@@ -1,7 +1,4 @@
 "use client";
-import { DatePicker } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
-import styles from "./datepicker.module.css";
 import React, { useState } from "react";
 import {
   Popover,
@@ -11,9 +8,9 @@ import {
 import { Button } from "@/components/ui/shadcn/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
 import { Calendar } from "@/components/ui/shadcn/calendar";
 import { Label } from "../labels-and-values/Label";
+import dayjs, { Dayjs } from "dayjs";
 
 const Datepicker = ({
   onChange,

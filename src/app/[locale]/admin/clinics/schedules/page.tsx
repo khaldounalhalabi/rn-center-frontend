@@ -8,11 +8,11 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ClinicsService } from "@/services/ClinicsService";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
-import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
 import Select from "@/components/common/ui/selects/Select";
+import { Input } from "@/components/ui/shadcn/input";
 
 const Page = () => {
   const t = useTranslations("admin.schedules.table");
@@ -60,10 +60,11 @@ const Page = () => {
           />
 
           <Label label={t("time")} col>
-            <TimePickerFilter
+            <Input
               defaultValue={params.available_time}
-              onChange={(time) => {
-                setParams({ ...params, available_time: time?.format("HH:mm") });
+              type={"time"}
+              onChange={(event) => {
+                setParams({ ...params, available_time: event.target?.value });
               }}
             />
           </Label>

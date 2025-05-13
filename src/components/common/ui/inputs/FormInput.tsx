@@ -29,8 +29,8 @@ export interface InputProps {
     | undefined
     | string;
   min?: number;
-  hidden?:boolean;
-  defaultValue?:string|number|undefined;
+  hidden?: boolean;
+  defaultValue?: string | number | undefined;
 }
 
 const FormInput: React.FC<InputProps> = ({
@@ -43,7 +43,7 @@ const FormInput: React.FC<InputProps> = ({
   hidden = false,
   defaultValue = undefined
 }) => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   const translateUnit = useTranslations("units");
 
@@ -61,6 +61,12 @@ const FormInput: React.FC<InputProps> = ({
           <FormControl>
             <Input
               {...field}
+              onChange={(event) => {
+                field.onChange(event);
+                if (type == "datetime-local") {
+                  setValue(name, event.target?.value?.replace("T", " "));
+                }
+              }}
               type={type}
               required={required}
               step={"any"}

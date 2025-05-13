@@ -4,7 +4,7 @@ import { ModeToggle } from "@/components/ui/shadcn/mode-toggle";
 
 export function SiteHeader() {
   return (
-    <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
+    <header className="sticky top-0 z-10 bg-background group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
       <div className={"flex w-full items-center justify-between"}>
         <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
           <SidebarTrigger className="-ml-1" />
@@ -14,7 +14,7 @@ export function SiteHeader() {
           />
           <h1 className="text-base font-medium">Admin Panel</h1>
         </div>
-        <div className={"flex items-center justify-end"}>
+        <div className={"flex items-center justify-end px-2"}>
           <ModeToggle />
         </div>
       </div>

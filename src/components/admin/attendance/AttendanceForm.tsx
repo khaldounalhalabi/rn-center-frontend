@@ -128,7 +128,7 @@ const AttendanceForm = ({
               onClick={() => {
                 removeField(index);
               }}
-              className={"h-6 w-6 text-error"}
+              className={"h-6 w-6 text-destructive"}
             />
           </button>
         </div>

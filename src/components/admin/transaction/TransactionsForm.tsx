@@ -48,7 +48,6 @@ const TransactionForm = ({
           defaultValue={defaultValues?.type}
         />
         <FormInput
-          placeholder={"amount ... "}
           name={"amount"}
           label={t("amount")}
           required={true}

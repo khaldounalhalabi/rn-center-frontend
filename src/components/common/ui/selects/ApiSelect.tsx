@@ -319,7 +319,7 @@ function ApiSelect<TResponse, TData>({
         </div>
       </div>
       {validationError && (
-        <p className="min-h-5 text-error">{validationError}</p>
+        <p className="min-h-5 text-destructive">{validationError}</p>
       )}
     </div>
   );

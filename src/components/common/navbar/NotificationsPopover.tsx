@@ -86,7 +86,7 @@ const NotificationsPopover = () => {
         {(notificationsCount?.data ?? 0) > 0 ? (
           <span
             className={
-              "absolute -top-1 right-[0px] rounded-full border-error text-[100%] text-error"
+              "absolute -top-1 right-[0px] rounded-full border-error text-[100%] text-destructive"
             }
           >
             {notificationsCount?.data}

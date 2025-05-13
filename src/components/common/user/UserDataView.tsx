@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 import PageCard from "@/components/common/ui/PageCard";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Link } from "@/navigation";
-import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";

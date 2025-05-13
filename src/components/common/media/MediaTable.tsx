@@ -146,7 +146,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
               <td>{Math.round(item.size / 1024)} KB</td>
               <td className={"flex items-center justify-center gap-1"}>
                 <button
-                  className="btn btn-square btn-sm text-error"
+                  className="btn btn-square btn-sm text-destructive"
                   onClick={() => handleDelete(item.id)}
                   disabled={isDeleting}
                 >

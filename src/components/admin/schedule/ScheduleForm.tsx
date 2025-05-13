@@ -249,7 +249,7 @@ const ClinicScheduleForm = ({
                     type="button"
                     onClick={() => handleRemoveTimeRange(day, index)}
                   >
-                    <Trash className="h-6 w-6 text-error" />
+                    <Trash className="h-6 w-6 text-destructive" />
                   </button>
                 </div>
               ))}

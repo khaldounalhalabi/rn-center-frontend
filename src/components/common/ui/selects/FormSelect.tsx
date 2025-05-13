@@ -39,7 +39,7 @@ const FormSelect: React.FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {error ? <p className={"text-error"}>{error}</p> : ""}
+      {error ? <p className={"text-destructive"}>{error}</p> : ""}
     </div>
   );
 };

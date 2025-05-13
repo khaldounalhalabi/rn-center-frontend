@@ -24,19 +24,19 @@ const Page = () => {
         label: `${t("speciality")}`,
         sortable: true,
       },
-      {
-        label: `${t("actions")}`,
-        render: (_undefined, data, setHidden) => (
-          <ActionsButtons
-            id={data?.id}
-            buttons={["edit", "delete", "show"]}
-            baseUrl={`/admin/specialities`}
-            editUrl={`/admin/speciality/${data?.id}/edit`}
-            showUrl={`/admin/speciality/${data?.id}`}
-            setHidden={setHidden}
-          />
-        ),
-      },
+      // {
+      //   label: `${t("actions")}`,
+      //   render: (_undefined, data, setHidden) => (
+      //     <ActionsButtons
+      //       id={data?.id}
+      //       buttons={["edit", "delete", "show"]}
+      //       baseUrl={`/admin/specialities`}
+      //       editUrl={`/admin/speciality/${data?.id}/edit`}
+      //       showUrl={`/admin/speciality/${data?.id}`}
+      //       setHidden={setHidden}
+      //     />
+      //   ),
+      // },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
       await SpecialityService.make<SpecialityService>().indexWithPagination(

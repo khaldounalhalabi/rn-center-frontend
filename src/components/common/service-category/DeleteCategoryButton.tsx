@@ -22,7 +22,7 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
   return (
     <button className="btn btn-square btn-sm">
       <Trash
-        className="h-6 w-6 text-error"
+        className="h-6 w-6 text-destructive"
         onClick={() => {
           swal
             .fire({

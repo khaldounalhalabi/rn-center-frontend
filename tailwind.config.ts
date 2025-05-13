@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
 
-const plugin = require("tailwindcss/plugin");
-
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -10,10 +8,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/common/ui/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [require("daisyui"), require("tailwindcss-animate")],
-  daisyui: {
-    themes: ["light"],
-  },
+  plugins: [require("tailwindcss-animate")],
   theme: {
   	letterSpacing: {
   		'1': '0em',

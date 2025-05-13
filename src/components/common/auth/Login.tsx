@@ -55,18 +55,16 @@ const Login = ({ role }: { role: RoleEnum }) => {
                     name="phone"
                     type="tel"
                     label={t("phone")}
-                    placeholder="Enter your phone number"
                   />
                   <FormInput
                     name="password"
                     label={t("password")}
                     type="password"
-                    placeholder="Enter Your Password"
                   />
                 </div>
 
                 {error && (
-                  <p className="my-3 w-full p-2 text-sm text-error">
+                  <p className="my-3 w-full p-2 text-sm text-destructive">
                     {t("err")}.
                   </p>
                 )}

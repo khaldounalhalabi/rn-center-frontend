@@ -3,7 +3,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import PrimaryButton from "./buttons/PrimaryButton";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/shadcn/button";

@@ -40,7 +40,7 @@ export const Value: React.FC<ValueProps> = ({
     <div
       className={
         className ??
-        `text-start ${colorMatcher(color)} text-xs font-normal md:text-base`
+        `text-start text-primary text-xs font-normal md:text-base`
       }
       {...props}
     >

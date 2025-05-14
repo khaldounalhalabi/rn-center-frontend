@@ -1,11 +1,19 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { AppointmentLogs } from "@/models/AppointmentLog";
 import LogsIcon from "@/components/icons/Logs";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
-import { Dialog, Transition } from "@headlessui/react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { TranslateClient } from "@/helpers/TranslationsClient";
 import { useTranslations } from "next-intl";
+import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
+import { Button } from "@/components/ui/shadcn/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
 
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
   const t = useTranslations("common.appointment.table");
@@ -14,96 +22,54 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (
-    <div className="btn btn-square btn-sm">
-      <LogsIcon
-        className="h-6 w-6 text-warning"
-        onClick={async () => {
-          setOpenLogs(!openLogs);
-          if (appointmentId) {
-            return await AppointmentLogsService.make<AppointmentLogsService>()
-              .getAppointmentLogs(appointmentId)
-              .then((res) => {
-                return setLogs(res?.data);
-              });
-          }
-        }}
-      />
-      <Transition appear show={openLogs} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setOpenLogs(false)}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100 "
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-[50vw] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    {t("logs")}
-                  </Dialog.Title>
-                  {logs ? (
-                    <div className="mt-4 overflow-x-auto rounded-xl bg-white">
-                      <table className="table">
-                        <thead>
-                          <tr>
-                            <th>id</th>
-                            <th>{t("status")}</th>
-                            <th>{t("happenIn")}</th>
-                            <th>{t("actor")}</th>
-                            <th>{t("event")}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {logs?.map((e: AppointmentLogs, index) => (
-                            <tr key={index}>
-                              <th>{e.id}</th>
-                              <td>{e.status}</td>
-                              <td>{e.happen_in}</td>
-                              <td>
-                                {TranslateClient(e.actor?.first_name)}{" "}
-                                {TranslateClient(e.actor?.last_name)}
-                              </td>
-                              <td>{e?.event}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="my-4 flex w-full items-center justify-center">
-                      <LoadingSpin className="h-8 w-8 text-primary" />
-                    </div>
-                  )}
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-    </div>
+    <ShadcnDialog
+      trigger={
+        <Button variant={"outline"} size={"icon"}>
+          <LogsIcon
+            onClick={async () => {
+              if (appointmentId) {
+                return await AppointmentLogsService.make<AppointmentLogsService>()
+                  .getAppointmentLogs(appointmentId)
+                  .then((res) => {
+                    return setLogs(res?.data);
+                  });
+              }
+            }}
+          />
+        </Button>
+      }
+      title={t("logs")}
+      sm={false}
+    >
+      {logs ? (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>id</TableHead>
+              <TableHead>{t("status")}</TableHead>
+              <TableHead>{t("happenIn")}</TableHead>
+              <TableHead>{t("actor")}</TableHead>
+              <TableHead>{t("event")}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {logs?.map((e: AppointmentLogs, index) => (
+              <TableRow key={index}>
+                <TableCell>{e.id}</TableCell>
+                <TableCell>{e.status}</TableCell>
+                <TableCell>{e.happen_in}</TableCell>
+                <TableCell>{e.actor?.full_name}</TableCell>
+                <TableCell>{e?.event}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <div className="my-4 flex w-full items-center justify-center">
+          <LoadingSpin className="h-8 w-8 text-primary" />
+        </div>
+      )}
+    </ShadcnDialog>
   );
 };
 

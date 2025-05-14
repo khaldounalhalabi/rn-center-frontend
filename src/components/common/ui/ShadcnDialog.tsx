@@ -14,16 +14,18 @@ const ShadcnDialog = ({
   title,
   children = undefined,
   footer = undefined,
+  sm = true,
 }: {
   trigger: ReactNode;
   title?: string;
   children?: ReactNode;
   footer?: ReactNode;
+  sm?:boolean
 }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className={"max-h-[80vh] md:max-w-[60vh]"}>
+      <DialogContent className={`max-h-[80vh] ${sm ? "md:max-w-[60vh]" : "md:max-w-[100vh]"}`}>
         <DialogHeader>
           {title && <DialogTitle>{title}</DialogTitle>}
         </DialogHeader>

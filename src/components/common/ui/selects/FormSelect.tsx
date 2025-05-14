@@ -23,6 +23,7 @@ interface SelectProps extends HTMLProps<HTMLSelectElement> {
   items: string[] | number[] | undefined;
   label?: string;
   translatable?: boolean;
+  defaultValue?: string;
 }
 
 const FormSelect: React.FC<SelectProps> = ({
@@ -30,12 +31,13 @@ const FormSelect: React.FC<SelectProps> = ({
   items,
   label,
   translatable = false,
+  defaultValue = undefined,
 }) => {
   const {
     formState: { defaultValues },
     control,
   } = useFormContext();
-  const defaultValue = getNestedPropertyValue(defaultValues, name);
+  defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
 
   return (
     <FormField

@@ -19,14 +19,10 @@ const page = async ({
   ).data;
 
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editAppointment")}</h2>
-      <label className={""}>
-        {t("patientName")} :{" "}
-        <span className={"badge"}>
-          {appointment?.customer?.user?.full_name}
-        </span>
-      </label>
+    <PageCard
+      title={t("editAppointment")}
+      description={`${t("patientName")} : ${appointment?.customer?.user?.full_name}`}
+    >
       <AppointmentForm
         type={"update"}
         defaultValues={appointment}

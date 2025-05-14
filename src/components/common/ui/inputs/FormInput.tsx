@@ -89,7 +89,7 @@ const FormInput: React.FC<InputProps> = ({
               step={"any"}
               min={min}
               hidden={hidden}
-              value={defaultValue}
+              defaultValue={defaultValue}
             />
           </FormControl>
           <FormMessage />

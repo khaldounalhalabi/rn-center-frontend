@@ -3,6 +3,14 @@ import { Appointment } from "@/models/Appointment";
 import { AppointmentLogsService } from "@/services/AppointmentLogsService";
 import { AppointmentLogs as AppointmentLogsModel } from "@/models/AppointmentLog";
 import { getTranslations } from "next-intl/server";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
 
 const AppointmentLogsTable = async ({
   appointment,
@@ -18,32 +26,28 @@ const AppointmentLogsTable = async ({
   const t = await getTranslations("common.appointment.show");
 
   return (
-    <div className={"card my-3 w-full bg-base-200 p-5"}>
-      <div className="overflow-x-auto rounded-xl bg-white">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>{t("status")}</th>
-              <th>{t("happenIn")}</th>
-              <th>{t("actor")}</th>
-              <th>{t("event")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {res?.map((e: AppointmentLogsModel, index) => (
-              <tr key={index}>
-                <th>{e.id}</th>
-                <td>{e.status}</td>
-                <td>{e.happen_in}</td>
-                <td>{e.actor?.full_name}</td>
-                <td>{e.event}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>id</TableHead>
+          <TableHead>{t("status")}</TableHead>
+          <TableHead>{t("happenIn")}</TableHead>
+          <TableHead>{t("actor")}</TableHead>
+          <TableHead>{t("event")}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {res?.map((e: AppointmentLogsModel, index) => (
+          <TableRow key={index}>
+            <TableCell>{e.id}</TableCell>
+            <TableCell>{e.status}</TableCell>
+            <TableCell>{e.happen_in}</TableCell>
+            <TableCell>{e.actor?.full_name}</TableCell>
+            <TableCell>{e.event}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

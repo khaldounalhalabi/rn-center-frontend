@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/shadcn/popover";
 import { Button } from "@/components/ui/shadcn/button";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/shadcn/calendar";
 
@@ -41,7 +40,9 @@ const FormDatepicker = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={"flex flex-col items-start justify-end gap-1 w-full"}>
+        <FormItem
+          className={"flex flex-col items-start justify-end gap-1 w-full"}
+        >
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
             <Popover>
@@ -54,8 +55,10 @@ const FormDatepicker = ({
                       !field.value && "text-muted-foreground",
                     )}
                   >
-                    {field.value ? (
-                      dayjs(df ?? field.value).format("YYYY-MM-DD")
+                    {df ? (
+                      dayjs(df).format("YYYY-MM-DD")
+                    ) : field.value ? (
+                      dayjs(field.value).format("YYYY-MM-DD")
                     ) : (
                       <span>Pick a date</span>
                     )}

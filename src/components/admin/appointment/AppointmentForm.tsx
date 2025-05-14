@@ -48,14 +48,10 @@ const AppointmentForm = memo(
       setDate,
       clinicId,
       setClinicId,
-      serviceId,
       setServiceId,
-      extras,
       setExtraFees,
       setDiscount,
       totalCost,
-      clinic,
-      service,
       handleSubmit,
     } = useAppointmentForm({
       defaultValues,
@@ -218,7 +214,9 @@ const AppointmentForm = memo(
           />
 
           <FormSelect
-            items={getEnumValues(AppointmentStatusEnum)}
+            items={getEnumValues(AppointmentStatusEnum).filter((i) =>
+              type == "update" ? true : i != AppointmentStatusEnum.CANCELLED,
+            )}
             label={t("status")}
             name="status"
             defaultValue={defaultValues?.status}
@@ -238,7 +236,7 @@ const AppointmentForm = memo(
             onChange={handleDiscountChange}
             defaultValue={defaultValues?.discount ?? 0}
           />
-          <div className="flex items-center justify-between md:col-span-2">
+          <div className="flex items-center justify-between md:col-span-2 border border-primary p-1 rounded-md">
             <span className="badge badge-ghost">{t("totalCost")}</span>
             <span>{totalCost}</span>
           </div>

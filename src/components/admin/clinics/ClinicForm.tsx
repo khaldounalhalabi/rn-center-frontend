@@ -77,14 +77,6 @@ const ClinicForm = ({
           label={t("phone")}
           required={true}
         />
-        <FormDatepicker
-          name={"user.birth_date"}
-          label={t("birth-date")}
-          required={true}
-          shouldDisableDate={(day) => {
-            return !day?.isBefore(dayjs().subtract(20, "year"));
-          }}
-        />
         <FormInput
           name={"appointment_cost"}
           type={"number"}

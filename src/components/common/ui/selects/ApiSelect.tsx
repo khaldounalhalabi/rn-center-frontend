@@ -215,7 +215,7 @@ function ApiSelect<TResponse, TData>({
 
       <div
         onClick={() => handleOpen()}
-        className={`flex mt-2 hover:border-primary hover:dark:border-white dark:border-input p-2 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
+        className={`flex mt-2 hover:border-primary hover:dark:border-white dark:border-input p-1.5 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
       >
         <div
           className="flex w-full items-center justify-between"

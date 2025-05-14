@@ -22,13 +22,14 @@ const page = async ({
     await AppointmentService.make<AppointmentService>().show(appointmentId);
   const appointment: Appointment = data?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("appointmentDetails")}</h2>
+    <PageCard
+      title={t("appointmentDetails")}
+      actions={
         <Link href={`/admin/appointment/${appointment.id}/edit`}>
           <Button type={"button"}>{t("editBtn")}</Button>
         </Link>
-      </div>
+      }
+    >
       <Grid>
         <LabelValue
           label={t("doctorName")}

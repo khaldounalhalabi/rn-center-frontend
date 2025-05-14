@@ -21,6 +21,7 @@ import AppointmentTypeEnum from "@/enums/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/http/Response";
 import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
+import PageCard from "@/components/common/ui/PageCard";
 
 const AppointmentsTable = ({
   without,
@@ -170,12 +171,9 @@ const AppointmentsTable = ({
   };
 
   return (
-    <Card>
-      <CardHeader>{t("appointments")}</CardHeader>
-      <CardContent>
-        <DataTable {...tableData} />
-      </CardContent>
-    </Card>
+    <PageCard title={t("appointments")}>
+      <DataTable {...tableData} />
+    </PageCard>
   );
 };
 

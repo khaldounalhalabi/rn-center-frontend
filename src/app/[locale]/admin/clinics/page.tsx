@@ -15,7 +15,7 @@ import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
 import { Input } from "@/components/ui/shadcn/input";
-import dayjs from "dayjs";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -100,7 +100,11 @@ const Page = () => {
       );
     },
   };
-  return <DataTable {...dataTableData} />;
+  return (
+    <PageCard>
+      <DataTable {...dataTableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

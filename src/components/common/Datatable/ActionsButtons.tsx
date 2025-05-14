@@ -1,7 +1,6 @@
 import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
-import ArchiveIcon from "@/components/icons/ArchiveIcon";
 import React from "react";
 import { swal } from "@/helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
@@ -36,7 +35,6 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   deleteUrl,
   showUrl,
   editUrl,
-  archiveUrl,
   setHidden,
   children,
   deleteMessage,
@@ -47,10 +45,9 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const dUrl = deleteUrl ?? `${baseUrl}/${dataId ?? ""}`; // delete url
   const sUrl = showUrl ?? `${baseUrl}/${dataId ?? ""}`; // show url
   const eUrl = editUrl ?? `${baseUrl}/${dataId ?? ""}/edit` + ""; // edit url
-  const aUrl = archiveUrl ?? `${baseUrl}/${dataId ?? ""}`; // archive url
 
   return (
-    <div className={`flex items-center justify-between gap-1`}>
+    <div className={`flex items-center gap-1`}>
       {buttons.includes("show") ? (
         <Link href={sUrl}>
           <Button size={"icon"}>

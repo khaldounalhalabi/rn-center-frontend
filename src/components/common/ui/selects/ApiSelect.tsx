@@ -8,6 +8,8 @@ import ChevronDown from "@/components/icons/ChevronDown";
 import { useFormContext } from "react-hook-form";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { Input } from "@/components/ui/shadcn/input";
+import { Badge } from "@/components/ui/shadcn/badge";
 
 function ApiSelect<TResponse, TData>({
   api,
@@ -26,7 +28,6 @@ function ApiSelect<TResponse, TData>({
   placeHolder = undefined,
   defaultValues = undefined,
   onChange = undefined,
-  required = false,
   onClear = undefined,
   onRemoveSelected = undefined,
   inputProps = {},
@@ -192,10 +193,9 @@ function ApiSelect<TResponse, TData>({
       ref={fullContainer}
     >
       <label
-        className={`flex ${styles?.labelClasses ?? "label select-text justify-start font-medium"}`}
+        className={`flex ${styles?.labelClasses ?? " justify-start font-medium"}`}
       >
         {label ?? ""}
-        {required ? <span className="ml-1 text-red-600">*</span> : false}
         <input
           ref={inputRef}
           name={name ?? ""}
@@ -215,7 +215,7 @@ function ApiSelect<TResponse, TData>({
 
       <div
         onClick={() => handleOpen()}
-        className={`flex cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-sm border border-gray-300 p-3 text-gray-700 sm:text-sm"}`}
+        className={`flex mt-2 hover:border-primary hover:dark:border-white dark:border-input p-2 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
       >
         <div
           className="flex w-full items-center justify-between"
@@ -229,17 +229,16 @@ function ApiSelect<TResponse, TData>({
             <div className="flex flex-wrap items-center gap-1">
               {selected.map((option, index) => (
                 <div className="flex flex-wrap gap-1" key={index}>
-                  <span
-                    className={`${styles?.selectedItemsBadgeClasses ?? "badge badge-ghost hover:badge-error"} cursor-pointer`}
-                    onClick={(e) => handleRemoveFromSelected(e, option)}
-                  >
+                  <Badge onClick={(e) => handleRemoveFromSelected(e, option)}>
                     {option.label}
-                  </span>
+                  </Badge>
                 </div>
               ))}
             </div>
           ) : (
-            <p className={styles?.placeholder ?? ""}>{placeHolder}</p>
+            <p className={styles?.placeholder ?? ""}>
+              {placeHolder ?? `Select ${label} ...`}
+            </p>
           )}
           <div className="flex items-center gap-2">
             {isFetching && (
@@ -247,13 +246,13 @@ function ApiSelect<TResponse, TData>({
                 {styles?.loadingIcon ? (
                   styles.loadingIcon()
                 ) : (
-                  <LoadingSpin className="h-full w-full text-pom" />
+                  <LoadingSpin className="h-full w-full text-primary" />
                 )}
               </div>
             )}
             {selected.length > 0 && clearable ? (
               <XMark
-                className="h-5 w-5"
+                className="h-5 w-5 text-primary"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelected([]);
@@ -263,13 +262,13 @@ function ApiSelect<TResponse, TData>({
             ) : (
               ""
             )}
-            <ChevronDown className="h-5 w-5 font-extrabold hover:text-gray-600" />
+            <ChevronDown className="h-5 w-5 font-extrabold text-primary" />
           </div>
         </div>
         <div
           className={
             isOpen
-              ? `absolute left-0 !z-50 overflow-y-scroll ${styles?.dropDownItemsContainerClasses ?? "w-full rounded-lg border border-gray-200 bg-white px-3 pb-3 shadow-2xl"}`
+              ? `absolute left-0 !z-50 overflow-y-scroll ${styles?.dropDownItemsContainerClasses ?? "w-full rounded-lg border border-gray-200 bg-white dark:bg-blend-darken px-3 pb-3 shadow-2xl"}`
               : "hidden"
           }
           style={{
@@ -279,14 +278,14 @@ function ApiSelect<TResponse, TData>({
           onScroll={(e) => handleDataScrolling(e)}
           onTouchMove={(e) => handleDataScrolling(e)}
         >
-          <div className={`sticky top-0 bg-inherit`}>
-            <input
-              className={`${styles?.searchInputClasses ?? "my-2 w-full rounded-md p-1 focus:border-pom focus:outline-pom"}`}
+          <div className={`sticky top-2 bg-inherit`}>
+            <Input
+              className={`${styles?.searchInputClasses ?? " "} my-2 w-full p-1 text-black`}
               onClick={(e) => handleClickingOnSearchInput(e)}
               onChange={(e) => handleSearchChange(e)}
               value={search ?? ""}
               name={"search-box"}
-              type={"text"}
+              type={"search"}
               placeholder={`${t("search")}`}
               ref={searchInputRef}
             />
@@ -301,9 +300,9 @@ function ApiSelect<TResponse, TData>({
                 key={index}
                 className={` ${
                   include(getOption(item), selected)
-                    ? `${styles?.selectedDropDownItemClasses ?? "border-pom bg-pom"}`
+                    ? `${styles?.selectedDropDownItemClasses ?? "border-primary bg-black !text-white"}`
                     : ""
-                } ${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 text-black hover:border-pom hover:bg-pom"}`}
+                } ${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 text-primary dark:text-black hover:border-primary hover:bg-primary hover:text-white hover:dark:bg-black hover:dark:text-white"}`}
                 onClick={(e) => handleChoseItem(e, item)}
               >
                 {getOption(item).label ?? ""}

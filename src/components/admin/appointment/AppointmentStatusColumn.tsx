@@ -2,7 +2,6 @@
 import { Appointment } from "@/models/Appointment";
 import { getEnumValues } from "@/helpers/Enums";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { useState } from "react";
 import DialogPopup from "@/components/common/ui/DialogPopup";
 import Form from "@/components/common/ui/Form";
@@ -10,6 +9,8 @@ import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { AppointmentService } from "@/services/AppointmentService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import Select from "@/components/common/ui/selects/Select";
+import { Textarea } from "@/components/ui/shadcn/textarea";
 
 const AppointmentStatusColumn = ({
   appointment,
@@ -28,20 +29,22 @@ const AppointmentStatusColumn = ({
   const handleSelect = (status: AppointmentStatusEnum) => {
     if (status == AppointmentStatusEnum.CANCELLED) {
       setOpen(true);
+      setSelectedStatus(prevState => prevState)
     } else {
       handleChange(status);
     }
-    setSelectedStatus(status);
   };
 
   const handleChange = async (status: AppointmentStatusEnum) => {
     setLoading(true);
-    const response =
-      await AppointmentService.make<AppointmentService>().toggleStatus(
-        appointment.id,
-        status,
-        cancellationReason,
-      );
+    const response = await AppointmentService.make<AppointmentService>()
+      .toggleStatus(appointment.id, status, cancellationReason)
+      .then((res) => {
+        if (res.ok()) {
+          setSelectedStatus(status);
+        }
+        return res;
+      });
 
     setLoading(false);
     return response;
@@ -59,7 +62,7 @@ const AppointmentStatusColumn = ({
           }}
         >
           <Label label={t("cancellation_reason")} col>
-            <textarea
+            <Textarea
               name={"cancellation_reason"}
               defaultValue={""}
               className={"textarea w-full"}
@@ -70,19 +73,14 @@ const AppointmentStatusColumn = ({
           </Label>
         </Form>
       </DialogPopup>
-      <select
-        defaultValue={selectedStatus}
-        className={"select select-bordered w-fit text-sm font-medium"}
-        onChange={(event) => {
-          handleSelect(event.target.value as AppointmentStatusEnum);
+      <Select
+        data={getEnumValues(AppointmentStatusEnum)}
+        onChange={(value) => {
+          handleSelect(value as AppointmentStatusEnum);
         }}
-      >
-        {getEnumValues(AppointmentStatusEnum).map((status, index) => (
-          <option value={status} key={index}>
-            <TranslatableEnum value={status} />
-          </option>
-        ))}
-      </select>
+        translated={true}
+        selected={selectedStatus}
+      />
     </>
   );
 };

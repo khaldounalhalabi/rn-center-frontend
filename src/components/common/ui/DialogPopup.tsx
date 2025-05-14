@@ -5,9 +5,11 @@ import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
 const DialogPopup = ({
   open = false,
   children = undefined,
+  onClose = undefined,
 }: {
   open: boolean;
   children?: React.ReactNode;
+  onClose?: () => void;
 }) => {
   let [isOpen, setIsOpen] = useState(open);
 
@@ -24,7 +26,12 @@ const DialogPopup = ({
       <HeadlessDialog
         as="div"
         className="relative z-[1000]"
-        onClose={closeModal}
+        onClose={() => {
+          closeModal();
+          if (onClose) {
+            onClose();
+          }
+        }}
       >
         <Transition.Child
           as={Fragment}
@@ -49,7 +56,7 @@ const DialogPopup = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <HeadlessDialog.Panel className="w-full max-w-[100vh] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <HeadlessDialog.Panel className="w-full max-w-[100vh] transform overflow-hidden rounded-2xl bg-background p-6 text-left align-middle shadow-xl transition-all">
                 {children}
               </HeadlessDialog.Panel>
             </Transition.Child>

@@ -1,7 +1,10 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import { InputProps } from "@/components/common/ui/inputs/FormInput";
-import Trash from "@/components/icons/Trash";
+import { Input } from "@/components/ui/shadcn/input";
+import { Button } from "@/components/ui/shadcn/button";
+import { Label } from "@/components/ui/shadcn/label";
+import { Trash } from "lucide-react";
 import {
   getNestedPropertyValue,
   sanitizeString,
@@ -9,9 +12,23 @@ import {
 import { useFormContext } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 
-interface MultiInputProps extends InputProps {
+interface MultiInputProps
+  extends React.ForwardRefExoticComponent<
+    Omit<
+      React.DetailedHTMLProps<
+        React.InputHTMLAttributes<HTMLInputElement>,
+        HTMLInputElement
+      >,
+      "ref"
+    >
+  > {
   name: string;
   maxFields?: number;
+  className?: string;
+  label?: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
 }
 
 const MultiInput: React.FC<MultiInputProps> = ({
@@ -21,10 +38,8 @@ const MultiInput: React.FC<MultiInputProps> = ({
   type,
   required = false,
   maxFields = Infinity,
-  placeholder = undefined,
   ...props
 }) => {
-  placeholder = undefined;
   const locale = useLocale();
   const {
     setValue,
@@ -34,7 +49,6 @@ const MultiInput: React.FC<MultiInputProps> = ({
   let defaultValue = getNestedPropertyValue(defaultValues, name) ?? [];
   const t = useTranslations("components");
 
-  // Ensure there's always at least one input field
   const [inputs, setInputs] = useState<any[]>(
     defaultValue.length ? defaultValue : [""],
   );
@@ -62,84 +76,66 @@ const MultiInput: React.FC<MultiInputProps> = ({
 
   useEffect(() => {
     setValue(name, inputs);
-  }, [inputs]);
+  }, [inputs, name, setValue]);
 
   return (
     <>
-      {label ? (
-        <label className={"label justify-start"}>
-          {label}{" "}
-          {typeof error === "object" && error !== null ? (
-            <p className={"text-error"}>{error.message}</p>
-          ) : (
-            ""
+      {label && (
+        <Label className="flex items-center">
+          {label}
+          {error && (
+            <p className="ml-2 text-sm text-red-600">{error.message}</p>
           )}
-          {required ? <span className="ml-1 text-red-600">*</span> : false}
-        </label>
-      ) : (
-        ""
+          {required && <span className="ml-1 text-red-600">*</span>}
+        </Label>
       )}
 
-      <div className={"grid grid-cols-1 gap-2 md:grid-cols-2"}>
-        {inputs.map((field: any, index: number) => {
-          return (
-            <div className={"flex flex-col items-start"} key={index}>
-              <div className={`flex w-full items-center justify-between gap-2`}>
-                <input
-                  key={`a-${index}`}
-                  type={type}
-                  className={
-                    className ??
-                    `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
-                  }
-                  {...props}
-                  defaultValue={field ?? ""}
-                  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    handleInputChange(index, e.target.value);
-                  }}
-                />
-
-                {index == 0 && required ? (
-                  ""
-                ) : (
-                  <button
-                    type={"button"}
-                    className={"btn btn-square btn-sm"}
-                    onClick={() => {
-                      removeInput(field);
-                    }}
-                  >
-                    <Trash className={"h-6 w-6 text-error"} />
-                  </button>
-                )}
-              </div>
-              <div className={"min-h-5"}>
-                {error &&
-                Array.isArray(error) &&
-                error?.length > 0 &&
-                error[index] ? (
-                  <p className={"text-error"}>{error[index].message}</p>
-                ) : (
-                  ""
-                )}
-              </div>
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+        {inputs.map((field: any, index: number) => (
+          <div className="flex flex-col items-start" key={index}>
+            <div className="flex w-full items-center gap-2">
+              <Input
+                key={`input-${index}`}
+                type={type}
+                className={`${className || "flex-1"} ${error ? "border-red-600" : ""}`}
+                {...props}
+                defaultValue={field ?? ""}
+                onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleInputChange(index, e.target.value);
+                }}
+              />
+              {index !== 0 || !required ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeInput(field)}
+                  className="p-2 text-red-600"
+                >
+                  <Trash size={16} />
+                </Button>
+              ) : null}
             </div>
-          );
-        })}
+            {error && Array.isArray(error) && error[index] && (
+              <p className="mt-1 text-sm text-red-600">
+                {error[index].message}
+              </p>
+            )}
+          </div>
+        ))}
       </div>
 
-      <div className={`m-3 flex items-center`}>
-        <button
-          type={"button"}
-          className={`btn btn-neutral btn-sm`}
-          onClick={() => addInput()}
+      <div className="mt-3 flex items-center">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={addInput}
           disabled={inputs.length >= maxFields}
         >
-          {t("add")} {locale == "en" && "new"}{" "}
-          {label?.replace("ال", "") ??
-            sanitizeString(name ?? "")?.replace("ال", "")}{" "}
-          {locale == "ar" && "جديد"}
-        </button>
+          {t("add")} {locale === "en" ? "new" : ""}{" "}
+          {sanitizeString(name) || "input"}
+        </Button>
       </div>
     </>
   );

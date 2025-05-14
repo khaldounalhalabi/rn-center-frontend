@@ -228,14 +228,14 @@ const AppointmentForm = memo(
             type="number"
             name="extra_fees"
             label={t("extraFees")}
-            onInput={handleExtraFeesChange}
+            onChange={handleExtraFeesChange}
             defaultValue={defaultValues?.extra_fees ?? 0}
           />
           <FormInput
             type="number"
             name="discount"
             label={t("discount")}
-            onInput={handleDiscountChange}
+            onChange={handleDiscountChange}
             defaultValue={defaultValues?.discount ?? 0}
           />
           <div className="flex items-center justify-between md:col-span-2">

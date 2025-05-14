@@ -70,7 +70,7 @@ const FormDatepicker = ({
                     df ? dayjs(df).toDate() : dayjs(field.value).toDate()
                   }
                   onSelect={(val) => {
-                    field.onChange(val);
+                    field.onChange(dayjs(val).format("YYYY-MM-DD"));
                     if (onChange) {
                       onChange(dayjs(val));
                     }

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import {
@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 
 export interface InputProps {
   className?: string | undefined;
@@ -31,6 +32,7 @@ export interface InputProps {
   min?: number;
   hidden?: boolean;
   defaultValue?: string | number | undefined;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput: React.FC<InputProps> = ({
@@ -41,11 +43,23 @@ const FormInput: React.FC<InputProps> = ({
   unit,
   min = 0,
   hidden = false,
-  defaultValue = undefined
+  defaultValue = undefined,
+  onChange = undefined,
 }) => {
-  const { control, setValue } = useFormContext();
+  const {
+    control,
+    setValue,
+    formState: { defaultValues },
+  } = useFormContext();
 
   const translateUnit = useTranslations("units");
+  defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
+
+  useEffect(() => {
+    if (defaultValue !== undefined) {
+      setValue(name, defaultValue);
+    }
+  }, [defaultValue, name, setValue]);
 
   return (
     <FormField
@@ -66,13 +80,16 @@ const FormInput: React.FC<InputProps> = ({
                 if (type == "datetime-local") {
                   setValue(name, event.target?.value?.replace("T", " "));
                 }
+                if (onChange) {
+                  onChange(event);
+                }
               }}
               type={type}
               required={required}
               step={"any"}
               min={min}
-              defaultValue={defaultValue}
               hidden={hidden}
+              value={defaultValue}
             />
           </FormControl>
           <FormMessage />

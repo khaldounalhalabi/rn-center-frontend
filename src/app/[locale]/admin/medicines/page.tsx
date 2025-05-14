@@ -68,11 +68,10 @@ const Page = () => {
             label={t("status")}
             data={getEnumValues(MedicineStatusEnum)}
             translated
-            onChange={(e: { target: { value: any } }) => {
+            onChange={(e) => {
               setParams({ ...params, status: e });
             }}
-            sm
-            selected={[params?.status]}
+            selected={params?.status}
           />
           <Label label={t("quantity") + " >"} col>
             <input

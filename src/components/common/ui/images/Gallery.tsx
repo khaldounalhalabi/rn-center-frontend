@@ -8,6 +8,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "@/navigation";
 import { useTranslations } from "next-intl";
 import Trash from "@/components/icons/Trash";
+import { Badge } from "@/components/ui/shadcn/badge";
 
 const Gallery = ({ media }: { media: Media[] | undefined }) => {
   const t = useTranslations("components");
@@ -46,7 +47,7 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
       {isMutating ? (
         <LoadingSpin className={"h-7 w-7"} />
       ) : !media || media?.length <= 0 ? (
-        <span className="badge badge-neutral text-lg">{t("no_data")}</span>
+        <Badge variant={"secondary"}>{t("no_data")}</Badge>
       ) : (
         media?.map((img, index) => (
           <div key={index} className="relative h-32">
@@ -55,16 +56,17 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
                 return handleDeleteImage(img?.id ?? 0);
               }}
               className={
-                "btn btn-circle btn-error btn-xs absolute -left-1 -top-3 cursor-pointer"
+                "absolute -left-1 -top-3 cursor-pointer rounded-md bg-destructive p-1"
               }
             >
-              <Trash className={"h-4 w-4 fill-white stroke-error"} />
+              <Trash className={"stroke-error h-4 w-4 text-secondary"} />
             </div>
             <ImagePreview
               src={getMedia(img)}
               className={
                 "h-full w-full cursor-pointer rounded-md object-contain"
               }
+              alt={""}
             />
           </div>
         ))

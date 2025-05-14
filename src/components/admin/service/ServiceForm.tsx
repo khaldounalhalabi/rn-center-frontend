@@ -95,18 +95,14 @@ const ServiceForm = ({
           required={true}
           name={"approximate_duration"}
           type={"number"}
-          step={"any"}
           unit={"min"}
-          placeholder={`${t("approximateDuration")} :`}
           label={t("approximateDuration")}
         />
         <FormInput
           required={true}
           name={"price"}
           type={"number"}
-          step={"any"}
           unit={"iqd"}
-          placeholder={"Price : "}
           label={t("price")}
         />
       </Grid>
@@ -115,7 +111,7 @@ const ServiceForm = ({
         defaultValue={defaultValues?.description ?? ""}
       />
       {type == "update" && (
-        <Label label={t("image")}>
+        <Label label={t("image")} col>
           <Gallery media={defaultValues?.icon} />
         </Label>
       )}

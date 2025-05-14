@@ -1,14 +1,15 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, HTMLProps, useState } from "react";
+import { Fragment, useState } from "react";
 import RoundedImage from "@/components/common/ui/images/RoundedImage";
+import Image, { ImageProps } from "next/image";
 
 const ImagePreview = ({
   src,
   className,
   ...props
-}: Omit<HTMLProps<HTMLImageElement>, "onClick">) => {
+}: Omit<ImageProps, "onClick">) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -22,9 +23,11 @@ const ImagePreview = ({
   return (
     <>
       <RoundedImage
-        alt={"..."}
-        src={src}
-        onClick={openModal}
+        src={src ?? ""}
+        onClick={(event) => {
+          event.stopPropagation();
+          openModal();
+        }}
         className={className ?? "" + "cursor-pointer"}
         {...props}
       />
@@ -54,7 +57,7 @@ const ImagePreview = ({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="max-w-lg transform overflow-hidden bg-transparent p-6 text-left align-middle transition-all">
-                  <img src={src} alt={"..."} />
+                  <Image src={`${src}`} alt={"..."} width={"300"} height={"300"} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

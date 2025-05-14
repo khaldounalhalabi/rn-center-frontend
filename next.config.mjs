@@ -23,6 +23,20 @@ const nextConfig = {
     // localApi: "https://rn.cubeta.io/api/",
     firebase_key: "",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/rn-center-backend/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "rn.cubeta.io",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 import Trash from "@/components/icons/Trash";
 import { useTranslations } from "next-intl";
 import FormInput from "@/components/common/ui/inputs/FormInput";
+import { Button } from "@/components/ui/shadcn/button";
+import Grid from "@/components/common/ui/Grid";
 
 const AttendanceForm = ({
   attendances = [],
@@ -47,12 +49,7 @@ const AttendanceForm = ({
       }
     }
 
-    return logs;
-  };
-
-  let logs = extractLogs(attendances);
-  logs =
-    logs.length > 0
+    return logs.length > 0
       ? logs
       : [
           {
@@ -60,22 +57,16 @@ const AttendanceForm = ({
             attend_to: dayjs().format("HH:mm"),
           },
         ];
+  };
+
+  let logs = extractLogs(attendances);
 
   const [fields, setFields] = useState<
     {
       attend_from: string | undefined;
       attend_to: string | undefined;
     }[]
-  >(
-    logs.length > 0
-      ? logs
-      : [
-          {
-            attend_from: dayjs().format("HH:mm"),
-            attend_to: dayjs().format("HH:mm"),
-          },
-        ],
-  );
+  >(logs);
 
   useEffect(() => {
     setFields(extractLogs(attendances));
@@ -84,7 +75,10 @@ const AttendanceForm = ({
   const addField = () => {
     setFields((prevState) => [
       ...prevState,
-      { attend_from: undefined, attend_to: undefined },
+      {
+        attend_from: dayjs().format("HH:mm"),
+        attend_to: dayjs().format("HH:mm"),
+      },
     ]);
   };
 
@@ -105,42 +99,46 @@ const AttendanceForm = ({
       defaultValues={{ attendance_at: date, attendance_shifts: fields }}
     >
       {fields?.map((inputs, index) => (
-        <div
-          className={"flex w-full items-center justify-between gap-10"}
+        <Grid
           key={index}
+          cols={3}
+          gap={5}
+          md={3}
+          className={"justify-between items-end"}
         >
           <FormInput
             name={`attendance_shifts.${index}.attend_from`}
             label={t("from")}
             defaultValue={inputs.attend_from}
             type={"time"}
+            withError={false}
           />
           <FormInput
             name={`attendance_shifts.${index}.attend_to`}
             label={t("to")}
             defaultValue={inputs.attend_to}
             type={"time"}
+            withError={false}
           />
-          <button className={"btn btn-square"} type={"button"}>
+          <Button variant={"destructive"} type={"button"} size={"icon"}>
             <Trash
               onClick={() => {
                 removeField(index);
               }}
-              className={"h-6 w-6 text-destructive"}
             />
-          </button>
-        </div>
+          </Button>
+        </Grid>
       ))}
       <div className={"my-5 flex items-center justify-end"}>
-        <button
-          className={"btn btn-sm"}
+        <Button
           type={"button"}
+          variant={"secondary"}
           onClick={() => {
             addField();
           }}
         >
           {t("add_slot")}
-        </button>
+        </Button>
       </div>
     </Form>
   );

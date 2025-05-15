@@ -33,6 +33,7 @@ export interface InputProps {
   hidden?: boolean;
   defaultValue?: string | number | undefined;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  withError?: boolean;
 }
 
 const FormInput: React.FC<InputProps> = ({
@@ -45,6 +46,7 @@ const FormInput: React.FC<InputProps> = ({
   hidden = false,
   defaultValue = undefined,
   onChange = undefined,
+  withError = true,
 }) => {
   const {
     control,
@@ -92,7 +94,7 @@ const FormInput: React.FC<InputProps> = ({
               defaultValue={defaultValue}
             />
           </FormControl>
-          <FormMessage />
+          {withError && <FormMessage />}
         </FormItem>
       )}
     />

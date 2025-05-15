@@ -30,7 +30,7 @@ const StatusLegend: React.FC = () => {
     <div className="flex items-center space-x-6">
       {statuses.map((status) => (
         <div key={status.status} className="flex items-center">
-          <div className={`h-3 w-3 rounded-full ${status.color} mr-2`}></div>
+          <div className={`h-3 w-3 rounded-full ${status.color} ms-2 ltr:mr-2 rtl:ml-2`}></div>
           <span className="text-xs">
             <TranslatableEnum value={status.status} />
           </span>

@@ -8,6 +8,7 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { useTranslations } from "next-intl";
 import UserTimelineItem from "@/components/admin/attendance/UserTimelineItem";
+import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 
 const AttendanceTimeline: React.FC = () => {
   const t = useTranslations("attendance");
@@ -79,7 +80,7 @@ const AttendanceTimeline: React.FC = () => {
 
       {(isLoading || isPending || isRefetching) && (
         <div className="flex h-64 items-center justify-center">
-          <LoadingSpin className={"h-10 w-10 text-brand-primary"} />
+          <LoadingSpin className={"h-10 w-10 text-primary"} />
         </div>
       )}
 
@@ -105,12 +106,12 @@ const AttendanceTimeline: React.FC = () => {
       {data &&
         allUsers.length > 0 &&
         !(isLoading || isPending || isRefetching) && (
-          <div className="overflow-hidden rounded-lg bg-white shadow-md">
-            <div className="flex flex-col items-center justify-between border-b border-gray-200 bg-gray-50 px-6 md:flex-row">
-              <h2 className="text-start text-xl font-semibold">
+          <Card className="overflow-hidden">
+            <CardHeader className="grid grid-cols-2 grid-flow-col items-center justify-between md:grid-flow-row">
+              <CardTitle className="text-start">
                 {t("attendance_date")}:{" "}
                 {dayjs(selectedDate).format("MMMM D, YYYY")}
-              </h2>
+              </CardTitle>
               <Datepicker
                 onChange={handleDateChange}
                 defaultValue={selectedDate}
@@ -118,9 +119,9 @@ const AttendanceTimeline: React.FC = () => {
               {/*<p className="text-gray-600">*/}
               {/*  Status: {attendanceInfo?.status || "N/A"}*/}
               {/*</p>*/}
-            </div>
+            </CardHeader>
 
-            <div className="max-h-[70vh] divide-y divide-gray-200 overflow-auto">
+            <div className="max-h-[70vh] overflow-auto space-y-2">
               {allUsers.map((user, index) => (
                 <UserTimelineItem
                   key={`${user?.id}-${index}`}
@@ -136,24 +137,24 @@ const AttendanceTimeline: React.FC = () => {
                 className="flex items-center justify-center py-4"
               >
                 {isFetchingNextPage ? (
-                  <LoadingSpin className={"h-6 w-6 text-brand-primary"} />
+                  <LoadingSpin className={"h-6 w-6 text-primary"} />
                 ) : hasNextPage ? (
                   <div className="h-8"></div> // Spacer to trigger intersection observer
                 ) : (
                   allUsers.length > 0 && (
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-center text-sm text-primary">
                       {t("no_more")}
                     </p>
                   )
                 )}
               </div>
             </div>
-          </div>
+          </Card>
         )}
 
       {data && allUsers.length === 0 && (
-        <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
-          <p className="text-yellow-700">{t("no_records")}</p>
+        <div className="border-l-4 text-secondary">
+          <p >{t("no_records")}</p>
         </div>
       )}
     </div>

@@ -4,12 +4,14 @@ import { AppSidebar } from "@/components/ui/shadcn/app-sidebar";
 import { SiteHeader } from "@/components/ui/shadcn/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/shadcn/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getLocale } from "next-intl/server";
 
-const Layout = ({
+const Layout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const locale = await getLocale();
   return (
     <main>
       <ThemeProvider
@@ -23,7 +25,10 @@ const Layout = ({
             className={`col-span-4 col-start-1 h-screen w-full overflow-y-scroll md:col-span-4 md:col-start-2`}
           >
             <SidebarProvider>
-              <AppSidebar variant="inset" />
+              <AppSidebar
+                variant="inset"
+                side={locale == "en" ? "left" : "right"}
+              />
               <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">

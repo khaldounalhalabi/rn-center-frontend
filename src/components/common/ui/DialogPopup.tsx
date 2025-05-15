@@ -6,10 +6,12 @@ const DialogPopup = ({
   open = false,
   children = undefined,
   onClose = undefined,
+  title = undefined,
 }: {
   open: boolean;
   children?: React.ReactNode;
   onClose?: () => void;
+  title?:string
 }) => {
   let [isOpen, setIsOpen] = useState(open);
 
@@ -25,7 +27,7 @@ const DialogPopup = ({
     <Transition appear show={isOpen} as={Fragment}>
       <HeadlessDialog
         as="div"
-        className="relative z-[1000]"
+        className="relative z-20"
         onClose={() => {
           closeModal();
           if (onClose) {
@@ -57,6 +59,7 @@ const DialogPopup = ({
               leaveTo="opacity-0 scale-95"
             >
               <HeadlessDialog.Panel className="w-full max-w-[60vh] transform overflow-hidden rounded-lg border bg-background p-6 text-start align-middle shadow-lg transition-all">
+                {title && (<HeadlessDialog.Title>{title}</HeadlessDialog.Title>)}
                 {children}
               </HeadlessDialog.Panel>
             </Transition.Child>

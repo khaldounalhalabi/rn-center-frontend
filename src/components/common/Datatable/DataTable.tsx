@@ -11,10 +11,10 @@ import { Table, TableBody, TableHeader } from "@/components/ui/shadcn/table";
 import { Link } from "@/navigation";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import FilterIcon from "@/components/icons/FilterIcon";
-import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
 import { Button } from "@/components/ui/shadcn/button";
 import Select from "../ui/selects/Select";
 import { Input } from "@/components/ui/shadcn/input";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 
 export interface DataTableSchema<T> {
   name?: string;
@@ -65,6 +65,7 @@ const DataTable = (tableData: DataTableData<any>) => {
   const [tempParams, setTempParams] = useState({});
   const [sortDir, setSortDir] = useState("asc");
   const [sortCol, setSortCol] = useState("");
+  const [openFilter, setOpenFilter] = useState(false);
   const { isPending, data, isPlaceholderData, isRefetching, refetch } =
     useQuery({
       queryKey: [
@@ -93,9 +94,7 @@ const DataTable = (tableData: DataTableData<any>) => {
     <>
       <div className={"h-full w-full p-1"}>
         {tableData?.title && <h1>{tableData.title ?? ""}</h1>}
-        <div
-          className={`my-4 flex w-full items-center justify-between`}
-        >
+        <div className={`my-4 flex w-full items-center justify-between`}>
           <div className={"flex gap-1"}>
             {tableData.createUrl ? (
               <Link href={tableData.createUrl ?? "#"}>
@@ -108,40 +107,46 @@ const DataTable = (tableData: DataTableData<any>) => {
             )}
             {tableData?.filter && (
               <div>
-                <ShadcnDialog
-                  trigger={
-                    <Button variant={"outline"} size={"icon"}>
-                      <FilterIcon />
+                <DialogPopup open={openFilter} title={t("filters")}>
+                  <div className={"w-full my-5"}>
+                    {tableData.filter(tempParams, setTempParams)}
+                  </div>
+                  <div className={"w-full flex items-center justify-between"}>
+                    <Button
+                      onClick={() => {
+                        setParams(tempParams);
+                        setPage(1);
+                        setOpenFilter(prev => !prev);
+                      }}
+                    >
+                      {t("apply")}
                     </Button>
-                  }
-                  title={t("filters")}
-                  footer={
-                    <>
-                      <Button
-                        onClick={() => {
-                          setParams(tempParams);
-                          setPage(1);
-                        }}
-                      >
-                        {t("apply")}
-                      </Button>
 
-                      <Button
-                        variant={"destructive"}
-                        onClick={() => {
-                          setTempParams({});
-                          setParams({});
-                          setPage(1);
-                        }}
-                      >
-                        {t("resetFilters")}
-                      </Button>
-                    </>
-                  }
-                >
-                  {tableData.filter(tempParams, setTempParams)}
-                </ShadcnDialog>
+                    <Button
+                      variant={"destructive"}
+                      onClick={() => {
+                        setTempParams({});
+                        setParams({});
+                        setPage(1);
+                        setOpenFilter(prev => !prev);
+                      }}
+                    >
+                      {t("resetFilters")}
+                    </Button>
+                  </div>
+                </DialogPopup>
               </div>
+            )}
+            {tableData.filter && (
+              <Button
+                variant={"outline"}
+                size={"icon"}
+                onClick={() => {
+                  setOpenFilter((prev) => !prev);
+                }}
+              >
+                <FilterIcon />
+              </Button>
             )}
             {tableData.extraButton ? <>{tableData.extraButton}</> : ""}
           </div>

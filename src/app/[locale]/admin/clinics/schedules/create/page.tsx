@@ -1,3 +1,4 @@
+// todo: delete this page
 import React from "react";
 import ScheduleForm from "@/components/admin/schedule/ScheduleForm";
 

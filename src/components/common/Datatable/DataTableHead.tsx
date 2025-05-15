@@ -33,6 +33,7 @@ const DataTableHead = ({
               setSortCol(header.name);
             }
           }}
+          className={"cursor-pointer"}
         >
           <div className={"flex gap-1 items-center justify-around"}>
             {header.label}

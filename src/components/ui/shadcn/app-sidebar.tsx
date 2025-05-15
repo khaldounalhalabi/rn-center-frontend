@@ -46,11 +46,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: ClinicsShowIcon,
       },
       {
-        title: t("clinicsSchedules"),
-        url: "/admin/clinics/schedules",
-        icon: SchedulesIcon,
-      },
-      {
         title: t("specialties"),
         url: "/admin/speciality",
         icon: SpecialitiesIcon,

@@ -92,6 +92,8 @@ const FormInput: React.FC<InputProps> = ({
               min={min}
               hidden={hidden}
               defaultValue={defaultValue}
+              className={hidden ? "hidden" : ""}
+              disabled={hidden}
             />
           </FormControl>
           {withError && <FormMessage />}

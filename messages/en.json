@@ -194,7 +194,9 @@
       },
       "create": {
         "clinicName": "Clinic Name",
-        "appointmentGap": "Appointment Gap"
+        "appointmentGap": "Appointment Gap",
+        "add_slot": "Add another time slot",
+        "copy_day_schedule": "Copy day schedule to another days"
       }
     },
     "category": {
@@ -1617,7 +1619,10 @@
     "apply": "Apply",
     "cancellation_reason": "Cancellation Reason",
     "no_data": "No data",
-    "select_day": "Select a day"
+    "select_day": "Select a day",
+    "delete_record": "Delete item",
+    "show_record": "Show details",
+    "edit_record": "Edit item"
   },
   "holidays": {
     "from": "From",

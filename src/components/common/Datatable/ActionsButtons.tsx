@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { ApiResponse } from "@/http/Response";
 import { Button } from "@/components/ui/shadcn/button";
+import Tooltip from "@/components/common/ui/Tooltip";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -48,69 +49,69 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
 
   return (
     <div className={`flex items-center gap-1`}>
-      {buttons.includes("show") ? (
-        <Link href={sUrl}>
-          <Button size={"icon"}>
-            <Eye />
-          </Button>
-        </Link>
-      ) : (
-        ""
+      {buttons.includes("show") && (
+        <Tooltip title={t("show_record")}>
+          <Link href={sUrl}>
+            <Button size={"icon"}>
+              <Eye />
+            </Button>
+          </Link>
+        </Tooltip>
       )}
-      {buttons.includes("edit") ? (
-        <Link href={eUrl}>
-          <Button size={"icon"} variant={"secondary"}>
-            <Pencil />
-          </Button>
-        </Link>
-      ) : (
-        ""
+      {buttons.includes("edit") && (
+        <Tooltip title={t("edit_record")}>
+          <Link href={eUrl}>
+            <Button size={"icon"} variant={"secondary"}>
+              <Pencil />
+            </Button>
+          </Link>
+        </Tooltip>
       )}
-      {buttons.includes("delete") ? (
-        <Button
-          size={"icon"}
-          variant={"destructive"}
-          onClick={() => {
-            swal
-              .fire({
-                title: deleteMessage ?? t("delete_question"),
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: t("yes"),
-                denyButtonText: t("no"),
-                cancelButtonText: t("cancel"),
-                confirmButtonColor: "#007BFF",
-              })
-              .then((result) => {
-                if (result.isConfirmed) {
-                  if (dataId) {
-                    BaseService<any, any>()
-                      .make()
-                      .setBaseUrl(dUrl)
-                      .delete()
-                      .then((response: ApiResponse<any>) => {
-                        toast.success(t("deleted"));
+      {buttons.includes("delete") && (
+        <Tooltip title={t("delete_record")}>
+          <Button
+            size={"icon"}
+            variant={"destructive"}
+            onClick={() => {
+              swal
+                .fire({
+                  title: deleteMessage ?? t("delete_question"),
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: t("yes"),
+                  denyButtonText: t("no"),
+                  cancelButtonText: t("cancel"),
+                  confirmButtonColor: "#007BFF",
+                })
+                .then((result) => {
+                  if (result.isConfirmed) {
+                    if (dataId) {
+                      BaseService<any, any>()
+                        .make()
+                        .setBaseUrl(dUrl)
+                        .delete()
+                        .then((response: ApiResponse<any>) => {
+                          toast.success(t("deleted"));
 
-                        if (setHidden) {
-                          setHidden((prevState) => [dataId, ...prevState]);
-                        }
+                          if (setHidden) {
+                            setHidden((prevState) => [dataId, ...prevState]);
+                          }
 
-                        if (deleteHandler) {
-                          deleteHandler(response);
-                        }
-                      })
-                      .catch(() => swal.fire(t("errored"), "", "error"));
+                          if (deleteHandler) {
+                            deleteHandler(response);
+                          }
+                        })
+                        .catch(() => swal.fire(t("errored"), "", "error"));
+                    }
+                  } else if (result.isDenied) {
+                    swal.fire(t("didnt_delete"), "", "info");
                   }
-                } else if (result.isDenied) {
-                  swal.fire(t("didnt_delete"), "", "info");
-                }
-              });
-          }}
-        >
-          <Trash />
-        </Button>
-      ) : (
-        ""
+                });
+            }}
+          >
+            <Trash />
+          </Button>
+        </Tooltip>
       )}
       {children}
     </div>

@@ -13,7 +13,7 @@ import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
 import Select from "@/components/common/ui/selects/Select";
 import { Input } from "@/components/ui/shadcn/input";
-
+// Todo: delete this page
 const Page = () => {
   const t = useTranslations("admin.schedules.table");
   const dataTableSchema: DataTableData<Clinic> = {

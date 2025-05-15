@@ -8,9 +8,11 @@ import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
 import { Navigate } from "@/actions/Navigate";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
-import dayjs from "dayjs";
 import { Clinic } from "@/models/Clinic";
+import Radio from "@/components/common/ui/inputs/Radio";
+import { getEnumValues } from "@/helpers/Enums";
+import GenderEnum from "@/enums/GenderEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const ClinicForm = ({
   type = "store",
@@ -112,23 +114,14 @@ const ClinicForm = ({
           isMultiple={true}
           closeOnSelect={false}
         />
-        <div className={`flex items-center gap-5`}>
-          <label className={`rounded-md bg-pom p-2 text-white`}>
-            {t("gender")}:
-          </label>
-          <FormInput
-            name={"user.gender"}
-            label={t("male")}
-            type="radio"
-            className="radio-info radio"
-          />
-          <FormInput
-            name={"user.gender"}
-            label={t("female")}
-            type="radio"
-            className="radio-info radio"
-          />
-        </div>
+        <Radio
+          label={t("gender")}
+          name={"user.gender"}
+          options={getEnumValues(GenderEnum).map((item) => ({
+            label: <TranslatableEnum value={item} />,
+            value: item,
+          }))}
+        />
       </Grid>
     </Form>
   );

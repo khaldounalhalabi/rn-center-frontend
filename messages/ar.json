@@ -194,7 +194,9 @@
       },
       "create": {
         "clinicName": "اسم العيادة",
-        "appointmentGap": "المدة الزمنية الفاصلة بين حجز و آخر"
+        "appointmentGap": "المدة الزمنية الفاصلة بين حجز و آخر",
+        "add_slot": "إضافة فترة أخرى",
+        "copy_day_schedule": "نسخ جدول اليوم لأيام أخرى"
       }
     },
     "category": {
@@ -1627,7 +1629,10 @@
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء",
     "no_data": "لا يوجد بيانات",
-    "select_day": "اختر يوم"
+    "select_day": "اختر يوم",
+    "delete_record": "مسح العنصر",
+    "show_record": "بيانات العنصر",
+    "edit_record": "تعديل العنصر"
   },
   "holidays": {
     "from": "من",

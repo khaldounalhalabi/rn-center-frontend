@@ -8,6 +8,13 @@ import { Link } from "@/navigation";
 import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Button } from "@/components/ui/shadcn/button";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/shadcn/card";
+import { CardContent } from "@mui/material";
 
 const Page = async ({
   params: { clinicId },
@@ -20,66 +27,57 @@ const Page = async ({
   const clinic = data.data;
 
   const t = await getTranslations("admin.clinic.show");
+  const schedulesT = await getTranslations("admin.schedules.table")
   return (
-    <PageCard>
-      <div
-        className={
-          "flex w-full flex-col items-center justify-between md:flex-row"
-        }
-      >
-        <h1 className={"card-title w-full !text-center md:text-start"}>
-          {t("name")}
-        </h1>
-        <div
-          className={
-            "flex w-full flex-col items-center justify-end gap-1 md:flex-row"
-          }
-        >
-          <Link href={`${clinicId}/edit`}>
+    <PageCard
+      title={t("name")}
+      actions={
+        <div className={"flex items-center justify-between gap-2"}>
+          <Link href={`/admin/clinics/${clinicId}/edit`}>
             <Button>{t("editBtn")}</Button>
           </Link>
+          <Link href={`/admin/clinics/schedules/${clinicId}`}>
+            <Button variant={"secondary"}>{schedulesT("clinicSchedules")}</Button>
+          </Link>
         </div>
-      </div>
-      <div className={"card my-3 bg-base-200 p-5"}>
-        <div className={`flex flex-col items-center gap-3 md:flex-row`}>
-          <div className={"flex flex-col"}>
+      }
+    >
+      <Card>
+        <CardHeader className={`flex flex-col items-center gap-3 md:flex-row`}>
+          <CardTitle className={"flex flex-col"}>
             <h2 className={"text-lg font-bold"}>{clinic?.user?.full_name}</h2>
             <p>{clinic?.user?.phone}</p>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className={"grid w-full grid-cols-1 gap-3 md:grid-cols-3"}>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {clinic?.total_appointments?.toLocaleString()}
+                </CardTitle>
+                <CardDescription>{t("total-appointments")}</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {clinic?.today_appointments_count.toLocaleString()}
+                </CardTitle>
+                <CardDescription>{t("today-appointments")}</CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {clinic?.upcoming_appointments_count.toLocaleString()}
+                </CardTitle>
+                <CardDescription>{t("upcoming-appointments")}</CardDescription>
+              </CardHeader>
+            </Card>
           </div>
-        </div>
-        <div className={"grid w-full grid-cols-1 gap-3 md:grid-cols-3"}>
-          <div
-            className={
-              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
-            }
-          >
-            <h1 suppressHydrationWarning>
-              {clinic?.total_appointments?.toLocaleString()}
-            </h1>
-            <h2>{t("total-appointments")}</h2>
-          </div>
-          <div
-            className={
-              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
-            }
-          >
-            <h1 suppressHydrationWarning>
-              {clinic?.today_appointments_count.toLocaleString()}
-            </h1>
-            <h2>{t("today-appointments")}</h2>
-          </div>
-          <div
-            className={
-              "card card-bordered flex w-full flex-col justify-between bg-base-100 p-5"
-            }
-          >
-            <h1 suppressHydrationWarning>
-              {clinic?.upcoming_appointments_count.toLocaleString()}
-            </h1>
-            <h2 className={""}>{t("upcoming-appointments")}</h2>
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
       <div className="w-full px-2 pb-16 pt-10 sm:px-0">
         <ClinicOverview clinic={clinic} />
       </div>

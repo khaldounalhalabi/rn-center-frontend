@@ -16,9 +16,14 @@ import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
 import { Input } from "@/components/ui/shadcn/input";
 import PageCard from "@/components/common/ui/PageCard";
+import { Link } from "@/navigation";
+import { Button } from "@/components/ui/shadcn/button";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
+import Tooltip from "@/components/common/ui/Tooltip";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
+  const schedulesT = useTranslations("admin.schedules.table");
   const dataTableData: DataTableData<Clinic> = {
     createUrl: `/admin/clinics/create`,
     schema: [
@@ -62,7 +67,15 @@ const Page = () => {
             buttons={["edit", "show", "delete"]}
             baseUrl={`/admin/clinics`}
             setHidden={setHidden}
-          />
+          >
+            <Tooltip title={schedulesT("clinicSchedules")}>
+              <Link href={`/admin/clinics/schedules/${clinic?.id}`}>
+                <Button variant={"secondary"} size={"icon"}>
+                  <SchedulesIcon />
+                </Button>
+              </Link>
+            </Tooltip>
+          </ActionsButtons>
         ),
       },
     ],
@@ -70,7 +83,6 @@ const Page = () => {
       await ClinicsService.make<ClinicsService>(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
-    title: `${t("clinics")} :`,
     filter: (params, setParams) => {
       return (
         <Grid md={1}>
@@ -101,7 +113,7 @@ const Page = () => {
     },
   };
   return (
-    <PageCard>
+    <PageCard title={t("clinics")}>
       <DataTable {...dataTableData} />
     </PageCard>
   );

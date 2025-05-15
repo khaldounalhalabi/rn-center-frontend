@@ -32,7 +32,7 @@ const FormTextarea: React.FC<textAreaType> = ({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Textarea {...field} />
+            <Textarea {...field} placeholder={label + " ..."}/>
           </FormControl>
           <FormMessage />
         </FormItem>

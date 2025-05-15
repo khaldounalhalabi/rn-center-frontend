@@ -14,12 +14,12 @@ import { getEnumValues } from "@/helpers/Enums";
 import MedicineStatusEnum from "@/enums/MedicineStatusEnum";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import Grid from "@/components/common/ui/Grid";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("common.medicine.table");
   const tableData: DataTableData<Medicine> = {
     createUrl: `/admin/medicines/create`,
-    title: `${t("medicines")}`,
     schema: [
       {
         name: "id",
@@ -108,7 +108,11 @@ const Page = () => {
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
-  return <DataTable {...tableData} />;
+  return (
+    <PageCard title={t("medicines")}>
+      <DataTable {...tableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

@@ -19,13 +19,14 @@ const page = async ({
   const data = await MedicineService.make<MedicineService>().show(medicinesId);
   const res: Medicine = data?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("medicinesDetails")}</h2>
+    <PageCard
+      title={t("medicinesDetails")}
+      actions={
         <Link href={`/admin/medicines/${medicinesId}/edit`}>
           <Button type={"button"}>{t("editBtn")}</Button>
         </Link>
-      </div>
+      }
+    >
       <Grid md={2} gap={5}>
         <LabelValue label={t("medicineName")} value={res?.name} />
         <LabelValue

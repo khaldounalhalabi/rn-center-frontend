@@ -22,6 +22,7 @@ import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/http/Response";
 import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
 import PageCard from "@/components/common/ui/PageCard";
+import { Button } from "@/components/ui/shadcn/button";
 
 const AppointmentsTable = ({
   without,
@@ -52,7 +53,7 @@ const AppointmentsTable = ({
       label: t("doctorName"),
       render: (doctorName, record) => (
         <Link href={`/admin/clinics/${record?.clinic_id}`} className={"btn"}>
-          {doctorName}
+          <Button variant={"link"} type={"button"}>{doctorName}</Button>
         </Link>
       ),
     },
@@ -61,7 +62,7 @@ const AppointmentsTable = ({
       label: t("patientName"),
       render: (patientName, record) => (
         <Link href={`/admin/patients/${record?.customer_id}`} className={"btn"}>
-          {patientName}
+          <Button variant={"link"} type={"button"}>{patientName}</Button>
         </Link>
       ),
     },
@@ -171,9 +172,7 @@ const AppointmentsTable = ({
   };
 
   return (
-    <PageCard title={t("appointments")}>
-      <DataTable {...tableData} />
-    </PageCard>
+    <DataTable {...tableData} />
   );
 };
 

@@ -7,7 +7,17 @@ import Swal from "sweetalert2";
 import Trash from "@/components/icons/Trash";
 import DownloadIcon from "@/components/icons/DownloadIcon";
 import useDownload from "@/hooks/DownloadFile";
-import LoadingSpin from "@/components/icons/LoadingSpin";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
+import { Loader2 } from "lucide-react";
 
 interface MediaTableProps {
   media: Media[];
@@ -111,70 +121,64 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   };
 
   if (!attachments || attachments.length === 0) {
-    return <div className="py-4 text-center">{t("no_attachments")}</div>;
+    return (
+      <div className="py-4 text-center">
+        <Badge>{t("no_attachments")}</Badge>
+      </div>
+    );
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-zebra w-full">
-        <thead>
-          <tr>
-            <th>{t("file_name")}</th>
-            <th>{t("file_type")}</th>
-            <th>{t("size")}</th>
-            <th>{t("actions")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attachments.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <a
-                  href={item.file_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline"
-                >
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className={"text-start"}>{t("file_name")}</TableHead>
+          <TableHead className={"text-start"}>{t("file_type")}</TableHead>
+          <TableHead className={"text-start"}>{t("size")}</TableHead>
+          <TableHead className={"text-start"}>{t("actions")}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {attachments.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell className={"text-start"}>
+              <a href={item.file_url} target="_blank" rel="noopener noreferrer">
+                <Button variant={"link"} type={"button"}>
                   {getFileName(item.file_url)}
-                </a>
-              </td>
-              <td>
-                <span className="badge badge-ghost uppercase">
-                  {getFileExtension(item.file_url)}
-                </span>
-              </td>
-              <td>{Math.round(item.size / 1024)} KB</td>
-              <td className={"flex items-center justify-center gap-1"}>
-                <button
-                  className="btn btn-square btn-sm text-destructive"
-                  onClick={() => handleDelete(item.id)}
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? (
-                    <span className="loading loading-spinner loading-xs"></span>
-                  ) : (
-                    <Trash />
-                  )}
-                </button>
-                <button
-                  className={"btn btn-square btn-info btn-sm text-white"}
-                  onClick={() => {
-                    download(item.file_url);
-                  }}
-                  disabled={isDownloading}
-                >
-                  {isDownloading ? (
-                    <LoadingSpin />
-                  ) : (
-                    <DownloadIcon className={"h-5 w-5"} />
-                  )}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                </Button>
+              </a>
+            </TableCell>
+            <TableCell className={"text-start"}>
+              <span className="badge badge-ghost uppercase">
+                {getFileExtension(item.file_url)}
+              </span>
+            </TableCell>
+            <TableCell className={"text-start"}>
+              {Math.round(item.size / 1024)} KB
+            </TableCell>
+            <TableCell className={"flex items-center justify-start gap-1"}>
+              <Button
+                onClick={() => handleDelete(item.id)}
+                disabled={isDeleting}
+                variant={"destructive"}
+                size={"icon"}
+              >
+                {isDeleting ? <Loader2 /> : <Trash />}
+              </Button>
+              <Button
+                onClick={() => {
+                  download(item.file_url);
+                }}
+                disabled={isDownloading}
+                size={"icon"}
+              >
+                {isDownloading ? <Loader2 /> : <DownloadIcon />}
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

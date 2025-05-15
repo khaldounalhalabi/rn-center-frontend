@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { CardActions } from "@mui/material";
 
 interface PageCardProps {
   title?: string;
@@ -27,9 +26,9 @@ const PageCard: React.FC<PageCardProps> = ({
         {title && <CardTitle className={"text-xl"}>{title}</CardTitle>}
         {description && <CardDescription>{description}</CardDescription>}
         {actions && (
-          <CardActions className={"justify-end"}>
+          <div className={"flex justify-end items-center"}>
             {typeof actions == "function" ? actions() : actions}
-          </CardActions>
+          </div>
         )}
       </CardHeader>
       <CardContent>{children}</CardContent>

@@ -8,12 +8,12 @@ import { PatientService } from "@/services/PatientService";
 import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("common.patient.table");
   const tableData: DataTableData<Customer> = {
     createUrl: `/admin/patients/create`,
-    title: `${t("patients")}`,
     schema: [
       {
         name: "id",
@@ -61,7 +61,11 @@ const Page = () => {
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
-  return <DataTable {...tableData} />;
+  return (
+    <PageCard title={t("patients")}>
+      <DataTable {...tableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

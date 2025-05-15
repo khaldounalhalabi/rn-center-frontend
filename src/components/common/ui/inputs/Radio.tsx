@@ -32,7 +32,7 @@ const Radio: React.FC<RadioProps> = ({
 }) => {
   const {
     control,
-    formState: { errors, defaultValues },
+    formState: { defaultValues },
     setValue,
   } = useFormContext();
 
@@ -83,7 +83,7 @@ const Radio: React.FC<RadioProps> = ({
               className={"flex items-center gap-2"}
             >
               {df.map((option) => (
-                <FormItem className="flex items-center space-x-3 space-y-0">
+                <FormItem className="flex items-center gap-2 space-y-0">
                   <FormControl>
                     <FormControl>
                       <RadioGroupItem value={option.value} />

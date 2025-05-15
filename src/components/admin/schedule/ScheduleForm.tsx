@@ -241,7 +241,7 @@ const ClinicScheduleForm = ({
       <Form
         handleSubmit={onSubmit}
         onSuccess={() => {
-          Navigate(`/admin/clinics/schedules`);
+          Navigate(`/admin/clinics`);
         }}
       >
         <Grid md={2}>

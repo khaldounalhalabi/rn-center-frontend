@@ -6,8 +6,7 @@ import { getTranslations } from "next-intl/server";
 const CreateHolidayPage = async () => {
   const t = await getTranslations("holidays");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("create")}</h2>
+    <PageCard title={t("create")}>
       <HolidaysForm />
     </PageCard>
   );

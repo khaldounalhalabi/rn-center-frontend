@@ -121,6 +121,7 @@ const ClinicForm = ({
             label: <TranslatableEnum value={item} />,
             value: item,
           }))}
+          defaultChecked={GenderEnum.MALE}
         />
       </Grid>
     </Form>

@@ -74,7 +74,7 @@ const Radio: React.FC<RadioProps> = ({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={"flex flex-col justify-center gap-3"}>
+        <FormItem className={"self-center flex flex-col justify-center gap-3"}>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
             <RadioGroup

@@ -665,7 +665,8 @@
         "reason": "Reason",
         "actions": "Actions",
         "startDate": "Start Date",
-        "endDate": "End Date"
+        "endDate": "End Date",
+        "date": "Date"
       },
       "create": {
         "addHolidays": "Add Holidays",
@@ -1633,7 +1634,8 @@
     "create": "Add new holiday",
     "edit": "Edit",
     "holiday_details": "Holiday details",
-    "update_title": "Edit holiday"
+    "update_title": "Edit holiday",
+    "date": "Date"
   },
   "secretaries": {
     "name": "Name",

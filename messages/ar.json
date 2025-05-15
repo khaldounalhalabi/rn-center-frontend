@@ -667,7 +667,8 @@
         "reason": "السبب",
         "actions": "الخيارات",
         "startDate": "تاريخ البدء",
-        "endDate": "تاريخ الانتهاء"
+        "endDate": "تاريخ الانتهاء",
+        "date": "التاريخ"
       },
       "create": {
         "addHolidays": "إضافة إجازة",
@@ -1643,7 +1644,8 @@
     "create": "إضافة عطلة جديدة",
     "edit": "تعديل",
     "holiday_details": "بيانات العطلة",
-    "update_title": "تعديل العطلة"
+    "update_title": "تعديل العطلة",
+    "date": "التاريخ"
   },
   "secretaries": {
     "name": "الاسم",

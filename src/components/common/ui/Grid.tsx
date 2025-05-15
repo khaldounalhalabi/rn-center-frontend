@@ -25,7 +25,7 @@ const Grid: React.FC<GridProps> = ({
 
   return (
     <div
-      className={`grid ${gp} ${small} ${medium} ${large} w-full ${className ?? ""} my-3`}
+      className={`grid ${gp} ${small} ${medium} ${large} w-full ${className ?? "items-start"} my-3`}
       {...props}
     >
       {children}

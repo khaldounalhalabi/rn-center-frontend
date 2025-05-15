@@ -76,7 +76,7 @@ const PatientsForm = ({
             label: <TranslatableEnum value={gender} />,
             value: gender,
           }))}
-          defaultChecked={customer?.user?.gender}
+          defaultChecked={customer?.user?.gender ?? GenderEnum.MALE}
         />
         <FormDatepicker
           name={"birth_date"}
@@ -90,10 +90,7 @@ const PatientsForm = ({
           label={t("blood")}
         />
       </Grid>
-      <KeyValueMultipleInput
-        name={"other_data"}
-        label={t("otherData")}
-      />
+      <KeyValueMultipleInput name={"other_data"} label={t("otherData")} />
       <FormTextarea
         name={"health_status"}
         label={t("healthStatus")}

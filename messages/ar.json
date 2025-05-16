@@ -290,7 +290,8 @@
         "price": "السعر",
         "iqd": "د.ع",
         "min": "دقيقة",
-        "image": "الصورة"
+        "image": "الصورة",
+        "description": "الوصف"
       }
     },
     "speciality": {
@@ -1633,7 +1634,9 @@
     "select_day": "اختر يوم",
     "delete_record": "مسح العنصر",
     "show_record": "بيانات العنصر",
-    "edit_record": "تعديل العنصر"
+    "edit_record": "تعديل العنصر",
+    "eg" : "مثل",
+    "select": "اختر"
   },
   "holidays": {
     "from": "من",

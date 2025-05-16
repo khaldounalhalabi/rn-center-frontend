@@ -86,7 +86,7 @@ const FormInput: React.FC<InputProps> = ({
                   onChange(event);
                 }
               }}
-              type={type}
+              type={type == "year" ? "number" : type}
               required={required}
               step={"any"}
               min={min}
@@ -94,7 +94,7 @@ const FormInput: React.FC<InputProps> = ({
               defaultValue={defaultValue}
               className={hidden ? "hidden" : ""}
               disabled={hidden}
-              placeholder={label + " ..."}
+              placeholder={getPlaceholder(type, label ?? "")}
             />
           </FormControl>
           {withError && <FormMessage />}
@@ -105,3 +105,28 @@ const FormInput: React.FC<InputProps> = ({
 };
 
 export default FormInput;
+
+
+const getPlaceholder = (type: string, label: string) => {
+  const t = useTranslations("components")
+  const eg = t("eg");
+  if (type == "text") {
+    return `${label} ...`;
+  } else if (type == "tel") {
+    return `${label} (${eg}: 0912345678)`;
+  } else if (type == "month") {
+    return `${label} (${eg}: September)`;
+  } else if (type == "email") {
+    return `${label} (${eg}: example@email.com)`;
+  } else if (type == "password") {
+    return `${label} (${eg}: P@$$w0rd)`;
+  } else if (type == "number") {
+    return `${label} (${eg}: 10)`;
+  } else if (type == "url") {
+    return `${label} (${eg}: https://www.google.com)`;
+  } else if (type == "year") {
+    return `${label} (${eg}: 1990)`;
+  } else {
+    return `${label} ...`;
+  }
+};

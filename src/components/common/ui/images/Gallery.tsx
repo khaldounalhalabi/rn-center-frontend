@@ -9,6 +9,7 @@ import { useRouter } from "@/navigation";
 import { useTranslations } from "next-intl";
 import Trash from "@/components/icons/Trash";
 import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 
 const Gallery = ({ media }: { media: Media[] | undefined }) => {
   const t = useTranslations("components");
@@ -20,13 +21,15 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
   const handleDeleteImage = (index: number) => {
     swal
       .fire({
-        title: "Are you sure?",
-        text: "You won't to Delete This Image!",
+        title: t("are_you_sure"),
+        text: t("delete_question"),
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonText: t("yes"),
+        denyButtonText: t("no"),
+        cancelButtonText: t("cancel"),
       })
       .then(async (result) => {
         if (result.isConfirmed) {
@@ -56,10 +59,10 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
                 return handleDeleteImage(img?.id ?? 0);
               }}
               className={
-                "absolute -left-1 -top-3 cursor-pointer rounded-md bg-destructive p-1"
+                "absolute -start-1 -top-3 z-30 p-1 bg-destructive cursor-pointer rounded-md"
               }
             >
-              <Trash className={"stroke-error h-4 w-4 text-secondary"} />
+              <Trash  />
             </div>
             <ImagePreview
               src={getMedia(img)}

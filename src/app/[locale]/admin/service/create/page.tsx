@@ -6,8 +6,7 @@ import { getTranslations } from "next-intl/server";
 const page = async () => {
   const t = await getTranslations("admin.service.create-edit");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("addService")}</h2>
+    <PageCard title={t("addService")}>
       <ServiceForm />
     </PageCard>
   );

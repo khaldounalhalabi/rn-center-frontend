@@ -109,6 +109,7 @@ const ServiceForm = ({
       <FormTextarea
         name={"description"}
         defaultValue={defaultValues?.description ?? ""}
+        label={t("description")}
       />
       {type == "update" && (
         <Label label={t("image")} col>

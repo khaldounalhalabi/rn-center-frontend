@@ -9,12 +9,12 @@ import { ServiceService } from "@/services/ServiceService";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Link } from "@/navigation";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("admin.service.table");
   const tableData: DataTableData<Service> = {
     createUrl: `/admin/service/create`,
-    title: `${t("service")}`,
     schema: [
       {
         name: "id",
@@ -91,7 +91,11 @@ const Page = () => {
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };
-  return <DataTable {...tableData} />;
+  return (
+    <PageCard title={t("service")}>
+      <DataTable {...tableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

@@ -237,7 +237,7 @@ function ApiSelect<TResponse, TData>({
             </div>
           ) : (
             <p className={styles?.placeholder ?? ""}>
-              {placeHolder ?? `Select ${label} ...`}
+              {placeHolder ?? `${t("select")} ${label} ...`}
             </p>
           )}
           <div className="flex items-center gap-2">

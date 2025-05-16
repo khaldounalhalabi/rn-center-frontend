@@ -290,7 +290,8 @@
         "approximateDuration": "Approximate Duration",
         "price": "Price",
         "iqd": "د.ع",
-        "image": "Image"
+        "image": "Image",
+        "description": "Description"
       }
     },
     "speciality": {
@@ -1623,7 +1624,9 @@
     "select_day": "Select a day",
     "delete_record": "Delete item",
     "show_record": "Show details",
-    "edit_record": "Edit item"
+    "edit_record": "Edit item",
+    "eg" : "eg",
+    "select": "Select"
   },
   "holidays": {
     "from": "From",

@@ -33,7 +33,7 @@ const DataTableBody = ({
                   if (!schema.render && schema.name) {
                     return (
                       <TableCell
-                        className="text-center"
+                        className="text-start max-w-sm"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema?.translatable

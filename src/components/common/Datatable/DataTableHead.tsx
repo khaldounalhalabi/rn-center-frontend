@@ -35,7 +35,7 @@ const DataTableHead = ({
           }}
           className={"cursor-pointer"}
         >
-          <div className={"flex gap-1 items-center justify-around"}>
+          <div className={"flex gap-1 items-center"}>
             {header.label}
 
             {header.sortable && (

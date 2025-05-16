@@ -5,9 +5,9 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/shadcn/pagination";
+import { Button } from "@/components/ui/shadcn/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TablePaginator = ({
   data,
@@ -26,28 +26,34 @@ const TablePaginator = ({
       <Pagination className={`flex items-center justify-end gap-1`}>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious
+            <Button
+              variant={"secondary"}
               onClick={() => {
                 if (!data?.paginate?.is_first) {
                   setPage((old) => Math.max(old - 1, 0));
                 }
               }}
-              aria-disabled={data?.paginate?.is_first ?? true}
-              title={t("prevPage")}
-              className={"cursor-pointer aria-disabled:cursor-not-allowed"}
-            />
+              disabled={data?.paginate?.is_first ?? true}
+              className={"flex justify-start cursor-pointer disabled:cursor-not-allowed"}
+            >
+              {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
+              {t("prevPage")}
+            </Button>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext
+            <Button
+              variant={"secondary"}
               onClick={() => {
                 if (!data?.paginate?.is_last) {
                   setPage((old) => old + 1);
                 }
               }}
-              aria-disabled={data?.paginate?.is_last ?? true}
-              title={t("nextPage")}
-              className={"cursor-pointer aria-disabled:cursor-not-allowed"}
-            />
+              disabled={data?.paginate?.is_last ?? true}
+              className={"flex justify-start cursor-pointer disabled:cursor-not-allowed"}
+            >
+              {t("nextPage")}
+              {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
+            </Button>
           </PaginationItem>
         </PaginationContent>
       </Pagination>

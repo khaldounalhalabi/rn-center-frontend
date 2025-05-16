@@ -172,7 +172,7 @@ const DataTable = (tableData: DataTableData<any>) => {
             />
           </div>
         </div>
-        <Table>
+        <Table className={"w-full"}>
           <TableHeader>
             <DataTableHead
               schema={tableData.schema}

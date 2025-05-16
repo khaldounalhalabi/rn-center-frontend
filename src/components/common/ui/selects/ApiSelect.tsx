@@ -189,7 +189,7 @@ function ApiSelect<TResponse, TData>({
 
   return (
     <div
-      className={`relative w-full select-none ${styles?.baseContainerClasses ?? ""}`}
+      className={`relative w-full  duration-700 select-none ${styles?.baseContainerClasses ?? ""}`}
       ref={fullContainer}
     >
       <label
@@ -215,7 +215,7 @@ function ApiSelect<TResponse, TData>({
 
       <div
         onClick={() => handleOpen()}
-        className={`flex mt-2 hover:border-primary hover:dark:border-white dark:border-input p-1.5 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
+        className={`transition-all duration-500 flex mt-2 bg-background p-1.5 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
       >
         <div
           className="flex w-full items-center justify-between"
@@ -236,13 +236,17 @@ function ApiSelect<TResponse, TData>({
               ))}
             </div>
           ) : (
-            <p className={styles?.placeholder ?? ""}>
+            <p
+              className={
+                styles?.placeholder ?? "transition-opacity duration-500"
+              }
+            >
               {placeHolder ?? `${t("select")} ${label} ...`}
             </p>
           )}
           <div className="flex items-center gap-2">
             {isFetching && (
-              <div className="">
+              <div className="transition-opacity duration-500 opacity-75">
                 {styles?.loadingIcon ? (
                   styles.loadingIcon()
                 ) : (
@@ -252,7 +256,7 @@ function ApiSelect<TResponse, TData>({
             )}
             {selected.length > 0 && clearable ? (
               <XMark
-                className="h-5 w-5 text-primary"
+                className="h-5 w-5 text-primary transition-transform duration-300 hover:scale-110"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelected([]);
@@ -262,15 +266,19 @@ function ApiSelect<TResponse, TData>({
             ) : (
               ""
             )}
-            <ChevronDown className="h-5 w-5 font-extrabold text-primary" />
+            <ChevronDown
+              className={
+                `h-5 w-5 font-extrabold text-primary transition-transform duration-300 ${isOpen && "rotate-180"}`
+              }
+            />
           </div>
         </div>
         <div
-          className={
+          className={`absolute left-0 z-50 overflow-y-scroll transition-all duration-500 ${
             isOpen
-              ? `absolute left-0 !z-50 overflow-y-scroll ${styles?.dropDownItemsContainerClasses ?? "w-full rounded-lg border border-gray-200 bg-white dark:bg-blend-darken px-3 pb-3 shadow-2xl"}`
-              : "hidden"
-          }
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95 pointer-events-none"
+          } ${styles?.dropDownItemsContainerClasses ?? "w-full rounded-lg border bg-background px-3 pb-3 shadow-2xl"}`}
           style={{
             top: `${(fullContainer?.current?.clientHeight ?? 0) + 5}px`,
             maxHeight: `${styles?.dropDownContainerMaxHeight ?? "200"}px`,
@@ -280,7 +288,7 @@ function ApiSelect<TResponse, TData>({
         >
           <div className={`sticky top-2 bg-inherit`}>
             <Input
-              className={`${styles?.searchInputClasses ?? " "} my-2 w-full p-1 text-black`}
+              className={`${styles?.searchInputClasses ?? " "} my-2 w-full p-1 text-primary transition-shadow duration-300`}
               onClick={(e) => handleClickingOnSearchInput(e)}
               onChange={(e) => handleSearchChange(e)}
               value={search ?? ""}
@@ -298,11 +306,11 @@ function ApiSelect<TResponse, TData>({
             return items?.map((item, index) => (
               <div
                 key={index}
-                className={` ${
+                className={`transition-colors duration-300 ${
                   include(getOption(item), selected)
-                    ? `${styles?.selectedDropDownItemClasses ?? "border-primary bg-black !text-white"}`
-                    : ""
-                } ${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 text-primary dark:text-black hover:border-primary hover:bg-primary hover:text-white hover:dark:bg-black hover:dark:text-white"}`}
+                    ? `${styles?.selectedDropDownItemClasses ?? "bg-foreground text-secondary"}`
+                    : `${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 hover:bg-foreground text-primary hover:text-secondary"}`
+                } ${styles?.dropDownItemClasses ?? "my-1 w-full cursor-pointer rounded-md p-2 hover:bg-foreground text-primary hover:text-secondary"}`}
                 onClick={(e) => handleChoseItem(e, item)}
               >
                 {getOption(item).label ?? ""}
@@ -311,7 +319,7 @@ function ApiSelect<TResponse, TData>({
           })}
 
           {isFetching && (
-            <div className="my-2 flex w-full items-center justify-center">
+            <div className="text-primary my-2 flex w-full items-center justify-center transition-opacity duration-300">
               {t("loading")} ...
             </div>
           )}

@@ -51,7 +51,7 @@ const ServiceCategoryForm = ({
       onSuccess={handleSuccess}
       defaultValues={defaultValues}
     >
-      <Grid md={"2"}>
+      <Grid md={"1"}>
         <FormInput
           required={true}
           type={"text"}

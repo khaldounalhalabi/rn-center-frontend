@@ -17,6 +17,15 @@ import { getEnumValues } from "@/helpers/Enums";
 import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Link } from "@/navigation";
+import PageCard from "@/components/common/ui/PageCard";
+import { Badge } from "@/components/ui/shadcn/badge";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/shadcn/card";
+import { Button } from "@/components/ui/shadcn/button";
 
 const Page = () => {
   const t = useTranslations("common.transaction.table");
@@ -34,7 +43,6 @@ const Page = () => {
 
   const tableData: DataTableData<Transaction> = {
     createUrl: `/admin/transaction/create`,
-    title: `${t("transactions")}`,
     schema: [
       {
         name: "id",
@@ -81,11 +89,10 @@ const Page = () => {
         sortable: true,
         render: (appointmentId, transaction) => {
           return transaction?.appointment_id ? (
-            <Link
-              href={`/admin/appointment/${transaction?.appointment_id}`}
-              className={"btn"}
-            >
-              {transaction?.appointment?.date_time}
+            <Link href={`/admin/appointment/${transaction?.appointment_id}`}>
+              <Button variant={"link"}>
+                {transaction?.appointment?.date_time}
+              </Button>
             </Link>
           ) : (
             <TranslatableEnum value={"no_data"} />
@@ -182,21 +189,21 @@ const Page = () => {
   };
   return (
     <>
-      <div
-        className={
-          "m-3 flex items-center justify-between rounded-md bg-base-100 p-3 shadow-md"
-        }
-      >
-        <Label label={t("balance")} />
-        {isFetching ? (
-          <LoadingSpin />
-        ) : (
-          <span className={"badge bg-brand-primary font-bold"}>
-            {balance?.data?.balance}
-          </span>
-        )}
-      </div>
-      <DataTable {...tableData} />
+      <Card className={"mx-5"}>
+        <CardHeader className={"flex flex-row items-center gap-5"}>
+          <CardTitle>{t("balance")}</CardTitle>
+          <CardDescription>
+            {isFetching ? (
+              <LoadingSpin />
+            ) : (
+              <Badge>{balance?.data?.balance}</Badge>
+            )}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      <PageCard title={t("transactions")}>
+        <DataTable {...tableData} />
+      </PageCard>
     </>
   );
 };

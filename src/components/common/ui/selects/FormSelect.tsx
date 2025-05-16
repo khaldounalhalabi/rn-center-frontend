@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
+import { useTranslations } from "next-intl";
 
 interface SelectProps extends HTMLProps<HTMLSelectElement> {
   name: string;
@@ -38,6 +39,7 @@ const FormSelect: React.FC<SelectProps> = ({
     control,
   } = useFormContext();
   defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
+  const t = useTranslations("components");
 
   return (
     <FormField
@@ -52,7 +54,7 @@ const FormSelect: React.FC<SelectProps> = ({
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={label && `Select a ${label} ...`} />
+                <SelectValue placeholder={label && `${t("select")} ${label} ...`} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

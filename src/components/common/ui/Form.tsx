@@ -58,6 +58,7 @@ const Form = ({
       res.fillValidationErrors(methods);
       toast(t("error"), {
         description: t("check_data"),
+        dismissible:true
       });
     }
     return res;

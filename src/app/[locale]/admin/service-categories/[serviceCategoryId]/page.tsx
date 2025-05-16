@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Button } from "@/components/ui/shadcn/button";
 
+// todo: delete this page
 const page = async ({
   params: { serviceCategoryId },
 }: {

@@ -3,6 +3,7 @@ import { swal } from "@/helpers/UIHelpers";
 import { toast } from "react-toastify";
 import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
+import { Button } from "@/components/ui/shadcn/button";
 
 export interface ActionsButtonsProps<T> {
   data?: T;
@@ -20,43 +21,44 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
   const dataId = id ?? data?.id ?? undefined;
 
   return (
-    <button className="btn btn-square btn-sm">
-      <Trash
-        className="h-6 w-6 text-destructive"
-        onClick={() => {
-          swal
-            .fire({
-              title:
-                "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ? ",
-              showDenyButton: true,
-              showCancelButton: true,
-              confirmButtonText: "Yes",
-              denyButtonText: `No`,
-              confirmButtonColor: "#007BFF",
-            })
-            .then((result) => {
-              if (result.isConfirmed) {
-                if (dataId) {
-                  ServiceCategoryService.make()
-                    .delete(dataId)
-                    .then(() => {
-                      toast.success("Deleted!");
+    <Button
+      size={"icon"}
+      variant={"destructive"}
+      onClick={() => {
+        swal
+          .fire({
+            title:
+              "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ? ",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            denyButtonText: `No`,
+            confirmButtonColor: "#007BFF",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              if (dataId) {
+                ServiceCategoryService.make()
+                  .delete(dataId)
+                  .then(() => {
+                    toast.success("Deleted!");
 
-                      if (setHidden) {
-                        setHidden((prevState) => [dataId, ...prevState]);
-                      }
-                    })
-                    .catch(() =>
-                      swal.fire("There Is Been An Error", "", "error"),
-                    );
-                }
-              } else if (result.isDenied) {
-                swal.fire("Didn't Delete", "", "info");
+                    if (setHidden) {
+                      setHidden((prevState) => [dataId, ...prevState]);
+                    }
+                  })
+                  .catch(() =>
+                    swal.fire("There Is Been An Error", "", "error"),
+                  );
               }
-            });
-        }}
-      />
-    </button>
+            } else if (result.isDenied) {
+              swal.fire("Didn't Delete", "", "info");
+            }
+          });
+      }}
+    >
+      <Trash />
+    </Button>
   );
 };
 export default DeleteCategoryButton;

@@ -33,7 +33,7 @@ export interface DataTableSchema<T> {
 }
 
 export interface DataTableData<T> {
-  extraButton?: any;
+  extraButton?: (revalidate?:() => void) => ReactNode;
   title?: string;
   createUrl?: string;
   schema: DataTableSchema<T>[];
@@ -148,7 +148,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                 <FilterIcon />
               </Button>
             )}
-            {tableData.extraButton ? <>{tableData.extraButton}</> : ""}
+            {tableData.extraButton && tableData.extraButton(refetch)}
           </div>
           <div className={"flex items-center justify-between gap-1"}>
             <Select

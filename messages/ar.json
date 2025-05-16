@@ -1636,7 +1636,13 @@
     "show_record": "بيانات العنصر",
     "edit_record": "تعديل العنصر",
     "eg" : "مثل",
-    "select": "اختر"
+    "select": "اختر",
+    "error": "حصل خطأ",
+    "check_data": "يرجى مراجعة بياناتك و المحاولة مرة أخرى",
+    "success" : "تم",
+    "delete_service_category_question": "حذف هذه الفئة سيؤدي لحذف كافة الخدمات التي تندرج تحت نفس الفئة هل تريد المتابعة ؟",
+    "new_notification" : "إشعار جديد",
+    "show": "عرض"
   },
   "holidays": {
     "from": "من",

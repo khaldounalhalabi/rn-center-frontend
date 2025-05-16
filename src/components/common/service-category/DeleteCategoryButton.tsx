@@ -1,9 +1,10 @@
 import Trash from "@/components/icons/Trash";
 import { swal } from "@/helpers/UIHelpers";
-import { toast } from "react-toastify";
 import React from "react";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { Button } from "@/components/ui/shadcn/button";
+import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 export interface ActionsButtonsProps<T> {
   data?: T;
@@ -19,6 +20,7 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
   setHidden,
 }) => {
   const dataId = id ?? data?.id ?? undefined;
+  const t = useTranslations("components");
 
   return (
     <Button
@@ -27,12 +29,11 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
       onClick={() => {
         swal
           .fire({
-            title:
-              "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ? ",
+            title: t("delete_service_category_question"),
             showDenyButton: true,
             showCancelButton: true,
-            confirmButtonText: "Yes",
-            denyButtonText: `No`,
+            confirmButtonText: t("yes"),
+            denyButtonText: t("no"),
             confirmButtonColor: "#007BFF",
           })
           .then((result) => {
@@ -40,19 +41,19 @@ const DeleteCategoryButton: React.FC<ActionsButtonsProps<any>> = ({
               if (dataId) {
                 ServiceCategoryService.make()
                   .delete(dataId)
-                  .then(() => {
-                    toast.success("Deleted!");
+                  .then((res) => {
+                    toast(t("deleted"), {
+                      description: res.message as string,
+                    });
 
                     if (setHidden) {
                       setHidden((prevState) => [dataId, ...prevState]);
                     }
                   })
-                  .catch(() =>
-                    swal.fire("There Is Been An Error", "", "error"),
-                  );
+                  .catch(() => swal.fire(t("errored"), "", "error"));
               }
             } else if (result.isDenied) {
-              swal.fire("Didn't Delete", "", "info");
+              swal.fire(t("didnt_delete"), "", "info");
             }
           });
       }}

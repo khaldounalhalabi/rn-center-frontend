@@ -3,9 +3,9 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ApiResponse } from "@/http/Response";
 import LoadingSpin from "@/components/icons/LoadingSpin";
-import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/shadcn/button";
+import { toast } from "sonner";
 
 const Form = ({
   className,
@@ -49,11 +49,16 @@ const Form = ({
 
     if (!res?.hasValidationErrors() && res.code == 200) {
       if (showToastMessage) {
-        toast.success((res?.message as string) ?? "success");
+        toast(t("success"), {
+          description: res?.message as string,
+        });
       }
       if (onSuccess) onSuccess(res);
     } else {
       res.fillValidationErrors(methods);
+      toast(t("error"), {
+        description: t("check_data"),
+      });
     }
     return res;
   };

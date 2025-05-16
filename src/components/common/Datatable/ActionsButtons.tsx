@@ -5,11 +5,11 @@ import React from "react";
 import { swal } from "@/helpers/UIHelpers";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
-import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import { ApiResponse } from "@/http/Response";
 import { Button } from "@/components/ui/shadcn/button";
 import Tooltip from "@/components/common/ui/Tooltip";
+import { toast } from "sonner";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -91,7 +91,10 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                         .setBaseUrl(dUrl)
                         .delete()
                         .then((response: ApiResponse<any>) => {
-                          toast.success(t("deleted"));
+                          // toast.success(t("deleted"));
+                          toast(t("deleted"), {
+                            description: response.message as string,
+                          });
 
                           if (setHidden) {
                             setHidden((prevState) => [dataId, ...prevState]);

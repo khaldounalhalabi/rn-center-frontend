@@ -5,7 +5,6 @@ import { AuthService } from "@/services/AuthService";
 import Form from "../ui/Form";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
-import { toast } from "react-toastify";
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -17,13 +16,7 @@ import {
 
 const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
   const handleResendButton = () => {
-    AuthService.make<AuthService>(role)
-      .resendVerificationCode()
-      .then((res) => {
-        if (res.ok()) {
-          toast.success((res?.message as string) ?? "success");
-        }
-      });
+    AuthService.make<AuthService>(role).resendVerificationCode();
   };
 
   const handleSubmit = (data: { code: string }) => {
@@ -43,12 +36,7 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
             </CardHeader>
             <CardContent>
               <Form handleSubmit={handleSubmit} buttonText={t("send")}>
-                <FormInput
-                  name="code"
-                  type="text"
-                  label={t("code")}
-                  placeholder="Enter Reset Code"
-                />
+                <FormInput name="code" type="text" label={t("code")} />
                 <div className="w-full text-left">
                   <p
                     onClick={handleResendButton}

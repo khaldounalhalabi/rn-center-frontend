@@ -10,6 +10,9 @@ import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";
 import DialogPopup from "@/components/common/ui/DialogPopup";
 import GenderEnum from "@/enums/GenderEnum";
+import Radio from "@/components/common/ui/inputs/Radio";
+import { getEnumValues } from "@/helpers/Enums";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { role, setUser } = useUser();
@@ -37,17 +40,14 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const t = useTranslations("details");
   return (
     <>
-      <DialogPopup open={isOpen}>
+      <DialogPopup
+        open={isOpen}
+        onClose={() => setIsOpen((prevState) => !prevState)}
+      >
         <Form handleSubmit={handleSubmit} onSuccess={onSuccess}>
           <h1 className={"label"}>{t("resetPassword")}</h1>
+          <FormInput name={"password"} label={t("password")} type="password" />
           <FormInput
-            placeholder={"Password...  "}
-            name={"password"}
-            label={t("password")}
-            type="password"
-          />
-          <FormInput
-            placeholder={"Confirmation...  "}
             name={"password_confirmation"}
             label={t("confirm-password")}
             type="password"
@@ -62,47 +62,20 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
         <Grid md={"2"}>
           <FormInput
             type={"text"}
-            placeholder={"John"}
             label={t("first-Name")}
             name={"first_name"}
           />
 
-          <FormInput
-            type={"text"}
-            placeholder={"John"}
-            label={t("last-name")}
-            name={"last_name"}
+          <FormInput type={"text"} label={t("last-name")} name={"last_name"} />
+          <FormInput name={"phone"} label={t("phone")} type="tel" />
+          <Radio
+            name={"gender"}
+            options={getEnumValues(GenderEnum).map((i) => ({
+              label: <TranslatableEnum value={i} />,
+              value: i,
+            }))}
+            label={t("gender")}
           />
-          <FormInput
-            placeholder={"0912345678"}
-            name={"phone"}
-            label={t("phone")}
-            type="tel"
-          />
-          <div
-            className={`flex flex-col gap-5 px-2 py-11 md:flex-row md:items-center`}
-          >
-            <label className={`rounded-md bg-pom p-2 text-white`}>
-              {t("gender")}:
-            </label>
-            <FormInput
-              name={"gender"}
-              label={t("male")}
-              type="radio"
-              className="radio-info radio"
-              value={GenderEnum.MALE}
-              defaultChecked={defaultValues?.gender == GenderEnum.MALE}
-            />
-
-            <FormInput
-              name={"gender"}
-              label={t("female")}
-              type="radio"
-              className="radio-info radio"
-              value={GenderEnum.FEMALE}
-              defaultChecked={defaultValues?.gender == GenderEnum.FEMALE}
-            />
-          </div>
         </Grid>
         <button
           type="button"

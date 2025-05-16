@@ -10,8 +10,7 @@ const page = async () => {
   const user = (await AuthService.make<AuthService>(role).userDetails()).data;
   const t = await getTranslations("details");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editUserDetails")}</h2>
+    <PageCard title={t("editUserDetails")}>
       <UserDetailsForm
         defaultValues={{
           ...user,

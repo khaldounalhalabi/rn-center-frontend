@@ -1626,7 +1626,13 @@
     "show_record": "Show details",
     "edit_record": "Edit item",
     "eg" : "eg",
-    "select": "Select"
+    "select": "Select",
+    "error": "There is been an error",
+    "check_data": "Please check your data and try again",
+    "success": "Succeed",
+    "delete_service_category_question": "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ?",
+    "new_notification" : "New notification",
+    "show": "Show"
   },
   "holidays": {
     "from": "From",

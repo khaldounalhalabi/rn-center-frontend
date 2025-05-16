@@ -1,5 +1,4 @@
 "use client";
-import { Navigate } from "@/actions/Navigate";
 import firebaseApp from "@/helpers/Firebase";
 import {
   NotificationPayload,
@@ -14,7 +13,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
+import { Navigate } from "@/actions/Navigate";
+import { useTranslations } from "next-intl";
 
 export const NotificationsHandlersContext = createContext<Dispatch<
   SetStateAction<Handler[]>
@@ -35,6 +36,7 @@ const NotificationProvider = ({
   children?: ReactNode;
 }) => {
   const [handlers, setHandlers] = useState<Handler[]>([]);
+  const t = useTranslations("components")
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -52,11 +54,14 @@ const NotificationProvider = ({
           handler.fn(notification);
         });
         if (notification.isNotification()) {
-          toast.success(notification.data?.message, {
-            onClick: () => {
-              Navigate(notification.getUrl());
+          toast(t("new_notification"), {
+            description: notification?.data?.message,
+            action: {
+              label: t("show"),
+              onClick: () => {
+                Navigate(notification.getUrl());
+              },
             },
-            bodyClassName: "cursor-pointer",
           });
         }
 

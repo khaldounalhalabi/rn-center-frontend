@@ -77,6 +77,7 @@ const http = async <T>(
         response = await axios.get(url, config);
         break;
     }
+    
     return new ApiResponse(
       response.data.data ?? null,
       response.data.status ?? null,
@@ -91,7 +92,7 @@ const http = async <T>(
 
 function handleError<T>(error: AxiosError<ApiResponse<T>>): ApiResponse<T> {
   if (error.request) {
-    if (error.response?.status == 405 && error.response?.data.code == 405) {
+    if (error.response?.status == 405 || error.response?.data.code == 405) {
       return new ApiResponse<T>(
         null as T,
         false,

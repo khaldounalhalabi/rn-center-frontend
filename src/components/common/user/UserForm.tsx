@@ -9,6 +9,11 @@ import Grid from "@/components/common/ui/Grid";
 import GenderEnum from "@/enums/GenderEnum";
 import { UserService } from "@/services/UserService";
 import { User } from "@/models/User";
+import Radio from "@/components/common/ui/inputs/Radio";
+import { getEnumValues } from "@/helpers/Enums";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { Button } from "@/components/ui/shadcn/button";
+import { ApiResponse } from "@/http/Response";
 
 const UserForm = ({
   type,
@@ -31,28 +36,23 @@ const UserForm = ({
     setIsOpen(true);
   }
 
-  const onSuccess = () => {
-    Navigate(`/admin/secretaries`);
+  const onSuccess = async (res: ApiResponse<User>) => {
+    if (res.ok()) {
+      await Navigate(`/admin/secretaries`);
+    }
   };
 
   const t = useTranslations("details");
   return (
     <>
-      <DialogPopup open={isOpen}>
+      <DialogPopup open={isOpen} title={t("resetPassword")}>
         <Form
           handleSubmit={handleSubmit}
           onSuccess={onSuccess}
           defaultValues={user}
         >
-          <h1 className={"label"}>{t("resetPassword")}</h1>
+          <FormInput name={"password"} label={t("password")} type="password" />
           <FormInput
-            placeholder={"Password...  "}
-            name={"password"}
-            label={t("password")}
-            type="password"
-          />
-          <FormInput
-            placeholder={"Confirmation...  "}
             name={"password_confirmation"}
             label={t("confirm-password")}
             type="password"
@@ -67,55 +67,25 @@ const UserForm = ({
         <Grid md={"2"}>
           <FormInput
             type={"text"}
-            placeholder={"John"}
             label={t("first-Name")}
             name={"first_name"}
           />
 
-          <FormInput
-            type={"text"}
-            placeholder={"John"}
-            label={t("last-name")}
-            name={"last_name"}
+          <FormInput type={"text"} label={t("last-name")} name={"last_name"} />
+          <FormInput name={"phone"} label={t("phone")} type="tel" />
+          <Radio
+            name={"gender"}
+            options={getEnumValues(GenderEnum).map((i) => ({
+              label: <TranslatableEnum value={i} />,
+              value: i,
+            }))}
+            label={t("gender")}
+            defaultChecked={user?.gender ?? GenderEnum.MALE}
           />
-          <FormInput
-            placeholder={"0912345678"}
-            name={"phone"}
-            label={t("phone")}
-            type="tel"
-          />
-          <div
-            className={`flex flex-col gap-5 px-2 py-11 md:flex-row md:items-center`}
-          >
-            <label className={`rounded-md bg-pom p-2 text-white`}>
-              {t("gender")}:
-            </label>
-            <FormInput
-              name={"gender"}
-              label={t("male")}
-              type="radio"
-              className="radio-info radio"
-              value={GenderEnum.MALE}
-              defaultChecked={user?.gender == GenderEnum.MALE}
-            />
-
-            <FormInput
-              name={"gender"}
-              label={t("female")}
-              type="radio"
-              className="radio-info radio"
-              value={GenderEnum.FEMALE}
-              defaultChecked={user?.gender == GenderEnum.FEMALE}
-            />
-          </div>
           {type == "update" ? (
-            <button
-              type="button"
-              onClick={openModal}
-              className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-            >
+            <Button type="button" onClick={openModal}>
               {t("resetPassword")}
-            </button>
+            </Button>
           ) : (
             <>
               <FormInput

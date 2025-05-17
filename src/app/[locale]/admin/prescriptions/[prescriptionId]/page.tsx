@@ -13,10 +13,7 @@ const Page = async ({
   const prescription = (await PrescriptionService.make().show(prescriptionId))
     ?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("prescriptionsDetails")}</h2>
-      </div>
+    <PageCard title={t("prescriptionsDetails")}>
       <PrescriptionDetails prescription={prescription} />
     </PageCard>
   );

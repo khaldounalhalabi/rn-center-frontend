@@ -16,8 +16,7 @@ const page = async ({
     await TransactionService.make(RoleEnum.ADMIN).show(transactionId)
   ).data;
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editTransaction")}</h2>
+    <PageCard title={t("editTransaction")}>
       <TransactionsForm type={"update"} defaultValues={transaction} />
     </PageCard>
   );

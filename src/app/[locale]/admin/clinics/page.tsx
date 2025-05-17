@@ -9,15 +9,21 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { RoleEnum } from "@/enums/RoleEnum";
-import TimePickerFilter from "@/components/common/ui/date-time-pickers/Timepicker";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
+import { Input } from "@/components/ui/shadcn/input";
+import PageCard from "@/components/common/ui/PageCard";
+import { Link } from "@/navigation";
+import { Button } from "@/components/ui/shadcn/button";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
+import Tooltip from "@/components/common/ui/Tooltip";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
+  const schedulesT = useTranslations("admin.schedules.table");
   const dataTableData: DataTableData<Clinic> = {
     createUrl: `/admin/clinics/create`,
     schema: [
@@ -61,7 +67,15 @@ const Page = () => {
             buttons={["edit", "show", "delete"]}
             baseUrl={`/admin/clinics`}
             setHidden={setHidden}
-          />
+          >
+            <Tooltip title={schedulesT("clinicSchedules")}>
+              <Link href={`/admin/clinics/schedules/${clinic?.id}`}>
+                <Button variant={"secondary"} size={"icon"}>
+                  <SchedulesIcon />
+                </Button>
+              </Link>
+            </Tooltip>
+          </ActionsButtons>
         ),
       },
     ],
@@ -69,13 +83,12 @@ const Page = () => {
       await ClinicsService.make<ClinicsService>(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
-    title: `${t("clinics")} :`,
     filter: (params, setParams) => {
       return (
         <Grid md={1}>
           <Select
             onChange={(e) => {
-              setParams({ ...params, day_of_week: e.target?.value });
+              setParams({ ...params, day_of_week: e });
             }}
             selected={params.day_of_week}
             data={getEnumValues(WeekDayEnum)}
@@ -84,18 +97,26 @@ const Page = () => {
           />
 
           <Label label={t("available_time")} col>
-            <TimePickerFilter
-              onChange={(time) => {
-                setParams({ ...params, available_time: time?.format("HH:mm") });
+            <Input
+              onChange={(event) => {
+                setParams({
+                  ...params,
+                  available_time: event.target.value,
+                });
               }}
               defaultValue={params.available_time}
+              type={"time"}
             />
           </Label>
         </Grid>
       );
     },
   };
-  return <DataTable {...dataTableData} />;
+  return (
+    <PageCard title={t("clinics")}>
+      <DataTable {...dataTableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

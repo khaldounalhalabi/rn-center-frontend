@@ -7,8 +7,7 @@ const page = async () => {
   const t = await getTranslations("admin.speciality.create-edit");
 
   return (
-    <PageCard>
-      <h2 className="card-title">{t("addSpeciality")}</h2>
+    <PageCard title={t("addSpeciality")}>
       <SpecialityForm />
     </PageCard>
   );

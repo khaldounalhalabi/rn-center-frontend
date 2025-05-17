@@ -1,13 +1,9 @@
 "use client";
-import { Fragment, useState } from "react";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { ChangeEvent, useState } from "react";
 import PageCard from "@/components/common/ui/PageCard";
 import Trash from "@/components/icons/Trash";
-import PlusIcon from "@/components/icons/PlusIcon";
-import Copy from "@/components/icons/Copy";
-import { Popover, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { SchedulesCollection } from "@/models/Schedule";
+import { Schedule, SchedulesCollection } from "@/models/Schedule";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import { ClinicsService } from "@/services/ClinicsService";
 import { Clinic } from "@/models/Clinic";
@@ -15,13 +11,78 @@ import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/actions/Navigate";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Grid from "@/components/common/ui/Grid";
 import plugin from "dayjs/plugin/isSameOrBefore";
 import { getEnumValues } from "@/helpers/Enums";
 import WeekDayEnum from "@/enums/WeekDayEnum";
+import { Input } from "@/components/ui/shadcn/input";
+import { Button } from "@/components/ui/shadcn/button";
+import { Copy, Plus } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/shadcn/popover";
+import Tooltip from "@/components/common/ui/Tooltip";
+import { useFormContext } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 dayjs.extend(plugin);
+
+function SlotInput(props: {
+  timeRange: Schedule;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange1: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
+  index: number;
+}) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  return (
+    <div className="my-1 grid grid-cols-3 gap-5 w-full">
+      <div className={"w-full"}>
+        <Input
+          value={props.timeRange.start_time ?? dayjs().format("HH:mm")}
+          onChange={props.onChange}
+          type={"time"}
+        />
+        <ErrorMessage
+          name={`schedules.${props.index}.start_time`}
+          errors={errors}
+          render={({ message }) => (
+            <p className={"text-destructive text-sm"}>{message}</p>
+          )}
+        />
+      </div>
+      <div className={"w-full"}>
+        <Input
+          value={props.timeRange.end_time ?? dayjs().format("HH:mm")}
+          onChange={props.onChange1}
+          type={"time"}
+        />
+        <ErrorMessage
+          name={`schedules.${props.index}.end_time`}
+          errors={errors}
+          render={({ message }) => (
+            <p className={"text-destructive text-sm"}>{message}</p>
+          )}
+        />
+      </div>
+      <Button
+        type="button"
+        onClick={props.onClick}
+        variant={"destructive"}
+        size={"icon"}
+      >
+        <Trash />
+      </Button>
+    </div>
+  );
+}
+
 const ClinicScheduleForm = ({
   method,
   defaultValues,
@@ -31,15 +92,14 @@ const ClinicScheduleForm = ({
   defaultValues?: SchedulesCollection;
   clinic_id?: number;
 }) => {
-  const locale = useLocale();
   const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
       defaultValues?.saturday || method == "update"
         ? defaultValues?.saturday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -49,8 +109,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.sunday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -60,8 +120,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.monday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -71,8 +131,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.tuesday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -82,8 +142,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.wednesday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -93,8 +153,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.thursday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -104,8 +164,8 @@ const ClinicScheduleForm = ({
         ? defaultValues?.friday ?? []
         : [
             {
-              start_time: dayjs("09:00", "HH:mm").format("HH:mm"),
-              end_time: dayjs("21:00", "HH:mm").format("HH:mm"),
+              start_time: dayjs("09:00").format("HH:mm"),
+              end_time: dayjs("21:00").format("HH:mm"),
               id: 0,
               day_of_week: "0",
             },
@@ -115,7 +175,13 @@ const ClinicScheduleForm = ({
   const handleAddTimeRange = (day: WeekDayEnum) => {
     setSchedule((prevSchedule) => ({
       ...prevSchedule,
-      [day]: [...prevSchedule[day], { start_time: dayjs(), end_time: dayjs() }],
+      [day]: [
+        ...prevSchedule[day],
+        {
+          start_time: dayjs().format("HH:mm"),
+          end_time: dayjs().format("HH:mm"),
+        },
+      ],
     }));
   };
 
@@ -160,8 +226,8 @@ const ClinicScheduleForm = ({
           day_of_week: string;
         }) => {
           data.schedules?.push({
-            start_time: dayjs(item.start_time, "HH:mm").format("HH:mm"),
-            end_time: dayjs(item.end_time, "HH:mm").format("HH:mm"),
+            start_time: item.start_time,
+            end_time: item.end_time,
             day_of_week: value[0] as string,
           });
         },
@@ -176,13 +242,12 @@ const ClinicScheduleForm = ({
       <Form
         handleSubmit={onSubmit}
         onSuccess={() => {
-          Navigate(`/admin/clinics/schedules`);
+          Navigate(`/admin/clinics`);
         }}
       >
         <Grid md={2}>
           {method == "store" && (
             <ApiSelect
-              placeHolder={"Select Clinic Name ..."}
               required={true}
               name={"clinic_id"}
               api={(page, search) =>
@@ -206,102 +271,80 @@ const ClinicScheduleForm = ({
             />
           )}
         </Grid>
-        {getEnumValues(WeekDayEnum).map((day) => (
+        {getEnumValues(WeekDayEnum).map((day, dayIndex) => (
           <div
             key={day}
-            className="flex items-center justify-between border-b border-b-gray-400"
+            className="flex items-center justify-between border-b border-b-foreground"
           >
-            <div className="p-3">
-              <h2>{day.toUpperCase()}</h2>
+            <div className="p-3 w-full">
+              <h2>
+                <TranslatableEnum value={day} />
+              </h2>
               {schedule[day].map((timeRange, index) => (
-                <div key={index} className="my-1 flex items-center gap-1">
-                  <TimePicker
-                    label=""
-                    value={dayjs(timeRange.start_time, "HH:mm")}
-                    onChange={(newValue) =>
-                      handleChangeTimeRange(
-                        day,
-                        index,
-                        newValue?.format("HH:mm") ?? "",
-                        "start_time",
-                      )
-                    }
-                  />
-                  <TimePicker
-                    label=""
-                    value={dayjs(timeRange.end_time, "HH:mm")}
-                    onChange={(newValue) =>
-                      handleChangeTimeRange(
-                        day,
-                        index,
-                        newValue?.format("HH:mm") ?? "",
-                        "end_time",
-                      )
-                    }
-                    shouldDisableTime={(time) => {
-                      return time.isSameOrBefore(
-                        dayjs(schedule?.[day]?.[index]?.start_time, "HH:mm"),
-                        "minutes",
-                      );
-                    }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveTimeRange(day, index)}
-                  >
-                    <Trash className="h-6 w-6 text-error" />
-                  </button>
-                </div>
+                <SlotInput
+                  key={index}
+                  timeRange={timeRange}
+                  onChange={(event) =>
+                    handleChangeTimeRange(
+                      day,
+                      index,
+                      event?.target?.value ?? "",
+                      "start_time",
+                    )
+                  }
+                  onChange1={(event) =>
+                    handleChangeTimeRange(
+                      day,
+                      index,
+                      event?.target?.value ?? "",
+                      "end_time",
+                    )
+                  }
+                  onClick={() => handleRemoveTimeRange(day, index)}
+                  index={
+                    index + dayIndex + (index == 0 && dayIndex != 0 ? 1 : 0)
+                  }
+                />
               ))}
             </div>
             <div className="flex items-center gap-1">
-              <button type="button" onClick={() => handleAddTimeRange(day)}>
-                <PlusIcon className="h-6 w-6 rounded-sm border border-pom text-pom" />
-              </button>
-              <Popover className="relative">
-                {() => (
-                  <>
-                    <Popover.Button
-                      className={"focus:border-0 focus:outline-0"}
-                      disabled={schedule[day].length == 0}
-                    >
-                      <Copy className="h-6 w-6 text-pom" />
-                    </Popover.Button>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <Popover.Panel
-                        className={`absolute z-10 max-w-32 transform bg-white ${locale == "en" ? "-translate-x-1/2" : "translate-x-1/2"}`}
+              <Tooltip title={t("add_slot")}>
+                <Button
+                  size={"icon"}
+                  variant={"outline"}
+                  type="button"
+                  onClick={() => handleAddTimeRange(day)}
+                >
+                  <Plus />
+                </Button>
+              </Tooltip>
+              <Popover>
+                <PopoverTrigger>
+                  <Tooltip title={t("copy_day_schedule")}>
+                    <Button variant={"secondary"} size={"icon"} type={"button"}>
+                      <Copy />
+                    </Button>
+                  </Tooltip>
+                </PopoverTrigger>
+                <PopoverContent className={"max-w-52"}>
+                  <div className="flex flex-col">
+                    {getEnumValues(WeekDayEnum).map((d, index) => (
+                      <div
+                        className="flex items-center justify-between p-2"
+                        key={index}
                       >
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                          <div className="flex flex-col">
-                            {getEnumValues(WeekDayEnum).map((d, index) => (
-                              <div
-                                className="flex items-center justify-between p-2"
-                                key={index}
-                              >
-                                {d}
-                                <input
-                                  type="checkbox"
-                                  className="checkbox"
-                                  onChange={() => {
-                                    handleCopySchedule(day, d);
-                                  }}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </Transition>
-                  </>
-                )}
+                        {d}
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          onChange={() => {
+                            handleCopySchedule(day, d);
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </PopoverContent>
               </Popover>
             </div>
           </div>

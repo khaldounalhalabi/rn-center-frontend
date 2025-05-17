@@ -1,6 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { MedicineService } from "@/services/MedicinesSevice";
@@ -8,6 +7,7 @@ import { Medicine } from "@/models/Medicine";
 import { getTranslations } from "next-intl/server";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { Button } from "@/components/ui/shadcn/button";
 
 const page = async ({
   params: { medicinesId },
@@ -19,13 +19,14 @@ const page = async ({
   const data = await MedicineService.make<MedicineService>().show(medicinesId);
   const res: Medicine = data?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("medicinesDetails")}</h2>
+    <PageCard
+      title={t("medicinesDetails")}
+      actions={
         <Link href={`/admin/medicines/${medicinesId}/edit`}>
-          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+          <Button type={"button"}>{t("editBtn")}</Button>
         </Link>
-      </div>
+      }
+    >
       <Grid md={2} gap={5}>
         <LabelValue label={t("medicineName")} value={res?.name} />
         <LabelValue

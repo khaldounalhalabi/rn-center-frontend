@@ -194,14 +194,17 @@
       },
       "create": {
         "clinicName": "Clinic Name",
-        "appointmentGap": "Appointment Gap"
+        "appointmentGap": "Appointment Gap",
+        "add_slot": "Add another time slot",
+        "copy_day_schedule": "Copy day schedule to another days"
       }
     },
     "category": {
       "table": {
         "category": "Service Categories",
         "actions": "Actions",
-        "category-name": "Category Name"
+        "category-name": "Category Name",
+        "delete_service_category_question": "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ?"
       },
       "show": {
         "categoryDetails": "Category Details",
@@ -288,7 +291,8 @@
         "approximateDuration": "Approximate Duration",
         "price": "Price",
         "iqd": "د.ع",
-        "image": "Image"
+        "image": "Image",
+        "description": "Description"
       }
     },
     "speciality": {
@@ -663,7 +667,8 @@
         "reason": "Reason",
         "actions": "Actions",
         "startDate": "Start Date",
-        "endDate": "End Date"
+        "endDate": "End Date",
+        "date": "Date"
       },
       "create": {
         "addHolidays": "Add Holidays",
@@ -1308,14 +1313,15 @@
     "apply": "Apply",
     "resetFilters": "Reset Filters",
     "totalRecords": "Total Records",
-    "prevPage": "Prev Page",
+    "prevPage": "Previous Page",
     "nextPage": "Next Page",
     "search": "Search"
   },
   "nav": {
     "clinicProfile": "Clinic Profile",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "notifications": "Notifications"
   },
   "details": {
     "name": "Name",
@@ -1616,7 +1622,18 @@
     "apply": "Apply",
     "cancellation_reason": "Cancellation Reason",
     "no_data": "No data",
-    "select_day": "Select a day"
+    "select_day": "Select a day",
+    "delete_record": "Delete item",
+    "show_record": "Show details",
+    "edit_record": "Edit item",
+    "eg" : "eg",
+    "select": "Select",
+    "error": "There is been an error",
+    "check_data": "Please check your data and try again",
+    "success": "Succeed",
+    "delete_service_category_question": "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ?",
+    "new_notification" : "New notification",
+    "show": "Show"
   },
   "holidays": {
     "from": "From",
@@ -1627,7 +1644,8 @@
     "create": "Add new holiday",
     "edit": "Edit",
     "holiday_details": "Holiday details",
-    "update_title": "Edit holiday"
+    "update_title": "Edit holiday",
+    "date": "Date"
   },
   "secretaries": {
     "name": "Name",
@@ -1646,5 +1664,25 @@
     "from" : "From",
     "to" : "To",
     "add_slot" : "Add new slot"
+  },
+  "links": {
+    "appointment": "Appointments",
+    "attendance": "Attendance",
+    "clinics": "Clinics",
+    "holidays": "Holidays",
+    "create": "Create",
+    "edit": "Edit",
+    "medicines": "Medicines",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "prescriptions": "Prescriptions",
+    "secretaries": "Secretaries",
+    "service": "Services",
+    "service-categories": "Service categories",
+    "speciality": "Specialities",
+    "transaction": "Transactions",
+    "user-details": "User details",
+    "admin": "Dashboard",
+    "schedules": "Clinic schedule"
   }
 }

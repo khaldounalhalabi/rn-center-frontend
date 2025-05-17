@@ -1,18 +1,23 @@
 "use client";
-import React, { HTMLProps, useState } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
-import ClosedEye from "@/components/icons/ClosedEye";
-import Eye from "@/components/icons/Eye";
-import { useLocale, useTranslations } from "next-intl";
 
-export interface InputProps extends HTMLProps<HTMLInputElement> {
+export interface InputProps {
   className?: string | undefined;
-  name?: string;
+  name: string;
   label?: string;
   type: string;
   required?: boolean;
-  setWatch?: React.Dispatch<number>;
   unit?:
     | "IQD"
     | "day"
@@ -25,120 +30,104 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
     | undefined
     | string;
   min?: number;
+  hidden?: boolean;
+  defaultValue?: string | number | undefined;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  withError?: boolean;
 }
 
 const FormInput: React.FC<InputProps> = ({
-  className,
   label,
   name,
-  type,
+  type = "text",
   required = false,
-  setWatch,
   unit,
   min = 0,
-  placeholder = undefined,
-  ...props
+  hidden = false,
+  defaultValue = undefined,
+  onChange = undefined,
+  withError = true,
 }) => {
   const {
-    register,
-    watch,
-    formState: { errors },
+    control,
+    setValue,
+    formState: { defaultValues },
   } = useFormContext();
-  if (setWatch) {
-    setWatch(watch(name ?? ""));
-  }
-  const locale = useLocale();
-  const [hidden, setHidden] = useState(true);
-  placeholder = undefined;
+
   const translateUnit = useTranslations("units");
+  const t = useTranslations("components")
+  const eg = t("eg");
+  defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
 
-  const error = getNestedPropertyValue(errors, `${name}.message`);
-  if (type == "password") {
-    return (
-      <div className={`flex w-full flex-col items-start`}>
-        {label ? (
-          <label className={"label w-fit"}>
-            {label}
-            {unit ? (
-              <span className="ml-1">
-                (
-                <span className="text-green-500">
-                  {translateUnit(unit as any)}
-                </span>
-                )
-              </span>
-            ) : (
-              ""
-            )}
-            {required ? <span className="ml-1 text-red-600">*</span> : false}
-          </label>
-        ) : (
-          ""
-        )}
-        <div className={"relative w-full"}>
-          <input
-            {...props}
-            {...register(`${name}`)}
-            className={
-              className ??
-              `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
-            }
-            type={!hidden ? "text" : "password"}
-          />
-          {!hidden ? (
-            <ClosedEye
-              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
-              onClick={() => setHidden((prevState) => !prevState)}
-            />
-          ) : (
-            <Eye
-              className={`absolute right-1 top-3 h-6 w-6 cursor-pointer ${locale == "ar" ? "right-[90%]" : ""}`}
-              onClick={() => setHidden((prevState) => !prevState)}
-            />
+  useEffect(() => {
+    if (defaultValue !== undefined) {
+      setValue(name, defaultValue);
+    }
+  }, [defaultValue, name, setValue]);
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {label && (
+            <FormLabel>
+              {label} {unit && ` (${translateUnit(unit as any)})`}
+            </FormLabel>
           )}
-        </div>
-
-        <p className={`min-h-5 text-sm text-error`}>{error}</p>
-      </div>
-    );
-  } else
-    return (
-      <div
-        className={`flex ${type == `radio` || type == "checkbox" ? `items-center gap-2` : "flex-col"} w-full items-start`}
-      >
-        {label ? (
-          <label className={"label text-nowrap"}>
-            {label}
-            {unit ? (
-              <span className="ml-1">
-                (
-                <span className="text-green-500">
-                  {translateUnit(unit as any)}
-                </span>
-                )
-              </span>
-            ) : (
-              ""
-            )}
-            {required ? <span className="ml-1 text-red-600">*</span> : false}
-          </label>
-        ) : (
-          ""
-        )}
-        <input
-          {...props}
-          {...register(`${name}`)}
-          className={
-            className ??
-            `input input-bordered w-full ${error ? "border-error" : ""} focus:border-pom focus:outline-pom`
-          }
-          min={min}
-          type={type == "password" && hidden ? "password" : type}
-          step={"any"}
-        />
-        <p className={`text-sm text-error`}>{error}</p>
-      </div>
-    );
+          <FormControl>
+            <Input
+              {...field}
+              onChange={(event) => {
+                field.onChange(event);
+                if (type == "datetime-local") {
+                  setValue(name, event.target?.value?.replace("T", " "));
+                }
+                if (onChange) {
+                  onChange(event);
+                }
+              }}
+              type={type == "year" ? "number" : type}
+              required={required}
+              step={"any"}
+              min={min}
+              hidden={hidden}
+              defaultValue={defaultValue}
+              className={hidden ? "hidden" : ""}
+              disabled={hidden}
+              placeholder={getPlaceholder(type, label ?? "" , eg)}
+            />
+          </FormControl>
+          {withError && <FormMessage />}
+        </FormItem>
+      )}
+    />
+  );
 };
 
 export default FormInput;
+
+
+const getPlaceholder = (type: string, label: string , eg:string) => {
+
+  if (type == "text") {
+    return `${label} ...`;
+  } else if (type == "tel") {
+    return `${label} (${eg}: 0912345678)`;
+  } else if (type == "month") {
+    return `${label} (${eg}: September)`;
+  } else if (type == "email") {
+    return `${label} (${eg}: example@email.com)`;
+  } else if (type == "password") {
+    return `${label} (${eg}: P@$$w0rd)`;
+  } else if (type == "number") {
+    return `${label} (${eg}: 10)`;
+  } else if (type == "url") {
+    return `${label} (${eg}: https://www.google.com)`;
+  } else if (type == "year") {
+    return `${label} (${eg}: 1990)`;
+  } else {
+    return `${label} ...`;
+  }
+};

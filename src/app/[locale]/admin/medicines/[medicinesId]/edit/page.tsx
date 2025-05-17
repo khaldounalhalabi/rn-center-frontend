@@ -19,8 +19,7 @@ const page = async ({
   ).data;
 
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editMedicine")}</h2>
+    <PageCard title={t("editMedicine")}>
       <MedicineForm type={"update"} defaultValues={medicines} />
     </PageCard>
   );

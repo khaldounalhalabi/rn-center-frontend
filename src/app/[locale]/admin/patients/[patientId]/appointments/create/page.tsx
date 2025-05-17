@@ -10,8 +10,7 @@ const Page = async ({
 }) => {
   const t = await getTranslations("common.appointment.create");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("createAppointment")}</h2>
+    <PageCard title={t("createAppointment")}>
       <AppointmentForm
         type="store"
         defaultCustomerId={patientId}

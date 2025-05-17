@@ -1,8 +1,13 @@
 import { ApiResponse } from "@/http/Response";
-import ChevronLeft from "@/components/icons/ChevronLeft";
-import ChevronRight from "@/components/icons/ChevronRight";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from "@/components/ui/shadcn/pagination";
+import { Button } from "@/components/ui/shadcn/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TablePaginator = ({
   data,
@@ -17,36 +22,41 @@ const TablePaginator = ({
   const locale = useLocale();
 
   return (
-    <div className="flex justify-end rounded-b-lg border-t border-gray-200 px-4 py-2">
-      <ol className={`flex items-center justify-end gap-1 text-xs font-medium`}>
-        <li>
-          <button
-            onClick={() => setPage((old) => Math.max(old - 1, 0))}
-            disabled={data?.paginate?.is_first ?? true}
-            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
-          >
-            <div className="tooltip" data-tip={t("prevPage")}>
+    <div className="flex justify-end px-4 mt-2">
+      <Pagination className={`flex items-center justify-end gap-1`}>
+        <PaginationContent>
+          <PaginationItem>
+            <Button
+              variant={"secondary"}
+              onClick={() => {
+                if (!data?.paginate?.is_first) {
+                  setPage((old) => Math.max(old - 1, 0));
+                }
+              }}
+              disabled={data?.paginate?.is_first ?? true}
+              className={"flex justify-start cursor-pointer disabled:cursor-not-allowed"}
+            >
               {locale == "ar" ? <ChevronRight /> : <ChevronLeft />}
-            </div>
-          </button>
-        </li>
-        <li>
-          <button
-            type={"button"}
-            onClick={() => {
-              if (!data?.paginate?.is_last) {
-                setPage((old) => old + 1);
-              }
-            }}
-            disabled={data?.paginate?.is_last ?? true}
-            className="btn btn-square btn-sm cursor-pointer bg-pom disabled:btn-neutral disabled:text-black"
-          >
-            <div className="tooltip" data-tip={t("nextPage")}>
+              {t("prevPage")}
+            </Button>
+          </PaginationItem>
+          <PaginationItem>
+            <Button
+              variant={"secondary"}
+              onClick={() => {
+                if (!data?.paginate?.is_last) {
+                  setPage((old) => old + 1);
+                }
+              }}
+              disabled={data?.paginate?.is_last ?? true}
+              className={"flex justify-start cursor-pointer disabled:cursor-not-allowed"}
+            >
+              {t("nextPage")}
               {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
-            </div>
-          </button>
-        </li>
-      </ol>
+            </Button>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };

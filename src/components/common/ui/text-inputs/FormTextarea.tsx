@@ -1,6 +1,13 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/shadcn/form";
+import { Textarea } from "@/components/ui/shadcn/textarea";
 
 interface textAreaType {
   className?: string;
@@ -13,40 +20,24 @@ interface textAreaType {
 }
 
 const FormTextarea: React.FC<textAreaType> = ({
-  className,
   label,
   name,
-  dir,
-  defaultValue,
-  required = false,
-  ...props
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-  const error = getNestedPropertyValue(errors, `${name}.message`);
+  const { control } = useFormContext();
   return (
-    <div className={className}>
-      {label ? (
-        <label className={"label w-fit"}>
-          {label}
-          {required ? <span className="ml-1 text-red-600">*</span> : false} :
-        </label>
-      ) : (
-        ""
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <Textarea {...field} placeholder={label + " ..."}/>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
       )}
-      <textarea
-        {...props}
-        {...register(`${name}`)}
-        id="message"
-        rows={4}
-        dir={dir}
-        className="textarea textarea-bordered w-full text-sm"
-        defaultValue={defaultValue ? defaultValue : ""}
-      />
-      {error ? <p className={`text-sm text-error`}>{error}</p> : ""}
-    </div>
+    />
   );
 };
 

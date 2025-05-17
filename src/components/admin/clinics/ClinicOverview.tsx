@@ -7,6 +7,7 @@ import AppointmentsTable from "@/components/common/appointment/AppointmentsTable
 import { AppointmentService } from "@/services/AppointmentService";
 import { RoleEnum } from "@/enums/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
+import PageCard from "@/components/common/ui/PageCard";
 
 const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
   const t = useTranslations("admin.clinic.show");
@@ -21,23 +22,25 @@ const ClinicOverview = ({ clinic }: { clinic: Clinic | null | undefined }) => {
           {
             title: t("appointments"),
             render: (
-              <AppointmentsTable
-                without={["clinic.user.full_name"]}
-                createUrl={`/admin/clinics/${clinic?.id}/appointments/create`}
-                api={async (page, search, sortCol, sortDir, perPage, params) =>
-                  await AppointmentService.make(
-                    RoleEnum.ADMIN,
-                  ).getClinicAppointments(
-                    clinic?.id ?? 0,
-                    page,
-                    search,
-                    sortCol,
-                    sortDir,
-                    perPage,
-                    params,
-                  )
-                }
-              />
+              <PageCard>
+                <AppointmentsTable
+                  without={["clinic.user.full_name"]}
+                  createUrl={`/admin/clinics/${clinic?.id}/appointments/create`}
+                  api={async (page, search, sortCol, sortDir, perPage, params) =>
+                    await AppointmentService.make(
+                      RoleEnum.ADMIN,
+                    ).getClinicAppointments(
+                      clinic?.id ?? 0,
+                      page,
+                      search,
+                      sortCol,
+                      sortDir,
+                      perPage,
+                      params,
+                    )
+                  }
+                />
+              </PageCard>
             ),
           },
         ]}

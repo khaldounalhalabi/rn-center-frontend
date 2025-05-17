@@ -1,59 +1,102 @@
 "use client";
-import React, { HTMLProps } from "react";
+
+import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/shadcn/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/shadcn/radio-group";
 
 interface RadioOption {
   label: string | React.ReactNode;
-  value: string | number;
+  value: string;
 }
 
-interface RadioProps extends HTMLProps<HTMLInputElement> {
+interface RadioProps {
   name: string;
   options: RadioOption[];
   label?: string;
   className?: string;
+  defaultChecked?: ((value: string) => boolean) | string;
 }
 
 const Radio: React.FC<RadioProps> = ({
   name,
   options,
   label,
-  className = "radio radio-info",
-  ...props
+  defaultChecked = undefined,
 }) => {
   const {
-    register,
-    formState: { errors, defaultValues },
+    control,
+    formState: { defaultValues },
+    setValue,
   } = useFormContext();
 
-  const error = getNestedPropertyValue(errors, `${name}.message`);
   const defaultValue = getNestedPropertyValue(defaultValues, name);
 
+  const df = options.map((option) => {
+    if (defaultChecked) {
+      if (typeof defaultChecked == "string") {
+        return { ...option, checked: option.value == defaultChecked };
+      } else {
+        return { ...option, checked: defaultChecked(option.value) };
+      }
+    }
+    return { ...option, checked: option.value == defaultValue };
+  });
+
+  useEffect(() => {
+    options.forEach((option) => {
+      if (defaultChecked) {
+        if (typeof defaultChecked == "string") {
+          if (option.value == defaultChecked) {
+            setValue(name, option.value);
+          }
+        } else {
+          if (defaultChecked(option.value)) {
+            setValue(name, option.value);
+          }
+        }
+      } else {
+        if (option.value == defaultValue) {
+          setValue(name, option.value);
+        }
+      }
+    });
+  }, [defaultValue, name, setValue]);
+
   return (
-    <div className="flex w-full items-center gap-5 self-end">
-      {label && (
-        <label className="rounded-md bg-pom p-3 text-white">{label}</label>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={"self-center flex flex-col justify-center gap-3"}>
+          {label && <FormLabel>{label}</FormLabel>}
+          <FormControl>
+            <RadioGroup
+              onValueChange={field.onChange}
+              defaultValue={df?.filter(i => i.checked)?.[0]?.value ?? field.value}
+              className={"flex items-center gap-2"}
+            >
+              {df.map((option , index) => (
+                <FormItem className="flex items-center gap-2 space-y-0" key={index}>
+                  <FormControl>
+                    <FormControl>
+                      <RadioGroupItem value={option.value} />
+                    </FormControl>
+                  </FormControl>
+                  <FormLabel className="font-normal">{option.label}</FormLabel>
+                </FormItem>
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </FormItem>
       )}
-      <div className="flex items-center gap-5">
-        {options.map((option, index) => (
-          <div key={index} className="flex items-center gap-2">
-            <input
-              type="radio"
-              {...register(name)}
-              value={option.value}
-              className={className}
-              defaultChecked={
-                defaultValue ? defaultValue === option.value : index == 0
-              }
-              {...props}
-            />
-            <label className="label-text">{option.label}</label>
-          </div>
-        ))}
-      </div>
-      {error && <p className="text-sm text-error">{error}</p>}
-    </div>
+    />
   );
 };
 

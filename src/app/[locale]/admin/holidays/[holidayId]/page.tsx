@@ -1,11 +1,11 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
 import { getTranslations } from "next-intl/server";
 import { HolidayService } from "@/services/HolidayService";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
+import { Button } from "@/components/ui/shadcn/button";
 
 const HolidayShowPage = async ({
   params: { holidayId },
@@ -16,13 +16,14 @@ const HolidayShowPage = async ({
   const data = await HolidayService.make<HolidayService>().show(holidayId);
   const holiday = data?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("holiday_details")}</h2>
+    <PageCard
+      title={t("holiday_details")}
+      actions={
         <Link href={`/admin/holidays/${holiday.id}/edit`}>
-          <PrimaryButton type={"button"}>{t("edit")}</PrimaryButton>
+          <Button type={"button"}>{t("edit")}</Button>
         </Link>
-      </div>
+      }
+    >
       <Grid md={2} gap={5}>
         <LabelValue label={t("from")} value={holiday?.from} color={"error"} />
         <LabelValue label={t("to")} value={holiday?.to} color={"pom"} />

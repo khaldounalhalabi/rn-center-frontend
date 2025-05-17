@@ -15,8 +15,7 @@ const page = async ({
     await SpecialityService.make<SpecialityService>().show(specialityId)
   ).data;
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editSpeciality")}</h2>
+    <PageCard title={t("editSpeciality")}>
       <SpecialityForm type={"update"} defaultValues={speciality} />
     </PageCard>
   );

@@ -20,7 +20,9 @@ import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enums/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/http/Response";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
+import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
+import PageCard from "@/components/common/ui/PageCard";
+import { Button } from "@/components/ui/shadcn/button";
 
 const AppointmentsTable = ({
   without,
@@ -51,7 +53,7 @@ const AppointmentsTable = ({
       label: t("doctorName"),
       render: (doctorName, record) => (
         <Link href={`/admin/clinics/${record?.clinic_id}`} className={"btn"}>
-          {doctorName}
+          <Button variant={"link"} type={"button"}>{doctorName}</Button>
         </Link>
       ),
     },
@@ -60,7 +62,7 @@ const AppointmentsTable = ({
       label: t("patientName"),
       render: (patientName, record) => (
         <Link href={`/admin/patients/${record?.customer_id}`} className={"btn"}>
-          {patientName}
+          <Button variant={"link"} type={"button"}>{patientName}</Button>
         </Link>
       ),
     },
@@ -135,36 +137,35 @@ const AppointmentsTable = ({
   const tableData: DataTableData<Appointment> = {
     createUrl: createUrl,
     schema: schema.filter((item) => !without.includes(item.name ?? "")),
-    title: `${t("appointments")}`,
     filter: (params, setParams) => {
       return (
         <div className={"grid w-full grid-cols-1"}>
-          <Label label={t("status")} col>
-            <Select
-              data={getEnumValues(AppointmentStatusEnum)}
-              selected={params.status ?? "all"}
-              onChange={(event: any) => {
-                setParams({ ...params, status: event.target.value });
-              }}
-            />
-          </Label>
-          <Label label={t("type")} col>
-            <Select
-              data={getEnumValues(AppointmentTypeEnum)}
-              selected={params.type}
-              onChange={(event: any) => {
-                setParams({ ...params, type: event.target.value });
-              }}
-            />
-          </Label>
-          <Label label={t("date")}>
-            <Datepicker
-              onChange={(time: any) => {
-                setParams({ ...params, date: time?.format("YYYY-MM-DD") });
-              }}
-              defaultValue={params.date}
-            />
-          </Label>
+          <Select
+            data={getEnumValues(AppointmentStatusEnum)}
+            selected={params.status}
+            onChange={(event: string) => {
+              setParams({ ...params, status: event });
+            }}
+            label={t("status")}
+            translated={true}
+          />
+
+          <Select
+            label={t("type")}
+            data={getEnumValues(AppointmentTypeEnum)}
+            selected={params.type}
+            onChange={(event: string) => {
+              setParams({ ...params, type: event });
+            }}
+            translated={true}
+          />
+          <Datepicker
+            label={t("date")}
+            onChange={(time: any) => {
+              setParams({ ...params, date: time?.format("YYYY-MM-DD") });
+            }}
+            defaultValue={params.date}
+          />
         </div>
       );
     },
@@ -172,7 +173,9 @@ const AppointmentsTable = ({
       await api(page, search, sortCol, sortDir, perPage, params),
   };
 
-  return <DataTable {...tableData} />;
+  return (
+    <DataTable {...tableData} />
+  );
 };
 
 export default AppointmentsTable;

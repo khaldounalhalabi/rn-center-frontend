@@ -13,8 +13,7 @@ const Page = async ({
   const t = await getTranslations("secretaries");
 
   return (
-    <PageCard>
-      <div className={"card-title"}>{t("edit_title")}</div>
+    <PageCard title={t("edit_title")}>
       <UserForm type={"update"} user={user} />
     </PageCard>
   );

@@ -16,8 +16,7 @@ const EditHolidayPage = async ({
     await HolidayService.make<HolidayService>(RoleEnum.ADMIN).show(holidayId)
   ).data;
   return (
-    <PageCard>
-      <h2 className="card-title">{t("update_title")}</h2>
+    <PageCard title={t("update_title")}>
       <HolidaysForm type={"update"} defaultValues={holiday} />
     </PageCard>
   );

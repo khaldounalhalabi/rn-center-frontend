@@ -8,6 +8,15 @@ import Eye from "@/components/icons/Eye";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { Prescription } from "@/models/Prescriptions";
 import { getTranslations } from "next-intl/server";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
+import { Button } from "@/components/ui/shadcn/button";
 
 interface PrescriptionDetailsProps {
   prescription?: Prescription;
@@ -70,48 +79,50 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
         ))}
         <div className={"md:col-span-2"}>
           <Label label={t("medicines")} col>
-            <table className="table w-full table-auto">
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>{t("medicine_name")}</th>
-                  <th>{t("dosage")}</th>
-                  <th>{t("dosage_interval")}</th>
-                  <th>{t("comment")}</th>
-                  <th>{t("status")}</th>
-                  <th>{t("actions")}</th>
-                </tr>
-              </thead>
-              <tbody>
+            <Table className="table w-full table-auto">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className={"text-start"}>id</TableHead>
+                  <TableHead className={"text-start"}>{t("medicine_name")}</TableHead>
+                  <TableHead className={"text-start"}>{t("dosage")}</TableHead>
+                  <TableHead className={"text-start"}>{t("dosage_interval")}</TableHead>
+                  <TableHead className={"text-start"}>{t("comment")}</TableHead>
+                  <TableHead className={"text-start"}>{t("status")}</TableHead>
+                  <TableHead className={"text-start"}>{t("actions")}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {prescription?.medicines?.map((medicineData, index) => (
-                  <tr key={index}>
-                    <th>{medicineData?.medicine_id}</th>
-                    <td>
+                  <TableRow key={index}>
+                    <TableCell>{medicineData?.medicine_id}</TableCell>
+                    <TableCell>
                       <Link
-                        className={"btn"}
                         href={`/admin/medicines/${medicineData?.medicine_id}`}
                       >
-                        {medicineData?.medicine?.name}
+                        <Button variant={"link"} type={"button"}>
+                          {medicineData?.medicine?.name}
+                        </Button>
                       </Link>
-                    </td>
-                    <td>{medicineData?.dosage}</td>
-                    <td>{medicineData?.dose_interval}</td>
-                    <td>{medicineData?.comment}</td>
-                    <td>
+                    </TableCell>
+                    <TableCell>{medicineData?.dosage}</TableCell>
+                    <TableCell>{medicineData?.dose_interval}</TableCell>
+                    <TableCell>{medicineData?.comment}</TableCell>
+                    <TableCell>
                       <TranslatableEnum value={medicineData?.status} />
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                       <Link
                         href={`/admin/medicines/${medicineData?.medicine_id}`}
-                        className={"btn btn-square btn-sm"}
                       >
-                        <Eye className={"text-primary"} />
+                        <Button size={"icon"}>
+                          <Eye />
+                        </Button>
                       </Link>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </Label>
         </div>
       </Grid>

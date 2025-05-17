@@ -13,10 +13,12 @@ const ServiceCategoryForm = ({
   defaultValues = undefined,
   id,
   type = "store",
+  onSuccess = undefined,
 }: {
   defaultValues?: ServiceCategory;
   id?: number;
   type?: "store" | "update";
+  onSuccess?: () => void;
 }) => {
   const handleSubmit = async (data: any) => {
     if (
@@ -34,18 +36,22 @@ const ServiceCategoryForm = ({
       ).store(data);
     }
   };
-  const onSuccess = () => {
-    Navigate(`/admin/service-categories`);
+  const handleSuccess = () => {
+    if (onSuccess) {
+      onSuccess();
+    } else {
+      Navigate(`/admin/service-categories`);
+    }
   };
   const t = useTranslations("admin.category.create-edit");
 
   return (
     <Form
       handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
+      onSuccess={handleSuccess}
       defaultValues={defaultValues}
     >
-      <Grid md={"2"}>
+      <Grid md={"1"}>
         <FormInput
           required={true}
           type={"text"}

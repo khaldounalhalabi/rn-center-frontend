@@ -76,6 +76,7 @@ const PatientsForm = ({
             label: <TranslatableEnum value={gender} />,
             value: gender,
           }))}
+          defaultChecked={customer?.user?.gender ?? GenderEnum.MALE}
         />
         <FormDatepicker
           name={"birth_date"}

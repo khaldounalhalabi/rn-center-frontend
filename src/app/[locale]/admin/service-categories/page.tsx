@@ -3,18 +3,21 @@ import React from "react";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { ServiceCategory } from "@/models/ServiceCategory";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
-import DeleteCategoryButton from "@/components/common/service-category/DeleteCategoryButton";
 import { RoleEnum } from "@/enums/RoleEnum";
+import PageCard from "@/components/common/ui/PageCard";
+import { Button } from "@/components/ui/shadcn/button";
+import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
+import ServiceCategoryForm from "@/components/admin/service-category/ServiceCategoryForm";
+import Pencil from "@/components/icons/Pencil";
+import DocumentPlus from "@/components/icons/DocumentPlus";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 
 const ServiceCategoriesIndexPage = () => {
   const t = useTranslations("admin.category.table");
   const tableData: DataTableData<ServiceCategory> = {
-    createUrl: `/admin/service-categories/create`,
-    title: `${t("category")}`,
     schema: [
       {
         name: "id",
@@ -29,16 +32,16 @@ const ServiceCategoriesIndexPage = () => {
       },
       {
         label: `${t("actions")}`,
-        render: (_undefined, data, setHidden) => (
+        render: (_undefined, data, setHidden, revalidate) => (
           <ActionsButtons
+            deleteMessage={t("delete_service_category_question")}
+            buttons={["delete"]}
+            baseUrl={"/admin/service-categories"}
+            deleteUrl={`/admin/service-categories/${data?.id}`}
             id={data?.id}
-            buttons={["edit", "show"]}
-            baseUrl={`/admin/service-categories`}
-            editUrl={`/admin/service-categories/${data?.id}/edit`}
-            showUrl={`/admin/service-categories/${data?.id}`}
             setHidden={setHidden}
           >
-            <DeleteCategoryButton id={data?.id} setHidden={setHidden} />
+            <UpdateDialog serviceCategory={data} revalidate={revalidate} />
           </ActionsButtons>
         ),
       },
@@ -47,8 +50,61 @@ const ServiceCategoriesIndexPage = () => {
       await ServiceCategoryService.make<ServiceCategoryService>(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+    extraButton: (revalidate) => <CreateDialog revalidate={revalidate} />,
   };
-  return <DataTable {...tableData} />;
+  return (
+    <PageCard title={t("category")}>
+      <DataTable {...tableData} />
+    </PageCard>
+  );
 };
 
 export default ServiceCategoriesIndexPage;
+
+
+const UpdateDialog = ({
+  serviceCategory,
+  revalidate = undefined,
+}: {
+  serviceCategory?: ServiceCategory;
+  revalidate?: () => void;
+}) => {
+  const t = useTranslations("admin.category.create-edit");
+  return (
+    <ShadcnDialog
+      trigger={
+        <Button size={"icon"} variant={"secondary"}>
+          <Pencil />
+        </Button>
+      }
+      title={t("editCategory")}
+    >
+      <ServiceCategoryForm
+        type={"update"}
+        defaultValues={serviceCategory}
+        onSuccess={revalidate}
+      />
+    </ShadcnDialog>
+  );
+};
+
+const CreateDialog = ({
+  revalidate = undefined,
+}: {
+  revalidate?: () => void;
+}) => {
+  const t = useTranslations("admin.category.create-edit");
+
+  return (
+    <ShadcnDialog
+      trigger={
+        <Button size={"icon"}>
+          <DocumentPlus />
+        </Button>
+      }
+      title={t("addCategory")}
+    >
+      <ServiceCategoryForm type={"store"} onSuccess={revalidate} />
+    </ShadcnDialog>
+  );
+};

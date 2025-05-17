@@ -3,12 +3,28 @@ import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import React, { HTMLProps } from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/shadcn/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/shadcn/select";
+import { useTranslations } from "next-intl";
 
 interface SelectProps extends HTMLProps<HTMLSelectElement> {
   name: string;
   items: string[] | number[] | undefined;
   label?: string;
   translatable?: boolean;
+  defaultValue?: string;
 }
 
 const FormSelect: React.FC<SelectProps> = ({
@@ -16,31 +32,47 @@ const FormSelect: React.FC<SelectProps> = ({
   items,
   label,
   translatable = false,
-  ...props
+  defaultValue = undefined,
 }) => {
   const {
-    setValue,
-    formState: { errors, defaultValues },
-    register,
+    formState: { defaultValues },
+    control,
   } = useFormContext();
-  const error = getNestedPropertyValue(errors, `${name}.message`);
+  defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
+  const t = useTranslations("components");
 
   return (
-    <div className={"flex w-full flex-col items-start"}>
-      <label className={"label text-nowrap"}>{label}</label>
-      <select
-        className={"select select-bordered w-full"}
-        {...props}
-        {...register(name)}
-      >
-        {items?.map((item, index) => (
-          <option value={item} key={index}>
-            {translatable ? <TranslatableEnum value={`${item}`} /> : item}
-          </option>
-        ))}
-      </select>
-      {error ? <p className={"text-error"}>{error}</p> : ""}
-    </div>
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          {label && <FormLabel>{label}</FormLabel>}
+          <Select
+            onValueChange={field.onChange}
+            defaultValue={defaultValue ?? field.value}
+          >
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder={label && `${t("select")} ${label} ...`} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {items?.map((option , index) => (
+                <SelectItem value={`${option}`} key={index}>
+                  {translatable ? (
+                    <TranslatableEnum value={`${option}`} />
+                  ) : (
+                    option
+                  )}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 };
 

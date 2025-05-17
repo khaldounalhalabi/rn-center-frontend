@@ -194,14 +194,17 @@
       },
       "create": {
         "clinicName": "اسم العيادة",
-        "appointmentGap": "المدة الزمنية الفاصلة بين حجز و آخر"
+        "appointmentGap": "المدة الزمنية الفاصلة بين حجز و آخر",
+        "add_slot": "إضافة فترة أخرى",
+        "copy_day_schedule": "نسخ جدول اليوم لأيام أخرى"
       }
     },
     "category": {
       "table": {
         "category": "فئات الخدمات",
         "actions": "خيارات",
-        "category-name": "اسم الفئة"
+        "category-name": "اسم الفئة",
+        "delete_service_category_question": "حذف هذه الفئة سيؤدي لحذف كافة الخدمات التي تندرج تحت نفس الفئة هل تريد المتابعة ؟"
       },
       "show": {
         "categoryDetails": "تفاصيل الفئة",
@@ -288,7 +291,8 @@
         "price": "السعر",
         "iqd": "د.ع",
         "min": "دقيقة",
-        "image": "الصورة"
+        "image": "الصورة",
+        "description": "الوصف"
       }
     },
     "speciality": {
@@ -665,7 +669,8 @@
         "reason": "السبب",
         "actions": "الخيارات",
         "startDate": "تاريخ البدء",
-        "endDate": "تاريخ الانتهاء"
+        "endDate": "تاريخ الانتهاء",
+        "date": "التاريخ"
       },
       "create": {
         "addHolidays": "إضافة إجازة",
@@ -1325,7 +1330,8 @@
   "nav": {
     "clinicProfile": "بيانات العيادة",
     "profile": "الملف الشخصي",
-    "logout": "تسجيل خروج"
+    "logout": "تسجيل خروج",
+    "notifications": "الإشعارات"
   },
   "details": {
     "name": "الاسم",
@@ -1626,7 +1632,18 @@
     "apply": "تطبيق",
     "cancellation_reason": "سبب الإلغاء",
     "no_data": "لا يوجد بيانات",
-    "select_day": "اختر يوم"
+    "select_day": "اختر يوم",
+    "delete_record": "مسح العنصر",
+    "show_record": "بيانات العنصر",
+    "edit_record": "تعديل العنصر",
+    "eg" : "مثل",
+    "select": "اختر",
+    "error": "حصل خطأ",
+    "check_data": "يرجى مراجعة بياناتك و المحاولة مرة أخرى",
+    "success" : "تم",
+    "delete_service_category_question": "حذف هذه الفئة سيؤدي لحذف كافة الخدمات التي تندرج تحت نفس الفئة هل تريد المتابعة ؟",
+    "new_notification" : "إشعار جديد",
+    "show": "عرض"
   },
   "holidays": {
     "from": "من",
@@ -1637,7 +1654,8 @@
     "create": "إضافة عطلة جديدة",
     "edit": "تعديل",
     "holiday_details": "بيانات العطلة",
-    "update_title": "تعديل العطلة"
+    "update_title": "تعديل العطلة",
+    "date": "التاريخ"
   },
   "secretaries": {
     "name": "الاسم",
@@ -1656,5 +1674,25 @@
     "from" : "من",
     "to" : "إلى",
     "add_slot" : "إضافة فترة جديدة"
+  },
+  "links": {
+    "appointment": "الحجوزات",
+    "attendance": "جدول الدوام",
+    "clinics": "العيادات",
+    "holidays": "الإجازات",
+    "create": "إضافة",
+    "edit": "تعديل",
+    "medicines": "الأدوية",
+    "patients": "المرضى",
+    "appointments": "الحجوزات",
+    "prescriptions": "الوصفات الطبية",
+    "secretaries": "السكرتاريا",
+    "service": "الخدمات",
+    "service-categories": "فئات الخدمات",
+    "speciality": "التخصصات",
+    "transaction": "المعاملات المالية",
+    "user-details": "تفاصيل المستخدم",
+    "admin": "لوحة التحكم",
+    "schedules": "أوقات دوام العيادة"
   }
 }

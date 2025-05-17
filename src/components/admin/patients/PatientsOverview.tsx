@@ -8,6 +8,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import Tabs from "@/components/common/ui/Tabs";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import MediaTable from "@/components/common/media/MediaTable";
+import PageCard from "@/components/common/ui/PageCard";
 
 const PatientsOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");
@@ -22,28 +23,34 @@ const PatientsOverview = ({ patient }: { patient: Customer }) => {
         {
           title: t("appointment"),
           render: (
-            <AppointmentsTable
-              api={async (page, search, sortCol, sortDir, perPage, params) =>
-                await AppointmentService.make(
-                  RoleEnum.ADMIN,
-                ).getCustomerAppointments(
-                  patient?.id,
-                  page,
-                  search,
-                  sortCol,
-                  sortDir,
-                  perPage,
-                  params,
-                )
-              }
-              without={["customer.user.full_name"]}
-              createUrl={`/admin/patients/${patient?.id}/appointments/create`}
-            />
+            <PageCard>
+              <AppointmentsTable
+                api={async (page, search, sortCol, sortDir, perPage, params) =>
+                  await AppointmentService.make(
+                    RoleEnum.ADMIN,
+                  ).getCustomerAppointments(
+                    patient?.id,
+                    page,
+                    search,
+                    sortCol,
+                    sortDir,
+                    perPage,
+                    params,
+                  )
+                }
+                without={["customer.user.full_name"]}
+                createUrl={`/admin/patients/${patient?.id}/appointments/create`}
+              />
+            </PageCard>
           ),
         },
         {
           title: t("prescriptions"),
-          render: <PrescriptionTable patientId={patient?.id} />,
+          render: (
+            <PageCard>
+              <PrescriptionTable patientId={patient?.id} />
+            </PageCard>
+          ),
         },
       ]}
     />

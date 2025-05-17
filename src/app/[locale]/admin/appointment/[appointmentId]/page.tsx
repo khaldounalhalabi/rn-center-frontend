@@ -1,6 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
 import React from "react";
-import PrimaryButton from "@/components/common/ui/buttons/PrimaryButton";
 import { Link } from "@/navigation";
 import { AppointmentService } from "@/services/AppointmentService";
 import { Appointment } from "@/models/Appointment";
@@ -11,6 +10,7 @@ import TranslatableEnum from "@/components/common/ui/labels-and-values/Translata
 import Tabs from "@/components/common/ui/Tabs";
 import AppointmentLogsTable from "@/components/admin/appointment/AppointmentLogsTable";
 import PrescriptionDetails from "@/components/common/prescriptions/PrescriptionDetails";
+import { Button } from "@/components/ui/shadcn/button";
 
 const page = async ({
   params: { appointmentId },
@@ -22,13 +22,14 @@ const page = async ({
     await AppointmentService.make<AppointmentService>().show(appointmentId);
   const appointment: Appointment = data?.data;
   return (
-    <PageCard>
-      <div className="flex h-24 w-full items-center justify-between">
-        <h2 className="card-title">{t("appointmentDetails")}</h2>
+    <PageCard
+      title={t("appointmentDetails")}
+      actions={
         <Link href={`/admin/appointment/${appointment.id}/edit`}>
-          <PrimaryButton type={"button"}>{t("editBtn")}</PrimaryButton>
+          <Button type={"button"}>{t("editBtn")}</Button>
         </Link>
-      </div>
+      }
+    >
       <Grid>
         <LabelValue
           label={t("doctorName")}

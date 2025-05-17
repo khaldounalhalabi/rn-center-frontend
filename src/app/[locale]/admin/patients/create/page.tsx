@@ -7,8 +7,7 @@ const page = async () => {
   const t = await getTranslations("common.patient.create");
 
   return (
-    <PageCard>
-      <h2 className="card-title">{t("addPatient")}</h2>
+    <PageCard title={t("addPatient")}>
       <PatientsForm />
     </PageCard>
   );

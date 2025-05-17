@@ -1,6 +1,11 @@
 "use client";
-import { Tab } from "@headlessui/react";
 import React from "react";
+import {
+  Tabs as ShadcnTabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/shadcn/tabs";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -15,33 +20,18 @@ const Tabs = ({
   }[];
 }) => {
   return (
-    <Tab.Group>
-      <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+    <ShadcnTabs defaultValue={tabs?.[0]?.title}>
+      <TabsList className={`grid w-full grid-cols-${tabs.length}`}>
         {tabs.map((tab, index) => (
-          <Tab
-            key={index}
-            className={({ selected }) =>
-              classNames(
-                "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                selected
-                  ? "bg-white text-blue-700 shadow"
-                  : "text-blue-500 hover:bg-white/[0.12] hover:text-white",
-              )
-            }
-          >
-            {tab.title}
-          </Tab>
+          <TabsTrigger key={index} value={tab.title}>{tab.title}</TabsTrigger>
         ))}
-      </Tab.List>
-      <Tab.Panels className="mt-2">
-        {tabs.map((tab, index) => (
-          <Tab.Panel key={index} className={"w-full"}>
-            {typeof tab.render == "function" ? tab.render() : tab.render}
-          </Tab.Panel>
-        ))}
-      </Tab.Panels>
-    </Tab.Group>
+      </TabsList>
+      {tabs.map((tab, index) => (
+        <TabsContent value={tab.title} key={index}>
+          {typeof tab.render == "function" ? tab.render() : tab.render}
+        </TabsContent>
+      ))}
+    </ShadcnTabs>
   );
 };
 

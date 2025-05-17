@@ -16,8 +16,7 @@ const Page = async ({
   const clinic = data.data;
   const t = await getTranslations("admin.clinic.create-edit");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("update_title")}</h2>
+    <PageCard title={t("update_title")}>
       <ClinicForm type={"update"} defaultValues={clinic} />
     </PageCard>
   );

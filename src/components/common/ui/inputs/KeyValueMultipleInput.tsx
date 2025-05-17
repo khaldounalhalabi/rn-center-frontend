@@ -1,8 +1,12 @@
 "use client";
-import React, { HTMLProps, useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
-import Trash from "@/components/icons/Trash";
+import { Trash } from "lucide-react";
+import { Button } from "@/components/ui/shadcn/button";
+import { Input } from "@/components/ui/shadcn/input";
+import { Label } from "@/components/ui/shadcn/label";
 import { useTranslations } from "next-intl";
 
 interface KeyValuePair {
@@ -10,13 +14,14 @@ interface KeyValuePair {
   value: string;
 }
 
-interface KeyValueMultipleInputProps extends HTMLProps<HTMLInputElement> {
+interface KeyValueMultipleInputProps {
   name: string;
   label?: string;
   maxFields?: number;
   keyPlaceholder?: string;
   valuePlaceholder?: string;
   required?: boolean;
+  className?: string;
 }
 
 const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
@@ -27,24 +32,20 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   valuePlaceholder = "Value",
   required = false,
   className,
-  ...props
 }) => {
   const t = useTranslations("components");
   const {
     setValue,
     formState: { errors, defaultValues },
-    register,
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}`);
   const defaultValue = getNestedPropertyValue(defaultValues, name) || [];
 
-  // Initialize with at least one empty field or with defaultValues if available
   const [fields, setFields] = useState<KeyValuePair[]>(
     defaultValue.length > 0 ? defaultValue : [{ key: "", value: "" }],
   );
 
-  // Update form values when fields change
   useEffect(() => {
     setValue(name, fields);
   }, [fields, name, setValue]);
@@ -56,7 +57,6 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   };
 
   const removeField = (index: number) => {
-    // Prevent removing the last field if required is true
     if (fields.length === 1 && required) {
       return;
     }
@@ -79,52 +79,50 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   return (
     <div className="flex w-full flex-col items-start gap-2">
       {label && (
-        <label className="label justify-start">
+        <Label className="flex items-center">
           {label}
           {required && <span className="ml-1 text-red-600">*</span>}
-        </label>
+        </Label>
       )}
 
       <div className="flex w-full flex-col gap-3">
         {fields.map((field, index) => (
           <div key={index} className="flex items-center gap-2">
-            <input
-              {...props}
-              className={className || "input input-bordered flex-1"}
+            <Input
+              className={className || "flex-1"}
               value={field.key}
               placeholder={keyPlaceholder}
               onChange={(e) => updateField(index, "key", e.target.value)}
             />
-            <input
-              {...props}
-              className={className || "input input-bordered flex-1"}
+            <Input
+              className={className || "flex-1"}
               value={field.value}
               placeholder={valuePlaceholder}
               onChange={(e) => updateField(index, "value", e.target.value)}
             />
-            <button
+            <Button
               type="button"
-              className="btn btn-square btn-sm"
+              variant="destructive"
+              size="icon"
               onClick={() => removeField(index)}
               disabled={fields.length === 1 && required}
             >
-              <Trash className="text-error" />
-            </button>
+              <Trash  />
+            </Button>
           </div>
         ))}
 
-        {error && <p className="text-sm text-error">{error.message}</p>}
+        {error && <p className="text-sm text-red-600">{error.message}</p>}
 
-        <div className="self-start">
-          <button
-            type="button"
-            className="btn btn-neutral btn-sm mt-2"
-            onClick={addField}
-            disabled={fields.length >= maxFields}
-          >
-            {t("add")} {keyPlaceholder}-{valuePlaceholder}
-          </button>
-        </div>
+        <Button
+          type="button"
+          variant="default"
+          size="sm"
+          onClick={addField}
+          disabled={fields.length >= maxFields}
+        >
+          {t("add")} {keyPlaceholder}-{valuePlaceholder}
+        </Button>
       </div>
     </div>
   );

@@ -1,18 +1,16 @@
 "use client";
 import React from "react";
-import DataTable, {
-  DataTableData,
-} from "@/components/common/Datatable/DataTable";
+import DataTable, { DataTableData } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { SpecialityService } from "@/services/SpecialityService";
 import { Speciality } from "@/models/Speciality";
 import { useTranslations } from "next-intl";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("admin.speciality.table");
   const tableData: DataTableData<Speciality> = {
     createUrl: `/admin/speciality/create`,
-    title: `${t("specialities")}`,
     schema: [
       {
         name: "id",
@@ -48,7 +46,7 @@ const Page = () => {
         params,
       ),
   };
-  return <DataTable {...tableData} />;
+  return <PageCard title={t("specialities")}><DataTable {...tableData} /></PageCard>;
 };
 
 export default Page;

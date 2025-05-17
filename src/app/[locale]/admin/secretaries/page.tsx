@@ -9,6 +9,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import React from "react";
 import { UserService } from "@/services/UserService";
 import { User } from "@/models/User";
+import PageCard from "@/components/common/ui/PageCard";
 
 const Page = () => {
   const t = useTranslations("secretaries");
@@ -60,9 +61,12 @@ const Page = () => {
         perPage,
         params,
       ),
-    title: `${t("secretaries")} :`,
   };
-  return <DataTable {...dataTableData} />;
+  return (
+    <PageCard title={t("secretaries")}>
+      <DataTable {...dataTableData} />
+    </PageCard>
+  );
 };
 
 export default Page;

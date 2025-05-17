@@ -1,18 +1,38 @@
-import React from "react";
+import React, { ReactNode } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/shadcn/card";
 
-interface PageCardProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface PageCardProps {
+  title?: string;
+  description?: string;
+  children?: ReactNode;
+  actions?: ReactNode | (() => ReactNode);
+}
 
 const PageCard: React.FC<PageCardProps> = ({
+  title,
+  description,
   children,
-  className,
-  ...props
+  actions = undefined,
 }) => {
   return (
-    <div className={`relative m-2 ${className}`} {...props}>
-      <div className={`card bg-base-100`}>
-        <div className={`card-body`}>{children}</div>
-      </div>
-    </div>
+    <Card className={"mx-5"}>
+      <CardHeader>
+        {title && <CardTitle className={"text-xl"}>{title}</CardTitle>}
+        {description && <CardDescription>{description}</CardDescription>}
+        {actions && (
+          <div className={"flex justify-end items-center"}>
+            {typeof actions == "function" ? actions() : actions}
+          </div>
+        )}
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+    </Card>
   );
 };
 

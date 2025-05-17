@@ -8,9 +8,11 @@ import Form from "@/components/common/ui/Form";
 import { useTranslations } from "next-intl";
 import { Navigate } from "@/actions/Navigate";
 import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
-import dayjs from "dayjs";
 import { Clinic } from "@/models/Clinic";
+import Radio from "@/components/common/ui/inputs/Radio";
+import { getEnumValues } from "@/helpers/Enums";
+import GenderEnum from "@/enums/GenderEnum";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const ClinicForm = ({
   type = "store",
@@ -59,14 +61,12 @@ const ClinicForm = ({
             <FormInput
               name={"user.password"}
               type={"text"}
-              placeholder={"Password"}
               label={t("password")}
               required={true}
             />
             <FormInput
               name={"user.password_confirmation"}
               type={"text"}
-              placeholder={"Confirm Password"}
               label={t("confirm-password")}
               required={true}
             />
@@ -79,26 +79,16 @@ const ClinicForm = ({
           label={t("phone")}
           required={true}
         />
-        <FormDatepicker
-          name={"user.birth_date"}
-          label={t("birth-date")}
-          required={true}
-          shouldDisableDate={(day) => {
-            return !day.isBefore(dayjs().subtract(20, "year"));
-          }}
-        />
         <FormInput
           name={"appointment_cost"}
           type={"number"}
           unit={"iqd"}
-          step={"any"}
           label={t("cost")}
           required={true}
         />
         <FormInput
           name={"max_appointments"}
           type={"number"}
-          step={"any"}
           label={t("max-appointments")}
           required={true}
         />
@@ -124,31 +114,15 @@ const ClinicForm = ({
           isMultiple={true}
           closeOnSelect={false}
         />
-        <div className={`flex items-center gap-5`}>
-          <label className={`rounded-md bg-pom p-2 text-white`}>
-            {t("gender")}:
-          </label>
-          <FormInput
-            name={"user.gender"}
-            label={t("male")}
-            type="radio"
-            className="radio-info radio"
-            value={"male"}
-            defaultChecked={
-              defaultValues?.user?.gender
-                ? defaultValues?.user?.gender == "male"
-                : true
-            }
-          />
-          <FormInput
-            name={"user.gender"}
-            label={t("female")}
-            type="radio"
-            className="radio-info radio"
-            value={"female"}
-            defaultChecked={defaultValues?.user?.gender == "female"}
-          />
-        </div>
+        <Radio
+          label={t("gender")}
+          name={"user.gender"}
+          options={getEnumValues(GenderEnum).map((item) => ({
+            label: <TranslatableEnum value={item} />,
+            value: item,
+          }))}
+          defaultChecked={GenderEnum.MALE}
+        />
       </Grid>
     </Form>
   );

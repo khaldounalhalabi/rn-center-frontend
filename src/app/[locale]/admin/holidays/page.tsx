@@ -9,12 +9,12 @@ import { HolidayService } from "@/services/HolidayService";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Holiday } from "@/models/Holiday";
 import DatePickerFilter from "@/components/common/ui/date-time-pickers/Datepicker";
+import PageCard from "@/components/common/ui/PageCard";
 
 const HolidaysIndexPage = () => {
   const t = useTranslations("holidays");
   const tableData: DataTableData<Holiday> = {
     createUrl: `/admin/holidays/create`,
-    title: `${t("holidays")}`,
     schema: [
       {
         name: "id",
@@ -60,6 +60,7 @@ const HolidaysIndexPage = () => {
       return (
         <div className={"w-full"}>
           <DatePickerFilter
+            label={t("date")}
             onChange={(date) => {
               setParams({ ...params, date: date?.format("YYYY-MM-DD") });
             }}
@@ -69,7 +70,11 @@ const HolidaysIndexPage = () => {
       );
     },
   };
-  return <DataTable {...tableData} />;
+  return (
+    <PageCard title={`${t("holidays")}`}>
+      <DataTable {...tableData} />
+    </PageCard>
+  );
 };
 
 export default HolidaysIndexPage;

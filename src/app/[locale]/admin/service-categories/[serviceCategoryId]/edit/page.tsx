@@ -5,6 +5,8 @@ import ServiceCategoryForm from "@/components/admin/service-category/ServiceCate
 import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enums/RoleEnum";
 
+// todo: delete this page
+
 const page = async ({
   params: { serviceCategoryId },
 }: {

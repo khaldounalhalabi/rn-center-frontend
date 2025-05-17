@@ -6,8 +6,7 @@ import UserForm from "@/components/common/user/UserForm";
 const Page = async () => {
   const t = await getTranslations("details");
   return (
-    <PageCard>
-      <h2 className="card-title">{t("editUserDetails")}</h2>
+    <PageCard title={t("editUserDetails")}>
       <UserForm type={"store"} />
     </PageCard>
   );

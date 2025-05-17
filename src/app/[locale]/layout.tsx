@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/navigation";
 import NextTopLoader from "nextjs-toploader";
+import DirectionProvider from "@/components/providers/DirectionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const kodChasan = Kodchasan({
@@ -66,7 +67,9 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>
             <NextTopLoader showSpinner={false} />
-            {children}
+            <DirectionProvider direction={locale == "ar" ? "rtl" : "ltr"}>
+              {children}
+            </DirectionProvider>
           </CookiesProvider>
         </NextIntlClientProvider>
       </body>

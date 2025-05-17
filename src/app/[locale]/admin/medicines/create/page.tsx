@@ -5,8 +5,7 @@ import { getTranslations } from "next-intl/server";
 const Page = async () => {
   const t = await getTranslations("common.medicine.create");
   return (
-    <PageCard>
-      <h1 className={"card-title"}>{t("addMedicines")}</h1>
+    <PageCard title={t("addMedicines")}>
       <MedicineForm type={"store"} />
     </PageCard>
   );

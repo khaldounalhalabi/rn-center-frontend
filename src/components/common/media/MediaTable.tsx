@@ -3,10 +3,22 @@ import React, { useState } from "react";
 import { Media } from "@/models/Media";
 import { useTranslations } from "next-intl";
 import { MediaService } from "@/services/MediaService";
-import Swal from "sweetalert2";
 import Trash from "@/components/icons/Trash";
 import DownloadIcon from "@/components/icons/DownloadIcon";
 import useDownload from "@/hooks/DownloadFile";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
+import { Loader2 } from "lucide-react";
+import Alert from "@/components/common/ui/Alert";
+import { toast } from "sonner";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 
 interface MediaTableProps {
@@ -17,7 +29,7 @@ interface MediaTableProps {
 const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   const t = useTranslations("common.patient.attachments");
   const [attachments, setAttachments] = useState<Media[]>(media);
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<number | undefined>(undefined);
   const { download, isLoading: isDownloading } = useDownload();
 
   const getFileName = (url: string): string => {
@@ -65,116 +77,91 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   };
 
   const handleDelete = async (mediaId: number) => {
-    try {
-      setIsDeleting(true);
-      const result = await Swal.fire({
-        title: t("delete_confirmation"),
-        text: t("delete_warning"),
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: t("confirm_delete"),
-        cancelButtonText: t("cancel"),
+    setIsDeleting(mediaId);
+    const response = await MediaService.make().delete(mediaId);
+    setIsDeleting(undefined);
+    if (response.ok()) {
+      setAttachments(attachments.filter((item) => item.id !== mediaId));
+      toast(t("deleted"), {
+        description: t("delete_success"),
       });
-
-      if (result.isConfirmed) {
-        const response = await MediaService.make().delete(mediaId);
-        if (response.ok()) {
-          setAttachments(attachments.filter((item) => item.id !== mediaId));
-          Swal.fire({
-            title: t("deleted"),
-            text: t("delete_success"),
-            icon: "success",
-          });
-          if (onDelete) {
-            onDelete(mediaId);
-          }
-        } else {
-          Swal.fire({
-            title: t("error"),
-            text: t("delete_failed"),
-            icon: "error",
-          });
-        }
+      if (onDelete) {
+        onDelete(mediaId);
       }
-    } catch (error) {
-      console.error("Error deleting attachment:", error);
-      Swal.fire({
-        title: t("error"),
-        text: t("delete_failed"),
-        icon: "error",
+    } else {
+      toast(t("error"), {
+        description: t("delete_failed"),
       });
-    } finally {
-      setIsDeleting(false);
     }
   };
 
   if (!attachments || attachments.length === 0) {
-    return <div className="py-4 text-center">{t("no_attachments")}</div>;
+    return (
+      <div className="py-4 text-center">
+        <Badge>{t("no_attachments")}</Badge>
+      </div>
+    );
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-zebra w-full">
-        <thead>
-          <tr>
-            <th>{t("file_name")}</th>
-            <th>{t("file_type")}</th>
-            <th>{t("size")}</th>
-            <th>{t("actions")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attachments.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <a
-                  href={item.file_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline"
-                >
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className={"text-start"}>{t("file_name")}</TableHead>
+          <TableHead className={"text-start"}>{t("file_type")}</TableHead>
+          <TableHead className={"text-start"}>{t("size")}</TableHead>
+          <TableHead className={"text-start"}>{t("actions")}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {attachments.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell className={"text-start"}>
+              <a href={item.file_url} target="_blank" rel="noopener noreferrer">
+                <Button variant={"link"} type={"button"}>
                   {getFileName(item.file_url)}
-                </a>
-              </td>
-              <td>
-                <span className="badge badge-ghost uppercase">
-                  {getFileExtension(item.file_url)}
-                </span>
-              </td>
-              <td>{Math.round(item.size / 1024)} KB</td>
-              <td className={"flex items-center justify-center gap-1"}>
-                <button
-                  className="btn btn-square btn-sm text-error"
-                  onClick={() => handleDelete(item.id)}
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? (
-                    <span className="loading loading-spinner loading-xs"></span>
-                  ) : (
-                    <Trash />
-                  )}
-                </button>
-                <button
-                  className={"btn btn-square btn-info btn-sm text-white"}
-                  onClick={() => {
-                    download(item.file_url);
-                  }}
-                  disabled={isDownloading}
-                >
-                  {isDownloading ? (
-                    <LoadingSpin />
-                  ) : (
-                    <DownloadIcon className={"h-5 w-5"} />
-                  )}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                </Button>
+              </a>
+            </TableCell>
+            <TableCell className={"text-start"}>
+              <span className="badge badge-ghost uppercase">
+                {getFileExtension(item.file_url)}
+              </span>
+            </TableCell>
+            <TableCell className={"text-start"}>
+              {Math.round(item.size / 1024)} KB
+            </TableCell>
+            <TableCell className={"flex items-center justify-start gap-1"}>
+              <Alert
+                trigger={
+                  <Button
+                    disabled={isDeleting == item.id}
+                    variant={"destructive"}
+                    size={"icon"}
+                  >
+                    {isDeleting == item.id ? <LoadingSpin /> : <Trash />}
+                  </Button>
+                }
+                title={t("delete_confirmation")}
+                description={t("delete_warning")}
+                onConfirm={() => {
+                  handleDelete(item.id);
+                }}
+              />
+              <Button
+                onClick={() => {
+                  download(item.file_url);
+                }}
+                disabled={isDownloading}
+                size={"icon"}
+              >
+                {isDownloading ? <LoadingSpin /> : <DownloadIcon />}
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

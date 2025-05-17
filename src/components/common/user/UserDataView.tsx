@@ -8,6 +8,7 @@ import Grid from "@/components/common/ui/Grid";
 import React from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { Button } from "@/components/ui/shadcn/button";
+import dayjs from "dayjs";
 
 const UserDataView = async ({
   editUrl,
@@ -44,7 +45,11 @@ const UserDataView = async ({
         />
         <LabelValue
           label={t("phone_verified_at")}
-          value={user?.phone_verified_at}
+          value={
+            user?.phone_verified_at
+              ? dayjs(user?.phone_verified_at)?.format("YYYY-MM-DD HH:mm")
+              : undefined
+          }
           color={"title"}
         />
         <LabelValue

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Media } from "@/models/Media";
 import { useTranslations } from "next-intl";
 import { MediaService } from "@/services/MediaService";
-import Swal from "sweetalert2";
 import Trash from "@/components/icons/Trash";
 import DownloadIcon from "@/components/icons/DownloadIcon";
 import useDownload from "@/hooks/DownloadFile";
@@ -18,6 +17,9 @@ import {
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { Loader2 } from "lucide-react";
+import Alert from "@/components/common/ui/Alert";
+import { toast } from "sonner";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 interface MediaTableProps {
   media: Media[];
@@ -27,7 +29,7 @@ interface MediaTableProps {
 const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   const t = useTranslations("common.patient.attachments");
   const [attachments, setAttachments] = useState<Media[]>(media);
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<number | undefined>(undefined);
   const { download, isLoading: isDownloading } = useDownload();
 
   const getFileName = (url: string): string => {
@@ -75,48 +77,21 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   };
 
   const handleDelete = async (mediaId: number) => {
-    try {
-      setIsDeleting(true);
-      const result = await Swal.fire({
-        title: t("delete_confirmation"),
-        text: t("delete_warning"),
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: t("confirm_delete"),
-        cancelButtonText: t("cancel"),
+    setIsDeleting(mediaId);
+    const response = await MediaService.make().delete(mediaId);
+    setIsDeleting(undefined);
+    if (response.ok()) {
+      setAttachments(attachments.filter((item) => item.id !== mediaId));
+      toast(t("deleted"), {
+        description: t("delete_success"),
       });
-
-      if (result.isConfirmed) {
-        const response = await MediaService.make().delete(mediaId);
-        if (response.ok()) {
-          setAttachments(attachments.filter((item) => item.id !== mediaId));
-          Swal.fire({
-            title: t("deleted"),
-            text: t("delete_success"),
-            icon: "success",
-          });
-          if (onDelete) {
-            onDelete(mediaId);
-          }
-        } else {
-          Swal.fire({
-            title: t("error"),
-            text: t("delete_failed"),
-            icon: "error",
-          });
-        }
+      if (onDelete) {
+        onDelete(mediaId);
       }
-    } catch (error) {
-      console.error("Error deleting attachment:", error);
-      Swal.fire({
-        title: t("error"),
-        text: t("delete_failed"),
-        icon: "error",
+    } else {
+      toast(t("error"), {
+        description: t("delete_failed"),
       });
-    } finally {
-      setIsDeleting(false);
     }
   };
 
@@ -157,14 +132,22 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
               {Math.round(item.size / 1024)} KB
             </TableCell>
             <TableCell className={"flex items-center justify-start gap-1"}>
-              <Button
-                onClick={() => handleDelete(item.id)}
-                disabled={isDeleting}
-                variant={"destructive"}
-                size={"icon"}
-              >
-                {isDeleting ? <Loader2 /> : <Trash />}
-              </Button>
+              <Alert
+                trigger={
+                  <Button
+                    disabled={isDeleting == item.id}
+                    variant={"destructive"}
+                    size={"icon"}
+                  >
+                    {isDeleting == item.id ? <LoadingSpin /> : <Trash />}
+                  </Button>
+                }
+                title={t("delete_confirmation")}
+                description={t("delete_warning")}
+                onConfirm={() => {
+                  handleDelete(item.id);
+                }}
+              />
               <Button
                 onClick={() => {
                   download(item.file_url);
@@ -172,7 +155,7 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
                 disabled={isDownloading}
                 size={"icon"}
               >
-                {isDownloading ? <Loader2 /> : <DownloadIcon />}
+                {isDownloading ? <LoadingSpin /> : <DownloadIcon />}
               </Button>
             </TableCell>
           </TableRow>

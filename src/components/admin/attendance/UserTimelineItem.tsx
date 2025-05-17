@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { User } from "@/models/User";
 import AttendanceLogStatusEnum from "@/enums/AttendanceLogStatusEnum";
 import dayjs from "dayjs";
@@ -7,7 +7,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import Pencil from "@/components/icons/Pencil";
 import AttendanceForm from "@/components/admin/attendance/AttendanceForm";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import StatusLegend from "@/components/admin/attendance/StatusLegend";
 import {
   Card,
@@ -37,7 +37,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
   refetch,
 }) => {
   const t = useTranslations("attendance");
-  const [openEditModal, setOpenEditModal] = useState(false);
+  const locale = useLocale();
 
   const getStatusColor = (status: AttendanceLogStatusEnum) => {
     switch (status) {
@@ -59,7 +59,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 m-5">
       <CardHeader className="mb-4 flex flex-row w-full items-center justify-between">
         <CardTitle className="flex items-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-300 ltr:mr-4 rtl:ml-4">
@@ -85,17 +85,17 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
         </CardTitle>
         <Sheet>
           <SheetTrigger>
-            <Button
-              size={"icon"}
-              onClick={() => setOpenEditModal((prevState) => !prevState)}
-            >
+            <Button size={"icon"}>
               <Pencil />
             </Button>
           </SheetTrigger>
-          <SheetContent className={"w-[60vh] md:w-[80vh]"} >
+          <SheetContent
+            side={locale == "ar" ? "left" : "right"}
+            className={"w-[60vh] md:w-[80vh]"}
+          >
             <SheetHeader>
               <SheetTitle>
-                {user?.full_name} Attendance in {date}
+                {user?.full_name} : {date}
               </SheetTitle>
             </SheetHeader>
             <div>
@@ -103,11 +103,8 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                 date={date ?? ""}
                 userId={user?.id ?? 0}
                 attendances={user?.attendance_by_date ?? []}
-                setClose={() => {
-                  setOpenEditModal((prevState) => !prevState);
-                  if (refetch) {
-                    refetch();
-                  }
+                onSuccess={() => {
+                  if (refetch) refetch();
                 }}
               />
             </div>
@@ -170,7 +167,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             </div>
           </div>
         ) : (
-          <p className="italic text-gray-500">{t("no_records")}</p>
+          <p className="italic text-primary">{t("no_records")}</p>
         )}
       </CardContent>
     </Card>

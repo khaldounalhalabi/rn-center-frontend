@@ -203,7 +203,8 @@
       "table": {
         "category": "فئات الخدمات",
         "actions": "خيارات",
-        "category-name": "اسم الفئة"
+        "category-name": "اسم الفئة",
+        "delete_service_category_question": "حذف هذه الفئة سيؤدي لحذف كافة الخدمات التي تندرج تحت نفس الفئة هل تريد المتابعة ؟"
       },
       "show": {
         "categoryDetails": "تفاصيل الفئة",

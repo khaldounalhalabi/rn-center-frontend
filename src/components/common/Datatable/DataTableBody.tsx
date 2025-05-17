@@ -48,7 +48,7 @@ const DataTableBody = ({
                   } else if (schema.render && schema.name) {
                     return (
                       <TableCell
-                        className="text-center"
+                        className="text-start"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema.render(
@@ -68,7 +68,7 @@ const DataTableBody = ({
                   } else if (schema.render) {
                     return (
                       <TableCell
-                        className="text-center"
+                        className="text-start"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema.render(undefined, item, setHidden, revalidate)}

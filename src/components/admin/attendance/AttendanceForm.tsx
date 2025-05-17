@@ -15,12 +15,12 @@ const AttendanceForm = ({
   attendances = [],
   date,
   userId,
-  setClose,
+  onSuccess = undefined,
 }: {
   attendances?: AttendanceLog[];
   date: string;
   userId: number;
-  setClose: () => void;
+  onSuccess?: () => void;
 }) => {
   const t = useTranslations("attendance");
   const handleSubmit = async (data: any) => {
@@ -88,15 +88,15 @@ const AttendanceForm = ({
     setFields(newFields);
   };
 
-  const onSuccess = async () => {
-    setClose();
-  };
-
   return (
     <Form
       handleSubmit={handleSubmit}
-      onSuccess={onSuccess}
       defaultValues={{ attendance_at: date, attendance_shifts: fields }}
+      onSuccess={() => {
+        if (onSuccess) {
+          onSuccess();
+        }
+      }}
     >
       {fields?.map((inputs, index) => (
         <Grid
@@ -104,23 +104,21 @@ const AttendanceForm = ({
           cols={3}
           gap={5}
           md={3}
-          className={"justify-between items-end"}
+          className={"justify-between items-start"}
         >
           <FormInput
             name={`attendance_shifts.${index}.attend_from`}
             label={t("from")}
             defaultValue={inputs.attend_from}
             type={"time"}
-            withError={false}
           />
           <FormInput
             name={`attendance_shifts.${index}.attend_to`}
             label={t("to")}
             defaultValue={inputs.attend_to}
             type={"time"}
-            withError={false}
           />
-          <Button variant={"destructive"} type={"button"} size={"icon"}>
+          <Button className={"self-end"} variant={"destructive"} type={"button"} size={"icon"}>
             <Trash
               onClick={() => {
                 removeField(index);

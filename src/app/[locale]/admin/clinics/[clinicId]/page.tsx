@@ -10,11 +10,11 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { CardContent } from "@mui/material";
 
 const Page = async ({
   params: { clinicId },
@@ -27,7 +27,7 @@ const Page = async ({
   const clinic = data.data;
 
   const t = await getTranslations("admin.clinic.show");
-  const schedulesT = await getTranslations("admin.schedules.table")
+  const schedulesT = await getTranslations("admin.schedules.table");
   return (
     <PageCard
       title={t("name")}
@@ -37,7 +37,9 @@ const Page = async ({
             <Button>{t("editBtn")}</Button>
           </Link>
           <Link href={`/admin/clinics/schedules/${clinicId}`}>
-            <Button variant={"secondary"}>{schedulesT("clinicSchedules")}</Button>
+            <Button variant={"secondary"}>
+              {schedulesT("clinicSchedules")}
+            </Button>
           </Link>
         </div>
       }

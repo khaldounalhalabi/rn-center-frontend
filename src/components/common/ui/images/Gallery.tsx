@@ -2,14 +2,13 @@
 import ImagePreview from "./ImagePreview";
 import { getMedia, Media } from "@/models/Media";
 import { MediaService } from "@/services/MediaService";
-import { swal } from "@/helpers/UIHelpers";
 import { useState, useTransition } from "react";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { useRouter } from "@/navigation";
 import { useTranslations } from "next-intl";
 import Trash from "@/components/icons/Trash";
 import { Badge } from "@/components/ui/shadcn/badge";
-import { Button } from "@/components/ui/shadcn/button";
+import Alert from "@/components/common/ui/Alert";
 
 const Gallery = ({ media }: { media: Media[] | undefined }) => {
   const t = useTranslations("components");
@@ -19,29 +18,13 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
   let router = useRouter();
 
   const handleDeleteImage = (index: number) => {
-    swal
-      .fire({
-        title: t("are_you_sure"),
-        text: t("delete_question"),
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: t("yes"),
-        denyButtonText: t("no"),
-        cancelButtonText: t("cancel"),
-      })
-      .then(async (result) => {
-        if (result.isConfirmed) {
-          return await MediaService.make<MediaService>()
-            .delete(index)
-            .then((res) => {
-              setPending(true);
-              startTransition(router.refresh);
-              setPending(false);
-              return res;
-            });
-        }
+    setPending(true);
+    MediaService.make<MediaService>()
+      .delete(index)
+      .then((res) => {
+        startTransition(router.refresh);
+        setPending(false);
+        return res;
       });
   };
 
@@ -54,16 +37,22 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
       ) : (
         media?.map((img, index) => (
           <div key={index} className="relative h-32">
-            <div
-              onClick={() => {
-                return handleDeleteImage(img?.id ?? 0);
-              }}
-              className={
-                "absolute -start-1 -top-3 z-30 p-1 bg-destructive cursor-pointer rounded-md"
+            <Alert
+              trigger={
+                <div
+                  className={
+                    "absolute -start-1 -top-3 z-30 p-1 bg-destructive cursor-pointer rounded-md"
+                  }
+                >
+                  {isPending ? <LoadingSpin /> : <Trash />}
+                </div>
               }
-            >
-              <Trash  />
-            </div>
+              title={t("are_you_sure")}
+              description={t("delete_question")}
+              onConfirm={() => {
+                handleDeleteImage(img?.id ?? 0);
+              }}
+            />
             <ImagePreview
               src={getMedia(img)}
               className={

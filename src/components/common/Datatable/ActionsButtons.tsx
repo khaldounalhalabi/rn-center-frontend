@@ -1,8 +1,7 @@
 import { Link } from "@/navigation";
 import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
-import React from "react";
-import { swal } from "@/helpers/UIHelpers";
+import React, { useState } from "react";
 import { BaseService } from "@/services/BaseService";
 import Trash from "@/components/icons/Trash";
 import { useTranslations } from "next-intl";
@@ -10,6 +9,8 @@ import { ApiResponse } from "@/http/Response";
 import { Button } from "@/components/ui/shadcn/button";
 import Tooltip from "@/components/common/ui/Tooltip";
 import { toast } from "sonner";
+import Alert from "@/components/common/ui/Alert";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -46,6 +47,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const dUrl = deleteUrl ?? `${baseUrl}/${dataId ?? ""}`; // delete url
   const sUrl = showUrl ?? `${baseUrl}/${dataId ?? ""}`; // show url
   const eUrl = editUrl ?? `${baseUrl}/${dataId ?? ""}/edit` + ""; // edit url
+  const [isDeleting, setDeleting] = useState(false);
 
   return (
     <div className={`flex items-center gap-1`}>
@@ -68,53 +70,43 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
         </Tooltip>
       )}
       {buttons.includes("delete") && (
-        <Tooltip title={t("delete_record")}>
-          <Button
-            size={"icon"}
-            variant={"destructive"}
-            onClick={() => {
-              swal
-                .fire({
-                  title: deleteMessage ?? t("delete_question"),
-                  showDenyButton: true,
-                  showCancelButton: true,
-                  confirmButtonText: t("yes"),
-                  denyButtonText: t("no"),
-                  cancelButtonText: t("cancel"),
-                  confirmButtonColor: "#007BFF",
-                })
-                .then((result) => {
-                  if (result.isConfirmed) {
-                    if (dataId) {
-                      BaseService<any, any>()
-                        .make()
-                        .setBaseUrl(dUrl)
-                        .delete()
-                        .then((response: ApiResponse<any>) => {
-                          // toast.success(t("deleted"));
-                          toast(t("deleted"), {
-                            description: response.message as string,
-                          });
+        <Alert
+          trigger={
+            <Button size={"icon"} variant={"destructive"}>
+              {isDeleting ? <LoadingSpin /> : <Trash />}
+            </Button>
+          }
+          onConfirm={() => {
+            if (dataId) {
+              setDeleting(true);
+              BaseService<any, any>()
+                .make()
+                .setBaseUrl(dUrl)
+                .delete()
+                .then((response: ApiResponse<any>) => {
+                  toast(t("deleted"), {
+                    description: response.message as string,
+                  });
 
-                          if (setHidden) {
-                            setHidden((prevState) => [dataId, ...prevState]);
-                          }
-
-                          if (deleteHandler) {
-                            deleteHandler(response);
-                          }
-                        })
-                        .catch(() => swal.fire(t("errored"), "", "error"));
-                    }
-                  } else if (result.isDenied) {
-                    swal.fire(t("didnt_delete"), "", "info");
+                  if (setHidden) {
+                    setHidden((prevState) => [dataId, ...prevState]);
                   }
-                });
-            }}
-          >
-            <Trash />
-          </Button>
-        </Tooltip>
+
+                  if (deleteHandler) {
+                    deleteHandler(response);
+                  }
+                  setDeleting(false);
+                })
+                .catch(() => toast(t("errored")));
+            } else {
+              toast(t("didnt_delete"));
+            }
+          }}
+          onDeny={() => {
+            toast(t("didnt_delete"));
+          }}
+          title={deleteMessage ?? t("delete_question")}
+        />
       )}
       {children}
     </div>

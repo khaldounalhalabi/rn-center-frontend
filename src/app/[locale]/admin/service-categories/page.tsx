@@ -6,7 +6,6 @@ import DataTable, {
 import { ServiceCategory } from "@/models/ServiceCategory";
 import { ServiceCategoryService } from "@/services/ServiceCategoryService";
 import { useTranslations } from "next-intl";
-import DeleteCategoryButton from "@/components/common/service-category/DeleteCategoryButton";
 import { RoleEnum } from "@/enums/RoleEnum";
 import PageCard from "@/components/common/ui/PageCard";
 import { Button } from "@/components/ui/shadcn/button";
@@ -14,6 +13,7 @@ import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
 import ServiceCategoryForm from "@/components/admin/service-category/ServiceCategoryForm";
 import Pencil from "@/components/icons/Pencil";
 import DocumentPlus from "@/components/icons/DocumentPlus";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 
 const ServiceCategoriesIndexPage = () => {
   const t = useTranslations("admin.category.table");
@@ -33,10 +33,16 @@ const ServiceCategoriesIndexPage = () => {
       {
         label: `${t("actions")}`,
         render: (_undefined, data, setHidden, revalidate) => (
-          <div className={"flex items-center gap-2"}>
+          <ActionsButtons
+            deleteMessage={t("delete_service_category_question")}
+            buttons={["delete"]}
+            baseUrl={"/admin/service-categories"}
+            deleteUrl={`/admin/service-categories/${data?.id}`}
+            id={data?.id}
+            setHidden={setHidden}
+          >
             <UpdateDialog serviceCategory={data} revalidate={revalidate} />
-            <DeleteCategoryButton id={data?.id} setHidden={setHidden} />
-          </div>
+          </ActionsButtons>
         ),
       },
     ],

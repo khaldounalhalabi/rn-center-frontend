@@ -203,7 +203,8 @@
       "table": {
         "category": "Service Categories",
         "actions": "Actions",
-        "category-name": "Category Name"
+        "category-name": "Category Name",
+        "delete_service_category_question": "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ?"
       },
       "show": {
         "categoryDetails": "Category Details",

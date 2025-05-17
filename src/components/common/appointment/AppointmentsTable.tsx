@@ -147,6 +147,7 @@ const AppointmentsTable = ({
               setParams({ ...params, status: event });
             }}
             label={t("status")}
+            translated={true}
           />
 
           <Select
@@ -156,6 +157,7 @@ const AppointmentsTable = ({
             onChange={(event: string) => {
               setParams({ ...params, type: event });
             }}
+            translated={true}
           />
           <Datepicker
             label={t("date")}

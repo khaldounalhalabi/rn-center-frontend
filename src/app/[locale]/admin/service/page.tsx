@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import DataTable, {
-  DataTableData,
-} from "@/components/common/Datatable/DataTable";
+import DataTable, { DataTableData } from "@/components/common/Datatable/DataTable";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import { Service } from "@/models/Service";
 import { ServiceService } from "@/services/ServiceService";
@@ -10,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Link } from "@/navigation";
 import PageCard from "@/components/common/ui/PageCard";
+import { Button } from "@/components/ui/shadcn/button";
 
 const Page = () => {
   const t = useTranslations("admin.service.table");
@@ -33,7 +32,7 @@ const Page = () => {
         sortable: true,
         render: (name, service) => (
           <Link className={"btn"} href={`/admin/clinics/${service?.clinic_id}`}>
-            {service?.clinic?.user?.full_name}
+            <Button variant={"link"}>{service?.clinic?.user?.full_name}</Button>
           </Link>
         ),
       },
@@ -42,7 +41,7 @@ const Page = () => {
         label: `${t("approximateDuration")}`,
         sortable: true,
         render: (data) => (
-          <p className="flex justify-evenly text-center">
+          <p className="flex gap-2">
             {data} <span className={"badge badge-success"}>{t("min")}</span>
           </p>
         ),

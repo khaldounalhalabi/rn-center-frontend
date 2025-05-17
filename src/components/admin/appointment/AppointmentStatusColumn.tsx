@@ -29,7 +29,7 @@ const AppointmentStatusColumn = ({
   const handleSelect = (status: AppointmentStatusEnum) => {
     if (status == AppointmentStatusEnum.CANCELLED) {
       setOpen(true);
-      setSelectedStatus(prevState => prevState)
+      setSelectedStatus(status)
     } else {
       handleChange(status);
     }

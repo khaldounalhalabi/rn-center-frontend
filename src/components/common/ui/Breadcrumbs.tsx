@@ -15,7 +15,7 @@ const Breadcrumbs = () => {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("links");
-  const isNumericString = (str) => /^[0-9]+$/.test(str);
+  const isNumericString = (str?: string) => /^[0-9]+$/.test(str ?? "");
 
   // Split the pathname into parts and filter out empty values
   const pathParts = pathname.split("/").filter((part) => part);
@@ -29,21 +29,17 @@ const Breadcrumbs = () => {
     const formattedPart = part.charAt(0) + part.slice(1);
 
     return (
-      <BreadcrumbItem
-        className={"rtl:flex rtl:items-center"}
-        href={href}
-        key={index}
-      >
+      <BreadcrumbItem className={"rtl:flex rtl:items-center"} key={index}>
         {index == pathParts.length - 1 ? (
           <BreadcrumbPage>
-            {isNumericString(formattedPart) ? formattedPart : t(formattedPart)}
+            {isNumericString(formattedPart) ? formattedPart : t(formattedPart as any)}
           </BreadcrumbPage>
         ) : (
           <BreadcrumbLink href={href}>
             <Link href={href}>
               {isNumericString(formattedPart)
                 ? formattedPart
-                : t(formattedPart)}
+                : t(formattedPart as any)}
             </Link>
           </BreadcrumbLink>
         )}

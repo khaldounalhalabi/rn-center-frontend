@@ -248,7 +248,6 @@ const ClinicScheduleForm = ({
         <Grid md={2}>
           {method == "store" && (
             <ApiSelect
-              placeHolder={"Select Clinic Name ..."}
               required={true}
               name={"clinic_id"}
               api={(page, search) =>

@@ -82,8 +82,8 @@ const Radio: React.FC<RadioProps> = ({
               defaultValue={df?.filter(i => i.checked)?.[0]?.value ?? field.value}
               className={"flex items-center gap-2"}
             >
-              {df.map((option) => (
-                <FormItem className="flex items-center gap-2 space-y-0">
+              {df.map((option , index) => (
+                <FormItem className="flex items-center gap-2 space-y-0" key={index}>
                   <FormControl>
                     <FormControl>
                       <RadioGroupItem value={option.value} />

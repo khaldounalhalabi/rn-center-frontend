@@ -39,13 +39,11 @@ const SetNewPassword = ({ role }: { role: RoleEnum }) => {
                     name="password"
                     type={"text"}
                     label={t("password")}
-                    placeholder="Enter New Password"
                   />
                   <FormInput
                     name="password_confirmation"
                     type="text"
                     label={t("confirm-password")}
-                    placeholder="Reset New Password"
                   />
                 </div>
               </Form>

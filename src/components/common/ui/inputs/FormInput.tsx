@@ -55,6 +55,8 @@ const FormInput: React.FC<InputProps> = ({
   } = useFormContext();
 
   const translateUnit = useTranslations("units");
+  const t = useTranslations("components")
+  const eg = t("eg");
   defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
 
   useEffect(() => {
@@ -94,7 +96,7 @@ const FormInput: React.FC<InputProps> = ({
               defaultValue={defaultValue}
               className={hidden ? "hidden" : ""}
               disabled={hidden}
-              placeholder={getPlaceholder(type, label ?? "")}
+              placeholder={getPlaceholder(type, label ?? "" , eg)}
             />
           </FormControl>
           {withError && <FormMessage />}
@@ -107,9 +109,8 @@ const FormInput: React.FC<InputProps> = ({
 export default FormInput;
 
 
-const getPlaceholder = (type: string, label: string) => {
-  const t = useTranslations("components")
-  const eg = t("eg");
+const getPlaceholder = (type: string, label: string , eg:string) => {
+
   if (type == "text") {
     return `${label} ...`;
   } else if (type == "tel") {

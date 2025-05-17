@@ -58,8 +58,8 @@ const FormSelect: React.FC<SelectProps> = ({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {items?.map((option) => (
-                <SelectItem value={`${option}`}>
+              {items?.map((option , index) => (
+                <SelectItem value={`${option}`} key={index}>
                   {translatable ? (
                     <TranslatableEnum value={`${option}`} />
                   ) : (

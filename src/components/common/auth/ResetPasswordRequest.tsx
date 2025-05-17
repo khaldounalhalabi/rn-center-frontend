@@ -37,7 +37,6 @@ const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
                   name="phone"
                   type="tel"
                   label={t("phone")}
-                  placeholder="0912345678"
                 />
               </Form>
             </CardContent>

@@ -22,8 +22,13 @@ export class ScheduleService extends BaseService<
     return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
   }
 
-  public async getDoctorSchedules(): Promise<ApiResponse<SchedulesCollection>> {
-    const res = await GET(`${this.role}/schedules`, undefined, this.headers);
-    return (await this.errorHandler(res)) as ApiResponse<SchedulesCollection>;
-  }
+  public getUserSchedules = async (userId: number) => {
+    const res = await GET<SchedulesCollection>(
+      `${this.role}/users/${userId}/schedules`,
+      undefined,
+      this.headers,
+    );
+
+    return await this.errorHandler(res);
+  };
 }

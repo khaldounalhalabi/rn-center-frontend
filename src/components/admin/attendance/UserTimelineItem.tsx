@@ -146,17 +146,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                       className={`absolute h-4 w-4 rounded-full ${getStatusColor(log.status)} z-10`}
                       style={{ left: `${position - 0.4}%`, bottom: "5%" }}
                       title={`${log.type}: ${formatTime(log.attend_at)} - ${log.status}`}
-                    >
-                      <div className="absolute -top-20 text-center text-xs ltr:-start-5 rtl:-start-2 border p-0.5 rounded-md">
-                        <span className="font-bold">
-                          {formatTime(log.attend_at)}
-                        </span>
-                        <br />
-                        <span className="text-xs capitalize">
-                          <TranslatableEnum value={`${log.type}_attendance`} />
-                        </span>
-                      </div>
-                    </div>
+                    ></div>
                   );
                 })}
               </div>

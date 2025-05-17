@@ -1664,7 +1664,8 @@
     "phone_verified_at": "تم تأكيد الهاتف في",
     "actions" : "الخيارات",
     "secretaries": "السكرتاريا",
-    "edit_title": "تعديل على بيانات موظف السكرتاريا"
+    "edit_title": "تعديل على بيانات موظف السكرتاريا",
+    "schedule" : "أوقات الدوام"
   },
   "attendance": {
     "attendance_timeline": "جدول الدوام",
@@ -1673,7 +1674,8 @@
     "attendance_date": "التاريخ",
     "from" : "من",
     "to" : "إلى",
-    "add_slot" : "إضافة فترة جديدة"
+    "add_slot" : "إضافة فترة جديدة",
+    "search": "بحث"
   },
   "links": {
     "appointment": "الحجوزات",
@@ -1693,6 +1695,6 @@
     "transaction": "المعاملات المالية",
     "user-details": "تفاصيل المستخدم",
     "admin": "لوحة التحكم",
-    "schedules": "أوقات دوام العيادة"
+    "schedules": "أوقات الدوام"
   }
 }

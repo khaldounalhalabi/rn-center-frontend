@@ -1654,7 +1654,8 @@
     "phone_verified_at": "Phone verified at",
     "actions": "Actions",
     "secretaries": "Secretaries",
-    "edit_title": "Edit secretary"
+    "edit_title": "Edit secretary",
+    "schedule" : "Secretary schedule"
   },
   "attendance": {
     "attendance_timeline": "Attendance Timeline",
@@ -1663,7 +1664,8 @@
     "attendance_date": "Attendance date",
     "from" : "From",
     "to" : "To",
-    "add_slot" : "Add new slot"
+    "add_slot" : "Add new slot",
+    "search": "Search"
   },
   "links": {
     "appointment": "Appointments",
@@ -1683,6 +1685,6 @@
     "transaction": "Transactions",
     "user-details": "User details",
     "admin": "Dashboard",
-    "schedules": "Clinic schedule"
+    "schedules": "schedule"
   }
 }

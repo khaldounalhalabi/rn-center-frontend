@@ -14,20 +14,25 @@ const UserDataView = async ({
   editUrl,
   user,
   children,
+  actions = undefined,
 }: {
   editUrl?: string;
   user?: User;
   children?: React.ReactNode;
+  actions?: React.ReactNode;
 }) => {
   const t = await getTranslations("details");
   return (
     <PageCard
       actions={
-        editUrl && (
-          <Link href={editUrl}>
-            <Button type={"button"}>{t("editBtn")}</Button>
-          </Link>
-        )
+        <div className={"flex items-center gap-2"}>
+          {editUrl && (
+            <Link href={editUrl}>
+              <Button type={"button"}>{t("editBtn")}</Button>
+            </Link>
+          )}
+          {actions}
+        </div>
       }
       title={`${user?.full_name}`}
       description={user?.phone}

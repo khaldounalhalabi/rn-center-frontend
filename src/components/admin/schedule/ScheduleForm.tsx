@@ -4,9 +4,6 @@ import PageCard from "@/components/common/ui/PageCard";
 import Trash from "@/components/icons/Trash";
 import dayjs from "dayjs";
 import { Schedule, SchedulesCollection } from "@/models/Schedule";
-import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import { ClinicsService } from "@/services/ClinicsService";
-import { Clinic } from "@/models/Clinic";
 import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { ScheduleService } from "@/services/ScheduleService";
@@ -86,11 +83,13 @@ function SlotInput(props: {
 const ClinicScheduleForm = ({
   method,
   defaultValues,
-  clinic_id,
+  clinic_id = undefined,
+  user_id = undefined,
 }: {
   method: "store" | "update";
   defaultValues?: SchedulesCollection;
   clinic_id?: number;
+  user_id?: number;
 }) => {
   const [schedule, setSchedule] = useState<SchedulesCollection>({
     saturday:
@@ -213,9 +212,15 @@ const ClinicScheduleForm = ({
     }));
   };
   const onSubmit = async (data: {
-    clinic_id: number;
+    clinic_id?: number;
+    user_id?: number;
     schedules?: { start_time: string; end_time: string; day_of_week: string }[];
   }) => {
+    if (clinic_id) {
+      data.clinic_id = clinic_id;
+    } else {
+      data.user_id = user_id;
+    }
     data.schedules = [];
     Object.entries(schedule).map((value) => {
       // @ts-ignore
@@ -242,34 +247,31 @@ const ClinicScheduleForm = ({
       <Form
         handleSubmit={onSubmit}
         onSuccess={() => {
-          Navigate(`/admin/clinics`);
+          if (clinic_id) {
+            Navigate(`/admin/clinics`);
+          } else {
+            Navigate(`/admin/secretaries`);
+          }
         }}
       >
         <Grid md={2}>
-          {method == "store" && (
-            <ApiSelect
-              required={true}
-              name={"clinic_id"}
-              api={(page, search) =>
-                ClinicsService.make<ClinicsService>()
-                  .setHeaders({ filtered: true })
-                  .indexWithPagination(page, search)
-              }
-              label={t("clinicName")}
-              optionValue={"id"}
-              getOptionLabel={(data: Clinic) => data.user?.full_name}
-            />
-          )}
-          {method == "update" && (
-            <FormInput
-              required={true}
-              name={"clinic_id"}
-              type={"number"}
-              defaultValue={clinic_id ?? ""}
-              className={"hidden"}
-              hidden={true}
-            />
-          )}
+          <FormInput
+            required={true}
+            name={"clinic_id"}
+            type={"number"}
+            defaultValue={clinic_id}
+            className={"hidden"}
+            hidden={true}
+          />
+
+          <FormInput
+            required={true}
+            name={"user_id"}
+            type={"number"}
+            defaultValue={user_id}
+            className={"hidden"}
+            hidden={true}
+          />
         </Grid>
         {getEnumValues(WeekDayEnum).map((day, dayIndex) => (
           <div

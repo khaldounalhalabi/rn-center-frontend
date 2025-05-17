@@ -10,6 +10,9 @@ import React from "react";
 import { UserService } from "@/services/UserService";
 import { User } from "@/models/User";
 import PageCard from "@/components/common/ui/PageCard";
+import { Link } from "@/navigation";
+import { Button } from "@/components/ui/shadcn/button";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
 
 const Page = () => {
   const t = useTranslations("secretaries");
@@ -48,7 +51,13 @@ const Page = () => {
             showUrl={`/admin/secretaries/${secretary?.id}`}
             setHidden={setHidden}
             baseUrl={""}
-          />
+          >
+            <Link href={`/admin/secretaries/${secretary?.id}/schedules`}>
+              <Button size={"icon"} variant={"outline"}>
+                <SchedulesIcon />
+              </Button>
+            </Link>
+          </ActionsButtons>
         ),
       },
     ],

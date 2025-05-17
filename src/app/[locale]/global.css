@@ -140,34 +140,6 @@ iframe {
   position: relative;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
-    0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-::-webkit-scrollbar-thumb {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity)) /* #d1d5db */;
-  border-radius: 0.375rem /* 6px */;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 123 255 / var(--tw-bg-opacity)) /* #007bff */;
-}
-
-html {
-  scrollbar-width: 5px;
-  scrollbar-shadow-color: rgba(0, 0, 0, 0.1);
-  scrollbar-color: rgba(209 213 219);
-}
 
 .badge {
   height: auto !important;

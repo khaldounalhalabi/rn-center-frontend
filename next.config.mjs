@@ -19,8 +19,8 @@ const withPWA = withPWAInit({
 });
 const nextConfig = {
   env: {
-    localApi: "http://localhost/rn-center-backend/public/api/",
-    // localApi: "https://rn.cubeta.io/api/",
+    // localApi: "http://localhost/rn-center-backend/public/api/",
+    localApi: "https://rn.cubeta.io/api/",
     firebase_key: "",
   },
   images: {

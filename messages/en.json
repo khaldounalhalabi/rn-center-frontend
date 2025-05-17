@@ -1664,5 +1664,25 @@
     "from" : "From",
     "to" : "To",
     "add_slot" : "Add new slot"
+  },
+  "links": {
+    "appointment": "Appointments",
+    "attendance": "Attendance",
+    "clinics": "Clinics",
+    "holidays": "Holidays",
+    "create": "Create",
+    "edit": "Edit",
+    "medicines": "Medicines",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "prescriptions": "Prescriptions",
+    "secretaries": "Secretaries",
+    "service": "Services",
+    "service-categories": "Service categories",
+    "speciality": "Specialities",
+    "transaction": "Transactions",
+    "user-details": "User details",
+    "admin": "Dashboard",
+    "schedules": "Clinic schedule"
   }
 }

@@ -1674,5 +1674,25 @@
     "from" : "من",
     "to" : "إلى",
     "add_slot" : "إضافة فترة جديدة"
+  },
+  "links": {
+    "appointment": "الحجوزات",
+    "attendance": "جدول الدوام",
+    "clinics": "العيادات",
+    "holidays": "الإجازات",
+    "create": "إضافة",
+    "edit": "تعديل",
+    "medicines": "الأدوية",
+    "patients": "المرضى",
+    "appointments": "الحجوزات",
+    "prescriptions": "الوصفات الطبية",
+    "secretaries": "السكرتاريا",
+    "service": "الخدمات",
+    "service-categories": "فئات الخدمات",
+    "speciality": "التخصصات",
+    "transaction": "المعاملات المالية",
+    "user-details": "تفاصيل المستخدم",
+    "admin": "لوحة التحكم",
+    "schedules": "أوقات دوام العيادة"
   }
 }

@@ -27,6 +27,7 @@ import {
 import Tooltip from "@/components/common/ui/Tooltip";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 dayjs.extend(plugin);
 
@@ -277,7 +278,9 @@ const ClinicScheduleForm = ({
             className="flex items-center justify-between border-b border-b-foreground"
           >
             <div className="p-3 w-full">
-              <h2>{day.toUpperCase()}</h2>
+              <h2>
+                <TranslatableEnum value={day} />
+              </h2>
               {schedule[day].map((timeRange, index) => (
                 <SlotInput
                   key={index}
@@ -299,7 +302,9 @@ const ClinicScheduleForm = ({
                     )
                   }
                   onClick={() => handleRemoveTimeRange(day, index)}
-                  index={index  + dayIndex + (index == 0 && dayIndex !=0 ? 1 : 0)}
+                  index={
+                    index + dayIndex + (index == 0 && dayIndex != 0 ? 1 : 0)
+                  }
                 />
               ))}
             </div>

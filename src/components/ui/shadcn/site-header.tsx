@@ -2,6 +2,7 @@ import { Separator } from "@/components/ui/shadcn/separator";
 import { SidebarTrigger } from "@/components/ui/shadcn/sidebar";
 import { ModeToggle } from "@/components/ui/shadcn/mode-toggle";
 import LanguagePopover from "@/components/common/navbar/languagePopover";
+import Breadcrumbs from "@/components/common/ui/Breadcrumbs";
 
 export function SiteHeader() {
   return (
@@ -13,11 +14,11 @@ export function SiteHeader() {
             orientation="vertical"
             className="mx-2 data-[orientation=vertical]:h-4"
           />
-          <h1 className="text-base font-medium">Admin Panel</h1>
+          <Breadcrumbs />
         </div>
         <div className={"flex items-center gap-2 justify-end px-2"}>
           <ModeToggle />
-          <LanguagePopover/>
+          <LanguagePopover />
         </div>
       </div>
     </header>

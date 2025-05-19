@@ -28,7 +28,7 @@ const signs = [
 
 const FormulaEditor = ({ variables }: { variables: FormulaVariable[] }) => {
   const [template, setTemplate] = useState(
-    `<var>Total morning overtime hours count</var>-<var>Total attendance hours without overtime hours</var>+<var>Absence days count</var>*48`,
+    ``,
   );
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -135,11 +135,16 @@ const FormulaEditor = ({ variables }: { variables: FormulaVariable[] }) => {
   
   const addChar = (char: FormulaVariable | string) => {
     if (typeof char != "string") {
-      char =
-        `<var attr-description='${char.description || ""}' attr-label='${char.name}'>${char.name}</var>` +
-        "\t";
+      char = `{{${char.name}}}`;
     }
     const updatedTemplate = template + char;
+    const caretPos = (saveCaretPosition() ?? 0) + char.length;
+
+    if (contentRef.current) {
+      window.requestAnimationFrame(() => {
+        restoreCaretPosition(caretPos);
+      });
+    }
     setTemplate(updatedTemplate);
   };
 

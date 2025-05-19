@@ -111,7 +111,20 @@ const config: Config = {
   				'md:hover',
   				'sm:hover'
   			]
-  		}
+  		}          ,
+      {
+        pattern: '/^gap-\\\\d+$/',
+        variants: [
+          'lg',
+          'hover',
+          'focus',
+          'lg:hover',
+          'md',
+          'sm',
+          'md:hover',
+          'sm:hover'
+        ]
+      }
   	]
   },
 };

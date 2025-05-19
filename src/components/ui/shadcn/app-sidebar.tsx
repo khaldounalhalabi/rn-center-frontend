@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowUpCircleIcon } from "lucide-react";
+import { ArrowUpCircleIcon, CalculatorIcon, DollarSignIcon } from "lucide-react";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
 import {
@@ -94,6 +94,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: t("secretaries"),
         url: "/admin/secretaries",
         icon: StaffIcon,
+      },
+      {
+        title: t("formulas"),
+        url: "/admin/formulas",
+        icon: CalculatorIcon,
       },
     ],
   };

@@ -38,7 +38,8 @@
     "search": "بحث",
     "holidays": "العطل",
     "attendance": "جدول الدوام",
-    "secretaries": "السكرتاريا"
+    "secretaries": "السكرتاريا",
+    "formulas": "معادلات الرواتب"
   },
   "admin": {
     "clinic": {
@@ -1695,6 +1696,23 @@
     "transaction": "المعاملات المالية",
     "user-details": "تفاصيل المستخدم",
     "admin": "لوحة التحكم",
-    "schedules": "أوقات الدوام"
+    "schedules": "أوقات الدوام",
+    "formulas": "المعادلات"
+  },
+  "formulas": {
+    "formulas": "معادلات الرواتب",
+    "formula": "المعادلة",
+    "name": "الاسم",
+    "template": "القالب",
+    "formula_segments": "الأجزاء",
+    "segment": "جزء",
+    "index_description": "تستدم هذه المعادلات لحساب رواتب الموظفين",
+    "create_title": "إضافة معادلة جديدة",
+    "show_title": "تفاصيل المعادلة",
+    "edit_title": "تعديل المعادلة",
+    "employees": "الموظفين الذين تطبق عليهم هذه المعادلة",
+    "variables": "المتغيرات",
+    "signs" : "الإشارات و التوابع",
+    "edit_button": "تعديل"
   }
 }

@@ -38,7 +38,8 @@
     "search": "search",
     "holidays": "Holidays",
     "attendance": "Attendance",
-    "secretaries": "Secretaries"
+    "secretaries": "Secretaries",
+    "formulas": "Salaries formulas"
   },
   "admin": {
     "clinic": {
@@ -1685,6 +1686,23 @@
     "transaction": "Transactions",
     "user-details": "User details",
     "admin": "Dashboard",
-    "schedules": "schedule"
+    "schedules": "schedule",
+    "formulas": "Formulas"
+  },
+  "formulas": {
+    "formulas": "Formulas",
+    "formula": "Formula",
+    "name": "Name",
+    "template": "Template",
+    "formula_segments": "Segments",
+    "segment": "Segment",
+    "index_description": "This formulas are used to calculate the employees salaries",
+    "create_title": "Add new formula",
+    "show_title": "Formula details",
+    "edit_title": "Edit formula",
+    "employees": "Employees those applying this formula",
+    "variables": "Variables",
+    "signs": "Operators and functions",
+    "edit_button": "Edit"
   }
 }

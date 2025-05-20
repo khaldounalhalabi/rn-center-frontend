@@ -39,7 +39,8 @@
     "holidays": "العطل",
     "attendance": "جدول الدوام",
     "secretaries": "السكرتاريا",
-    "formulas": "معادلات الرواتب"
+    "formulas": "معادلات الرواتب",
+    "formula_variables": "متغيرات معادلات الرواتب"
   },
   "admin": {
     "clinic": {
@@ -1697,7 +1698,8 @@
     "user-details": "تفاصيل المستخدم",
     "admin": "لوحة التحكم",
     "schedules": "أوقات الدوام",
-    "formulas": "المعادلات"
+    "formulas": "المعادلات",
+    "formula-variables": "متغيرات معادلات الرواتب"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",
@@ -1714,5 +1716,11 @@
     "variables": "المتغيرات",
     "signs" : "الإشارات و التوابع",
     "edit_button": "تعديل"
+  },
+  "variables": {
+    "formula_variables": "متغيرات معادلات الرواتب",
+    "index_description": "يمكن استخدام هذه المتغيرات عند إضافة أو تعديل معادلة راتب معينة",
+    "name": "اسم المتغير",
+    "description": "الوصف"
   }
 }

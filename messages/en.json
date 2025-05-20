@@ -39,7 +39,8 @@
     "holidays": "Holidays",
     "attendance": "Attendance",
     "secretaries": "Secretaries",
-    "formulas": "Salaries formulas"
+    "formulas": "Salaries formulas",
+    "formula_variables": "Salary formula variables"
   },
   "admin": {
     "clinic": {
@@ -1687,7 +1688,8 @@
     "user-details": "User details",
     "admin": "Dashboard",
     "schedules": "schedule",
-    "formulas": "Formulas"
+    "formulas": "Formulas",
+    "formula-variables": "Salary formula variables"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1704,5 +1706,11 @@
     "variables": "Variables",
     "signs": "Operators and functions",
     "edit_button": "Edit"
+  },
+  "variables": {
+    "formula_variables": "Salary formula variables",
+    "index_description": "Those variables can be referred while creating a new salary formula",
+    "name": "Name",
+    "description": "Description"
   }
 }

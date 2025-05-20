@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowUpCircleIcon, CalculatorIcon, DollarSignIcon } from "lucide-react";
+import { ArrowUpCircleIcon, CalculatorIcon, VariableIcon } from "lucide-react";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
 import {
@@ -17,7 +17,6 @@ import { useTranslations } from "next-intl";
 import useUser from "@/hooks/UserHook";
 import DashBordIcon from "@/components/icons/DashBordIcon";
 import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
-import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
 import CategoryIcon from "@/components/icons/CategoryIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
@@ -100,6 +99,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: "/admin/formulas",
         icon: CalculatorIcon,
       },
+      {
+        title: t("formula_variables"),
+        url: "/admin/formula-variables",
+        icon: VariableIcon,
+      },
     ],
   };
   return (
@@ -113,7 +117,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <Link href="/admin">
                 <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">Reslan Alnaal Center</span>
+                <span className="text-base font-semibold">
+                  Reslan Alnaal Center
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

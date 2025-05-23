@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import PageCard from "@/components/common/ui/PageCard";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
@@ -9,16 +9,8 @@ import Payrun from "@/models/Payrun";
 import PayrunService from "@/services/PayrunService";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import PayrunStatusColumn from "@/components/common/payruns/PayrunStatusColumn";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/shadcn/sheet";
-import { Button } from "@/components/ui/shadcn/button";
-import DocumentPlus from "@/components/icons/DocumentPlus";
-import PayrunForm from "@/components/common/payruns/PayrunForm";
+import ReprocessPayrunButton from "@/components/common/payruns/ReporocessPayrunButton";
+import CreatePayRunSheet from "@/components/common/payruns/CreatePayRunSheet";
 
 const Page = () => {
   const t = useTranslations("payruns");
@@ -61,13 +53,19 @@ const Page = () => {
       },
       {
         label: t("actions"),
-        render: (_data, fullObject, setHidden) => (
+        render: (_data, payrun, setHidden, revalidate) => (
           <ActionsButtons
-            buttons={fullObject?.can_delete ? ["show", "delete"] : ["show"]}
+            buttons={payrun?.can_delete ? ["show", "delete"] : ["show"]}
             baseUrl={"/admin/payruns"}
-            data={fullObject}
+            data={payrun}
             setHidden={setHidden}
-          />
+          >
+            {payrun?.can_update ? (
+              <ReprocessPayrunButton payrun={payrun} revalidate={revalidate} />
+            ) : (
+              <></>
+            )}
+          </ActionsButtons>
         ),
       },
     ],
@@ -80,7 +78,7 @@ const Page = () => {
         perPage,
         params,
       ),
-    extraButton: (revalidate) => <CreateSheet revalidate={revalidate} />,
+    extraButton: (revalidate) => <CreatePayRunSheet revalidate={revalidate} />,
   };
   return (
     <PageCard title={t("index_title")}>
@@ -90,34 +88,3 @@ const Page = () => {
 };
 
 export default Page;
-
-const CreateSheet = ({ revalidate }: { revalidate?: () => void }) => {
-  const locale = useLocale();
-  const t = useTranslations("payruns");
-  const [open, setOpen] = useState(false);
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button type={"button"} size={"icon"}>
-          <DocumentPlus />
-        </Button>
-      </SheetTrigger>
-      <SheetContent
-        side={locale == "ar" ? "left" : "right"}
-        className={"w-[60vh] md:w-[80vh]"}
-      >
-        <SheetHeader className={"my-5 items-start text-start"}>
-          <SheetTitle>{t("create_title")}</SheetTitle>
-        </SheetHeader>
-        <PayrunForm
-          revalidate={() => {
-            if (revalidate) {
-              revalidate();
-            }
-            setOpen(false);
-          }}
-        />
-      </SheetContent>
-    </Sheet>
-  );
-};

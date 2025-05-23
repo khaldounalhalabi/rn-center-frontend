@@ -1737,6 +1737,7 @@
     "show_title": "Payrun details",
     "actions": "Actions",
     "pay_run_error_warning": "Your payrun faced an error due to miss use in one or more of your salary formulas , you need to check the errored payslip and then the formula that did cause the error or just edit the payslip manually",
-    "pay_run_overlap_error" : "The selected period contain days from a previous pay run , do you want to create it any way ?"
+    "pay_run_overlap_error" : "The selected period contain days from a previous pay run , do you want to create it any way ?",
+    "reprocess": "Reprocess this payrun"
   }
 }

@@ -40,7 +40,8 @@
     "attendance": "Attendance",
     "secretaries": "Secretaries",
     "formulas": "Salaries formulas",
-    "formula_variables": "Salary formula variables"
+    "formula_variables": "Salary formula variables",
+    "payruns": "Payruns"
   },
   "admin": {
     "clinic": {
@@ -1574,7 +1575,12 @@
     "tuesday": "Tuesday",
     "wednesday": "Wednesday",
     "thursday": "Thursday",
-    "friday": "Friday"
+    "friday": "Friday",
+    "draft": "Draft",
+    "approved": "Approved",
+    "processing": "Processing",
+    "yes": "Yes",
+    "no": "No"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1689,7 +1695,8 @@
     "admin": "Dashboard",
     "schedules": "schedule",
     "formulas": "Formulas",
-    "formula-variables": "Salary formula variables"
+    "formula-variables": "Salary formula variables",
+    "payruns": "Payruns"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1712,5 +1719,24 @@
     "index_description": "Those variables can be referred while creating a new salary formula",
     "name": "Name",
     "description": "Description"
+  },
+  "payruns": {
+    "index_title": "Payruns",
+    "status": "Status",
+    "should_delivered_at": "Should delivered at",
+    "payment_date": "Payment date",
+    "payment_cost": "Payment cost",
+    "period": "Period",
+    "from": "From",
+    "to": "To",
+    "has_errors": "Has errors ?",
+    "processed_at": "Processed at",
+    "processed_users_count": "Processed employees count",
+    "excluded_users_count": "Excluded employees count",
+    "create_title": "Add new payrun",
+    "show_title": "Payrun details",
+    "actions": "Actions",
+    "pay_run_error_warning": "Your payrun faced an error due to miss use in one or more of your salary formulas , you need to check the errored payslip and then the formula that did cause the error or just edit the payslip manually",
+    "pay_run_overlap_error" : "The selected period contain days from a previous pay run , do you want to create it any way ?"
   }
 }

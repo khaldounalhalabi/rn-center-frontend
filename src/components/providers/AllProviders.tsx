@@ -27,7 +27,7 @@ const AllProviders = ({ children }: { children: React.ReactNode }) => {
     <LoadingScreen />
   ) : (
     <QueryClientProvider client={queryClient}>
-      <Toaster dir={locale == "ar" ? "rtl" : "ltr"} />
+      <Toaster dir={locale == "ar" ? "rtl" : "ltr"} position={locale == "ar" ? "bottom-left" : "bottom-right"}/>
       <NotificationProvider>
         <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
           {children}

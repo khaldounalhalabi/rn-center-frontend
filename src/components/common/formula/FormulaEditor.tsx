@@ -180,8 +180,8 @@ const FormulaEditor = ({
         spellCheck={false}
         dir={"ltr"}
       />
-      <div className="rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[20%]">
-        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md"}>{t("variables")}</div>
+      <div className="relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[20%]">
+        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md sticky top-0"}>{t("variables")}</div>
         {variables.map((variable, index) => (
           <Tooltip title={variable?.description ?? ""} key={index}>
             <Badge
@@ -195,10 +195,10 @@ const FormulaEditor = ({
       </div>
       <div
         className={
-          "rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[15%]"
+          "relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[15%]"
         }
       >
-        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md"}>{t("signs")}</div>
+        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md sticky top-0"}>{t("signs")}</div>
         {signs.map((sign, index) => (
           <Tooltip title={sign.description}>
             <Badge

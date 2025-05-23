@@ -33,7 +33,7 @@ const DataTableBody = ({
                   if (!schema.render && schema.name) {
                     return (
                       <TableCell
-                        className="text-start max-w-sm"
+                        className="text-start max-w-sm border"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema?.translatable
@@ -48,7 +48,7 @@ const DataTableBody = ({
                   } else if (schema.render && schema.name) {
                     return (
                       <TableCell
-                        className="text-start"
+                        className="text-start border"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema.render(
@@ -68,7 +68,7 @@ const DataTableBody = ({
                   } else if (schema.render) {
                     return (
                       <TableCell
-                        className="text-start"
+                        className="text-start border"
                         key={`${schema.label} - ${index}`}
                       >
                         {schema.render(undefined, item, setHidden, revalidate)}
@@ -76,7 +76,7 @@ const DataTableBody = ({
                     );
                   } else
                     return (
-                      <TableCell className="text-center" key={index}>
+                      <TableCell className="text-center border" key={index}>
                         <TranslatableEnum value={"no_data"} />
                       </TableCell>
                     );

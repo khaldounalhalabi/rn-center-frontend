@@ -1,7 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { ArrowUpCircleIcon, CalculatorIcon, VariableIcon } from "lucide-react";
+import {
+  ArrowUpCircleIcon,
+  CalculatorIcon,
+  HandCoinsIcon,
+  VariableIcon,
+} from "lucide-react";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
 import {
@@ -103,6 +108,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: t("formula_variables"),
         url: "/admin/formula-variables",
         icon: VariableIcon,
+      },
+      {
+        title: t("payruns"),
+        url: "/admin/payruns",
+        icon: HandCoinsIcon,
       },
     ],
   };

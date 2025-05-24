@@ -16,11 +16,13 @@ const FormFormulaSegmentInput = ({
   name,
   label,
   defaultValue = undefined,
+  variables = []
 }: {
   formula: string;
   name: string;
   label: string;
   defaultValue?: { segment: string; name: string }[];
+  variables:FormulaVariable[]
 }) => {
   const { control } = useFormContext();
   return (
@@ -35,6 +37,7 @@ const FormFormulaSegmentInput = ({
               formula={formula}
               onChange={field.onChange}
               defaultValue={defaultValue}
+              variables={variables}
             />
           </FormControl>
           <FormMessage />

@@ -14,13 +14,18 @@ import { getEnumValues } from "@/helpers/Enums";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { Button } from "@/components/ui/shadcn/button";
 import { ApiResponse } from "@/http/Response";
+import { RoleEnum } from "@/enums/RoleEnum";
+import FormulaService from "@/services/FormulaService";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 
 const UserForm = ({
   type,
   user = undefined,
+  role = undefined,
 }: {
   type: "store" | "update";
   user?: User;
+  role?: RoleEnum;
 }) => {
   const handleSubmit = async (data: any) => {
     const service = UserService.make();
@@ -82,25 +87,37 @@ const UserForm = ({
             label={t("gender")}
             defaultChecked={user?.gender ?? GenderEnum.MALE}
           />
-          {type == "update" ? (
-            <Button type="button" onClick={openModal}>
-              {t("resetPassword")}
-            </Button>
-          ) : (
-            <>
-              <FormInput
-                type={"password"}
-                name={"password"}
-                label={t("password")}
-              />
-              <FormInput
-                type={"password"}
-                name={"password_confirmation"}
-                label={t("confirm-password")}
-              />
-            </>
+          {role == RoleEnum.SECRETARY && (
+            <ApiSelect
+              api={(page, search) =>
+                FormulaService.make().indexWithPagination(page, search)
+              }
+              name={"formula_id"}
+              label={t("formula")}
+              optionLabel={"name"}
+              optionValue={"id"}
+              defaultValues={user?.formula ? [user?.formula] : []}
+            />
           )}
         </Grid>
+        <div className={"flex justify-end"}>{type == "update" ? (
+          <Button type="button" onClick={openModal}>
+            {t("resetPassword")}
+          </Button>
+        ) : (
+          <>
+            <FormInput
+              type={"password"}
+              name={"password"}
+              label={t("password")}
+            />
+            <FormInput
+              type={"password"}
+              name={"password_confirmation"}
+              label={t("confirm-password")}
+            />
+          </>
+        )}</div>
       </Form>
     </>
   );

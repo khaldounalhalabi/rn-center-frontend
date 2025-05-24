@@ -1,0 +1,122 @@
+"use client";
+import React from "react";
+import PageCard from "@/components/common/ui/PageCard";
+import { useTranslations } from "next-intl";
+import DataTable, {
+  DataTableData,
+} from "@/components/common/Datatable/DataTable";
+import Payrun from "@/models/Payrun";
+import PayrunService from "@/services/PayrunService";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import PayrunStatusColumn from "@/components/common/payruns/PayrunStatusColumn";
+import ReprocessPayrunButton from "@/components/common/payruns/ReporocessPayrunButton";
+import CreatePayRunSheet from "@/components/common/payruns/CreatePayRunSheet";
+import { Button } from "@/components/ui/shadcn/button";
+import DownloadIcon from "@/components/icons/DownloadIcon";
+import useDownload from "@/hooks/DownloadFile";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+
+const Page = () => {
+  const t = useTranslations("payruns");
+  const datatable: DataTableData<Payrun> = {
+    schema: [
+      {
+        name: "id",
+        sortable: true,
+        label: "Id",
+      },
+
+      {
+        name: "should_delivered_at",
+        label: t("should_delivered_at"),
+      },
+      {
+        name: "period",
+        label: t("period"),
+      },
+      {
+        name: "payment_cost",
+        label: t("payment_cost"),
+        sortable: true,
+      },
+      {
+        name: "processed_users_count",
+        label: t("processed_users_count"),
+      },
+      {
+        name: "excluded_users_count",
+        label: t("excluded_users_count"),
+      },
+      {
+        name: "status",
+        label: t("status"),
+        sortable: true,
+        render: (_stats, payrun, _setHidden, revalidate) => (
+          <PayrunStatusColumn payrun={payrun} revalidate={revalidate} />
+        ),
+      },
+      {
+        label: t("actions"),
+        render: (_data, payrun, setHidden, revalidate) => (
+          <ActionsButtons
+            buttons={payrun?.can_delete ? ["show", "delete"] : ["show"]}
+            baseUrl={"/admin/payruns"}
+            data={payrun}
+            setHidden={setHidden}
+          >
+            <>
+              {payrun?.can_update ? (
+                <ReprocessPayrunButton
+                  payrun={payrun}
+                  revalidate={revalidate}
+                />
+              ) : (
+                <></>
+              )}
+              <ExportButton payrun={payrun} />
+            </>
+          </ActionsButtons>
+        ),
+      },
+    ],
+    api: async (page, search, sortCol, sortDir, perPage, params) =>
+      await PayrunService.make().indexWithPagination(
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
+    extraButton: (revalidate) => <CreatePayRunSheet revalidate={revalidate} />,
+  };
+  return (
+    <PageCard title={t("index_title")}>
+      <DataTable {...datatable} />
+    </PageCard>
+  );
+};
+
+export default Page;
+
+const ExportButton = ({ payrun }: { payrun?: Payrun }) => {
+  const { download, isLoading } = useDownload();
+  return (
+    <Button
+      variant={"secondary"}
+      size={"icon"}
+      onClick={() => {
+        download(
+          `/api/download?method=GET&url=admin/payruns/${payrun?.id}/export`,
+          {
+            method: "POST",
+            fileExtension: "xlsx",
+            customFilename: `${payrun?.period} payrun`,
+          },
+        );
+      }}
+    >
+      {isLoading ? <LoadingSpin /> : <DownloadIcon />}
+    </Button>
+  );
+};

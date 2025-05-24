@@ -70,7 +70,7 @@ const Page = () => {
           >
             <Tooltip title={schedulesT("clinicSchedules")}>
               <Link href={`/admin/clinics/schedules/${clinic?.id}`}>
-                <Button variant={"secondary"} size={"icon"}>
+                <Button variant={"outline"} size={"icon"}>
                   <SchedulesIcon />
                 </Button>
               </Link>

@@ -76,7 +76,7 @@ const useDownload = () => {
    */
   const download = async (url: string, options: DownloadOptions = {}) => {
     const {
-      method = "GET",
+      method ,
       headers = {},
       body,
       customFilename,
@@ -94,7 +94,7 @@ const useDownload = () => {
       try {
         // Normal CORS request
         const requestOptions: RequestInit = {
-          method,
+          method:method,
           headers: {
             ...headers,
           },
@@ -169,7 +169,7 @@ const useDownload = () => {
     // Fallback 2: Try with no-cors mode (limited, but might work for same-origin or properly configured CORS)
     try {
       const response = await fetch(url, {
-        method: "GET",
+        method: method,
         mode: "no-cors",
       });
 

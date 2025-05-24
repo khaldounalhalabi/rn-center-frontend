@@ -189,7 +189,7 @@ function ApiSelect<TResponse, TData>({
 
   return (
     <div
-      className={`relative w-full  duration-700 select-none ${styles?.baseContainerClasses ?? ""}`}
+      className={`relative w-full  duration-300 select-none ${styles?.baseContainerClasses ?? ""}`}
       ref={fullContainer}
     >
       <label
@@ -215,7 +215,7 @@ function ApiSelect<TResponse, TData>({
 
       <div
         onClick={() => handleOpen()}
-        className={`transition-all duration-500 flex mt-2 bg-background p-1.5 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
+        className={`transition-all duration-300 flex mt-2 bg-background p-1.5 cursor-pointer justify-between ${styles?.selectClasses ?? "w-full rounded-md border text-primary sm:text-sm"}`}
       >
         <div
           className="flex w-full items-center justify-between"
@@ -238,7 +238,7 @@ function ApiSelect<TResponse, TData>({
           ) : (
             <p
               className={
-                styles?.placeholder ?? "transition-opacity duration-500"
+                styles?.placeholder ?? "transition-opacity duration-300"
               }
             >
               {placeHolder ?? `${t("select")} ${label} ...`}
@@ -246,7 +246,7 @@ function ApiSelect<TResponse, TData>({
           )}
           <div className="flex items-center gap-2">
             {isFetching && (
-              <div className="transition-opacity duration-500 opacity-75">
+              <div className="transition-opacity duration-300 opacity-75">
                 {styles?.loadingIcon ? (
                   styles.loadingIcon()
                 ) : (
@@ -274,7 +274,7 @@ function ApiSelect<TResponse, TData>({
           </div>
         </div>
         <div
-          className={`absolute left-0 z-50 overflow-y-scroll transition-all duration-500 ${
+          className={`absolute left-0 z-50 overflow-y-scroll transition-all duration-300 ${
             isOpen
               ? "opacity-100 scale-100"
               : "opacity-0 scale-95 pointer-events-none"

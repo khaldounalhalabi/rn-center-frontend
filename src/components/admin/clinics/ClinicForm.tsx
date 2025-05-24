@@ -13,6 +13,7 @@ import Radio from "@/components/common/ui/inputs/Radio";
 import { getEnumValues } from "@/helpers/Enums";
 import GenderEnum from "@/enums/GenderEnum";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import FormulaService from "@/services/FormulaService";
 
 const ClinicForm = ({
   type = "store",
@@ -122,6 +123,18 @@ const ClinicForm = ({
             value: item,
           }))}
           defaultChecked={GenderEnum.MALE}
+        />
+        <ApiSelect
+          api={(page, search) =>
+            FormulaService.make().indexWithPagination(page, search)
+          }
+          name={"user.formula_id"}
+          label={t("formula")}
+          optionLabel={"name"}
+          optionValue={"id"}
+          defaultValues={
+            defaultValues?.user?.formula ? [defaultValues?.user?.formula] : []
+          }
         />
       </Grid>
     </Form>

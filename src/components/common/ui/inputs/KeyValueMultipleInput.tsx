@@ -10,8 +10,7 @@ import { Label } from "@/components/ui/shadcn/label";
 import { useTranslations } from "next-intl";
 
 interface KeyValuePair {
-  key: string;
-  value: string;
+  [key: string]: string;
 }
 
 interface KeyValueMultipleInputProps {
@@ -21,6 +20,10 @@ interface KeyValueMultipleInputProps {
   keyPlaceholder?: string;
   valuePlaceholder?: string;
   required?: boolean;
+  keyName?: string;
+  valueName?: string;
+  keyDefaultValue?: string;
+  valueDefaultValue?: string;
   className?: string;
 }
 
@@ -31,6 +34,10 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   keyPlaceholder = "Key",
   valuePlaceholder = "Value",
   required = false,
+  keyName = "key",
+  valueName = "value",
+  keyDefaultValue = "",
+  valueDefaultValue = "",
   className,
 }) => {
   const t = useTranslations("components");
@@ -40,10 +47,12 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}`);
-  const defaultValue = getNestedPropertyValue(defaultValues, name) || [];
+  const defaultValueList = getNestedPropertyValue(defaultValues, name) || [];
 
   const [fields, setFields] = useState<KeyValuePair[]>(
-    defaultValue.length > 0 ? defaultValue : [{ key: "", value: "" }],
+    defaultValueList.length > 0
+      ? defaultValueList
+      : [{ [keyName]: keyDefaultValue, [valueName]: valueDefaultValue }],
   );
 
   useEffect(() => {
@@ -52,7 +61,10 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
 
   const addField = () => {
     if (fields.length < maxFields) {
-      setFields([...fields, { key: "", value: "" }]);
+      setFields([
+        ...fields,
+        { [keyName]: keyDefaultValue, [valueName]: valueDefaultValue },
+      ]);
     }
   };
 
@@ -66,11 +78,7 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
     setFields(newFields);
   };
 
-  const updateField = (
-    index: number,
-    fieldType: "key" | "value",
-    value: string,
-  ) => {
+  const updateField = (index: number, fieldType: string, value: string) => {
     const newFields = [...fields];
     newFields[index][fieldType] = value;
     setFields(newFields);
@@ -90,15 +98,15 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
           <div key={index} className="flex items-center gap-2">
             <Input
               className={className || "flex-1"}
-              value={field.key}
+              value={field[keyName] || ""}
               placeholder={keyPlaceholder}
-              onChange={(e) => updateField(index, "key", e.target.value)}
+              onChange={(e) => updateField(index, keyName, e.target.value)}
             />
             <Input
               className={className || "flex-1"}
-              value={field.value}
+              value={field[valueName] || ""}
               placeholder={valuePlaceholder}
-              onChange={(e) => updateField(index, "value", e.target.value)}
+              onChange={(e) => updateField(index, valueName, e.target.value)}
             />
             <Button
               type="button"
@@ -107,7 +115,7 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
               onClick={() => removeField(index)}
               disabled={fields.length === 1 && required}
             >
-              <Trash  />
+              <Trash />
             </Button>
           </div>
         ))}

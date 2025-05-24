@@ -9,14 +9,29 @@ import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { useTranslations } from "next-intl";
 import UserTimelineItem from "@/components/admin/attendance/UserTimelineItem";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
+import { Input } from "@/components/ui/shadcn/input";
 
 const AttendanceTimeline: React.FC = () => {
   const t = useTranslations("attendance");
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs().format("YYYY-MM-DD"),
   );
+  const [search, setSearch] = useState<string | undefined>(undefined);
 
-  // Create a ref for infinite scroll detection
+  const [debouncedValue, setDebouncedValue] = useState<string | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(search);
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search]);
+
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 0.1,
     rootMargin: "0px 0px 200px 0px", // Load more when within 200 px of the bottom
@@ -33,11 +48,11 @@ const AttendanceTimeline: React.FC = () => {
     isRefetching,
     isPending,
   } = useInfiniteQuery({
-    queryKey: ["attendance", selectedDate],
+    queryKey: ["attendance", selectedDate, debouncedValue],
     queryFn: async ({ pageParam = 1 }) => {
       return await UserService.make().indexWithAttendance(
         selectedDate,
-        undefined,
+        debouncedValue,
         undefined,
         undefined,
         15,
@@ -70,12 +85,19 @@ const AttendanceTimeline: React.FC = () => {
   // Combine all users from all pages
   const allUsers = data?.pages.flatMap((page) => page.data.users) || [];
   // Get attendance data from the first page
-  const attendanceInfo = data?.pages[0]?.data.attendance;
+  // const attendanceInfo = data?.pages[0]?.data.attendance;
 
   return (
     <div className="container mb-2">
       <div className="mb-2 flex items-center justify-between text-start">
-        <span className={"text-3xl font-bold"}>{t("attendance_timeline")}</span>
+        <Input
+          type={"search"}
+          placeholder={`${t("search")} ...`}
+          className={"max-w-40"}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        />
       </div>
 
       {(isLoading || isPending || isRefetching) && (
@@ -154,7 +176,7 @@ const AttendanceTimeline: React.FC = () => {
 
       {data && allUsers.length === 0 && (
         <div className="border-l-4 text-secondary">
-          <p >{t("no_records")}</p>
+          <p>{t("no_records")}</p>
         </div>
       )}
     </div>

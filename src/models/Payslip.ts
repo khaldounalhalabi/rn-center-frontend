@@ -2,10 +2,12 @@ import PayslipStatusEnum from "@/enums/PayslipStatusEnum";
 import { User } from "@/models/User";
 import Formula from "@/models/Formula";
 import PayslipAdjustment from "@/models/PayslipAdjustment";
+import Payrun from "@/models/Payrun";
 
 interface Payslip {
   id: number;
   payrun_id: number;
+  payrun?:Payrun;
   user_id: number;
   formula_id: number;
   paid_days: number;
@@ -17,7 +19,7 @@ interface Payslip {
   details?: {
     earnings: { label: string; value: number; errors?: PayslipError[] }[];
     deductions: { label: string; value: number; errors?: PayslipError[] }[];
-    variable_values?: {
+    variables_values?: {
       [k: string]: {
         label: string;
         value: string;

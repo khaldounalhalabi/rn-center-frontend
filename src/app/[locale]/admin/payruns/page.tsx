@@ -11,6 +11,10 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import PayrunStatusColumn from "@/components/common/payruns/PayrunStatusColumn";
 import ReprocessPayrunButton from "@/components/common/payruns/ReporocessPayrunButton";
 import CreatePayRunSheet from "@/components/common/payruns/CreatePayRunSheet";
+import { Button } from "@/components/ui/shadcn/button";
+import DownloadIcon from "@/components/icons/DownloadIcon";
+import useDownload from "@/hooks/DownloadFile";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 
 const Page = () => {
   const t = useTranslations("payruns");
@@ -60,11 +64,17 @@ const Page = () => {
             data={payrun}
             setHidden={setHidden}
           >
-            {payrun?.can_update ? (
-              <ReprocessPayrunButton payrun={payrun} revalidate={revalidate} />
-            ) : (
-              <></>
-            )}
+            <>
+              {payrun?.can_update ? (
+                <ReprocessPayrunButton
+                  payrun={payrun}
+                  revalidate={revalidate}
+                />
+              ) : (
+                <></>
+              )}
+              <ExportButton payrun={payrun} />
+            </>
           </ActionsButtons>
         ),
       },
@@ -88,3 +98,25 @@ const Page = () => {
 };
 
 export default Page;
+
+const ExportButton = ({ payrun }: { payrun?: Payrun }) => {
+  const { download, isLoading } = useDownload();
+  return (
+    <Button
+      variant={"secondary"}
+      size={"icon"}
+      onClick={() => {
+        download(
+          `/api/download?method=GET&url=admin/payruns/${payrun?.id}/export`,
+          {
+            method: "POST",
+            fileExtension: "xlsx",
+            customFilename: `${payrun?.period} payrun`,
+          },
+        );
+      }}
+    >
+      {isLoading ? <LoadingSpin /> : <DownloadIcon />}
+    </Button>
+  );
+};

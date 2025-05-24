@@ -90,9 +90,6 @@ const AttendanceTimeline: React.FC = () => {
   return (
     <div className="container mb-2">
       <div className="mb-2 flex items-center justify-between text-start">
-        <span className={"text-3xl font-bold w-full"}>
-          {t("attendance_timeline")}
-        </span>
         <Input
           type={"search"}
           placeholder={`${t("search")} ...`}

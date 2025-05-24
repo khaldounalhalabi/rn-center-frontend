@@ -19,6 +19,7 @@ const Form = ({
   defaultButton = true,
   otherSubmitButton = undefined,
   submitButtonClasses = "justify-center",
+  onCancel = undefined
 }: {
   className?: string;
   children: React.ReactNode;
@@ -32,6 +33,7 @@ const Form = ({
   defaultButton?: boolean;
   otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode;
   submitButtonClasses?: string;
+  onCancel?:()=>void
 }) => {
   const t = useTranslations("components");
   if (!buttonText) {
@@ -73,11 +75,14 @@ const Form = ({
       >
         {children}
         <div
-          className={`flex ${submitButtonClasses} my-5 items-center`}
+          className={`flex ${submitButtonClasses} my-5 items-center ${onCancel ? 'justify-between' : 'justify-end'}`}
           onClick={() => {
             methods.clearErrors();
           }}
         >
+          {onCancel && (<Button variant={"destructive"} onClick={()=>onCancel()}>
+            {t("cancel")}
+          </Button>)}
           {otherSubmitButton
             ? otherSubmitButton(methods.formState.isSubmitting)
             : ""}

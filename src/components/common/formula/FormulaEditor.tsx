@@ -200,7 +200,7 @@ const FormulaEditor = ({
       >
         <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md sticky top-0"}>{t("signs")}</div>
         {signs.map((sign, index) => (
-          <Tooltip title={sign.description}>
+          <Tooltip title={sign.description} key={index}>
             <Badge
             onClick={() => addChar(sign.string)}
             className="cursor-pointer font-bold"

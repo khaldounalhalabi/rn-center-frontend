@@ -14,7 +14,7 @@ const Page = async ({
 
   return (
     <PageCard title={t("edit_title")}>
-      <UserForm type={"update"} user={user} />
+      <UserForm type={"update"} user={user} role={RoleEnum.SECRETARY} />
     </PageCard>
   );
 };

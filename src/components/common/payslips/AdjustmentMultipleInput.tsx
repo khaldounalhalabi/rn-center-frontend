@@ -8,52 +8,52 @@ import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
 import { Label } from "@/components/ui/shadcn/label";
 import { useTranslations } from "next-intl";
+import Select from "@/components/common/ui/selects/Select";
+import { getEnumValues } from "@/helpers/Enums";
+import PayslipAdjustmentTypeEnum from "@/enums/PayslipAdjustmentTypeEnum";
 
-interface KeyValuePair {
-  [key: string]: string;
+interface Adjustment {
+  reason: string;
+  value: number;
+  type: "benefit" | "deduction";
 }
 
-interface KeyValueMultipleInputProps {
+interface AdjustmentMultipleInputProps {
   name: string;
   label?: string;
   maxFields?: number;
-  keyPlaceholder?: string;
-  valuePlaceholder?: string;
   required?: boolean;
-  keyName?: string;
-  valueName?: string;
-  keyDefaultValue?: string;
-  valueDefaultValue?: string;
+  reasonPlaceholder?: string;
+  valuePlaceholder?: string;
+  defaultReason?: string;
+  defaultValue?: number;
+  defaultType?: "benefit" | "deduction";
   className?: string;
+  defaultValueList?: Adjustment[];
 }
 
-const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
+const AdjustmentMultipleInput: React.FC<AdjustmentMultipleInputProps> = ({
   name,
   label,
   maxFields = Infinity,
-  keyPlaceholder = "Key",
-  valuePlaceholder = "Value",
   required = false,
-  keyName = "key",
-  valueName = "value",
-  keyDefaultValue = "",
-  valueDefaultValue = "",
+  reasonPlaceholder = "Reason",
+  valuePlaceholder = "Value",
+  defaultReason = "",
+  defaultValue = 0,
+  defaultType = "benefit",
   className,
+  defaultValueList = [],
 }) => {
   const t = useTranslations("components");
   const {
     setValue,
-    formState: { errors, defaultValues },
+    formState: { errors },
   } = useFormContext();
 
   const error = getNestedPropertyValue(errors, `${name}`);
-  const defaultValueList = getNestedPropertyValue(defaultValues, name) || [];
 
-  const [fields, setFields] = useState<KeyValuePair[]>(
-    defaultValueList.length > 0
-      ? defaultValueList
-      : [{ [keyName]: keyDefaultValue, [valueName]: valueDefaultValue }],
-  );
+  const [fields, setFields] = useState<Adjustment[]>(defaultValueList ?? []);
 
   useEffect(() => {
     setValue(name, fields);
@@ -63,7 +63,11 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
     if (fields.length < maxFields) {
       setFields([
         ...fields,
-        { [keyName]: keyDefaultValue, [valueName]: valueDefaultValue },
+        {
+          reason: defaultReason,
+          value: defaultValue,
+          type: defaultType,
+        },
       ]);
     }
   };
@@ -78,8 +82,13 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
     setFields(newFields);
   };
 
-  const updateField = (index: number, fieldType: string, value: string) => {
+  const updateField = (
+    index: number,
+    fieldType: keyof Adjustment,
+    value: string | number | any,
+  ) => {
     const newFields = [...fields];
+    // @ts-ignore
     newFields[index][fieldType] = value;
     setFields(newFields);
   };
@@ -95,18 +104,29 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
 
       <div className="flex w-full flex-col gap-3">
         {fields.map((field, index) => (
-          <div key={index} className="flex items-center gap-2">
+          <div key={index} className="grid w-full grid-cols-4 gap-2">
             <Input
               className={className || "flex-1"}
-              value={field[keyName] || ""}
-              placeholder={keyPlaceholder}
-              onChange={(e) => updateField(index, keyName, e.target.value)}
+              value={field.reason}
+              placeholder={reasonPlaceholder}
+              onChange={(e) => updateField(index, "reason", e.target.value)}
             />
             <Input
               className={className || "flex-1"}
-              value={field[valueName] || ""}
+              type="number"
+              value={field.value}
               placeholder={valuePlaceholder}
-              onChange={(e) => updateField(index, valueName, e.target.value)}
+              onChange={(e) =>
+                updateField(index, "value", Number(e.target.value))
+              }
+            />
+            <Select
+              data={getEnumValues(PayslipAdjustmentTypeEnum)}
+              selected={field.type}
+              onChange={(value) =>
+                updateField(index, "type", value as PayslipAdjustmentTypeEnum)
+              }
+              translated={true}
             />
             <Button
               type="button"
@@ -129,11 +149,11 @@ const KeyValueMultipleInput: React.FC<KeyValueMultipleInputProps> = ({
           onClick={addField}
           disabled={fields.length >= maxFields}
         >
-          {t("add")} {keyPlaceholder}-{valuePlaceholder}
+          {t("add")} {label}
         </Button>
       </div>
     </div>
   );
 };
 
-export default KeyValueMultipleInput;
+export default AdjustmentMultipleInput;

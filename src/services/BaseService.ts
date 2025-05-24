@@ -116,6 +116,11 @@ export function BaseService<SERVICE, MODEL>() {
       return await this.errorHandler(res);
     }
 
+    public async import(data:any){
+      const response = await POST<string>(`${this.baseUrl}/import` , data);
+      return await this.errorHandler(response);
+    }
+
     public async update(
       id?: number,
       data?: any,

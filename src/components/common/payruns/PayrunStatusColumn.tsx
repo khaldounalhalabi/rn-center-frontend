@@ -4,7 +4,7 @@ import Payrun from "@/models/Payrun";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Select from "@/components/common/ui/selects/Select";
 import { getEnumValues } from "@/helpers/Enums";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PayrunService from "@/services/PayrunService";
 import { toast } from "sonner";
 import LoadingSpin from "@/components/icons/LoadingSpin";
@@ -32,6 +32,10 @@ const PayrunStatusColumn = ({
         toast(res.message as string);
       });
   };
+
+  useEffect(() => {
+    setStatus(payrun?.status)
+  }, [payrun]);
 
   if (
     payrun?.status == PayrunStatusEnum.DONE ||

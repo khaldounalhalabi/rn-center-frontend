@@ -20,8 +20,8 @@ const FormulaTemplateViewer = ({ formula }: { formula: string }) => {
         // const content = element.textContent || "";
 
         return (
-          <TooltipProvider>
-            <Tooltip key={index}>
+          <TooltipProvider key={index}>
+            <Tooltip>
               <TooltipTrigger>
                 <Badge className="mx-1 cursor-pointer" variant="secondary">
                   {label}
@@ -42,7 +42,7 @@ const FormulaTemplateViewer = ({ formula }: { formula: string }) => {
         return parts.map((part, partIndex) => {
           const isSign = /[\+\-\*\/=]/.test(part);
           return isSign ? (
-            <span key={`${index}-${partIndex}`} className="font-extrabold mx-1">
+            <span key={`${index}-${partIndex}`} className="mx-1 font-extrabold">
               {part == "*" ? "x" : part}
             </span>
           ) : (

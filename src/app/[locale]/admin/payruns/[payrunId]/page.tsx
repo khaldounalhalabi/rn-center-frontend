@@ -2,11 +2,12 @@ import React from "react";
 import PayrunService from "@/services/PayrunService";
 import PageCard from "@/components/common/ui/PageCard";
 import { getTranslations } from "next-intl/server";
-import PayrunStatusColumn from "@/components/common/payruns/PayrunStatusColumn";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Alert, AlertDescription } from "@/components/ui/shadcn/alert";
 import { TriangleAlert } from "lucide-react";
+import PayslipsTable from "@/components/common/payslips/PayslipsTable";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 
 const Page = async ({
   params: { payrunId },
@@ -17,10 +18,7 @@ const Page = async ({
   const t = await getTranslations("payruns");
 
   return (
-    <PageCard
-      title={t("show_title")}
-      actions={<PayrunStatusColumn payrun={payrun} />}
-    >
+    <PageCard title={t("show_title")}>
       <Grid md={2} className={"mb-5"}>
         <LabelValue
           label={t("should_delivered_at")}
@@ -38,9 +36,13 @@ const Page = async ({
           value={payrun?.processed_users_count}
         />
         <LabelValue label={t("processed_at")} value={payrun?.processed_at} />
+        <LabelValue
+          label={t("status")}
+          value={<TranslatableEnum value={payrun?.status} />}
+        />
       </Grid>
 
-      {(payrun?.has_errors || true) && (
+      {payrun?.has_errors && (
         <Alert className={"border-destructive text-destructive"}>
           <TriangleAlert
             className={"h-4 w-4"}
@@ -49,6 +51,10 @@ const Page = async ({
           <AlertDescription>{t("pay_run_error_warning")}</AlertDescription>
         </Alert>
       )}
+
+      <div className={"my-5 w-full"}>
+        <PayslipsTable payrun={payrun} />
+      </div>
     </PageCard>
   );
 };

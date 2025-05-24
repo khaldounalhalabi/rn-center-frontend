@@ -2,6 +2,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import GenderEnum from "@/enums/GenderEnum";
 import AttendanceLog from "@/models/AttendanceLog";
 import { Clinic } from "@/models/Clinic";
+import Formula from "@/models/Formula";
 
 export interface User {
   id?: number;
@@ -15,6 +16,7 @@ export interface User {
   role: RoleEnum;
   attendance_by_date?: AttendanceLog[];
   clinic?: Clinic;
+  formula?:Formula;
 }
 
 export interface AuthResponse {

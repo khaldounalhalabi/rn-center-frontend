@@ -14,10 +14,12 @@ const SegmentsInput = ({
   formula,
   onChange = undefined,
   defaultValue = undefined,
+  variables = [],
 }: {
   formula: string;
   onChange?: (segments: SegmentData[]) => void;
   defaultValue?: SegmentData[];
+  variables: FormulaVariable[];
 }) => {
   const getSegmentsData = (formula: string) => {
     const segments = splitFormulaToSegments(formula);
@@ -47,10 +49,14 @@ const SegmentsInput = ({
   };
 
   return segmentsData.map((segment, index) => {
+    let s = segment.segment;
+    variables.forEach((v) => {
+      s = s.replace(v.slug, `{{${v.name}}}`);
+    });
     return (
       <Grid key={index}>
         <Label col label={"Segment"}>
-          <Input disabled value={segment.segment} />
+          <Input disabled value={s} />
         </Label>
         <Label col label={"Label"}>
           <Input

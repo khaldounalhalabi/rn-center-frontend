@@ -53,6 +53,7 @@ const FormulaForm = ({
         name={"segments"}
         label={"Segments"}
         defaultValue={defaultValues?.formula_segments}
+        variables={variables}
       />
     </Form>
   );

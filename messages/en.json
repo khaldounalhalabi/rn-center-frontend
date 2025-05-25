@@ -41,7 +41,11 @@
     "secretaries": "Secretaries",
     "formulas": "Salaries formulas",
     "formula_variables": "Salary formula variables",
-    "payruns": "Payruns"
+    "payruns": "Payruns",
+    "main": "Main",
+    "patient_management": "Patients management",
+    "administration": "Administration",
+    "finance": "Finance"
   },
   "admin": {
     "clinic": {

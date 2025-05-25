@@ -41,7 +41,11 @@
     "secretaries": "السكرتاريا",
     "formulas": "معادلات الرواتب",
     "formula_variables": "متغيرات معادلات الرواتب",
-    "payruns": "الرواتب"
+    "payruns": "الرواتب",
+    "main": "الرئيسية",
+    "patient_management": "إدارة المرضى",
+    "administration": "الإدارة",
+    "finance": "الشؤون المحاسبية"
   },
   "admin": {
     "clinic": {

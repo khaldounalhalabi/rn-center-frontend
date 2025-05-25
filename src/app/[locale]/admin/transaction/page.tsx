@@ -87,11 +87,27 @@ const Page = () => {
         name: "appointment_id",
         label: `${t("appointmentDate")}`,
         sortable: true,
-        render: (appointmentId, transaction) => {
+        render: (_appointmentId, transaction) => {
           return transaction?.appointment_id ? (
             <Link href={`/admin/appointment/${transaction?.appointment_id}`}>
               <Button variant={"link"}>
                 {transaction?.appointment?.date_time}
+              </Button>
+            </Link>
+          ) : (
+            <TranslatableEnum value={"no_data"} />
+          );
+        },
+      },
+      {
+        name: "payrun.from",
+        label: `${t("payrun_date")}`,
+        sortable: true,
+        render: (_payrunFrom, transaction) => {
+          return transaction?.payrun_id ? (
+            <Link href={`/admin/payruns/${transaction?.payrun_id}`}>
+              <Button variant={"link"}>
+                {transaction?.payrun?.period}
               </Button>
             </Link>
           ) : (

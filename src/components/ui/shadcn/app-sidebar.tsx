@@ -4,8 +4,8 @@ import * as React from "react";
 import {
   ArrowUpCircleIcon,
   CalculatorIcon,
-  HandCoinsIcon,
-  VariableIcon,
+  HandCoinsIcon, LayoutDashboard,
+  VariableIcon
 } from "lucide-react";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
@@ -40,79 +40,104 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const data = {
     navMain: [
       {
-        title: t("dashboard"),
-        url: "/admin",
-        icon: DashBordIcon,
+        group: t("main"),
+        items: [
+          {
+            title: t("dashboard"),
+            url: "/admin",
+            icon: LayoutDashboard,
+          },
+        ],
       },
       {
-        title: t("clinics"),
-        url: "/admin/clinics",
-        icon: ClinicsShowIcon,
+        group: t("clinic_management"),
+        items: [
+          {
+            title: t("clinics"),
+            url: "/admin/clinics",
+            icon: ClinicsShowIcon,
+          },
+          {
+            title: t("specialties"),
+            url: "/admin/speciality",
+            icon: SpecialitiesIcon,
+          },
+          {
+            title: t("serviceCategories"),
+            url: "/admin/service-categories",
+            icon: CategoryIcon,
+          },
+          {
+            title: t("services"),
+            url: "/admin/service",
+            icon: ServiceIcon,
+          },
+          {
+            title: t("holidays"),
+            url: "/admin/holidays",
+            icon: HolidaysIcon,
+          },
+        ],
       },
       {
-        title: t("specialties"),
-        url: "/admin/speciality",
-        icon: SpecialitiesIcon,
+        group: t("patient_management"),
+        items: [
+          {
+            title: t("appointment"),
+            url: "/admin/appointment",
+            icon: AppointmentIcon,
+          },
+          {
+            title: t("patients"),
+            url: "/admin/patients",
+            icon: PatientIcon,
+          },
+          {
+            title: t("medicines"),
+            url: "/admin/medicines",
+            icon: MedicineIcon,
+          },
+        ],
       },
       {
-        title: t("serviceCategories"),
-        url: "/admin/service-categories",
-        icon: CategoryIcon,
+        group: t("administration"),
+        items: [
+          {
+            title: t("transaction"),
+            url: "/admin/transaction",
+            icon: TransactionIcon,
+          },
+          {
+            title: t("attendance"),
+            url: "/admin/attendance",
+            icon: InDoorIcon,
+          },
+          {
+            title: t("secretaries"),
+            url: "/admin/secretaries",
+            icon: StaffIcon,
+          },
+        ],
       },
       {
-        title: t("services"),
-        url: "/admin/service",
-        icon: ServiceIcon,
-      },
-      {
-        title: t("holidays"),
-        url: "/admin/holidays",
-        icon: HolidaysIcon,
-      },
-      {
-        title: t("appointment"),
-        url: "/admin/appointment",
-        icon: AppointmentIcon,
-      },
-      {
-        title: t("patients"),
-        url: "/admin/patients",
-        icon: PatientIcon,
-      },
-      {
-        title: t("medicines"),
-        url: "/admin/medicines",
-        icon: MedicineIcon,
-      },
-      {
-        title: t("transaction"),
-        url: "/admin/transaction",
-        icon: TransactionIcon,
-      },
-      {
-        title: t("attendance"),
-        url: "/admin/attendance",
-        icon: InDoorIcon,
-      },
-      {
-        title: t("secretaries"),
-        url: "/admin/secretaries",
-        icon: StaffIcon,
-      },
-      {
-        title: t("formulas"),
-        url: "/admin/formulas",
-        icon: CalculatorIcon,
-      },
-      {
-        title: t("formula_variables"),
-        url: "/admin/formula-variables",
-        icon: VariableIcon,
-      },
-      {
-        title: t("payruns"),
-        url: "/admin/payruns",
-        icon: HandCoinsIcon,
+        group: t("finance"),
+        items: [
+          {
+            title: t("formulas"),
+            url: "/admin/formulas",
+            icon: CalculatorIcon,
+          },
+          {
+            title: t("formula_variables"),
+            url: "/admin/formula-variables",
+            icon: VariableIcon,
+          },
+          {
+            title: t("payruns"),
+            url: "/admin/payruns",
+            icon: HandCoinsIcon,
+          },
+        ],
       },
     ],
   };
@@ -128,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link href="/admin">
                 <ArrowUpCircleIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">
-                  Reslan Alnaal Center
+                  {t("center_name")}
                 </span>
               </Link>
             </SidebarMenuButton>

@@ -1,6 +1,7 @@
 import { User } from "@/models/User";
 import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
 import { Appointment } from "@/models/Appointment";
+import Payrun from "@/models/Payrun";
 
 export interface Transaction {
   id: number;
@@ -12,4 +13,6 @@ export interface Transaction {
   actor?: User;
   appointment_id?: number;
   appointment?: Appointment;
+  payrun?:Payrun;
+  payrun_id?:number;
 }

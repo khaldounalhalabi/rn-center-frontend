@@ -1,11 +1,10 @@
 "use client";
 
-import { type LucideIcon, MailIcon, PlusCircleIcon } from "lucide-react";
-
-import { Button } from "@/components/ui/shadcn/button";
+import { type LucideIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -14,31 +13,39 @@ import { FC } from "react";
 import { IconAttributes } from "@/types/IconAttributes";
 import { Link } from "@/navigation";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon | FC<IconAttributes>;
-  }[];
-}) {
+type SidebarItem = {
+  title: string;
+  url: string;
+  icon?: LucideIcon | FC<IconAttributes>;
+};
+
+type SidebarGroup = {
+  group: string;
+  items: SidebarItem[];
+};
+
+export function NavMain({ items }: { items: SidebarGroup[] }) {
   return (
-    <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
-        <SidebarMenu>
-          {items.map((item , index) => (
-            <Link href={item.url} key={index}>
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </Link>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <div className="flex flex-col gap-3">
+      {items.map((group, groupIndex) => (
+        <SidebarGroup key={groupIndex}>
+          <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
+          <SidebarGroupContent className="flex flex-col">
+            <SidebarMenu>
+              {group.items.map((item, itemIndex) => (
+                <Link href={item.url} key={itemIndex}>
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton tooltip={item.title}>
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </Link>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      ))}
+    </div>
   );
 }

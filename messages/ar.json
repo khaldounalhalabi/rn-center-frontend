@@ -41,7 +41,12 @@
     "secretaries": "السكرتاريا",
     "formulas": "معادلات الرواتب",
     "formula_variables": "متغيرات معادلات الرواتب",
-    "payruns": "الرواتب"
+    "payruns": "الرواتب",
+    "main": "الرئيسية",
+    "patient_management": "إدارة المرضى",
+    "administration": "الإدارة",
+    "finance": "الشؤون المحاسبية",
+    "center_name": "مركز رسلان النعال الطبي"
   },
   "admin": {
     "clinic": {
@@ -1219,7 +1224,8 @@
         "balance": "الصندوق",
         "pendingAmount": "الأموال المعلقة",
         "export": "تصدير لملف إكسيل",
-        "iqd": "د.ع"
+        "iqd": "د.ع",
+        "payrun_date": "رواتب فترة"
       },
       "create": {
         "addTransaction": "اضافة معاملة",
@@ -1244,7 +1250,8 @@
         "totalCost": "المجموع",
         "actor_name": "المنفذ",
         "iqd": "د.ع",
-        "description": "الوصف"
+        "description": "الوصف",
+        "payrun_date": "رواتب فترة"
       },
       "chart": {
         "filter": "فلتر",

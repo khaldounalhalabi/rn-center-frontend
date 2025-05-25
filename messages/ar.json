@@ -45,7 +45,8 @@
     "main": "الرئيسية",
     "patient_management": "إدارة المرضى",
     "administration": "الإدارة",
-    "finance": "الشؤون المحاسبية"
+    "finance": "الشؤون المحاسبية",
+    "center_name": "مركز رسلان النعال الطبي"
   },
   "admin": {
     "clinic": {

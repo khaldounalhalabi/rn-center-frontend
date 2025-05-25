@@ -45,7 +45,8 @@
     "main": "Main",
     "patient_management": "Patients management",
     "administration": "Administration",
-    "finance": "Finance"
+    "finance": "Finance",
+    "center_name": "Reslan Alnaal Center"
   },
   "admin": {
     "clinic": {

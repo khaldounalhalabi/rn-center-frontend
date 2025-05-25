@@ -4,8 +4,8 @@ import * as React from "react";
 import {
   ArrowUpCircleIcon,
   CalculatorIcon,
-  HandCoinsIcon,
-  VariableIcon,
+  HandCoinsIcon, LayoutDashboard,
+  VariableIcon
 } from "lucide-react";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
@@ -45,7 +45,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {
             title: t("dashboard"),
             url: "/admin",
-            icon: DashBordIcon,
+            icon: LayoutDashboard,
           },
         ],
       },
@@ -153,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Link href="/admin">
                 <ArrowUpCircleIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">
-                  Reslan Alnaal Center
+                  {t("center_name")}
                 </span>
               </Link>
             </SidebarMenuButton>

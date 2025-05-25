@@ -1209,7 +1209,8 @@
         "balance": "Balance",
         "pendingAmount": "Pending Amount",
         "export": "Export to excel",
-        "iqd": "IQD"
+        "iqd": "IQD",
+        "payrun_date": "Payrun date"
       },
       "create": {
         "addTransaction": "Add Transaction",
@@ -1234,7 +1235,8 @@
         "totalCost": "Total Cost",
         "actor_name": "Actor",
         "iqd": "IQD",
-        "description": "Description"
+        "description": "Description",
+        "payrun_date": "Payrun date"
       },
       "chart": {
         "filter": "Filter",

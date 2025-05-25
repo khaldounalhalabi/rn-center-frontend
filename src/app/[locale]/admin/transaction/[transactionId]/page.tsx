@@ -49,6 +49,16 @@ const page = async ({
             </Link>
           </Label>
         )}
+
+        {res?.payrun_id && (
+          <Label label={t("payrun_date")}>
+            <Link href={`/admin/payruns/${res?.payrun_id}`}>
+              <Button variant={"link"}>
+                <Value value={res?.payrun?.period} />
+              </Button>
+            </Link>
+          </Label>
+        )}
       </Grid>
     </PageCard>
   );

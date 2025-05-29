@@ -17,7 +17,7 @@ const page = async ({
   params: { transactionId: number };
 }) => {
   const data =
-    await TransactionService.make<TransactionService>().show(transactionId);
+    await TransactionService.make().show(transactionId);
   const res: Transaction = data?.data;
   const t = await getTranslations("common.transaction.show");
 

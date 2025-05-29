@@ -17,7 +17,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("admin.speciality.show");
   const data =
-    await SpecialityService.make<SpecialityService>().show(specialityId);
+    await SpecialityService.make().show(specialityId);
   const res: Speciality = data?.data;
   return (
     <PageCard

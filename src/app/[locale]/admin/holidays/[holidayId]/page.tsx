@@ -13,7 +13,7 @@ const HolidayShowPage = async ({
   params: { holidayId: number };
 }) => {
   const t = await getTranslations("holidays");
-  const data = await HolidayService.make<HolidayService>().show(holidayId);
+  const data = await HolidayService.make().show(holidayId);
   const holiday = data?.data;
   return (
     <PageCard

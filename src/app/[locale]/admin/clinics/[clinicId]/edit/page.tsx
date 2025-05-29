@@ -12,7 +12,7 @@ const Page = async ({
   params: { clinicId: number };
 }) => {
   const data: ApiResponse<Clinic> =
-    await ClinicsService.make<ClinicsService>().show(clinicId);
+    await ClinicsService.make().show(clinicId);
   const clinic = data.data;
   const t = await getTranslations("admin.clinic.create-edit");
   return (

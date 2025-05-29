@@ -16,7 +16,7 @@ import {
 
 const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
   const handleSubmit = (data: { phone: string }) => {
-    return AuthService.make<AuthService>(role).passwordResetRequest(data.phone);
+    return AuthService.make(role).passwordResetRequest(data.phone);
   };
   const t = useTranslations("auth");
   return (

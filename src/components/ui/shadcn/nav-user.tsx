@@ -99,7 +99,7 @@ export function NavUser({ user }: { user?: User }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                AuthService.make<AuthService>(role).logout();
+                AuthService.make(role).logout();
               }}
             >
               <LogOutIcon />

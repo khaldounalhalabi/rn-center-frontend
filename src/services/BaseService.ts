@@ -13,9 +13,7 @@ export function BaseService<SERVICE, MODEL>() {
 
     protected constructor() {}
 
-    public static make<Service extends BaseService>(
-      role: RoleEnum = RoleEnum.ADMIN,
-    ): SERVICE {
+    public static make(role: RoleEnum = RoleEnum.ADMIN): SERVICE {
       if (!this.instance) {
         // @ts-ignore
         this.instance = new this();
@@ -116,8 +114,8 @@ export function BaseService<SERVICE, MODEL>() {
       return await this.errorHandler(res);
     }
 
-    public async import(data:any){
-      const response = await POST<string>(`${this.baseUrl}/import` , data);
+    public async import(data: any) {
+      const response = await POST<string>(`${this.baseUrl}/import`, data);
       return await this.errorHandler(response);
     }
 

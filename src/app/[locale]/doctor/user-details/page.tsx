@@ -6,7 +6,7 @@ import UserDataView from "@/components/common/user/UserDataView";
 
 const page = async () => {
   const role = await getRole();
-  const data = await AuthService.make<AuthService>(role).userDetails();
+  const data = await AuthService.make(role).userDetails();
   const user: User = data.data;
   return <UserDataView user={user} editUrl={`/${role}/user-details/edit`} />;
 };

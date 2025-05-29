@@ -52,7 +52,7 @@ const HolidaysIndexPage = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await HolidayService.make<HolidayService>(
+      await HolidayService.make(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
 

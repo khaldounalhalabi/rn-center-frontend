@@ -11,12 +11,13 @@ const Page = () => {
   return (
     <PageCard title={t("appointments")}>
       <AppointmentsTable
-        without={[]}
+        without={["clinic.user.full_name"]}
         api={async (page, search, sortCol, sortDir, perPage, params) =>
           await AppointmentService.make(
-            RoleEnum.ADMIN,
+            RoleEnum.DOCTOR,
           ).indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         }
+        createUrl={undefined}
       />
     </PageCard>
   );

@@ -16,7 +16,7 @@ const page = async ({
   const t = await getTranslations("common.patient.show");
   const attachmentsT = await getTranslations("common.patient.attachments");
 
-  const data = await PatientService.make<PatientService>().show(patientId);
+  const data = await PatientService.make().show(patientId);
   const user: User | undefined = data?.data.user;
   const patient: Customer = data?.data;
 

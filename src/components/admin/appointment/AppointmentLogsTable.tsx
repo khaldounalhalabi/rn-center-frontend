@@ -18,7 +18,7 @@ const AppointmentLogsTable = async ({
   appointment?: Appointment | undefined | null;
 }) => {
   const data =
-    await AppointmentLogsService.make<AppointmentLogsService>().getAppointmentLogs(
+    await AppointmentLogsService.make().getAppointmentLogs(
       appointment?.id ?? 0,
     );
 

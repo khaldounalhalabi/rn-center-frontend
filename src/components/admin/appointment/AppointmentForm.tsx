@@ -65,7 +65,7 @@ const AppointmentForm = memo(
       useQuery({
         queryKey: ["available_times", clinicId, date?.format("YYYY-MM-DD")],
         queryFn: async () => {
-          return await AppointmentService.make<AppointmentService>().getAvailableTimes(
+          return await AppointmentService.make().getAvailableTimes(
             clinicId ?? 0,
             date?.format("YYYY-MM-DD") ?? "",
           );
@@ -158,7 +158,7 @@ const AppointmentForm = memo(
               name="customer_id"
               label={t("patient")}
               api={(page?: number, search?: string) =>
-                CustomerService.make<CustomerService>().indexWithPagination(
+                CustomerService.make().indexWithPagination(
                   page,
                   search,
                 )
@@ -178,7 +178,7 @@ const AppointmentForm = memo(
               name="clinic_id"
               label={t("clinicName")}
               api={(page?: number, search?: string) =>
-                ClinicsService.make<ClinicsService>().indexWithPagination(
+                ClinicsService.make().indexWithPagination(
                   page,
                   search,
                 )
@@ -197,7 +197,7 @@ const AppointmentForm = memo(
             name="service_id"
             label={t("serviceName")}
             api={(page?: number, search?: string) =>
-              ServiceService.make<ServiceService>().getClinicService(
+              ServiceService.make().getClinicService(
                 clinicId,
                 page,
                 search,

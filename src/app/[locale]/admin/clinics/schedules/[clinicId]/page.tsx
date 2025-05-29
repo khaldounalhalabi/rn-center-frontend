@@ -8,7 +8,7 @@ const Page = async ({
   params: { clinicId: number };
 }) => {
   const data =
-    await ScheduleService.make<ScheduleService>().getClinicSchedules(clinicId);
+    await ScheduleService.make().getClinicSchedules(clinicId);
 
   return (
     <ScheduleForm

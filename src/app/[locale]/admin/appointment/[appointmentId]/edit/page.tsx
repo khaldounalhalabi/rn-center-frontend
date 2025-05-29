@@ -13,7 +13,7 @@ const page = async ({
   const t = await getTranslations("common.appointment.create");
 
   const appointment = (
-    await AppointmentService.make<AppointmentService>(RoleEnum.ADMIN).show(
+    await AppointmentService.make(RoleEnum.ADMIN).show(
       appointmentId,
     )
   ).data;

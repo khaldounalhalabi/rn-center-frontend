@@ -37,7 +37,7 @@ const AppointmentStatusColumn = ({
 
   const handleChange = async (status: AppointmentStatusEnum) => {
     setLoading(true);
-    const response = await AppointmentService.make<AppointmentService>()
+    const response = await AppointmentService.make()
       .toggleStatus(appointment.id, status, cancellationReason)
       .then((res) => {
         if (res.ok()) {

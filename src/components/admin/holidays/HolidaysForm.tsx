@@ -19,12 +19,12 @@ const HolidaysForm = ({
   const t = useTranslations("holidays");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return HolidayService.make<HolidayService>().update(
+      return HolidayService.make().update(
         defaultValues.id,
         data,
       );
     } else {
-      return await HolidayService.make<HolidayService>().store(data);
+      return await HolidayService.make().store(data);
     }
   };
 

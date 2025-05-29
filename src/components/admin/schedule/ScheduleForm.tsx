@@ -239,7 +239,7 @@ const ClinicScheduleForm = ({
       );
     });
 
-    return await ScheduleService.make<ScheduleService>().store(data);
+    return await ScheduleService.make().store(data);
   };
   const t = useTranslations("admin.schedules.create");
   return (

@@ -16,11 +16,11 @@ import {
 
 const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
   const handleResendButton = () => {
-    AuthService.make<AuthService>(role).resendVerificationCode();
+    AuthService.make(role).resendVerificationCode();
   };
 
   const handleSubmit = (data: { code: string }) => {
-    return AuthService.make<AuthService>(role).checkResetCode(data.code);
+    return AuthService.make(role).checkResetCode(data.code);
   };
   const t = useTranslations("auth");
   return (

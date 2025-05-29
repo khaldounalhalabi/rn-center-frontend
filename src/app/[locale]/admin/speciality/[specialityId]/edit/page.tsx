@@ -12,7 +12,7 @@ const page = async ({
   const t = await getTranslations("admin.speciality.create-edit");
 
   const speciality = (
-    await SpecialityService.make<SpecialityService>().show(specialityId)
+    await SpecialityService.make().show(specialityId)
   ).data;
   return (
     <PageCard title={t("editSpeciality")}>

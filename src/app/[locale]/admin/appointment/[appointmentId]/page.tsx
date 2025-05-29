@@ -19,7 +19,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.appointment.show");
   const data =
-    await AppointmentService.make<AppointmentService>().show(appointmentId);
+    await AppointmentService.make().show(appointmentId);
   const appointment: Appointment = data?.data;
   return (
     <PageCard

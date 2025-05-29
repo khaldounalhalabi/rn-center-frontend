@@ -86,7 +86,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ServiceService.make<ServiceService>(
+      await ServiceService.make(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };

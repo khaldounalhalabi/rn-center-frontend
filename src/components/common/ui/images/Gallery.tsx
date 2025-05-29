@@ -19,7 +19,7 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
 
   const handleDeleteImage = (index: number) => {
     setPending(true);
-    MediaService.make<MediaService>()
+    MediaService.make()
       .delete(index)
       .then((res) => {
         startTransition(router.refresh);

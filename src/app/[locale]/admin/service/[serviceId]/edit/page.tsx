@@ -13,7 +13,7 @@ const ServiceEditPage = async ({
   const t = await getTranslations("admin.service.create-edit");
 
   const service = (
-    await ServiceService.make<ServiceService>(RoleEnum.ADMIN).show(serviceId)
+    await ServiceService.make(RoleEnum.ADMIN).show(serviceId)
   ).data;
   return (
     <PageCard>

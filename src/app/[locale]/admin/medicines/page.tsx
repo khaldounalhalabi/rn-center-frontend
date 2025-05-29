@@ -104,7 +104,7 @@ const Page = () => {
       );
     },
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await MedicineService.make<MedicineService>(
+      await MedicineService.make(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
   };

@@ -7,7 +7,7 @@ import UserDetailsForm from "@/components/common/auth/UserDetailsForm";
 
 const page = async () => {
   const role = await getRole();
-  const user = (await AuthService.make<AuthService>(role).userDetails()).data;
+  const user = (await AuthService.make(role).userDetails()).data;
   const t = await getTranslations("details");
   return (
     <PageCard title={t("editUserDetails")}>

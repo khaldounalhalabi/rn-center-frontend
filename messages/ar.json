@@ -1721,7 +1721,8 @@
     "schedules": "أوقات الدوام",
     "formulas": "المعادلات",
     "formula-variables": "متغيرات معادلات الرواتب",
-    "payruns": "الرواتب"
+    "payruns": "الرواتب",
+    "doctor": "لوحة التحكم"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",

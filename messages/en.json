@@ -1711,7 +1711,8 @@
     "schedules": "schedule",
     "formulas": "Formulas",
     "formula-variables": "Salary formula variables",
-    "payruns": "Payruns"
+    "payruns": "Payruns",
+    "doctor": "Dashboard"
   },
   "formulas": {
     "formulas": "Formulas",

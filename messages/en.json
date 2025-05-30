@@ -727,7 +727,8 @@
         "noData": "No Data",
         "icon": "Icon",
         "iqd": "IQD",
-        "min": "min"
+        "min": "min",
+        "description": "Description"
       }
     },
     "offer": {

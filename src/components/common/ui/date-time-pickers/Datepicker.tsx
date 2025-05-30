@@ -24,9 +24,10 @@ const Datepicker = ({
   col?:boolean
 }) => {
   const [date, setDate] = useState<Dayjs | undefined>(dayjs(defaultValue));
+  const [open , setOpen] = useState(false);
   return (
     <Label col={col} label={label}>
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
@@ -48,6 +49,7 @@ const Datepicker = ({
                 onChange(dayjs(value));
               }
               setDate(dayjs(value))
+              setOpen(false)
             }}
             initialFocus
             className="w-full"

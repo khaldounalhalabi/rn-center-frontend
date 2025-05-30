@@ -50,7 +50,7 @@ const UserForm = ({
   const t = useTranslations("details");
   return (
     <>
-      <DialogPopup open={isOpen} title={t("resetPassword")}>
+      <DialogPopup open={isOpen} title={t("resetPassword")} onClose={()=> setIsOpen(false)}>
         <Form
           handleSubmit={handleSubmit}
           onSuccess={onSuccess}

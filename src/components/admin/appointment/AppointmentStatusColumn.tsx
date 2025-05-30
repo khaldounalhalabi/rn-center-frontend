@@ -54,7 +54,7 @@ const AppointmentStatusColumn = ({
     <LoadingSpin className={"h-6 w-6"} />
   ) : (
     <>
-      <DialogPopup open={open}>
+      <DialogPopup open={open} onClose={()=>setOpen(false)}>
         <Form
           handleSubmit={() => {
             setOpen(false);

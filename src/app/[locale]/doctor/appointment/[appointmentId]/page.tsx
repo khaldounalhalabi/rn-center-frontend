@@ -78,7 +78,7 @@ const page = async ({
             {
               title: t("prescriptions"),
               render: (
-                <PrescriptionDetails prescription={appointment?.prescription} />
+                <PrescriptionDetails prescription={appointment?.prescription} appointment={appointment} />
               ),
             },
           ]}

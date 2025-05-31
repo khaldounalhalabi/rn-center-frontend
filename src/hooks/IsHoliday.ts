@@ -1,14 +1,12 @@
-import useUser from "@/hooks/UserHook";
-import { useQuery } from "@tanstack/react-query";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { HolidayService } from "@/services/HolidayService";
+import { useQuery } from "@tanstack/react-query";
 import dayjs, { Dayjs } from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 
 dayjs.extend(isBetween);
 
-const useIsHoliday = () => {
-  const { role } = useUser();
-
+const useIsHoliday = ({ role = RoleEnum.ADMIN }: { role?: RoleEnum }) => {
   const { data } = useQuery({
     queryKey: ["holidays_data"],
     queryFn: async () =>
@@ -21,8 +19,10 @@ const useIsHoliday = () => {
     date = dayjs(date) as Dayjs;
     if (data) {
       return (
-        data?.filter((holiday) =>
-          date.isBetween(holiday.from, holiday.to, "day", "[]"),
+        data?.filter(
+          (holiday) =>
+            (date.isAfter(dayjs(holiday.from)) || date.isAfter(dayjs(holiday.from))) &&
+            (date.isBefore(dayjs(holiday.to)) || date.isSame(dayjs(holiday.to))),
         )?.length > 0
       );
     }

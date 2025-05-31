@@ -1,13 +1,12 @@
 "use server";
-import React from "react";
+import { getRole } from "@/actions/HelperActions";
 import Grid from "@/components/common/ui/Grid";
-import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { Link } from "@/navigation";
-import Eye from "@/components/icons/Eye";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { Prescription } from "@/models/Prescriptions";
-import { getTranslations } from "next-intl/server";
+import Eye from "@/components/icons/Eye";
+import Pencil from "@/components/icons/Pencil";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Table,
   TableBody,
@@ -16,25 +15,54 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { Button } from "@/components/ui/shadcn/button";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { Appointment } from "@/models/Appointment";
+import { Prescription } from "@/models/Prescriptions";
+import { Link } from "@/navigation";
+import { getTranslations } from "next-intl/server";
+import React from "react";
 
 interface PrescriptionDetailsProps {
   prescription?: Prescription;
+  appointment?: Appointment;
 }
 
 const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
   prescription,
+  appointment = undefined,
 }) => {
   const t = await getTranslations("common.prescription");
+  const role = await getRole();
 
   if (!prescription) {
     return (
-      <div className="text-center text-gray-500">{t("no_prescription")}</div>
+      <div className="text-center text-gray-500">
+        {role == RoleEnum.DOCTOR ? (
+          <Link
+            href={`/doctor/appointment/${appointment?.id}/prescriptions/create`}
+          >
+            <Button>{t("create.addPrescription")}</Button>
+          </Link>
+        ) : (
+          t("no_prescription")
+        )}
+      </div>
     );
   }
 
   return (
-    <div className={"flex w-full gap-2"}>
+    <div className={"flex flex-col w-full gap-2"}>
+      {role == RoleEnum.DOCTOR && (
+        <div className={"flex justify-end w-full"}>
+          <Link
+            href={`/doctor/appointment/${appointment?.id}/prescriptions/${prescription?.id}`}
+          >
+            <Button size={"icon"}>
+              <Pencil />
+            </Button>
+          </Link>
+        </div>
+      )}
       <Grid>
         <LabelValue label={t("next_visit")} value={prescription?.next_visit} />
         <LabelValue
@@ -83,9 +111,13 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
               <TableHeader>
                 <TableRow>
                   <TableHead className={"text-start"}>id</TableHead>
-                  <TableHead className={"text-start"}>{t("medicine_name")}</TableHead>
+                  <TableHead className={"text-start"}>
+                    {t("medicine_name")}
+                  </TableHead>
                   <TableHead className={"text-start"}>{t("dosage")}</TableHead>
-                  <TableHead className={"text-start"}>{t("dosage_interval")}</TableHead>
+                  <TableHead className={"text-start"}>
+                    {t("dosage_interval")}
+                  </TableHead>
                   <TableHead className={"text-start"}>{t("comment")}</TableHead>
                   <TableHead className={"text-start"}>{t("status")}</TableHead>
                   <TableHead className={"text-start"}>{t("actions")}</TableHead>

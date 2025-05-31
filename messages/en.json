@@ -1155,7 +1155,11 @@
       "actions": "Actions",
       "doctor": "Doctor",
       "patient": "Patient",
-      "appointment_date": "Appointment date"
+      "appointment_date": "Appointment date",
+      "time" : "Time",
+      "other_data": "Other data",
+      "info": "Info",
+      "data": "Data"
     },
     "medicine": {
       "table": {

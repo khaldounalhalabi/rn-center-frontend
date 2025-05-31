@@ -1,8 +1,9 @@
-import { BaseService } from "@/services/BaseService";
-import { Appointment } from "@/models/Appointment";
-import { ApiResponse } from "@/http/Response";
-import { GET, POST, PUT } from "@/http/Http";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { GET, POST, PUT } from "@/http/Http";
+import { ApiResponse } from "@/http/Response";
+import { Appointment } from "@/models/Appointment";
+import { BaseService } from "@/services/BaseService";
 
 export class AppointmentService extends BaseService<
   AppointmentService,
@@ -16,10 +17,11 @@ export class AppointmentService extends BaseService<
     clinicId: number,
     date: string,
   ): Promise<ApiResponse<string[]>> {
-    const res = await POST<string[]>(
-      `${this.role}/clinics/available-appointments-times`,
-      { date: date, clinic_id: clinicId },
-    );
+    const url =
+      this.role == RoleEnum.DOCTOR
+        ? "doctor/available-appointments-times"
+        : `${this.role}/clinics/available-appointments-times`;
+    const res = await POST<string[]>(url, { date: date, clinic_id: clinicId });
     return await this.errorHandler(res);
   }
 

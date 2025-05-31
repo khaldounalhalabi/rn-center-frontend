@@ -47,9 +47,15 @@ const Page = () => {
     {
       name: "service.name",
       label: t("service"),
-      render: (serviceName, record) => (
-        <ShowServiceSheet service={record?.service} buttonText={serviceName} />
-      ),
+      render: (serviceName, record) =>
+        record?.service ? (
+          <ShowServiceSheet
+            service={record?.service}
+            buttonText={serviceName}
+          />
+        ) : (
+          <div className={"mx-3"}><TranslatableEnum value={"no_data"} /></div>
+        ),
     },
     {
       name: "status",

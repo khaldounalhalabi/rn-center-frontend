@@ -37,7 +37,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await SpecialityService.make<SpecialityService>().indexWithPagination(
+      await SpecialityService.make().indexWithPagination(
         page,
         search,
         sortCol,

@@ -29,12 +29,12 @@ const ServiceForm = ({
   const t = useTranslations("admin.service.create-edit");
   const handleSubmit = async (data: any) => {
     if (type === "update") {
-      return ServiceService.make<ServiceService>(RoleEnum.ADMIN).update(
+      return ServiceService.make(RoleEnum.ADMIN).update(
         defaultValues?.id,
         data,
       );
     } else {
-      return await ServiceService.make<ServiceService>(RoleEnum.ADMIN).store(
+      return await ServiceService.make(RoleEnum.ADMIN).store(
         data,
       );
     }
@@ -60,7 +60,7 @@ const ServiceForm = ({
           required={true}
           name={"clinic_id"}
           api={async (page, search) =>
-            await ClinicsService.make<ClinicsService>().indexWithPagination(
+            await ClinicsService.make().indexWithPagination(
               page,
               search,
             )
@@ -76,7 +76,7 @@ const ServiceForm = ({
         <ApiSelect
           required={true}
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
-            await ServiceCategoryService.make<ServiceCategoryService>().indexWithPagination(
+            await ServiceCategoryService.make().indexWithPagination(
               page,
               search,
             )
@@ -102,7 +102,6 @@ const ServiceForm = ({
           required={true}
           name={"price"}
           type={"number"}
-          unit={"iqd"}
           label={t("price")}
         />
       </Grid>

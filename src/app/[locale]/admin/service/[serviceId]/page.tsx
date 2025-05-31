@@ -17,7 +17,7 @@ const ServiceShowPage = async ({
   params: { serviceId: number };
 }) => {
   const t = await getTranslations("admin.service.show");
-  const data = await ServiceService.make<ServiceService>().show(serviceId);
+  const data = await ServiceService.make().show(serviceId);
   const res: Service = data?.data;
   return (
     <PageCard>
@@ -52,7 +52,7 @@ const ServiceShowPage = async ({
         <LabelValue
           label={t("price")}
           value={`
-              ${res?.price.toLocaleString()} ${t("iqd")}
+              ${res?.price.toLocaleString()}
             `}
           color={"secondary"}
         />

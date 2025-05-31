@@ -18,7 +18,7 @@ const NotificationsPopover = () => {
   const { role } = useUser();
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
-    await NotificationService.make<NotificationService>(
+    await NotificationService.make(
       role,
     ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
@@ -48,7 +48,7 @@ const NotificationsPopover = () => {
   } = useQuery({
     queryKey: ["notifications_count"],
     queryFn: async () =>
-      await NotificationService.make<NotificationService>(
+      await NotificationService.make(
         role,
       ).getUnreadCount(),
   });
@@ -147,7 +147,7 @@ const NotificationsPopover = () => {
                       href={n.getUrl()}
                       className="w-full cursor-pointer rounded-md border-b-gray-100 p-3 hover:bg-gray-300"
                       onClick={() => {
-                        NotificationService.make<NotificationService>(
+                        NotificationService.make(
                           role,
                         ).markAsRead(notification.id);
                       }}
@@ -158,7 +158,7 @@ const NotificationsPopover = () => {
                       className="rounded-md p-3 hover:bg-gray-300"
                       onClick={() => {
                         if (!n.read_at) {
-                          NotificationService.make<NotificationService>(
+                          NotificationService.make(
                             role,
                           ).markAsRead(notification.id);
                           refetch();

@@ -1,7 +1,7 @@
 "use client";
 import dayjs, { Dayjs } from "dayjs";
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   FormField,
@@ -34,6 +34,7 @@ const FormDatepicker = ({
   df?: string;
 }) => {
   const { control } = useFormContext();
+  const [open , setOpen] = useState(false);
 
   return (
     <FormField
@@ -45,7 +46,7 @@ const FormDatepicker = ({
         >
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Popover>
+            <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <FormControl>
                   <Button
@@ -77,6 +78,7 @@ const FormDatepicker = ({
                     if (onChange) {
                       onChange(dayjs(val));
                     }
+                    setOpen(false)
                   }}
                   disabled={(date) => {
                     if (shouldDisableDate) {

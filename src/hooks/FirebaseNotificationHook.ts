@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/helpers/Firebase";
 import { GET, POST } from "@/http/Http";
-import useUser from "@/hooks/UserHook";
 
 const useFcmToken = () => {
   const [token, setToken] = useState("");
   const [notificationPermissionStatus, setNotificationPermissionStatus] =
     useState("");
   const [isClient, setIsClient] = useState(false);
-  const { role } = useUser();
 
   useEffect(() => {
     setIsClient(true);
@@ -24,16 +22,16 @@ const useFcmToken = () => {
           if (permission === "granted") {
             const currentToken = await getToken(messaging, {
               vapidKey:
-                "BIutuhaOvqImTR8RpGVoDLHDSzeJay1fAXWes5wWtLmLLBKkyOxUebJA2fQu3hfiwhHq51BKfzDT-tni6ndtVcM",
+                "BD2c5K6PVxOSeD9FmGOMVqHPoabzLcufGuxBZ3vA3FwedztLLgQHb-M61iwl11ULTj-xUojLW7OZ3kViqxDxNFg",
             });
 
             let prevToken = await GET<{ fcm_token: string }>(
-              `${role}/fcm/get-token`,
+              `/fcm/get-token`,
             ).then((res) => {
               return res?.data?.fcm_token;
             });
             if (currentToken != prevToken) {
-              await POST(`${role}/fcm/store-token`, {
+              await POST(`/fcm/store-token`, {
                 fcm_token: currentToken,
               });
               setToken(currentToken);

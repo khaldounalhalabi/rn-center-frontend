@@ -16,7 +16,7 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.medicine.show");
 
-  const data = await MedicineService.make<MedicineService>().show(medicinesId);
+  const data = await MedicineService.make().show(medicinesId);
   const res: Medicine = data?.data;
   return (
     <PageCard

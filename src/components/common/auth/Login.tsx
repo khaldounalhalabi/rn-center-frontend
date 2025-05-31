@@ -17,7 +17,7 @@ const Login = ({ role }: { role: RoleEnum }) => {
 
   const handleSubmit = async (data: { phone: string; password: string }) => {
     setError(false);
-    let response = await AuthService.make<AuthService>(role).login(
+    let response = await AuthService.make(role).login(
       data.phone,
       data.password,
     );

@@ -47,7 +47,7 @@ const ServiceCategoriesIndexPage = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ServiceCategoryService.make<ServiceCategoryService>(
+      await ServiceCategoryService.make(
         RoleEnum.ADMIN,
       ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
     extraButton: (revalidate) => <CreateDialog revalidate={revalidate} />,

@@ -4,9 +4,6 @@ import { Link } from "@/navigation";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
-import { RealTimeEvents } from "@/models/NotificationPayload";
-import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import React from "react";
 import { useTranslations } from "next-intl";
 import DataTable, {
@@ -20,9 +17,10 @@ import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enums/AppointmentTypeEnum";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import { ApiResponse } from "@/http/Response";
-import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
-import PageCard from "@/components/common/ui/PageCard";
 import { Button } from "@/components/ui/shadcn/button";
+import useUser from "@/hooks/UserHook";
+import { RoleEnum } from "@/enums/RoleEnum";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 
 const AppointmentsTable = ({
   without,
@@ -41,6 +39,7 @@ const AppointmentsTable = ({
   ) => Promise<ApiResponse<Appointment[]>>;
 }) => {
   const t = useTranslations("common.appointment.table");
+  const { role } = useUser();
 
   const schema: DataTableSchema<Appointment>[] = [
     {
@@ -52,8 +51,10 @@ const AppointmentsTable = ({
       name: "clinic.user.full_name",
       label: t("doctorName"),
       render: (doctorName, record) => (
-        <Link href={`/admin/clinics/${record?.clinic_id}`} className={"btn"}>
-          <Button variant={"link"} type={"button"}>{doctorName}</Button>
+        <Link href={`/${role}/clinics/${record?.clinic_id}`} className={"btn"}>
+          <Button variant={"link"} type={"button"}>
+            {doctorName}
+          </Button>
         </Link>
       ),
     },
@@ -61,21 +62,28 @@ const AppointmentsTable = ({
       name: "customer.user.full_name",
       label: t("patientName"),
       render: (patientName, record) => (
-        <Link href={`/admin/patients/${record?.customer_id}`} className={"btn"}>
-          <Button variant={"link"} type={"button"}>{patientName}</Button>
+        <Link
+          href={`/${role}/patients/${record?.customer_id}`}
+          className={"btn"}
+        >
+          <Button variant={"link"} type={"button"}>
+            {patientName}
+          </Button>
         </Link>
       ),
     },
     {
       name: "status",
       label: `${t("status")}`,
-      render: (_status, appointment) => {
-        return (
+      render: (status, appointment) => {
+        return role == RoleEnum.ADMIN || role == RoleEnum.SECRETARY ? (
           appointment && (
             <div className={"flex items-center justify-center"}>
               <AppointmentStatusColumn appointment={appointment} />
             </div>
           )
+        ) : (
+          <TranslatableEnum value={status} />
         );
       },
       sortable: true,
@@ -104,31 +112,24 @@ const AppointmentsTable = ({
     },
     {
       label: `${t("actions")}`,
-      render: (_undefined, data, setHidden, revalidate) => (
+      render: (_undefined, data, setHidden) => (
         <ActionsButtons
           id={data?.id}
-          buttons={["edit", "show"]}
-          baseUrl={`/admin/appointment`}
-          editUrl={`/admin/appointment/${data?.id}/edit`}
-          showUrl={`/admin/appointment/${data?.id}`}
+          buttons={
+            role == RoleEnum.SECRETARY || role == RoleEnum.ADMIN
+              ? ["edit", "show"]
+              : ["show"]
+          }
+          baseUrl={`/${role}/appointment`}
+          editUrl={`/${role}/appointment/${data?.id}/edit`}
+          showUrl={`/${role}/appointment/${data?.id}`}
           setHidden={setHidden}
         >
-          <>
-            <NotificationHandler
-              handle={(payload) => {
-                if (
-                  revalidate &&
-                  (payload.getNotificationType() ==
-                    RealTimeEvents.AppointmentStatusChange ||
-                    payload.getNotificationType() ==
-                      RealTimeEvents.NewAppointment)
-                ) {
-                  revalidate();
-                }
-              }}
-            />
+          {role == RoleEnum.SECRETARY || role == RoleEnum.ADMIN ? (
             <AppointmentLogModal appointmentId={data?.id} />
-          </>
+          ) : (
+            <></>
+          )}
         </ActionsButtons>
       ),
     },
@@ -173,9 +174,7 @@ const AppointmentsTable = ({
       await api(page, search, sortCol, sortDir, perPage, params),
   };
 
-  return (
-    <DataTable {...tableData} />
-  );
+  return <DataTable {...tableData} />;
 };
 
 export default AppointmentsTable;

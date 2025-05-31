@@ -72,7 +72,7 @@ function ApiSelect<TResponse, TData>({
 
   const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
     useInfiniteQuery({
-      queryKey: [`tableData_${label}`, search],
+      queryKey: [`api_select_${name}_items`, search],
       queryFn: async ({ pageParam }) => {
         let s = !search || search == "" ? undefined : search;
         return await api(pageParam, s, false, 1);

@@ -58,7 +58,7 @@ export const useAppointmentForm = ({
     let isMounted = true;
 
     if (clinicId) {
-      ClinicsService.make<ClinicsService>()
+      ClinicsService.make()
         .show(clinicId)
         .then((res) => {
           if (isMounted) {
@@ -77,7 +77,7 @@ export const useAppointmentForm = ({
     let isMounted = true;
 
     if (serviceId) {
-      ServiceService.make<ServiceService>()
+      ServiceService.make()
         .show(serviceId)
         .then((res) => {
           if (isMounted) {

@@ -31,12 +31,12 @@ const PatientsForm = ({
   const t = useTranslations("common.patient.create");
   const handleSubmit = async (data: any) => {
     if (type === "update" && (customer?.id != undefined || id != undefined)) {
-      return PatientService.make<PatientService>(RoleEnum.ADMIN).update(
+      return PatientService.make(RoleEnum.ADMIN).update(
         customer?.id ?? id,
         data,
       );
     } else {
-      return await PatientService.make<PatientService>(RoleEnum.ADMIN).store(
+      return await PatientService.make(RoleEnum.ADMIN).store(
         data,
       );
     }

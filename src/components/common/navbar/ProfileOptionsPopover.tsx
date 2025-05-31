@@ -69,7 +69,7 @@ const ProfileOptionsPopover = () => {
           <button
             className={"w-full text-start"}
             onClick={() => {
-              AuthService.make<AuthService>(role).logout();
+              AuthService.make(role).logout();
             }}
           >
             {t("logout")}

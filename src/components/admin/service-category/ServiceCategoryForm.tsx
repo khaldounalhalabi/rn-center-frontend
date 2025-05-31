@@ -25,13 +25,13 @@ const ServiceCategoryForm = ({
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return ServiceCategoryService.make<ServiceCategoryService>(RoleEnum.ADMIN)
+      return ServiceCategoryService.make(RoleEnum.ADMIN)
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
           return res;
         });
     } else {
-      return await ServiceCategoryService.make<ServiceCategoryService>(
+      return await ServiceCategoryService.make(
         RoleEnum.ADMIN,
       ).store(data);
     }

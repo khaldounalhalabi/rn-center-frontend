@@ -23,12 +23,12 @@ const ClinicForm = ({
   defaultValues?: Clinic | undefined;
 }) => {
   let onSubmit = async (data: any) => {
-    return await ClinicsService.make<ClinicsService>().store(data);
+    return await ClinicsService.make().store(data);
   };
 
   if (type == "update") {
     onSubmit = async (data: any) => {
-      return await ClinicsService.make<ClinicsService>().update(
+      return await ClinicsService.make().update(
         defaultValues?.id,
         data,
       );
@@ -83,7 +83,6 @@ const ClinicForm = ({
         <FormInput
           name={"appointment_cost"}
           type={"number"}
-          unit={"iqd"}
           label={t("cost")}
           required={true}
         />
@@ -104,7 +103,7 @@ const ClinicForm = ({
           name={"speciality_ids"}
           label={t("specialities")}
           api={(page?: number | undefined, search?: string | undefined) =>
-            SpecialityService.make<SpecialityService>().indexWithPagination(
+            SpecialityService.make().indexWithPagination(
               page,
               search,
             )

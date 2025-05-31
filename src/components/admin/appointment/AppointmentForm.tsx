@@ -1,28 +1,30 @@
 "use client";
-import { Appointment } from "@/models/Appointment";
-import { useTranslations } from "next-intl";
-import Grid from "@/components/common/ui/Grid";
-import ApiSelect from "@/components/common/ui/selects/ApiSelect";
-import React, { memo, useCallback, useMemo } from "react";
-import { Customer } from "@/models/Customer";
-import { CustomerService } from "@/services/CustomerService";
-import Form from "@/components/common/ui/Form";
-import { ClinicsService } from "@/services/ClinicsService";
-import { Clinic } from "@/models/Clinic";
-import { ServiceService } from "@/services/ServiceService";
-import { Service } from "@/models/Service";
-import FormInput from "@/components/common/ui/inputs/FormInput";
-import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
-import { useQuery } from "@tanstack/react-query";
-import { AppointmentService } from "@/services/AppointmentService";
-import FormSelect from "@/components/common/ui/selects/FormSelect";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { getEnumValues } from "@/helpers/Enums";
-import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
-import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import { Navigate } from "@/actions/Navigate";
-import useIsHoliday from "@/hooks/IsHoliday";
+import Form from "@/components/common/ui/Form";
+import Grid from "@/components/common/ui/Grid";
+import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
+import FormInput from "@/components/common/ui/inputs/FormInput";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
+import FormSelect from "@/components/common/ui/selects/FormSelect";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
+import { getEnumValues } from "@/helpers/Enums";
 import { useAppointmentForm } from "@/hooks/AppointmentFormHook";
+import useIsHoliday from "@/hooks/IsHoliday";
+import { Appointment } from "@/models/Appointment";
+import { Clinic } from "@/models/Clinic";
+import { Customer } from "@/models/Customer";
+import { Service } from "@/models/Service";
+import { AppointmentService } from "@/services/AppointmentService";
+import { ClinicsService } from "@/services/ClinicsService";
+import { CustomerService } from "@/services/CustomerService";
+import { ServiceService } from "@/services/ServiceService";
+import { useQuery } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
+import React, { memo, useCallback, useMemo } from "react";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 interface AppointmentFormProps {
   defaultValues?: Appointment;
@@ -41,7 +43,7 @@ const AppointmentForm = memo(
     defaultCustomerId,
   }: AppointmentFormProps) => {
     const t = useTranslations("common.appointment.create");
-    const isHoliday = useIsHoliday();
+    const isHoliday = useIsHoliday({role:RoleEnum.ADMIN});
 
     const {
       date,
@@ -65,7 +67,7 @@ const AppointmentForm = memo(
       useQuery({
         queryKey: ["available_times", clinicId, date?.format("YYYY-MM-DD")],
         queryFn: async () => {
-          return await AppointmentService.make<AppointmentService>().getAvailableTimes(
+          return await AppointmentService.make().getAvailableTimes(
             clinicId ?? 0,
             date?.format("YYYY-MM-DD") ?? "",
           );
@@ -134,14 +136,15 @@ const AppointmentForm = memo(
           label={t("time")}
           items={availableTimes?.data ?? []}
           name="time"
-          defaultValue={defaultValues?.status}
+          defaultValue={dayjs(defaultValues?.date_time).format("HH:mm")}
         />
       );
     }, [
       isLoadingAvailableTimes,
       availableTimes?.data,
       t,
-      defaultValues?.status,
+      defaultValues?.date_time,
+      dayjs,
     ]);
 
     return (
@@ -151,17 +154,14 @@ const AppointmentForm = memo(
           Navigate(redirect);
         }}
       >
-        <Grid>
+        <Grid className={"items-end"}>
           {showCustomerSelect && (
             <ApiSelect
               required={true}
               name="customer_id"
               label={t("patient")}
               api={(page?: number, search?: string) =>
-                CustomerService.make<CustomerService>().indexWithPagination(
-                  page,
-                  search,
-                )
+                CustomerService.make().indexWithPagination(page, search)
               }
               getOptionLabel={(option: Customer) => option?.user?.full_name}
               optionValue="id"
@@ -178,10 +178,7 @@ const AppointmentForm = memo(
               name="clinic_id"
               label={t("clinicName")}
               api={(page?: number, search?: string) =>
-                ClinicsService.make<ClinicsService>().indexWithPagination(
-                  page,
-                  search,
-                )
+                ClinicsService.make().indexWithPagination(page, search)
               }
               getOptionLabel={(option: Clinic) => option?.user?.full_name}
               optionValue="id"
@@ -197,11 +194,7 @@ const AppointmentForm = memo(
             name="service_id"
             label={t("serviceName")}
             api={(page?: number, search?: string) =>
-              ServiceService.make<ServiceService>().getClinicService(
-                clinicId,
-                page,
-                search,
-              )
+              ServiceService.make().getClinicService(clinicId, page, search)
             }
             getOptionLabel={(option: Service) => option?.name}
             optionValue="id"
@@ -245,7 +238,9 @@ const AppointmentForm = memo(
             onChange={handleDateChange}
             df={date?.format("YYYY-MM-DD")}
             name="date"
-            shouldDisableDate={isHoliday}
+            shouldDisableDate={(date) =>
+              isHoliday(date) || date?.isBefore(dayjs())
+            }
           />
           {timeSelector}
         </Grid>

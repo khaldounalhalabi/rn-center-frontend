@@ -18,7 +18,7 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { role, setUser } = useUser();
 
   const handleSubmit = async (data: any) => {
-    return await AuthService.make<AuthService>(role)
+    return await AuthService.make(role)
       .updateUserDetails(data)
       .then((res) => {
         if (res.ok()) {

@@ -18,8 +18,6 @@ import {
 const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
   const t = useTranslations("common.appointment.table");
 
-  const [openLogs, setOpenLogs] = useState(false);
-
   const [logs, setLogs] = useState<AppointmentLogs[]>();
   return (
     <ShadcnDialog
@@ -28,7 +26,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
           <LogsIcon
             onClick={async () => {
               if (appointmentId) {
-                return await AppointmentLogsService.make<AppointmentLogsService>()
+                return await AppointmentLogsService.make()
                   .getAppointmentLogs(appointmentId)
                   .then((res) => {
                     return setLogs(res?.data);

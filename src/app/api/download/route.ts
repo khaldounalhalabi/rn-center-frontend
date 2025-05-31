@@ -1,12 +1,10 @@
 import { getToken } from "@/actions/HelperActions";
 import { NextRequest } from "next/server";
+import { getServerCookie } from "@/actions/ServerCookies";
 
-export async function POST(
-  request: NextRequest,
-): Promise<Response> {
+export async function POST(request: NextRequest): Promise<Response> {
   const url = request.nextUrl.searchParams.get("url");
   const method = request.nextUrl.searchParams.get("method");
-
 
   let data;
   let headers = {};
@@ -45,22 +43,23 @@ export async function POST(
   const formData = data ? JSON.stringify(data) : JSON.stringify({});
   const baseUrl = process.env.localApi;
   const searchParams = new URLSearchParams(data?.params);
-  console.log(`${baseUrl}${url}?${searchParams}`);
-
-  if (method =="POST" || method == "PUT"){
-   return await fetch(`${baseUrl}${url}?${searchParams}`, {
-     method: method,
-     body: formData,
-     headers: {
-       Authorization: `Bearer ${await getToken()}`,
-       ...headers
-     },
-   });
- }
+  if (method == "POST" || method == "PUT") {
+    return await fetch(`${baseUrl}${url}?${searchParams}`, {
+      method: method,
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+        "Accept-Language": (await getServerCookie('NEXT_LOCALE')) ?? "en",
+        ...headers,
+      },
+    });
+  }
   return await fetch(`${baseUrl}${url}`, {
     method: method,
     headers: {
       Authorization: `Bearer ${await getToken()}`,
+      "Accept-Language": (await getServerCookie('NEXT_LOCALE')) ?? "en",
+      ...headers
     },
   });
 }

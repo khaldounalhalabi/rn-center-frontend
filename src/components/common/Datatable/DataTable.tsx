@@ -107,7 +107,9 @@ const DataTable = (tableData: DataTableData<any>) => {
             )}
             {tableData?.filter && (
               <div>
-                <DialogPopup open={openFilter} title={t("filters")}>
+                <DialogPopup open={openFilter} onClose={()=>{
+                  setOpenFilter(false);
+                }} title={t("filters")}>
                   <div className={"w-full my-5"}>
                     {tableData.filter(tempParams, setTempParams)}
                   </div>
@@ -142,7 +144,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                 variant={"outline"}
                 size={"icon"}
                 onClick={() => {
-                  setOpenFilter((prev) => !prev);
+                  setOpenFilter(true);
                 }}
               >
                 <FilterIcon />

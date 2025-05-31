@@ -13,7 +13,7 @@ const page = async ({
   const t = await getTranslations("common.patient.create");
 
   const patient = (
-    await PatientService.make<PatientService>(RoleEnum.ADMIN).show(patientId)
+    await PatientService.make(RoleEnum.ADMIN).show(patientId)
   ).data;
 
   return (

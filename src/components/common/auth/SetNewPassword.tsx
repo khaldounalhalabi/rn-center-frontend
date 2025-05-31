@@ -18,7 +18,7 @@ const SetNewPassword = ({ role }: { role: RoleEnum }) => {
     password: string;
     password_confirmation: string;
   }) => {
-    return AuthService.make<AuthService>(role).resetPassword(
+    return AuthService.make(role).resetPassword(
       data.password,
       data.password_confirmation,
     );

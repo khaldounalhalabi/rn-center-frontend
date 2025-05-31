@@ -23,12 +23,12 @@ const SpecialityForm = ({
   const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
     if (type == "update" && defaultValues?.id) {
-      return await SpecialityService.make<SpecialityService>().update(
+      return await SpecialityService.make().update(
         defaultValues?.id,
         data,
       );
     } else {
-      return await SpecialityService.make<SpecialityService>().store(data);
+      return await SpecialityService.make().store(data);
     }
   };
   const onSuccess = () => {

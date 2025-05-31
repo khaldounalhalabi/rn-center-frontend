@@ -13,7 +13,7 @@ const EditHolidayPage = async ({
   const t = await getTranslations("holidays");
 
   const holiday = (
-    await HolidayService.make<HolidayService>(RoleEnum.ADMIN).show(holidayId)
+    await HolidayService.make(RoleEnum.ADMIN).show(holidayId)
   ).data;
   return (
     <PageCard title={t("update_title")}>

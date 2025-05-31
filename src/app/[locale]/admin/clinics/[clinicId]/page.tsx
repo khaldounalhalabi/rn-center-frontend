@@ -21,7 +21,7 @@ const Page = async ({
 }: {
   params: { clinicId: number };
 }) => {
-  const data: ApiResponse<Clinic> = await ClinicsService.make<ClinicsService>(
+  const data: ApiResponse<Clinic> = await ClinicsService.make(
     RoleEnum.ADMIN,
   ).show(clinicId);
   const clinic = data.data;

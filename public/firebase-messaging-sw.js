@@ -58,37 +58,9 @@ if (messaging) {
     messaging.onBackgroundMessage((payload) => {
       const notificationTitle = payload?.data?.title ?? "New Notification";
       const notificationOptions = {
-        body: payload?.data?.message ?? "New Notification",
+        body: payload?.data?.message_en ?? "New Notification",
         icon: "/next.svg",
       };
-      //
-      // function getObjectAttributesAsString(obj, prefix = "") {
-      //   let result = "";
-      //
-      //   for (let key in obj) {
-      //     if (obj.hasOwnProperty(key)) {
-      //       let value = obj[key];
-      //       let currentPath = prefix ? `${prefix}.${key}` : key;
-      //
-      //       if (
-      //         typeof value === "object" &&
-      //         value !== null &&
-      //         !Array.isArray(value)
-      //       ) {
-      //         // Recursively handle nested objects
-      //         result += getObjectAttributesAsString(value, currentPath);
-      //       } else if (Array.isArray(value)) {
-      //         // Handle arrays by converting them to strings
-      //         result += `${currentPath}: ${value?.join(",")}\n`;
-      //       } else {
-      //         // Handle primitive values
-      //         result += `${currentPath}: ${String(value)}\n`;
-      //       }
-      //     }
-      //   }
-      //
-      //   return result;
-      // }
 
       if (payload.data.type.includes("RealTime")) {
         return;

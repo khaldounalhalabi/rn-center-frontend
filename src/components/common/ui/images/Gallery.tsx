@@ -10,7 +10,7 @@ import Trash from "@/components/icons/Trash";
 import { Badge } from "@/components/ui/shadcn/badge";
 import Alert from "@/components/common/ui/Alert";
 
-const Gallery = ({ media }: { media: Media[] | undefined }) => {
+const Gallery = ({ media ,sm = false}: { media: Media[] | undefined , sm?:boolean}) => {
   const t = useTranslations("components");
   const [isPending, setPending] = useState<boolean>(false);
   const [isTransitionStarted, startTransition] = useTransition();
@@ -19,7 +19,7 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
 
   const handleDeleteImage = (index: number) => {
     setPending(true);
-    MediaService.make<MediaService>()
+    MediaService.make()
       .delete(index)
       .then((res) => {
         startTransition(router.refresh);
@@ -29,7 +29,7 @@ const Gallery = ({ media }: { media: Media[] | undefined }) => {
   };
 
   return (
-    <div className={`my-10 grid w-full grid-cols-2 gap-6 md:grid-cols-6`}>
+    <div className={`my-10 grid w-full grid-cols-2 gap-6 ${sm ? "grid-cols-3" : "md:grid-cols-6"}`}>
       {isMutating ? (
         <LoadingSpin className={"h-7 w-7"} />
       ) : !media || media?.length <= 0 ? (

@@ -37,7 +37,7 @@ const AppointmentStatusColumn = ({
 
   const handleChange = async (status: AppointmentStatusEnum) => {
     setLoading(true);
-    const response = await AppointmentService.make<AppointmentService>()
+    const response = await AppointmentService.make()
       .toggleStatus(appointment.id, status, cancellationReason)
       .then((res) => {
         if (res.ok()) {
@@ -54,7 +54,7 @@ const AppointmentStatusColumn = ({
     <LoadingSpin className={"h-6 w-6"} />
   ) : (
     <>
-      <DialogPopup open={open}>
+      <DialogPopup open={open} onClose={()=>setOpen(false)}>
         <Form
           handleSubmit={() => {
             setOpen(false);

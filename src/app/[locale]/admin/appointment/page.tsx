@@ -13,7 +13,7 @@ const Page = () => {
       <AppointmentsTable
         without={[]}
         api={async (page, search, sortCol, sortDir, perPage, params) =>
-          await AppointmentService.make<AppointmentService>(
+          await AppointmentService.make(
             RoleEnum.ADMIN,
           ).indexWithPagination(page, search, sortCol, sortDir, perPage, params)
         }

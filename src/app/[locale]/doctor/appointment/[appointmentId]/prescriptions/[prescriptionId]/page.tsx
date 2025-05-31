@@ -1,4 +1,5 @@
 import PageCard from "@/components/common/ui/PageCard";
+import MedicineFormSheet from "@/components/doctor/medicines/MedicineFormSheet";
 import PrescriptionForm from "@/components/doctor/prescriptions/PrescriptionForm";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { AppointmentService } from "@/services/AppointmentService";
@@ -20,7 +21,10 @@ const Page = async ({
   const t = await getTranslations("common.prescription");
 
   return (
-    <PageCard title={t("create.editPrescription")}>
+    <PageCard
+      title={t("create.editPrescription")}
+      actions={<MedicineFormSheet />}
+    >
       <PrescriptionForm
         appointment={appointment}
         clinicId={appointment?.clinic_id}

@@ -49,7 +49,7 @@ const ShowServiceSheet = ({ service , buttonText = undefined }: { service?: Serv
           <LabelValue
             label={t("price")}
             value={`
-              ${service?.price.toLocaleString()} ${t("iqd")}
+              ${service?.price?.toLocaleString()}
             `}
             color={"secondary"}
           />

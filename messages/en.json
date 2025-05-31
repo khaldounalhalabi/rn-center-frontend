@@ -1156,7 +1156,7 @@
       "doctor": "Doctor",
       "patient": "Patient",
       "appointment_date": "Appointment date",
-      "time" : "Time",
+      "time": "Time",
       "other_data": "Other data",
       "info": "Info",
       "data": "Data"
@@ -1192,7 +1192,8 @@
         "quantity": "Quantity",
         "status": "Status",
         "barcode_value": "Barcode value"
-      }
+      },
+      "add_medicine_desc": "Adding this medicine doesn't mean that the center has it in its pharmacy, but it will note the pharmacist to the need to get this medicine"
     },
     "transaction": {
       "table": {
@@ -1651,15 +1652,15 @@
     "delete_record": "Delete item",
     "show_record": "Show details",
     "edit_record": "Edit item",
-    "eg" : "eg",
+    "eg": "eg",
     "select": "Select",
     "error": "There is been an error",
     "check_data": "Please check your data and try again",
     "success": "Succeed",
     "delete_service_category_question": "Deleting this service category will cause the deletion of all the services under it are you sure you want to delete it ?",
-    "new_notification" : "New notification",
+    "new_notification": "New notification",
     "show": "Show",
-    "export" :"Export",
+    "export": "Export",
     "import": "Import",
     "import_example": "Import example"
   },
@@ -1683,16 +1684,16 @@
     "actions": "Actions",
     "secretaries": "Secretaries",
     "edit_title": "Edit secretary",
-    "schedule" : "Secretary schedule"
+    "schedule": "Secretary schedule"
   },
   "attendance": {
     "attendance_timeline": "Attendance Timeline",
     "no_more": "No more records to load",
     "no_records": "No attendance records found for this date.",
     "attendance_date": "Attendance date",
-    "from" : "From",
-    "to" : "To",
-    "add_slot" : "Add new slot",
+    "from": "From",
+    "to": "To",
+    "add_slot": "Add new slot",
     "search": "Search"
   },
   "links": {
@@ -1758,9 +1759,9 @@
     "show_title": "Payrun details",
     "actions": "Actions",
     "pay_run_error_warning": "Your payrun faced an error due to miss use in one or more of your salary formulas , you need to check the errored payslip and then the formula that did cause the error or just edit the payslip manually",
-    "pay_run_overlap_error" : "The selected period contain days from a previous pay run , do you want to create it any way ?",
+    "pay_run_overlap_error": "The selected period contain days from a previous pay run , do you want to create it any way ?",
     "reprocess": "Reprocess this payrun",
-    "payslips" : "Payslips"
+    "payslips": "Payslips"
   },
   "payslips": {
     "paid_days": "Paid days",
@@ -1775,19 +1776,19 @@
     "adjustments": "Adjustments",
     "total_benefits": "Total benefits",
     "total_deductions": "Total deductions",
-    "payslips" : "Payslips",
-    "formula" : "Salary formula",
+    "payslips": "Payslips",
+    "formula": "Salary formula",
     "employee": "Employee",
     "actions": "Actions",
     "edit_title": "Edit payslip",
     "show_title": "Payslip details",
-    "earning" : "Earning",
-    "value" : "Value",
+    "earning": "Earning",
+    "value": "Value",
     "deduction": "Deduction",
     "adjustment": "Adjustment",
     "variables_values_in_period": "Variables values within the payslip period",
     "benefits": "Benefits",
     "exclude": "Exclude from this payrun",
-    "include" : "Include in this payrun"
+    "include": "Include in this payrun"
   }
 }

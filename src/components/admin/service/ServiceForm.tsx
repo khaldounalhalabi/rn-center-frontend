@@ -102,7 +102,6 @@ const ServiceForm = ({
           required={true}
           name={"price"}
           type={"number"}
-          unit={"iqd"}
           label={t("price")}
         />
       </Grid>

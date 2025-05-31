@@ -154,7 +154,7 @@ const AppointmentForm = memo(
           Navigate(redirect);
         }}
       >
-        <Grid>
+        <Grid className={"items-end"}>
           {showCustomerSelect && (
             <ApiSelect
               required={true}

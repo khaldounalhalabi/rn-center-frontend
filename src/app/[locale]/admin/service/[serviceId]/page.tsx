@@ -52,7 +52,7 @@ const ServiceShowPage = async ({
         <LabelValue
           label={t("price")}
           value={`
-              ${res?.price.toLocaleString()} ${t("iqd")}
+              ${res?.price.toLocaleString()}
             `}
           color={"secondary"}
         />

@@ -83,7 +83,6 @@ const ClinicForm = ({
         <FormInput
           name={"appointment_cost"}
           type={"number"}
-          unit={"iqd"}
           label={t("cost")}
           required={true}
         />

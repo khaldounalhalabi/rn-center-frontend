@@ -66,7 +66,7 @@ const Page = () => {
         render: (data) => (
           <p>
             <span suppressHydrationWarning>
-              {data.toLocaleString()} {t("iqd")}
+              {data.toLocaleString()}
             </span>
           </p>
         ),

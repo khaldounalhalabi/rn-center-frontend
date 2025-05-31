@@ -51,7 +51,6 @@ const TransactionForm = ({
           label={t("amount")}
           required={true}
           type="number"
-          unit={"iqd"}
         />
         <FormInput
           required={true}

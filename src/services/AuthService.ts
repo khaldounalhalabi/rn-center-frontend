@@ -1,19 +1,20 @@
-import { Navigate } from "@/actions/Navigate";
-import { ApiResponse } from "@/http/Response";
-import { AuthResponse, User } from "@/models/User";
-import { GET, POST, PUT } from "@/http/Http";
-import { BaseService } from "./BaseService";
-import { Clinic } from "@/models/Clinic";
 import {
   deleteRole,
   deleteTokens,
+  deleteUser,
   getOtp,
   getPhone,
   setOtp,
   setPhone,
   setRole,
   setToken,
+  setUser,
 } from "@/actions/HelperActions";
+import { Navigate } from "@/actions/Navigate";
+import { GET, POST } from "@/http/Http";
+import { ApiResponse } from "@/http/Response";
+import { AuthResponse, User } from "@/models/User";
+import { BaseService } from "./BaseService";
 
 export class AuthService extends BaseService<AuthService, AuthResponse>() {
   public successStatus: boolean = false;
@@ -26,15 +27,15 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     const response = await POST<AuthResponse>(`${this.baseUrl}/login`, {
       phone: phone,
       password: password,
-    }).then((res: ApiResponse<AuthResponse>) => {
-      if (res.ok()) {
-        setToken(res?.data?.token, res?.data?.refresh_token);
-        setRole(res?.data?.user?.role);
-        this.successStatus = true;
-      }
-
-      return res;
     });
+
+    if (response.ok()) {
+      await setToken(response?.data?.token, response?.data?.refresh_token);
+      await setRole(response?.data?.user?.role);
+      await setUser(response?.data?.user);
+      this.successStatus = true;
+    }
+
     if (this.successStatus) {
       await Navigate(`/${this.role}`);
     }
@@ -108,47 +109,20 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     if (this.successStatus) await Navigate(`/auth/${this.role}/login`);
     return response;
   }
-
-  public async requestVerificationCode(url: string, dataForm: object) {
-    const response = await POST<boolean>(url, dataForm).then((e) => {
-      this.successStatus = e.code == 200;
-      return e;
-    });
-
-    if (this.successStatus) await Navigate(`/customer`);
-
-    return response;
-  }
-
   public async userDetails(): Promise<ApiResponse<User>> {
     const res = await GET<User>(`${this.role}/me`);
     return await this.errorHandler(res);
   }
-
-  public async GetClinicDetails(): Promise<ApiResponse<Clinic>> {
-    const res = await GET<Clinic>(`${this.role}/clinic`);
-    return await this.errorHandler(res);
-  }
-
   public async updateUserDetails(
     data: any,
   ): Promise<ApiResponse<AuthResponse>> {
     const res = await POST<AuthResponse>(`${this.role}/update-user-data`, data);
     return await this.errorHandler(res);
   }
-
-  public async UpdateClinicDetails(data: any): Promise<ApiResponse<Clinic>> {
-    const res = await PUT<Clinic>(`${this.role}/clinic/update`, data);
-    return await this.errorHandler(res);
-  }
-
-  public async agreeOnContract() {
-    return this.errorHandler(await GET<boolean>(`doctor/contract/agree`));
-  }
-
   public logout = async () => {
     await deleteTokens();
     await deleteRole();
+    await deleteUser();
     await Navigate(`/auth/${this.role}/login`);
   };
 }

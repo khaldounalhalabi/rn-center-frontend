@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Service } from "@/models/Service";
+import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
 import { ServiceService } from "@/services/ServiceService";
-import { AppointmentService } from "@/services/AppointmentService";
 import dayjs, { Dayjs } from "dayjs";
+import { useCallback, useEffect, useState } from "react";
 
 interface UseAppointmentFormProps {
   defaultValues?: Appointment;
@@ -130,7 +130,7 @@ export const useAppointmentForm = ({
       if (defaultCustomerId) {
         data = { ...data, customer_id: defaultCustomerId };
       }
-
+      
       if (type === "store") {
         return service.store({ ...data, date_time: dateTime });
       } else {

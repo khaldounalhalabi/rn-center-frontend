@@ -1,12 +1,11 @@
-import React from "react";
-import { User } from "@/models/User";
-import { PatientService } from "@/services/PatientService";
-import { Customer } from "@/models/Customer";
-import { getTranslations } from "next-intl/server";
-import UserDataView from "@/components/common/user/UserDataView";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import PatientsOverview from "@/components/admin/patients/PatientsOverview";
+import UserDataView from "@/components/common/user/UserDataView";
+import PatientOverview from "@/components/doctor/patients/PatientOverview";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { Customer } from "@/models/Customer";
+import { PatientService } from "@/services/PatientService";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { patientId },
@@ -15,14 +14,11 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.patient.show");
   await getTranslations("common.patient.attachments");
-  const data = await PatientService.make().show(patientId);
+  const data = await PatientService.make(RoleEnum.DOCTOR).show(patientId);
   const patient: Customer = data?.data;
 
   return (
-    <UserDataView
-      user={patient?.user}
-      editUrl={`/admin/patients/${patientId}/edit`}
-    >
+    <UserDataView user={patient?.user}>
       <Grid>
         <LabelValue label={t("blood")} value={patient?.blood_group} />
         <LabelValue label={t("birthDate")} value={patient?.birth_date} />
@@ -34,7 +30,7 @@ const page = async ({
           </div>
         ))}
       </Grid>
-      <PatientsOverview patient={patient} />
+      <PatientOverview patient={patient} />
     </UserDataView>
   );
 };

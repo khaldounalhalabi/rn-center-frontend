@@ -1,5 +1,4 @@
 "use client";
-import { Link, usePathname } from "@/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,8 +7,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/shadcn/breadcrumb";
-import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "@/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+
+const NO_LINKS = ["/admin/prescriptions", "/admin/prescriptions" , "prescriptions"];
 
 const Breadcrumbs = () => {
   const locale = useLocale();
@@ -28,15 +30,19 @@ const Breadcrumbs = () => {
     // Format the part for display (capitalize the first letter)
     const formattedPart = part.charAt(0) + part.slice(1);
 
+    const isNoLink = NO_LINKS.filter((l) => href?.endsWith(l))?.length > 0;
+
     return (
       <BreadcrumbItem className={"rtl:flex rtl:items-center"} key={index}>
         {index == pathParts.length - 1 ? (
           <BreadcrumbPage>
-            {isNumericString(formattedPart) ? formattedPart : t(formattedPart as any)}
+            {isNumericString(formattedPart)
+              ? formattedPart
+              : t(formattedPart as any)}
           </BreadcrumbPage>
         ) : (
-          <BreadcrumbLink href={href}>
-            <Link href={href}>
+          <BreadcrumbLink href={isNoLink ? "" : href}>
+            <Link href={isNoLink ? "" : href}>
               {isNumericString(formattedPart)
                 ? formattedPart
                 : t(formattedPart as any)}

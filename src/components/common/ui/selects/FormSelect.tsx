@@ -1,7 +1,4 @@
 "use client";
-import { useFormContext } from "react-hook-form";
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
-import React, { HTMLProps } from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import {
   FormControl,
@@ -17,7 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/shadcn/select";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { useTranslations } from "next-intl";
+import React, { HTMLProps } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface SelectProps extends HTMLProps<HTMLSelectElement> {
   name: string;
@@ -54,11 +54,18 @@ const FormSelect: React.FC<SelectProps> = ({
           >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={label && `${t("select")} ${label} ...`} />
+                <SelectValue
+                  placeholder={label && `${t("select")} ${label} ...`}
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {items?.map((option , index) => (
+              {defaultValue && !items?.includes(defaultValue as never) && (
+                <SelectItem value={`${defaultValue}`}>
+                  {defaultValue}
+                </SelectItem>
+              )}
+              {items?.map((option, index) => (
                 <SelectItem value={`${option}`} key={index}>
                   {translatable ? (
                     <TranslatableEnum value={`${option}`} />

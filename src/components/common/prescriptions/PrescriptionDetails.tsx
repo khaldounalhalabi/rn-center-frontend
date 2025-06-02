@@ -1,10 +1,10 @@
 "use server";
-import { getRole } from "@/actions/HelperActions";
+import { getRole, getUser } from "@/actions/HelperActions";
+import ShowMedicineSheet from "@/components/common/medicine/ShowMedicineSheet";
 import Grid from "@/components/common/ui/Grid";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import Eye from "@/components/icons/Eye";
 import Pencil from "@/components/icons/Pencil";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -25,21 +25,28 @@ import React from "react";
 interface PrescriptionDetailsProps {
   prescription?: Prescription;
   appointment?: Appointment;
+  customerId?: number;
 }
 
 const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
   prescription,
   appointment = undefined,
+  customerId,
 }) => {
   const t = await getTranslations("common.prescription");
   const role = await getRole();
+  const user = await getUser();
 
   if (!prescription) {
     return (
       <div className="text-center text-gray-500">
         {role == RoleEnum.DOCTOR ? (
           <Link
-            href={`/doctor/appointment/${appointment?.id}/prescriptions/create`}
+            href={
+              appointment
+                ? `/doctor/appointment/${appointment?.id}/prescriptions/create`
+                : `/doctor/patients/${customerId}/prescriptions/create`
+            }
           >
             <Button>{t("create.addPrescription")}</Button>
           </Link>
@@ -52,17 +59,22 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
 
   return (
     <div className={"flex flex-col w-full gap-2"}>
-      {role == RoleEnum.DOCTOR && (
-        <div className={"flex justify-end w-full"}>
-          <Link
-            href={`/doctor/appointment/${appointment?.id}/prescriptions/${prescription?.id}`}
-          >
-            <Button size={"icon"}>
-              <Pencil />
-            </Button>
-          </Link>
-        </div>
-      )}
+      {role == RoleEnum.DOCTOR &&
+        user?.clinic?.id == prescription?.clinic_id && (
+          <div className={"flex justify-end w-full"}>
+            <Link
+              href={
+                appointment
+                  ? `/doctor/appointment/${appointment?.id}/prescriptions/${prescription?.id}`
+                  : `/doctor/patients/${customerId}/prescriptions/${prescription?.id}/edit`
+              }
+            >
+              <Button size={"icon"}>
+                <Pencil />
+              </Button>
+            </Link>
+          </div>
+        )}
       <Grid>
         <LabelValue label={t("next_visit")} value={prescription?.next_visit} />
         <LabelValue
@@ -71,26 +83,31 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
         />
         {prescription?.clinic && (
           <Label label={t("doctor")}>
-            <Link
-              href={`/admin/clinics/${prescription?.clinic_id}`}
-              className={"btn btn-sm"}
-            >
-              {prescription?.clinic?.user?.full_name}
-            </Link>
+            {role == RoleEnum.ADMIN ? (
+              <Link
+                href={`/admin/clinics/${prescription?.clinic_id}`}
+                className={"btn btn-sm"}
+              >
+                {prescription?.clinic?.user?.full_name}
+              </Link>
+            ) : (
+              prescription?.clinic?.user?.full_name
+            )}
           </Label>
         )}
 
         {prescription?.customer && (
           <Label label={t("patient")}>
             <Link
-              href={`/admin/patients/${prescription?.customer_id}`}
+              href={`/${role}/patients/${prescription?.customer_id}`}
               className={"btn btn-sm"}
             >
               {prescription?.customer?.user?.full_name}
             </Link>
           </Label>
         )}
-        {prescription?.appointment && (
+
+        {prescription?.appointment && role == RoleEnum.ADMIN ? (
           <Label label={t("appointment_date")}>
             <Link
               href={`/admin/appointment/${prescription?.appointment_id}`}
@@ -99,12 +116,19 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
               {prescription?.appointment?.date_time}
             </Link>
           </Label>
+        ) : (
+          <LabelValue
+            label={t("appointment_date")}
+            value={prescription?.appointment?.date_time}
+          />
         )}
+
         {prescription?.other_data?.map((item, index) => (
           <div className={"md:col-span-2"} key={index}>
             <LabelValue label={item.key} value={item.value} col />
           </div>
         ))}
+
         <div className={"md:col-span-2"}>
           <Label label={t("medicines")} col>
             <Table className="table w-full table-auto">
@@ -127,15 +151,7 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
                 {prescription?.medicines?.map((medicineData, index) => (
                   <TableRow key={index}>
                     <TableCell>{medicineData?.medicine_id}</TableCell>
-                    <TableCell>
-                      <Link
-                        href={`/admin/medicines/${medicineData?.medicine_id}`}
-                      >
-                        <Button variant={"link"} type={"button"}>
-                          {medicineData?.medicine?.name}
-                        </Button>
-                      </Link>
-                    </TableCell>
+                    <TableCell>{medicineData?.medicine?.name}</TableCell>
                     <TableCell>{medicineData?.dosage}</TableCell>
                     <TableCell>{medicineData?.dose_interval}</TableCell>
                     <TableCell>{medicineData?.comment}</TableCell>
@@ -143,13 +159,7 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
                       <TranslatableEnum value={medicineData?.status} />
                     </TableCell>
                     <TableCell>
-                      <Link
-                        href={`/admin/medicines/${medicineData?.medicine_id}`}
-                      >
-                        <Button size={"icon"}>
-                          <Eye />
-                        </Button>
-                      </Link>
+                      <ShowMedicineSheet medicine={medicineData?.medicine} />
                     </TableCell>
                   </TableRow>
                 ))}

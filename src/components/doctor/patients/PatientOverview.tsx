@@ -1,5 +1,6 @@
 "use client";
 import MediaTable from "@/components/common/media/MediaTable";
+import MedicalRecordsTable from "@/components/common/medical-records/MedicalRecordsTable";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import PageCard from "@/components/common/ui/PageCard";
 import Tabs from "@/components/common/ui/Tabs";
@@ -47,6 +48,18 @@ const PatientOverview = ({ patient }: { patient: Customer }) => {
           render: (
             <PageCard>
               <PrescriptionTable patientId={patient?.id} />
+            </PageCard>
+          ),
+        },
+
+        {
+          title: t("medical_records"),
+          render: (
+            <PageCard>
+              <MedicalRecordsTable
+                patientId={patient?.id}
+                role={RoleEnum.DOCTOR}
+              />
             </PageCard>
           ),
         },

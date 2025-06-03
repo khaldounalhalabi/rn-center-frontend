@@ -1071,7 +1071,8 @@
         "medicalCondition": "الحالة الطبية",
         "lastAppointment": "آخر حجز",
         "appointments_count": "عدد الحجوزات",
-        "joined_at": "انضم بتاريخ"
+        "joined_at": "انضم بتاريخ",
+        "medical_records": "السجل الصحي"
       }
     },
     "prescription": {
@@ -1800,5 +1801,17 @@
     "benefits": "المكتسبات",
     "exclude": "استبعاد من هذه الدورة المالية",
     "include" : "إدراج في هذه الدورة المالية"
+  },
+  "medical_records": {
+    "summary": "ملخص",
+    "diagnosis": "التشخيص",
+    "treatment": "العلاج",
+    "allergies": "الحساسية",
+    "notes": "ملاحظات",
+    "index_title": "السجل الطبي",
+    "edit_title": "تعديل السجل",
+    "create_title": "إضافة بيانات جديدة للسجل الطبي",
+    "show_title": "السجل الطبي",
+    "actions": "الخيارات"
   }
 }

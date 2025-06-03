@@ -19,6 +19,7 @@ import { PatientService } from "@/services/PatientService";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Revalidate } from "@/actions/Revalidate";
+import DownloadPatientReportButton from "@/components/doctor/patients/DownloadPatientReportButton";
 
 const Page = () => {
   const t = useTranslations("common.patient");
@@ -63,6 +64,7 @@ const Page = () => {
               setHidden={setHidden}
             >
               <UpdatePatientSheet patient={data} revalidate={revalidate} />
+              <DownloadPatientReportButton patient={data} />
             </ActionsButtons>
           );
         },

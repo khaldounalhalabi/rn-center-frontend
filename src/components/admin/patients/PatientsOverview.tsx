@@ -9,6 +9,7 @@ import Tabs from "@/components/common/ui/Tabs";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import MediaTable from "@/components/common/media/MediaTable";
 import PageCard from "@/components/common/ui/PageCard";
+import MedicalRecordsTable from "@/components/common/medical-records/MedicalRecordsTable";
 
 const PatientsOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");
@@ -49,6 +50,17 @@ const PatientsOverview = ({ patient }: { patient: Customer }) => {
           render: (
             <PageCard>
               <PrescriptionTable patientId={patient?.id} />
+            </PageCard>
+          ),
+        },
+        {
+          title: t("medical_records"),
+          render: (
+            <PageCard>
+              <MedicalRecordsTable
+                patientId={patient?.id}
+                role={RoleEnum.ADMIN}
+              />
             </PageCard>
           ),
         },

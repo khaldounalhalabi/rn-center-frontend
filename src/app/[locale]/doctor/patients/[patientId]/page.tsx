@@ -8,6 +8,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import { Customer } from "@/models/Customer";
 import { PatientService } from "@/services/PatientService";
 import { getTranslations } from "next-intl/server";
+import DownloadPatientReportButton from "@/components/doctor/patients/DownloadPatientReportButton";
 
 const page = async ({
   params: { patientId },
@@ -23,10 +24,13 @@ const page = async ({
     <UserDataView
       user={patient?.user}
       actions={
-        <UpdatePatientSheet
-          patient={patient}
-          triggerText={t("editBtn")}
-        />
+        <>
+          <DownloadPatientReportButton patient={patient}/>
+          <UpdatePatientSheet
+            patient={patient}
+            triggerText={t("editBtn")}
+          />
+        </>
       }
     >
       <Grid>

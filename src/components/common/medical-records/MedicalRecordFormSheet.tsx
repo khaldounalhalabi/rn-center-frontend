@@ -70,7 +70,7 @@ const MedicalRecordFormSheet = ({
       <SheetContent>
         <SheetHeader>
           <SheetTitle>
-            {type == "store" ? t("create_title") : t("update_title")}
+            {type == "store" ? t("create_title") : t("edit_title")}
           </SheetTitle>
         </SheetHeader>
         <Form

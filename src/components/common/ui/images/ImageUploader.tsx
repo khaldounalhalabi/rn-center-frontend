@@ -1,14 +1,14 @@
 "use client";
-import { FilePond, registerPlugin } from "react-filepond";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
-import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
-import { useFormContext } from "react-hook-form";
-import React, { useEffect } from "react";
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { FilePond, registerPlugin } from "react-filepond";
+import { useFormContext } from "react-hook-form";
 
 const ImageUploader = ({
   name,
@@ -37,7 +37,18 @@ const ImageUploader = ({
     setValue(name, undefined);
   }, []);
 
-  const error = getNestedPropertyValue(errors, `${name}.message`);
+  let error = [];
+  if (!isMultiple) {
+    error = getNestedPropertyValue(errors, `${name}.message`);
+  } else {
+    for (let i = 0; i <= 10; i++) {
+      const tempError = getNestedPropertyValue(errors, `${name}.${i}.message`);
+      if (tempError) {
+        error = [tempError];
+        break;
+      }
+    }
+  }
   return (
     <div className={`my-3 flex flex-col justify-center`}>
       {label ? <label className={"label"}>{label} :</label> : ""}
@@ -63,7 +74,13 @@ const ImageUploader = ({
           allowMultiple={isMultiple}
         />
       </div>
-      {error ? <p className={`text-sm text-destructive`}>{error}</p> : ""}
+      {error?.length > 0
+        ? error?.map((e: string, index: number) => (
+            <p key={index} className={`text-sm text-destructive`}>
+              {e}
+            </p>
+          ))
+        : ""}
     </div>
   );
 };

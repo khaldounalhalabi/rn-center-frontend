@@ -3,11 +3,11 @@ import MediaTable from "@/components/common/media/MediaTable";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import PageCard from "@/components/common/ui/PageCard";
 import Tabs from "@/components/common/ui/Tabs";
+import AppointmentsTable from "@/components/doctor/appointments/AppointmentsTable";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Customer } from "@/models/Customer";
 import { AppointmentService } from "@/services/AppointmentService";
 import { useTranslations } from "next-intl";
-import AppointmentsTable from "@/components/doctor/appointments/AppointmentsTable";
 
 const PatientOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");
@@ -15,10 +15,6 @@ const PatientOverview = ({ patient }: { patient: Customer }) => {
   return (
     <Tabs
       tabs={[
-        {
-          title: attachmentsT("title"),
-          render: <MediaTable media={patient.attachments || []} />,
-        },
         {
           title: t("appointment"),
           render: (
@@ -41,6 +37,10 @@ const PatientOverview = ({ patient }: { patient: Customer }) => {
               />
             </PageCard>
           ),
+        },
+        {
+          title: attachmentsT("title"),
+          render: <MediaTable media={patient.attachments || []} />,
         },
         {
           title: t("prescriptions"),

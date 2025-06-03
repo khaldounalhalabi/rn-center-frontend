@@ -1,7 +1,9 @@
+import { Revalidate } from "@/actions/Revalidate";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import UserDataView from "@/components/common/user/UserDataView";
 import PatientOverview from "@/components/doctor/patients/PatientOverview";
+import UpdatePatientSheet from "@/components/doctor/patients/UpdatePatientSheet";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Customer } from "@/models/Customer";
 import { PatientService } from "@/services/PatientService";
@@ -18,7 +20,15 @@ const page = async ({
   const patient: Customer = data?.data;
 
   return (
-    <UserDataView user={patient?.user}>
+    <UserDataView
+      user={patient?.user}
+      actions={
+        <UpdatePatientSheet
+          patient={patient}
+          triggerText={t("editBtn")}
+        />
+      }
+    >
       <Grid>
         <LabelValue label={t("blood")} value={patient?.blood_group} />
         <LabelValue label={t("birthDate")} value={patient?.birth_date} />

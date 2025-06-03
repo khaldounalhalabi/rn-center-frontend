@@ -20,6 +20,7 @@ import { Loader2 } from "lucide-react";
 import Alert from "@/components/common/ui/Alert";
 import { toast } from "sonner";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import { getRole } from "@/actions/HelperActions";
 
 interface MediaTableProps {
   media: Media[];
@@ -78,7 +79,8 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
 
   const handleDelete = async (mediaId: number) => {
     setIsDeleting(mediaId);
-    const response = await MediaService.make().delete(mediaId);
+    const role = await getRole();
+    const response = await MediaService.make(role).delete(mediaId);
     setIsDeleting(undefined);
     if (response.ok()) {
       setAttachments(attachments.filter((item) => item.id !== mediaId));

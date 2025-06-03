@@ -1,16 +1,16 @@
-import { Link } from "@/navigation";
-import Eye from "@/components/icons/Eye";
-import Pencil from "@/components/icons/Pencil";
-import React, { useState } from "react";
-import { BaseService } from "@/services/BaseService";
-import Trash from "@/components/icons/Trash";
-import { useTranslations } from "next-intl";
-import { ApiResponse } from "@/http/Response";
-import { Button } from "@/components/ui/shadcn/button";
-import Tooltip from "@/components/common/ui/Tooltip";
-import { toast } from "sonner";
 import Alert from "@/components/common/ui/Alert";
+import Tooltip from "@/components/common/ui/Tooltip";
+import Eye from "@/components/icons/Eye";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import Pencil from "@/components/icons/Pencil";
+import Trash from "@/components/icons/Trash";
+import { Button } from "@/components/ui/shadcn/button";
+import { ApiResponse } from "@/http/Response";
+import { Link } from "@/navigation";
+import { BaseService } from "@/services/BaseService";
+import { useTranslations } from "next-intl";
+import React, { useState } from "react";
+import { toast } from "sonner";
 
 export type Buttons = "delete" | "edit" | "archive" | "show" | "logs";
 
@@ -18,7 +18,7 @@ export interface ActionsButtonsProps<T> {
   data?: T;
   id?: number | string;
   buttons: Buttons[];
-  children?: React.JSX.Element | undefined;
+  children?: React.JSX.Element | undefined | React.ReactNode;
   baseUrl: string;
   deleteUrl?: string;
   editUrl?: string;
@@ -27,6 +27,7 @@ export interface ActionsButtonsProps<T> {
   setHidden?: (value: ((prevState: number[]) => number[]) | number[]) => void;
   deleteMessage?: string;
   deleteHandler?: (response: ApiResponse<any>) => void;
+  reverse?: boolean;
 }
 
 const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
@@ -41,6 +42,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   children,
   deleteMessage,
   deleteHandler = undefined,
+  reverse = false,
 }) => {
   const t = useTranslations("components");
   const dataId = id ?? data?.id ?? undefined;
@@ -50,7 +52,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
   const [isDeleting, setDeleting] = useState(false);
 
   return (
-    <div className={`flex items-center gap-1`}>
+    <div className={`flex items-center ${reverse && "flex-row-reverse"} gap-1`}>
       {buttons.includes("show") && (
         <Tooltip title={t("show_record")}>
           <Link href={sUrl}>

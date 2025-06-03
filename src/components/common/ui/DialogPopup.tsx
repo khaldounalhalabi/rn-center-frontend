@@ -34,8 +34,6 @@ const DialogPopup = ({
     setIsOpen(open);
   }, [open]);
 
-  console.log(isOpen);
-
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>

@@ -1044,7 +1044,8 @@
         "medicalCondition": "Medical Condition",
         "lastAppointment": "Last Appointment",
         "appointments_count": "Appointments count",
-        "joined_at": "Joined at"
+        "joined_at": "Joined at",
+        "medical_records": "Medical records"
       },
       "attachments": {
         "title": "Patient Attachments",
@@ -1790,5 +1791,17 @@
     "benefits": "Benefits",
     "exclude": "Exclude from this payrun",
     "include": "Include in this payrun"
+  },
+  "medical_records": {
+    "summary": "Summary",
+    "diagnosis": "Diagnosis",
+    "treatment": "Treatment",
+    "allergies": "Allergies",
+    "notes": "Notes",
+    "index_title": "Medical records",
+    "edit_title": "Edit medical record",
+    "create_title": "Add new medical record",
+    "show_title": "Medical record details",
+    "actions": "Actions"
   }
 }

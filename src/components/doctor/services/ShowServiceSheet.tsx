@@ -20,7 +20,7 @@ const ShowServiceSheet = ({ service , buttonText = undefined }: { service?: Serv
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size={buttonText ? "default" : "sm"} variant={buttonText ? "link" : "default"}>
+        <Button size={buttonText ? "default" : "icon"} variant={buttonText ? "link" : "default"}>
           {buttonText ??
             <EyeIcon />
           }

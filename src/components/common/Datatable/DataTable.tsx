@@ -1,20 +1,24 @@
 "use client";
-import React, { ReactNode, ThHTMLAttributes, useState } from "react";
-import { ApiResponse } from "@/http/Response";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useQuery } from "@tanstack/react-query";
-import DataTableHead from "@/components/common/Datatable/DataTableHead";
 import DataTableBody from "@/components/common/Datatable/DataTableBody";
+import DataTableHead from "@/components/common/Datatable/DataTableHead";
 import TablePaginator from "@/components/common/Datatable/TablePaginator";
-import { useTranslations } from "next-intl";
-import { Table, TableBody, TableHeader } from "@/components/ui/shadcn/table";
-import { Link } from "@/navigation";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import DocumentPlus from "@/components/icons/DocumentPlus";
 import FilterIcon from "@/components/icons/FilterIcon";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Button } from "@/components/ui/shadcn/button";
-import Select from "../ui/selects/Select";
 import { Input } from "@/components/ui/shadcn/input";
-import DialogPopup from "@/components/common/ui/DialogPopup";
+import { Table, TableBody, TableHeader } from "@/components/ui/shadcn/table";
+import { ApiResponse } from "@/http/Response";
+import { Link } from "@/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import React, { ReactNode, ThHTMLAttributes, useState } from "react";
+import Select from "../ui/selects/Select";
+
+export function getTableQueryName(tableData: DataTableData<any>) {
+  return `data_table_${tableData.createUrl}_${tableData.title}_${tableData.schema?.map((i) => i.label).join("_")}`;
+}
 
 export interface DataTableSchema<T> {
   name?: string;
@@ -33,7 +37,7 @@ export interface DataTableSchema<T> {
 }
 
 export interface DataTableData<T> {
-  extraButton?: (revalidate?:() => void) => ReactNode;
+  extraButton?: (revalidate?: () => void) => ReactNode;
   title?: string;
   createUrl?: string;
   schema: DataTableSchema<T>[];
@@ -69,7 +73,7 @@ const DataTable = (tableData: DataTableData<any>) => {
   const { isPending, data, isPlaceholderData, isRefetching, refetch } =
     useQuery({
       queryKey: [
-        `tableData_${tableData.createUrl}_${tableData.title}`,
+        getTableQueryName(tableData),
         page,
         search,
         sortDir,
@@ -107,9 +111,13 @@ const DataTable = (tableData: DataTableData<any>) => {
             )}
             {tableData?.filter && (
               <div>
-                <DialogPopup open={openFilter} onClose={()=>{
-                  setOpenFilter(false);
-                }} title={t("filters")}>
+                <DialogPopup
+                  open={openFilter}
+                  onClose={() => {
+                    setOpenFilter(false);
+                  }}
+                  title={t("filters")}
+                >
                   <div className={"w-full my-5"}>
                     {tableData.filter(tempParams, setTempParams)}
                   </div>
@@ -118,7 +126,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                       onClick={() => {
                         setParams(tempParams);
                         setPage(1);
-                        setOpenFilter(prev => !prev);
+                        setOpenFilter((prev) => !prev);
                       }}
                     >
                       {t("apply")}
@@ -130,7 +138,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                         setTempParams({});
                         setParams({});
                         setPage(1);
-                        setOpenFilter(prev => !prev);
+                        setOpenFilter((prev) => !prev);
                       }}
                     >
                       {t("resetFilters")}

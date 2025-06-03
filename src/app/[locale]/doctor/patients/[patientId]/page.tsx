@@ -1,11 +1,14 @@
-import PatientsOverview from "@/components/admin/patients/PatientsOverview";
+import { Revalidate } from "@/actions/Revalidate";
 import Grid from "@/components/common/ui/Grid";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import UserDataView from "@/components/common/user/UserDataView";
-import DownloadPatientReportButton from "@/components/doctor/patients/DownloadPatientReportButton";
+import PatientOverview from "@/components/doctor/patients/PatientOverview";
+import UpdatePatientSheet from "@/components/doctor/patients/UpdatePatientSheet";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { Customer } from "@/models/Customer";
 import { PatientService } from "@/services/PatientService";
 import { getTranslations } from "next-intl/server";
+import DownloadPatientReportButton from "@/components/doctor/patients/DownloadPatientReportButton";
 
 const page = async ({
   params: { patientId },
@@ -14,14 +17,21 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.patient.show");
   await getTranslations("common.patient.attachments");
-  const data = await PatientService.make().show(patientId);
+  const data = await PatientService.make(RoleEnum.DOCTOR).show(patientId);
   const patient: Customer = data?.data;
 
   return (
     <UserDataView
       user={patient?.user}
-      editUrl={`/admin/patients/${patientId}/edit`}
-      actions={<DownloadPatientReportButton patient={patient} />}
+      actions={
+        <>
+          <DownloadPatientReportButton patient={patient}/>
+          <UpdatePatientSheet
+            patient={patient}
+            triggerText={t("editBtn")}
+          />
+        </>
+      }
     >
       <Grid>
         <LabelValue label={t("blood")} value={patient?.blood_group} />
@@ -34,7 +44,7 @@ const page = async ({
           </div>
         ))}
       </Grid>
-      <PatientsOverview patient={patient} />
+      <PatientOverview patient={patient} />
     </UserDataView>
   );
 };

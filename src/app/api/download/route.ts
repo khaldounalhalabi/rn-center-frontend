@@ -1,6 +1,6 @@
 import { getToken } from "@/actions/HelperActions";
-import { NextRequest } from "next/server";
 import { getServerCookie } from "@/actions/ServerCookies";
+import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest): Promise<Response> {
   const url = request.nextUrl.searchParams.get("url");
@@ -49,8 +49,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       body: formData,
       headers: {
         Authorization: `Bearer ${await getToken()}`,
-        "Accept-Language": (await getServerCookie('NEXT_LOCALE')) ?? "en",
-        ...headers,
+        "Accept-Language": (await getServerCookie("NEXT_LOCALE")) ?? "en",
       },
     });
   }
@@ -58,8 +57,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     method: method,
     headers: {
       Authorization: `Bearer ${await getToken()}`,
-      "Accept-Language": (await getServerCookie('NEXT_LOCALE')) ?? "en",
-      ...headers
+      "Accept-Language": (await getServerCookie("NEXT_LOCALE")) ?? "en",
     },
   });
 }

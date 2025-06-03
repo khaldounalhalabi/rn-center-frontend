@@ -1,18 +1,18 @@
 "use server";
+import { Revalidate } from "@/actions/Revalidate";
 import PrescriptionDetails from "@/components/common/prescriptions/PrescriptionDetails";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import Tabs from "@/components/common/ui/Tabs";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import UpdateAppointmentSheet from "@/components/doctor/appointments/UpdateAppointmentSheet";
+import ShowServiceSheet from "@/components/doctor/services/ShowServiceSheet";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Appointment } from "@/models/Appointment";
 import { AppointmentService } from "@/services/AppointmentService";
 import { getTranslations } from "next-intl/server";
-import { Revalidate } from "@/actions/Revalidate";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
-import ShowServiceSheet from "@/components/doctor/services/ShowServiceSheet";
 
 const page = async ({
   params: { appointmentId },
@@ -43,10 +43,15 @@ const page = async ({
           color={"success"}
         />
 
-        <Label
-          label={t("serviceName")}
-        >
-          <ShowServiceSheet service={appointment?.service} buttonText={appointment?.service?.name}/>
+        <Label label={t("serviceName")}>
+          {appointment?.service ? (
+            <ShowServiceSheet
+              service={appointment?.service}
+              buttonText={appointment?.service?.name}
+            />
+          ) : (
+            <TranslatableEnum value={"no_data"} />
+          )}
         </Label>
 
         <LabelValue
@@ -78,7 +83,10 @@ const page = async ({
             {
               title: t("prescriptions"),
               render: (
-                <PrescriptionDetails prescription={appointment?.prescription} appointment={appointment} />
+                <PrescriptionDetails
+                  prescription={appointment?.prescription}
+                  appointment={appointment}
+                />
               ),
             },
           ]}

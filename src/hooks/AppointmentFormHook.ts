@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Service } from "@/models/Service";
+import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
 import { ServiceService } from "@/services/ServiceService";
-import { AppointmentService } from "@/services/AppointmentService";
 import dayjs, { Dayjs } from "dayjs";
+import { useCallback, useEffect, useState } from "react";
 
 interface UseAppointmentFormProps {
   defaultValues?: Appointment;
@@ -120,8 +120,13 @@ export const useAppointmentForm = ({
   // Form submission handler
   const handleSubmit = useCallback(
     (data: any) => {
-      const dateTime = date?.format("YYYY-MM-DD") + " " + data.time;
       const service = AppointmentService.make();
+      if (data?.date_time && data?.date_time != defaultValues?.date_time) {
+        data.date_time =
+          date?.format("YYYY-MM-DD") +
+          " " +
+          data?.date_time;
+      }
 
       if (defaultClinicId) {
         data = { ...data, clinic_id: defaultClinicId };
@@ -132,12 +137,10 @@ export const useAppointmentForm = ({
       }
 
       if (type === "store") {
-        return service.store({ ...data, date_time: dateTime });
+        return service.store({ ...data });
       } else {
         return service.update(defaultValues?.id ?? 0, {
-          ...defaultValues,
           ...data,
-          date_time: dateTime,
         });
       }
     },

@@ -1,8 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import {
   SelectContent,
   SelectGroup,
@@ -11,6 +10,7 @@ import {
   SelectValue,
   Select as ShadcnSelect,
 } from "@/components/ui/shadcn/select";
+import { useTranslations } from "next-intl";
 
 const Select = ({
   data,

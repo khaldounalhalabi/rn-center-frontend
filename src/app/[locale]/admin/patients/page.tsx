@@ -9,6 +9,7 @@ import { Customer } from "@/models/Customer";
 import { useTranslations } from "next-intl";
 import { RoleEnum } from "@/enums/RoleEnum";
 import PageCard from "@/components/common/ui/PageCard";
+import DownloadPatientReportButton from "@/components/doctor/patients/DownloadPatientReportButton";
 
 const Page = () => {
   const t = useTranslations("common.patient.table");
@@ -52,7 +53,9 @@ const Page = () => {
             editUrl={`/admin/patients/${data?.id}/edit`}
             showUrl={`/admin/patients/${data?.id}`}
             setHidden={setHidden}
-          />
+          >
+            <DownloadPatientReportButton patient={data}/>
+          </ActionsButtons>
         ),
       },
     ],

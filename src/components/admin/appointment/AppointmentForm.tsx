@@ -34,6 +34,8 @@ interface AppointmentFormProps {
   redirect: string;
 }
 
+// TODO:: fix update not updating issue
+
 const AppointmentForm = memo(
   ({
     defaultValues = undefined,
@@ -135,8 +137,8 @@ const AppointmentForm = memo(
         <FormSelect
           label={t("time")}
           items={availableTimes?.data ?? []}
-          name="time"
-          defaultValue={dayjs(defaultValues?.date_time).format("HH:mm")}
+          name="date_time"
+          defaultValue={defaultValues?.date_time ? dayjs(defaultValues?.date_time).format("HH:mm") : undefined}
         />
       );
     }, [
@@ -153,6 +155,7 @@ const AppointmentForm = memo(
         onSuccess={() => {
           Navigate(redirect);
         }}
+        defaultValues={defaultValues}
       >
         <Grid className={"items-end"}>
           {showCustomerSelect && (

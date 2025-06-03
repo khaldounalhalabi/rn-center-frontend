@@ -120,8 +120,13 @@ export const useAppointmentForm = ({
   // Form submission handler
   const handleSubmit = useCallback(
     (data: any) => {
-      const dateTime = date?.format("YYYY-MM-DD") + " " + data.time;
       const service = AppointmentService.make();
+      if (data?.date_time && data?.date_time != defaultValues?.date_time) {
+        data.date_time =
+          date?.format("YYYY-MM-DD") +
+          " " +
+          data?.date_time;
+      }
 
       if (defaultClinicId) {
         data = { ...data, clinic_id: defaultClinicId };
@@ -130,14 +135,12 @@ export const useAppointmentForm = ({
       if (defaultCustomerId) {
         data = { ...data, customer_id: defaultCustomerId };
       }
-      
+
       if (type === "store") {
-        return service.store({ ...data, date_time: dateTime });
+        return service.store({ ...data });
       } else {
         return service.update(defaultValues?.id ?? 0, {
-          ...defaultValues,
           ...data,
-          date_time: dateTime,
         });
       }
     },

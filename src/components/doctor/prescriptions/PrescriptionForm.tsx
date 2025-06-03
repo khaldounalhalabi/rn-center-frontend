@@ -122,7 +122,7 @@ const PrescriptionForm = ({
             label={t("time")}
             items={availableTimes?.data ?? []}
             name="next_visit"
-            defaultValue={dayjs(prescription?.next_visit).format("HH:mm")}
+            defaultValue={prescription?.next_visit ?dayjs(prescription?.next_visit).format("HH:mm") : undefined}
           />
         )}
       </Grid>

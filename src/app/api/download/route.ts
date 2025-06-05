@@ -43,8 +43,9 @@ export async function POST(request: NextRequest): Promise<Response> {
   const formData = data ? JSON.stringify(data) : JSON.stringify({});
   const baseUrl = process.env.localApi;
   const searchParams = new URLSearchParams(data?.params);
+  const api = `${baseUrl}${url}?${searchParams}`;
   if (method == "POST" || method == "PUT") {
-    return await fetch(`${baseUrl}${url}?${searchParams}`, {
+    return await fetch(api, {
       method: method,
       body: formData,
       headers: {
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       },
     });
   }
-  return await fetch(`${baseUrl}${url}`, {
+  return await fetch(api, {
     method: method,
     headers: {
       Authorization: `Bearer ${await getToken()}`,

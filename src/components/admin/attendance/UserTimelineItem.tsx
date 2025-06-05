@@ -1,22 +1,16 @@
-import React from "react";
-import { User } from "@/models/User";
-import AttendanceLogStatusEnum from "@/enums/AttendanceLogStatusEnum";
-import dayjs from "dayjs";
-import { Link } from "@/navigation";
-import { RoleEnum } from "@/enums/RoleEnum";
-import Pencil from "@/components/icons/Pencil";
 import AttendanceForm from "@/components/admin/attendance/AttendanceForm";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { useLocale, useTranslations } from "next-intl";
 import StatusLegend from "@/components/admin/attendance/StatusLegend";
+import TimelineEvents from "@/components/common/attendance/TimelineEvents";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Pencil from "@/components/icons/Pencil";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { Button } from "@/components/ui/shadcn/button";
-import { Badge } from "@/components/ui/shadcn/badge";
 import {
   Sheet,
   SheetContent,
@@ -24,6 +18,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { User } from "@/models/User";
+import { Link } from "@/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import React from "react";
 
 interface UserTimelineItemProps {
   user?: User;
@@ -38,26 +37,6 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
 }) => {
   const t = useTranslations("attendance");
   const locale = useLocale();
-
-  const getStatusColor = (status: AttendanceLogStatusEnum) => {
-    switch (status) {
-      case AttendanceLogStatusEnum.ON_TIME:
-        return "bg-green-500";
-      case AttendanceLogStatusEnum.LATE:
-        return "bg-red-500";
-      case AttendanceLogStatusEnum.OVER_TIME:
-        return "bg-blue-500";
-      case AttendanceLogStatusEnum.EARLY_LEAVE:
-        return "bg-yellow-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
-  const formatTime = (dateTime: string) => {
-    return dayjs(dateTime).format("HH:mm");
-  };
-
   return (
     <Card className="p-6 m-5">
       <CardHeader className="mb-4 flex flex-row w-full items-center justify-between">
@@ -134,22 +113,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
               })}
 
               {/* Timeline events */}
-              <div className="relative my-20 flex h-8 items-center justify-between">
-                {user.attendance_by_date.map((log) => {
-                  const time = dayjs(log.attend_at);
-                  const totalMinutes = time.hour() * 60 + time.minute();
-                  const position = (totalMinutes / (24 * 60)) * 100; // Position calculation for full day
-
-                  return (
-                    <div
-                      key={log.id}
-                      className={`absolute h-4 w-4 rounded-full ${getStatusColor(log.status)} z-10`}
-                      style={{ left: `${position - 0.4}%`, bottom: "5%" }}
-                      title={`${log.type}: ${formatTime(log.attend_at)} - ${log.status}`}
-                    ></div>
-                  );
-                })}
-              </div>
+              <TimelineEvents logs={user?.attendance_by_date ?? []} />
             </div>
 
             <div className="mt-10">

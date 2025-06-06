@@ -90,8 +90,8 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
           </CardHeader>
 
           <div className="max-h-[70vh] overflow-auto space-y-2">
-            {Object.entries(data.data).map(([date, logs]) => {
-              return <TimelineItem logs={logs} date={date} />;
+            {Object.entries(data.data).map(([date, logs] , index) => {
+              return <TimelineItem logs={logs} date={date} key={index} />;
             })}
           </div>
         </Card>

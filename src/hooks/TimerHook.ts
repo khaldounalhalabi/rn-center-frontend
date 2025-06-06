@@ -1,9 +1,7 @@
 import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
 import { useEffect, useState } from "react";
 
 const useTimer = ({ startTime }: { startTime?: string }) => {
-  dayjs.extend(duration);
   const [elapsedTime, setElapsedTime] = useState("00:00:00");
 
   useEffect(() => {

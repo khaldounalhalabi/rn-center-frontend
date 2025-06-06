@@ -212,7 +212,7 @@ const CheckinCheckoutCards = ({ role }: { role: RoleEnum }) => {
                       {t("total_hours")}
                     </span>
                     <span className="font-medium">
-                      {`${dayjs.duration(stats?.attendance_hours, "hours").format("HH:mm")} / ${stats?.expected_hours}`}
+                      {`${Math.floor(stats?.attendance_hours)} / ${stats?.expected_hours}`}
                     </span>
                   </div>
                   <div className="h-2 w-full bg-secondary/20 rounded-full overflow-hidden">

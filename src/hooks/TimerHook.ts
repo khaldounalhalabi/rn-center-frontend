@@ -1,0 +1,34 @@
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+import { useEffect, useState } from "react";
+
+const useTimer = ({ startTime }: { startTime?: string }) => {
+  dayjs.extend(duration);
+  const [elapsedTime, setElapsedTime] = useState("00:00:00");
+
+  useEffect(() => {
+    const start = startTime ? dayjs(startTime) : dayjs();
+
+    const updateTimer = () => {
+      const now = dayjs();
+      const diff = dayjs.duration(now.diff(start)); // Calculate the difference
+
+      const formatted = [
+        String(diff.days()).padStart(2, "0"),
+        String(diff.hours()).padStart(2, "0"),
+        String(diff.minutes()).padStart(2, "0"),
+        String(diff.seconds()).padStart(2, "0"),
+      ].join(":");
+
+      setElapsedTime(formatted);
+    };
+
+    const intervalId = setInterval(updateTimer, 1000); // Update every second
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, [startTime]);
+
+  return elapsedTime;
+};
+
+export default useTimer;

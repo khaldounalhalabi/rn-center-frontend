@@ -81,7 +81,7 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
                   "YYYY-MMMM-DD",
                 );
                 if (date.isValid()) {
-                  setMonth(date.month() + 1); // maybe I need +1 to get the right month
+                  setMonth(date.month() + 1); 
                 }    else {
                   console.error("Invalid date " + `${year}-${formattedMonthName}`)
                 }

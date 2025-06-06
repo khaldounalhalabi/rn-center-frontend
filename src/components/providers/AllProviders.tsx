@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/shadcn/sonner";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import useUser from "@/hooks/UserHook";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 import { useLocale } from "next-intl";
 import React from "react";
 
@@ -12,6 +14,7 @@ const AllProviders = ({ children }: { children: React.ReactNode }) => {
   useFcmToken();
   const { role } = useUser();
   const [queryClient] = React.useState(() => new QueryClient());
+  dayjs.extend(duration);
 
   const locale = useLocale();
   return !role ? (

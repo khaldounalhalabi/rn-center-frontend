@@ -1,13 +1,13 @@
 "use client";
-import PayrunStatusEnum from "@/enums/PayrunStatusEnum";
-import Payrun from "@/models/Payrun";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Select from "@/components/common/ui/selects/Select";
-import { getEnumValues } from "@/helpers/Enums";
-import React, { useEffect, useState } from "react";
-import PayrunService from "@/services/PayrunService";
-import { toast } from "sonner";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import PayrunStatusEnum from "@/enums/PayrunStatusEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import Payrun from "@/models/Payrun";
+import PayrunService from "@/services/PayrunService";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const PayrunStatusColumn = ({
   payrun,
@@ -26,15 +26,20 @@ const PayrunStatusColumn = ({
       .toggleStatus(payrun?.id ?? 0, value as PayrunStatusEnum)
       .then((res) => {
         setLoading(false);
-        if (revalidate) {
-          revalidate();
+        if (res.ok()) {
+          if (revalidate) {
+            revalidate();
+          }
+          toast(res.message as string);
+        } else {
+          toast(res.message as string);
+          setStatus(payrun?.status);
         }
-        toast(res.message as string);
       });
   };
 
   useEffect(() => {
-    setStatus(payrun?.status)
+    setStatus(payrun?.status);
   }, [payrun]);
 
   if (

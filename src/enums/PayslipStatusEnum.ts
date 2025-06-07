@@ -3,6 +3,8 @@ enum PayslipStatusEnum {
   EXCLUDED = "excluded",
   DONE = "done",
   FAILED = "failed",
+  ACCEPTED = "accepted",
+  REJECTED = "rejected",
 }
 
 export default PayslipStatusEnum;

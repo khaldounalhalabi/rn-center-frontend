@@ -1,13 +1,16 @@
 "use client";
 
-import * as React from "react";
-import {
-  ArrowUpCircleIcon,
-  CalculatorIcon,
-  HandCoinsIcon,
-  LayoutDashboard,
-  VariableIcon,
-} from "lucide-react";
+import AppointmentIcon from "@/components/icons/AppointmentIcon";
+import CategoryIcon from "@/components/icons/CategoryIcon";
+import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
+import HolidaysIcon from "@/components/icons/HolidaysIcon";
+import InDoorIcon from "@/components/icons/InDoorIcon";
+import MedicineIcon from "@/components/icons/MedicineIcon";
+import PatientIcon from "@/components/icons/PatientIcon";
+import ServiceIcon from "@/components/icons/ServiceIcon";
+import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
+import StaffIcon from "@/components/icons/StaffIcon";
+import TransactionIcon from "@/components/icons/TransactionIcon";
 import { NavMain } from "@/components/ui/shadcn/nav-main";
 import { NavUser } from "@/components/ui/shadcn/nav-user";
 import {
@@ -19,21 +22,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/shadcn/sidebar";
-import { useTranslations } from "next-intl";
-import useUser from "@/hooks/UserHook";
-import ClinicsShowIcon from "@/components/icons/ClinicsShowIcon";
-import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
-import CategoryIcon from "@/components/icons/CategoryIcon";
-import ServiceIcon from "@/components/icons/ServiceIcon";
-import HolidaysIcon from "@/components/icons/HolidaysIcon";
-import AppointmentIcon from "@/components/icons/AppointmentIcon";
-import PatientIcon from "@/components/icons/PatientIcon";
-import MedicineIcon from "@/components/icons/MedicineIcon";
-import TransactionIcon from "@/components/icons/TransactionIcon";
-import InDoorIcon from "@/components/icons/InDoorIcon";
-import StaffIcon from "@/components/icons/StaffIcon";
-import { Link } from "@/navigation";
 import { RoleEnum } from "@/enums/RoleEnum";
+import useUser from "@/hooks/UserHook";
+import { Link } from "@/navigation";
+import {
+  ArrowUpCircleIcon,
+  CalculatorIcon,
+  HandCoinsIcon,
+  LayoutDashboard,
+  VariableIcon,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import * as React from "react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sideBar");
@@ -134,7 +134,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
       {
         group: t("finance"),
-        roles: [RoleEnum.ADMIN],
+        roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
         items: [
           {
             title: t("formulas"),
@@ -153,6 +153,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${user?.role}/payruns`,
             icon: HandCoinsIcon,
             roles: [RoleEnum.ADMIN],
+          },
+          {
+            title: t("payslips"),
+            url: `/${user?.role}/payslips`,
+            icon: HandCoinsIcon,
+            roles: [RoleEnum.DOCTOR],
           },
         ],
       },

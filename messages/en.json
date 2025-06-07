@@ -13,7 +13,7 @@
     "serviceCategories": "Service Categories",
     "services": "Services",
     "appointment": "Appointment",
-    "patients": "patients",
+    "patients": "Patients",
     "medicines": "Medicines",
     "staff": "Staff",
     "offers": "Offers",
@@ -46,7 +46,8 @@
     "patient_management": "Patients management",
     "administration": "Administration",
     "finance": "Finance",
-    "center_name": "Reslan Alnaal Center"
+    "center_name": "Reslan Alnaal Center",
+    "payslips": "Payslips"
   },
   "admin": {
     "clinic": {
@@ -1612,7 +1613,10 @@
     "no": "No",
     "benefit": "Benefit",
     "deduction": "Deduction",
-    "excluded": "Excluded"
+    "excluded": "Excluded",
+    "rejected": "rejected",
+    "failed":"Failed",
+    "accepted":"Accepted"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1751,7 +1755,8 @@
     "formulas": "Formulas",
     "formula-variables": "Salary formula variables",
     "payruns": "Payruns",
-    "doctor": "Dashboard"
+    "doctor": "Dashboard",
+    "payslips": "Payslips"
   },
   "formulas": {
     "formulas": "Formulas",

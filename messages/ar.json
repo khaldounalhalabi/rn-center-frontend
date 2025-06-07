@@ -46,7 +46,8 @@
     "patient_management": "إدارة المرضى",
     "administration": "الإدارة",
     "finance": "الشؤون المحاسبية",
-    "center_name": "مركز رسلان النعال الطبي"
+    "center_name": "مركز رسلان النعال الطبي",
+    "payslips": "الدفعات"
   },
   "admin": {
     "clinic": {
@@ -1609,7 +1610,10 @@
     "no": "لا",
     "benefit": "إضافي",
     "deduction": "استقطاع",
-    "excluded": "مستبعد"
+    "excluded": "مستبعد",
+    "failed":"فشل",
+    "rejected": "مرفوض",
+    "accepted":"مقبول"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1748,7 +1752,8 @@
     "formulas": "المعادلات",
     "formula-variables": "متغيرات معادلات الرواتب",
     "payruns": "الرواتب",
-    "doctor": "لوحة التحكم"
+    "doctor": "لوحة التحكم",
+    "payslips": "الدفعات"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",

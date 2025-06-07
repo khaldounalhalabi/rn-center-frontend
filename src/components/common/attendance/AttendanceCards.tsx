@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const CheckinCheckoutCards = ({ role }: { role: RoleEnum }) => {
+const AttendanceCards = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
 
   const {
@@ -55,17 +55,17 @@ const CheckinCheckoutCards = ({ role }: { role: RoleEnum }) => {
 
   const checkInMutation = useMutation({
     mutationFn: async () => await AttendanceLogService.make(role).checkin(),
-    onSuccess: () => {
-      refetchLastLog();
-      refetchStats();
+    onSuccess: async () => {
+      await refetchLastLog();
+      await refetchStats();
     },
   });
 
   const checkOutMutation = useMutation({
     mutationFn: async () => await AttendanceLogService.make(role).checkout(),
-    onSuccess: () => {
-      refetchLastLog();
-      refetchStats();
+    onSuccess: async () => {
+      await refetchLastLog();
+      await refetchStats();
     },
   });
 
@@ -280,4 +280,4 @@ const CheckinCheckoutCards = ({ role }: { role: RoleEnum }) => {
   );
 };
 
-export default CheckinCheckoutCards;
+export default AttendanceCards;

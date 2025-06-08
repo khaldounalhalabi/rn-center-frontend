@@ -10,6 +10,8 @@ interface Vacation {
   reason: string;
   cancellation_reason?: string;
   status: VacationStatusEnum;
+  can_delete?: boolean;
+  can_show?: boolean;
 }
 
 export default Vacation;

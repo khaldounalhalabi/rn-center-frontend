@@ -56,7 +56,7 @@ const Form = ({
         });
       }
       if (onSuccess) onSuccess(res);
-    } else {
+    } else if(res?.hasValidationErrors()) {
       res.fillValidationErrors(methods);
       toast(t("error"), {
         description: t("check_data"),

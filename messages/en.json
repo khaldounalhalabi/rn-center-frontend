@@ -47,7 +47,8 @@
     "administration": "Administration",
     "finance": "Finance",
     "center_name": "Reslan Alnaal Center",
-    "payslips": "Payslips"
+    "payslips": "Payslips",
+    "vacations": "Vacations"
   },
   "admin": {
     "clinic": {
@@ -1614,9 +1615,9 @@
     "benefit": "Benefit",
     "deduction": "Deduction",
     "excluded": "Excluded",
-    "rejected": "rejected",
-    "failed":"Failed",
-    "accepted":"Accepted"
+    "rejected": "Rejected",
+    "failed": "Failed",
+    "accepted": "Accepted"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1756,7 +1757,8 @@
     "formula-variables": "Salary formula variables",
     "payruns": "Payruns",
     "doctor": "Dashboard",
-    "payslips": "Payslips"
+    "payslips": "Payslips",
+    "vacations": "Vacations"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1840,5 +1842,20 @@
     "create_title": "Add new medical record",
     "show_title": "Medical record details",
     "actions": "Actions"
+  },
+  "vacations": {
+    "user": "Employee",
+    "from": "From",
+    "to": "To",
+    "reason": "Reason",
+    "cancellation_reason": "Cancellation Reason",
+    "index_title": "Employees Vacations",
+    "show_title": "Vacation details",
+    "edit_title": "Edit Vacation Details",
+    "create_title": "Add New Vacation",
+    "status": "Status",
+    "actions": "Actions",
+    "error": "Error",
+    "date": "Date"
   }
 }

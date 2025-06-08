@@ -28,6 +28,7 @@ import { Link } from "@/navigation";
 import {
   ArrowUpCircleIcon,
   CalculatorIcon,
+  CalendarIcon,
   HandCoinsIcon,
   LayoutDashboard,
   VariableIcon,
@@ -83,6 +84,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${user?.role}/holidays`,
             icon: HolidaysIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
+          },
+          {
+            title: t("vacations"),
+            url: `/${user?.role}/vacations`,
+            icon: CalendarIcon,
+            roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],
       },

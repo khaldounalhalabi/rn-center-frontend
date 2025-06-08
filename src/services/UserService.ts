@@ -1,8 +1,8 @@
-import { BaseService } from "@/services/BaseService";
-import { User } from "@/models/User";
 import { GET, POST } from "@/http/Http";
-import { UsersWithAttendance } from "@/models/Attendance";
 import { ApiResponse } from "@/http/Response";
+import { UsersWithAttendance } from "@/models/Attendance";
+import { User } from "@/models/User";
+import { BaseService } from "@/services/BaseService";
 
 export class UserService extends BaseService<UserService, User>() {
   getBaseUrl(): string {
@@ -71,4 +71,24 @@ export class UserService extends BaseService<UserService, User>() {
     );
     return await this.errorHandler(response);
   };
+
+  public async employees(
+    page: number = 0,
+    search?: string,
+    sortCol?: string,
+    sortDir?: string,
+    per_page?: number,
+    params?: Record<string, any>,
+  ) {
+    const response = await GET<User[]>(`/${this.role}/users/employees`, {
+      page: page,
+      search: search,
+      sort_dir: sortDir,
+      sort_col: sortCol,
+      per_page: per_page,
+      ...params,
+    });
+
+    return this.errorHandler(response);
+  }
 }

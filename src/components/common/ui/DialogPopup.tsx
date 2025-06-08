@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/shadcn/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import React, { useEffect, useState } from "react";
 
 const DialogPopup = ({
   open = false,
@@ -38,7 +38,7 @@ const DialogPopup = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          {!{ title } ? (
+          {!title ? (
             <VisuallyHidden asChild>
               <DialogTitle></DialogTitle>
             </VisuallyHidden>

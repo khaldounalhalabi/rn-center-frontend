@@ -9,9 +9,11 @@ import FormSelect from "@/components/common/ui/selects/FormSelect";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { getEnumValues } from "@/helpers/Enums";
 import { useAppointmentForm } from "@/hooks/AppointmentFormHook";
 import useIsHoliday from "@/hooks/IsHoliday";
+import useIsVacation from "@/hooks/IsVacation";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Customer } from "@/models/Customer";
@@ -24,7 +26,6 @@ import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import React, { memo, useCallback, useMemo } from "react";
-import { RoleEnum } from "@/enums/RoleEnum";
 
 interface AppointmentFormProps {
   defaultValues?: Appointment;
@@ -45,7 +46,6 @@ const AppointmentForm = memo(
     defaultCustomerId,
   }: AppointmentFormProps) => {
     const t = useTranslations("common.appointment.create");
-    const isHoliday = useIsHoliday({role:RoleEnum.ADMIN});
 
     const {
       date,
@@ -57,12 +57,19 @@ const AppointmentForm = memo(
       setDiscount,
       totalCost,
       handleSubmit,
+      clinic,
     } = useAppointmentForm({
       defaultValues,
       defaultClinicId,
       defaultCustomerId,
       type,
       redirect,
+    });
+
+    const isHoliday = useIsHoliday({ role: RoleEnum.ADMIN });
+    const isVacation = useIsVacation({
+      role: RoleEnum.ADMIN,
+      userId: clinic?.user_id,
     });
 
     const { data: availableTimes, isLoading: isLoadingAvailableTimes } =
@@ -138,7 +145,11 @@ const AppointmentForm = memo(
           label={t("time")}
           items={availableTimes?.data ?? []}
           name="date_time"
-          defaultValue={defaultValues?.date_time ? dayjs(defaultValues?.date_time).format("HH:mm") : undefined}
+          defaultValue={
+            defaultValues?.date_time
+              ? dayjs(defaultValues?.date_time).format("HH:mm")
+              : undefined
+          }
         />
       );
     }, [
@@ -242,7 +253,7 @@ const AppointmentForm = memo(
             df={date?.format("YYYY-MM-DD")}
             name="date"
             shouldDisableDate={(date) =>
-              isHoliday(date) || date?.isBefore(dayjs())
+              isHoliday(date) || date?.isBefore(dayjs()) || isVacation(date)
             }
           />
           {timeSelector}

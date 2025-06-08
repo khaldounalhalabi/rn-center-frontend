@@ -20,18 +20,22 @@ const Page = () => {
     {
       name: "id",
       label: "ID",
+      sortable: true,
     },
     {
       name: "user.full_name",
       label: t("user"),
+      sortable: true,
     },
     {
       name: "from",
       label: t("from"),
+      sortable: true,
     },
     {
       name: "to",
       label: t("to"),
+      sortable: true,
     },
     {
       name: "status",
@@ -43,6 +47,7 @@ const Page = () => {
           revalidate={revalidate}
         />
       ),
+      sortable: true,
     },
     {
       name: "actions",
@@ -54,6 +59,7 @@ const Page = () => {
             baseUrl="/admin/vacations"
             buttons={["delete"]}
             reverse
+            setHidden={setHidden}
           >
             <VacationFormSheet
               type="update"

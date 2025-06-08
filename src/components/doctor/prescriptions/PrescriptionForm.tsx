@@ -9,6 +9,7 @@ import PrescriptionMedicinesInput from "@/components/doctor/prescriptions/Prescr
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useIsHoliday from "@/hooks/IsHoliday";
+import useIsVacation from "@/hooks/IsVacation";
 import { Appointment } from "@/models/Appointment";
 import { Prescription } from "@/models/Prescriptions";
 import { AppointmentService } from "@/services/AppointmentService";
@@ -36,6 +37,7 @@ const PrescriptionForm = ({
     prescription?.next_visit ? dayjs(prescription?.next_visit) : dayjs(),
   );
   const isHoliday = useIsHoliday({ role: RoleEnum.DOCTOR });
+  const isVacation = useIsVacation({ role: RoleEnum.DOCTOR });
 
   const { data: availableTimes, isLoading: isLoadingAvailableTimes } = useQuery(
     {
@@ -109,7 +111,7 @@ const PrescriptionForm = ({
           label={t("next_visit")}
           df={date?.format("YYYY-MM-DD")}
           shouldDisableDate={(date) =>
-            isHoliday(date) || date?.isBefore(dayjs())
+            isHoliday(date) || date?.isBefore(dayjs()) || isVacation(date)
           }
           name={"date"}
         />
@@ -122,7 +124,11 @@ const PrescriptionForm = ({
             label={t("time")}
             items={availableTimes?.data ?? []}
             name="next_visit"
-            defaultValue={prescription?.next_visit ?dayjs(prescription?.next_visit).format("HH:mm") : undefined}
+            defaultValue={
+              prescription?.next_visit
+                ? dayjs(prescription?.next_visit).format("HH:mm")
+                : undefined
+            }
           />
         )}
       </Grid>

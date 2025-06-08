@@ -47,7 +47,8 @@
     "administration": "الإدارة",
     "finance": "الشؤون المحاسبية",
     "center_name": "مركز رسلان النعال الطبي",
-    "payslips": "الدفعات"
+    "payslips": "الدفعات",
+    "vacations": "الإجازات"
   },
   "admin": {
     "clinic": {
@@ -1611,9 +1612,9 @@
     "benefit": "إضافي",
     "deduction": "استقطاع",
     "excluded": "مستبعد",
-    "failed":"فشل",
+    "failed": "فشل",
     "rejected": "مرفوض",
-    "accepted":"مقبول"
+    "accepted": "مقبول"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1753,7 +1754,8 @@
     "formula-variables": "متغيرات معادلات الرواتب",
     "payruns": "الرواتب",
     "doctor": "لوحة التحكم",
-    "payslips": "الدفعات"
+    "payslips": "الدفعات",
+    "vacations": "الإجازات"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",
@@ -1837,5 +1839,20 @@
     "create_title": "إضافة بيانات جديدة للسجل الطبي",
     "show_title": "السجل الطبي",
     "actions": "الخيارات"
+  },
+  "vacations": {
+    "user": "الموظف",
+    "from": "من",
+    "to": "إلى",
+    "reason": "السبب",
+    "cancellation_reason": "سبب الإلغاء",
+    "index_title": "إجازات الموظفين",
+    "show_title": "تفاصيل الإجازة",
+    "edit_title": "تعديل تفاصيل الإجازة",
+    "create_title": "إضافة إجازة جديدة",
+    "status": "الحالة",
+    "actions": "الخيارات",
+    "error": "حصل خطأ",
+    "date": "التاريخ"
   }
 }

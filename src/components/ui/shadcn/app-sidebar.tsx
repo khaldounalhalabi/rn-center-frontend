@@ -7,6 +7,7 @@ import HolidaysIcon from "@/components/icons/HolidaysIcon";
 import InDoorIcon from "@/components/icons/InDoorIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
 import StaffIcon from "@/components/icons/StaffIcon";
@@ -136,6 +137,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${user?.role}/secretaries`,
             icon: StaffIcon,
             roles: [RoleEnum.ADMIN],
+          },
+          {
+            title: t("schedule"),
+            url: `${user?.role}/schedule`,
+            icon: SchedulesIcon,
+            roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],
       },

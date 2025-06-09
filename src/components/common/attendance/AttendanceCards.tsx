@@ -224,6 +224,42 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
                     />
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">
+                      Overtime Hours
+                    </span>
+                    <span className="font-medium text-emerald-600">
+                      {stats?.overtime_hours?.toFixed(1) || 0} hrs
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary/20 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-emerald-500 transition-all duration-500"
+                      style={{
+                        width: `${Math.min((stats?.overtime_hours / 40) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">
+                      Overtime Days
+                    </span>
+                    <span className="font-medium text-emerald-600">
+                      {stats?.overtime_days || 0} days
+                    </span>
+                  </div>
+                  <div className="w-full bg-secondary/20 rounded-full overflow-hidden">
+                    <div
+                      className="bg-emerald-500 transition-all duration-500"
+                      style={{
+                        width: `${Math.min((stats?.overtime_days / 5) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
               </CardContent>
             </>
           )}

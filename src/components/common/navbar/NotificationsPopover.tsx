@@ -1,16 +1,17 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
+import CircleCheckMark from "@/components/icons/CircleCheckMark";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import NotificationsIcon from "@/components/icons/NotificationsIcon";
+import { RoleEnum } from "@/enums/RoleEnum";
 import clickOutsideHandler from "@/helpers/ClickOutsideHandler";
+import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
+import { Link } from "@/navigation";
 import { NotificationService } from "@/services/NotificationService";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import CircleCheckMark from "@/components/icons/CircleCheckMark";
-import { Link } from "@/navigation";
-import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import { useTranslations } from "next-intl";
-import useUser from "@/hooks/UserHook";
+import React, { useEffect, useRef, useState } from "react";
 
 const NotificationsPopover = () => {
   const t = useTranslations("components");
@@ -18,9 +19,13 @@ const NotificationsPopover = () => {
   const { role } = useUser();
 
   const fetchNotifications = async ({ pageParam = 0 }) =>
-    await NotificationService.make(
-      role,
-    ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
+    await NotificationService.make(role).indexWithPagination(
+      pageParam,
+      undefined,
+      undefined,
+      undefined,
+      5,
+    );
   const {
     data: notifications,
     fetchNextPage,
@@ -47,10 +52,7 @@ const NotificationsPopover = () => {
     refetch: refetchCount,
   } = useQuery({
     queryKey: ["notifications_count"],
-    queryFn: async () =>
-      await NotificationService.make(
-        role,
-      ).getUnreadCount(),
+    queryFn: async () => await NotificationService.make(role).getUnreadCount(),
   });
 
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
@@ -127,48 +129,38 @@ const NotificationsPopover = () => {
           ) : (
             notifications?.pages.map((item) =>
               item?.data?.map((notification, index) => {
-                const n = new NotificationPayload(
-                  undefined,
-                  JSON.parse(notification.data),
-                  undefined,
-                  undefined,
-                  notification.message,
-                  notification.read_at,
-                  notification.created_at,
-                  notification.type,
-                  notification.id,
-                );
+                const n = new NotificationPayload(notification.data);
                 return (
                   <div
                     key={index}
                     className="mx-2 flex items-center justify-between"
                   >
                     <Link
-                      href={n.getUrl()}
+                      href={n.getUrl(role ?? RoleEnum.PUBLIC)}
                       className="w-full cursor-pointer rounded-md border-b-gray-100 p-3 hover:bg-gray-300"
                       onClick={() => {
-                        NotificationService.make(
-                          role,
-                        ).markAsRead(notification.id);
+                        NotificationService.make(role).markAsRead(
+                          notification.id,
+                        );
                       }}
                     >
-                      {n.getMessage()}
+                      {n.message}
                     </Link>
                     <button
                       className="rounded-md p-3 hover:bg-gray-300"
                       onClick={() => {
-                        if (!n.read_at) {
-                          NotificationService.make(
-                            role,
-                          ).markAsRead(notification.id);
+                        if (!notification.read_at) {
+                          NotificationService.make(role).markAsRead(
+                            notification.id,
+                          );
                           refetch();
                           refetchCount();
                         }
                       }}
                     >
                       <CircleCheckMark
-                        className={`h-6 w-6 text-success ${n.read_at ? "cursor-not-allowed fill-success" : "cursor-pointer"}`}
-                        solid={!!n.read_at}
+                        className={`h-6 w-6 text-success ${notification.read_at ? "cursor-not-allowed fill-success" : "cursor-pointer"}`}
+                        solid={!!notification.read_at}
                       />
                     </button>
                   </div>

@@ -1,98 +1,58 @@
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { getClientCookie } from "@/actions/ClientCookies";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 
 export class NotificationPayload {
-  public collapseKey?: string;
-  public data?: NotificationPayloadData | Record<string, any>;
-  public id?: string;
-  public type?: string;
-  public message_en?: string;
-  public message_ar?: string;
-  public message?: string;
-  public body?: {
-    body: string;
-    body_ar: string;
-  };
-  public read_at?: string;
-  public created_at?: string;
-  public notificationData?: Record<string, any>;
-  public title?: string;
-  private from?: string;
-  private messageId?: string;
+  private message_en: string = "";
+  private message_ar: string = "";
+  private resource_id: string | number = 0;
+  private resource_type: string = "";
+  private notification_title: string = "";
+  private notification_type: NotificationsTypeEnum;
+  private data: Record<string, any> = {};
 
-  constructor(
-    collapseKey?: string,
-    data?: NotificationPayloadData,
-    from?: string,
-    messageId?: string,
-    message?: string,
-    read_at?: string,
-    created_at?: string,
-    type?: string,
-    id?: string,
-  ) {
-    this.collapseKey = collapseKey;
-    this.body = {
-      body:
-        getNestedPropertyValue(data, "body") ??
-        getNestedPropertyValue(data, "body_en"),
-      body_ar: getNestedPropertyValue(data, "body_ar"),
-    };
-
-    this.message = message;
-
-    try {
-      this.message_en =
-        (message
-          ? getNestedPropertyValue(JSON.parse(message) ?? {}, "message_en")
-          : getNestedPropertyValue(data, "message") ??
-            getNestedPropertyValue(data, "message_en")) ?? message;
-    } catch (e) {
-      this.message_en = message;
-    }
-
-    try {
-      this.message_ar = this.message_en =
-        (message
-          ? getNestedPropertyValue(JSON.parse(message) ?? {}, "message_ar")
-          : getNestedPropertyValue(data, "message_ar")) ?? message;
-    } catch (e) {
-      this.message_ar = message;
-    }
-
-    this.title = getNestedPropertyValue(data, "title");
-    this.notificationData = JSON.parse(data?.data ?? "{}");
-    this.read_at = read_at;
-    this.created_at = created_at;
-    this.type = type;
+  constructor(data: Record<string, any>) {
     this.data = data;
-    this.from = from;
-    this.messageId = messageId;
-    this.id = id;
+    this.message_ar = data?.message_ar ?? "";
+    this.message_en = data?.message_en ?? "";
+    this.resource_id = data?.resource_id ?? 0;
+    this.resource_type = data?.resource ?? "";
+    this.notification_type = data?.type ?? "";
+    this.notification_title = data?.title;
   }
 
-  /**
-   * getNotificationType
-   */
-  public getNotificationType(): string | undefined {
-    return this.data?.type ?? this.type;
+  public get messageEn(): string {
+    return this.message_en;
   }
 
-  /**
-   * getFromData
-   */
-  public getFromData(key: string): string | undefined {
-    const data = JSON.parse(this.data?.data ?? "{}");
-    return (
-      getNestedPropertyValue(data, key) ??
-      getNestedPropertyValue(this.data, key)
-    );
+  public get messageAr(): string {
+    return this.message_ar;
+  }
+
+  public get resourceId(): string | number {
+    return this.resource_id;
+  }
+
+  public get resource(): string {
+    return this.resource_type;
+  }
+
+  public get title(): string {
+    return this.notification_title;
+  }
+
+  public get type(): string {
+    return this.notification_type;
+  }
+
+  public getData(key: string) {
+    return getNestedPropertyValue(this.data, key);
   }
 
   public isNotification() {
-    if (this.getNotificationType() != undefined) {
-      return (Object.values(NotificationsType) as Array<string>).includes(
-        String(this.getNotificationType()),
+    if (this.type != undefined) {
+      return (Object.values(NotificationsTypeEnum) as Array<string>).includes(
+        String(this.type),
       );
     } else {
       return false;
@@ -100,70 +60,68 @@ export class NotificationPayload {
   }
 
   public isRealTimeEvent() {
-    if (this.getNotificationType() != undefined) {
-      return (Object.values(RealTimeEvents) as Array<string>).includes(
-        this.getNotificationType() as string,
+    if (this.type != undefined) {
+      return (Object.values(RealTimeEventsTypeEnum) as Array<string>).includes(
+        this.type as string,
       );
     } else {
       return false;
     }
   }
 
-  public getMessage() {
+  public get message(): string {
     const locale = getClientCookie("NEXT_LOCALE") ?? "en";
     if (locale == "ar") {
-      return this.message_ar;
+      return this.messageAr;
     } else {
-      return this.message_en;
+      return this.messageAr;
     }
   }
 
-  public getUrl(): string {
-    const type = this.getNotificationType();
+  public getUrl(role: RoleEnum): string {
+    const type = this.type;
     switch (type) {
-      case NotificationsType.ClinicNewOnlineAppointment:
-        return `/doctor/appointment/${this.getFromData("appointment_id")}`;
-      case NotificationsType.CustomerAppointmentChange:
-        return `/customer/appointments/${this.getFromData("appointment_id")}`;
-      case NotificationsType.CustomerAppointmentRemainingTime:
-        return `/customer/appointments/${this.getFromData("appointment_id")}`;
+      case NotificationsTypeEnum.NewVacationRequest:
+        return `/${role}/vacations/${this.getData("vacation_id")}`;
+      case NotificationsTypeEnum.PayslipStatusChanged:
+        return `/${role}/payruns/${this.getData("payrun_id")}`;
+
+      case NotificationsTypeEnum.AppointmentEvent:
+        if (this.getData("event") != "DELETED") {
+          return `/${role}/appointment/${this.getData("appointment_id")}`;
+        } else {
+          return "";
+        }
+
+      case NotificationsTypeEnum.NewPayrunAdded:
+        return `/${role}/payslips`;
+      case NotificationsTypeEnum.NewVacationAdded:
+        return `/${role}/vacations/${this.getData("vacation_id")}`;
+      case NotificationsTypeEnum.VacationStatusChanged:
+        return `/${role}/vacations/${this.getData("vacation_id")}`;
+      case NotificationsTypeEnum.VacationUpdated:
+        return `/${role}/vacations/${this.getData("vacation_id")}`;
+
       default:
-        return "#";
+        return "";
     }
   }
 }
 
-export interface NotificationPayloadData {
-  body?: string;
-  body_ar?: string;
-  data?: string; // json data
-  message?: string;
-  message_ar?: string;
-  title?: string;
-  type: string;
+export enum NotificationsTypeEnum {
+  // Admin notifications
+  NewVacationRequest = "Admin\\NewVacationRequestNotification",
+  PayslipStatusChanged = "Admin\\PayslipStatusChangedNotification",
+
+  // Common
+  AppointmentEvent = "Common\\AppointmentEventNotification",
+  NewPayrunAdded = "Common\\NewPayrunAddedNotification",
+  NewVacationAdded = "Common\\NewVacationAddedNotification",
+  VacationStatusChanged = "Common\\VacationStatusChangedNotification",
+  VacationUpdated = "Common\\VacationUpdatedNotification",
 }
 
-export enum NotificationsType {
-  // Customer Notifications
-  CustomerAppointmentRemainingTime = "Customer\\AppointmentRemainingTimeNotification",
-  CustomerAppointmentChange = "Customer\\CustomerAppointmentChangedNotification",
-
-  // Clinic Notifications
-  ClinicNewOnlineAppointment = "Clinic\\NewOnlineAppointmentNotification",
-}
-
-export enum RealTimeEvents {
-  AppointmentStatusChange = "RealTime\\AppointmentChangeNotification",
-  BalanceChange = "RealTime\\BalanceChangeNotification",
-  NewAppointment = "RealTime\\NewAppointmentNotification",
-  PermissionChange = "RealTime\\PermissionsChangeNotification",
-}
-
-export interface Notification {
-  id: string;
-  data: string;
-  type: string;
-  message: string;
-  read_at: string;
-  created_at: string;
+export enum RealTimeEventsTypeEnum {
+  AttendanceEdited = "Realtime\\AttendanceEditedNotification",
+  PayrunStatusChanged = "Realtime\\PayrunStatusChangedNotification",
 }

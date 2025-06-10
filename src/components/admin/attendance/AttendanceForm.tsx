@@ -1,15 +1,15 @@
 "use client";
+import Form from "@/components/common/ui/Form";
+import Grid from "@/components/common/ui/Grid";
+import FormInput from "@/components/common/ui/inputs/FormInput";
+import Trash from "@/components/icons/Trash";
+import { Button } from "@/components/ui/shadcn/button";
+import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import AttendanceLog from "@/models/AttendanceLog";
 import AttendanceLogService from "@/services/AttendanceLogService";
-import Form from "@/components/common/ui/Form";
-import { useEffect, useState } from "react";
-import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import dayjs from "dayjs";
-import Trash from "@/components/icons/Trash";
 import { useTranslations } from "next-intl";
-import FormInput from "@/components/common/ui/inputs/FormInput";
-import { Button } from "@/components/ui/shadcn/button";
-import Grid from "@/components/common/ui/Grid";
+import { useEffect, useState } from "react";
 
 const AttendanceForm = ({
   attendances = [],
@@ -25,7 +25,9 @@ const AttendanceForm = ({
   const t = useTranslations("attendance");
   const handleSubmit = async (data: any) => {
     const formData = { ...data, attendance_at: date };
-    console.log(formData);
+    if (fields.length == 0) {
+      formData.attendance_shifts = [];
+    }
     return AttendanceLogService.make().editOrCreateUserAttendance(
       userId,
       formData,
@@ -83,7 +85,7 @@ const AttendanceForm = ({
   };
 
   const removeField = (index: number) => {
-    const newFields = [...fields];
+    let newFields = [...fields];
     newFields.splice(index, 1);
     setFields(newFields);
   };
@@ -118,12 +120,16 @@ const AttendanceForm = ({
             defaultValue={inputs.attend_to}
             type={"time"}
           />
-          <Button className={"self-end"} variant={"destructive"} type={"button"} size={"icon"}>
-            <Trash
-              onClick={() => {
-                removeField(index);
-              }}
-            />
+          <Button
+            className={"self-end"}
+            variant={"destructive"}
+            type={"button"}
+            size={"icon"}
+            onClick={() => {
+              removeField(index);
+            }}
+          >
+            <Trash/>
           </Button>
         </Grid>
       ))}

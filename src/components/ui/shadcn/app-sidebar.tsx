@@ -140,7 +140,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           {
             title: t("schedule"),
-            url: `${user?.role}/schedule`,
+            url: `/${user?.role}/schedule`,
             icon: SchedulesIcon,
             roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },

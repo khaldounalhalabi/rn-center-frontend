@@ -117,7 +117,7 @@ const NotificationsPopover = () => {
                 return (
                   <div className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md">
                     <Link
-                      className="text-start"
+                      className="text-start w-[80%]"
                       href={payload?.getUrl(role ?? RoleEnum.PUBLIC) ?? ""}
                     >
                       {payload.message}

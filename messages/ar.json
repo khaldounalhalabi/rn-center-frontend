@@ -1680,7 +1680,9 @@
     "show": "عرض",
     "export": "تصدير",
     "import": "استيراد",
-    "import_example": "مثال على ملف التصدير"
+    "import_example": "مثال على ملف التصدير",
+    "mark_all_as_read" : "تعليم الكل كمقروء",
+    "loading_more" : "تحميل المزيد"
   },
   "holidays": {
     "from": "من",

@@ -1683,7 +1683,9 @@
     "show": "Show",
     "export": "Export",
     "import": "Import",
-    "import_example": "Import example"
+    "import_example": "Import example",
+    "mark_all_as_read" : "Mark all as read",
+    "loading_more" : "Loading more"
   },
   "holidays": {
     "from": "From",

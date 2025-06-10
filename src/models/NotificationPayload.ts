@@ -74,7 +74,7 @@ export class NotificationPayload {
     if (locale == "ar") {
       return this.messageAr;
     } else {
-      return this.messageAr;
+      return this.messageEn;
     }
   }
 
@@ -82,7 +82,7 @@ export class NotificationPayload {
     const type = this.type;
     switch (type) {
       case NotificationsTypeEnum.NewVacationRequest:
-        return `/${role}/vacations/${this.getData("vacation_id")}`;
+        return `/${role}/vacations`;
       case NotificationsTypeEnum.PayslipStatusChanged:
         return `/${role}/payruns/${this.getData("payrun_id")}`;
 
@@ -96,11 +96,11 @@ export class NotificationPayload {
       case NotificationsTypeEnum.NewPayrunAdded:
         return `/${role}/payslips`;
       case NotificationsTypeEnum.NewVacationAdded:
-        return `/${role}/vacations/${this.getData("vacation_id")}`;
+        return `/${role}/vacations`;
       case NotificationsTypeEnum.VacationStatusChanged:
-        return `/${role}/vacations/${this.getData("vacation_id")}`;
+        return `/${role}/vacations`;
       case NotificationsTypeEnum.VacationUpdated:
-        return `/${role}/vacations/${this.getData("vacation_id")}`;
+        return `/${role}/vacations`;
 
       default:
         return "";

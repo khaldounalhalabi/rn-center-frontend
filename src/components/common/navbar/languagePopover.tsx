@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
+import { Button } from "@/components/ui/shadcn/button";
 import { Link, usePathname } from "@/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Button } from "@/components/ui/shadcn/button";
 
 const LanguagePopover = () => {
   const t = useTranslations("components");

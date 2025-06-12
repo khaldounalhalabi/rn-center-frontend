@@ -1,21 +1,22 @@
 "use client";
+import { Navigate } from "@/actions/Navigate";
+import { RoleEnum } from "@/enums/RoleEnum";
 import firebaseApp from "@/helpers/Firebase";
-import {
-  NotificationPayload,
-  NotificationPayloadData,
-} from "@/models/NotificationPayload";
+import useUser from "@/hooks/UserHook";
+import { NotificationPayload } from "@/models/NotificationPayload";
+import { Link } from "@/navigation";
 import { getMessaging, onMessage } from "firebase/messaging";
+import { Bell } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
-  createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  createContext,
   useEffect,
   useState,
 } from "react";
 import { toast } from "sonner";
-import { Navigate } from "@/actions/Navigate";
-import { useTranslations } from "next-intl";
 
 export const NotificationsHandlersContext = createContext<Dispatch<
   SetStateAction<Handler[]>
@@ -36,33 +37,36 @@ const NotificationProvider = ({
   children?: ReactNode;
 }) => {
   const [handlers, setHandlers] = useState<Handler[]>([]);
-  const t = useTranslations("components")
+  const t = useTranslations("components");
+  const { role } = useUser();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       const messaging = getMessaging(firebaseApp);
       const unsubscribe = onMessage(messaging, (payload) => {
-        const notification = new NotificationPayload(
-          payload.collapseKey,
-          payload?.data as NotificationPayloadData | undefined,
-          payload.from,
-          payload.messageId,
-        );
+        console.log(payload);
+        const notification = new NotificationPayload(payload?.data ?? {});
 
         handlers.forEach((handler) => {
           handler.fn(notification);
         });
         if (notification.isNotification()) {
-          toast(t("new_notification"), {
-            description: notification?.data?.message,
-            action: {
-              label: t("show"),
-              onClick: () => {
-                Navigate(notification.getUrl());
+          toast(
+            <Link href={notification.getUrl(role ?? RoleEnum.PUBLIC)}>
+              {t("new_notification")}
+            </Link>,
+            {
+              description: notification?.message,
+              action: {
+                label: t("show"),
+                onClick: () => {
+                  Navigate(notification.getUrl(role ?? RoleEnum.PUBLIC));
+                },
               },
+              icon: <Bell />,
             },
-          });
+          );
         }
 
         if (handle) {

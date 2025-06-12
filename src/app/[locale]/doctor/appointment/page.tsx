@@ -2,7 +2,6 @@
 import PageCard from "@/components/common/ui/PageCard";
 import AppointmentsTable from "@/components/doctor/appointments/AppointmentsTable";
 import { RoleEnum } from "@/enums/RoleEnum";
-import useUser from "@/hooks/UserHook";
 import { AppointmentService } from "@/services/AppointmentService";
 import { useTranslations } from "next-intl";
 

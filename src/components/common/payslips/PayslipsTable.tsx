@@ -1,39 +1,47 @@
 "use client";
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import PageCard from "@/components/common/ui/PageCard";
 import DataTable, {
   DataTableData,
+  getTableQueryName,
 } from "@/components/common/Datatable/DataTable";
-import Payslip from "@/models/Payslip";
+import EditPayslipSheet from "@/components/common/payslips/EditPayslipSheet";
+import ShowPayslipSheet from "@/components/common/payslips/ShowPayslipSheet";
+import Grid from "@/components/common/ui/Grid";
+import PageCard from "@/components/common/ui/PageCard";
+import Tooltip from "@/components/common/ui/Tooltip";
+import Select from "@/components/common/ui/selects/Select";
+import BlockIcon from "@/components/icons/BlockIcon";
+import DownloadIcon from "@/components/icons/DownloadIcon";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Button } from "@/components/ui/shadcn/button";
-import { Link } from "@/navigation";
-import { CheckCircle, CircleCheck, CircleX } from "lucide-react";
-import { RoleEnum } from "@/enums/RoleEnum";
-import PayslipService from "@/services/PayslipService";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
-import Grid from "@/components/common/ui/Grid";
-import EditPayslipSheet from "@/components/common/payslips/EditPayslipSheet";
-import DownloadIcon from "@/components/icons/DownloadIcon";
-import useDownload from "@/hooks/DownloadFile";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import Payrun from "@/models/Payrun";
-import ShowPayslipSheet from "@/components/common/payslips/ShowPayslipSheet";
 import PayslipStatusEnum from "@/enums/PayslipStatusEnum";
-import BlockIcon from "@/components/icons/BlockIcon";
-import Select from "@/components/common/ui/selects/Select";
-import Tooltip from "@/components/common/ui/Tooltip";
-import { TranslateStatusOrTypeClient } from "@/helpers/TranslationsClient";
+import { RoleEnum } from "@/enums/RoleEnum";
+import useDownload from "@/hooks/DownloadFile";
+import {
+  NotificationsTypeEnum,
+  RealTimeEventsTypeEnum,
+} from "@/models/NotificationPayload";
+import Payrun from "@/models/Payrun";
+import Payslip from "@/models/Payslip";
+import { Link } from "@/navigation";
+import PayslipService from "@/services/PayslipService";
+import { useQueryClient } from "@tanstack/react-query";
+import { CheckCircle, CircleCheck, CircleX } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { toast } from "sonner";
+import { NotificationHandler } from "../helpers/NotificationHandler";
+import TranslatableEnum from "../ui/labels-and-values/TranslatableEnum";
 
 const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
   const t = useTranslations("payslips");
   const datatable: DataTableData<Payslip> = {
     schema: [
+      { label: "ID", name: "id", sortable: true },
       {
         name: "user.full_name",
         label: t("employee"),
@@ -69,6 +77,12 @@ const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
         name: "net_pay",
         label: t("net_pay"),
         sortable: true,
+      },
+      {
+        name: "status",
+        label: t("status"),
+        sortable: true,
+        render: (status) => <TranslatableEnum value={status} />,
       },
       {
         name: "error",
@@ -119,7 +133,9 @@ const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
             {payslip?.can_update && (
               <EditPayslipSheet payslip={payslip} revalidate={revalidate} />
             )}
-            {payslip?.can_update && <ExcludeIncludeButton payslip={payslip} revalidate={revalidate} />}
+            {payslip?.can_update && (
+              <ExcludeIncludeButton payslip={payslip} revalidate={revalidate} />
+            )}
             {payslip?.can_download && (
               <DownloadPayslipButton payslip={payslip} payrun={payrun} />
             )}
@@ -152,8 +168,25 @@ const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
       </div>
     ),
   };
+
+  const queryName = getTableQueryName(datatable);
+  const queryClient = useQueryClient();
+
   return (
     <PageCard title={t("payslips")}>
+      <NotificationHandler
+        handle={(payload) => {
+          if (
+            payload.type == NotificationsTypeEnum.PayslipStatusChanged ||
+            payload.type == RealTimeEventsTypeEnum.PayrunStatusChanged
+          ) {
+            queryClient.invalidateQueries({
+              queryKey: [queryName],
+            });
+          }
+        }}
+        isPermanent
+      />
       <DataTable {...datatable} />
     </PageCard>
   );
@@ -190,8 +223,14 @@ const DownloadPayslipButton = ({
   );
 };
 
-const ExcludeIncludeButton = ({ payslip , revalidate }: { payslip?: Payslip , revalidate?:() => void }) => {
-  const t =  useTranslations("payslips")
+const ExcludeIncludeButton = ({
+  payslip,
+  revalidate,
+}: {
+  payslip?: Payslip;
+  revalidate?: () => void;
+}) => {
+  const t = useTranslations("payslips");
   const [loading, setLoading] = useState(false);
   const [excluded, setExcluded] = useState(
     payslip?.status == PayslipStatusEnum.EXCLUDED,
@@ -205,8 +244,8 @@ const ExcludeIncludeButton = ({ payslip , revalidate }: { payslip?: Payslip , re
         .then((res) => {
           setLoading(false);
           setExcluded(false);
-          toast(res.message as string)
-          if (revalidate){
+          toast.success(res.message as string);
+          if (revalidate) {
             revalidate();
           }
         });
@@ -217,8 +256,8 @@ const ExcludeIncludeButton = ({ payslip , revalidate }: { payslip?: Payslip , re
         .then((res) => {
           setLoading(false);
           setExcluded(true);
-          toast(res.message as string)
-          if (revalidate){
+          toast.success(res.message as string);
+          if (revalidate) {
             revalidate();
           }
         });

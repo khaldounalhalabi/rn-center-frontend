@@ -119,7 +119,7 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
         ) : (
           <LabelValue
             label={t("appointment_date")}
-            value={prescription?.appointment?.date_time}
+            value={prescription?.appointment?.date_time ?? appointment?.date_time}
           />
         )}
 

@@ -1,15 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { UserService } from "@/services/UserService";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import dayjs, { Dayjs } from "dayjs";
-import { useInView } from "react-intersection-observer";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
-import { useTranslations } from "next-intl";
 import UserTimelineItem from "@/components/admin/attendance/UserTimelineItem";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
+import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
+import { UserService } from "@/services/UserService";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import dayjs, { Dayjs } from "dayjs";
+import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const AttendanceTimeline: React.FC = () => {
   const t = useTranslations("attendance");
@@ -37,6 +39,7 @@ const AttendanceTimeline: React.FC = () => {
     rootMargin: "0px 0px 200px 0px", // Load more when within 200 px of the bottom
   });
 
+  const queryClient = useQueryClient();
   const {
     data,
     isLoading,
@@ -45,8 +48,6 @@ const AttendanceTimeline: React.FC = () => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-    isRefetching,
-    isPending,
   } = useInfiniteQuery({
     queryKey: ["attendance", selectedDate, debouncedValue],
     queryFn: async ({ pageParam = 1 }) => {
@@ -67,6 +68,12 @@ const AttendanceTimeline: React.FC = () => {
     },
     initialPageParam: 1,
   });
+
+  const invalidate = async () => {
+    await queryClient.invalidateQueries({
+      queryKey: ["attendance"],
+    });
+  };
 
   // Load more data when the user scrolls to the bottom
   useEffect(() => {
@@ -89,6 +96,14 @@ const AttendanceTimeline: React.FC = () => {
 
   return (
     <div className="container mb-2">
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == RealTimeEventsTypeEnum.AttendanceEdited) {
+            invalidate();
+          }
+        }}
+        isPermanent
+      />
       <div className="mb-2 flex items-center justify-between text-start">
         <Input
           type={"search"}
@@ -100,7 +115,7 @@ const AttendanceTimeline: React.FC = () => {
         />
       </div>
 
-      {(isLoading || isPending || isRefetching) && (
+      {isLoading && (
         <div className="flex h-64 items-center justify-center">
           <LoadingSpin className={"h-10 w-10 text-primary"} />
         </div>
@@ -125,54 +140,52 @@ const AttendanceTimeline: React.FC = () => {
         </div>
       )}
 
-      {data &&
-        allUsers.length > 0 &&
-        !(isLoading || isPending || isRefetching) && (
-          <Card className="overflow-hidden">
-            <CardHeader className="grid grid-cols-2 grid-flow-col items-center justify-between md:grid-flow-row">
-              <CardTitle className="text-start">
-                {t("attendance_date")}:{" "}
-                {dayjs(selectedDate).format("MMMM D, YYYY")}
-              </CardTitle>
-              <Datepicker
-                onChange={handleDateChange}
-                defaultValue={selectedDate}
+      {data && allUsers.length > 0 && (
+        <Card className="overflow-hidden">
+          <CardHeader className="grid grid-cols-2 grid-flow-col items-center justify-between md:grid-flow-row">
+            <CardTitle className="text-start">
+              {t("attendance_date")}:{" "}
+              {dayjs(selectedDate).format("MMMM D, YYYY")}
+            </CardTitle>
+            <Datepicker
+              onChange={handleDateChange}
+              defaultValue={selectedDate}
+            />
+            {/*<p className="text-gray-600">*/}
+            {/*  Status: {attendanceInfo?.status || "N/A"}*/}
+            {/*</p>*/}
+          </CardHeader>
+
+          <div className="max-h-[70vh] overflow-auto space-y-2">
+            {allUsers.map((user, index) => (
+              <UserTimelineItem
+                key={`${user?.id}-${index}`}
+                user={user}
+                date={selectedDate}
+                refetch={invalidate}
               />
-              {/*<p className="text-gray-600">*/}
-              {/*  Status: {attendanceInfo?.status || "N/A"}*/}
-              {/*</p>*/}
-            </CardHeader>
+            ))}
 
-            <div className="max-h-[70vh] overflow-auto space-y-2">
-              {allUsers.map((user, index) => (
-                <UserTimelineItem
-                  key={`${user?.id}-${index}`}
-                  user={user}
-                  date={selectedDate}
-                  refetch={refetch}
-                />
-              ))}
-
-              {/* Loading indicator for the next page */}
-              <div
-                ref={loadMoreRef}
-                className="flex items-center justify-center py-4"
-              >
-                {isFetchingNextPage ? (
-                  <LoadingSpin className={"h-6 w-6 text-primary"} />
-                ) : hasNextPage ? (
-                  <div className="h-8"></div> // Spacer to trigger intersection observer
-                ) : (
-                  allUsers.length > 0 && (
-                    <p className="text-center text-sm text-primary">
-                      {t("no_more")}
-                    </p>
-                  )
-                )}
-              </div>
+            {/* Loading indicator for the next page */}
+            <div
+              ref={loadMoreRef}
+              className="flex items-center justify-center py-4"
+            >
+              {isFetchingNextPage ? (
+                <LoadingSpin className={"h-6 w-6 text-primary"} />
+              ) : hasNextPage ? (
+                <div className="h-8"></div> // Spacer to trigger intersection observer
+              ) : (
+                allUsers.length > 0 && (
+                  <p className="text-center text-sm text-primary">
+                    {t("no_more")}
+                  </p>
+                )
+              )}
             </div>
-          </Card>
-        )}
+          </div>
+        </Card>
+      )}
 
       {data && allUsers.length === 0 && (
         <div className="border-l-4 text-secondary">

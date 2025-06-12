@@ -7,6 +7,7 @@ import HolidaysIcon from "@/components/icons/HolidaysIcon";
 import InDoorIcon from "@/components/icons/InDoorIcon";
 import MedicineIcon from "@/components/icons/MedicineIcon";
 import PatientIcon from "@/components/icons/PatientIcon";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import ServiceIcon from "@/components/icons/ServiceIcon";
 import SpecialitiesIcon from "@/components/icons/SpecialitiesIcon";
 import StaffIcon from "@/components/icons/StaffIcon";
@@ -22,6 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/shadcn/sidebar";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useUser from "@/hooks/UserHook";
 import { Link } from "@/navigation";
@@ -38,7 +40,7 @@ import * as React from "react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sideBar");
-  const { user } = useUser();
+  const { user, role } = useUser();
   const data = {
     navMain: [
       {
@@ -46,7 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t("dashboard"),
-            url: `/${user?.role}`,
+            url: `/${role}`,
             icon: LayoutDashboard,
           },
         ],
@@ -57,37 +59,37 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t("clinics"),
-            url: `/${user?.role}/clinics`,
+            url: `/${role}/clinics`,
             icon: ClinicsShowIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
           {
             title: t("specialties"),
-            url: `/${user?.role}/speciality`,
+            url: `/${role}/speciality`,
             icon: SpecialitiesIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
           {
             title: t("serviceCategories"),
-            url: `/${user?.role}/service-categories`,
+            url: `/${role}/service-categories`,
             icon: CategoryIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
           {
             title: t("services"),
-            url: `/${user?.role}/service`,
+            url: `/${role}/service`,
             icon: ServiceIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("holidays"),
-            url: `/${user?.role}/holidays`,
+            url: `/${role}/holidays`,
             icon: HolidaysIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("vacations"),
-            url: `/${user?.role}/vacations`,
+            url: `/${role}/vacations`,
             icon: CalendarIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
@@ -98,19 +100,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t("appointment"),
-            url: `/${user?.role}/appointment`,
+            url: `/${role}/appointment`,
             icon: AppointmentIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("patients"),
-            url: `/${user?.role}/patients`,
+            url: `/${role}/patients`,
             icon: PatientIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("medicines"),
-            url: `/${user?.role}/medicines`,
+            url: `/${role}/medicines`,
             icon: MedicineIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
@@ -121,21 +123,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t("transaction"),
-            url: `/${user?.role}/transaction`,
+            url: `/${role}/transaction`,
             icon: TransactionIcon,
             roles: [RoleEnum.ADMIN],
           },
           {
             title: t("attendance"),
-            url: `/${user?.role}/attendance`,
+            url: `/${role}/attendance`,
             icon: InDoorIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("secretaries"),
-            url: `/${user?.role}/secretaries`,
+            url: `/${role}/secretaries`,
             icon: StaffIcon,
             roles: [RoleEnum.ADMIN],
+          },
+          {
+            title: t("schedule"),
+            url: `/${role}/schedule`,
+            icon: SchedulesIcon,
+            roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],
       },
@@ -145,25 +153,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: t("formulas"),
-            url: `/${user?.role}/formulas`,
+            url: `/${role}/formulas`,
             icon: CalculatorIcon,
             roles: [RoleEnum.ADMIN],
           },
           {
             title: t("formula_variables"),
-            url: `/${user?.role}/formula-variables`,
+            url: `/${role}/formula-variables`,
             icon: VariableIcon,
             roles: [RoleEnum.ADMIN],
           },
           {
             title: t("payruns"),
-            url: `/${user?.role}/payruns`,
+            url: `/${role}/payruns`,
             icon: HandCoinsIcon,
             roles: [RoleEnum.ADMIN],
           },
           {
             title: t("payslips"),
-            url: `/${user?.role}/payslips`,
+            url: `/${role}/payslips`,
             icon: HandCoinsIcon,
             roles: [RoleEnum.DOCTOR],
           },
@@ -180,21 +188,33 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href={`/${user?.role}`}>
-                <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">
-                  {t("center_name")}
-                </span>
-              </Link>
+              {!role || !user ? (
+                <Skeleton className={"h-full w-full"}/>
+              ) : (
+                <Link href={`/${role}`}>
+                  <ArrowUpCircleIcon className="h-5 w-5" />
+                  <span className="text-base font-semibold">
+                    {t("center_name")}
+                  </span>
+                </Link>
+              )}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} user={user} />
+        {!user || !role ? (
+          <Skeleton className={"h-full w-full"} />
+        ) : (
+          <NavMain items={data.navMain} user={user} />
+        )}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        {!user || !role ? (
+          <Skeleton className={"w-full h-full"} />
+        ) : (
+          <NavUser user={user} />
+        )}
       </SidebarFooter>
     </Sidebar>
   );

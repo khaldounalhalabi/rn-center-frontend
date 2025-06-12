@@ -3,7 +3,9 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
   DataTableSchema,
+  getTableQueryName,
 } from "@/components/common/Datatable/DataTable";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Select from "@/components/common/ui/selects/Select";
@@ -15,7 +17,9 @@ import { getEnumValues } from "@/helpers/Enums";
 import useUser from "@/hooks/UserHook";
 import { ApiResponse } from "@/http/Response";
 import { Appointment } from "@/models/Appointment";
+import { NotificationsTypeEnum } from "@/models/NotificationPayload";
 import { Link } from "@/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
 const AppointmentsTable = ({
@@ -134,7 +138,23 @@ const AppointmentsTable = ({
     api: (page, search, sortCol, sortDir, perPage, params) =>
       api(page, search, sortCol, sortDir, perPage, params),
   };
-  return <DataTable {...tableData} />;
+  const queryName = getTableQueryName(tableData);
+  const queryClient = useQueryClient();
+  return (
+    <>
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == NotificationsTypeEnum.AppointmentEvent) {
+            queryClient.invalidateQueries({
+              queryKey: [queryName],
+            });
+          }
+        }}
+        isPermanent
+      />
+      <DataTable {...tableData} />
+    </>
+  );
 };
 
 export default AppointmentsTable;

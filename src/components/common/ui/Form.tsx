@@ -1,10 +1,10 @@
 "use client";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import { Button } from "@/components/ui/shadcn/button";
+import { ApiResponse } from "@/http/Response";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ApiResponse } from "@/http/Response";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/shadcn/button";
 import { toast } from "sonner";
 
 const Form = ({
@@ -19,7 +19,7 @@ const Form = ({
   defaultButton = true,
   otherSubmitButton = undefined,
   submitButtonClasses = "justify-center",
-  onCancel = undefined
+  onCancel = undefined,
 }: {
   className?: string;
   children: React.ReactNode;
@@ -33,7 +33,7 @@ const Form = ({
   defaultButton?: boolean;
   otherSubmitButton?: (isSubmitting: boolean) => React.ReactNode;
   submitButtonClasses?: string;
-  onCancel?:()=>void
+  onCancel?: () => void;
 }) => {
   const t = useTranslations("components");
   if (!buttonText) {
@@ -50,17 +50,19 @@ const Form = ({
     }
 
     if (!res?.hasValidationErrors() && res.code == 200) {
+      if (onSuccess) {
+        await onSuccess(res);
+      }
       if (showToastMessage) {
-        toast(t("success"), {
+        toast.success(t("success"), {
           description: res?.message as string,
         });
       }
-      if (onSuccess) onSuccess(res);
-    } else if(res?.hasValidationErrors()) {
+    } else if (res?.hasValidationErrors()) {
       res.fillValidationErrors(methods);
-      toast(t("error"), {
+      toast.error(t("error"), {
         description: t("check_data"),
-        dismissible:true
+        dismissible: true,
       });
     }
     return res;
@@ -75,14 +77,16 @@ const Form = ({
       >
         {children}
         <div
-          className={`flex ${submitButtonClasses} my-5 items-center ${onCancel ? 'justify-between' : 'justify-end'}`}
+          className={`flex ${submitButtonClasses} my-5 items-center ${onCancel ? "justify-between" : "justify-end"}`}
           onClick={() => {
             methods.clearErrors();
           }}
         >
-          {onCancel && (<Button variant={"destructive"} onClick={()=>onCancel()}>
-            {t("cancel")}
-          </Button>)}
+          {onCancel && (
+            <Button variant={"destructive"} onClick={() => onCancel()}>
+              {t("cancel")}
+            </Button>
+          )}
           {otherSubmitButton
             ? otherSubmitButton(methods.formState.isSubmitting)
             : ""}

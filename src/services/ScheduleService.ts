@@ -1,7 +1,7 @@
-import { BaseService } from "@/services/BaseService";
+import { GET } from "@/http/Http";
 import { ApiResponse } from "@/http/Response";
 import { Schedule, SchedulesCollection } from "@/models/Schedule";
-import { GET } from "@/http/Http";
+import { BaseService } from "@/services/BaseService";
 
 export class ScheduleService extends BaseService<
   ScheduleService,
@@ -31,4 +31,9 @@ export class ScheduleService extends BaseService<
 
     return await this.errorHandler(res);
   };
+
+  public async mine() {
+    const response = await GET<SchedulesCollection>(`/${this.role}/schedule`);
+    return this.errorHandler(response);
+  }
 }

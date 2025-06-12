@@ -84,14 +84,14 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
     setIsDeleting(undefined);
     if (response.ok()) {
       setAttachments(attachments.filter((item) => item.id !== mediaId));
-      toast(t("deleted"), {
+      toast.success(t("deleted"), {
         description: t("delete_success"),
       });
       if (onDelete) {
         onDelete(mediaId);
       }
     } else {
-      toast(t("error"), {
+      toast.error(t("error"), {
         description: t("delete_failed"),
       });
     }

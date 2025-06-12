@@ -22,12 +22,12 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import { User } from "@/models/User";
 import { Link } from "@/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import React from "react";
+import React, { useState } from "react";
 
 interface UserTimelineItemProps {
   user?: User;
   date?: string;
-  refetch?: CallableFunction;
+  refetch?: () => void | Promise<void>;
 }
 
 const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
@@ -36,6 +36,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
   refetch,
 }) => {
   const t = useTranslations("attendance");
+  const [open, setOpen] = useState(false);
   const locale = useLocale();
   return (
     <Card className="p-6 m-5">
@@ -62,7 +63,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             </Badge>
           </div>
         </CardTitle>
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger>
             <Button size={"icon"}>
               <Pencil />
@@ -82,8 +83,11 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                 date={date ?? ""}
                 userId={user?.id ?? 0}
                 attendances={user?.attendance_by_date ?? []}
-                onSuccess={() => {
-                  if (refetch) refetch();
+                onSuccess={async () => {
+                  if (refetch) {
+                    await refetch();
+                  }
+                  setOpen(false);
                 }}
               />
             </div>

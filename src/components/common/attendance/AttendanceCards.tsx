@@ -16,6 +16,7 @@ import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useTimer from "@/hooks/TimerHook";
 import { cn } from "@/lib/utils";
+import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import AttendanceLogService from "@/services/AttendanceLogService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -28,6 +29,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "../helpers/NotificationHandler";
 
 const AttendanceCards = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
@@ -81,6 +83,16 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
 
   return (
     <div className="space-y-6 p-5">
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == RealTimeEventsTypeEnum.AttendanceEdited) {
+            refetchLastLog().then(() => {
+              refetchStats();
+            });
+          }
+        }}
+        isPermanent
+      />
       <Grid sm={1} md={3} lg={3} className="gap-4">
         <Card className="transition-all duration-300 hover:shadow-lg">
           {isPendingStats || isPendingLastLog || !stats ? (
@@ -220,6 +232,42 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
                       className="h-full bg-primary transition-all duration-500"
                       style={{
                         width: `${Math.min((stats?.attendance_hours / stats?.expected_hours) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">
+                      Overtime Hours
+                    </span>
+                    <span className="font-medium text-emerald-600">
+                      {stats?.overtime_hours?.toFixed(1) || 0} hrs
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary/20 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-emerald-500 transition-all duration-500"
+                      style={{
+                        width: `${Math.min((stats?.overtime_hours / 40) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">
+                      Overtime Days
+                    </span>
+                    <span className="font-medium text-emerald-600">
+                      {stats?.overtime_days || 0} days
+                    </span>
+                  </div>
+                  <div className="w-full bg-secondary/20 rounded-full overflow-hidden">
+                    <div
+                      className="bg-emerald-500 transition-all duration-500"
+                      style={{
+                        width: `${Math.min((stats?.overtime_days / 5) * 100, 100)}%`,
                       }}
                     />
                   </div>

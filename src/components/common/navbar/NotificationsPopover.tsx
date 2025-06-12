@@ -1,36 +1,44 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import NotificationsIcon from "@/components/icons/NotificationsIcon";
-import clickOutsideHandler from "@/helpers/ClickOutsideHandler";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/shadcn/popover";
+import { RoleEnum } from "@/enums/RoleEnum";
+import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import CircleCheckMark from "@/components/icons/CircleCheckMark";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { Bell, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import { NotificationHandler } from "../helpers/NotificationHandler";
 import { Link } from "@/navigation";
-import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
-import { useTranslations } from "next-intl";
-import useUser from "@/hooks/UserHook";
 
 const NotificationsPopover = () => {
-  const t = useTranslations("components");
-  const [openPopNot, setOpenPopNot] = useState<boolean>(false);
   const { role } = useUser();
+  const [mutating, setMutating] = useState("");
 
-  const fetchNotifications = async ({ pageParam = 0 }) =>
-    await NotificationService.make(
-      role,
-    ).indexWithPagination(pageParam, undefined, undefined, undefined, 5);
   const {
     data: notifications,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
+    isPending,
     isFetchingNextPage,
-    refetch,
+    hasNextPage,
+    fetchNextPage,
+    refetch: refetchNotifications,
   } = useInfiniteQuery({
-    queryKey: ["Notifications"],
-    queryFn: fetchNotifications,
+    queryKey: ["notifications_list"],
+    queryFn: async ({ pageParam }) =>
+      await NotificationService.make(role).indexWithPagination(
+        pageParam,
+        undefined,
+        undefined,
+        undefined,
+        20,
+      ),
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       return !lastPage.paginate?.is_last
         ? lastPage.paginate?.current_page
@@ -38,167 +46,110 @@ const NotificationsPopover = () => {
           : null
         : null;
     },
-    initialPageParam: 0,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    retry: 10,
+    retryDelay: 100,
+    enabled: role != undefined && role != RoleEnum.PUBLIC,
   });
 
-  const {
-    data: notificationsCount,
-    isFetching: isFetchingCount,
-    refetch: refetchCount,
-  } = useQuery({
-    queryKey: ["notifications_count"],
-    queryFn: async () =>
-      await NotificationService.make(
-        role,
-      ).getUnreadCount(),
+  const handleDataScrolling = (e: any) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.target;
+    if (scrollHeight - scrollTop <= clientHeight && hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const { data: unreadCount, refetch: refetchCount } = useQuery({
+    queryKey: ["unread_notifications_count"],
+    queryFn: async () => await NotificationService.make(role).unreadCount(),
+    select: (data) => data?.data?.unread_count ?? 0,
+    enabled: role != undefined && role != RoleEnum.PUBLIC,
   });
 
-  const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    clickOutsideHandler(ref, setOpenPopNot);
-  }, []);
+  const markAsRead = useMutation({
+    mutationFn: async (notificationId: string) => {
+      setMutating(notificationId);
+      return await NotificationService.make(role).markAsRead(notificationId);
+    },
+    onSuccess: async () => {
+      refetchCount();
+      refetchNotifications().then(() => {
+        setMutating("");
+      });
+    },
+  });
 
   return (
-    <div
-      ref={ref}
-      className={`${openPopNot ? "relative" : "relative overflow-clip"} max-h-72`}
-    >
+    <>
       <NotificationHandler
-        handle={(payload) => {
-          if (payload.isNotification()) {
-            refetch();
+        handle={(e) => {
+          if (e.isNotification()) {
             refetchCount();
+            refetchNotifications();
           }
         }}
-        isPermanent={true}
+        isPermanent
       />
-      <div
-        className={"relative h-full w-8 cursor-pointer"}
-        onClick={() => setOpenPopNot((prevState) => !prevState)}
-      >
-        <NotificationsIcon
-          className={
-            openPopNot
-              ? `h-6 w-6 cursor-pointer fill-blue-500 text-[#909CA6]`
-              : "h-6 w-6 cursor-pointer fill-[#909CA6] text-[#909CA6]"
-          }
-        />
-        {(notificationsCount?.data ?? 0) > 0 ? (
-          <span
-            className={
-              "absolute -top-1 right-[0px] rounded-full border-error text-[100%] text-destructive"
-            }
-          >
-            {notificationsCount?.data}
-          </span>
-        ) : (
-          ""
-        )}
-      </div>
-
-      <div
-        className={
-          openPopNot
-            ? "transition-x-0 absolute -end-3 top-10 z-20 mt-2 w-[80vw] divide-y divide-gray-100 rounded-2xl bg-white opacity-100 duration-500 ease-in-out md:end-0 md:w-[360px]"
-            : "transition-x-[-200px] absolute opacity-0 duration-500 ease-in-out"
-        }
-        role="menu"
-        style={{
-          boxShadow:
-            " 0px 5px 5px -3px rgba(145, 158, 171, 0.2)" +
-            ", 0px 8px 10px 1px rgba(145, 158, 171, 0.14)" +
-            ", 0px 3px 14px 2px rgba(145, 158, 171, 0.12)",
-        }}
-      >
-        <div className="px-5 py-4">
-          <h2>{t("notifications")}</h2>
-          <p className="opacity-[0.6]">
-            {isFetchingCount ? (
-              <LoadingSpin />
-            ) : (
-              `${t("you_have")} ${notificationsCount?.data ?? 0} ${t("unread_notifications")}`
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline" size="icon" className="relative">
+            <Bell className="h-5 w-5" />
+            {unreadCount != undefined && unreadCount > 0 && (
+              <Badge
+                className="absolute -right-2 -top-3 h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+                variant={"destructive"}
+              >
+                {unreadCount > 9 ? "+9" : unreadCount}
+              </Badge>
             )}
-          </p>
-        </div>
-
-        <div className="max-h-72 overflow-y-scroll">
-          {isFetching && !isFetchingNextPage ? (
-            <p className="text-center">{t("loading")} ...</p>
-          ) : (
-            notifications?.pages.map((item) =>
-              item?.data?.map((notification, index) => {
-                const n = new NotificationPayload(
-                  undefined,
-                  JSON.parse(notification.data),
-                  undefined,
-                  undefined,
-                  notification.message,
-                  notification.read_at,
-                  notification.created_at,
-                  notification.type,
-                  notification.id,
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-96 p-0 bg-background" align="end">
+          <div
+            className="w-full max-h-96 p-1 overflow-y-scroll"
+            onScroll={handleDataScrolling}
+          >
+            {notifications?.pages?.map((page) =>
+              page?.data?.map((notification , index) => {
+                const payload = new NotificationPayload(
+                  notification?.data ?? {},
                 );
                 return (
-                  <div
-                    key={index}
-                    className="mx-2 flex items-center justify-between"
-                  >
+                  <div className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md" key={index}>
                     <Link
-                      href={n.getUrl()}
-                      className="w-full cursor-pointer rounded-md border-b-gray-100 p-3 hover:bg-gray-300"
-                      onClick={() => {
-                        NotificationService.make(
-                          role,
-                        ).markAsRead(notification.id);
-                      }}
+                      className="text-start w-[80%]"
+                      href={payload?.getUrl(role ?? RoleEnum.PUBLIC) ?? ""}
                     >
-                      {n.getMessage()}
+                      {payload.message}
                     </Link>
-                    <button
-                      className="rounded-md p-3 hover:bg-gray-300"
+                    <Button
+                      disabled={notification?.read_at != undefined}
+                      size={"icon"}
+                      variant={notification?.read_at ? "ghost" : "default"}
                       onClick={() => {
-                        if (!n.read_at) {
-                          NotificationService.make(
-                            role,
-                          ).markAsRead(notification.id);
-                          refetch();
-                          refetchCount();
-                        }
+                        markAsRead.mutate(notification?.id);
                       }}
                     >
-                      <CircleCheckMark
-                        className={`h-6 w-6 text-success ${n.read_at ? "cursor-not-allowed fill-success" : "cursor-pointer"}`}
-                        solid={!!n.read_at}
-                      />
-                    </button>
+                      {mutating == notification?.id ? (
+                        <LoadingSpin />
+                      ) : (
+                        <CheckCircle />
+                      )}
+                    </Button>
                   </div>
                 );
               }),
-            )
-          )}
-          {isFetchingNextPage ? (
-            <p className="py-3 text-center">Loading notifications ...</p>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="flex w-full items-center justify-center px-8 py-6">
-          {hasNextPage ? (
-            <button
-              className="btn flex items-center justify-between text-[0.875rem] font-bold text-pom"
-              onClick={() => {
-                fetchNextPage();
-              }}
-            >
-              {t("load_more")}
-              {isFetchingNextPage ? <LoadingSpin /> : ""}
-            </button>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-    </div>
+            )}
+            {(isFetchingNextPage || isPending) && (
+              <div className="w-full flex items-center justify-center text-sm border my-1 p-3 rounded-md">
+                <LoadingSpin />
+              </div>
+            )}
+          </div>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 };
 

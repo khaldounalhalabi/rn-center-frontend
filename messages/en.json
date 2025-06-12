@@ -48,7 +48,8 @@
     "finance": "Finance",
     "center_name": "Reslan Alnaal Center",
     "payslips": "Payslips",
-    "vacations": "Vacations"
+    "vacations": "Vacations",
+    "schedule": "Schedule"
   },
   "admin": {
     "clinic": {
@@ -193,7 +194,8 @@
         "startTime": "Start Time",
         "endTime": "End Time",
         "day": "Day",
-        "time": "Time"
+        "time": "Time",
+        "schedule": "Work schedule"
       },
       "show": {
         "holidayDetails": "Holiday Details",
@@ -1681,7 +1683,9 @@
     "show": "Show",
     "export": "Export",
     "import": "Import",
-    "import_example": "Import example"
+    "import_example": "Import example",
+    "mark_all_as_read" : "Mark all as read",
+    "loading_more" : "Loading more"
   },
   "holidays": {
     "from": "From",
@@ -1732,7 +1736,9 @@
     "minutes": "Minutes",
     "minute": "Minute",
     "and_a_half": "And a half",
-    "and_minutes": "And {minutes} minutes"
+    "and_minutes": "And {minutes} minutes",
+    "overtime_days": "Overtime days",
+    "overtime_hours": "Overtime hours"
   },
   "links": {
     "appointment": "Appointments",
@@ -1758,7 +1764,8 @@
     "payruns": "Payruns",
     "doctor": "Dashboard",
     "payslips": "Payslips",
-    "vacations": "Vacations"
+    "vacations": "Vacations",
+    "schedule": "Schedule"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1849,7 +1856,7 @@
     "to": "To",
     "reason": "Reason",
     "cancellation_reason": "Cancellation Reason",
-    "index_title": "Employees Vacations",
+    "index_title": "Vacations",
     "show_title": "Vacation details",
     "edit_title": "Edit Vacation Details",
     "create_title": "Add New Vacation",

@@ -3,14 +3,18 @@ import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
   DataTableSchema,
+  getTableQueryName,
 } from "@/components/common/Datatable/DataTable";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import PageCard from "@/components/common/ui/PageCard";
 import ShowVacationSheet from "@/components/common/Vacations/ShowVacationSheet";
 import VacationFormSheet from "@/components/common/Vacations/VacationFormSheet";
 import { RoleEnum } from "@/enums/RoleEnum";
+import { NotificationsTypeEnum } from "@/models/NotificationPayload";
 import Vacation from "@/models/Vacation";
 import VacationService from "@/services/VacationService";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
 const Page = () => {
@@ -88,8 +92,23 @@ const Page = () => {
       );
     },
   };
+  const queryName = getTableQueryName(datatable);
+  const queryClient = useQueryClient();
   return (
     <PageCard title={t("index_title")}>
+      <NotificationHandler
+        handle={(payload) => {
+          if (
+            payload.type == NotificationsTypeEnum.NewVacationAdded ||
+            payload.type == NotificationsTypeEnum.VacationStatusChanged ||
+            payload.type == NotificationsTypeEnum.VacationUpdated
+          ) {
+            queryClient.invalidateQueries({
+              queryKey: [queryName],
+            });
+          }
+        }}
+      />
       <DataTable {...datatable} />
     </PageCard>
   );

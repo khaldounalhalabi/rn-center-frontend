@@ -1,20 +1,24 @@
 "use client";
-import React from "react";
-import PageCard from "@/components/common/ui/PageCard";
-import { useTranslations } from "next-intl";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
+  getTableQueryName,
 } from "@/components/common/Datatable/DataTable";
-import Payrun from "@/models/Payrun";
-import PayrunService from "@/services/PayrunService";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
+import CreatePayRunSheet from "@/components/common/payruns/CreatePayRunSheet";
 import PayrunStatusColumn from "@/components/common/payruns/PayrunStatusColumn";
 import ReprocessPayrunButton from "@/components/common/payruns/ReporocessPayrunButton";
-import CreatePayRunSheet from "@/components/common/payruns/CreatePayRunSheet";
-import { Button } from "@/components/ui/shadcn/button";
+import PageCard from "@/components/common/ui/PageCard";
 import DownloadIcon from "@/components/icons/DownloadIcon";
-import useDownload from "@/hooks/DownloadFile";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import { Button } from "@/components/ui/shadcn/button";
+import useDownload from "@/hooks/DownloadFile";
+import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
+import Payrun from "@/models/Payrun";
+import PayrunService from "@/services/PayrunService";
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 const Page = () => {
   const t = useTranslations("payruns");
@@ -90,8 +94,21 @@ const Page = () => {
       ),
     extraButton: (revalidate) => <CreatePayRunSheet revalidate={revalidate} />,
   };
+  const queryName = getTableQueryName(datatable);
+  const queryClient = useQueryClient();
   return (
     <PageCard title={t("index_title")}>
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == RealTimeEventsTypeEnum.PayrunStatusChanged) {
+            toast.success("Payruns data updated");
+            queryClient.invalidateQueries({
+              queryKey: [queryName],
+            });
+          }
+        }}
+        isPermanent
+      />
       <DataTable {...datatable} />
     </PageCard>
   );

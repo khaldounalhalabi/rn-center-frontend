@@ -49,7 +49,7 @@ const VacationFormSheet = ({
     }
 
     if (response.code == 406) {
-      toast(t("error"), {
+      toast.error(t("error"), {
         description: response?.message as string,
         dismissible:true
       });

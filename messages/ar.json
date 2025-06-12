@@ -48,7 +48,8 @@
     "finance": "الشؤون المحاسبية",
     "center_name": "مركز رسلان النعال الطبي",
     "payslips": "الدفعات",
-    "vacations": "الإجازات"
+    "vacations": "الإجازات",
+    "schedule": "جدول الدوام"
   },
   "admin": {
     "clinic": {
@@ -193,7 +194,8 @@
         "startTime": "وقت البدء",
         "endTime": "وقت النهاية",
         "day": "اليوم",
-        "time": "الوقت"
+        "time": "الوقت",
+        "schedule": "جدول الدوام"
       },
       "show": {
         "holidayDetails": "تفاصيل الإجازة",
@@ -1678,7 +1680,9 @@
     "show": "عرض",
     "export": "تصدير",
     "import": "استيراد",
-    "import_example": "مثال على ملف التصدير"
+    "import_example": "مثال على ملف التصدير",
+    "mark_all_as_read" : "تعليم الكل كمقروء",
+    "loading_more" : "تحميل المزيد"
   },
   "holidays": {
     "from": "من",
@@ -1729,7 +1733,9 @@
     "minutes": "دقائق",
     "minute": "دقيقة",
     "and_a_half": "و نصف",
-    "and_minutes": "و {minutes} دقائق"
+    "and_minutes": "و {minutes} دقائق",
+    "overtime_days": "أيام الدوام الإضافي",
+    "overtime_hours": "ساعات الدوام الإضافي"
   },
   "links": {
     "appointment": "الحجوزات",
@@ -1755,7 +1761,8 @@
     "payruns": "الرواتب",
     "doctor": "لوحة التحكم",
     "payslips": "الدفعات",
-    "vacations": "الإجازات"
+    "vacations": "الإجازات",
+    "schedule": "أوقات الدوام"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",
@@ -1846,7 +1853,7 @@
     "to": "إلى",
     "reason": "السبب",
     "cancellation_reason": "سبب الإلغاء",
-    "index_title": "إجازات الموظفين",
+    "index_title": "الإجازات",
     "show_title": "تفاصيل الإجازة",
     "edit_title": "تعديل تفاصيل الإجازة",
     "create_title": "إضافة إجازة جديدة",

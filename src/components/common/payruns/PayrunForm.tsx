@@ -66,7 +66,7 @@ const PayrunForm = ({revalidate}:{revalidate?:() => void}) => {
                 onSuccess(res).then(() => {
                   setLoading(false);
                   setOverlap(false);
-                  toast(res.message as string);
+                  toast.success(res.message as string);
                 });
               }
             });

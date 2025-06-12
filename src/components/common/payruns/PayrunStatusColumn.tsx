@@ -30,9 +30,9 @@ const PayrunStatusColumn = ({
           if (revalidate) {
             revalidate();
           }
-          toast(res.message as string);
+          toast.success(res.message as string);
         } else {
-          toast(res.message as string);
+          toast.error(res.message as string);
           setStatus(payrun?.status);
         }
       });

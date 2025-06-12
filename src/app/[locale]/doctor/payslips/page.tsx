@@ -3,8 +3,10 @@
 import DataTable, {
   DataTableData,
   DataTableSchema,
+  getTableQueryName,
 } from "@/components/common/Datatable/DataTable";
 import FormulaTemplateViewer from "@/components/common/formula/FormulaTemplateViewer";
+import { NotificationHandler } from "@/components/common/helpers/NotificationHandler";
 import PayslipStatusSelect from "@/components/common/payslips/PayslipStatusSelect";
 import ShowPayslipSheet from "@/components/common/payslips/ShowPayslipSheet";
 import Grid from "@/components/common/ui/Grid";
@@ -21,14 +23,17 @@ import {
 } from "@/components/ui/shadcn/popover";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useDownload from "@/hooks/DownloadFile";
+import { NotificationsTypeEnum } from "@/models/NotificationPayload";
 import Payslip from "@/models/Payslip";
 import PayslipService from "@/services/PayslipService";
+import { useQueryClient } from "@tanstack/react-query";
 import { CircleX } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const Page = () => {
   const t = useTranslations("payslips");
   const schema: DataTableSchema<Payslip>[] = [
+    { label: "ID", name: "id", sortable: true },
     {
       name: "paid_days",
       label: t("paid_days"),
@@ -118,8 +123,23 @@ const Page = () => {
         perPage,
       ),
   };
+  const queryName = getTableQueryName(datatable);
+  const queryClient = useQueryClient();
   return (
     <PageCard title={t("payslips")}>
+      <NotificationHandler
+        handle={(payload) => {
+          if (
+            payload.type == NotificationsTypeEnum.NewPayrunAdded ||
+            payload.type == NotificationsTypeEnum.PayslipUpdated
+          ) {
+            queryClient.invalidateQueries({
+              queryKey: [queryName],
+            });
+          }
+        }}
+        isPermanent
+      />
       <DataTable {...datatable} />
     </PageCard>
   );

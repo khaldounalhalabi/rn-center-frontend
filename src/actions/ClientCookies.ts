@@ -5,9 +5,8 @@ export function setClientCookie(key: string, value: string) {
   return setCookie(key, value);
 }
 
-export function getClientCookie(key: string) {
-  const coc: string | undefined = getCookie(key);
-  return coc ? coc : "";
+export function getClientCookie(key: string): string | undefined {
+  return getCookie(key);
 }
 
 export function deleteClientCookie(key: string) {

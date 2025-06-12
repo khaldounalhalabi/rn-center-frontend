@@ -1,15 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
-import { User } from "@/models/User";
+import {
+  deleteClientCookie,
+  getClientCookie,
+  setClientCookie,
+} from "@/actions/ClientCookies";
 import { RoleEnum } from "@/enums/RoleEnum";
+import { User } from "@/models/User";
+import { useCallback, useEffect, useState } from "react";
 
-const USER_STORAGE_KEY = "user";
+const USER_COOKIES_KEY = "user_cookies_key";
 
 const useUser = () => {
   const [user, updateUser] = useState<User | undefined>(undefined);
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+    const storedUser = getClientCookie(USER_COOKIES_KEY);
     if (storedUser) {
       updateUser(JSON.parse(storedUser));
     }
@@ -18,9 +23,9 @@ const useUser = () => {
 
   const setUser = useCallback((newUser: User | undefined) => {
     if (newUser) {
-      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUser));
+      setClientCookie(USER_COOKIES_KEY, JSON.stringify(newUser));
     } else {
-      localStorage.removeItem(USER_STORAGE_KEY);
+      deleteClientCookie(USER_COOKIES_KEY);
     }
     updateUser(newUser);
   }, []);

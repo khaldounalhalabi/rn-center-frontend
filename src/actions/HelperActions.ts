@@ -55,15 +55,15 @@ export async function getPhone(): Promise<string | undefined> {
 
 export async function setUser(user?: User) {
   if (user) {
-    await setServerCookie("auth_user", JSON.stringify(user));
+    await setServerCookie("user_cookies_key", JSON.stringify(user));
   }
 }
 
 export async function getUser(): Promise<User | undefined> {
-  const user = await getServerCookie("auth_user");
+  const user = await getServerCookie("user_cookies_key");
   return user ? JSON.parse(user) : undefined;
 }
 
 export async function deleteUser() {
-  await deleteServerCookie("auth_user");
+  await deleteServerCookie("user_cookies_key");
 }

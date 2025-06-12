@@ -82,9 +82,9 @@ export class NotificationPayload {
     const type = this.type;
     switch (type) {
       case NotificationsTypeEnum.NewVacationRequest:
-        return `/${role}/vacations`;
+        return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
       case NotificationsTypeEnum.PayslipStatusChanged:
-        return `/${role}/payruns/${this.getData("payrun_id")}`;
+        return `/${role}/payruns/${this.getData("payrun_id")}?payslip_id=${this.getData("payslip_id")}`;
 
       case NotificationsTypeEnum.AppointmentEvent:
         if (this.getData("event") != "DELETED") {
@@ -94,15 +94,15 @@ export class NotificationPayload {
         }
 
       case NotificationsTypeEnum.NewPayrunAdded:
-        return `/${role}/payslips`;
+        return `/${role}/payslips?payslip_id=${this.getData("payslip_id")}`;
       case NotificationsTypeEnum.PayslipUpdated:
-        return `/${role}/payslips`;
+        return `/${role}/payslips?payslip_id=${this.getData("payslip_id")}`;
       case NotificationsTypeEnum.NewVacationAdded:
-        return `/${role}/vacations`;
+        return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
       case NotificationsTypeEnum.VacationStatusChanged:
-        return `/${role}/vacations`;
+        return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
       case NotificationsTypeEnum.VacationUpdated:
-        return `/${role}/vacations`;
+        return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
 
       default:
         return "";

@@ -5,11 +5,13 @@ import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
 import { RoleEnum } from "@/enums/RoleEnum";
+import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import AttendanceLogService from "@/services/AttendanceLogService";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { NotificationHandler } from "../helpers/NotificationHandler";
 
 const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
@@ -21,15 +23,30 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
 
   const { data, isLoading, isError, refetch, isRefetching, isPending } =
     useQuery({
-      queryKey: ["attendance", year, month],
+      queryKey: ["user_attendance", year, month],
       queryFn: async () => {
         return await AttendanceLogService.make(role).mine(year, month);
       },
     });
 
+  const queryClient = useQueryClient();
+  const invalidate = async () => {
+    queryClient.invalidateQueries({
+      queryKey: ["user_attendance"],
+    });
+  };
+
   return (
     <div className="mb-2">
-      {(isLoading || isPending || isRefetching) && (
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == RealTimeEventsTypeEnum.AttendanceEdited) {
+            invalidate();
+          }
+        }}
+        isPermanent
+      />
+      {isLoading && (
         <div className="flex h-64 items-center justify-center">
           <LoadingSpin className={"h-10 w-10 text-primary"} />
         </div>
@@ -53,7 +70,7 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
         </div>
       )}
 
-      {data && !(isLoading || isPending || isRefetching) && (
+      {data && !isLoading && (
         <Card className="overflow-hidden m-0">
           <CardHeader className="grid grid-cols-3 grid-flow-col gap-5 items-center justify-between md:grid-flow-row">
             <CardTitle className="text-start">
@@ -76,21 +93,20 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
               onChange={(val) => {
                 const formattedMonthName =
                   val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
-                const date = dayjs(
-                  `${year}-${val}-01`,
-                  "YYYY-MMMM-DD",
-                );
+                const date = dayjs(`${year}-${val}-01`, "YYYY-MMMM-DD");
                 if (date.isValid()) {
-                  setMonth(date.month() + 1); 
-                }    else {
-                  console.error("Invalid date " + `${year}-${formattedMonthName}`)
+                  setMonth(date.month() + 1);
+                } else {
+                  console.error(
+                    "Invalid date " + `${year}-${formattedMonthName}`,
+                  );
                 }
               }}
             />
           </CardHeader>
 
           <div className="max-h-[70vh] overflow-auto space-y-2">
-            {Object.entries(data.data).map(([date, logs] , index) => {
+            {Object.entries(data.data).map(([date, logs], index) => {
               return <TimelineItem logs={logs} date={date} key={index} />;
             })}
           </div>

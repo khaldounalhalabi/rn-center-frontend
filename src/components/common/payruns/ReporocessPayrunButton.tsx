@@ -23,7 +23,7 @@ const ReprocessPayrunButton = ({
       .reprocessPayrun(payrun?.id ?? 0)
       .then((res) => {
         setLoading(false);
-        toast(res.message as string);
+        toast.success(res.message as string);
         if (revalidate) {
           revalidate();
         }

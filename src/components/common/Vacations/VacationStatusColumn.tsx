@@ -45,10 +45,10 @@ const VacationStatusColumn = ({
             if (revalidate) {
               revalidate();
             }
-            toast(res.message as string);
+            toast.success(res.message as string);
           } else {
             setStatus(vacation?.status ?? status);
-            toast(t("error"), {
+            toast.error(t("error"), {
               description: res?.message as string,
               dismissible:true
             });          }

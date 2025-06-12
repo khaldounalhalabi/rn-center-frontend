@@ -86,7 +86,7 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                 .setBaseUrl(dUrl)
                 .delete()
                 .then((response: ApiResponse<any>) => {
-                  toast(t("deleted"), {
+                  toast.success(t("deleted"), {
                     description: response.message as string,
                   });
 
@@ -99,13 +99,13 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
                   }
                   setDeleting(false);
                 })
-                .catch(() => toast(t("errored")));
+                .catch(() => toast.error(t("errored")));
             } else {
-              toast(t("didnt_delete"));
+              toast.warning(t("didnt_delete"));
             }
           }}
           onDeny={() => {
-            toast(t("didnt_delete"));
+            toast.warning(t("didnt_delete"));
           }}
           title={deleteMessage ?? t("delete_question")}
         />

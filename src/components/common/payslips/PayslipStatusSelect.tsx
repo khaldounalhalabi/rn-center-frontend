@@ -32,10 +32,10 @@ const PayslipStatusSelect = ({
           if (revalidate) {
             revalidate();
           }
-          toast(res.message as string);
+          toast.success(res.message as string);
         } else {
           setStatus(payslip?.status ?? PayslipStatusEnum.DRAFT);
-          toast(res.message as string);
+          toast.error(res.message as string);
         }
       });
   };

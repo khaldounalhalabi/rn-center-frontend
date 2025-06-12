@@ -4,7 +4,9 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import firebaseApp from "@/helpers/Firebase";
 import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
+import { Link } from "@/navigation";
 import { getMessaging, onMessage } from "firebase/messaging";
+import { Bell } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
   Dispatch,
@@ -50,15 +52,21 @@ const NotificationProvider = ({
           handler.fn(notification);
         });
         if (notification.isNotification()) {
-          toast(t("new_notification"), {
-            description: notification?.message,
-            action: {
-              label: t("show"),
-              onClick: () => {
-                Navigate(notification.getUrl(role ?? RoleEnum.PUBLIC));
+          toast(
+            <Link href={notification.getUrl(role ?? RoleEnum.PUBLIC)}>
+              {t("new_notification")}
+            </Link>,
+            {
+              description: notification?.message,
+              action: {
+                label: t("show"),
+                onClick: () => {
+                  Navigate(notification.getUrl(role ?? RoleEnum.PUBLIC));
+                },
               },
+              icon: <Bell />,
             },
-          });
+          );
         }
 
         if (handle) {

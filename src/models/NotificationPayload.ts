@@ -41,7 +41,7 @@ export class NotificationPayload {
     return this.notification_title;
   }
 
-  public get type(): string {
+  public get type(): NotificationsTypeEnum | RealTimeEventsTypeEnum {
     return this.notification_type;
   }
 
@@ -95,6 +95,8 @@ export class NotificationPayload {
 
       case NotificationsTypeEnum.NewPayrunAdded:
         return `/${role}/payslips`;
+      case NotificationsTypeEnum.PayslipUpdated:
+        return `/${role}/payslips`;
       case NotificationsTypeEnum.NewVacationAdded:
         return `/${role}/vacations`;
       case NotificationsTypeEnum.VacationStatusChanged:
@@ -119,6 +121,7 @@ export enum NotificationsTypeEnum {
   NewVacationAdded = "Common\\NewVacationAddedNotification",
   VacationStatusChanged = "Common\\VacationStatusChangedNotification",
   VacationUpdated = "Common\\VacationUpdatedNotification",
+  PayslipUpdated = "Common\\PayslipUpdatedNotification",
 }
 
 export enum RealTimeEventsTypeEnum {

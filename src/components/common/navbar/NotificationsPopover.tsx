@@ -13,9 +13,9 @@ import { NotificationPayload } from "@/models/NotificationPayload";
 import { NotificationService } from "@/services/NotificationService";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { Bell, CheckCircle } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { NotificationHandler } from "../helpers/NotificationHandler";
+import { Link } from "@/navigation";
 
 const NotificationsPopover = () => {
   const { role } = useUser();
@@ -89,6 +89,7 @@ const NotificationsPopover = () => {
             refetchNotifications();
           }
         }}
+        isPermanent
       />
       <Popover>
         <PopoverTrigger asChild>

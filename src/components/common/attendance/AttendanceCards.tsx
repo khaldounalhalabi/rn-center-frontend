@@ -16,6 +16,7 @@ import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useTimer from "@/hooks/TimerHook";
 import { cn } from "@/lib/utils";
+import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import AttendanceLogService from "@/services/AttendanceLogService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -28,6 +29,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { NotificationHandler } from "../helpers/NotificationHandler";
 
 const AttendanceCards = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
@@ -81,6 +83,16 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
 
   return (
     <div className="space-y-6 p-5">
+      <NotificationHandler
+        handle={(payload) => {
+          if (payload.type == RealTimeEventsTypeEnum.AttendanceEdited) {
+            refetchLastLog().then(() => {
+              refetchStats();
+            });
+          }
+        }}
+        isPermanent
+      />
       <Grid sm={1} md={3} lg={3} className="gap-4">
         <Card className="transition-all duration-300 hover:shadow-lg">
           {isPendingStats || isPendingLastLog || !stats ? (

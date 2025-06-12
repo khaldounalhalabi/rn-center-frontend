@@ -20,7 +20,7 @@ const AttendanceForm = ({
   attendances?: AttendanceLog[];
   date: string;
   userId: number;
-  onSuccess?: () => void;
+  onSuccess?: () => void | Promise<void>;
 }) => {
   const t = useTranslations("attendance");
   const handleSubmit = async (data: any) => {
@@ -94,9 +94,9 @@ const AttendanceForm = ({
     <Form
       handleSubmit={handleSubmit}
       defaultValues={{ attendance_at: date, attendance_shifts: fields }}
-      onSuccess={() => {
+      onSuccess={async () => {
         if (onSuccess) {
-          onSuccess();
+          await onSuccess();
         }
       }}
     >
@@ -129,7 +129,7 @@ const AttendanceForm = ({
               removeField(index);
             }}
           >
-            <Trash/>
+            <Trash />
           </Button>
         </Grid>
       ))}

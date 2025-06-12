@@ -21,7 +21,7 @@ const Page = async () => {
   return (
     <PageCard title={t("table.schedule")}>
       {Object.entries(schedules).map(([dayName, slots], index) => (
-        <Card className="my-2">
+        <Card className="my-2" key={index}>
           <CardHeader>
             <CardTitle>{daysT(dayName as WeekDayEnum)}</CardTitle>
           </CardHeader>

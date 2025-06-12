@@ -111,12 +111,12 @@ const NotificationsPopover = () => {
             onScroll={handleDataScrolling}
           >
             {notifications?.pages?.map((page) =>
-              page?.data?.map((notification) => {
+              page?.data?.map((notification , index) => {
                 const payload = new NotificationPayload(
                   notification?.data ?? {},
                 );
                 return (
-                  <div className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md">
+                  <div className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md" key={index}>
                     <Link
                       className="text-start w-[80%]"
                       href={payload?.getUrl(role ?? RoleEnum.PUBLIC) ?? ""}

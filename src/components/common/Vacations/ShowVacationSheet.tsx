@@ -7,6 +7,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
+import { RoleEnum } from "@/enums/RoleEnum";
+import useOpenByQuery from "@/hooks/OpenByQueryParamHook";
+import useUser from "@/hooks/UserHook";
 import Vacation from "@/models/Vacation";
 import { EyeIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -16,9 +19,11 @@ import TranslatableEnum from "../ui/labels-and-values/TranslatableEnum";
 
 const ShowVacationSheet = ({ vacation }: { vacation?: Vacation }) => {
   const t = useTranslations("vacations");
+  const { role } = useUser();
+  const [open, setOpen] = useOpenByQuery("vacation_id", vacation?.id ?? 0);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button size={"icon"} type="button">
           <EyeIcon />
@@ -29,7 +34,9 @@ const ShowVacationSheet = ({ vacation }: { vacation?: Vacation }) => {
           <SheetTitle>{t("show_title")}</SheetTitle>
         </SheetHeader>
         <Grid>
-          <LabelValue label={t("user")} value={vacation?.user?.full_name} />
+          {role == RoleEnum.ADMIN && (
+            <LabelValue label={t("user")} value={vacation?.user?.full_name} />
+          )}
           <LabelValue label={t("from")} value={vacation?.from} />
           <LabelValue label={t("to")} value={vacation?.to} />
           <LabelValue

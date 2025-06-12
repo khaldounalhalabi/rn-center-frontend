@@ -1,6 +1,9 @@
 "use client";
-import React from "react";
-import Payslip from "@/models/Payslip";
+import Grid from "@/components/common/ui/Grid";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Eye from "@/components/icons/Eye";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Sheet,
   SheetContent,
@@ -8,20 +11,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
-import { Button } from "@/components/ui/shadcn/button";
-import Eye from "@/components/icons/Eye";
-import { useLocale, useTranslations } from "next-intl";
-import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import PayslipAdjustmentTypeEnum from "@/enums/PayslipAdjustmentTypeEnum";
-import Grid from "@/components/common/ui/Grid";
+import useOpenByQuery from "@/hooks/OpenByQueryParamHook";
+import Payslip from "@/models/Payslip";
+import { useLocale, useTranslations } from "next-intl";
 
 const ShowPayslipSheet = ({ payslip }: { payslip?: Payslip }) => {
   const locale = useLocale();
   const variablesValues = payslip?.details?.variables_values ?? {};
+  const [open, setOpen] = useOpenByQuery("payslip_id", payslip?.id ?? 0);
   const t = useTranslations("payslips");
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant={"outline"} size={"icon"}>
           <Eye />
@@ -59,7 +60,7 @@ const ShowPayslipSheet = ({ payslip }: { payslip?: Payslip }) => {
           {(payslip?.payslip_adjustments?.length ?? 0) > 0 ? (
             payslip?.payslip_adjustments
               ?.filter((i) => i.type == PayslipAdjustmentTypeEnum.BENEFIT)
-              ?.map((ad , index) => (
+              ?.map((ad, index) => (
                 <div key={index} className={"rounded-md border p-1"}>
                   <LabelValue label={ad.reason} value={ad.amount} />
                 </div>
@@ -74,7 +75,7 @@ const ShowPayslipSheet = ({ payslip }: { payslip?: Payslip }) => {
           {(payslip?.payslip_adjustments?.length ?? 0) > 0 ? (
             payslip?.payslip_adjustments
               ?.filter((i) => i.type == PayslipAdjustmentTypeEnum.DEDUCTION)
-              ?.map((ad , index) => (
+              ?.map((ad, index) => (
                 <div key={index} className={"rounded-md border p-1"}>
                   <LabelValue label={ad.reason} value={ad.amount} />
                 </div>
@@ -85,7 +86,9 @@ const ShowPayslipSheet = ({ payslip }: { payslip?: Payslip }) => {
         </div>
 
         <div className={"my-5 w-full"}>
-          <h1 className={"text-xl font-bold"}>{t("variables_values_in_period")}</h1>
+          <h1 className={"text-xl font-bold"}>
+            {t("variables_values_in_period")}
+          </h1>
           <Grid gap={0}>
             {Object.keys(variablesValues).map((key, index) => {
               const item: { label: string; value: string } =

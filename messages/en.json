@@ -49,7 +49,9 @@
     "center_name": "Reslan Alnaal Center",
     "payslips": "Payslips",
     "vacations": "Vacations",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "my_attendance": "My attendance",
+    "my_schedule": "My Schedule"
   },
   "admin": {
     "clinic": {
@@ -1522,7 +1524,8 @@
     "email": "Email",
     "message": "Message",
     "our_pom": "POM",
-    "doctor": "Doctor"
+    "doctor": "Doctor",
+    "secretary": "Secretary"
   },
   "types_statuses": {
     "active": "Active",
@@ -1684,8 +1687,8 @@
     "export": "Export",
     "import": "Import",
     "import_example": "Import example",
-    "mark_all_as_read" : "Mark all as read",
-    "loading_more" : "Loading more"
+    "mark_all_as_read": "Mark all as read",
+    "loading_more": "Loading more"
   },
   "holidays": {
     "from": "From",
@@ -1765,7 +1768,8 @@
     "doctor": "Dashboard",
     "payslips": "Payslips",
     "vacations": "Vacations",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "secretary": "Dashboard"
   },
   "formulas": {
     "formulas": "Formulas",

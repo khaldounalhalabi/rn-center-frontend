@@ -10,7 +10,7 @@ import { DownloadIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-const ExportAttendanceButton = () => {
+const ExportAttendanceButton = ({exportUrl}:{exportUrl:string}) => {
   const { download, isLoading } = useDownload();
   const [open, setOpen] = useState(false);
   const [from, setFrom] = useState(dayjs().format("YYYY-MM-DD"));
@@ -20,7 +20,7 @@ const ExportAttendanceButton = () => {
 
   const onClick = () => {
     getRole().then((role) => {
-      download(`/api/download?method=GET&url=${role}/attendances/export`, {
+      download(`/api/download?method=GET&url=${exportUrl}`, {
         method: "POST",
         fileExtension: "xlsx",
         customFilename: "Employees attendance",

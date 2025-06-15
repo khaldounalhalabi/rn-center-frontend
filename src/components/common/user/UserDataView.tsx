@@ -1,14 +1,16 @@
 "use server";
-import { User } from "@/models/User";
-import { getTranslations } from "next-intl/server";
+import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import { Link } from "@/navigation";
-import Grid from "@/components/common/ui/Grid";
-import React from "react";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import { Button } from "@/components/ui/shadcn/button";
+import { User } from "@/models/User";
+import { Link } from "@/navigation";
 import dayjs from "dayjs";
+import { getTranslations } from "next-intl/server";
+import React from "react";
+import { Label } from "../ui/labels-and-values/Label";
+import { Value } from "../ui/labels-and-values/Value";
 
 const UserDataView = async ({
   editUrl,
@@ -62,6 +64,16 @@ const UserDataView = async ({
           value={<TranslatableEnum value={user?.gender} />}
           color={"warning"}
         />
+
+        {user?.permissions ? (
+          <Label label={"Permissions"} col>
+            {user.permissions.map((p, index) => (
+              <Value value={p} key={index} />
+            ))}
+          </Label>
+        ) : (
+          ""
+        )}
       </Grid>
       {children}
     </PageCard>

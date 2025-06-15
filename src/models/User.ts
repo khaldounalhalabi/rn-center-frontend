@@ -1,5 +1,6 @@
-import { RoleEnum } from "@/enums/RoleEnum";
 import GenderEnum from "@/enums/GenderEnum";
+import PermissionEnum from "@/enums/PermissionEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import AttendanceLog from "@/models/AttendanceLog";
 import { Clinic } from "@/models/Clinic";
 import Formula from "@/models/Formula";
@@ -16,7 +17,8 @@ export interface User {
   role: RoleEnum;
   attendance_by_date?: AttendanceLog[];
   clinic?: Clinic;
-  formula?:Formula;
+  formula?: Formula;
+  permissions?: PermissionEnum[];
 }
 
 export interface AuthResponse {

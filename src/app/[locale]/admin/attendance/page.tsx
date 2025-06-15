@@ -12,7 +12,7 @@ const Page = async () => {
       title={t("attendance_timeline")}
       actions={
         <div className={"flex items-center gap-2"}>
-          <ExportAttendanceButton />
+          <ExportAttendanceButton exportUrl="admin/attendances/export" />
           <AttendanceImportButton />
           <AttendanceImportExampleButton />
         </div>

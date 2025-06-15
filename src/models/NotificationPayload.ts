@@ -127,4 +127,5 @@ export enum NotificationsTypeEnum {
 export enum RealTimeEventsTypeEnum {
   AttendanceEdited = "Realtime\\AttendanceEditedNotification",
   PayrunStatusChanged = "Realtime\\PayrunStatusChangedNotification",
+  PermissionsUpdated = "Realtime\\PermissionsUpdatedNotification",
 }

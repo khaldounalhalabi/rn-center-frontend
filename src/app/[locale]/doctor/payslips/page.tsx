@@ -50,7 +50,7 @@ const Page = () => {
       name: "status",
       label: t("status"),
       render: (status, payslip, _setHidden, revalidate) =>
-        payslip?.can_update ? (
+        payslip?.can_toggle_status ? (
           <PayslipStatusSelect
             payslip={payslip}
             role={RoleEnum.DOCTOR}

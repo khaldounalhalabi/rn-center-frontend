@@ -13,7 +13,7 @@ const Layout = async ({
 }>) => {
   const locale = await getLocale();
   return (
-    <main>
+    <main className="h-screen overflow-y-hidden">
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -22,7 +22,7 @@ const Layout = async ({
       >
         <AllProviders>
           <div
-            className={`col-span-4 col-start-1 h-screen w-full overflow-y-scroll md:col-span-4 md:col-start-2`}
+            className={`col-span-4 col-start-1 h-full w-full overflow-y-scroll md:col-span-4 md:col-start-2`}
           >
             <SidebarProvider>
               <AppSidebar

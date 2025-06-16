@@ -1741,7 +1741,9 @@
     "and_a_half": "And a half",
     "and_minutes": "And {minutes} minutes",
     "overtime_days": "Overtime days",
-    "overtime_hours": "Overtime hours"
+    "overtime_hours": "Overtime hours",
+    "no_checkout_warning": "For your attendance to be counted, each check-in must have a corresponding check-out. If you forget to check out, the recorded time won’t be counted.",
+    "important_note": "Important Note"
   },
   "links": {
     "appointment": "Appointments",

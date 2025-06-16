@@ -21,6 +21,7 @@ import AttendanceLogService from "@/services/AttendanceLogService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import {
+  AlertCircleIcon,
   Award,
   Calendar,
   Clock,
@@ -30,6 +31,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "../helpers/NotificationHandler";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/shadcn/alert";
 
 const AttendanceCards = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
@@ -41,7 +43,7 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
   } = useQuery({
     queryKey: ["attendance_stats"],
     queryFn: async () =>
-      await AttendanceLogService.make(RoleEnum.DOCTOR).myStat(),
+      await AttendanceLogService.make(role).myStat(),
     select: (data) => data.data,
   });
 
@@ -94,6 +96,13 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
         isPermanent
       />
       <Grid sm={1} md={3} lg={3} className="gap-4">
+        <div className="col-span-1 md:col-span-3">
+          <Alert variant={"destructive"}>  
+            <AlertCircleIcon/>
+            <AlertTitle>{t("important_note")}</AlertTitle>
+            <AlertDescription>{t("no_checkout_warning")}</AlertDescription>
+          </Alert>
+        </div>
         <Card className="transition-all duration-300 hover:shadow-lg">
           {isPendingStats || isPendingLastLog || !stats ? (
             <Skeleton className="w-full h-40" />

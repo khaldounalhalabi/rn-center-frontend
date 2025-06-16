@@ -5,15 +5,16 @@ import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import { UserService } from "@/services/UserService";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs, { Dayjs } from "dayjs";
 import { useTranslations } from "next-intl";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-const AttendanceTimeline: React.FC = () => {
+const AttendanceTimeline = ({ role }: { role: RoleEnum }) => {
   const t = useTranslations("attendance");
   const [selectedDate, setSelectedDate] = useState<string>(
     dayjs().format("YYYY-MM-DD"),
@@ -51,7 +52,7 @@ const AttendanceTimeline: React.FC = () => {
   } = useInfiniteQuery({
     queryKey: ["attendance", selectedDate, debouncedValue],
     queryFn: async ({ pageParam = 1 }) => {
-      return await UserService.make().indexWithAttendance(
+      return await UserService.make(role).indexWithAttendance(
         selectedDate,
         debouncedValue,
         undefined,
@@ -151,9 +152,6 @@ const AttendanceTimeline: React.FC = () => {
               onChange={handleDateChange}
               defaultValue={selectedDate}
             />
-            {/*<p className="text-gray-600">*/}
-            {/*  Status: {attendanceInfo?.status || "N/A"}*/}
-            {/*</p>*/}
           </CardHeader>
 
           <div className="max-h-[70vh] overflow-auto space-y-2">
@@ -163,10 +161,10 @@ const AttendanceTimeline: React.FC = () => {
                 user={user}
                 date={selectedDate}
                 refetch={invalidate}
+                role={role}
               />
             ))}
 
-            {/* Loading indicator for the next page */}
             <div
               ref={loadMoreRef}
               className="flex items-center justify-center py-4"

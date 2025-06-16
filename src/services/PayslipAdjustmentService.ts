@@ -1,5 +1,5 @@
-import { BaseService } from "@/services/BaseService";
 import PayslipAdjustment from "@/models/PayslipAdjustment";
+import { BaseService } from "@/services/BaseService";
 
 class PayslipAdjustmentService extends BaseService<
   PayslipAdjustmentService,

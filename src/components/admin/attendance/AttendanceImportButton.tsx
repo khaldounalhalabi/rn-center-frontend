@@ -1,18 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import AttendanceLogService from "@/services/AttendanceLogService";
 import DialogPopup from "@/components/common/ui/DialogPopup";
-import { Button } from "@/components/ui/shadcn/button";
-import { UploadIcon } from "lucide-react";
 import Form from "@/components/common/ui/Form";
-import { useTranslations } from "next-intl";
 import ImageUploader from "@/components/common/ui/images/ImageUploader";
+import { Button } from "@/components/ui/shadcn/button";
+import { RoleEnum } from "@/enums/RoleEnum";
+import AttendanceLogService from "@/services/AttendanceLogService";
+import { UploadIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-const AttendanceImportButton = () => {
+const AttendanceImportButton = ({ role }: { role: RoleEnum }) => {
   const [open, setOpen] = useState(false);
   const t = useTranslations("components");
   const onSubmit = (data: any) => {
-    return AttendanceLogService.make().import(data);
+    return AttendanceLogService.make(role).import(data);
   };
   return (
     <>

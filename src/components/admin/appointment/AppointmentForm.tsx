@@ -20,7 +20,7 @@ import { Customer } from "@/models/Customer";
 import { Service } from "@/models/Service";
 import { AppointmentService } from "@/services/AppointmentService";
 import { ClinicsService } from "@/services/ClinicsService";
-import { CustomerService } from "@/services/CustomerService";
+import { PatientService } from "@/services/PatientService";
 import { ServiceService } from "@/services/ServiceService";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -175,7 +175,7 @@ const AppointmentForm = memo(
               name="customer_id"
               label={t("patient")}
               api={(page?: number, search?: string) =>
-                CustomerService.make().indexWithPagination(page, search)
+                PatientService.make().indexWithPagination(page, search)
               }
               getOptionLabel={(option: Customer) => option?.user?.full_name}
               optionValue="id"

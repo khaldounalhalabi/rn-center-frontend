@@ -13,13 +13,13 @@ const Page = async () => {
       title={t("attendance_timeline")}
       actions={
         <div className={"flex items-center gap-2"}>
-          <ExportAttendanceButton exportUrl="admin/attendances/export" />
-          <AttendanceImportButton role={RoleEnum.ADMIN} />
-          <AttendanceImportExampleButton role={RoleEnum.ADMIN} />
+          <ExportAttendanceButton exportUrl="secretary/attendances/export" />
+          <AttendanceImportButton role={RoleEnum.SECRETARY} />
+          <AttendanceImportExampleButton role={RoleEnum.SECRETARY} />
         </div>
       }
     >
-      <AttendanceTimeline role={RoleEnum.ADMIN} />
+      <AttendanceTimeline role={RoleEnum.SECRETARY} />
     </PageCard>
   );
 };

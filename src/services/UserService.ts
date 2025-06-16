@@ -62,7 +62,7 @@ export class UserService extends BaseService<UserService, User>() {
     headers: Record<string, any> = {},
   ) => {
     const response: ApiResponse<User> = await POST<User>(
-      `/admin/users/secretaries`,
+      `/${this.role}/users/secretaries`,
       data,
       {
         ...headers,

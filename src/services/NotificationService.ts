@@ -1,5 +1,4 @@
 import { GET } from "@/http/Http";
-import { ApiResponse } from "@/http/Response";
 import DBNotification from "@/models/Notification";
 import { BaseService } from "./BaseService";
 

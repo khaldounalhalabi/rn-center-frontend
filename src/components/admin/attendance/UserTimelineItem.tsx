@@ -28,12 +28,14 @@ interface UserTimelineItemProps {
   user?: User;
   date?: string;
   refetch?: () => void | Promise<void>;
+  role: RoleEnum;
 }
 
 const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
   user,
   date,
   refetch,
+  role,
 }) => {
   const t = useTranslations("attendance");
   const [open, setOpen] = useState(false);
@@ -52,8 +54,8 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
             <Link
               href={
                 user?.role === RoleEnum.SECRETARY
-                  ? `/admin/secretaries/${user.id}`
-                  : `/admin/clinics/${user?.clinic?.id}`
+                  ? `/${role}/secretaries/${user.id}`
+                  : `/${role}/clinics/${user?.clinic?.id}`
               }
             >
               <Button variant={"link"}>{user?.full_name}</Button>
@@ -89,6 +91,7 @@ const UserTimelineItem: React.FC<UserTimelineItemProps> = ({
                   }
                   setOpen(false);
                 }}
+                role={role}
               />
             </div>
           </SheetContent>

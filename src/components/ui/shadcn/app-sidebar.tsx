@@ -34,6 +34,7 @@ import {
   CalendarIcon,
   HandCoinsIcon,
   LayoutDashboard,
+  OutdentIcon,
   VariableIcon,
   WalletCards,
 } from "lucide-react";
@@ -117,7 +118,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {
             title: t("my_attendance"),
             url: `/${role}/my-attendance`,
-            icon: InDoorIcon,
+            icon: OutdentIcon,
             roles: [RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {

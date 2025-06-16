@@ -14,7 +14,7 @@ export const UserContext = createContext<{
   user: User | undefined;
   setUser: (newUser: User | undefined) => void;
   role?: RoleEnum;
-  initializeUser: () => Promise<ApiResponse<User>>;
+  initializeUser: () => Promise<ApiResponse<User>> | undefined;
 } | null>(null);
 const USER_COOKIES_KEY = "user_cookies_key";
 
@@ -54,6 +54,7 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
           return response;
         });
     }
+    return;
   };
 
   return (

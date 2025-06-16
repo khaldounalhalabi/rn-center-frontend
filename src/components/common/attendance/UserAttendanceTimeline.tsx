@@ -21,13 +21,12 @@ const UserAttendanceTimeline = ({ role }: { role: RoleEnum }) => {
     dayjs().month(i).format("MMMM"),
   );
 
-  const { data, isLoading, isError, refetch, isRefetching, isPending } =
-    useQuery({
-      queryKey: ["user_attendance", year, month],
-      queryFn: async () => {
-        return await AttendanceLogService.make(role).mine(year, month);
-      },
-    });
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ["user_attendance", year, month],
+    queryFn: async () => {
+      return await AttendanceLogService.make(role).mine(year, month);
+    },
+  });
 
   const queryClient = useQueryClient();
   const invalidate = async () => {

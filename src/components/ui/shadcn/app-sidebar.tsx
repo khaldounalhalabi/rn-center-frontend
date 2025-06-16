@@ -111,14 +111,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             title: t("attendance"),
             url: `/${role}/attendance`,
             icon: InDoorIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR],
+            roles: [RoleEnum.ADMIN],
             permission: PermissionEnum.ATTENDANCE_MANAGEMENT,
           },
           {
             title: t("my_attendance"),
             url: `/${role}/my-attendance`,
             icon: InDoorIcon,
-            roles: [RoleEnum.SECRETARY],
+            roles: [RoleEnum.SECRETARY, RoleEnum.DOCTOR],
           },
           {
             title: t("secretaries"),

@@ -1765,7 +1765,8 @@
     "secretary": "لوحة التحكم",
     "payslips": "الدفعات",
     "vacations": "الإجازات",
-    "schedule": "أوقات الدوام"
+    "schedule": "أوقات الدوام",
+    "my-attendance": "جدول حضوري"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",

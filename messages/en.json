@@ -1769,7 +1769,8 @@
     "payslips": "Payslips",
     "vacations": "Vacations",
     "schedule": "Schedule",
-    "secretary": "Dashboard"
+    "secretary": "Dashboard",
+    "my-attendance": "My attendance"
   },
   "formulas": {
     "formulas": "Formulas",

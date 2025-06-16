@@ -43,8 +43,9 @@ const Page = async ({
           </div>
         </Label>
         <Label label={t("formula_segments")} col>
-          {formula?.formula_segments?.map((segment) => (
+          {formula?.formula_segments?.map((segment, key) => (
             <LabelValue
+              key={key}
               label={segment.name}
               value={<FormulaTemplateViewer formula={segment.template} />}
             />

@@ -6,13 +6,13 @@ import { getTranslations } from "next-intl/server";
 
 const Page = async () => {
   const t = await getTranslations("formulas");
-  const variables = await FormulaVariableService.make().all();
+  const variables = await FormulaVariableService.make(RoleEnum.SECRETARY).all();
   return (
     <PageCard title={t("create_title")}>
       <FormulaForm
-        role={RoleEnum.ADMIN}
         variables={variables.data ?? []}
         type={"store"}
+        role={RoleEnum.SECRETARY}
       />
     </PageCard>
   );

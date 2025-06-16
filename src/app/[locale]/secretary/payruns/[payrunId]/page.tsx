@@ -14,7 +14,8 @@ const Page = async ({
 }: {
   params: { payrunId: number };
 }) => {
-  const payrun = (await PayrunService.make().show(payrunId)).data;
+  const payrun = (await PayrunService.make(RoleEnum.SECRETARY).show(payrunId))
+    .data;
   const t = await getTranslations("payruns");
 
   return (
@@ -53,7 +54,7 @@ const Page = async ({
       )}
 
       <div className={"my-5 w-full"}>
-        <PayslipsTable role={RoleEnum.ADMIN} payrun={payrun} />
+        <PayslipsTable role={RoleEnum.SECRETARY} payrun={payrun} />
       </div>
     </PageCard>
   );

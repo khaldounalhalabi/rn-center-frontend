@@ -7,19 +7,22 @@ import { Button } from "@/components/ui/shadcn/button";
 import { RefreshCcw } from "lucide-react";
 import Tooltip from "@/components/common/ui/Tooltip";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const ReprocessPayrunButton = ({
   revalidate,
   payrun,
+  role
 }: {
   payrun?: Payrun;
   revalidate?: () => void;
+  role:RoleEnum
 }) => {
   const [isLoading, setLoading] = useState(false);
   const t = useTranslations("payruns")
   const handleClick = () => {
   setLoading(true);
-    PayrunService.make()
+    PayrunService.make(role)
       .reprocessPayrun(payrun?.id ?? 0)
       .then((res) => {
         setLoading(false);

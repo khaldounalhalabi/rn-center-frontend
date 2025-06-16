@@ -17,7 +17,7 @@ const Page = async ({
   params: { formulaId: number };
 }) => {
   const data: ApiResponse<Formula> = await FormulaService.make(
-    RoleEnum.ADMIN,
+    RoleEnum.SECRETARY,
   ).show(formulaId);
   const formula = data.data;
 
@@ -27,7 +27,7 @@ const Page = async ({
     <PageCard
       title={t("show_title")}
       actions={
-        <Link href={`/admin/formulas/${formulaId}/edit`}>
+        <Link href={`/secretary/formulas/${formulaId}/edit`}>
           <Button>{t("edit_button")}</Button>
         </Link>
       }

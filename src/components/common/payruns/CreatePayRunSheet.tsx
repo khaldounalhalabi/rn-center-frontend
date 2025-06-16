@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/shadcn/sheet";
-import { Button } from "@/components/ui/shadcn/button";
-import DocumentPlus from "@/components/icons/DocumentPlus";
 import PayrunForm from "@/components/common/payruns/PayrunForm";
+import DocumentPlus from "@/components/icons/DocumentPlus";
+import { Button } from "@/components/ui/shadcn/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/shadcn/sheet";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-const CreatePayRunSheet = ({ revalidate }: { revalidate?: () => void }) => {
-  const locale = useLocale();
+const CreatePayRunSheet = ({
+  revalidate,
+  role,
+}: {
+  revalidate?: () => void;
+  role: RoleEnum;
+}) => {
   const t = useTranslations("payruns");
   const [open, setOpen] = useState(false);
   return (
@@ -16,10 +28,7 @@ const CreatePayRunSheet = ({ revalidate }: { revalidate?: () => void }) => {
           <DocumentPlus />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side={locale == "ar" ? "left" : "right"}
-        className={"w-[60vh] md:w-[80vh]"}
-      >
+      <SheetContent sm>
         <SheetHeader className={"my-5 items-start text-start"}>
           <SheetTitle>{t("create_title")}</SheetTitle>
         </SheetHeader>
@@ -30,6 +39,7 @@ const CreatePayRunSheet = ({ revalidate }: { revalidate?: () => void }) => {
             }
             setOpen(false);
           }}
+          role={role}
         />
       </SheetContent>
     </Sheet>

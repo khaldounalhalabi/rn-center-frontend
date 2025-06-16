@@ -10,8 +10,12 @@ const Page = async ({
 }: {
   params: { formulaId: number };
 }) => {
-  const formula = (await FormulaService.make().show(formulaId)).data;
-  const variables = (await FormulaVariableService.make().all()).data;
+  const formula = (
+    await FormulaService.make(RoleEnum.SECRETARY).show(formulaId)
+  ).data;
+  const variables = (
+    await FormulaVariableService.make(RoleEnum.SECRETARY).all()
+  ).data;
   const t = await getTranslations("formulas");
 
   return (
@@ -20,7 +24,7 @@ const Page = async ({
         variables={variables}
         type={"update"}
         defaultValues={formula}
-        role={RoleEnum.ADMIN}
+        role={RoleEnum.SECRETARY}
       />
     </PageCard>
   );

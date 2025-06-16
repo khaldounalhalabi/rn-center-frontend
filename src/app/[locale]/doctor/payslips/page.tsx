@@ -21,6 +21,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
+import PayslipStatusEnum from "@/enums/PayslipStatusEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useDownload from "@/hooks/DownloadFile";
 import { NotificationsTypeEnum } from "@/models/NotificationPayload";
@@ -50,7 +51,9 @@ const Page = () => {
       name: "status",
       label: t("status"),
       render: (status, payslip, _setHidden, revalidate) =>
-        payslip?.can_toggle_status ? (
+        payslip?.can_toggle_status &&
+        payslip?.status != PayslipStatusEnum.EXCLUDED &&
+        payslip?.status != PayslipStatusEnum.DONE ? (
           <PayslipStatusSelect
             payslip={payslip}
             role={RoleEnum.DOCTOR}

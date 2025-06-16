@@ -11,7 +11,11 @@ import { Link, usePathname } from "@/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-const NO_LINKS = ["/admin/prescriptions", "/admin/prescriptions" , "prescriptions"];
+const NO_LINKS = [
+  "/admin/prescriptions",
+  "/admin/prescriptions",
+  "prescriptions",
+];
 
 const Breadcrumbs = () => {
   const locale = useLocale();
@@ -41,8 +45,8 @@ const Breadcrumbs = () => {
               : t(formattedPart as any)}
           </BreadcrumbPage>
         ) : (
-          <BreadcrumbLink href={isNoLink ? "" : href}>
-            <Link href={isNoLink ? "" : href}>
+          <BreadcrumbLink href={isNoLink ? "" : href} asChild>
+            <Link href={isNoLink ? "" : href} locale={locale as "en" | "ar"}>
               {isNumericString(formattedPart)
                 ? formattedPart
                 : t(formattedPart as any)}

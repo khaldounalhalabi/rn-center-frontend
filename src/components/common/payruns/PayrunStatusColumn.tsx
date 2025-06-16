@@ -3,6 +3,7 @@ import TranslatableEnum from "@/components/common/ui/labels-and-values/Translata
 import Select from "@/components/common/ui/selects/Select";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import PayrunStatusEnum from "@/enums/PayrunStatusEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { getEnumValues } from "@/helpers/Enums";
 import Payrun from "@/models/Payrun";
 import PayrunService from "@/services/PayrunService";
@@ -12,9 +13,11 @@ import { toast } from "sonner";
 const PayrunStatusColumn = ({
   payrun,
   revalidate,
+  role
 }: {
   payrun: Payrun | undefined;
   revalidate?: () => void;
+  role:RoleEnum
 }) => {
   const [status, setStatus] = useState(payrun?.status);
   const [isLoading, setLoading] = useState(false);
@@ -22,7 +25,7 @@ const PayrunStatusColumn = ({
   const onChange = (value: string) => {
     setStatus(value as PayrunStatusEnum);
     setLoading(true);
-    PayrunService.make()
+    PayrunService.make(role)
       .toggleStatus(payrun?.id ?? 0, value as PayrunStatusEnum)
       .then((res) => {
         setLoading(false);

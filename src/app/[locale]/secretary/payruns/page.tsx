@@ -58,9 +58,9 @@ const Page = () => {
         sortable: true,
         render: (_stats, payrun, _setHidden, revalidate) => (
           <PayrunStatusColumn
+            role={RoleEnum.SECRETARY}
             payrun={payrun}
             revalidate={revalidate}
-            role={RoleEnum.ADMIN}
           />
         ),
       },
@@ -69,28 +69,24 @@ const Page = () => {
         render: (_data, payrun, setHidden, revalidate) => (
           <ActionsButtons
             buttons={payrun?.can_delete ? ["show", "delete"] : ["show"]}
-            baseUrl={"/admin/payruns"}
+            baseUrl={"/secretary/payruns"}
             data={payrun}
             setHidden={setHidden}
           >
-            <>
-              {payrun?.can_update ? (
-                <ReprocessPayrunButton
-                  payrun={payrun}
-                  revalidate={revalidate}
-                  role={RoleEnum.ADMIN}
-                />
-              ) : (
-                <></>
-              )}
-              <ExportButton payrun={payrun} />
-            </>
+            {payrun?.can_update && (
+              <ReprocessPayrunButton
+                payrun={payrun}
+                revalidate={revalidate}
+                role={RoleEnum.SECRETARY}
+              />
+            )}
+            <ExportButton payrun={payrun} />
           </ActionsButtons>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PayrunService.make().indexWithPagination(
+      await PayrunService.make(RoleEnum.SECRETARY).indexWithPagination(
         page,
         search,
         sortCol,
@@ -99,7 +95,7 @@ const Page = () => {
         params,
       ),
     extraButton: (revalidate) => (
-      <CreatePayRunSheet role={RoleEnum.ADMIN} revalidate={revalidate} />
+      <CreatePayRunSheet role={RoleEnum.SECRETARY} revalidate={revalidate} />
     ),
   };
   const queryName = getTableQueryName(datatable);
@@ -132,7 +128,7 @@ const ExportButton = ({ payrun }: { payrun?: Payrun }) => {
       size={"icon"}
       onClick={() => {
         download(
-          `/api/download?method=GET&url=admin/payruns/${payrun?.id}/export`,
+          `/api/download?method=GET&url=secretary/payruns/${payrun?.id}/export`,
           {
             method: "POST",
             fileExtension: "xlsx",

@@ -35,6 +35,7 @@ import {
   HandCoinsIcon,
   LayoutDashboard,
   VariableIcon,
+  WalletCards,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import * as React from "react";
@@ -165,23 +166,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${role}/formulas`,
             icon: CalculatorIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("formula_variables"),
             url: `/${role}/formula-variables`,
             icon: VariableIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("payruns"),
             url: `/${role}/payruns`,
             icon: HandCoinsIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("payslips"),
             url: `/${role}/payslips`,
-            icon: HandCoinsIcon,
+            icon: WalletCards,
             roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],

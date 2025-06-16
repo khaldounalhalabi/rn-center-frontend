@@ -91,10 +91,6 @@ export function NavUser({ user }: { user?: User }) {
                   {t("profile")}
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>
-                <BellIcon />
-                {t("notifications")}
-              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem

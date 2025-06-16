@@ -46,12 +46,14 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
   }
 
   const initializeUser = () => {
-    return AuthService.make(user?.role)
-      .userDetails()
-      .then((response) => {
-        setUser(response?.data);
-        return response;
-      });
+    if (user?.role) {
+      return AuthService.make(user?.role)
+        .userDetails()
+        .then((response) => {
+          setUser(response?.data);
+          return response;
+        });
+    }
   };
 
   return (

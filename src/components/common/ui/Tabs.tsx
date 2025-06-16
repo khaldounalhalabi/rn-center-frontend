@@ -1,15 +1,11 @@
 "use client";
-import React from "react";
 import {
   Tabs as ShadcnTabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/shadcn/tabs";
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import React from "react";
 
 const Tabs = ({
   tabs,
@@ -23,7 +19,9 @@ const Tabs = ({
     <ShadcnTabs defaultValue={tabs?.[0]?.title}>
       <TabsList className={`grid w-full grid-cols-${tabs.length}`}>
         {tabs.map((tab, index) => (
-          <TabsTrigger key={index} value={tab.title}>{tab.title}</TabsTrigger>
+          <TabsTrigger key={index} value={tab.title}>
+            {tab.title}
+          </TabsTrigger>
         ))}
       </TabsList>
       {tabs.map((tab, index) => (

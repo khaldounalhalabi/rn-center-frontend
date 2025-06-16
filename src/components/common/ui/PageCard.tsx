@@ -21,7 +21,7 @@ const PageCard: React.FC<PageCardProps> = ({
   actions = undefined,
 }) => {
   return (
-    <Card className={"mx-5"}>
+    <Card className={"mx-5 h-full"}>
       <CardHeader>
         {title && (
           <CardTitle className={"text-xl flex flex-row w-full justify-between"}>

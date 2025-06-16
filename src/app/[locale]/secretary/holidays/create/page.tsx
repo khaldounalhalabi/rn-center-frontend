@@ -7,7 +7,7 @@ const CreateHolidayPage = async () => {
   const t = await getTranslations("holidays");
   return (
     <PageCard title={t("create")}>
-      <HolidaysForm role={RoleEnum.ADMIN} />
+      <HolidaysForm role={RoleEnum.SECRETARY} />
     </PageCard>
   );
 };

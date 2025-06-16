@@ -4,6 +4,7 @@ import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
 import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { Holiday } from "@/models/Holiday";
 import { HolidayService } from "@/services/HolidayService";
 import dayjs from "dayjs";
@@ -12,16 +13,18 @@ import { useTranslations } from "next-intl";
 const HolidaysForm = ({
   defaultValues = undefined,
   type = "store",
+  role,
 }: {
   defaultValues?: Holiday;
   type?: "store" | "update";
+  role: RoleEnum;
 }) => {
   const t = useTranslations("holidays");
   const handleSubmit = async (data: any) => {
     if (type === "update" && defaultValues?.id) {
-      return HolidayService.make().update(defaultValues.id, data);
+      return HolidayService.make(role).update(defaultValues.id, data);
     } else {
-      return await HolidayService.make().store(data);
+      return await HolidayService.make(role).store(data);
     }
   };
 
@@ -29,7 +32,7 @@ const HolidaysForm = ({
     <Form
       handleSubmit={handleSubmit}
       onSuccess={async () => {
-        await Navigate(`/admin/holidays`);
+        await Navigate(`/${role}/holidays`);
       }}
       defaultValues={defaultValues}
     >

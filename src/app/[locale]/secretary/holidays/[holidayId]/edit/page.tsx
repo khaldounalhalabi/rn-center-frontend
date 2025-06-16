@@ -11,14 +11,14 @@ const EditHolidayPage = async ({
 }) => {
   const t = await getTranslations("holidays");
 
-  const holiday = (await HolidayService.make(RoleEnum.ADMIN).show(holidayId))
+  const holiday = (await HolidayService.make(RoleEnum.SECRETARY).show(holidayId))
     .data;
   return (
     <PageCard title={t("update_title")}>
       <HolidaysForm
+        role={RoleEnum.SECRETARY}
         type={"update"}
         defaultValues={holiday}
-        role={RoleEnum.ADMIN}
       />
     </PageCard>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { type LucideIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -9,23 +8,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/shadcn/sidebar";
-import { FC } from "react";
-import { IconAttributes } from "@/types/IconAttributes";
-import { Link } from "@/navigation";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { User } from "@/models/User";
+import { Link } from "@/navigation";
+import { IconAttributes } from "@/types/IconAttributes";
+import { type LucideIcon } from "lucide-react";
+import { FC } from "react";
 
 type SidebarItem = {
   title: string;
   url: string;
   icon?: LucideIcon | FC<IconAttributes>;
   roles?: RoleEnum[];
+  permission?: PermissionEnum;
 };
 
 type SidebarGroup = {
   group: string;
   items: SidebarItem[];
   roles?: RoleEnum[];
+  permission?: PermissionEnum;
 };
 
 export function NavMain({
@@ -49,8 +52,10 @@ export function NavMain({
                 {group.items
                   .filter(
                     (i) =>
-                      !i?.roles ||
-                      i?.roles.includes(user?.role ?? RoleEnum.PUBLIC),
+                      (!i?.roles && !i.permission) ||
+                      i?.roles?.includes(user?.role ?? RoleEnum.PUBLIC) ||
+                      (i.permission &&
+                        user?.permissions?.includes(i?.permission)),
                   )
                   .map((item, itemIndex) => (
                     <Link href={item.url} key={itemIndex}>

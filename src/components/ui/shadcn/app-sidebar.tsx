@@ -24,6 +24,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/shadcn/sidebar";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useUser from "@/hooks/UserHook";
 import { Link } from "@/navigation";
@@ -33,7 +34,9 @@ import {
   CalendarIcon,
   HandCoinsIcon,
   LayoutDashboard,
+  OutdentIcon,
   VariableIcon,
+  WalletCards,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import * as React from "react";
@@ -55,43 +58,80 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
       },
       {
-        group: t("clinic_management"),
+        group: t("administration"),
         items: [
           {
             title: t("clinics"),
             url: `/${role}/clinics`,
             icon: ClinicsShowIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
+            roles: [RoleEnum.ADMIN],
+            permissions: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("specialties"),
             url: `/${role}/speciality`,
             icon: SpecialitiesIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
+            roles: [RoleEnum.ADMIN],
+            permissions: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("serviceCategories"),
             url: `/${role}/service-categories`,
             icon: CategoryIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
+            roles: [RoleEnum.ADMIN],
+            permissions: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("services"),
             url: `/${role}/service`,
             icon: ServiceIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
+            roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR],
+            permissions: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("holidays"),
             url: `/${role}/holidays`,
             icon: HolidaysIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
+            permission: PermissionEnum.HOLIDAYS_MANAGEMENT,
           },
           {
             title: t("vacations"),
             url: `/${role}/vacations`,
             icon: CalendarIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR, RoleEnum.SECRETARY],
+            PermissionEnum: PermissionEnum.VACATION_MANAGEMENT,
+          },
+          {
+            title: t("transaction"),
+            url: `/${role}/transaction`,
+            icon: TransactionIcon,
+            roles: [RoleEnum.ADMIN],
+          },
+          {
+            title: t("attendance"),
+            url: `/${role}/attendance`,
+            icon: InDoorIcon,
+            roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.ATTENDANCE_MANAGEMENT,
+          },
+          {
+            title: t("my_attendance"),
+            url: `/${role}/my-attendance`,
+            icon: OutdentIcon,
+            roles: [RoleEnum.SECRETARY, RoleEnum.DOCTOR],
+          },
+          {
+            title: t("secretaries"),
+            url: `/${role}/secretaries`,
+            icon: StaffIcon,
+            roles: [RoleEnum.ADMIN],
+          },
+          {
+            title: t("my_schedule"),
+            url: `/${role}/schedule`,
+            icon: SchedulesIcon,
+            roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],
       },
@@ -119,35 +159,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
       {
-        group: t("administration"),
-        items: [
-          {
-            title: t("transaction"),
-            url: `/${role}/transaction`,
-            icon: TransactionIcon,
-            roles: [RoleEnum.ADMIN],
-          },
-          {
-            title: t("attendance"),
-            url: `/${role}/attendance`,
-            icon: InDoorIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
-          },
-          {
-            title: t("secretaries"),
-            url: `/${role}/secretaries`,
-            icon: StaffIcon,
-            roles: [RoleEnum.ADMIN],
-          },
-          {
-            title: t("schedule"),
-            url: `/${role}/schedule`,
-            icon: SchedulesIcon,
-            roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
-          },
-        ],
-      },
-      {
         group: t("finance"),
         roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
         items: [
@@ -156,31 +167,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${role}/formulas`,
             icon: CalculatorIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("formula_variables"),
             url: `/${role}/formula-variables`,
             icon: VariableIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("payruns"),
             url: `/${role}/payruns`,
             icon: HandCoinsIcon,
             roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.PAYROLL_MANAGEMENT,
           },
           {
             title: t("payslips"),
             url: `/${role}/payslips`,
-            icon: HandCoinsIcon,
-            roles: [RoleEnum.DOCTOR],
+            icon: WalletCards,
+            roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
           },
         ],
       },
     ],
   };
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -189,7 +203,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               {!role || !user ? (
-                <Skeleton className={"h-full w-full"}/>
+                <Skeleton className={"h-full w-full"} />
               ) : (
                 <Link href={`/${role}`}>
                   <ArrowUpCircleIcon className="h-5 w-5" />

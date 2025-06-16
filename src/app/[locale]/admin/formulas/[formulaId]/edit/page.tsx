@@ -1,8 +1,8 @@
-import React from "react";
+import FormulaForm from "@/components/common/formula/FormulaForm";
+import PageCard from "@/components/common/ui/PageCard";
+import { RoleEnum } from "@/enums/RoleEnum";
 import FormulaService from "@/services/FormulaService";
 import FormulaVariableService from "@/services/FormulaVariableService";
-import PageCard from "@/components/common/ui/PageCard";
-import FormulaForm from "@/components/common/formula/FormulaForm";
 import { getTranslations } from "next-intl/server";
 
 const Page = async ({
@@ -20,6 +20,7 @@ const Page = async ({
         variables={variables}
         type={"update"}
         defaultValues={formula}
+        role={RoleEnum.ADMIN}
       />
     </PageCard>
   );

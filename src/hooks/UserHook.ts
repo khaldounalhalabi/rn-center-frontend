@@ -1,4 +1,5 @@
 import { UserContext } from "@/components/providers/UserProvider";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { useContext } from "react";
 
 const useUser = () => {
@@ -11,10 +12,17 @@ const useUser = () => {
     });
   }
 
+  const hasPermission = (permission: PermissionEnum) => {
+    return context?.user?.permissions?.includes(permission) ?? false;
+  };
+
   return {
     user: context?.user,
     setUser: context?.setUser,
     role: context?.role,
+    permissions: context?.user?.permissions,
+    hasPermission: hasPermission,
+    initializeUser: context.initializeUser,
   };
 };
 

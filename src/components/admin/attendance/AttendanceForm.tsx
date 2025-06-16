@@ -5,6 +5,7 @@ import FormInput from "@/components/common/ui/inputs/FormInput";
 import Trash from "@/components/icons/Trash";
 import { Button } from "@/components/ui/shadcn/button";
 import AttendanceLogTypeEnum from "@/enums/AttendanceLogTypeEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import AttendanceLog from "@/models/AttendanceLog";
 import AttendanceLogService from "@/services/AttendanceLogService";
 import dayjs from "dayjs";
@@ -16,11 +17,13 @@ const AttendanceForm = ({
   date,
   userId,
   onSuccess = undefined,
+  role
 }: {
   attendances?: AttendanceLog[];
   date: string;
   userId: number;
   onSuccess?: () => void | Promise<void>;
+  role:RoleEnum
 }) => {
   const t = useTranslations("attendance");
   const handleSubmit = async (data: any) => {
@@ -28,7 +31,7 @@ const AttendanceForm = ({
     if (fields.length == 0) {
       formData.attendance_shifts = [];
     }
-    return AttendanceLogService.make().editOrCreateUserAttendance(
+    return AttendanceLogService.make(role).editOrCreateUserAttendance(
       userId,
       formData,
     );

@@ -14,7 +14,7 @@ class AttendanceLogService extends BaseService<
 
   public editOrCreateUserAttendance = async (userId: number, data: any) => {
     const response = await POST<AttendanceLog[]>(
-      `/admin/users/${userId}/attendances`,
+      `/${this.role}/users/${userId}/attendances`,
       data,
       this.headers,
     );
@@ -36,7 +36,9 @@ class AttendanceLogService extends BaseService<
   }
 
   public async myStat() {
-    const response = await GET<AttendanceStats>(`${this.role}/attendances/statistics`);
+    const response = await GET<AttendanceStats>(
+      `${this.role}/attendances/statistics`,
+    );
 
     return this.errorHandler(response);
   }

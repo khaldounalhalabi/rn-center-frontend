@@ -1,13 +1,13 @@
-import React from "react";
-import PayrunService from "@/services/PayrunService";
-import PageCard from "@/components/common/ui/PageCard";
-import { getTranslations } from "next-intl/server";
-import Grid from "@/components/common/ui/Grid";
-import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import { Alert, AlertDescription } from "@/components/ui/shadcn/alert";
-import { TriangleAlert } from "lucide-react";
 import PayslipsTable from "@/components/common/payslips/PayslipsTable";
+import Grid from "@/components/common/ui/Grid";
+import PageCard from "@/components/common/ui/PageCard";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { Alert, AlertDescription } from "@/components/ui/shadcn/alert";
+import { RoleEnum } from "@/enums/RoleEnum";
+import PayrunService from "@/services/PayrunService";
+import { TriangleAlert } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 const Page = async ({
   params: { payrunId },
@@ -53,7 +53,7 @@ const Page = async ({
       )}
 
       <div className={"my-5 w-full"}>
-        <PayslipsTable payrun={payrun} />
+        <PayslipsTable role={RoleEnum.ADMIN} payrun={payrun} />
       </div>
     </PageCard>
   );

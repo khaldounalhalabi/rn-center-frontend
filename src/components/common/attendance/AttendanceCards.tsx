@@ -1,6 +1,11 @@
 "use client";
 import Grid from "@/components/common/ui/Grid";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/shadcn/alert";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -21,6 +26,7 @@ import AttendanceLogService from "@/services/AttendanceLogService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import {
+  AlertCircleIcon,
   Award,
   Calendar,
   Clock,
@@ -40,8 +46,7 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
     refetch: refetchStats,
   } = useQuery({
     queryKey: ["attendance_stats"],
-    queryFn: async () =>
-      await AttendanceLogService.make(RoleEnum.DOCTOR).myStat(),
+    queryFn: async () => await AttendanceLogService.make(role).myStat(),
     select: (data) => data.data,
   });
 
@@ -94,6 +99,13 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
         isPermanent
       />
       <Grid sm={1} md={3} lg={3} className="gap-4">
+        <div className="col-span-1 md:col-span-3">
+          <Alert variant={"destructive"}>
+            <AlertCircleIcon />
+            <AlertTitle>{t("important_note")}</AlertTitle>
+            <AlertDescription>{t("no_checkout_warning")}</AlertDescription>
+          </Alert>
+        </div>
         <Card className="transition-all duration-300 hover:shadow-lg">
           {isPendingStats || isPendingLastLog || !stats ? (
             <Skeleton className="w-full h-40" />
@@ -218,7 +230,7 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">
                       {t("total_hours")}
@@ -239,37 +251,21 @@ const AttendanceCards = ({ role }: { role: RoleEnum }) => {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">
-                      Overtime Hours
+                      {t("overtime_hours")}
                     </span>
                     <span className="font-medium text-emerald-600">
-                      {stats?.overtime_hours?.toFixed(1) || 0} hrs
+                      {stats?.overtime_hours?.toFixed(1) || 0} {t("hours")}
                     </span>
-                  </div>
-                  <div className="h-2 w-full bg-secondary/20 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-emerald-500 transition-all duration-500"
-                      style={{
-                        width: `${Math.min((stats?.overtime_hours / 40) * 100, 100)}%`,
-                      }}
-                    />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">
-                      Overtime Days
+                      {t("overtime_days")}
                     </span>
                     <span className="font-medium text-emerald-600">
-                      {stats?.overtime_days || 0} days
+                      {stats?.overtime_days || 0} {t("days")}
                     </span>
-                  </div>
-                  <div className="w-full bg-secondary/20 rounded-full overflow-hidden">
-                    <div
-                      className="bg-emerald-500 transition-all duration-500"
-                      style={{
-                        width: `${Math.min((stats?.overtime_days / 5) * 100, 100)}%`,
-                      }}
-                    />
                   </div>
                 </div>
               </CardContent>

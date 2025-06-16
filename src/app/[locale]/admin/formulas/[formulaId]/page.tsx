@@ -1,15 +1,14 @@
-import React from "react";
-import PageCard from "@/components/common/ui/PageCard";
-import { ApiResponse } from "@/http/Response";
-import { Link } from "@/navigation";
-import { RoleEnum } from "@/enums/RoleEnum";
-import { Button } from "@/components/ui/shadcn/button";
-import FormulaService from "@/services/FormulaService";
-import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import FormulaTemplateViewer from "@/components/common/formula/FormulaTemplateViewer";
 import Grid from "@/components/common/ui/Grid";
+import PageCard from "@/components/common/ui/PageCard";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
+import { Button } from "@/components/ui/shadcn/button";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { ApiResponse } from "@/http/Response";
 import Formula from "@/models/Formula";
+import { Link } from "@/navigation";
+import FormulaService from "@/services/FormulaService";
 import { getTranslations } from "next-intl/server";
 
 const Page = async ({
@@ -36,9 +35,21 @@ const Page = async ({
       <Grid md={1} gap={8}>
         <LabelValue label={t("name")} value={formula.name} />
         <Label label={t("formula")} col>
-         <div dir={"ltr"} className={"w-full rounded-md border border-secondary p-5"}>
-           <FormulaTemplateViewer formula={formula.template ?? ""} />
-         </div>
+          <div
+            dir={"ltr"}
+            className={"w-full rounded-md border border-secondary p-5"}
+          >
+            <FormulaTemplateViewer formula={formula.template ?? ""} />
+          </div>
+        </Label>
+        <Label label={t("formula_segments")} col>
+          {formula?.formula_segments?.map((segment, key) => (
+            <LabelValue
+              key={key}
+              label={segment.name}
+              value={<FormulaTemplateViewer formula={segment.template} />}
+            />
+          ))}
         </Label>
       </Grid>
     </PageCard>

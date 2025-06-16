@@ -49,7 +49,9 @@
     "center_name": "Reslan Alnaal Center",
     "payslips": "Payslips",
     "vacations": "Vacations",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "my_attendance": "My attendance",
+    "my_schedule": "My Schedule"
   },
   "admin": {
     "clinic": {
@@ -1522,7 +1524,8 @@
     "email": "Email",
     "message": "Message",
     "our_pom": "POM",
-    "doctor": "Doctor"
+    "doctor": "Doctor",
+    "secretary": "Secretary"
   },
   "types_statuses": {
     "active": "Active",
@@ -1684,8 +1687,8 @@
     "export": "Export",
     "import": "Import",
     "import_example": "Import example",
-    "mark_all_as_read" : "Mark all as read",
-    "loading_more" : "Loading more"
+    "mark_all_as_read": "Mark all as read",
+    "loading_more": "Loading more"
   },
   "holidays": {
     "from": "From",
@@ -1738,7 +1741,10 @@
     "and_a_half": "And a half",
     "and_minutes": "And {minutes} minutes",
     "overtime_days": "Overtime days",
-    "overtime_hours": "Overtime hours"
+    "overtime_hours": "Overtime hours",
+    "no_checkout_warning": "For your attendance to be counted, each check-in must have a corresponding check-out. If you forget to check out, the recorded time won’t be counted.",
+    "important_note": "Important Note",
+    "days":"Days"
   },
   "links": {
     "appointment": "Appointments",
@@ -1765,7 +1771,9 @@
     "doctor": "Dashboard",
     "payslips": "Payslips",
     "vacations": "Vacations",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "secretary": "Dashboard",
+    "my-attendance": "My attendance"
   },
   "formulas": {
     "formulas": "Formulas",

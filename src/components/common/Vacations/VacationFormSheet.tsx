@@ -9,7 +9,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
+import useUser from "@/hooks/UserHook";
 import { ApiResponse } from "@/http/Response";
 import { User } from "@/models/User";
 import Vacation from "@/models/Vacation";
@@ -36,6 +38,7 @@ const VacationFormSheet = ({
   revalidate?: () => void;
 }) => {
   const t = useTranslations("vacations");
+  const { user } = useUser();
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (data: any) => {
@@ -51,7 +54,7 @@ const VacationFormSheet = ({
     if (response.code == 406) {
       toast.error(t("error"), {
         description: response?.message as string,
-        dismissible:true
+        dismissible: true,
       });
     }
 
@@ -86,7 +89,10 @@ const VacationFormSheet = ({
           defaultValues={vacation}
         >
           <Grid>
-            {role != RoleEnum.DOCTOR && (
+            {(role == RoleEnum.DOCTOR ||
+              user?.permissions?.includes(
+                PermissionEnum.VACATION_MANAGEMENT,
+              )) && (
               <ApiSelect
                 api={function (
                   page?: number,

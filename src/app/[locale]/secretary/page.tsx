@@ -1,5 +1,8 @@
+import AttendanceCards from "@/components/common/attendance/AttendanceCards";
+import { RoleEnum } from "@/enums/RoleEnum";
+
 const Page = () => {
-  return <div>Secretary</div>;
+  return <AttendanceCards role={RoleEnum.SECRETARY} />;
 };
 
 export default Page;

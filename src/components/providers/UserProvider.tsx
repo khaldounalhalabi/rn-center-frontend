@@ -4,7 +4,9 @@ import {
   setClientCookie,
 } from "@/actions/ClientCookies";
 import { RoleEnum } from "@/enums/RoleEnum";
+import { ApiResponse } from "@/http/Response";
 import { User } from "@/models/User";
+import { AuthService } from "@/services/AuthService";
 import { createContext, useCallback, useEffect, useState } from "react";
 import LoadingScreen from "../common/ui/LoadingScreen";
 
@@ -12,6 +14,7 @@ export const UserContext = createContext<{
   user: User | undefined;
   setUser: (newUser: User | undefined) => void;
   role?: RoleEnum;
+  initializeUser: () => Promise<ApiResponse<User>> | undefined;
 } | null>(null);
 const USER_COOKIES_KEY = "user_cookies_key";
 
@@ -42,12 +45,25 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
     return <LoadingScreen />;
   }
 
+  const initializeUser = () => {
+    if (user?.role) {
+      return AuthService.make(user?.role)
+        .userDetails()
+        .then((response) => {
+          setUser(response?.data);
+          return response;
+        });
+    }
+    return;
+  };
+
   return (
     <UserContext.Provider
       value={{
         user: user,
         setUser: setUser,
         role: role,
+        initializeUser: initializeUser,
       }}
     >
       {children}

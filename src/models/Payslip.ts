@@ -1,13 +1,13 @@
 import PayslipStatusEnum from "@/enums/PayslipStatusEnum";
-import { User } from "@/models/User";
 import Formula from "@/models/Formula";
-import PayslipAdjustment from "@/models/PayslipAdjustment";
 import Payrun from "@/models/Payrun";
+import PayslipAdjustment from "@/models/PayslipAdjustment";
+import { User } from "@/models/User";
 
 interface Payslip {
   id: number;
   payrun_id: number;
-  payrun?:Payrun;
+  payrun?: Payrun;
   user_id: number;
   formula_id: number;
   paid_days: number;
@@ -33,6 +33,8 @@ interface Payslip {
   total_deductions: number;
   can_update?: boolean;
   can_download?: boolean;
+  can_show?: boolean;
+  can_toggle_status?: boolean;
 }
 
 interface PayslipError {

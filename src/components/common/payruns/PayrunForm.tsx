@@ -1,20 +1,27 @@
 "use client";
-import React, { useState } from "react";
-import PayrunService from "@/services/PayrunService";
-import { ApiResponse } from "@/http/Response";
-import Payrun from "@/models/Payrun";
 import { Navigate } from "@/actions/Navigate";
 import Form from "@/components/common/ui/Form";
-import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/shadcn/button";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { toast } from "sonner";
 import Grid from "@/components/common/ui/Grid";
-import { Label } from "@/components/ui/shadcn/label";
+import FormDatepicker from "@/components/common/ui/date-time-pickers/FormDatepicker";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import LoadingSpin from "@/components/icons/LoadingSpin";
+import { Button } from "@/components/ui/shadcn/button";
+import { Label } from "@/components/ui/shadcn/label";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { ApiResponse } from "@/http/Response";
+import Payrun from "@/models/Payrun";
+import PayrunService from "@/services/PayrunService";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
 
-const PayrunForm = ({revalidate}:{revalidate?:() => void}) => {
+const PayrunForm = ({
+  revalidate,
+  role,
+}: {
+  revalidate?: () => void;
+  role: RoleEnum;
+}) => {
   const t = useTranslations("payruns");
   const [isOverlap, setOverlap] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -28,11 +35,11 @@ const PayrunForm = ({revalidate}:{revalidate?:() => void}) => {
     to?: string;
     force_create?: 1 | 0;
   }) => {
-    if (!data?.force_create){
+    if (!data?.force_create) {
       data.force_create = 0;
     }
-    
-    const response = await PayrunService.make().store(data);
+
+    const response = await PayrunService.make(role).store(data);
     if (response.code == 410) {
       setOverlap(true);
       setFormData({ ...data, force_create: 0 });
@@ -43,10 +50,10 @@ const PayrunForm = ({revalidate}:{revalidate?:() => void}) => {
 
   const onSuccess = async (response: ApiResponse<Payrun>) => {
     if (response.ok()) {
-      if (revalidate){
-        revalidate();
+      if (revalidate) {
+        await revalidate();
       }
-      await Navigate("/admin/payruns");
+      await Navigate(`/${role}/payruns`);
     }
   };
   return isOverlap ? (

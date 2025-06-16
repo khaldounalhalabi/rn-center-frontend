@@ -7,17 +7,20 @@ import PayslipService from "@/services/PayslipService";
 import AdjustmentMultipleInput from "@/components/common/payslips/AdjustmentMultipleInput";
 import { ApiResponse } from "@/http/Response";
 import { useTranslations } from "next-intl";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const PayslipForm = ({
   payslip,
   onSuccess,
+  role
 }: {
   payslip?: Payslip;
   onSuccess?: () => void;
+  role:RoleEnum
 }) => {
   const t = useTranslations("payslips")
   const onSubmit = async (data: any) => {
-    return await PayslipService.make().update(payslip?.id, data);
+    return await PayslipService.make(role).update(payslip?.id, data);
   };
 
   const handleSuccess = (res: ApiResponse<Payslip>) => {

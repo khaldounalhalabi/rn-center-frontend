@@ -8,6 +8,8 @@ import duration from "dayjs/plugin/duration";
 import isBetween from "dayjs/plugin/isBetween";
 import { useLocale } from "next-intl";
 import React from "react";
+import PermissionProvider from "./PermissionProvider";
+import UserInitializerProvider from "./UserInitializerProvider";
 import UserProvider from "./UserProvider";
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
@@ -25,9 +27,13 @@ const AllProviders = ({ children }: { children: React.ReactNode }) => {
           position={locale == "ar" ? "bottom-left" : "bottom-right"}
         />
         <NotificationProvider>
-          <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
-            {children}
-          </div>
+          <PermissionProvider>
+            <UserInitializerProvider>
+              <div className={` ${locale == "ar" ? "Cairo" : "kodchasan"}`}>
+                {children}
+              </div>
+            </UserInitializerProvider>
+          </PermissionProvider>
         </NotificationProvider>
       </QueryClientProvider>
     </UserProvider>

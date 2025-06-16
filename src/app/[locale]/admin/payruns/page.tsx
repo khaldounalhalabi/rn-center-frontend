@@ -12,6 +12,7 @@ import PageCard from "@/components/common/ui/PageCard";
 import DownloadIcon from "@/components/icons/DownloadIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Button } from "@/components/ui/shadcn/button";
+import { RoleEnum } from "@/enums/RoleEnum";
 import useDownload from "@/hooks/DownloadFile";
 import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import Payrun from "@/models/Payrun";
@@ -56,7 +57,11 @@ const Page = () => {
         label: t("status"),
         sortable: true,
         render: (_stats, payrun, _setHidden, revalidate) => (
-          <PayrunStatusColumn payrun={payrun} revalidate={revalidate} />
+          <PayrunStatusColumn
+            payrun={payrun}
+            revalidate={revalidate}
+            role={RoleEnum.ADMIN}
+          />
         ),
       },
       {
@@ -73,6 +78,7 @@ const Page = () => {
                 <ReprocessPayrunButton
                   payrun={payrun}
                   revalidate={revalidate}
+                  role={RoleEnum.ADMIN}
                 />
               ) : (
                 <></>
@@ -92,7 +98,9 @@ const Page = () => {
         perPage,
         params,
       ),
-    extraButton: (revalidate) => <CreatePayRunSheet revalidate={revalidate} />,
+    extraButton: (revalidate) => (
+      <CreatePayRunSheet role={RoleEnum.ADMIN} revalidate={revalidate} />
+    ),
   };
   const queryName = getTableQueryName(datatable);
   const queryClient = useQueryClient();

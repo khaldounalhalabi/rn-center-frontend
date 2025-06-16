@@ -1,6 +1,8 @@
-import Payslip from "@/models/Payslip";
-import { useLocale, useTranslations } from "next-intl";
-import React, { useState } from "react";
+import PayslipForm from "@/components/common/payslips/PayslipForm";
+import Grid from "@/components/common/ui/Grid";
+import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
+import Pencil from "@/components/icons/Pencil";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Sheet,
   SheetContent,
@@ -8,18 +10,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
-import { Button } from "@/components/ui/shadcn/button";
-import Pencil from "@/components/icons/Pencil";
-import PayslipForm from "@/components/common/payslips/PayslipForm";
-import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
-import Grid from "@/components/common/ui/Grid";
+import { RoleEnum } from "@/enums/RoleEnum";
+import Payslip from "@/models/Payslip";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 
 const EditPayslipSheet = ({
   payslip,
   revalidate,
+  role,
 }: {
   payslip?: Payslip;
   revalidate?: () => void;
+  role: RoleEnum;
 }) => {
   const locale = useLocale();
   const t = useTranslations("payslips");
@@ -48,10 +51,13 @@ const EditPayslipSheet = ({
             }
             setOpen(false);
           }}
+          role={role}
         />
 
         <div className={"w-full"}>
-          <h1 className={"text-xl font-bold"}>{t("variables_values_in_period")}</h1>
+          <h1 className={"text-xl font-bold"}>
+            {t("variables_values_in_period")}
+          </h1>
           <Grid gap={0}>
             {Object.keys(variablesValues).map((key, index) => {
               const item: { label: string; value: string } =

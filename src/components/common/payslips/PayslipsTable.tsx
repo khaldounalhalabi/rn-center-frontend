@@ -37,7 +37,13 @@ import { toast } from "sonner";
 import { NotificationHandler } from "../helpers/NotificationHandler";
 import TranslatableEnum from "../ui/labels-and-values/TranslatableEnum";
 
-const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
+const PayslipsTable = ({
+  payrun,
+  role,
+}: {
+  payrun: Payrun;
+  role: RoleEnum;
+}) => {
   const t = useTranslations("payslips");
   const datatable: DataTableData<Payslip> = {
     schema: [
@@ -45,19 +51,22 @@ const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
       {
         name: "user.full_name",
         label: t("employee"),
-        render: (data, payslip) => (
-          <Link
-            href={`/admin/${payslip?.user?.role == RoleEnum.SECRETARY ? `secretaries/${payslip?.user_id}` : `clinics/${payslip?.user?.clinic?.id}`}`}
-          >
-            <Button variant={"link"}>{data}</Button>
-          </Link>
-        ),
+        render: (data, payslip) =>
+          role == RoleEnum.ADMIN ? (
+            <Link
+              href={`/admin/${payslip?.user?.role == RoleEnum.SECRETARY ? `secretaries/${payslip?.user_id}` : `clinics/${payslip?.user?.clinic?.id}`}`}
+            >
+              <Button variant={"link"}>{data}</Button>
+            </Link>
+          ) : (
+            data
+          ),
       },
       {
         name: "formula.name",
         label: t("formula"),
         render: (_data, fullObject) => (
-          <Link href={`/admin/formulas/${fullObject?.formula_id}`}>
+          <Link href={`/${role}/formulas/${fullObject?.formula_id}`}>
             <Button variant={"link"}>{fullObject?.formula?.name}</Button>
           </Link>
         ),
@@ -131,20 +140,32 @@ const PayslipsTable = ({ payrun }: { payrun: Payrun }) => {
           <div className={"flex items-center gap-2"}>
             <ShowPayslipSheet payslip={payslip} />
             {payslip?.can_update && (
-              <EditPayslipSheet payslip={payslip} revalidate={revalidate} />
+              <EditPayslipSheet
+                payslip={payslip}
+                revalidate={revalidate}
+                role={role}
+              />
             )}
             {payslip?.can_update && (
-              <ExcludeIncludeButton payslip={payslip} revalidate={revalidate} />
+              <ExcludeIncludeButton
+                role={role}
+                payslip={payslip}
+                revalidate={revalidate}
+              />
             )}
             {payslip?.can_download && (
-              <DownloadPayslipButton payslip={payslip} payrun={payrun} />
+              <DownloadPayslipButton
+                role={role}
+                payslip={payslip}
+                payrun={payrun}
+              />
             )}
           </div>
         ),
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await PayslipService.make().getByPayrun(
+      await PayslipService.make(role).getByPayrun(
         payrun?.id,
         page,
         search,
@@ -197,9 +218,11 @@ export default PayslipsTable;
 const DownloadPayslipButton = ({
   payslip,
   payrun,
+  role,
 }: {
   payslip?: Payslip;
   payrun?: Payrun;
+  role: RoleEnum;
 }) => {
   const { download, isLoading } = useDownload();
 
@@ -209,7 +232,7 @@ const DownloadPayslipButton = ({
       type={"button"}
       onClick={() => {
         download(
-          `/api/download?method=GET&url=admin/payslips/${payslip?.id}/pdf`,
+          `/api/download?method=GET&url=${role}/payslips/${payslip?.id}/pdf`,
           {
             method: "POST",
             fileExtension: "pdf",
@@ -226,9 +249,11 @@ const DownloadPayslipButton = ({
 const ExcludeIncludeButton = ({
   payslip,
   revalidate,
+  role,
 }: {
   payslip?: Payslip;
   revalidate?: () => void;
+  role: RoleEnum;
 }) => {
   const t = useTranslations("payslips");
   const [loading, setLoading] = useState(false);
@@ -239,7 +264,7 @@ const ExcludeIncludeButton = ({
   const onClick = () => {
     if (payslip?.status == PayslipStatusEnum.EXCLUDED) {
       setLoading(true);
-      PayslipService.make()
+      PayslipService.make(role)
         .toggleStatus(payslip?.id ?? 0, PayslipStatusEnum.DRAFT)
         .then((res) => {
           setLoading(false);
@@ -251,7 +276,7 @@ const ExcludeIncludeButton = ({
         });
     } else {
       setLoading(true);
-      PayslipService.make()
+      PayslipService.make(role)
         .toggleStatus(payslip?.id ?? 0, PayslipStatusEnum.EXCLUDED)
         .then((res) => {
           setLoading(false);

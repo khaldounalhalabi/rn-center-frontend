@@ -14,7 +14,7 @@ class VacationService extends BaseService<VacationService, Vacation>() {
     cancellationReason: string | undefined = undefined,
   ) {
     const response = await POST<VacationStatusEnum | undefined>(
-      `${(this, this.baseUrl)}/toggle-status`,
+      `${this.baseUrl}/toggle-status`,
       {
         vacation_id: id,
         status: status,

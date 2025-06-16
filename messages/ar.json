@@ -37,7 +37,7 @@
     "clinic_management": "إدارة العيادة",
     "search": "بحث",
     "holidays": "العطل",
-    "attendance": "جدول الدوام",
+    "attendance": "جدول الحضور",
     "secretaries": "السكرتاريا",
     "formulas": "معادلات الرواتب",
     "formula_variables": "متغيرات معادلات الرواتب",
@@ -49,7 +49,9 @@
     "center_name": "مركز رسلان النعال الطبي",
     "payslips": "الدفعات",
     "vacations": "الإجازات",
-    "schedule": "جدول الدوام"
+    "schedule": "جدول الدوام",
+    "my_attendance": "جدول حضوري",
+    "my_schedule": "جدول الدوام الخاص بي"
   },
   "admin": {
     "clinic": {
@@ -1681,8 +1683,8 @@
     "export": "تصدير",
     "import": "استيراد",
     "import_example": "مثال على ملف التصدير",
-    "mark_all_as_read" : "تعليم الكل كمقروء",
-    "loading_more" : "تحميل المزيد"
+    "mark_all_as_read": "تعليم الكل كمقروء",
+    "loading_more": "تحميل المزيد"
   },
   "holidays": {
     "from": "من",
@@ -1735,7 +1737,10 @@
     "and_a_half": "و نصف",
     "and_minutes": "و {minutes} دقائق",
     "overtime_days": "أيام الدوام الإضافي",
-    "overtime_hours": "ساعات الدوام الإضافي"
+    "overtime_hours": "ساعات الدوام الإضافي",
+    "no_checkout_warning": "لكي يتم احتساب حضورك، يجب أن يكون لكل تسجيل دخول تسجيل خروج مقابل. إذا نسيت تسجيل الخروج، فلن يتم احتساب الوقت المسجل",
+    "important_note": "ملاحظة مهمة",
+    "days":"أيام"
   },
   "links": {
     "appointment": "الحجوزات",
@@ -1760,9 +1765,11 @@
     "formula-variables": "متغيرات معادلات الرواتب",
     "payruns": "الرواتب",
     "doctor": "لوحة التحكم",
+    "secretary": "لوحة التحكم",
     "payslips": "الدفعات",
     "vacations": "الإجازات",
-    "schedule": "أوقات الدوام"
+    "schedule": "أوقات الدوام",
+    "my-attendance": "جدول حضوري"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",

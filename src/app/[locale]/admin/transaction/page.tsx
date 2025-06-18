@@ -26,6 +26,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Button } from "@/components/ui/shadcn/button";
+import { Input } from "@/components/ui/shadcn/input";
 
 const Page = () => {
   const t = useTranslations("common.transaction.table");
@@ -106,9 +107,7 @@ const Page = () => {
         render: (_payrunFrom, transaction) => {
           return transaction?.payrun_id ? (
             <Link href={`/admin/payruns/${transaction?.payrun_id}`}>
-              <Button variant={"link"}>
-                {transaction?.payrun?.period}
-              </Button>
+              <Button variant={"link"}>{transaction?.payrun?.period}</Button>
             </Link>
           ) : (
             <TranslatableEnum value={"no_data"} />
@@ -136,16 +135,23 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await TransactionService.make(
-        RoleEnum.ADMIN,
-      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      await TransactionService.make(RoleEnum.ADMIN).indexWithPagination(
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
     filter: (params, setParams) => {
       return (
         <div className={"grid w-full grid-cols-1"}>
           <Label label={t("amount")}>
-            <input
-              className={"input input-xs input-bordered justify-self-end"}
+            <Input
               type={"number"}
+              className={
+                "px-1 py-1 max-w-24 max-h-5 border rounded text-[0.75rem] h-auto focus:ring-0"
+              }
               onChange={(e) => {
                 setParams({
                   ...params,
@@ -156,7 +162,7 @@ const Page = () => {
               value={params?.amount?.[1] ?? 0}
             />
           </Label>
-          <input
+          <Input
             type="range"
             min={0}
             max="10000000"
@@ -167,7 +173,6 @@ const Page = () => {
                 amount: ["0", `${e.target?.value}`],
               });
             }}
-            className="range range-xs"
           />
           <label className="label">{t("type")} :</label>
           <Select

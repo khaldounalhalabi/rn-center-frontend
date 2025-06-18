@@ -5,7 +5,7 @@ const UserInitializerProvider = ({ children }: { children?: ReactNode }) => {
   const { initializeUser } = useUser();
   useEffect(() => {
     initializeUser();
-  }, []);
+  }, [initializeUser]);
   return <>{children}</>;
 };
 

@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import { AppointmentLogs } from "@/models/AppointmentLog";
-import LogsIcon from "@/components/icons/Logs";
-import { AppointmentLogsService } from "@/services/AppointmentLogsService";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { useTranslations } from "next-intl";
 import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import LogsIcon from "@/components/icons/Logs";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Table,
@@ -14,8 +10,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { AppointmentLogs } from "@/models/AppointmentLog";
+import { AppointmentLogsService } from "@/services/AppointmentLogsService";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
+const AppointmentLogModal = ({
+  appointmentId,
+  role,
+}: {
+  appointmentId?: number;
+  role: RoleEnum;
+}) => {
   const t = useTranslations("common.appointment.table");
 
   const [logs, setLogs] = useState<AppointmentLogs[]>();
@@ -26,7 +33,7 @@ const AppointmentLogModal = ({ appointmentId }: { appointmentId?: number }) => {
           <LogsIcon
             onClick={async () => {
               if (appointmentId) {
-                return await AppointmentLogsService.make()
+                return await AppointmentLogsService.make(role)
                   .getAppointmentLogs(appointmentId)
                   .then((res) => {
                     return setLogs(res?.data);

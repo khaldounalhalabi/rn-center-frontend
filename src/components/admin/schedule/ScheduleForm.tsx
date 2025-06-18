@@ -1,32 +1,30 @@
 "use client";
-import { ChangeEvent, useState } from "react";
-import PageCard from "@/components/common/ui/PageCard";
-import Trash from "@/components/icons/Trash";
-import dayjs from "dayjs";
-import { Schedule, SchedulesCollection } from "@/models/Schedule";
-import Form from "@/components/common/ui/Form";
-import FormInput from "@/components/common/ui/inputs/FormInput";
-import { ScheduleService } from "@/services/ScheduleService";
 import { Navigate } from "@/actions/Navigate";
-import { useTranslations } from "next-intl";
+import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
-import plugin from "dayjs/plugin/isSameOrBefore";
-import { getEnumValues } from "@/helpers/Enums";
-import WeekDayEnum from "@/enums/WeekDayEnum";
-import { Input } from "@/components/ui/shadcn/input";
+import PageCard from "@/components/common/ui/PageCard";
+import Tooltip from "@/components/common/ui/Tooltip";
+import FormInput from "@/components/common/ui/inputs/FormInput";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Trash from "@/components/icons/Trash";
 import { Button } from "@/components/ui/shadcn/button";
-import { Copy, Plus } from "lucide-react";
+import { Input } from "@/components/ui/shadcn/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
-import Tooltip from "@/components/common/ui/Tooltip";
-import { useFormContext } from "react-hook-form";
+import WeekDayEnum from "@/enums/WeekDayEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import useUser from "@/hooks/UserHook";
+import { Schedule, SchedulesCollection } from "@/models/Schedule";
+import { ScheduleService } from "@/services/ScheduleService";
 import { ErrorMessage } from "@hookform/error-message";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-
-dayjs.extend(plugin);
+import dayjs from "dayjs";
+import { Copy, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { ChangeEvent, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 function SlotInput(props: {
   timeRange: Schedule;
@@ -91,84 +89,27 @@ const ClinicScheduleForm = ({
   clinic_id?: number;
   user_id?: number;
 }) => {
+  const initializeSchedule = (day: keyof SchedulesCollection) => {
+    return defaultValues?.[day] || method === "update"
+      ? defaultValues?.[day] ?? []
+      : [
+          {
+            start_time: dayjs("09:00").format("HH:mm"),
+            end_time: dayjs("21:00").format("HH:mm"),
+            id: 0,
+            day_of_week: "0",
+          },
+        ];
+  };
+  const { role } = useUser();
   const [schedule, setSchedule] = useState<SchedulesCollection>({
-    saturday:
-      defaultValues?.saturday || method == "update"
-        ? defaultValues?.saturday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    sunday:
-      defaultValues?.sunday || method == "update"
-        ? defaultValues?.sunday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    monday:
-      defaultValues?.monday || method == "update"
-        ? defaultValues?.monday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    tuesday:
-      defaultValues?.tuesday || method == "update"
-        ? defaultValues?.tuesday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    wednesday:
-      defaultValues?.wednesday || method == "update"
-        ? defaultValues?.wednesday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    thursday:
-      defaultValues?.thursday || method == "update"
-        ? defaultValues?.thursday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
-    friday:
-      defaultValues?.friday || method == "update"
-        ? defaultValues?.friday ?? []
-        : [
-            {
-              start_time: dayjs("09:00").format("HH:mm"),
-              end_time: dayjs("21:00").format("HH:mm"),
-              id: 0,
-              day_of_week: "0",
-            },
-          ],
+    saturday: initializeSchedule("saturday"),
+    sunday: initializeSchedule("sunday"),
+    monday: initializeSchedule("monday"),
+    tuesday: initializeSchedule("tuesday"),
+    wednesday: initializeSchedule("wednesday"),
+    thursday: initializeSchedule("thursday"),
+    friday: initializeSchedule("friday"),
   });
 
   const handleAddTimeRange = (day: WeekDayEnum) => {
@@ -239,7 +180,7 @@ const ClinicScheduleForm = ({
       );
     });
 
-    return await ScheduleService.make().store(data);
+    return await ScheduleService.make(role).store(data);
   };
   const t = useTranslations("admin.schedules.create");
   return (
@@ -248,9 +189,9 @@ const ClinicScheduleForm = ({
         handleSubmit={onSubmit}
         onSuccess={() => {
           if (clinic_id) {
-            Navigate(`/admin/clinics`);
+            Navigate(`/${role}/clinics`);
           } else {
-            Navigate(`/admin/secretaries`);
+            Navigate(`/${role}/secretaries`);
           }
         }}
       >

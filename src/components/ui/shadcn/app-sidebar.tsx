@@ -65,28 +65,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${role}/clinics`,
             icon: ClinicsShowIcon,
             roles: [RoleEnum.ADMIN],
-            permissions: PermissionEnum.CLINIC_MANAGEMENT,
+            permission: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("specialties"),
             url: `/${role}/speciality`,
             icon: SpecialitiesIcon,
             roles: [RoleEnum.ADMIN],
-            permissions: PermissionEnum.CLINIC_MANAGEMENT,
+            permission: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("serviceCategories"),
             url: `/${role}/service-categories`,
             icon: CategoryIcon,
             roles: [RoleEnum.ADMIN],
-            permissions: PermissionEnum.CLINIC_MANAGEMENT,
+            permission: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("services"),
             url: `/${role}/service`,
             icon: ServiceIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR],
-            permissions: PermissionEnum.CLINIC_MANAGEMENT,
+            permission: PermissionEnum.CLINIC_MANAGEMENT,
           },
           {
             title: t("holidays"),
@@ -101,12 +101,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: CalendarIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR, RoleEnum.SECRETARY],
             PermissionEnum: PermissionEnum.VACATION_MANAGEMENT,
-          },
-          {
-            title: t("transaction"),
-            url: `/${role}/transaction`,
-            icon: TransactionIcon,
-            roles: [RoleEnum.ADMIN],
           },
           {
             title: t("attendance"),
@@ -142,7 +136,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             title: t("appointment"),
             url: `/${role}/appointment`,
             icon: AppointmentIcon,
-            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
+            roles: [RoleEnum.ADMIN, RoleEnum.DOCTOR],
+            permission: PermissionEnum.APPOINTMENT_MANAGEMENT,
           },
           {
             title: t("patients"),
@@ -162,6 +157,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         group: t("finance"),
         roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
         items: [
+          {
+            title: t("transaction"),
+            url: `/${role}/transaction`,
+            icon: TransactionIcon,
+            roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.TRANSACTION_MANAGEMENT,
+          },
           {
             title: t("formulas"),
             url: `/${role}/formulas`,

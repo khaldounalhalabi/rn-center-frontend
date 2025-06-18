@@ -11,11 +11,14 @@ import { AppointmentService } from "@/services/AppointmentService";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import Select from "@/components/common/ui/selects/Select";
 import { Textarea } from "@/components/ui/shadcn/textarea";
+import { RoleEnum } from "@/enums/RoleEnum";
 
 const AppointmentStatusColumn = ({
   appointment,
+  role
 }: {
   appointment: Appointment;
+  role:RoleEnum
 }) => {
   const [open, setOpen] = useState(false);
   const [cancellationReason, setCancellationReason] = useState<
@@ -37,7 +40,7 @@ const AppointmentStatusColumn = ({
 
   const handleChange = async (status: AppointmentStatusEnum) => {
     setLoading(true);
-    const response = await AppointmentService.make()
+    const response = await AppointmentService.make(role)
       .toggleStatus(appointment.id, status, cancellationReason)
       .then((res) => {
         if (res.ok()) {

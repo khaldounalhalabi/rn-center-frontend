@@ -1,8 +1,8 @@
+import { deleteRole, deleteTokens } from "@/actions/HelperActions";
 import { Navigate } from "@/actions/Navigate";
+import { RoleEnum } from "@/enums/RoleEnum";
 import { DELETE, GET, POST, PUT } from "@/http/Http";
 import { ApiResponse } from "@/http/Response";
-import { RoleEnum } from "@/enums/RoleEnum";
-import { deleteRole, deleteTokens } from "@/actions/HelperActions";
 
 export function BaseService<SERVICE, MODEL>() {
   return class BaseService {
@@ -149,9 +149,13 @@ export function BaseService<SERVICE, MODEL>() {
       res: ApiResponse<MODEL> | ApiResponse<MODEL[]>,
     ): Promise<Promise<ApiResponse<MODEL>> | Promise<ApiResponse<MODEL[]>>> {
       if (res.code == 401 || res.code == 403) {
-        await deleteTokens();
-        await deleteRole();
-        await Navigate(`/auth/${this.role}/login`);
+        await Navigate(`/auth/${this.role}/login`).then((r) => {
+          deleteTokens();
+          deleteRole();
+          return r;
+        });
+      } else if (res.code == 407) {
+        await Navigate("/no-permission");
       }
       return res;
     }

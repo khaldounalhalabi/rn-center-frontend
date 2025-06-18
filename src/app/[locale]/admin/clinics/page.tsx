@@ -1,25 +1,24 @@
 "use client";
-import React from "react";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import { Clinic } from "@/models/Clinic";
-import { ClinicsService } from "@/services/ClinicsService";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { useTranslations } from "next-intl";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { RoleEnum } from "@/enums/RoleEnum";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Grid from "@/components/common/ui/Grid";
-import Select from "@/components/common/ui/selects/Select";
-import { getEnumValues } from "@/helpers/Enums";
-import WeekDayEnum from "@/enums/WeekDayEnum";
-import { Input } from "@/components/ui/shadcn/input";
 import PageCard from "@/components/common/ui/PageCard";
-import { Link } from "@/navigation";
-import { Button } from "@/components/ui/shadcn/button";
-import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import Tooltip from "@/components/common/ui/Tooltip";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Select from "@/components/common/ui/selects/Select";
+import SchedulesIcon from "@/components/icons/SchedulesIcon";
+import { Button } from "@/components/ui/shadcn/button";
+import { Input } from "@/components/ui/shadcn/input";
+import { RoleEnum } from "@/enums/RoleEnum";
+import WeekDayEnum from "@/enums/WeekDayEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import { Clinic } from "@/models/Clinic";
+import { Link } from "@/navigation";
+import { ClinicsService } from "@/services/ClinicsService";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const t = useTranslations("admin.clinic.table");
@@ -67,6 +66,7 @@ const Page = () => {
             buttons={["edit", "show", "delete"]}
             baseUrl={`/admin/clinics`}
             setHidden={setHidden}
+            deleteMessage={t("delete_warning")}
           >
             <Tooltip title={schedulesT("clinicSchedules")}>
               <Link href={`/admin/clinics/schedules/${clinic?.id}`}>
@@ -80,9 +80,14 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await ClinicsService.make(
-        RoleEnum.ADMIN,
-      ).indexWithPagination(page, search, sortCol, sortDir, perPage, params),
+      await ClinicsService.make(RoleEnum.ADMIN).indexWithPagination(
+        page,
+        search,
+        sortCol,
+        sortDir,
+        perPage,
+        params,
+      ),
     filter: (params, setParams) => {
       return (
         <Grid md={1}>

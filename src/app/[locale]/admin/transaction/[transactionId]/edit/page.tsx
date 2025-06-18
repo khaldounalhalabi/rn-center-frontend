@@ -17,7 +17,7 @@ const page = async ({
   ).data;
   return (
     <PageCard title={t("editTransaction")}>
-      <TransactionsForm type={"update"} defaultValues={transaction} />
+      <TransactionsForm type={"update"} defaultValues={transaction} role={RoleEnum.ADMIN}/>
     </PageCard>
   );
 };

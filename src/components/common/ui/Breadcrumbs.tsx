@@ -15,6 +15,7 @@ const NO_LINKS = [
   "/admin/prescriptions",
   "/admin/prescriptions",
   "prescriptions",
+  "clinics/schedules",
 ];
 
 const Breadcrumbs = () => {

@@ -1,3 +1,4 @@
+import useUser from "@/hooks/UserHook";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Service } from "@/models/Service";
@@ -21,6 +22,7 @@ export const useAppointmentForm = ({
   defaultCustomerId,
   type,
 }: UseAppointmentFormProps) => {
+  const { role } = useUser();
   // Date state
   const [date, setDate] = useState<Dayjs | null>(
     defaultValues?.date_time ? dayjs(defaultValues.date_time) : dayjs(),
@@ -58,7 +60,7 @@ export const useAppointmentForm = ({
     let isMounted = true;
 
     if (clinicId) {
-      ClinicsService.make()
+      ClinicsService.make(role)
         .show(clinicId)
         .then((res) => {
           if (isMounted) {
@@ -70,14 +72,14 @@ export const useAppointmentForm = ({
     return () => {
       isMounted = false;
     };
-  }, [clinicId]);
+  }, [clinicId, role]);
 
   // Fetch service data when serviceId changes
   useEffect(() => {
     let isMounted = true;
 
     if (serviceId) {
-      ServiceService.make()
+      ServiceService.make(role)
         .show(serviceId)
         .then((res) => {
           if (isMounted) {
@@ -89,7 +91,7 @@ export const useAppointmentForm = ({
     return () => {
       isMounted = false;
     };
-  }, [serviceId]);
+  }, [serviceId, role]);
 
   // Calculate total cost when dependencies change
   useEffect(() => {
@@ -120,12 +122,9 @@ export const useAppointmentForm = ({
   // Form submission handler
   const handleSubmit = useCallback(
     (data: any) => {
-      const service = AppointmentService.make();
+      const service = AppointmentService.make(role);
       if (data?.date_time && data?.date_time != defaultValues?.date_time) {
-        data.date_time =
-          date?.format("YYYY-MM-DD") +
-          " " +
-          data?.date_time;
+        data.date_time = date?.format("YYYY-MM-DD") + " " + data?.date_time;
       }
 
       if (defaultClinicId) {
@@ -144,7 +143,7 @@ export const useAppointmentForm = ({
         });
       }
     },
-    [date, defaultClinicId, defaultCustomerId, defaultValues, type],
+    [date, defaultClinicId, defaultCustomerId, defaultValues, type, role],
   );
 
   return {

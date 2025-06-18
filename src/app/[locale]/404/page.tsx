@@ -1,5 +1,33 @@
-const page = () => {
-  return <div className="h-full w-full text-center text-2xl">404</div>;
+// pages/404.tsx
+import { getRole } from "@/actions/HelperActions";
+import { Button } from "@/components/ui/shadcn/button";
+import { Link } from "@/navigation";
+import { AlertTriangle } from "lucide-react";
+
+const NotFoundPage = async () => {
+  const role = await getRole();
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
+      <div className="max-w-md rounded-2xl bg-white p-6 shadow-lg">
+        <div className="flex flex-col items-center">
+          <AlertTriangle className="h-16 w-16 text-yellow-500" />
+          <h1 className="mt-4 text-2xl font-semibold text-gray-800">
+            Page Not Found
+          </h1>
+          <p className="mt-2 text-gray-600">
+            The page you are looking for doesn’t exist or has been moved.
+          </p>
+        </div>
+        {role && (
+          <div className="mt-6">
+            <Link href={`/${role}`}>
+              <Button type={"button"}>Go to Home Page</Button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default page;
+export default NotFoundPage;

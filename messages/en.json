@@ -155,7 +155,8 @@
         "min": "min",
         "available_day": "Available in",
         "available_time": "Available time",
-        "gender": "Gender"
+        "gender": "Gender",
+        "delete_warning": "Deleting the clinic will delete all of its related data like : services , medical records , appointments , would you like to proceed ?"
       }
     },
     "holidays": {

@@ -34,6 +34,7 @@ export interface InputProps {
   defaultValue?: string | number | undefined;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   withError?: boolean;
+  autoComplete?: string;
 }
 
 const FormInput: React.FC<InputProps> = ({
@@ -47,6 +48,7 @@ const FormInput: React.FC<InputProps> = ({
   defaultValue = undefined,
   onChange = undefined,
   withError = true,
+  autoComplete = undefined
 }) => {
   const {
     control,
@@ -97,6 +99,7 @@ const FormInput: React.FC<InputProps> = ({
               className={hidden ? "hidden" : ""}
               disabled={hidden}
               placeholder={getPlaceholder(type, label ?? "" , eg)}
+              autoComplete={autoComplete}
             />
           </FormControl>
           {withError && <FormMessage />}

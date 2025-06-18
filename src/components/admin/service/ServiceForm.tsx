@@ -1,23 +1,22 @@
 "use client";
-import Form from "@/components/common/ui/Form";
-import React from "react";
 import { Navigate } from "@/actions/Navigate";
+import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
-import { ServiceService } from "@/services/ServiceService";
-import { Service } from "@/models/Service";
-import { ServiceCategory } from "@/models/ServiceCategory";
-import { ApiResponse } from "@/http/Response";
-import { ServiceCategoryService } from "@/services/ServiceCategoryService";
-import { useTranslations } from "next-intl";
-import { ClinicsService } from "@/services/ClinicsService";
-import FormInput from "@/components/common/ui/inputs/FormInput";
-import { Clinic } from "@/models/Clinic";
-import ApiSelect from "@/components/common/ui/selects/ApiSelect";
 import Gallery from "@/components/common/ui/images/Gallery";
 import ImageUploader from "@/components/common/ui/images/ImageUploader";
-import { RoleEnum } from "@/enums/RoleEnum";
-import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
+import ApiSelect from "@/components/common/ui/selects/ApiSelect";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import useUser from "@/hooks/UserHook";
+import { ApiResponse } from "@/http/Response";
+import { Clinic } from "@/models/Clinic";
+import { Service } from "@/models/Service";
+import { ServiceCategory } from "@/models/ServiceCategory";
+import { ClinicsService } from "@/services/ClinicsService";
+import { ServiceCategoryService } from "@/services/ServiceCategoryService";
+import { ServiceService } from "@/services/ServiceService";
+import { useTranslations } from "next-intl";
 
 const ServiceForm = ({
   defaultValues = undefined,
@@ -27,20 +26,16 @@ const ServiceForm = ({
   type?: "store" | "update";
 }) => {
   const t = useTranslations("admin.service.create-edit");
+  const { role } = useUser();
   const handleSubmit = async (data: any) => {
     if (type === "update") {
-      return ServiceService.make(RoleEnum.ADMIN).update(
-        defaultValues?.id,
-        data,
-      );
+      return ServiceService.make(role).update(defaultValues?.id, data);
     } else {
-      return await ServiceService.make(RoleEnum.ADMIN).store(
-        data,
-      );
+      return await ServiceService.make(role).store(data);
     }
   };
-  const onSuccess = () => {
-    Navigate(`/admin/service`);
+  const onSuccess = async () => {
+    await Navigate(`/${role}/service`);
   };
   const { icon, ...rest } = defaultValues ?? { icon: "" };
   return (
@@ -60,10 +55,7 @@ const ServiceForm = ({
           required={true}
           name={"clinic_id"}
           api={async (page, search) =>
-            await ClinicsService.make().indexWithPagination(
-              page,
-              search,
-            )
+            await ClinicsService.make(role).indexWithPagination(page, search)
           }
           getOptionLabel={(option: Clinic) => option.user?.full_name}
           label={t("clinicName")}
@@ -76,7 +68,7 @@ const ServiceForm = ({
         <ApiSelect
           required={true}
           api={async (page, search): Promise<ApiResponse<ServiceCategory[]>> =>
-            await ServiceCategoryService.make().indexWithPagination(
+            await ServiceCategoryService.make(role).indexWithPagination(
               page,
               search,
             )

@@ -1,13 +1,12 @@
 "use client";
-import Form from "@/components/common/ui/Form";
-import React from "react";
 import { Navigate } from "@/actions/Navigate";
+import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
-import { ServiceCategoryService } from "@/services/ServiceCategoryService";
-import { ServiceCategory } from "@/models/ServiceCategory";
-import { useTranslations } from "next-intl";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { RoleEnum } from "@/enums/RoleEnum";
+import useUser from "@/hooks/UserHook";
+import { ServiceCategory } from "@/models/ServiceCategory";
+import { ServiceCategoryService } from "@/services/ServiceCategoryService";
+import { useTranslations } from "next-intl";
 
 const ServiceCategoryForm = ({
   defaultValues = undefined,
@@ -18,29 +17,28 @@ const ServiceCategoryForm = ({
   defaultValues?: ServiceCategory;
   id?: number;
   type?: "store" | "update";
-  onSuccess?: () => void;
+  onSuccess?: () => void | Promise<void>;
 }) => {
+  const { role } = useUser();
   const handleSubmit = async (data: any) => {
     if (
       type === "update" &&
       (defaultValues?.id != undefined || id != undefined)
     ) {
-      return ServiceCategoryService.make(RoleEnum.ADMIN)
+      return ServiceCategoryService.make(role)
         .update(defaultValues?.id ?? id, data)
         .then((res) => {
           return res;
         });
     } else {
-      return await ServiceCategoryService.make(
-        RoleEnum.ADMIN,
-      ).store(data);
+      return await ServiceCategoryService.make(role).store(data);
     }
   };
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
     if (onSuccess) {
-      onSuccess();
+      await onSuccess();
     } else {
-      Navigate(`/admin/service-categories`);
+      await Navigate(`/${role}/service-categories`);
     }
   };
   const t = useTranslations("admin.category.create-edit");

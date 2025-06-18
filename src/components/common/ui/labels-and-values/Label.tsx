@@ -1,5 +1,5 @@
-import { HTMLProps, ReactNode } from "react";
 import { DaisyUiColor } from "@/types/DaisyUiColor";
+import { HTMLProps, ReactNode } from "react";
 
 interface LabelProps extends HTMLProps<HTMLLabelElement> {
   label?: string | any;
@@ -18,10 +18,7 @@ export const Label: React.FC<LabelProps> = ({
 }) => {
   return (
     <label
-      className={
-        className ??
-        `flex font-bold ${col ? "flex-col items-start gap-5" : "items-center gap-2 "} justify-start text-start w-full text-sm md:text-sm`
-      }
+      className={`flex font-bold ${col ? "flex-col items-start gap-5" : "items-center gap-2 "} justify-start text-start w-full text-sm md:text-sm ${className}`}
       {...props}
     >
       {label ? <span>{label}:</span> : ""}

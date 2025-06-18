@@ -1,26 +1,26 @@
 "use client";
 
-import { Link } from "@/navigation";
+import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
 import AppointmentStatusColumn from "@/components/admin/appointment/AppointmentStatusColumn";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import React from "react";
-import { useTranslations } from "next-intl";
 import DataTable, {
   DataTableData,
   DataTableSchema,
 } from "@/components/common/Datatable/DataTable";
-import { Appointment } from "@/models/Appointment";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Select from "@/components/common/ui/selects/Select";
-import { getEnumValues } from "@/helpers/Enums";
+import { Button } from "@/components/ui/shadcn/button";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
 import AppointmentTypeEnum from "@/enums/AppointmentTypeEnum";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
-import { ApiResponse } from "@/http/Response";
-import { Button } from "@/components/ui/shadcn/button";
-import useUser from "@/hooks/UserHook";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
-import AppointmentLogModal from "@/components/admin/appointment/AppointmentLogModal";
+import { getEnumValues } from "@/helpers/Enums";
+import useUser from "@/hooks/UserHook";
+import { ApiResponse } from "@/http/Response";
+import { Appointment } from "@/models/Appointment";
+import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 
 const AppointmentsTable = ({
   without,
@@ -39,7 +39,7 @@ const AppointmentsTable = ({
   ) => Promise<ApiResponse<Appointment[]>>;
 }) => {
   const t = useTranslations("common.appointment.table");
-  const { role } = useUser();
+  const { role, user } = useUser();
 
   const schema: DataTableSchema<Appointment>[] = [
     {
@@ -50,27 +50,38 @@ const AppointmentsTable = ({
     {
       name: "clinic.user.full_name",
       label: t("doctorName"),
-      render: (doctorName, record) => (
-        <Link href={`/${role}/clinics/${record?.clinic_id}`} className={"btn"}>
-          <Button variant={"link"} type={"button"}>
-            {doctorName}
-          </Button>
-        </Link>
-      ),
+      render: (doctorName, record) =>
+        role == RoleEnum.ADMIN ||
+        user?.permissions?.includes(PermissionEnum.CLINIC_MANAGEMENT) ? (
+          <Link
+            href={`/${role}/clinics/${record?.clinic_id}`}
+            className={"btn"}
+          >
+            <Button variant={"link"} type={"button"}>
+              {doctorName}
+            </Button>
+          </Link>
+        ) : (
+          doctorName
+        ),
     },
     {
       name: "customer.user.full_name",
       label: t("patientName"),
-      render: (patientName, record) => (
-        <Link
-          href={`/${role}/patients/${record?.customer_id}`}
-          className={"btn"}
-        >
-          <Button variant={"link"} type={"button"}>
-            {patientName}
-          </Button>
-        </Link>
-      ),
+      render: (patientName, record) =>
+        role == RoleEnum.ADMIN ||
+        user?.permissions?.includes(PermissionEnum.PATIENT_MANAGEMENT) ? (
+          <Link
+            href={`/${role}/patients/${record?.customer_id}`}
+            className={"btn"}
+          >
+            <Button variant={"link"} type={"button"}>
+              {patientName}
+            </Button>
+          </Link>
+        ) : (
+          patientName
+        ),
     },
     {
       name: "status",
@@ -79,7 +90,7 @@ const AppointmentsTable = ({
         return role == RoleEnum.ADMIN || role == RoleEnum.SECRETARY ? (
           appointment && (
             <div className={"flex items-center justify-center"}>
-              <AppointmentStatusColumn appointment={appointment} />
+              <AppointmentStatusColumn appointment={appointment} role={role} />
             </div>
           )
         ) : (
@@ -111,7 +122,7 @@ const AppointmentsTable = ({
       sortable: true,
     },
     {
-      label: `${t("actions")}`,
+      label: t("actions"),
       render: (_undefined, data, setHidden) => (
         <ActionsButtons
           id={data?.id}
@@ -125,11 +136,10 @@ const AppointmentsTable = ({
           showUrl={`/${role}/appointment/${data?.id}`}
           setHidden={setHidden}
         >
-          {role == RoleEnum.SECRETARY || role == RoleEnum.ADMIN ? (
-            <AppointmentLogModal appointmentId={data?.id} />
-          ) : (
-            <></>
-          )}
+          {role == RoleEnum.SECRETARY ||
+            (role == RoleEnum.ADMIN && (
+              <AppointmentLogModal appointmentId={data?.id} role={role} />
+            ))}
         </ActionsButtons>
       ),
     },

@@ -74,13 +74,13 @@ const ImageUploader = ({
           allowMultiple={isMultiple}
         />
       </div>
-      {error?.length > 0
+      {Array.isArray(error) && error?.length > 0
         ? error?.map((e: string, index: number) => (
             <p key={index} className={`text-sm text-destructive`}>
               {e}
             </p>
           ))
-        : ""}
+        : error && <p className={"text-sm text-destructive"}>{error}</p>}
     </div>
   );
 };

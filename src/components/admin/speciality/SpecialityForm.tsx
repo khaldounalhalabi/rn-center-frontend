@@ -1,15 +1,15 @@
 "use client";
-import Form from "@/components/common/ui/Form";
-import React from "react";
-import { Speciality } from "@/models/Speciality";
-import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
-import { SpecialityService } from "@/services/SpecialityService";
 import { Navigate } from "@/actions/Navigate";
-import { useTranslations } from "next-intl";
-import ImageUploader from "@/components/common/ui/images/ImageUploader";
-import Gallery from "@/components/common/ui/images/Gallery";
-import FormInput from "@/components/common/ui/inputs/FormInput";
+import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
+import Gallery from "@/components/common/ui/images/Gallery";
+import ImageUploader from "@/components/common/ui/images/ImageUploader";
+import FormInput from "@/components/common/ui/inputs/FormInput";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import useUser from "@/hooks/UserHook";
+import { Speciality } from "@/models/Speciality";
+import { SpecialityService } from "@/services/SpecialityService";
+import { useTranslations } from "next-intl";
 
 const SpecialityForm = ({
   defaultValues = undefined,
@@ -19,20 +19,18 @@ const SpecialityForm = ({
   type?: "store" | "update";
 }) => {
   const { image, ...values } = defaultValues ?? { image: [] };
+  const { role } = useUser();
 
   const t = useTranslations("admin.speciality.create-edit");
   const handleSubmit = async (data: any) => {
     if (type == "update" && defaultValues?.id) {
-      return await SpecialityService.make().update(
-        defaultValues?.id,
-        data,
-      );
+      return await SpecialityService.make(role).update(defaultValues?.id, data);
     } else {
-      return await SpecialityService.make().store(data);
+      return await SpecialityService.make(role).store(data);
     }
   };
-  const onSuccess = () => {
-    Navigate(`/admin/speciality`);
+  const onSuccess = async () => {
+    await Navigate(`/${role}/speciality`);
   };
   const array = defaultValues?.tags?.split(",") ?? [];
   return (

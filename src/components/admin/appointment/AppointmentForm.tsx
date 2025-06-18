@@ -9,11 +9,11 @@ import FormSelect from "@/components/common/ui/selects/FormSelect";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { AppointmentStatusEnum } from "@/enums/AppointmentStatusEnum";
-import { RoleEnum } from "@/enums/RoleEnum";
 import { getEnumValues } from "@/helpers/Enums";
 import { useAppointmentForm } from "@/hooks/AppointmentFormHook";
 import useIsHoliday from "@/hooks/IsHoliday";
 import useIsVacation from "@/hooks/IsVacation";
+import useUser from "@/hooks/UserHook";
 import { Appointment } from "@/models/Appointment";
 import { Clinic } from "@/models/Clinic";
 import { Customer } from "@/models/Customer";
@@ -46,6 +46,7 @@ const AppointmentForm = memo(
     defaultCustomerId,
   }: AppointmentFormProps) => {
     const t = useTranslations("common.appointment.create");
+    const { role } = useUser();
 
     const {
       date,
@@ -66,9 +67,9 @@ const AppointmentForm = memo(
       redirect,
     });
 
-    const isHoliday = useIsHoliday({ role: RoleEnum.ADMIN });
+    const isHoliday = useIsHoliday({ role: role });
     const isVacation = useIsVacation({
-      role: RoleEnum.ADMIN,
+      role: role,
       userId: clinic?.user_id,
     });
 
@@ -76,7 +77,7 @@ const AppointmentForm = memo(
       useQuery({
         queryKey: ["available_times", clinicId, date?.format("YYYY-MM-DD")],
         queryFn: async () => {
-          return await AppointmentService.make().getAvailableTimes(
+          return await AppointmentService.make(role).getAvailableTimes(
             clinicId ?? 0,
             date?.format("YYYY-MM-DD") ?? "",
           );
@@ -175,7 +176,7 @@ const AppointmentForm = memo(
               name="customer_id"
               label={t("patient")}
               api={(page?: number, search?: string) =>
-                PatientService.make().indexWithPagination(page, search)
+                PatientService.make(role).indexWithPagination(page, search)
               }
               getOptionLabel={(option: Customer) => option?.user?.full_name}
               optionValue="id"
@@ -192,7 +193,7 @@ const AppointmentForm = memo(
               name="clinic_id"
               label={t("clinicName")}
               api={(page?: number, search?: string) =>
-                ClinicsService.make().indexWithPagination(page, search)
+                ClinicsService.make(role).indexWithPagination(page, search)
               }
               getOptionLabel={(option: Clinic) => option?.user?.full_name}
               optionValue="id"
@@ -208,7 +209,7 @@ const AppointmentForm = memo(
             name="service_id"
             label={t("serviceName")}
             api={(page?: number, search?: string) =>
-              ServiceService.make().getClinicService(clinicId, page, search)
+              ServiceService.make(role).getClinicService(clinicId, page, search)
             }
             getOptionLabel={(option: Service) => option?.name}
             optionValue="id"

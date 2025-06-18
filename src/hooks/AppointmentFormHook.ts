@@ -6,6 +6,7 @@ import { ClinicsService } from "@/services/ClinicsService";
 import { ServiceService } from "@/services/ServiceService";
 import dayjs, { Dayjs } from "dayjs";
 import { useCallback, useEffect, useState } from "react";
+import useUser from "@/hooks/UserHook";
 
 interface UseAppointmentFormProps {
   defaultValues?: Appointment;
@@ -21,6 +22,7 @@ export const useAppointmentForm = ({
   defaultCustomerId,
   type,
 }: UseAppointmentFormProps) => {
+  const {role} = useUser();
   // Date state
   const [date, setDate] = useState<Dayjs | null>(
     defaultValues?.date_time ? dayjs(defaultValues.date_time) : dayjs(),
@@ -58,7 +60,7 @@ export const useAppointmentForm = ({
     let isMounted = true;
 
     if (clinicId) {
-      ClinicsService.make()
+      ClinicsService.make(role)
         .show(clinicId)
         .then((res) => {
           if (isMounted) {
@@ -77,7 +79,7 @@ export const useAppointmentForm = ({
     let isMounted = true;
 
     if (serviceId) {
-      ServiceService.make()
+      ServiceService.make(role)
         .show(serviceId)
         .then((res) => {
           if (isMounted) {
@@ -120,7 +122,7 @@ export const useAppointmentForm = ({
   // Form submission handler
   const handleSubmit = useCallback(
     (data: any) => {
-      const service = AppointmentService.make();
+      const service = AppointmentService.make(role);
       if (data?.date_time && data?.date_time != defaultValues?.date_time) {
         data.date_time =
           date?.format("YYYY-MM-DD") +

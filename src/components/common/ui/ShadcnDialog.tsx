@@ -7,8 +7,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
-import React, { ReactNode } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { ReactNode } from "react";
 
 const ShadcnDialog = ({
   trigger,
@@ -16,15 +16,19 @@ const ShadcnDialog = ({
   children = undefined,
   footer = undefined,
   sm = true,
+  open,
+  onOpenChange,
 }: {
   trigger: ReactNode;
   title?: string;
   children?: ReactNode;
   footer?: ReactNode;
   sm?: boolean;
+  open?: boolean;
+  onOpenChange?: (state: boolean) => void;
 }) => {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent
         className={`max-h-[80vh] ${sm ? "md:max-w-[60vh]" : "md:max-w-[100vh]"}`}

@@ -15,7 +15,7 @@ const ForbiddenPage = async () => {
             Forbidden
           </h1>
           <p className="mt-2 text-gray-600">
-            You don’t have the required role or you didn't login to access this
+            You don’t have the required role or you did not login to access this
             page.
           </p>
         </div>

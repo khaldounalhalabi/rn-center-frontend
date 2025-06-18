@@ -44,9 +44,9 @@ const page = async ({
         <LabelValue label={t("date")} value={res?.date} />
         <LabelValue label={t("notes")} value={res?.description} col />
         {res?.appointment_id &&
-          user?.permissions?.includes(
+          (user?.permissions?.includes(
             PermissionEnum.APPOINTMENT_MANAGEMENT,
-          ) && (
+          ) ? (
             <Label label={t("appointmentDate")}>
               <Link href={`/secretary/appointment/${res?.appointment_id}`}>
                 <Button variant={"link"}>
@@ -54,18 +54,25 @@ const page = async ({
                 </Button>
               </Link>
             </Label>
-          )}
+          ) : (
+            <LabelValue
+              label={t("appointmentDate")}
+              value={res?.appointment?.date_time}
+            />
+          ))}
 
         {res?.payrun_id &&
-          user?.permissions?.includes(PermissionEnum.PAYROLL_MANAGEMENT) && (
+          (user?.permissions?.includes(PermissionEnum.PAYROLL_MANAGEMENT) ? (
             <Label label={t("payrun_date")}>
-              <Link href={`/admin/payruns/${res?.payrun_id}`}>
+              <Link href={`/secretary/payruns/${res?.payrun_id}`}>
                 <Button variant={"link"}>
                   <Value value={res?.payrun?.period} />
                 </Button>
               </Link>
             </Label>
-          )}
+          ) : (
+            <LabelValue label={t("payrun_date")} value={res?.payrun?.period} />
+          ))}
       </Grid>
     </PageCard>
   );

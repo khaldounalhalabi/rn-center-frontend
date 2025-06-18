@@ -103,12 +103,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             PermissionEnum: PermissionEnum.VACATION_MANAGEMENT,
           },
           {
-            title: t("transaction"),
-            url: `/${role}/transaction`,
-            icon: TransactionIcon,
-            roles: [RoleEnum.ADMIN],
-          },
-          {
             title: t("attendance"),
             url: `/${role}/attendance`,
             icon: InDoorIcon,
@@ -162,6 +156,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         group: t("finance"),
         roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY, RoleEnum.DOCTOR],
         items: [
+          {
+            title: t("transaction"),
+            url: `/${role}/transaction`,
+            icon: TransactionIcon,
+            roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.TRANSACTION_MANAGEMENT,
+          },
           {
             title: t("formulas"),
             url: `/${role}/formulas`,

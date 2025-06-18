@@ -1,10 +1,9 @@
 import PageCard from "@/components/common/ui/PageCard";
-import React from "react";
 
-import { TransactionService } from "@/services/TransactionService";
 import TransactionsForm from "@/components/admin/transaction/TransactionsForm";
-import { getTranslations } from "next-intl/server";
 import { RoleEnum } from "@/enums/RoleEnum";
+import { TransactionService } from "@/services/TransactionService";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { transactionId },
@@ -13,11 +12,15 @@ const page = async ({
 }) => {
   const t = await getTranslations("common.transaction.create");
   const transaction = (
-    await TransactionService.make(RoleEnum.ADMIN).show(transactionId)
+    await TransactionService.make(RoleEnum.SECRETARY).show(transactionId)
   ).data;
   return (
     <PageCard title={t("editTransaction")}>
-      <TransactionsForm type={"update"} defaultValues={transaction} role={RoleEnum.ADMIN}/>
+      <TransactionsForm
+        type={"update"}
+        defaultValues={transaction}
+        role={RoleEnum.SECRETARY}
+      />
     </PageCard>
   );
 };

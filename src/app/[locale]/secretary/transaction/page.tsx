@@ -1,35 +1,37 @@
 "use client";
-import React from "react";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/models/Transaction";
-import Select from "@/components/common/ui/selects/Select";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
-import { RoleEnum } from "@/enums/RoleEnum";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { getEnumValues } from "@/helpers/Enums";
-import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { Link } from "@/navigation";
 import PageCard from "@/components/common/ui/PageCard";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Select from "@/components/common/ui/selects/Select";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { Button } from "@/components/ui/shadcn/button";
+import PermissionEnum from "@/enums/PermissionEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
+import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import useUser from "@/hooks/UserHook";
+import { Transaction } from "@/models/Transaction";
+import { Link } from "@/navigation";
+import { TransactionService } from "@/services/TransactionService";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/shadcn/input";
 
 const Page = () => {
   const t = useTranslations("common.transaction.table");
+  const { user } = useUser();
 
   const {
     data: balance,
@@ -38,12 +40,12 @@ const Page = () => {
   } = useQuery({
     queryKey: ["balance"],
     queryFn: async () => {
-      return await TransactionService.make(RoleEnum.ADMIN).balance();
+      return await TransactionService.make(RoleEnum.SECRETARY).balance();
     },
   });
 
   const tableData: DataTableData<Transaction> = {
-    createUrl: `/admin/transaction/create`,
+    createUrl: `/secretary/transaction/create`,
     schema: [
       {
         name: "id",
@@ -54,7 +56,6 @@ const Page = () => {
         name: "actor.full_name",
         sortable: true,
         label: `${t("sender")}`,
-        //   TODO: add user page button to get to the actor page
       },
       {
         name: "type",
@@ -90,11 +91,19 @@ const Page = () => {
         sortable: true,
         render: (_appointmentId, transaction) => {
           return transaction?.appointment_id ? (
-            <Link href={`/admin/appointment/${transaction?.appointment_id}`}>
-              <Button variant={"link"}>
-                {transaction?.appointment?.date_time}
-              </Button>
-            </Link>
+            user?.permissions?.includes(
+              PermissionEnum.APPOINTMENT_MANAGEMENT,
+            ) ? (
+              <Link
+                href={`/secretary/appointment/${transaction?.appointment_id}`}
+              >
+                <Button variant={"link"}>
+                  {transaction?.appointment?.date_time}
+                </Button>
+              </Link>
+            ) : (
+              transaction?.appointment?.date_time
+            )
           ) : (
             <TranslatableEnum value={"no_data"} />
           );
@@ -106,9 +115,13 @@ const Page = () => {
         sortable: true,
         render: (_payrunFrom, transaction) => {
           return transaction?.payrun_id ? (
-            <Link href={`/admin/payruns/${transaction?.payrun_id}`}>
-              <Button variant={"link"}>{transaction?.payrun?.period}</Button>
-            </Link>
+            user?.permissions?.includes(PermissionEnum.PAYROLL_MANAGEMENT) ? (
+              <Link href={`/secretary/payruns/${transaction?.payrun_id}`}>
+                <Button variant={"link"}>{transaction?.payrun?.period}</Button>
+              </Link>
+            ) : (
+              transaction?.payrun?.period
+            )
           ) : (
             <TranslatableEnum value={"no_data"} />
           );
@@ -124,9 +137,9 @@ const Page = () => {
             <ActionsButtons
               id={data?.id}
               buttons={["edit", "show", "delete"]}
-              baseUrl={`/admin/transactions`}
-              editUrl={`/admin/transaction/${data?.id}/edit`}
-              showUrl={`/admin/transaction/${data?.id}`}
+              baseUrl={`/secretary/transactions`}
+              editUrl={`/secretary/transaction/${data?.id}/edit`}
+              showUrl={`/secretary/transaction/${data?.id}`}
               deleteHandler={deleteHandler}
               setHidden={setHidden}
             />
@@ -135,7 +148,7 @@ const Page = () => {
       },
     ],
     api: async (page, search, sortCol, sortDir, perPage, params) =>
-      await TransactionService.make(RoleEnum.ADMIN).indexWithPagination(
+      await TransactionService.make(RoleEnum.SECRETARY).indexWithPagination(
         page,
         search,
         sortCol,
@@ -149,9 +162,7 @@ const Page = () => {
           <Label label={t("amount")}>
             <Input
               type={"number"}
-              className={
-                "px-1 py-1 max-w-24 max-h-5 border rounded text-[0.75rem] h-auto focus:ring-0"
-              }
+              className={"px-1 py-1 max-w-24 max-h-5 border rounded text-[0.75rem] h-auto focus:ring-0"}
               onChange={(e) => {
                 setParams({
                   ...params,
@@ -174,7 +185,6 @@ const Page = () => {
               });
             }}
           />
-          <label className="label">{t("type")} :</label>
           <Select
             data={getEnumValues(TransactionTypeEnum)}
             selected={params.type}
@@ -182,9 +192,8 @@ const Page = () => {
               setParams({ ...params, type: event });
             }}
             translated
+            label={t("type")}
           />
-
-          <label className="label">{t("startDate")} :</label>
           <Datepicker
             onChange={(time: any) => {
               setParams({
@@ -193,8 +202,8 @@ const Page = () => {
               });
             }}
             defaultValue={params?.date?.[0]}
+            label={t("startDate")}
           />
-          <label className="label">{t("endDate")} :</label>
           <Datepicker
             onChange={(time: any) => {
               setParams({
@@ -203,6 +212,7 @@ const Page = () => {
               });
             }}
             defaultValue={params?.date?.[1]}
+            label={t("endDate")}
           />
         </div>
       );

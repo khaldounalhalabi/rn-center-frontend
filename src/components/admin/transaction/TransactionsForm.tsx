@@ -16,21 +16,23 @@ import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
 const TransactionForm = ({
   defaultValues = undefined,
   type = "store",
+  role,
 }: {
   defaultValues?: Transaction;
   type?: "store" | "update";
+  role: RoleEnum;
 }) => {
   const t = useTranslations("common.transaction.create");
 
   const handleSubmit = async (data: any) => {
-    const service = TransactionService.make(RoleEnum.ADMIN);
+    const service = TransactionService.make(role);
     if (type === "update") {
       return await service.update(defaultValues?.id, data);
     }
     return await service.store(data);
   };
   const onSuccess = () => {
-    Navigate(`/admin/transaction`);
+    Navigate(`/${role}/transaction`);
   };
 
   return (

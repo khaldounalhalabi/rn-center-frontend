@@ -219,18 +219,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {!user || !role ? (
-          <Skeleton className={"h-full w-full"} />
-        ) : (
-          <NavMain items={data.navMain} user={user} />
-        )}
+        <NavMain items={data.navMain} user={user} />{" "}
       </SidebarContent>
       <SidebarFooter>
-        {!user || !role ? (
-          <Skeleton className={"w-full h-full"} />
-        ) : (
-          <NavUser user={user} />
-        )}
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

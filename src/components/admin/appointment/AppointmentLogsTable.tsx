@@ -1,8 +1,4 @@
-import React from "react";
-import { Appointment } from "@/models/Appointment";
-import { AppointmentLogsService } from "@/services/AppointmentLogsService";
-import { AppointmentLogs as AppointmentLogsModel } from "@/models/AppointmentLog";
-import { getTranslations } from "next-intl/server";
+import { getUser } from "@/actions/HelperActions";
 import {
   Table,
   TableBody,
@@ -11,16 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import { Appointment } from "@/models/Appointment";
+import { AppointmentLogs as AppointmentLogsModel } from "@/models/AppointmentLog";
+import { AppointmentLogsService } from "@/services/AppointmentLogsService";
+import { getTranslations } from "next-intl/server";
 
 const AppointmentLogsTable = async ({
   appointment,
 }: {
   appointment?: Appointment | undefined | null;
 }) => {
-  const data =
-    await AppointmentLogsService.make().getAppointmentLogs(
-      appointment?.id ?? 0,
-    );
+  const user = await getUser();
+  const data = await AppointmentLogsService.make(user?.role).getAppointmentLogs(
+    appointment?.id ?? 0,
+  );
 
   const res: AppointmentLogsModel[] | undefined = data?.data;
   const t = await getTranslations("common.appointment.show");

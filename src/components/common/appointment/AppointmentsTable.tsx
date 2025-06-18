@@ -122,6 +122,11 @@ const AppointmentsTable = ({
       sortable: true,
     },
     {
+      name: "service.name",
+      label: t("service"),
+      sortable: true,
+    },
+    {
       label: t("actions"),
       render: (_undefined, data, setHidden) => (
         <ActionsButtons

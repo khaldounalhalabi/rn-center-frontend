@@ -164,8 +164,8 @@ const AppointmentForm = memo(
     return (
       <Form
         handleSubmit={handleSubmit}
-        onSuccess={() => {
-          Navigate(redirect);
+        onSuccess={async () => {
+          await Navigate(redirect);
         }}
         defaultValues={defaultValues}
       >

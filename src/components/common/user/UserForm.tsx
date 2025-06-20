@@ -113,12 +113,12 @@ const UserForm = ({
               />
             </>
           )}
-        </Grid>
-        <div className={"flex justify-end"}>
           {type == "update" ? (
-            <Button type="button" onClick={openModal}>
-              {t("resetPassword")}
-            </Button>
+            <div className={"flex justify-end md:col-span-2"}>
+              <Button type="button" onClick={openModal}>
+                {t("resetPassword")}
+              </Button>
+            </div>
           ) : (
             <>
               <FormInput
@@ -133,7 +133,7 @@ const UserForm = ({
               />
             </>
           )}
-        </div>
+        </Grid>
       </Form>
     </>
   );

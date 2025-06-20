@@ -3,6 +3,7 @@ import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
 import { User } from "@/models/User";
 import { Link } from "@/navigation";
@@ -10,7 +11,6 @@ import dayjs from "dayjs";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 import { Label } from "../ui/labels-and-values/Label";
-import { Value } from "../ui/labels-and-values/Value";
 
 const UserDataView = async ({
   editUrl,
@@ -65,15 +65,19 @@ const UserDataView = async ({
           color={"warning"}
         />
 
-        {user?.permissions ? (
-          <Label label={"Permissions"} col>
-            {user.permissions.map((p, index) => (
-              <Value value={p} key={index} />
-            ))}
-          </Label>
-        ) : (
-          ""
-        )}
+        <Label label={t("permissions")} className={"md:col-span-2"} col>
+          {(user?.permissions?.length ?? 0) > 0 ? (
+            <div className={"flex items-center gap-1 flex-wrap"}>
+              {user?.permissions?.map((p, index) => (
+                <Badge key={index}>
+                  <TranslatableEnum value={p} />
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            <TranslatableEnum value={"no_data"} />
+          )}
+        </Label>
       </Grid>
       {children}
     </PageCard>

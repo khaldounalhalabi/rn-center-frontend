@@ -1177,7 +1177,8 @@
       "time": "الوقت",
       "other_data": "بيانات أخرى",
       "info": "المعلومة",
-      "data": "البيانات"
+      "data": "البيانات",
+      "existing_quantity": "الكمية المتواجدة"
     },
     "medicine": {
       "table": {
@@ -1388,7 +1389,8 @@
     "map": "الموقع على الخريطة",
     "image": "الصور",
     "noImage": "لا توجد صورة",
-    "formula": "معادلة الراتب"
+    "formula": "معادلة الراتب",
+    "permissions": "الصلاحيات"
   },
   "auth": {
     "welcomeBack": "مرحبا بعودتك",
@@ -1619,7 +1621,16 @@
     "excluded": "مستبعد",
     "failed": "فشل",
     "rejected": "مرفوض",
-    "accepted": "مقبول"
+    "accepted": "مقبول",
+    "holidays management": "إدارة الإجازات",
+    "attendance management": "إدارة الحضور",
+    "payroll management": "إدارة الرواتب",
+    "vacation management": "إدارة الإجازات السنوية",
+    "clinic management": "إدارة العيادة",
+    "patient management": "إدارة المرضى",
+    "appointment management": "إدارة المواعيد",
+    "medicine management": "إدارة الأدوية والوصفات الطبية",
+    "transaction management": "إدارة المعاملات"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1685,7 +1696,9 @@
     "import": "استيراد",
     "import_example": "مثال على ملف التصدير",
     "mark_all_as_read": "تعليم الكل كمقروء",
-    "loading_more": "تحميل المزيد"
+    "loading_more": "تحميل المزيد",
+    "download": "تحميل",
+    "and_items_count" : "و {items_count} عنصر آخر"
   },
   "holidays": {
     "from": "من",

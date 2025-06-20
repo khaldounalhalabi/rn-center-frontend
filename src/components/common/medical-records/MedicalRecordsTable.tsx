@@ -11,6 +11,7 @@ import { RoleEnum } from "@/enums/RoleEnum";
 import MedicalRecord from "@/models/MedicalRecord";
 import MedicalRecordService from "@/services/MedicalRecordService";
 import { useTranslations } from "next-intl";
+import useUser from "@/hooks/UserHook";
 
 const MedicalRecordsTable = ({
   patientId,

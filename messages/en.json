@@ -1167,7 +1167,8 @@
       "time": "Time",
       "other_data": "Other data",
       "info": "Info",
-      "data": "Data"
+      "data": "Data",
+      "existing_quantity": "Existing quantity"
     },
     "medicine": {
       "table": {
@@ -1391,7 +1392,8 @@
     "map": "Map",
     "image": "Image",
     "noImage": "No Image",
-    "formula": "Salary formula"
+    "formula": "Salary formula",
+    "permissions": "Permissions"
   },
   "auth": {
     "welcomeBack": "Welcome Back",
@@ -1623,7 +1625,16 @@
     "excluded": "Excluded",
     "rejected": "Rejected",
     "failed": "Failed",
-    "accepted": "Accepted"
+    "accepted": "Accepted",
+    "holidays management": "Holidays Management",
+    "attendance management": "Attendance Management",
+    "payroll management": "Payroll Management",
+    "vacation management": "Vacation Management",
+    "clinic management": "Clinic Management",
+    "patient management": "Patient Management",
+    "appointment management": "Appointment Management",
+    "medicine management": "Medicine And Prescriptions Management",
+    "transaction management": "Transactions Management"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1689,7 +1700,9 @@
     "import": "Import",
     "import_example": "Import example",
     "mark_all_as_read": "Mark all as read",
-    "loading_more": "Loading more"
+    "loading_more": "Loading more",
+    "download": "Download",
+    "and_items_count" : "And {items_count} other items"
   },
   "holidays": {
     "from": "From",
@@ -1745,7 +1758,7 @@
     "overtime_hours": "Overtime hours",
     "no_checkout_warning": "For your attendance to be counted, each check-in must have a corresponding check-out. If you forget to check out, the recorded time won’t be counted.",
     "important_note": "Important Note",
-    "days":"Days"
+    "days": "Days"
   },
   "links": {
     "appointment": "Appointments",

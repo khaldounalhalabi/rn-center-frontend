@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { Media } from "@/models/Media";
-import { useTranslations } from "next-intl";
-import { MediaService } from "@/services/MediaService";
-import Trash from "@/components/icons/Trash";
+import { getRole } from "@/actions/HelperActions";
+import Alert from "@/components/common/ui/Alert";
 import DownloadIcon from "@/components/icons/DownloadIcon";
-import useDownload from "@/hooks/DownloadFile";
+import LoadingSpin from "@/components/icons/LoadingSpin";
+import Trash from "@/components/icons/Trash";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Table,
   TableBody,
@@ -14,13 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { Badge } from "@/components/ui/shadcn/badge";
-import { Button } from "@/components/ui/shadcn/button";
-import { Loader2 } from "lucide-react";
-import Alert from "@/components/common/ui/Alert";
+import useDownload from "@/hooks/DownloadFile";
+import { Media } from "@/models/Media";
+import { MediaService } from "@/services/MediaService";
+import { useTranslations } from "next-intl";
+import React, { useState } from "react";
 import { toast } from "sonner";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { getRole } from "@/actions/HelperActions";
 
 interface MediaTableProps {
   media: Media[];
@@ -31,7 +30,10 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   const t = useTranslations("common.patient.attachments");
   const [attachments, setAttachments] = useState<Media[]>(media);
   const [isDeleting, setIsDeleting] = useState<number | undefined>(undefined);
-  const { download, isLoading: isDownloading } = useDownload();
+  const [isDownloading, setDownloading] = useState<number | undefined>(
+    undefined,
+  );
+  const { download } = useDownload();
 
   const getFileName = (url: string): string => {
     const urlParts = url.split("/");
@@ -39,7 +41,6 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
   };
 
   const getFileExtension = (url: string): string => {
-    // First try to get extension from the URL
     const fileName = getFileName(url);
     const extensionMatch = fileName.match(/\.([^.]+)$/);
 
@@ -152,12 +153,13 @@ const MediaTable: React.FC<MediaTableProps> = ({ media, onDelete }) => {
               />
               <Button
                 onClick={() => {
-                  download(item.file_url);
+                  setDownloading(item.id);
+                  download(item.file_url).then(() => setDownloading(undefined));
                 }}
-                disabled={isDownloading}
+                disabled={isDownloading == item.id}
                 size={"icon"}
               >
-                {isDownloading ? <LoadingSpin /> : <DownloadIcon />}
+                {isDownloading == item.id ? <LoadingSpin /> : <DownloadIcon />}
               </Button>
             </TableCell>
           </TableRow>

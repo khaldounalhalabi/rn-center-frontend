@@ -1,6 +1,8 @@
 "use server";
 import { getRole, getUser } from "@/actions/HelperActions";
 import ShowMedicineSheet from "@/components/common/medicine/ShowMedicineSheet";
+import ToggleMedicinePrescriptionStatusButton from "@/components/common/medicine/ToggleMedicinePrescriptionStatusButton";
+import DownloadPrescriptionButton from "@/components/common/prescriptions/DownloadPrescriptionButton";
 import Grid from "@/components/common/ui/Grid";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
@@ -15,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { Appointment } from "@/models/Appointment";
 import { Prescription } from "@/models/Prescriptions";
@@ -69,12 +72,19 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
                   : `/doctor/patients/${customerId}/prescriptions/${prescription?.id}/edit`
               }
             >
-              <Button size={"icon"}>
+              <Button size={"icon"} type={"button"}>
                 <Pencil />
               </Button>
             </Link>
           </div>
         )}
+
+      {role == RoleEnum.ADMIN ||
+        (user?.permissions?.includes(PermissionEnum.MEDICINE_MANAGEMENT) && (
+          <div className={"flex justify-end w-full"}>
+            <DownloadPrescriptionButton prescription={prescription} />
+          </div>
+        ))}
       <Grid>
         <LabelValue label={t("next_visit")} value={prescription?.next_visit} />
         <LabelValue
@@ -119,7 +129,9 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
         ) : (
           <LabelValue
             label={t("appointment_date")}
-            value={prescription?.appointment?.date_time ?? appointment?.date_time}
+            value={
+              prescription?.appointment?.date_time ?? appointment?.date_time
+            }
           />
         )}
 
@@ -138,6 +150,10 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
                   <TableHead className={"text-start"}>
                     {t("medicine_name")}
                   </TableHead>
+                  <TableHead className={"text-start"}>
+                    {t("existing_quantity")}
+                  </TableHead>
+
                   <TableHead className={"text-start"}>{t("dosage")}</TableHead>
                   <TableHead className={"text-start"}>
                     {t("dosage_interval")}
@@ -152,14 +168,23 @@ const PrescriptionDetails: React.FC<PrescriptionDetailsProps> = async ({
                   <TableRow key={index}>
                     <TableCell>{medicineData?.medicine_id}</TableCell>
                     <TableCell>{medicineData?.medicine?.name}</TableCell>
+                    <TableCell>{medicineData?.medicine?.quantity}</TableCell>
                     <TableCell>{medicineData?.dosage}</TableCell>
                     <TableCell>{medicineData?.dose_interval}</TableCell>
                     <TableCell>{medicineData?.comment}</TableCell>
                     <TableCell>
                       <TranslatableEnum value={medicineData?.status} />
                     </TableCell>
-                    <TableCell>
+                    <TableCell className={"flex items-center gap-2"}>
                       <ShowMedicineSheet medicine={medicineData?.medicine} />
+                      {(role == RoleEnum.ADMIN ||
+                        user?.permissions?.includes(
+                          PermissionEnum.MEDICINE_MANAGEMENT,
+                        )) && (
+                        <ToggleMedicinePrescriptionStatusButton
+                          medicinePrescription={medicineData}
+                        />
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

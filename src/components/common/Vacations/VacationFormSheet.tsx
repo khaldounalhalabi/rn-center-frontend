@@ -89,7 +89,7 @@ const VacationFormSheet = ({
           defaultValues={vacation}
         >
           <Grid>
-            {(role == RoleEnum.DOCTOR ||
+            {(role == RoleEnum.ADMIN ||
               user?.permissions?.includes(
                 PermissionEnum.VACATION_MANAGEMENT,
               )) && (

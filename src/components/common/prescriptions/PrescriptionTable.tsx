@@ -5,10 +5,12 @@ import DataTable, {
   DataTableData,
   DataTableSchema,
 } from "@/components/common/Datatable/DataTable";
+import DownloadPrescriptionButton from "@/components/common/prescriptions/DownloadPrescriptionButton";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import Pencil from "@/components/icons/Pencil";
 import { Button } from "@/components/ui/shadcn/button";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import useUser from "@/hooks/UserHook";
 import { Prescription } from "@/models/Prescriptions";
@@ -27,21 +29,27 @@ const PrescriptionTable = ({ patientId }: { patientId: number }) => {
     {
       name: "appointment.date_time",
       label: t("appointment_date"),
-      render: (appointmentDate, prescription) =>
-        appointmentDate &&
-        (prescription?.appointment?.clinic_id == user?.clinic?.id ||
-          user?.role == RoleEnum.ADMIN) ? (
+      render: (_appointmentDate, prescription) => {
+        return prescription?.appointment?.date_time &&
+          (prescription?.appointment?.clinic_id == user?.clinic?.id ||
+            user?.role == RoleEnum.ADMIN ||
+            user?.permissions?.includes(
+              PermissionEnum.APPOINTMENT_MANAGEMENT,
+            )) ? (
           <Link
             href={`/${user?.role}/appointment/${prescription?.appointment_id}`}
             className={"btn"}
           >
             <Button variant={"outline"} type={"button"}>
-              {appointmentDate}
+              {prescription?.appointment?.date_time}
             </Button>
           </Link>
         ) : (
-          appointmentDate ?? <TranslatableEnum value={"no_data"} />
-        ),
+          prescription?.appointment?.date_time ?? (
+            <TranslatableEnum value={"no_data"} />
+          )
+        );
+      },
       sortable: true,
     },
     {
@@ -85,6 +93,12 @@ const PrescriptionTable = ({ patientId }: { patientId: number }) => {
                     <Pencil />
                   </Button>
                 </Link>
+              )}
+
+            {(user?.permissions?.includes(PermissionEnum.MEDICINE_MANAGEMENT) ||
+              user?.role == RoleEnum.ADMIN) &&
+              fullObject && (
+                <DownloadPrescriptionButton prescription={fullObject} />
               )}
           </ActionsButtons>
         );

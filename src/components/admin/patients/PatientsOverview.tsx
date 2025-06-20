@@ -34,7 +34,10 @@ const PatientsOverview = ({ patient }: { patient: Customer }) => {
     },
   ];
 
-  if (user?.permissions?.includes(PermissionEnum.MEDICINE_MANAGEMENT)) {
+  if (
+    user?.permissions?.includes(PermissionEnum.MEDICINE_MANAGEMENT) ||
+    role == RoleEnum.ADMIN
+  ) {
     tabs.push({
       title: t("prescriptions"),
       render: (
@@ -45,7 +48,10 @@ const PatientsOverview = ({ patient }: { patient: Customer }) => {
     });
   }
 
-  if (user?.permissions?.includes(PermissionEnum.APPOINTMENT_MANAGEMENT)) {
+  if (
+    user?.permissions?.includes(PermissionEnum.APPOINTMENT_MANAGEMENT) ||
+    role == RoleEnum.ADMIN
+  ) {
     tabs.push({
       title: t("appointment"),
       render: (

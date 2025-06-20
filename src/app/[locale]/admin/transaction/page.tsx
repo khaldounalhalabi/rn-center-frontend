@@ -54,7 +54,6 @@ const Page = () => {
         name: "actor.full_name",
         sortable: true,
         label: `${t("sender")}`,
-        //   TODO: add user page button to get to the actor page
       },
       {
         name: "type",

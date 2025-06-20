@@ -44,6 +44,7 @@ import * as React from "react";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sideBar");
   const { user, role } = useUser();
+  console.log(role , user);
   const data = {
     navMain: [
       {

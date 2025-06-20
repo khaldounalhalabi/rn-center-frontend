@@ -21,41 +21,44 @@ const USER_COOKIES_KEY = "user_cookies_key";
 const UserProvider = ({ children }: { children?: React.ReactNode }) => {
   const [user, updateUser] = useState<User | undefined>(undefined);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [role, setRole] = useState<RoleEnum | undefined>(undefined);
 
   useEffect(() => {
     const storedUser = getClientCookie(USER_COOKIES_KEY);
     if (storedUser) {
       updateUser(JSON.parse(storedUser));
+      setIsInitialized(true);
+    } else {
+      initializeUser().then(() => {
+        setIsInitialized(true);
+      });
     }
-    setIsInitialized(true);
   }, []);
+
+  useEffect(() => {
+    setRole(user?.role ?? RoleEnum.PUBLIC);
+  }, [user]);
 
   const setUser = useCallback((newUser: User | undefined) => {
     if (newUser) {
       setClientCookie(USER_COOKIES_KEY, JSON.stringify(newUser));
+      setRole(newUser?.role ?? RoleEnum.PUBLIC);
     } else {
       deleteClientCookie(USER_COOKIES_KEY);
+      setRole(RoleEnum.PUBLIC);
     }
     updateUser(newUser);
   }, []);
 
-  const role = isInitialized ? user?.role ?? RoleEnum.PUBLIC : undefined;
+  const initializeUser = async () => {
+    const response = await AuthService.make().me();
+    setUser(response?.data);
+    return response;
+  };
 
   if (!isInitialized) {
     return <LoadingScreen />;
   }
-
-  const initializeUser = () => {
-    if (user?.role) {
-      return AuthService.make(user?.role)
-        .userDetails()
-        .then((response) => {
-          setUser(response?.data);
-          return response;
-        });
-    }
-    return;
-  };
 
   return (
     <UserContext.Provider

@@ -140,7 +140,6 @@ iframe {
   position: relative;
 }
 
-
 .badge {
   height: auto !important;
 }
@@ -301,4 +300,35 @@ iframe {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* globals.css or your main CSS file */
+
+/* Apply styles for WebKit browsers */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the vertical scrollbar */
+  height: 8px; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--foreground-muted); /* Thumb color */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--foreground); /* Hover color for the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background); /* Track background */
+}
+
+/* Apply styles for Firefox */
+* {
+  scrollbar-width: thin; /* Make the scrollbar thin */
+  scrollbar-color: var(--foreground-muted) var(--background); /* Thumb and track colors */
 }

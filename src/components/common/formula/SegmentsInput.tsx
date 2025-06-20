@@ -51,7 +51,8 @@ const SegmentsInput = ({
   return segmentsData.map((segment, index) => {
     let s = segment.segment;
     variables.forEach((v) => {
-      s = s.replace(v.slug, `{{${v.name}}}`);
+      const slugPattern = new RegExp(`\\b${v.slug}\\b`, "g");
+      s = s.replace(slugPattern, `{{${v.name}}}`);
     });
     return (
       <Grid key={index}>

@@ -1177,7 +1177,8 @@
       "time": "الوقت",
       "other_data": "بيانات أخرى",
       "info": "المعلومة",
-      "data": "البيانات"
+      "data": "البيانات",
+      "existing_quantity": "الكمية المتواجدة"
     },
     "medicine": {
       "table": {
@@ -1685,7 +1686,8 @@
     "import": "استيراد",
     "import_example": "مثال على ملف التصدير",
     "mark_all_as_read": "تعليم الكل كمقروء",
-    "loading_more": "تحميل المزيد"
+    "loading_more": "تحميل المزيد",
+    "download" : "تحميل"
   },
   "holidays": {
     "from": "من",

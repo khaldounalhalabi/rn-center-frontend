@@ -1167,7 +1167,8 @@
       "time": "Time",
       "other_data": "Other data",
       "info": "Info",
-      "data": "Data"
+      "data": "Data",
+      "existing_quantity": "Existing quantity"
     },
     "medicine": {
       "table": {
@@ -1689,7 +1690,8 @@
     "import": "Import",
     "import_example": "Import example",
     "mark_all_as_read": "Mark all as read",
-    "loading_more": "Loading more"
+    "loading_more": "Loading more",
+    "download" : "Download"
   },
   "holidays": {
     "from": "From",
@@ -1745,7 +1747,7 @@
     "overtime_hours": "Overtime hours",
     "no_checkout_warning": "For your attendance to be counted, each check-in must have a corresponding check-out. If you forget to check out, the recorded time won’t be counted.",
     "important_note": "Important Note",
-    "days":"Days"
+    "days": "Days"
   },
   "links": {
     "appointment": "Appointments",

@@ -16,7 +16,7 @@ const Tabs = ({
   }[];
 }) => {
   return (
-    <ShadcnTabs defaultValue={tabs?.[0]?.title}>
+    <ShadcnTabs defaultValue={tabs?.[0]?.title} className={"my-5"}>
       <TabsList className={`grid w-full grid-cols-${tabs.length}`}>
         {tabs.map((tab, index) => (
           <TabsTrigger key={index} value={tab.title}>

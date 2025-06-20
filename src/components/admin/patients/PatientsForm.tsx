@@ -18,6 +18,7 @@ import BloodGroupEnum from "@/enums/BloodGroupEnum";
 import KeyValueMultipleInput from "@/components/common/ui/inputs/KeyValueMultipleInput";
 import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
 import ImageUploader from "@/components/common/ui/images/ImageUploader";
+import useUser from "@/hooks/UserHook";
 
 const PatientsForm = ({
   customer = undefined,
@@ -29,20 +30,21 @@ const PatientsForm = ({
   type?: "store" | "update";
 }) => {
   const t = useTranslations("common.patient.create");
+  const {role} = useUser();
   const handleSubmit = async (data: any) => {
     if (type === "update" && (customer?.id != undefined || id != undefined)) {
-      return PatientService.make(RoleEnum.ADMIN).update(
+      return PatientService.make(role).update(
         customer?.id ?? id,
         data,
       );
     } else {
-      return await PatientService.make(RoleEnum.ADMIN).store(
+      return await PatientService.make(role).store(
         data,
       );
     }
   };
   const onSuccess = () => {
-    Navigate(`/admin/patients`);
+    Navigate(`/${role}/patients`);
   };
   return (
     <Form

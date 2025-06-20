@@ -24,13 +24,13 @@ const MedicalRecordFormSheet = ({
   patientId,
   type = "store",
   datatableQueryName,
-  success
+  success,
 }: {
   medicalRecord?: MedicalRecord;
   patientId: number;
   type: "store" | "update";
   datatableQueryName?: string;
-  success?:() => void
+  success?: () => void;
 }) => {
   const t = useTranslations("medical_records");
   const queryClient = useQueryClient();
@@ -48,15 +48,15 @@ const MedicalRecordFormSheet = ({
 
   const onSuccess = async () => {
     if (datatableQueryName) {
-      queryClient?.invalidateQueries({
+      await queryClient?.invalidateQueries({
         queryKey: [datatableQueryName],
       });
     }
 
-    if (success){
-      success();
+    if (success) {
+      await success();
     }
-    
+
     await Revalidate(`/doctor/patients/${patientId}`);
     setOpen(false);
   };
@@ -67,7 +67,7 @@ const MedicalRecordFormSheet = ({
           {type == "store" ? <DocumentPlus /> : <Pencil />}
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent sm>
         <SheetHeader>
           <SheetTitle>
             {type == "store" ? t("create_title") : t("edit_title")}

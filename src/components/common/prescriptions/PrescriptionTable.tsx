@@ -40,7 +40,7 @@ const PrescriptionTable = ({ patientId }: { patientId: number }) => {
             </Button>
           </Link>
         ) : (
-          <>{appointmentDate ?? <TranslatableEnum value={"no_data"} />}</>
+          appointmentDate ?? <TranslatableEnum value={"no_data"} />
         ),
       sortable: true,
     },
@@ -74,20 +74,18 @@ const PrescriptionTable = ({ patientId }: { patientId: number }) => {
             deleteUrl={`/${user?.role}/prescriptions/${fullObject?.id}`}
             setHidden={setHidden}
             data={fullObject}
-            deleteHandler={() => revalidate ? revalidate() : null}
+            deleteHandler={() => (revalidate ? revalidate() : null)}
           >
             {user?.role == RoleEnum.DOCTOR &&
-            fullObject?.clinic_id == user?.clinic?.id ? (
-              <Link
-                href={`/doctor/patients/${patientId}/prescriptions/${fullObject?.id}/edit`}
-              >
-                <Button size={"icon"} type={"button"} variant={"secondary"}>
-                  <Pencil />
-                </Button>
-              </Link>
-            ) : (
-              <></>
-            )}
+              fullObject?.clinic_id == user?.clinic?.id && (
+                <Link
+                  href={`/doctor/patients/${patientId}/prescriptions/${fullObject?.id}/edit`}
+                >
+                  <Button size={"icon"} type={"button"} variant={"secondary"}>
+                    <Pencil />
+                  </Button>
+                </Link>
+              )}
           </ActionsButtons>
         );
       },

@@ -7,26 +7,24 @@ import {
   FormMessage,
 } from "@/components/ui/shadcn/form";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import Datepicker from "./Datepicker";
+import Timepicker from "./Timepicker";
 
-const FormDatepicker = ({
+const FormTimePicker = ({
   name,
   label,
-  shouldDisableDate,
+  shouldDisableTime,
   onChange,
   df = undefined,
 }: {
   name: string;
   label?: string;
   required?: boolean;
-  shouldDisableDate?: (day: Dayjs) => boolean;
+  shouldDisableTime?: (day: Dayjs) => boolean;
   onChange?: (date?: Dayjs) => void;
   df?: string;
 }) => {
   const { control } = useFormContext();
-  const [open, setOpen] = useState(false);
 
   return (
     <FormField
@@ -38,17 +36,21 @@ const FormDatepicker = ({
         >
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Datepicker
-              onChange={(date) => {
-                field.onChange(date?.format("YYYY-MM-DD"));
+            <Timepicker
+              onChange={(time) => {
+                field.onChange(time?.format("HH:mm"));
                 if (onChange) {
-                  onChange(date ?? undefined);
+                  onChange(time ?? undefined);
                 }
               }}
               defaultValue={
-                df ? dayjs(df) : field?.value ? dayjs(field.value) : dayjs()
+                df
+                  ? dayjs(df, "HH:mm")
+                  : field?.value
+                    ? dayjs(field.value, "HH:mm")
+                    : dayjs()
               }
-              shouldDisableDate={shouldDisableDate}
+              shouldDisableTime={shouldDisableTime}
             />
           </FormControl>
           <FormMessage />
@@ -58,4 +60,4 @@ const FormDatepicker = ({
   );
 };
 
-export default FormDatepicker;
+export default FormTimePicker;

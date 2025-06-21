@@ -1,8 +1,8 @@
 "use client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/ar";
 import "dayjs/locale/en";
@@ -11,18 +11,21 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Label } from "../labels-and-values/Label";
 
-const Datepicker = ({
+const Timepicker = ({
   onChange,
   defaultValue,
   label,
   col = true,
-  shouldDisableDate,
+  shouldDisableTime,
 }: {
   onChange?: (v: Dayjs | null) => void;
   defaultValue?: string | Dayjs;
   label?: string;
   col?: boolean;
-  shouldDisableDate?: (date: Dayjs) => boolean;
+  shouldDisableTime?: (
+    value: Dayjs,
+    view: "hours" | "minutes" | "seconds",
+  ) => boolean;
 }) => {
   const { theme: nextTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -37,7 +40,6 @@ const Datepicker = ({
     dayjs.locale(locale);
   }, [locale]);
 
-  // Create Material UI theme that matches shadcn theme
   const muiTheme = createTheme({
     direction: locale === "ar" ? "rtl" : "ltr",
     palette: {
@@ -91,19 +93,19 @@ const Datepicker = ({
     <ThemeProvider theme={muiTheme}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
         <Label col={col} label={label}>
-          <DatePicker
-            defaultValue={dayjs(defaultValue, "YYYY-MM-DD")}
+          <TimePicker
             onChange={(newValue) => {
               if (onChange) {
                 onChange(newValue);
               }
             }}
-            shouldDisableDate={shouldDisableDate}
+            defaultValue={dayjs(defaultValue, "HH:mm")}
+            shouldDisableTime={shouldDisableTime}
             slotProps={{
               textField: {
                 fullWidth: true,
                 variant: "outlined" as const,
-                placeholder: "Pick a date",
+                placeholder: "Pick a time",
                 size: "small",
                 InputProps: {
                   className: "border border-input !text-primary",
@@ -121,9 +123,6 @@ const Datepicker = ({
                     "& fieldset": {
                       borderWidth: "1px",
                     },
-                  },
-                  "& .MuiInputAdornment-root .MuiSvgIcon-root": {
-                    color: "hsl(var(--primary))",
                   },
                   "& .MuiPickersInputBase-root": {
                     borderColor: "hsl(var(--border))",
@@ -152,21 +151,18 @@ const Datepicker = ({
                     "& .MuiPickersDay-root.MuiPickersDay-today": {
                       borderColor: "hsl(var(--primary))",
                     },
-                    "& .MuiPickersSectionList-root": {
-                      overflowY: "auto !important",
-                      "&::-webkit-scrollbar": {
-                        width: "8px",
-                      },
-                      "&::-webkit-scrollbar-track": {
-                        background: "hsl(var(--muted))",
-                        borderRadius: "4px",
-                      },
-                      "&::-webkit-scrollbar-thumb": {
-                        background: "hsl(var(--muted-foreground))",
-                        borderRadius: "4px",
-                        "&:hover": {
-                          background: "hsl(var(--foreground))",
-                        },
+                    "& .MuiClockNumber-root.Mui-selected": {
+                      backgroundColor: "hsl(var(--primary)) !important",
+                      color: "hsl(var(--primary-foreground)) !important",
+                    },
+                    "& .MuiClock-pin": {
+                      backgroundColor: "hsl(var(--primary))",
+                    },
+                    "& .MuiClockPointer-root": {
+                      backgroundColor: "hsl(var(--primary))",
+                      "& .MuiClockPointer-thumb": {
+                        backgroundColor: "hsl(var(--primary))",
+                        borderColor: "hsl(var(--primary))",
                       },
                     },
                   },
@@ -180,4 +176,4 @@ const Datepicker = ({
   );
 };
 
-export default Datepicker;
+export default Timepicker;

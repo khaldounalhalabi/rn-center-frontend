@@ -3,6 +3,7 @@ import {
   getClientCookie,
   setClientCookie,
 } from "@/actions/ClientCookies";
+import { getUser } from "@/actions/HelperActions";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { ApiResponse } from "@/http/Response";
 import { User } from "@/models/User";
@@ -51,8 +52,16 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
   }, []);
 
   const initializeUser = async () => {
-    const response = await AuthService.make().me();
-    setUser(response?.data);
+    const response = await getUser();
+    setUser(response);
+
+    if (!user) {
+      await AuthService.make()
+        .me()
+        .then((res) => {
+          setUser(res.data);
+        });
+    }
     return response;
   };
 

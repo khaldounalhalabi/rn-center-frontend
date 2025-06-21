@@ -1,4 +1,5 @@
 "use client";
+import FormTimePicker from "@/components/common/ui/date-time-pickers/FormTimePicker";
 import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
@@ -111,17 +112,15 @@ const AttendanceForm = ({
           md={3}
           className={"justify-between items-start"}
         >
-          <FormInput
+          <FormTimePicker
             name={`attendance_shifts.${index}.attend_from`}
             label={t("from")}
-            defaultValue={inputs.attend_from}
-            type={"time"}
+            df={inputs.attend_from}
           />
-          <FormInput
+          <FormTimePicker
             name={`attendance_shifts.${index}.attend_to`}
             label={t("to")}
-            defaultValue={inputs.attend_to}
-            type={"time"}
+            df={inputs.attend_to}
           />
           <Button
             className={"self-end"}

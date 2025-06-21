@@ -6,12 +6,12 @@ import DataTable, {
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import Tooltip from "@/components/common/ui/Tooltip";
+import Timepicker from "@/components/common/ui/date-time-pickers/Timepicker";
 import { Label } from "@/components/common/ui/labels-and-values/Label";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Select from "@/components/common/ui/selects/Select";
 import SchedulesIcon from "@/components/icons/SchedulesIcon";
 import { Button } from "@/components/ui/shadcn/button";
-import { Input } from "@/components/ui/shadcn/input";
 import { RoleEnum } from "@/enums/RoleEnum";
 import WeekDayEnum from "@/enums/WeekDayEnum";
 import { getEnumValues } from "@/helpers/Enums";
@@ -102,15 +102,14 @@ const Page = () => {
           />
 
           <Label label={t("available_time")} col>
-            <Input
+            <Timepicker
               onChange={(event) => {
                 setParams({
                   ...params,
-                  available_time: event.target.value,
+                  available_time: event?.format("HH:mm"),
                 });
               }}
               defaultValue={params.available_time}
-              type={"time"}
             />
           </Label>
         </Grid>

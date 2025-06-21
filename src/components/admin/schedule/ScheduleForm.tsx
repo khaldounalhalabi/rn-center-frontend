@@ -4,11 +4,11 @@ import Form from "@/components/common/ui/Form";
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import Tooltip from "@/components/common/ui/Tooltip";
+import Timepicker from "@/components/common/ui/date-time-pickers/Timepicker";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import Trash from "@/components/icons/Trash";
 import { Button } from "@/components/ui/shadcn/button";
-import { Input } from "@/components/ui/shadcn/input";
 import {
   Popover,
   PopoverContent,
@@ -20,16 +20,16 @@ import useUser from "@/hooks/UserHook";
 import { Schedule, SchedulesCollection } from "@/models/Schedule";
 import { ScheduleService } from "@/services/ScheduleService";
 import { ErrorMessage } from "@hookform/error-message";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { Copy, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 function SlotInput(props: {
   timeRange: Schedule;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChange1: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: Dayjs | null) => void;
+  onChange1: (event: Dayjs | null) => void;
   onClick: () => void;
   index: number;
 }) {
@@ -39,10 +39,9 @@ function SlotInput(props: {
   return (
     <div className="my-1 grid grid-cols-3 gap-5 w-full">
       <div className={"w-full"}>
-        <Input
-          value={props.timeRange.start_time ?? dayjs().format("HH:mm")}
+        <Timepicker
+          defaultValue={props.timeRange.start_time ?? dayjs().format("HH:mm")}
           onChange={props.onChange}
-          type={"time"}
         />
         <ErrorMessage
           name={`schedules.${props.index}.start_time`}
@@ -53,10 +52,9 @@ function SlotInput(props: {
         />
       </div>
       <div className={"w-full"}>
-        <Input
-          value={props.timeRange.end_time ?? dayjs().format("HH:mm")}
+        <Timepicker
+          defaultValue={props.timeRange.end_time ?? dayjs().format("HH:mm")}
           onChange={props.onChange1}
-          type={"time"}
         />
         <ErrorMessage
           name={`schedules.${props.index}.end_time`}
@@ -231,7 +229,7 @@ const ClinicScheduleForm = ({
                     handleChangeTimeRange(
                       day,
                       index,
-                      event?.target?.value ?? "",
+                      event?.format("HH:mm") ?? "",
                       "start_time",
                     )
                   }
@@ -239,7 +237,7 @@ const ClinicScheduleForm = ({
                     handleChangeTimeRange(
                       day,
                       index,
-                      event?.target?.value ?? "",
+                      event?.format("HH:mm") ?? "",
                       "end_time",
                     )
                   }

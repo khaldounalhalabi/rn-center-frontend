@@ -71,6 +71,11 @@ const PatientsForm = ({
           defaultValue={customer?.user?.phone}
           label={t("phone")}
         />
+        <FormDatepicker
+          name={"birth_date"}
+          label={t("birthDate")}
+          df={customer?.birth_date}
+        />
         <Radio
           label={t("gender")}
           name={"gender"}
@@ -80,11 +85,7 @@ const PatientsForm = ({
           }))}
           defaultChecked={customer?.user?.gender ?? GenderEnum.MALE}
         />
-        <FormDatepicker
-          name={"birth_date"}
-          label={t("birthDate")}
-          df={customer?.birth_date}
-        />
+        
         <FormSelect
           name={"blood_group"}
           items={getEnumValues(BloodGroupEnum)}

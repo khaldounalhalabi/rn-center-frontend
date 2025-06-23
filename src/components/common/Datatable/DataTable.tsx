@@ -147,6 +147,7 @@ const DataTable = (tableData: DataTableData<any>) => {
                 </DialogPopup>
               </div>
             )}
+            {tableData.extraButton && tableData.extraButton(refetch)}
             {tableData.filter && (
               <Button
                 variant={"outline"}
@@ -158,7 +159,6 @@ const DataTable = (tableData: DataTableData<any>) => {
                 <FilterIcon />
               </Button>
             )}
-            {tableData.extraButton && tableData.extraButton(refetch)}
           </div>
           <div className={"flex items-center justify-between gap-1"}>
             <Select

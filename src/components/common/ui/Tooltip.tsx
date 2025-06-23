@@ -14,7 +14,7 @@ const Tooltip = ({
   children?: ReactNode;
 }) => {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={50}>
       <ShadcnTooltip>
         <TooltipTrigger type={"button"}>{children}</TooltipTrigger>
         <TooltipContent>

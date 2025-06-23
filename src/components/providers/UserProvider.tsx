@@ -1,11 +1,5 @@
-import {
-  deleteClientCookie,
-  getClientCookie,
-  setClientCookie,
-} from "@/actions/ClientCookies";
-import { getUser } from "@/actions/HelperActions";
+import { getUser, setUser as serverSetUser } from "@/actions/HelperActions";
 import { RoleEnum } from "@/enums/RoleEnum";
-import { ApiResponse } from "@/http/Response";
 import { User } from "@/models/User";
 import { AuthService } from "@/services/AuthService";
 import { createContext, useCallback, useEffect, useState } from "react";
@@ -15,9 +9,8 @@ export const UserContext = createContext<{
   user: User | undefined;
   setUser: (newUser: User | undefined) => void;
   role?: RoleEnum;
-  initializeUser: () => Promise<ApiResponse<User>> | undefined;
+  initializeUser: () => Promise<User | undefined> | undefined;
 } | null>(null);
-const USER_COOKIES_KEY = "user_cookies_key";
 
 const UserProvider = ({ children }: { children?: React.ReactNode }) => {
   const [user, updateUser] = useState<User | undefined>(undefined);
@@ -25,15 +18,9 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
   const [role, setRole] = useState<RoleEnum | undefined>(undefined);
 
   useEffect(() => {
-    const storedUser = getClientCookie(USER_COOKIES_KEY);
-    if (storedUser) {
-      updateUser(JSON.parse(storedUser));
+    initializeUser().then(() => {
       setIsInitialized(true);
-    } else {
-      initializeUser().then(() => {
-        setIsInitialized(true);
-      });
-    }
+    });
   }, []);
 
   useEffect(() => {
@@ -42,24 +29,23 @@ const UserProvider = ({ children }: { children?: React.ReactNode }) => {
 
   const setUser = useCallback((newUser: User | undefined) => {
     if (newUser) {
-      setClientCookie(USER_COOKIES_KEY, JSON.stringify(newUser));
       setRole(newUser?.role ?? RoleEnum.PUBLIC);
-    } else {
-      deleteClientCookie(USER_COOKIES_KEY);
-      setRole(RoleEnum.PUBLIC);
+      serverSetUser(newUser).then(() => {
+        updateUser(newUser);
+      });
     }
-    updateUser(newUser);
   }, []);
 
   const initializeUser = async () => {
     const response = await getUser();
     setUser(response);
 
-    if (!user) {
-      await AuthService.make()
+    if (!response) {
+      return await AuthService.make()
         .me()
         .then((res) => {
           setUser(res.data);
+          return res.data;
         });
     }
     return response;

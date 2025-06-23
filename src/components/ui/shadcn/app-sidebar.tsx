@@ -34,6 +34,7 @@ import {
   CalendarIcon,
   HandCoinsIcon,
   LayoutDashboard,
+  ListCheckIcon,
   OutdentIcon,
   VariableIcon,
   WalletCards,
@@ -44,7 +45,7 @@ import * as React from "react";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sideBar");
   const { user, role } = useUser();
-  console.log(role , user);
+  console.log(user?.permissions);
   const data = {
     navMain: [
       {
@@ -127,6 +128,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${role}/schedule`,
             icon: SchedulesIcon,
             roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
+          },
+          {
+            title: t("tasks"),
+            url: `/${role}/tasks`,
+            icon: ListCheckIcon,
+            roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
         ],
       },

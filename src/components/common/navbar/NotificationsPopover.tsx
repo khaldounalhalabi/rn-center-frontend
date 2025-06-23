@@ -19,7 +19,7 @@ import { useState } from "react";
 import { NotificationHandler } from "../helpers/NotificationHandler";
 
 const NotificationsPopover = () => {
-  const { role } = useUser();
+  const { role, user } = useUser();
   const [mutating, setMutating] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -131,7 +131,12 @@ const NotificationsPopover = () => {
                     >
                       <Link
                         className="text-start w-[80%]"
-                        href={payload?.getUrl(role ?? RoleEnum.PUBLIC) ?? ""}
+                        href={
+                          payload?.getUrl(
+                            role ?? RoleEnum.PUBLIC,
+                            user?.permissions ?? [],
+                          ) ?? ""
+                        }
                         onClick={() => {
                           if (!notification?.read_at) {
                             markAsRead.mutate(notification?.id);

@@ -16,15 +16,16 @@ import {
 } from "@/components/ui/shadcn/select";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 import { useTranslations } from "next-intl";
-import React, { HTMLProps } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 
-interface SelectProps extends HTMLProps<HTMLSelectElement> {
+interface SelectProps {
   name: string;
   items: string[] | number[] | undefined;
   label?: string;
   translatable?: boolean;
   defaultValue?: string;
+  onChange?: (value: string) => void;
 }
 
 const FormSelect: React.FC<SelectProps> = ({
@@ -33,6 +34,7 @@ const FormSelect: React.FC<SelectProps> = ({
   label,
   translatable = false,
   defaultValue = undefined,
+  onChange = undefined,
 }) => {
   const {
     formState: { defaultValues },
@@ -49,7 +51,12 @@ const FormSelect: React.FC<SelectProps> = ({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <Select
-            onValueChange={field.onChange}
+            onValueChange={(v) => {
+              field.onChange(v);
+              if (onChange) {
+                onChange(v);
+              }
+            }}
             defaultValue={defaultValue ?? field.value}
           >
             <FormControl>

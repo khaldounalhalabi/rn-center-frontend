@@ -21,7 +21,7 @@ export function getTableQueryName(tableData: DataTableData<any>) {
 }
 
 export interface DataTableSchema<T> {
-  name?: string;
+  name?: Omit<keyof T, number | symbol> & string;
   label: string;
   sortable?: boolean;
   translatable?: boolean;

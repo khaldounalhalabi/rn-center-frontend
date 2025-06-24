@@ -53,7 +53,9 @@
     "my_attendance": "جدول حضوري",
     "my_schedule": "جدول الدوام الخاص بي",
     "tasks": "المهام",
-    "my_tasks": "المهام المسندة لي"
+    "my_tasks": "المهام المسندة لي",
+    "assets": "الأصول",
+    "assigned_assets": "الأصول المعطاة لي"
   },
   "admin": {
     "clinic": {
@@ -1639,7 +1641,12 @@
     "tasks management": "إدارة المهام",
     "assets management": "إدارة الأصول",
     "completed": "مكتمل",
-    "in_progress": "قيد التنفيذ"
+    "in_progress": "قيد التنفيذ",
+    "asset_checkin": "معين",
+    "asset_checkout": "مسترجع",
+    "asset": "الأصل",
+    "accessories": "الإكسسوارات",
+    "consumable": "قابل للاستهلاك"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1794,7 +1801,8 @@
     "schedule": "أوقات الدوام",
     "my-attendance": "جدول حضوري",
     "tasks": "المهام",
-    "my-tasks": "المهام المسندة لي"
+    "my-tasks": "المهام المسندة لي",
+    "assets": "الأصول"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",
@@ -1923,5 +1931,33 @@
     "no_comments": "لا توجد تعليقات حتى الآن.",
     "add": "إضافة",
     "add_a_comment": ".... أضف تعليقاً"
+  },
+  "assets": {
+    "status": "الحالة",
+    "checkin_condition": "حالة عند التعيين",
+    "checkout_condition": "حالة عند الاسترجاع",
+    "checkin_date": "تاريخ التعيين",
+    "checkout_date": "تاريخ الاسترجاع",
+    "expected_return_date": "تاريخ العودة المتوقع",
+    "quantity": "الكمية",
+    "asset": "الأصل",
+    "show_title": "تفاصيل {asset_name}",
+    "edit_title": "تعديل الأصل: {asset_name}",
+    "create_title": "إضافة أصل جديد",
+    "index_title": "الأصول",
+    "edit": "تعديل",
+    "options": "خيارات",
+    "checkin": "تعيين: {asset_name}",
+    "checkout": "استرجاع: {asset_name}",
+    "type": "النوع",
+    "purchase_date": "تاريخ الشراء",
+    "quantity_unit": "وحدة الكمية",
+    "assigned_quantity": "الكمية المعينة",
+    "total_quantity": "إجمالي الكمية",
+    "serial_number": "الرقم التسلسلي",
+    "name": "الاسم",
+    "image": "الصورة",
+    "user_assets": "المستخدمين",
+    "user_name": "المستخدم"
   }
 }

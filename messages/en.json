@@ -53,7 +53,9 @@
     "my_attendance": "My attendance",
     "my_schedule": "My Schedule",
     "tasks": "Tasks",
-    "my_tasks": "Tasks assigned to me"
+    "my_tasks": "Tasks assigned to me",
+    "assets": "Assets",
+    "assigned_assets": "Assigned assets"
   },
   "admin": {
     "clinic": {
@@ -1643,7 +1645,12 @@
     "tasks management": "Tasks management",
     "assets management": "Assets management",
     "completed": "Completed",
-    "in_progress": "In Progress"
+    "in_progress": "In Progress",
+    "asset_checkin": "Assigned",
+    "asset_checkout": "Retrieved",
+    "asset": "Asset",
+    "accessories": "Accessories",
+    "consumable": "Consumable"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1798,7 +1805,8 @@
     "secretary": "Dashboard",
     "my-attendance": "My attendance",
     "tasks": "Tasks",
-    "my-tasks": "Tasks assigned to me"
+    "my-tasks": "Tasks assigned to me",
+    "assets": "Assets"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1927,5 +1935,33 @@
     "no_comments": "No comments yet.",
     "add": "Add",
     "add_a_comment": "Add a comment ....."
+  },
+  "assets": {
+    "status": "Status",
+    "checkin_condition": "Assigning Condition",
+    "checkout_condition": "Condition on retrieval",
+    "checkin_date": "Assigning date",
+    "checkout_date": "Retrieval date",
+    "expected_return_date": "Expected returning date",
+    "quantity": "Quantity",
+    "asset": "Asset",
+    "show_title": "{asset_name} details",
+    "edit_title": "Edit Asset: {asset_name}",
+    "create_title": "Add New Asset",
+    "index_title": "Assets",
+    "edit": "Edit",
+    "options": "Options",
+    "checkin": "Assign: {asset_name}",
+    "checkout": "Retrieve: {asset_name}",
+    "type": "Type",
+    "purchase_date": "Purchase Date",
+    "quantity_unit": "Quantity Unit",
+    "assigned_quantity": "Assigned Quantity",
+    "total_quantity": "Total Quantity",
+    "serial_number": "Serial Number",
+    "name": "Name",
+    "image": "Image",
+    "user_assets": "Assigned users",
+    "user_name": "User name"
   }
 }

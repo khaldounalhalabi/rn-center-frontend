@@ -30,6 +30,7 @@ import useUser from "@/hooks/UserHook";
 import { Link } from "@/navigation";
 import {
   ArrowUpCircleIcon,
+  Brush,
   CalculatorIcon,
   CalendarIcon,
   HandCoinsIcon,
@@ -134,6 +135,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: `/${role}/tasks`,
             icon: ListCheckIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
+          },
+          {
+            title: t("assets"),
+            url: `/${role}/assets`,
+            icon: Brush,
+            roles: [RoleEnum.ADMIN],
+            permission: PermissionEnum.ASSETS_MANAGEMENT,
           },
         ],
       },

@@ -1,7 +1,6 @@
-import ChevronUp from "@/components/icons/ChevronUp";
-import ChevronDown from "@/components/icons/ChevronDown";
-import React from "react";
 import { DataTableSchema } from "@/components/common/Datatable/DataTable";
+import ChevronDown from "@/components/icons/ChevronDown";
+import ChevronUp from "@/components/icons/ChevronUp";
 import { TableHead, TableRow } from "@/components/ui/shadcn/table";
 
 const DataTableHead = ({
@@ -33,7 +32,7 @@ const DataTableHead = ({
               setSortCol(header.name);
             }
           }}
-          className={"cursor-pointer border"}
+          className={"cursor-pointer border " + header.headerProps?.className}
         >
           <div className={"flex gap-1 items-center"}>
             {header.label}

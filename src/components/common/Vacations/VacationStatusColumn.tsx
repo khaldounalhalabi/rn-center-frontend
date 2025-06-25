@@ -30,8 +30,6 @@ const VacationStatusColumn = ({
   );
 
   const onChange = (value: string | VacationStatusEnum) => {
-    console.log(value, value == VacationStatusEnum.REJECTED);
-
     setLoading(true);
     if (value == VacationStatusEnum.REJECTED) {
       setOpen(true);

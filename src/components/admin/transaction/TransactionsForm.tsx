@@ -1,17 +1,17 @@
 "use client";
-import Form from "@/components/common/ui/Form";
-import React from "react";
-import Grid from "@/components/common/ui/Grid";
-import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Navigate } from "@/actions/Navigate";
-import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/models/Transaction";
-import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
-import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enums/RoleEnum";
+import Form from "@/components/common/ui/Form";
+import Grid from "@/components/common/ui/Grid";
+import FormDateTimePicker from "@/components/common/ui/date-time-pickers/FormDateTimePicker";
+import FormInput from "@/components/common/ui/inputs/FormInput";
 import FormSelect from "@/components/common/ui/selects/FormSelect";
-import { getEnumValues } from "@/helpers/Enums";
+import FormTextarea from "@/components/common/ui/text-inputs/FormTextarea";
+import { RoleEnum } from "@/enums/RoleEnum";
 import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import { Transaction } from "@/models/Transaction";
+import { TransactionService } from "@/services/TransactionService";
+import { useTranslations } from "next-intl";
 
 const TransactionForm = ({
   defaultValues = undefined,
@@ -54,11 +54,10 @@ const TransactionForm = ({
           required={true}
           type="number"
         />
-        <FormInput
+        <FormDateTimePicker
           required={true}
           name={"date"}
           label={`${t("date")} :`}
-          type={"datetime-local"}
         />
       </Grid>
       <FormTextarea

@@ -1,4 +1,5 @@
 import { getClientCookie } from "@/actions/ClientCookies";
+import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
 
@@ -78,7 +79,7 @@ export class NotificationPayload {
     }
   }
 
-  public getUrl(role: RoleEnum): string {
+  public getUrl(role: RoleEnum, permissions: PermissionEnum[]): string {
     const type = this.type;
     switch (type) {
       case NotificationsTypeEnum.NewVacationRequest:
@@ -103,6 +104,12 @@ export class NotificationPayload {
         return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
       case NotificationsTypeEnum.VacationUpdated:
         return `/${role}/vacations?vacation_id=${this.getData("vacation_id")}`;
+      case NotificationsTypeEnum.NewTaskComment:
+        return `/${role}/tasks?task_id=${this.getData("task_id")}`;
+      case NotificationsTypeEnum.TaskStatusChanged:
+        return `/${role}/tasks?task_id=${this.getData("task_id")}`;
+      case NotificationsTypeEnum.NewTaskAssigned:
+        return `/${role}/tasks?task_id=${this.getData("task_id")}`;
 
       default:
         return "";
@@ -122,6 +129,11 @@ export enum NotificationsTypeEnum {
   VacationStatusChanged = "Common\\VacationStatusChangedNotification",
   VacationUpdated = "Common\\VacationUpdatedNotification",
   PayslipUpdated = "Common\\PayslipUpdatedNotification",
+  NewTaskComment = "Common\\NewCommentOnTaskNotification",
+  TaskStatusChanged = "Common\\TaskStatusChangedNotification",
+
+  //Secretary
+  NewTaskAssigned = "Secretary\\NewTaskAssignedNotification",
 }
 
 export enum RealTimeEventsTypeEnum {

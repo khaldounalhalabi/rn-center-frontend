@@ -10,8 +10,8 @@ const PermissionProvider = ({ children }: { children?: ReactNode }) => {
     <NotificationHandler
       handle={(payload) => {
         if (payload.type == RealTimeEventsTypeEnum.PermissionsUpdated) {
-          AuthService.make(user?.role)
-            .userDetails()
+          AuthService.make()
+            .me()
             .then((response) => {
               setUser(response?.data);
               console.log("Permissions updated");

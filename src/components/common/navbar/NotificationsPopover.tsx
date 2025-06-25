@@ -1,4 +1,5 @@
 "use client";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Button } from "@/components/ui/shadcn/button";
@@ -18,7 +19,7 @@ import { useState } from "react";
 import { NotificationHandler } from "../helpers/NotificationHandler";
 
 const NotificationsPopover = () => {
-  const { role } = useUser();
+  const { role, user } = useUser();
   const [mutating, setMutating] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -111,47 +112,60 @@ const NotificationsPopover = () => {
             className="w-full max-h-96 p-1 overflow-y-scroll"
             onScroll={handleDataScrolling}
           >
-            {notifications?.pages?.map((page) =>
-              page?.data?.map((notification, index) => {
-                const payload = new NotificationPayload(
-                  notification?.data ?? {},
-                );
-                return (
-                  <div
-                    className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md"
-                    key={index}
-                  >
-                    <Link
-                      className="text-start w-[80%]"
-                      href={payload?.getUrl(role ?? RoleEnum.PUBLIC) ?? ""}
-                      onClick={() => {
-                        if (!notification?.read_at) {
-                          markAsRead.mutate(notification?.id);
-                        }
-                        setOpen(false);
-                      }}
+            {((notifications?.pages?.length ?? 0) <= 0 ||
+              (notifications?.pages?.[0]?.data?.length ?? 0) <= 0) &&
+            !isPending ? (
+              <div className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md">
+                <TranslatableEnum value={"no_data"} />
+              </div>
+            ) : (
+              notifications?.pages?.map((page) =>
+                page?.data?.map((notification, index) => {
+                  const payload = new NotificationPayload(
+                    notification?.data ?? {},
+                  );
+                  return (
+                    <div
+                      className="w-full flex items-center justify-between text-sm border my-1 p-3 rounded-md"
+                      key={index}
                     >
-                      {payload.message}
-                    </Link>
-                    <Button
-                      disabled={notification?.read_at != undefined}
-                      size={"icon"}
-                      variant={notification?.read_at ? "ghost" : "default"}
-                      onClick={() => {
-                        if (!notification?.read_at) {
-                          markAsRead.mutate(notification?.id);
+                      <Link
+                        className="text-start w-[80%]"
+                        href={
+                          payload?.getUrl(
+                            role ?? RoleEnum.PUBLIC,
+                            user?.permissions ?? [],
+                          ) ?? ""
                         }
-                      }}
-                    >
-                      {mutating == notification?.id ? (
-                        <LoadingSpin />
-                      ) : (
-                        <CheckCircle />
-                      )}
-                    </Button>
-                  </div>
-                );
-              }),
+                        onClick={() => {
+                          if (!notification?.read_at) {
+                            markAsRead.mutate(notification?.id);
+                          }
+                          setOpen(false);
+                        }}
+                      >
+                        {payload.message}
+                      </Link>
+                      <Button
+                        disabled={notification?.read_at != undefined}
+                        size={"icon"}
+                        variant={notification?.read_at ? "ghost" : "default"}
+                        onClick={() => {
+                          if (!notification?.read_at) {
+                            markAsRead.mutate(notification?.id);
+                          }
+                        }}
+                      >
+                        {mutating == notification?.id ? (
+                          <LoadingSpin />
+                        ) : (
+                          <CheckCircle />
+                        )}
+                      </Button>
+                    </div>
+                  );
+                }),
+              )
             )}
             {(isFetchingNextPage || isPending) && (
               <div className="w-full flex items-center justify-center text-sm border my-1 p-3 rounded-md">

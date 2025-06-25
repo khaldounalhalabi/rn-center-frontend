@@ -109,7 +109,7 @@ const Page = () => {
       <NotificationHandler
         handle={(payload) => {
           if (payload.type == RealTimeEventsTypeEnum.PayrunStatusChanged) {
-            toast.success("Payruns data updated");
+            toast.success(t("payrun_data_updated"));
             queryClient.invalidateQueries({
               queryKey: [queryName],
             });

@@ -1,8 +1,8 @@
+import { getServerCookie } from "@/actions/ServerCookies";
+import { authMiddleware } from "@/middlewares/auth-middleware";
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { locales } from "./navigation";
-import { authMiddleware } from "@/middlewares/auth-middleware";
-import { getServerCookie } from "@/actions/ServerCookies";
 
 const translationMiddleware = createMiddleware({
   locales: locales,
@@ -17,14 +17,6 @@ export const config = {
 export default async function middleware(request: NextRequest) {
   const access = await authMiddleware(request);
   const locale = await getServerCookie("NEXT_LOCALE");
-
-  const { pathname } = request.nextUrl;
-
-  // Redirect / to /admin
-  if (pathname === `/${locale}`) {
-    const absolutURL = new URL(`${locale}/admin`, request.nextUrl.origin);
-    return NextResponse.redirect(absolutURL.toString());
-  }
 
   if (!access.canAccessAdmin) {
     const absolutURL = new URL(

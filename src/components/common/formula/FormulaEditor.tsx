@@ -1,29 +1,29 @@
 "use client";
 
-import FormulaVariable from "@/models/FormulaVariable";
 import Tooltip from "@/components/common/ui/Tooltip";
 import { Badge } from "@/components/ui/shadcn/badge";
-import React, { useEffect, useRef, useState } from "react";
+import FormulaVariable from "@/models/FormulaVariable";
 import { useTranslations } from "next-intl";
+import React, { useEffect, useRef, useState } from "react";
 
 const signs = [
-  { string: "*", description: "50 * 5" },
+  { string: "*", description: "50 x 5" },
   { string: "/", description: "100 / 10" },
   { string: "+", description: "10 + 5" },
   { string: "-", description: "10 - 5" },
   { string: "(", description: "(" },
   { string: ")", description: ")" },
-  {string: "IF" , description: "IF( 50 > 5 , 50 , 10)"},
-  {string: "NOT" , description: "NOT(50 < 5)"},
-  {string: "AND" , description: "AND(50 > 5 , 80 > 8)"},
-  {string: "OR" , description: "OR(50 < 80 , 80 < 5)"},
-  {string: "<" , description: "5 < 8"},
-  {string: "<=" , description: "5 <= 10"},
-  {string: ">" , description: "5 > 10"},
-  {string: ">=" , description: "5 >= 10"},
-  {string: "!=" , description: "5 != 10"},
-  {string: "<>" , description: "5 <> 10"},
-  {string: "=" , description: "5 = 10"},
+  { string: "IF", description: "IF( 50 > 5 , 50 , 10)" },
+  { string: "NOT", description: "NOT(50 < 5)" },
+  { string: "AND", description: "AND(50 > 5 , 80 > 8)" },
+  { string: "OR", description: "OR(50 < 80 , 80 < 5)" },
+  { string: "<", description: "5 < 8" },
+  { string: "<=", description: "5 <= 10" },
+  { string: ">", description: "5 > 10" },
+  { string: ">=", description: "5 >= 10" },
+  { string: "!=", description: "5 != 10" },
+  { string: "<>", description: "5 <> 10" },
+  { string: "=", description: "5 = 10" },
 ];
 
 const FormulaEditor = ({
@@ -42,7 +42,9 @@ const FormulaEditor = ({
     parseHtmlTemplateToFormulaTemplate(variables, defaultTemplate ?? ""),
   );
   const [formula, setFormula] = useState(
-    defaultFormula ? defaultFormula : parseTemplateToFormula(variables, template),
+    defaultFormula
+      ? defaultFormula
+      : parseTemplateToFormula(variables, template),
   );
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +60,7 @@ const FormulaEditor = ({
     return preRange.toString().length;
   };
 
-  // Restore caret position from character offset
+  // Restore caret position from the character offset
   const restoreCaretPosition = (chars: number | null) => {
     if (chars === null || !contentRef.current) return;
 
@@ -107,7 +109,7 @@ const FormulaEditor = ({
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.innerHTML = template;
-      setCaretToEnd(); // Ensure caret moves to the end after any update
+      setCaretToEnd(); // Ensure the caret moves to the end after any update
     }
 
     setFormula(parseTemplateToFormula(variables, template));
@@ -180,36 +182,52 @@ const FormulaEditor = ({
         spellCheck={false}
         dir={"ltr"}
       />
-      <div className="relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[20%]">
-        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md sticky top-0"}>{t("variables")}</div>
-        {variables.map((variable, index) => (
-          <Tooltip title={variable?.description ?? ""} key={index}>
-            <Badge
-              onClick={() => addChar(variable)}
-              className="cursor-pointer font-bold"
-            >
-              {variable.name}
-            </Badge>
-          </Tooltip>
-        ))}
+      <div className="relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll w-[20%]">
+        <div
+          className={
+            "bg-secondary text-primary p-1 w-full font-extrabold shadow-md sticky top-0 text-xs"
+          }
+        >
+          {t("variables")}
+        </div>
+        <div className={"flex flex-col items-start gap-5 px-2"}>
+          {variables.map((variable, index) => (
+            <Tooltip title={variable?.description ?? ""} key={index}>
+              <Badge
+                onClick={() => addChar(variable)}
+                className="cursor-pointer font-bold"
+              >
+                {variable.name}
+              </Badge>
+            </Tooltip>
+          ))}
+        </div>
       </div>
       <div
         className={
-          "relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll p-1 w-[15%]"
+          "relative rounded-md flex flex-col gap-5 items-start border border-secondary max-h-64 overflow-y-scroll w-[15%]"
         }
       >
-        <div className={"bg-primary text-secondary p-1 w-full font-extrabold rounded-md sticky top-0"}>{t("signs")}</div>
-        {signs.map((sign, index) => (
-          <Tooltip title={sign.description} key={index}>
-            <Badge
-            onClick={() => addChar(sign.string)}
-            className="cursor-pointer font-bold"
-            key={index}
-          >
-            {sign.string}
-          </Badge>
-          </Tooltip>
-        ))}
+        <div
+          className={
+            "bg-secondary text-primary p-1 w-full font-extrabold shadow-md sticky top-0 text-xs"
+          }
+        >
+          {t("signs")}
+        </div>
+        <div className={"flex flex-col items-start gap-5 px-2"}>
+          {signs.map((sign, index) => (
+            <Tooltip title={sign.description} key={index}>
+              <Badge
+                onClick={() => addChar(sign.string)}
+                className="cursor-pointer font-bold"
+                key={index}
+              >
+                {sign.string == "*" ? "x" : sign.string}
+              </Badge>
+            </Tooltip>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -225,7 +243,7 @@ const parseTemplateToFormula = (
 
   let formula = template;
   variables.forEach((variable) => {
-    const templateVariable = `{{${variable.name}}}`;
+    const templateVariable = `{{\s*${variable.name}\s*}}`;
     formula = formula.replaceAll(templateVariable, variable.slug);
   });
 

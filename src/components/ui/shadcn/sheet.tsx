@@ -54,35 +54,45 @@ interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
     VariantProps<typeof sheetVariants> {
   sm?: boolean;
+  md?: boolean;
 }
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = undefined, sm = false, className, children, ...props }, ref) => {
-  const locale = useLocale();
-  side = side ?? (locale == "ar" ? "left" : "right");
-  return (
-    <SheetPortal>
-      <SheetOverlay />
-      <SheetPrimitive.Content
-        ref={ref}
-        className={cn(
-          sheetVariants({ side }),
-          sm ? className + `w-[60vh] md:w-[80vh]` : className,
-          "overflow-y-scroll",
-        )}
-        {...props}
-      >
-        <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-          <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
-        </SheetPrimitive.Close>
-        {children}
-      </SheetPrimitive.Content>
-    </SheetPortal>
-  );
-});
+>(
+  (
+    { side = undefined, sm = false, md = false, className, children, ...props },
+    ref,
+  ) => {
+    const locale = useLocale();
+    side = side ?? (locale == "ar" ? "left" : "right");
+    return (
+      <SheetPortal>
+        <SheetOverlay />
+        <SheetPrimitive.Content
+          ref={ref}
+          className={cn(
+            sheetVariants({ side }),
+            sm
+              ? className + `w-[95vw] md:w-[40vw]`
+              : md
+                ? className + ` w-[60vh] md:w-[55vw]`
+                : className,
+            "overflow-y-scroll",
+          )}
+          {...props}
+        >
+          <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </SheetPrimitive.Close>
+          {children}
+        </SheetPrimitive.Content>
+      </SheetPortal>
+    );
+  },
+);
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({

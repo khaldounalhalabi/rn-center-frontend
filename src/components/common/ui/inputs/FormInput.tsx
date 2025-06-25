@@ -1,7 +1,4 @@
 "use client";
-import React, { ChangeEvent, useEffect } from "react";
-import { useFormContext } from "react-hook-form";
-import { useTranslations } from "next-intl";
 import {
   FormControl,
   FormField,
@@ -11,12 +8,15 @@ import {
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
 import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
+import { useTranslations } from "next-intl";
+import React, { ChangeEvent, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
 export interface InputProps {
   className?: string | undefined;
   name: string;
   label?: string;
-  type: string;
+  type?: string;
   required?: boolean;
   unit?:
     | "IQD"
@@ -35,6 +35,7 @@ export interface InputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   withError?: boolean;
   autoComplete?: string;
+  max?: number;
 }
 
 const FormInput: React.FC<InputProps> = ({
@@ -48,7 +49,8 @@ const FormInput: React.FC<InputProps> = ({
   defaultValue = undefined,
   onChange = undefined,
   withError = true,
-  autoComplete = undefined
+  autoComplete = undefined,
+  max,
 }) => {
   const {
     control,
@@ -57,7 +59,7 @@ const FormInput: React.FC<InputProps> = ({
   } = useFormContext();
 
   const translateUnit = useTranslations("units");
-  const t = useTranslations("components")
+  const t = useTranslations("components");
   const eg = t("eg");
   defaultValue = defaultValue ?? getNestedPropertyValue(defaultValues, name);
 
@@ -94,11 +96,12 @@ const FormInput: React.FC<InputProps> = ({
               required={required}
               step={"any"}
               min={min}
+              max={max}
               hidden={hidden}
               defaultValue={defaultValue}
               className={hidden ? "hidden" : ""}
               disabled={hidden}
-              placeholder={getPlaceholder(type, label ?? "" , eg)}
+              placeholder={getPlaceholder(type, label ?? "", eg)}
               autoComplete={autoComplete}
             />
           </FormControl>
@@ -111,9 +114,7 @@ const FormInput: React.FC<InputProps> = ({
 
 export default FormInput;
 
-
-const getPlaceholder = (type: string, label: string , eg:string) => {
-
+const getPlaceholder = (type: string, label: string, eg: string) => {
   if (type == "text") {
     return `${label} ...`;
   } else if (type == "tel") {

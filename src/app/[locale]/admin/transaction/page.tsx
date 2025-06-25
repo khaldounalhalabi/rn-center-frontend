@@ -1,32 +1,32 @@
 "use client";
-import React from "react";
+import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
 import DataTable, {
   DataTableData,
 } from "@/components/common/Datatable/DataTable";
-import ActionsButtons from "@/components/common/Datatable/ActionsButtons";
-import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/models/Transaction";
-import Select from "@/components/common/ui/selects/Select";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
-import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
-import { RoleEnum } from "@/enums/RoleEnum";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
-import { getEnumValues } from "@/helpers/Enums";
-import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
-import LoadingSpin from "@/components/icons/LoadingSpin";
-import { Link } from "@/navigation";
 import PageCard from "@/components/common/ui/PageCard";
+import Datepicker from "@/components/common/ui/date-time-pickers/Datepicker";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import Select from "@/components/common/ui/selects/Select";
+import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
+import { RoleEnum } from "@/enums/RoleEnum";
+import TransactionTypeEnum from "@/enums/TransactionTypeEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import { Transaction } from "@/models/Transaction";
+import { Link } from "@/navigation";
+import { TransactionService } from "@/services/TransactionService";
+import { useQuery } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const t = useTranslations("common.transaction.table");
@@ -54,7 +54,6 @@ const Page = () => {
         name: "actor.full_name",
         sortable: true,
         label: `${t("sender")}`,
-        //   TODO: add user page button to get to the actor page
       },
       {
         name: "type",
@@ -83,6 +82,9 @@ const Page = () => {
         name: "date",
         label: `${t("date")}`,
         sortable: true,
+        render(data) {
+          return dayjs(data).format("YYYY-MM-DD hh:mm a");
+        },
       },
       {
         name: "appointment_id",

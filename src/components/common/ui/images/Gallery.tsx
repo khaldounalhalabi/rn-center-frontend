@@ -14,9 +14,11 @@ import ImagePreview from "./ImagePreview";
 const Gallery = ({
   media,
   sm = false,
+  md = false,
 }: {
   media: Media[] | undefined;
   sm?: boolean;
+  md?: boolean;
 }) => {
   const t = useTranslations("components");
   const [isPending, setPending] = useState<boolean>(false);
@@ -38,7 +40,7 @@ const Gallery = ({
 
   return (
     <div
-      className={`my-10 grid w-full grid-cols-2 gap-6 ${sm ? "grid-cols-3" : "md:grid-cols-6"}`}
+      className={`my-10 grid w-full grid-cols-2 gap-6 ${sm ? "grid-cols-3" : md ? "md:grid-cols-4" : "md:grid-cols-6"}`}
     >
       {isMutating ? (
         <LoadingSpin className={"h-7 w-7"} />

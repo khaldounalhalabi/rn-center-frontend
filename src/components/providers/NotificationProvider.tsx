@@ -2,6 +2,7 @@
 import { Navigate } from "@/actions/Navigate";
 import { RoleEnum } from "@/enums/RoleEnum";
 import firebaseApp from "@/helpers/Firebase";
+import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
 import { Link } from "@/navigation";
@@ -36,24 +37,40 @@ const NotificationProvider = ({
   handle?: (payload: NotificationPayload) => void;
   children?: ReactNode;
 }) => {
+  const { fcmToken } = useFcmToken();
+
   const [handlers, setHandlers] = useState<Handler[]>([]);
   const t = useTranslations("components");
-  const { role } = useUser();
+  const { role, user } = useUser();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+    if (
+      typeof window !== "undefined" &&
+      "serviceWorker" in navigator &&
+      user != undefined
+    ) {
       const messaging = getMessaging(firebaseApp);
       const unsubscribe = onMessage(messaging, (payload) => {
         console.log(payload);
         const notification = new NotificationPayload(payload?.data ?? {});
 
         handlers.forEach((handler) => {
-          handler.fn(notification);
+          try {
+            handler.fn(notification);
+          } catch (error) {
+            console.error("Error while calling notification handler");
+            console.error(error);
+          }
         });
         if (notification.isNotification()) {
           toast(
-            <Link href={notification.getUrl(role ?? RoleEnum.PUBLIC)}>
+            <Link
+              href={notification.getUrl(
+                role ?? RoleEnum.PUBLIC,
+                user?.permissions ?? [],
+              )}
+            >
               {t("new_notification")}
             </Link>,
             {
@@ -61,7 +78,12 @@ const NotificationProvider = ({
               action: {
                 label: t("show"),
                 onClick: () => {
-                  Navigate(notification.getUrl(role ?? RoleEnum.PUBLIC));
+                  Navigate(
+                    notification.getUrl(
+                      role ?? RoleEnum.PUBLIC,
+                      user?.permissions ?? [],
+                    ),
+                  );
                 },
               },
               icon: <Bell />,
@@ -77,7 +99,7 @@ const NotificationProvider = ({
         unsubscribe(); // Unsubscribe from the onMessage event
       };
     }
-  }, [handlers]);
+  }, [handlers, fcmToken]);
 
   return (
     <NotificationsHandlersContext.Provider value={setHandlers}>

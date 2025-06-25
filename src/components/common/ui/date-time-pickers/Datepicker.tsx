@@ -1,62 +1,182 @@
 "use client";
-import React, { useState } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/shadcn/popover";
-import { Button } from "@/components/ui/shadcn/button";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/shadcn/calendar";
-import { Label } from "../labels-and-values/Label";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
+import "dayjs/locale/ar";
+import "dayjs/locale/en";
+import { useLocale } from "next-intl";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { Label } from "../labels-and-values/Label";
 
 const Datepicker = ({
   onChange,
   defaultValue,
   label,
-  col = true
+  col = true,
+  shouldDisableDate,
 }: {
-  onChange: (v: Dayjs | null) => void;
-  defaultValue?: string;
+  onChange?: (v: Dayjs | null) => void;
+  defaultValue?: string | Dayjs;
   label?: string;
-  col?:boolean
+  col?: boolean;
+  shouldDisableDate?: (date: Dayjs) => boolean;
 }) => {
-  const [date, setDate] = useState<Dayjs | undefined>(dayjs(defaultValue));
-  const [open , setOpen] = useState(false);
+  const { theme: nextTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const locale = useLocale();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Set dayjs locale based on current locale
+  useEffect(() => {
+    dayjs.locale(locale);
+  }, [locale]);
+
+  // Create Material UI theme that matches shadcn theme
+  const muiTheme = createTheme({
+    direction: locale === "ar" ? "rtl" : "ltr",
+    palette: {
+      mode: nextTheme === "dark" ? "dark" : "light",
+      primary: {
+        main: "hsl(var(--primary))",
+      },
+      background: {
+        default: "hsl(var(--background))",
+        paper: "hsl(var(--card))",
+      },
+      text: {
+        primary: "hsl(var(--foreground))",
+        secondary: "hsl(var(--muted-foreground))",
+      },
+      divider: "hsl(var(--border))",
+    },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "hsl(var(--background))",
+              color: "hsl(var(--foreground))",
+              padding: "0px",
+              "& fieldset": {
+                borderColor: "hsl(var(--primary))",
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "hsl(var(--muted-foreground))",
+              "&.Mui-focused": {
+                color: "hsl(var(--primary))",
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!mounted) {
+    return (
+      <Label col={col} label={label}>
+        <div className="w-full h-10 bg-muted animate-pulse rounded-md" />
+      </Label>
+    );
+  }
+
   return (
-    <Label col={col} label={label}>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant={"outline"}
-            className={cn(
-              "w-full justify-start text-left font-normal",
-              !date && "text-muted-foreground",
-            )}
-          >
-            <CalendarIcon />
-            {date ? date?.format("YYYY-MM-DD") : <span>Pick a date</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={date?.toDate()}
-            onSelect={(value) => {
+    <ThemeProvider theme={muiTheme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+        <Label col={col} label={label}>
+          <DatePicker
+            defaultValue={dayjs(defaultValue, "YYYY-MM-DD")}
+            onChange={(newValue) => {
               if (onChange) {
-                onChange(dayjs(value));
+                onChange(newValue);
               }
-              setDate(dayjs(value))
-              setOpen(false)
             }}
-            initialFocus
-            className="w-full"
+            shouldDisableDate={shouldDisableDate}
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                variant: "outlined" as const,
+                placeholder: "Pick a date",
+                size: "small",
+                InputProps: {
+                  className: "border border-input !text-primary",
+                },
+                sx: {
+                  "& ,.MuiPickersSectionList-root": {
+                    paddingTop: "0.35rem",
+                    paddingBottom: "0.35rem",
+                    justifyContent: locale == "ar" ? "end" : "start",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "calc(var(--radius) - 2px)",
+                    fontSize: "0.875rem",
+                    lineHeight: "1.25rem",
+                    "& fieldset": {
+                      borderWidth: "1px",
+                    },
+                  },
+                  "& .MuiInputAdornment-root .MuiSvgIcon-root": {
+                    color: "hsl(var(--primary))",
+                  },
+                  "& .MuiPickersInputBase-root": {
+                    borderColor: "hsl(var(--border))",
+                    outlineColor: "hsl(var(--border))",
+                  },
+                },
+              },
+              popper: {
+                container: () => document.body,
+                sx: {
+                  zIndex: 9999,
+                  "& .MuiPaper-root": {
+                    "& *": {
+                      pointerEvents: "auto !important",
+                    },
+                    "& .MuiSvgIcon-root": {
+                      color: "hsl(var(--primary))",
+                    },
+                    "& .MuiPickersDay-root.Mui-selected": {
+                      backgroundColor: "hsl(var(--primary)) !important",
+                      color: "hsl(var(--primary-foreground)) !important",
+                      "&:hover": {
+                        backgroundColor: "hsl(var(--primary)) !important",
+                      },
+                    },
+                    "& .MuiPickersDay-root.MuiPickersDay-today": {
+                      borderColor: "hsl(var(--primary))",
+                    },
+                    "& .MuiPickersSectionList-root": {
+                      overflowY: "auto !important",
+                      "&::-webkit-scrollbar": {
+                        width: "8px",
+                      },
+                      "&::-webkit-scrollbar-track": {
+                        background: "hsl(var(--muted))",
+                        borderRadius: "4px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "hsl(var(--muted-foreground))",
+                        borderRadius: "4px",
+                        "&:hover": {
+                          background: "hsl(var(--foreground))",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            }}
           />
-        </PopoverContent>
-      </Popover>
-    </Label>
+        </Label>
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 };
 

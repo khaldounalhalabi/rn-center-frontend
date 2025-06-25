@@ -28,6 +28,12 @@ const Select = ({
   col?: boolean;
 }) => {
   const t = useTranslations("components");
+  const isOption = (v: any) =>
+    v?.label != undefined &&
+    v?.label != null &&
+    v?.value != undefined &&
+    v?.value != undefined;
+
   return (
     <Label col={col} label={label}>
       <ShadcnSelect defaultValue={selected} onValueChange={onChange}>
@@ -37,8 +43,17 @@ const Select = ({
         <SelectContent>
           <SelectGroup>
             {data.map((item, index) => (
-              <SelectItem value={item == "all" ? "" : item} key={index}>
-                {translated ? <TranslatableEnum value={item} /> : item}
+              <SelectItem
+                value={item == "all" ? "" : isOption(item) ? item.value : item}
+                key={index}
+              >
+                {isOption(item) ? (
+                  item.label
+                ) : translated ? (
+                  <TranslatableEnum value={item} />
+                ) : (
+                  item
+                )}
               </SelectItem>
             ))}
           </SelectGroup>

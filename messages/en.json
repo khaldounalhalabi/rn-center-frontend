@@ -51,7 +51,11 @@
     "vacations": "Vacations",
     "schedule": "Schedule",
     "my_attendance": "My attendance",
-    "my_schedule": "My Schedule"
+    "my_schedule": "My Schedule",
+    "tasks": "Tasks",
+    "my_tasks": "Tasks assigned to me",
+    "assets": "Assets",
+    "assigned_assets": "Assigned assets"
   },
   "admin": {
     "clinic": {
@@ -1634,7 +1638,19 @@
     "patient management": "Patient Management",
     "appointment management": "Appointment Management",
     "medicine management": "Medicine And Prescriptions Management",
-    "transaction management": "Transactions Management"
+    "transaction management": "Transactions Management",
+    "urgent": "Urgent",
+    "normal": "Normal",
+    "low": "Low",
+    "tasks management": "Tasks management",
+    "assets management": "Assets management",
+    "completed": "Completed",
+    "in_progress": "In Progress",
+    "asset_checkin": "Assigned",
+    "asset_checkout": "Retrieved",
+    "asset": "Asset",
+    "accessories": "Accessories",
+    "consumable": "Consumable"
   },
   "week_days": {
     "saturday": "Saturday",
@@ -1702,7 +1718,7 @@
     "mark_all_as_read": "Mark all as read",
     "loading_more": "Loading more",
     "download": "Download",
-    "and_items_count" : "And {items_count} other items"
+    "and_items_count": "And {items_count} other items"
   },
   "holidays": {
     "from": "From",
@@ -1787,7 +1803,11 @@
     "vacations": "Vacations",
     "schedule": "Schedule",
     "secretary": "Dashboard",
-    "my-attendance": "My attendance"
+    "my-attendance": "My attendance",
+    "tasks": "Tasks",
+    "my-tasks": "Tasks assigned to me",
+    "assets": "Assets",
+    "my-assets": "Assets assigned to me"
   },
   "formulas": {
     "formulas": "Formulas",
@@ -1830,7 +1850,8 @@
     "pay_run_error_warning": "Your payrun faced an error due to miss use in one or more of your salary formulas , you need to check the errored payslip and then the formula that did cause the error or just edit the payslip manually",
     "pay_run_overlap_error": "The selected period contain days from a previous pay run , do you want to create it any way ?",
     "reprocess": "Reprocess this payrun",
-    "payslips": "Payslips"
+    "payslips": "Payslips",
+    "payrun_data_updated": "Payruns data updated"
   },
   "payslips": {
     "paid_days": "Paid days",
@@ -1886,5 +1907,62 @@
     "actions": "Actions",
     "error": "Error",
     "date": "Date"
+  },
+  "tasks": {
+    "title": "Title",
+    "description": "Description",
+    "due_date": "Due date",
+    "status": "Status",
+    "label": "Label",
+    "user": "Created By",
+    "users": "Assigned Secretaries",
+    "task_comments": "Comments",
+    "issued_at": "Issued at",
+    "tasks": "Tasks",
+    "assign": "Assign",
+    "comment": "Comment",
+    "user_comment": "Commented By",
+    "show_title": "Task details",
+    "edit_title": "Edit task",
+    "create_title": "Add new task",
+    "index_title": "Tasks",
+    "actions": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "delete_alert_title": "Delete Comment",
+    "delete_alert": "Are you sure you want to delete this comment?",
+    "cancel": "Cancel",
+    "save": "Save",
+    "no_comments": "No comments yet.",
+    "add": "Add",
+    "add_a_comment": "Add a comment ....."
+  },
+  "assets": {
+    "status": "Status",
+    "checkin_condition": "Assigning Condition",
+    "checkout_condition": "Condition on retrieval",
+    "checkin_date": "Assigning date",
+    "checkout_date": "Retrieval date",
+    "expected_return_date": "Expected returning date",
+    "quantity": "Quantity",
+    "asset": "Asset",
+    "show_title": "{asset_name} details",
+    "edit_title": "Edit Asset: {asset_name}",
+    "create_title": "Add New Asset",
+    "index_title": "Assets",
+    "edit": "Edit",
+    "options": "Options",
+    "checkin": "Assign: {asset_name}",
+    "checkout": "Retrieve: {asset_name}",
+    "type": "Type",
+    "purchase_date": "Purchase Date",
+    "quantity_unit": "Quantity Unit",
+    "assigned_quantity": "Assigned Quantity",
+    "total_quantity": "Total Quantity",
+    "serial_number": "Serial Number",
+    "name": "Name",
+    "image": "Image",
+    "user_assets": "Assigned users",
+    "user_name": "User name"
   }
 }

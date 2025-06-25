@@ -1,23 +1,22 @@
-import PageCard from "@/components/common/ui/PageCard";
-import React from "react";
-import { Link } from "@/navigation";
 import Grid from "@/components/common/ui/Grid";
-import { TransactionService } from "@/services/TransactionService";
-import { Transaction } from "@/models/Transaction";
-import { getTranslations } from "next-intl/server";
+import PageCard from "@/components/common/ui/PageCard";
+import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { LabelValue } from "@/components/common/ui/labels-and-values/LabelValue";
 import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
-import { Button } from "@/components/ui/shadcn/button";
-import { Label } from "@/components/common/ui/labels-and-values/Label";
 import { Value } from "@/components/common/ui/labels-and-values/Value";
+import { Button } from "@/components/ui/shadcn/button";
+import { Transaction } from "@/models/Transaction";
+import { Link } from "@/navigation";
+import { TransactionService } from "@/services/TransactionService";
+import dayjs from "dayjs";
+import { getTranslations } from "next-intl/server";
 
 const page = async ({
   params: { transactionId },
 }: {
   params: { transactionId: number };
 }) => {
-  const data =
-    await TransactionService.make().show(transactionId);
+  const data = await TransactionService.make().show(transactionId);
   const res: Transaction = data?.data;
   const t = await getTranslations("common.transaction.show");
 
@@ -32,13 +31,15 @@ const page = async ({
     >
       <Grid md={2} gap={5}>
         <LabelValue label={t("actor_name")} value={res?.actor?.full_name} />
-        {/*TODO: add user page button to get to the actor page*/}
         <LabelValue
           label={t("type")}
           value={<TranslatableEnum value={res?.type} />}
         />
         <LabelValue label={t("amount")} value={res?.amount} />
-        <LabelValue label={t("date")} value={res?.date} />
+        <LabelValue
+          label={t("date")}
+          value={dayjs(res.date).format("YYYY-MM-DD hh:mm a")}
+        />
         <LabelValue label={t("notes")} value={res?.description} col />
         {res?.appointment_id && (
           <Label label={t("appointmentDate")}>

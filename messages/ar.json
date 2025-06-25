@@ -51,7 +51,11 @@
     "vacations": "الإجازات",
     "schedule": "جدول الدوام",
     "my_attendance": "جدول حضوري",
-    "my_schedule": "جدول الدوام الخاص بي"
+    "my_schedule": "جدول الدوام الخاص بي",
+    "tasks": "المهام",
+    "my_tasks": "المهام المسندة لي",
+    "assets": "الأصول",
+    "assigned_assets": "الأصول المعطاة لي"
   },
   "admin": {
     "clinic": {
@@ -1630,7 +1634,19 @@
     "patient management": "إدارة المرضى",
     "appointment management": "إدارة المواعيد",
     "medicine management": "إدارة الأدوية والوصفات الطبية",
-    "transaction management": "إدارة المعاملات"
+    "transaction management": "إدارة المعاملات",
+    "urgent": "عاجل",
+    "normal": "عادي",
+    "low": "منخفض",
+    "tasks management": "إدارة المهام",
+    "assets management": "إدارة الأصول",
+    "completed": "مكتمل",
+    "in_progress": "قيد التنفيذ",
+    "asset_checkin": "معين",
+    "asset_checkout": "مسترجع",
+    "asset": "الأصل",
+    "accessories": "الإكسسوارات",
+    "consumable": "قابل للاستهلاك"
   },
   "week_days": {
     "saturday": "السبت",
@@ -1698,7 +1714,7 @@
     "mark_all_as_read": "تعليم الكل كمقروء",
     "loading_more": "تحميل المزيد",
     "download": "تحميل",
-    "and_items_count" : "و {items_count} عنصر آخر"
+    "and_items_count": "و {items_count} عنصر آخر"
   },
   "holidays": {
     "from": "من",
@@ -1783,7 +1799,11 @@
     "payslips": "الدفعات",
     "vacations": "الإجازات",
     "schedule": "أوقات الدوام",
-    "my-attendance": "جدول حضوري"
+    "my-attendance": "جدول حضوري",
+    "tasks": "المهام",
+    "my-tasks": "المهام المسندة لي",
+    "assets": "الأصول",
+    "my-assets": "الأصول المعطاة لي"
   },
   "formulas": {
     "formulas": "معادلات الرواتب",
@@ -1826,7 +1846,8 @@
     "pay_run_error_warning": "واجهت دفعة الرواتب الخاصة بك خطأ بسبب سوء استخدام في واحدة أو أكثر من معادلات الرواتب. تحتاج إلى التحقق من راتب الموظف الذي يحتوي على الخطأ ثم المعادلة التي تسببت في الخطأ، أو قم فقط بتعديل راتب الموظف يدويًا.",
     "pay_run_overlap_error": "الفترة المحددة تحتوي على أيام من دورة دفع سابقة , هل تريد إضافتها بأي حال ؟",
     "reprocess": "إعادة حساب دفعة الرواتب هذه",
-    "payslips": "الدفعات"
+    "payslips": "الدفعات",
+    "payrun_data_updated": "تم تحديث بيانات الرواتب"
   },
   "payslips": {
     "paid_days": "الأيام المدفوعة",
@@ -1882,5 +1903,62 @@
     "actions": "الخيارات",
     "error": "حصل خطأ",
     "date": "التاريخ"
+  },
+  "tasks": {
+    "title": "العنوان",
+    "description": "الوصف",
+    "due_date": "تاريخ الاستحقاق",
+    "status": "الحالة",
+    "label": "التصنيف",
+    "user": "أنشأ بواسطة",
+    "users": "السكرتارية المعينون",
+    "task_comments": "التعليقات",
+    "issued_at": "تاريخ الإصدار",
+    "tasks": "المهام",
+    "assign": "تعيين",
+    "comment": "تعليق",
+    "user_comment": "تم التعليق بواسطة",
+    "show_title": "تفاصيل المهمة",
+    "edit_title": "تعديل المهمة",
+    "create_title": "إضافة مهمة جديدة",
+    "index_title": "المهام",
+    "actions": "الخيارات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "delete_alert_title": "حذف التعليق",
+    "delete_alert": "هل أنت متأكد أنك تريد حذف هذا التعليق؟",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "no_comments": "لا توجد تعليقات حتى الآن.",
+    "add": "إضافة",
+    "add_a_comment": ".... أضف تعليقاً"
+  },
+  "assets": {
+    "status": "الحالة",
+    "checkin_condition": "حالة عند التعيين",
+    "checkout_condition": "حالة عند الاسترجاع",
+    "checkin_date": "تاريخ التعيين",
+    "checkout_date": "تاريخ الاسترجاع",
+    "expected_return_date": "تاريخ العودة المتوقع",
+    "quantity": "الكمية",
+    "asset": "الأصل",
+    "show_title": "تفاصيل {asset_name}",
+    "edit_title": "تعديل الأصل: {asset_name}",
+    "create_title": "إضافة أصل جديد",
+    "index_title": "الأصول",
+    "edit": "تعديل",
+    "options": "خيارات",
+    "checkin": "تعيين: {asset_name}",
+    "checkout": "استرجاع: {asset_name}",
+    "type": "النوع",
+    "purchase_date": "تاريخ الشراء",
+    "quantity_unit": "وحدة الكمية",
+    "assigned_quantity": "الكمية المعينة",
+    "total_quantity": "إجمالي الكمية",
+    "serial_number": "الرقم التسلسلي",
+    "name": "الاسم",
+    "image": "الصورة",
+    "user_assets": "المستخدمين",
+    "user_name": "المستخدم"
   }
 }

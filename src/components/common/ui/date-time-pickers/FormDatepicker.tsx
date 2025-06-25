@@ -1,7 +1,4 @@
 "use client";
-import dayjs, { Dayjs } from "dayjs";
-import { useFormContext } from "react-hook-form";
-import React, { useState } from "react";
 import {
   FormControl,
   FormField,
@@ -9,15 +6,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/shadcn/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/shadcn/popover";
-import { Button } from "@/components/ui/shadcn/button";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/shadcn/calendar";
+import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import Datepicker from "./Datepicker";
 
 const FormDatepicker = ({
   name,
@@ -30,11 +22,11 @@ const FormDatepicker = ({
   label?: string;
   required?: boolean;
   shouldDisableDate?: (day: Dayjs) => boolean;
-  onChange?: (date: Dayjs) => void;
+  onChange?: (date?: Dayjs) => void;
   df?: string;
 }) => {
   const { control } = useFormContext();
-  const [open , setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <FormField
@@ -46,49 +38,18 @@ const FormDatepicker = ({
         >
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "ps-3 text-start font-normal w-full",
-                      !field.value && "text-muted-foreground",
-                    )}
-                  >
-                    {df ? (
-                      dayjs(df).format("YYYY-MM-DD")
-                    ) : field.value ? (
-                      dayjs(field.value).format("YYYY-MM-DD")
-                    ) : (
-                      <span>Pick a date</span>
-                    )}
-                    <CalendarIcon className="ms-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={
-                    df ? dayjs(df).toDate() : dayjs(field.value).toDate()
-                  }
-                  onSelect={(val) => {
-                    field.onChange(dayjs(val).format("YYYY-MM-DD"));
-                    if (onChange) {
-                      onChange(dayjs(val));
-                    }
-                    setOpen(false)
-                  }}
-                  disabled={(date) => {
-                    if (shouldDisableDate) {
-                      return shouldDisableDate(dayjs(date));
-                    }
-                    return false;
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
+            <Datepicker
+              onChange={(date) => {
+                field.onChange(date?.format("YYYY-MM-DD"));
+                if (onChange) {
+                  onChange(date ?? undefined);
+                }
+              }}
+              defaultValue={
+                df ? dayjs(df) : field?.value ? dayjs(field.value) : dayjs()
+              }
+              shouldDisableDate={shouldDisableDate}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

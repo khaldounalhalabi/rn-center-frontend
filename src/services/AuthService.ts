@@ -110,9 +110,15 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     return response;
   }
   public async userDetails(): Promise<ApiResponse<User>> {
-    const res = await GET<User>(`${this.role}/me`);
+    const res = await GET<User>(`/${this.role}/me`);
     return await this.errorHandler(res);
   }
+
+  public async me(): Promise<ApiResponse<User>> {
+    const res = await GET<User>(`/me`);
+    return await this.errorHandler(res);
+  }
+  
   public async updateUserDetails(
     data: any,
   ): Promise<ApiResponse<AuthResponse>> {

@@ -46,7 +46,6 @@ import * as React from "react";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations("sideBar");
   const { user, role } = useUser();
-  console.log(user?.permissions);
   const data = {
     navMain: [
       {
@@ -136,13 +135,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             icon: ListCheckIcon,
             roles: [RoleEnum.ADMIN, RoleEnum.SECRETARY],
           },
-          {
-            title: t("assets"),
-            url: `/${role}/assets`,
-            icon: Brush,
-            roles: [RoleEnum.ADMIN],
-            permission: PermissionEnum.ASSETS_MANAGEMENT,
-          },
+          role == RoleEnum.ADMIN ||
+          user?.permissions?.includes(PermissionEnum.ASSETS_MANAGEMENT)
+            ? {
+                title: t("assets"),
+                url: `/${role}/assets`,
+                icon: Brush,
+                roles: [RoleEnum.ADMIN],
+                permission: PermissionEnum.ASSETS_MANAGEMENT,
+              }
+            : {
+                title: t("assigned_assets"),
+                url: `/${role}/my-assets`,
+                icon: Brush,
+                roles: [RoleEnum.DOCTOR, RoleEnum.SECRETARY],
+              },
         ],
       },
       {

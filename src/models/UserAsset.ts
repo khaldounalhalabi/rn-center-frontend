@@ -1,4 +1,5 @@
 import UserAssetStatusEnum from "@/enums/UserAssetStatusEnum";
+import Asset from "@/models/Asset";
 import { User } from "./User";
 
 interface UserAsset {
@@ -13,6 +14,7 @@ interface UserAsset {
   expected_return_date?: string;
   quantity: number;
   user?: User;
+  asset?: Asset;
 }
 
 export default UserAsset;

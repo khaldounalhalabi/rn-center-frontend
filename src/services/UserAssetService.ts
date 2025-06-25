@@ -12,6 +12,12 @@ export default class UserAssetService extends BaseService<
 
   /**
    * @param userId
+   * @param page
+   * @param search
+   * @param sortCol
+   * @param sortDir
+   * @param per_page
+   * @param params
    * @returns
    */
   public async getAssignedByUser(
@@ -39,6 +45,12 @@ export default class UserAssetService extends BaseService<
 
   /**
    * @param assetId
+   * @param page
+   * @param search
+   * @param sortCol
+   * @param sortDir
+   * @param per_page
+   * @param params
    * @returns
    */
   public async getAssignedByAsset(
@@ -61,6 +73,26 @@ export default class UserAssetService extends BaseService<
         ...params,
       },
     );
+    return this.errorHandler(response);
+  }
+
+  public async assignedToMe(
+    page: number = 0,
+    search?: string,
+    sortCol?: string,
+    sortDir?: string,
+    per_page?: number,
+    params?: Record<string, any>,
+  ) {
+    const response = await GET<UserAsset[]>(`/${this.role}/user-assets/mine`, {
+      page: page,
+      search: search,
+      sort_dir: sortDir,
+      sort_col: sortCol,
+      per_page: per_page,
+      ...params,
+    });
+
     return this.errorHandler(response);
   }
 }

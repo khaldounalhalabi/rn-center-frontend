@@ -1806,7 +1806,8 @@
     "my-attendance": "My attendance",
     "tasks": "Tasks",
     "my-tasks": "Tasks assigned to me",
-    "assets": "Assets"
+    "assets": "Assets",
+    "my-assets": "Assets assigned to me"
   },
   "formulas": {
     "formulas": "Formulas",

@@ -2,6 +2,7 @@
 import { Navigate } from "@/actions/Navigate";
 import { RoleEnum } from "@/enums/RoleEnum";
 import firebaseApp from "@/helpers/Firebase";
+import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
 import { Link } from "@/navigation";
@@ -36,6 +37,8 @@ const NotificationProvider = ({
   handle?: (payload: NotificationPayload) => void;
   children?: ReactNode;
 }) => {
+  const { fcmToken } = useFcmToken();
+
   const [handlers, setHandlers] = useState<Handler[]>([]);
   const t = useTranslations("components");
   const { role, user } = useUser();
@@ -96,7 +99,7 @@ const NotificationProvider = ({
         unsubscribe(); // Unsubscribe from the onMessage event
       };
     }
-  }, [handlers]);
+  }, [handlers, fcmToken]);
 
   return (
     <NotificationsHandlersContext.Provider value={setHandlers}>

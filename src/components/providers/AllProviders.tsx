@@ -13,7 +13,6 @@ import UserInitializerProvider from "./UserInitializerProvider";
 import UserProvider from "./UserProvider";
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
-  useFcmToken();
   const [queryClient] = React.useState(() => new QueryClient());
   dayjs.extend(duration);
   dayjs.extend(isBetween);

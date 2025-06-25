@@ -11,7 +11,7 @@ import {
 import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { User } from "@/models/User";
-import { Link } from "@/navigation";
+import { Link, usePathname } from "@/navigation";
 import { IconAttributes } from "@/types/IconAttributes";
 import { type LucideIcon } from "lucide-react";
 import { FC } from "react";
@@ -38,6 +38,7 @@ export function NavMain({
   items: SidebarGroup[];
   user?: User;
 }) {
+  const pathname = usePathname();
   return (
     <div className="flex flex-col gap-3">
       {items
@@ -60,7 +61,13 @@ export function NavMain({
                   .map((item, itemIndex) => (
                     <Link href={item.url} key={itemIndex}>
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton tooltip={item.title}>
+                        <SidebarMenuButton
+                          tooltip={item.title}
+                          isActive={
+                            item.url.startsWith(pathname) &&
+                            pathname != `/${user?.role}`
+                          }
+                        >
                           {item.icon && <item.icon />}
                           <span>{item.title}</span>
                         </SidebarMenuButton>

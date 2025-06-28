@@ -72,6 +72,7 @@ const ImageUploader = ({
           labelIdle={t("image_uploader_placeholder")}
           storeAsFile={true}
           allowMultiple={isMultiple}
+          allowFileTypeValidation={false}
         />
       </div>
       {Array.isArray(error) && error?.length > 0

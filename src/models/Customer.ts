@@ -1,5 +1,6 @@
-import { User } from "@/models/User";
 import { Media } from "@/models/Media";
+import { User } from "@/models/User";
+import PatientStudy from "./PatientStudy";
 
 export interface Customer {
   id: number;
@@ -13,4 +14,5 @@ export interface Customer {
   other_data?: { key: string; value: string }[];
   user?: User;
   attachments?: Media[];
+  patient_studies?: PatientStudy[];
 }

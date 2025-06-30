@@ -1,7 +1,8 @@
 import "@/app/[locale]/global.css";
-import React from "react";
 import AllProviders from "@/components/providers/AllProviders";
+import UserProvider from "@/components/providers/UserProvider";
 import { ThemeProvider } from "@/components/theme-provider";
+import React from "react";
 
 const Layout = ({
   children,
@@ -15,7 +16,9 @@ const Layout = ({
       enableSystem
       disableTransitionOnChange
     >
-      <AllProviders>{children}</AllProviders>
+      <UserProvider>
+        <AllProviders>{children}</AllProviders>
+      </UserProvider>
     </ThemeProvider>
   );
 };

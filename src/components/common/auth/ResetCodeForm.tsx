@@ -1,11 +1,5 @@
 "use client";
-import React from "react";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { AuthService } from "@/services/AuthService";
-import Form from "../ui/Form";
-import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enums/RoleEnum";
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -13,6 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
+import { AuthService } from "@/services/AuthService";
+import { useTranslations } from "next-intl";
+import Form from "../ui/Form";
 
 const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
   const handleResendButton = () => {
@@ -21,6 +21,11 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
 
   const handleSubmit = (data: { code: string }) => {
     return AuthService.make(role).checkResetCode(data.code);
+  };
+
+  const router = useRouter();
+  const onSuccess = () => {
+    router.replace(`/auth/${role}/set-new-password`);
   };
   const t = useTranslations("auth");
   return (
@@ -35,7 +40,11 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
               <CardDescription>{t("enterResetPasswordCode")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Form handleSubmit={handleSubmit} buttonText={t("send")}>
+              <Form
+                handleSubmit={handleSubmit}
+                buttonText={t("send")}
+                onSuccess={onSuccess}
+              >
                 <FormInput name="code" type="text" label={t("code")} />
                 <div className="w-full text-left">
                   <p

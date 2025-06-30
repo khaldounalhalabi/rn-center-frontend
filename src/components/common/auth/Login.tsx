@@ -7,13 +7,14 @@ import useUser from "@/hooks/UserHook";
 import { ApiResponse } from "@/http/Response";
 import { cn } from "@/lib/utils";
 import { AuthResponse } from "@/models/User";
-import { Link } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 const Login = ({ role }: { role: RoleEnum }) => {
   const [error, setError] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (data: { phone: string; password: string }) => {
     setError(false);
@@ -30,6 +31,7 @@ const Login = ({ role }: { role: RoleEnum }) => {
   const { setUser } = useUser();
   const handleSuccess = (data: ApiResponse<AuthResponse>) => {
     setUser(data?.data?.user);
+    router.replace(`/${role}`);
   };
   const t = useTranslations("auth");
   const random = Math.round(Math.random()) % 2 == 0;

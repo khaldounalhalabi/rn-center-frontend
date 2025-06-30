@@ -1,11 +1,5 @@
 "use client";
-import React from "react";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { AuthService } from "@/services/AuthService";
-import Form from "../ui/Form";
-import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enums/RoleEnum";
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -13,10 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
+import { AuthService } from "@/services/AuthService";
+import { useTranslations } from "next-intl";
+import Form from "../ui/Form";
 
 const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
+  const router = useRouter();
   const handleSubmit = (data: { phone: string }) => {
     return AuthService.make(role).passwordResetRequest(data.phone);
+  };
+  const onSuccess = () => {
+    router.replace(`/auth/${role}/reset-password-code`);
   };
   const t = useTranslations("auth");
   return (
@@ -32,12 +36,9 @@ const ResetPasswordRequest = ({ role }: { role: RoleEnum }) => {
               <Form
                 handleSubmit={handleSubmit}
                 buttonText={t("send_reset_password_code")}
+                onSuccess={onSuccess}
               >
-                <FormInput
-                  name="phone"
-                  type="tel"
-                  label={t("phone")}
-                />
+                <FormInput name="phone" type="tel" label={t("phone")} />
               </Form>
             </CardContent>
           </Card>

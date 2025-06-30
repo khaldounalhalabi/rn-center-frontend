@@ -1,3 +1,4 @@
+"use client";
 import useUser from "@/hooks/UserHook";
 import { RealTimeEventsTypeEnum } from "@/models/NotificationPayload";
 import { AuthService } from "@/services/AuthService";

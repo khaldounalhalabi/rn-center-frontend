@@ -118,7 +118,7 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     const res = await GET<User>(`/me`);
     return await this.errorHandler(res);
   }
-  
+
   public async updateUserDetails(
     data: any,
   ): Promise<ApiResponse<AuthResponse>> {
@@ -129,6 +129,5 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     await deleteTokens();
     await deleteRole();
     await deleteUser();
-    await Navigate(`/auth/${this.role}/login`);
   };
 }

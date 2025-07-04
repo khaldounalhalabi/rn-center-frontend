@@ -32,6 +32,7 @@ export function NavUser({ user }: { user?: User }) {
   const service = AuthService.make(role);
   const logout = async () => {
     await service.logout();
+    router.replace(`/auth/${role}/login`);
   };
 
   return (
@@ -96,7 +97,6 @@ export function NavUser({ user }: { user?: User }) {
             <DropdownMenuItem
               onClick={() => {
                 logout();
-                router.replace(`/auth/${role}/login`);
               }}
             >
               <LogOutIcon />

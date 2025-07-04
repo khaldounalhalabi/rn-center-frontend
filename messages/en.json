@@ -1964,5 +1964,15 @@
     "image": "Image",
     "user_assets": "Assigned users",
     "user_name": "User name"
+  },
+  "patient_studies": {
+    "patient_studies": "Scans, medical files and Images",
+    "title": "Title",
+    "delete": "Delete",
+    "view": "View",
+    "study_date": "Study date",
+    "actions": "Actions",
+    "no_files": "There is no files",
+    "create_title": "Add scans, medical files or images"
   }
 }

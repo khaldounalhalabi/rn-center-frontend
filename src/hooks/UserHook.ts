@@ -1,3 +1,4 @@
+"use client";
 import { UserContext } from "@/components/providers/UserProvider";
 import PermissionEnum from "@/enums/PermissionEnum";
 import { useContext } from "react";

@@ -1960,5 +1960,15 @@
     "image": "الصورة",
     "user_assets": "المستخدمين",
     "user_name": "المستخدم"
+  },
+  "patient_studies": {
+    "patient_studies": "الالصور و الملفات الطبية و الشعاعية",
+    "title": "عنوان السجل",
+    "delete": "حذف",
+    "view": "عرض",
+    "study_date": "التاريخ",
+    "actions": "الخيارات",
+    "no_files": "لا يوجد ملفات مخزنة",
+    "create_title": "إضافة صورة شعاعية"
   }
 }

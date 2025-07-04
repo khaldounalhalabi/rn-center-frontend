@@ -1,19 +1,20 @@
 "use client";
-import React from "react";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { AuthService } from "@/services/AuthService";
-import Form from "../ui/Form";
-import { useTranslations } from "next-intl";
-import { RoleEnum } from "@/enums/RoleEnum";
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
+import { RoleEnum } from "@/enums/RoleEnum";
+import { cn } from "@/lib/utils";
+import { useRouter } from "@/navigation";
+import { AuthService } from "@/services/AuthService";
+import { useTranslations } from "next-intl";
+import Form from "../ui/Form";
 
 const SetNewPassword = ({ role }: { role: RoleEnum }) => {
+  const router = useRouter();
   const handleSubmit = (data: {
     password: string;
     password_confirmation: string;
@@ -22,6 +23,10 @@ const SetNewPassword = ({ role }: { role: RoleEnum }) => {
       data.password,
       data.password_confirmation,
     );
+  };
+
+  const onSuccess = () => {
+    router.replace(`/auth/${role}/login`);
   };
   const t = useTranslations("auth");
   return (
@@ -33,7 +38,11 @@ const SetNewPassword = ({ role }: { role: RoleEnum }) => {
               <CardTitle className={"text-2xl"}>{t("resetPassword")}</CardTitle>
             </CardHeader>
             <CardContent>
-              <Form handleSubmit={handleSubmit} buttonText={t("save")}>
+              <Form
+                handleSubmit={handleSubmit}
+                buttonText={t("save")}
+                onSuccess={onSuccess}
+              >
                 <div className={"flex flex-col gap-5"}>
                   <FormInput
                     name="password"

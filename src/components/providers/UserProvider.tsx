@@ -1,3 +1,4 @@
+"use client"
 import { getUser, setUser as serverSetUser } from "@/actions/HelperActions";
 import { RoleEnum } from "@/enums/RoleEnum";
 import { User } from "@/models/User";

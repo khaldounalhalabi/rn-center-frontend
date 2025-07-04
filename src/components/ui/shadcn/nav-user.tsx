@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  BellIcon,
-  LogOutIcon,
-  MoreVerticalIcon,
-  UserCircleIcon,
-} from "lucide-react";
+import { LogOutIcon, MoreVerticalIcon, UserCircleIcon } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/shadcn/avatar";
 import {
@@ -23,16 +18,17 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/shadcn/sidebar";
-import { User } from "@/models/User";
-import { useTranslations } from "next-intl";
-import { AuthService } from "@/services/AuthService";
 import { RoleEnum } from "@/enums/RoleEnum";
-import { Link } from "@/navigation";
+import { User } from "@/models/User";
+import { Link, useRouter } from "@/navigation";
+import { AuthService } from "@/services/AuthService";
+import { useTranslations } from "next-intl";
 
 export function NavUser({ user }: { user?: User }) {
   const { isMobile } = useSidebar();
   const t = useTranslations("nav");
   const role = user?.role ?? RoleEnum.PUBLIC;
+  const router = useRouter();
 
   return (
     <SidebarMenu>
@@ -96,6 +92,7 @@ export function NavUser({ user }: { user?: User }) {
             <DropdownMenuItem
               onClick={() => {
                 AuthService.make(role).logout();
+                router.replace(`/auth/${role}/login`);
               }}
             >
               <LogOutIcon />

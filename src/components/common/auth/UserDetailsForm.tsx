@@ -1,18 +1,18 @@
 "use client";
+import { Navigate } from "@/actions/Navigate";
+import DialogPopup from "@/components/common/ui/DialogPopup";
 import Form from "@/components/common/ui/Form";
-import React, { useState } from "react";
 import Grid from "@/components/common/ui/Grid";
 import FormInput from "@/components/common/ui/inputs/FormInput";
-import { Navigate } from "@/actions/Navigate";
+import Radio from "@/components/common/ui/inputs/Radio";
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import GenderEnum from "@/enums/GenderEnum";
+import { getEnumValues } from "@/helpers/Enums";
+import useUser from "@/hooks/UserHook";
 import { User } from "@/models/User";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
-import useUser from "@/hooks/UserHook";
-import DialogPopup from "@/components/common/ui/DialogPopup";
-import GenderEnum from "@/enums/GenderEnum";
-import Radio from "@/components/common/ui/inputs/Radio";
-import { getEnumValues } from "@/helpers/Enums";
-import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
+import { useState } from "react";
 
 const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
   const { role, setUser } = useUser();
@@ -33,8 +33,8 @@ const UserDetailsForm = ({ defaultValues }: { defaultValues: User }) => {
     setIsOpen(true);
   }
 
-  const onSuccess = () => {
-    Navigate(`/${role}/user-details`);
+  const onSuccess = async () => {
+    await Navigate(`/${role}/user-details`);
   };
 
   const t = useTranslations("details");

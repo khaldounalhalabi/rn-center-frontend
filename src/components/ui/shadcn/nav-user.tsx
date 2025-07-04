@@ -29,6 +29,10 @@ export function NavUser({ user }: { user?: User }) {
   const t = useTranslations("nav");
   const role = user?.role ?? RoleEnum.PUBLIC;
   const router = useRouter();
+  const service = AuthService.make(role);
+  const logout = async () => {
+    await service.logout();
+  };
 
   return (
     <SidebarMenu>
@@ -91,7 +95,7 @@ export function NavUser({ user }: { user?: User }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                AuthService.make(role).logout();
+                logout();
                 router.replace(`/auth/${role}/login`);
               }}
             >

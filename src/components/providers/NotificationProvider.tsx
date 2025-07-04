@@ -1,11 +1,10 @@
 "use client";
-import { Navigate } from "@/actions/Navigate";
 import { RoleEnum } from "@/enums/RoleEnum";
 import firebaseApp from "@/helpers/Firebase";
 import useFcmToken from "@/hooks/FirebaseNotificationHook";
 import useUser from "@/hooks/UserHook";
 import { NotificationPayload } from "@/models/NotificationPayload";
-import { Link } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { Bell } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -14,10 +13,12 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useContext,
   useEffect,
   useState,
 } from "react";
 import { toast } from "sonner";
+import LoadingScreen from "../common/ui/LoadingScreen";
 
 export const NotificationsHandlersContext = createContext<Dispatch<
   SetStateAction<Handler[]>
@@ -30,14 +31,9 @@ export interface Handler {
   is_permenant: boolean;
 }
 
-const NotificationProvider = ({
-  children,
-  handle = undefined,
-}: {
-  handle?: (payload: NotificationPayload) => void;
-  children?: ReactNode;
-}) => {
+const NotificationProvider = ({ children }: { children?: ReactNode }) => {
   const { fcmToken } = useFcmToken();
+  const router = useRouter();
 
   const [handlers, setHandlers] = useState<Handler[]>([]);
   const t = useTranslations("components");
@@ -54,10 +50,13 @@ const NotificationProvider = ({
       const unsubscribe = onMessage(messaging, (payload) => {
         console.log(payload);
         const notification = new NotificationPayload(payload?.data ?? {});
-
+        console.log("Calling handlers ........");
+        
         handlers.forEach((handler) => {
           try {
+            console.log("Calling handler : " , handler);
             handler.fn(notification);
+            console.log("End Calling handler : " , handler);
           } catch (error) {
             console.error("Error while calling notification handler");
             console.error(error);
@@ -78,7 +77,7 @@ const NotificationProvider = ({
               action: {
                 label: t("show"),
                 onClick: () => {
-                  Navigate(
+                  router.replace(
                     notification.getUrl(
                       role ?? RoleEnum.PUBLIC,
                       user?.permissions ?? [],
@@ -89,10 +88,6 @@ const NotificationProvider = ({
               icon: <Bell />,
             },
           );
-        }
-
-        if (handle) {
-          handle(notification);
         }
       });
       return () => {
@@ -109,3 +104,17 @@ const NotificationProvider = ({
 };
 
 export default NotificationProvider;
+
+export const NotificationInitializer = ({
+  children,
+}: {
+  children?: ReactNode;
+}) => {
+  const setHandlers = useContext(NotificationsHandlersContext);
+
+  if (!setHandlers) {
+    return <LoadingScreen />;
+  }
+
+  return <>{children}</>;
+};

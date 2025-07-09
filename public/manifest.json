@@ -5,15 +5,10 @@
   "description": "Reslan Alnaal Medical Center Management System , Manage your center appointments , patients , employees & doctors , payrolls , attendance , vacations and holidays all in one place.",
   "icons": [
     {
-      "src": "./app-icon.png",
-      "sizes": "128x128",
+      "src": "/app-icon.png",
+      "sizes": "250x250",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "./app-icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
   ],
   "theme_color": "#fff",

@@ -1452,7 +1452,6 @@
   "landing": {
     "stay_informed": "Stay Informed: Easily Track Your",
     "appointments_with": "Appointments with",
-    "pom": "Planet of Medicine",
     "using_your_booking_code": "Using Your Booking Code",
     "enter_your_booking_code": "Enter your booking code to track your medical appointments effortlessly with Planet of Medicine. Stay updated and save time with just a few clicks!",
     "input_label": "Enter your booking code here ...",
@@ -1506,7 +1505,6 @@
     "financial_transactions": "Financial transactions tracking",
     "keep_track": "Keep track of all clinic transactions, from billing to payments, in real-time to ensure financial clarity and control.",
     "introducing_some": "Introducing some",
-    "POM": "POM",
     "1_month": "1 Month",
     "1_month_full_access": "Full access to all clinics management tools",
     "1_month_unlimited_appointments": "Unlimited appointments and billing",
@@ -1523,7 +1521,6 @@
     "recommended": "Recommended",
     "mo": "mo",
     "iqd": "IQD",
-    "join_pom_family": "Join PoM Family",
     "unlock_clinic_management": "Unlock a new level of clinic management! Book a live demo with our team and experience the tools that make running a clinic smoother, faster, and more rewarding.",
     "submit": "Submit",
     "join_as_doctor": "Join us as a Doctor",
@@ -1537,7 +1534,6 @@
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "our_pom": "POM",
     "doctor": "Doctor",
     "secretary": "Secretary"
   },

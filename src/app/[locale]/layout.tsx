@@ -1,13 +1,13 @@
+import DirectionProvider from "@/components/providers/DirectionProvider";
+import { locales } from "@/navigation";
 import type { Metadata, Viewport } from "next";
-import { Cairo, Inter, Kodchasan } from "next/font/google";
-import "./global.css";
-import React from "react";
 import { CookiesProvider } from "next-client-cookies/server";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import { locales } from "@/navigation";
+import { Cairo, Inter, Kodchasan } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import DirectionProvider from "@/components/providers/DirectionProvider";
+import React from "react";
+import "./global.css";
 
 const inter = Inter({ subsets: ["latin"] });
 const kodChasan = Kodchasan({
@@ -27,14 +27,12 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   return {
-    title: locale === "ar" ? "كوكب الطب" : "Planet of medicine",
+    title: "Reslan Alnaal Medical Center",
     description:
-      locale === "ar"
-        ? "منصة متكاملة لإدارة العيادات الطبية وحجز المواعيد عبر الإنترنت بسهولة. خدمات مميزة ستوفر لك تجربة احترافية ومريحة."
-        : "An integrated platform for managing medical clinics and booking online appointments easily. Distinctive services that will provide you with a professional and comfortable experience.",
+      "Reslan Alnaal Medical Center Management System , Manage your center appointments , patients , employees & doctors , payrolls , attendance , vacations and holidays all in one place.",
     manifest: "/manifest.json",
     icons: {
-      icon: "/pom.ico",
+      icon: "/favicon.ico",
     },
   };
 }

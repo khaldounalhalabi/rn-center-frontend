@@ -1,5 +1,4 @@
 "use client";
-import FormInput from "@/components/common/ui/inputs/FormInput";
 import {
   Card,
   CardContent,
@@ -13,19 +12,15 @@ import { useRouter } from "@/navigation";
 import { AuthService } from "@/services/AuthService";
 import { useTranslations } from "next-intl";
 import Form from "../ui/Form";
+import FormInput from "../ui/inputs/FormInput";
 
-const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
-  const handleResendButton = () => {
-    AuthService.make(role).resendResetPasswordCode();
-  };
-
-  const handleSubmit = (data: { code: string }) => {
-    return AuthService.make(role).checkResetCode(data.code);
-  };
-
+const SetPhone = ({ role }: { role: RoleEnum }) => {
   const router = useRouter();
+  const handleSubmit = (data: { phone: string }) => {
+    return AuthService.make(role).passwordResetRequest(data.phone);
+  };
   const onSuccess = () => {
-    router.replace(`/auth/${role}/set-new-password`);
+    router.replace(`/auth/${role}/verify-phone`);
   };
   const t = useTranslations("auth");
   return (
@@ -34,10 +29,8 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
         <div className={cn("flex flex-col gap-6")}>
           <Card>
             <CardHeader>
-              <CardTitle className={"text-2xl"}>
-                {t("resetPasswordCode")}
-              </CardTitle>
-              <CardDescription>{t("enterResetPasswordCode")}</CardDescription>
+              <CardTitle className={"text-2xl"}>{t("what_is_your_phone")}</CardTitle>
+              <CardDescription>{t("enter_your_phone")}</CardDescription>
             </CardHeader>
             <CardContent>
               <Form
@@ -45,15 +38,7 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
                 buttonText={t("send")}
                 onSuccess={onSuccess}
               >
-                <FormInput name="code" type="text" label={t("code")} />
-                <div className="w-full text-left">
-                  <p
-                    onClick={handleResendButton}
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer"
-                  >
-                    {t("resendThecode")} ?
-                  </p>
-                </div>
+                <FormInput name="phone" type="tel" label={t("phone")} />
               </Form>
             </CardContent>
           </Card>
@@ -63,4 +48,4 @@ const ResetCodeForm = ({ role }: { role: RoleEnum }) => {
   );
 };
 
-export default ResetCodeForm;
+export default SetPhone;

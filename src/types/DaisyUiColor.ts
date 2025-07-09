@@ -6,7 +6,6 @@ export type DaisyUiColor =
   | "success"
   | "warning"
   | "error"
-  | "pom"
   | "title"
   | "brand-primary";
 
@@ -18,7 +17,6 @@ export const DaisyUIColors: DaisyUiColor[] = [
   "success",
   "warning",
   "error",
-  "pom",
   "title",
   "brand-primary",
 ];

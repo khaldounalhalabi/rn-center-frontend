@@ -26,7 +26,7 @@ const HolidayShowPage = async ({
     >
       <Grid md={2} gap={5}>
         <LabelValue label={t("from")} value={holiday?.from} color={"error"} />
-        <LabelValue label={t("to")} value={holiday?.to} color={"pom"} />
+        <LabelValue label={t("to")} value={holiday?.to} />
         <div className={"md:col-span-2"}>
           <LabelValue label={t("reason")} col={true} value={holiday?.reason} />
         </div>

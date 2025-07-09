@@ -1,4 +1,5 @@
 "use client";
+import { setPhone } from "@/actions/HelperActions";
 import Form from "@/components/common/ui/Form";
 import FormInput from "@/components/common/ui/inputs/FormInput";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
@@ -22,6 +23,8 @@ const Login = ({ role }: { role: RoleEnum }) => {
       data.phone,
       data.password,
     );
+
+    await setPhone(data.phone);
 
     if (response.isNotAuthorized()) {
       setError(true);

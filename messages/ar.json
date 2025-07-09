@@ -1419,7 +1419,14 @@
     "join_us": "أرسل طلب انضمام",
     "send_us_join_request": "إرسال طلب انضمام",
     "enter_your_phone": "أدخل رقم هاتفك",
-    "send_reset_password_code": "إرسال رمز إعادة تعيين كلمة المرور"
+    "send_reset_password_code": "إرسال رمز إعادة تعيين كلمة المرور",
+    "verify_phone": "تحقق من رقم هاتفك",
+    "verify": "تحقق",
+    "verification_code": "رمز التحقق",
+    "resend_verification_code": "إعادة إرسال رمز التحقق",
+    "didnt_get_code": "لم تصلك الرسالة النصية؟",
+    "what_is_your_phone": "ما هو رقم هاتفك؟",
+    "enter_verification_code_recieved_via_sms": "أدخل الرمز الذي وصل إليك عن طريق الرسائل"
   },
   "contact_and_payment": {
     "phone": "تواصل معنا",
@@ -1442,7 +1449,6 @@
   "landing": {
     "stay_informed": "ابقَ على اطلاع: تابع",
     "appointments_with": "حجوزاتك الطبية بسهولة مع",
-    "pom": "كوكب الطب",
     "using_your_booking_code": "باستخدام كود الحجز الخاص بك",
     "enter_your_booking_code": "استخدم كود الحجز الخاص بك لتتبع حجوزاتك الطبية بكل سهولة مع كوكب الطب. ابقى على اطلاع دائم ووفّر وقتك بخطوات بسيطة!",
     "input_label": "أدخل رمز الحجز هنا ...",
@@ -1496,7 +1502,6 @@
     "financial_transactions": "إدارة المعاملات المالية",
     "keep_track": "تابع جميع معاملات العيادة، من الفواتير إلى المدفوعات، بشكل لحظي لضمان وضوح مالي وتحكم كامل.",
     "introducing_some": "تقديم بعض",
-    "POM": "كوكب الطب",
     "1_month": "شهر واحد",
     "1_month_full_access": "الوصول الكامل إلى جميع أدوات إدارة العيادة",
     "1_month_unlimited_appointments": "حجوزات وفواتير غير محدودة",
@@ -1513,7 +1518,6 @@
     "recommended": "موصى به",
     "mo": "شهرياً",
     "iqd": "د.ع",
-    "join_pom_family": "انضم إلى عائلة كوكب الطب",
     "unlock_clinic_management": "اكتشف مستوى جديد في إدارة العيادات! احجز نسخة تجريبية مباشرة مع فريقنا وجرب الأدوات اللي تخلي إدارة العيادة أسهل وأسرع وأكثر فاعلية.",
     "submit": "إرسال",
     "join_as_doctor": "انضم كطبيب",
@@ -1527,7 +1531,6 @@
     "name": "الاسم",
     "email": "البريد الإلكتروني",
     "message": "الرسالة",
-    "our_pom": "كوكبنا",
     "doctor": "طبيب"
   },
   "types_statuses": {

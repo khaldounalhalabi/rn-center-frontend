@@ -34,7 +34,6 @@ const config: Config = {
   			marquee: 'marquee 15s linear infinite'
   		},
   		colors: {
-  			pom: '#1fb8b9',
   			title: '#151D48',
   			'brand-primary': '#1FB8B9',
   			background: 'hsl(var(--background))',

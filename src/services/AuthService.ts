@@ -40,6 +40,10 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
       await Navigate(`/${this.role}`);
     }
 
+    if (response.code == 408) {
+      await Navigate(`/auth/${this.role}/verify-phone`);
+    }
+
     return response;
   }
 
@@ -62,7 +66,7 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     return response;
   }
 
-  public async resendVerificationCode() {
+  public async resendResetPasswordCode() {
     const phone = await getPhone();
     if (!phone) {
       await Navigate(`/auth/${this.role}/reset-password`);
@@ -129,5 +133,42 @@ export class AuthService extends BaseService<AuthService, AuthResponse>() {
     await deleteTokens();
     await deleteRole();
     await deleteUser();
+    await setPhone(undefined);
   };
+
+  public async verifyPhone(verificationCode: string) {
+    const response = await POST<boolean>(
+      `/${this.role}/verify`,
+      {
+        verification_code: verificationCode,
+      },
+      this.headers,
+    );
+
+    if (response.ok()) {
+      await Navigate(`/auth/${this.role}/login`);
+    }
+
+    return this.errorHandler(response);
+  }
+
+  public async resendVerificationCode() {
+    const phone = await getPhone();
+    if (!phone) {
+      await Navigate(`/auth/${this.role}/reset-phone`);
+    }
+
+    const response = await POST<null>(
+      `${this.baseUrl}/resend-verification-code`,
+      {
+        phone: phone,
+      },
+    );
+
+    if (response.ok()) {
+      await setPhone(phone);
+    }
+
+    return this.errorHandler(response);
+  }
 }

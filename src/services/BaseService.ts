@@ -156,6 +156,12 @@ export function BaseService<SERVICE, MODEL>() {
         });
       } else if (res.code == 407) {
         await Navigate("/no-permission");
+      } else if (res.code == 408) {
+        await Navigate(`/auth/${this.role}/verify-phone`).then((r) => {
+          deleteTokens();
+          deleteRole();
+          return r;
+        });
       }
       return res;
     }

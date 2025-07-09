@@ -44,13 +44,15 @@ export async function getOtp(): Promise<string | undefined> {
 }
 
 export async function setPhone(phone?: string) {
-  await setServerCookie("phone", phone ?? "");
+  if (!phone) {
+    deleteServerCookie("phone");
+  } else {
+    await setServerCookie("phone", phone ?? "");
+  }
 }
 
 export async function getPhone(): Promise<string | undefined> {
-  const phone = await getServerCookie("phone");
-  await deleteServerCookie("phone");
-  return phone;
+  return await getServerCookie("phone");
 }
 
 export async function setUser(user?: User) {

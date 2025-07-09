@@ -1419,7 +1419,14 @@
     "join_us": "أرسل طلب انضمام",
     "send_us_join_request": "إرسال طلب انضمام",
     "enter_your_phone": "أدخل رقم هاتفك",
-    "send_reset_password_code": "إرسال رمز إعادة تعيين كلمة المرور"
+    "send_reset_password_code": "إرسال رمز إعادة تعيين كلمة المرور",
+    "verify_phone": "تحقق من رقم هاتفك",
+    "verify": "تحقق",
+    "verification_code": "رمز التحقق",
+    "resend_verification_code": "إعادة إرسال رمز التحقق",
+    "didnt_get_code": "لم تصلك الرسالة النصية؟",
+    "what_is_your_phone": "ما هو رقم هاتفك؟",
+    "enter_verification_code_recieved_via_sms": "أدخل الرمز الذي وصل إليك عن طريق الرسائل"
   },
   "contact_and_payment": {
     "phone": "تواصل معنا",

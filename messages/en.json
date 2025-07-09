@@ -1422,7 +1422,14 @@
     "join_us": "Send a joining request",
     "send_us_join_request": "Send a join request",
     "enter_your_phone": "Enter your phone number",
-    "send_reset_password_code": "Send reset password code"
+    "send_reset_password_code": "Send reset password code",
+    "verify_phone": "Verify your phone number",
+    "verify": "Verify",
+    "verification_code": "Verification Code",
+    "resend_verification_code": "Resend verification code",
+    "didnt_get_code": "Didn't get the SMS ?",
+    "what_is_your_phone": "What is your phone number",
+    "enter_verification_code_recieved_via_sms": "Enter the verification code you've got via SMS"
   },
   "contact_and_payment": {
     "phone": "Contact us",

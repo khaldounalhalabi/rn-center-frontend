@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getMessaging, getToken } from "firebase/messaging";
 import firebaseApp from "@/helpers/Firebase";
-import { GET, POST } from "@/http/Http";
+import { POST } from "@/http/Http";
+import { getMessaging, getToken } from "firebase/messaging";
+import { useEffect, useState } from "react";
 
 const useFcmToken = () => {
   const [token, setToken] = useState("");
@@ -25,19 +25,10 @@ const useFcmToken = () => {
                 "BD2c5K6PVxOSeD9FmGOMVqHPoabzLcufGuxBZ3vA3FwedztLLgQHb-M61iwl11ULTj-xUojLW7OZ3kViqxDxNFg",
             });
 
-            let prevToken = await GET<{ fcm_token: string }>(
-              `/fcm/get-token`,
-            ).then((res) => {
-              return res?.data?.fcm_token;
+            await POST(`/fcm/store-token`, {
+              fcm_token: currentToken,
             });
-            if (currentToken != prevToken) {
-              await POST(`/fcm/store-token`, {
-                fcm_token: currentToken,
-              });
-              setToken(currentToken);
-            } else {
-              setToken(currentToken);
-            }
+            setToken(currentToken);
           }
         }
       } catch (error) {

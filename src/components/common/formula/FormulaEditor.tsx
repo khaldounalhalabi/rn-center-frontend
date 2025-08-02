@@ -243,8 +243,9 @@ const parseTemplateToFormula = (
 
   let formula = template;
   variables.forEach((variable) => {
-    const templateVariable = `{{\s*${variable.name}\s*}}`;
+    const templateVariable = new RegExp(`{{\\s*${variable.name}\\s*}}`, "g");
     formula = formula.replaceAll(templateVariable, variable.slug);
+    console.log(formula);
   });
 
   return stripHtml(formula);

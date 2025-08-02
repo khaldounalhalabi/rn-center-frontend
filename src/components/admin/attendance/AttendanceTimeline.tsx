@@ -91,7 +91,7 @@ const AttendanceTimeline = ({ role }: { role: RoleEnum }) => {
   };
 
   // Combine all users from all pages
-  const allUsers = data?.pages.flatMap((page) => page.data.users) || [];
+  const allUsers = data?.pages.flatMap((page) => page?.data?.users ?? []) || [];
   // Get attendance data from the first page
   // const attendanceInfo = data?.pages[0]?.data.attendance;
 

@@ -7,7 +7,7 @@ const firebaseConfig = {
   projectId: "astral-host-372216",
   storageBucket: "astral-host-372216.firebasestorage.app",
   messagingSenderId: "55453435164",
-  appId: "1:55453435164:web:2e3a85ec8028a2f467e6d9",
+  appId: "1:55453435164:web:80273193168bab8267e6d9"
 };
 
 // Initialize Firebase

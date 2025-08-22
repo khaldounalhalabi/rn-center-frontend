@@ -97,7 +97,7 @@
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
         "subscriptionDescription": "حول الاشتراك",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create-edit": {
         "approximateAppointmentTime": "الوقت المقدر للحجز",
@@ -133,7 +133,7 @@
         "subscription": "الاشتراك",
         "subscriptionType": "نوع الاشتراك",
         "deductionCost": "قيمة قيمة الاستقطاع للحجز الواحد",
-        "iqd": "د.ع",
+        "iqd": "$",
         "min": "دقيقة",
         "phone": "رقم الهاتف",
         "update_title": "تعديل معلومات الطبيب",
@@ -281,7 +281,7 @@
         "active": "فعال",
         "inActive": "غير فعال",
         "actions": "الخيارات",
-        "iqd": "د.ع",
+        "iqd": "$",
         "min": "دقيقة"
       },
       "show": {
@@ -296,7 +296,7 @@
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
         "image": "الصورة",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create-edit": {
         "addService": "إضافة خدمة",
@@ -309,7 +309,7 @@
         "category": "الفئة",
         "approximateDuration": "المدة التقريبية",
         "price": "السعر",
-        "iqd": "د.ع",
+        "iqd": "$",
         "min": "دقيقة",
         "image": "الصورة",
         "description": "الوصف"
@@ -356,7 +356,7 @@
         "period": "الفترة",
         "allowPeriod": "فترة السماح",
         "days": "أيام",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create": {
         "addClinicSubscription": "إضافة اشتراك",
@@ -371,7 +371,7 @@
         "periodUnit": "وحدة الفترة",
         "description": "الوصف",
         "forLifetime": "لفترة (مدى الحياة) ضع -1",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "show": {
         "subscriptionDetails": "تفاصيل الاشتراك",
@@ -489,7 +489,7 @@
         "not-active": "غير فعال",
         "actions": "الخيارات",
         "email": "البريد الالكتروني ",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -520,7 +520,7 @@
         "startDate": "تاريخ بداية العرض",
         "endDate": "تاريخ نهاية العرض",
         "note": "ملاحظات",
-        "iqd": "د.ع"
+        "iqd": "$"
       }
     },
     "blood": {
@@ -574,7 +574,7 @@
         "alowedUses": "الاستخدامات المسموح بها",
         "allowReuse": "السماح بأعادة الاسستخدام",
         "description": "الوصف",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "show": {
         "offerDetails": "تفاصيل عرض النظام",
@@ -643,7 +643,7 @@
         "about": "حول العيادة",
         "image": "الصورة",
         "appointments": "حجوزات",
-        "IQD": "د.ع",
+        "IQD": "$",
         "years": "سنوات",
         "minutes": "دقائق",
         "days": "أيام"
@@ -712,7 +712,7 @@
         "noData": "لايوجد بيانات",
         "editBtn": "تعديل",
         "image": "الصورة",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "table": {
         "service": "الخدمة",
@@ -739,7 +739,7 @@
         "image": "الصورة",
         "noData": "لايوجد بيانات",
         "icon": "أيقونة",
-        "iqd": "د.ع",
+        "iqd": "$",
         "min": "دقيقة",
         "description": "الوصف"
       }
@@ -754,7 +754,7 @@
         "active": "فعال",
         "not-active": "غير فعال",
         "actions": "الخيارات",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create": {
         "editOffer": "تعديل العرض",
@@ -770,7 +770,7 @@
         "endDate": "تاريخ الانتهاء",
         "note": "ملاحظات",
         "image": "الصورة",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "show": {
         "offerDetails": "تفاصيل العرض",
@@ -785,7 +785,7 @@
         "startDate": "تاريخ البدء",
         "endDate": "تاريخ الانتهاء",
         "note": "ملاحظات",
-        "iqd": "د.ع"
+        "iqd": "$"
       }
     },
     "staff": {
@@ -871,6 +871,53 @@
       }
     }
   },
+  "dashboard": {
+    "title": "لوحة تحكم المدير",
+    "balance": {
+      "title": "إجمالي الرصيد",
+      "description": "الرصيد الحالي للحساب"
+    },
+    "income": {
+      "title": "إجمالي الدخل",
+      "description": "إجمالي الدخل لهذه الفترة"
+    },
+    "expenses": {
+      "title": "إجمالي المصروفات",
+      "description": "إجمالي المصروفات لهذه الفترة"
+    },
+    "netProfit": {
+      "title": "صافي الربح",
+      "description": "الدخل ناقص المصروفات"
+    },
+    "charts": {
+      "balanceTrend": {
+        "title": "اتجاه الرصيد",
+        "description": "تغيرات الرصيد مع مرور الوقت"
+      },
+      "incomeVsExpenses": {
+        "title": "الدخل مقابل المصروفات - الشهر الحالي",
+        "description": "مقارنة الدخل والمصروفات اليومية لشهر {month}"
+      }
+    },
+    "tooltips": {
+      "day": "اليوم {day}",
+      "balance": "الرصيد: {amount} $",
+      "income": "الدخل: {amount} $",
+      "expenses": "المصروفات: {amount} $"
+    },
+    "legend": {
+      "income": "الدخل",
+      "expenses": "المصروفات"
+    },
+    "loading": {
+      "title": "جاري تحميل لوحة التحكم",
+      "description": "يرجى الانتظار بينما نقوم بتحميل بيانات لوحة التحكم"
+    },
+    "error": {
+      "title": "خطأ في تحميل لوحة التحكم",
+      "description": "حدث خطأ أثناء تحميل بيانات لوحة التحكم. يرجى المحاولة مرة أخرى لاحقاً."
+    }
+  },
   "common": {
     "appointment": {
       "calender": {
@@ -910,7 +957,7 @@
         "appointment_unique_code": "المحدد الفريد",
         "is_revision": "مراجعة ؟",
         "service": "الخدمة",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "create": {
         "editAppointment": "تعديل الحجز",
@@ -945,7 +992,7 @@
         "patient_details": "بيانات المريض",
         "offers_additions": "العروض و الإضافات",
         "booking_details": "بيانات الحجز",
-        "iqd": "د.ع",
+        "iqd": "$",
         "unavailable_selected_time": "الوقت المختار غير متوفر",
         "clinic_details": "بيانات العيادة",
         "clinic_name": "اسم العيادة",
@@ -985,7 +1032,7 @@
         "event": "الحدث",
         "actions": "الخيارات",
         "is_revision": "مراجعة ؟",
-        "iqd": "د.ع",
+        "iqd": "$",
         "remaining_time": "الوقت المتبقي",
         "service_cost": "سعر الخدمة"
       }
@@ -1243,7 +1290,7 @@
         "balance": "الصندوق",
         "pendingAmount": "الأموال المعلقة",
         "export": "تصدير لملف إكسيل",
-        "iqd": "د.ع",
+        "iqd": "$",
         "payrun_date": "رواتب فترة"
       },
       "create": {
@@ -1253,7 +1300,7 @@
         "amount": "القيمة",
         "date": "التاريخ",
         "notes": "الملاحظات",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "show": {
         "transactionDetails": "تفاصيل المعاملة",
@@ -1268,7 +1315,7 @@
         "status": "الحالة",
         "totalCost": "المجموع",
         "actor_name": "المنفذ",
-        "iqd": "د.ع",
+        "iqd": "$",
         "description": "الوصف",
         "payrun_date": "رواتب فترة"
       },
@@ -1306,7 +1353,7 @@
         "doneAppointmentDeductions": "خصومات الحجوزات التامة",
         "pendingAppointmentDeductions": "خصومات الحجوزات المعلقة",
         "export": "تصدير لملف إكسيل",
-        "iqd": "د.ع"
+        "iqd": "$"
       },
       "show": {
         "clinicName": "اسم العيادة",
@@ -1317,7 +1364,7 @@
         "appointmentDate": "تاريخ الحجز",
         "totalCost": "المجموع",
         "note": "الملاحظات",
-        "iqd": "د.ع"
+        "iqd": "$"
       }
     },
     "dashboard": {
@@ -1345,7 +1392,7 @@
       "status": "الحالة",
       "type": "النوع",
       "actions": "الخيارات",
-      "iqd": "د.ع"
+      "iqd": "$"
     }
   },
   "table": {
@@ -1517,7 +1564,7 @@
     "start": "ابدأ",
     "recommended": "موصى به",
     "mo": "شهرياً",
-    "iqd": "د.ع",
+    "iqd": "$",
     "unlock_clinic_management": "اكتشف مستوى جديد في إدارة العيادات! احجز نسخة تجريبية مباشرة مع فريقنا وجرب الأدوات اللي تخلي إدارة العيادة أسهل وأسرع وأكثر فاعلية.",
     "submit": "إرسال",
     "join_as_doctor": "انضم كطبيب",
@@ -1662,8 +1709,8 @@
   },
   "units": {
     "min": "دقيقة",
-    "IQD": "د.ع",
-    "iqd": "د.ع",
+    "IQD": "$",
+    "iqd": "$",
     "%": "%",
     "day": "يوم",
     "month": "شهر"
@@ -1684,7 +1731,7 @@
     "select_item": "قم باختيار عنصر",
     "add": "إضافة",
     "collect_subscription": "تحصيل قيمة الاشتراك",
-    "iqd": "د.ع",
+    "iqd": "$",
     "image_uploader_placeholder": "اسحب أو إضغط لإضافة صورة",
     "notifications": "الإشعارات",
     "you_have": "لديك",

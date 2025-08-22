@@ -16,7 +16,7 @@ const Tooltip = ({
   return (
     <TooltipProvider delayDuration={50}>
       <ShadcnTooltip>
-        <TooltipTrigger type={"button"}>{children}</TooltipTrigger>
+        <TooltipTrigger type={"button"} asChild>{children}</TooltipTrigger>
         <TooltipContent>
           <p>{title}</p>
         </TooltipContent>

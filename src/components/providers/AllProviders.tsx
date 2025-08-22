@@ -8,7 +8,16 @@ import { useLocale } from "next-intl";
 import React from "react";
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: true,
+          },
+        },
+      }),
+  );
   dayjs.extend(duration);
   dayjs.extend(isBetween);
   const locale = useLocale();

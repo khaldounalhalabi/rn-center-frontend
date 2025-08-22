@@ -88,4 +88,27 @@ export class AppointmentService extends BaseService<
     );
     return await this.errorHandler(res);
   }
+
+  public async todayAppointments(
+    page: number = 0,
+    search?: string,
+    sortCol?: string,
+    sortDir?: string,
+    per_page?: number,
+    params?: object,
+  ) {
+    const response = await GET<Appointment[]>(
+      `${this.baseUrl}/today`,
+      {
+        page: page,
+        search: search,
+        sort_col: sortCol,
+        sort_dir: sortDir,
+        per_page: per_page,
+        ...params,
+      },
+      this.headers,
+    );
+    return await this.errorHandler(response);
+  }
 }

@@ -58,9 +58,11 @@ export default async function RootLayout({
     <html
       lang={locale == "ar" ? "ar" : "en"}
       dir={locale == "ar" ? "rtl" : "ltr"}
+      suppressHydrationWarning
     >
       <body
         className={`${inter.className} ${kodChasan.variable} ${CairoFont.variable} ${locale == "ar" ? "Cairo" : "kodchasan"}`}
+        suppressHydrationWarning
       >
         <NextIntlClientProvider messages={messages} locale={locale}>
           <CookiesProvider>

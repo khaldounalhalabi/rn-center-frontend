@@ -1,3 +1,4 @@
+import TranslatableEnum from "@/components/common/ui/labels-and-values/TranslatableEnum";
 import ShadcnDialog from "@/components/common/ui/ShadcnDialog";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import LogsIcon from "@/components/icons/Logs";
@@ -24,29 +25,41 @@ const AppointmentLogModal = ({
   role: RoleEnum;
 }) => {
   const t = useTranslations("common.appointment.table");
-
-  const [logs, setLogs] = useState<AppointmentLogs[]>();
+  const [loading, setLoading] = useState(false);
+  const [logs, setLogs] = useState<AppointmentLogs[]>([]);
   return (
     <ShadcnDialog
       trigger={
-        <Button variant={"outline"} size={"icon"}>
-          <LogsIcon
-            onClick={async () => {
-              if (appointmentId) {
-                return await AppointmentLogsService.make(role)
-                  .getAppointmentLogs(appointmentId)
-                  .then((res) => {
-                    return setLogs(res?.data);
-                  });
-              }
-            }}
-          />
+        <Button
+          variant={"outline"}
+          size={"icon"}
+          onClick={async () => {
+            if (appointmentId) {
+              setLoading(true);
+              const response =
+                await AppointmentLogsService.make(role).getAppointmentLogs(
+                  appointmentId,
+                );
+
+              console.log(response);
+
+              setLogs(response?.data);
+              setLoading(false);
+            }
+          }}
+        >
+          <LogsIcon />
         </Button>
       }
       title={t("logs")}
       sm={false}
     >
-      {logs ? (
+      {!loading && logs.length <= 0 && (
+        <div className="my-4 flex w-full items-center justify-center">
+          <TranslatableEnum value="no_data" />
+        </div>
+      )}
+      {!loading ? (
         <Table>
           <TableHeader>
             <TableRow>

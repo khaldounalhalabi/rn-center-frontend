@@ -10,6 +10,7 @@ import {
 import { Link, usePathname } from "@/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { Fragment } from "react";
 
 const NO_LINKS = [
   "/admin/prescriptions",
@@ -38,28 +39,30 @@ const Breadcrumbs = () => {
     const isNoLink = NO_LINKS.filter((l) => href?.endsWith(l))?.length > 0;
 
     return (
-      <BreadcrumbItem className={"rtl:flex rtl:items-center"} key={index}>
-        {index == pathParts.length - 1 ? (
-          <BreadcrumbPage>
-            {isNumericString(formattedPart)
-              ? formattedPart
-              : t(formattedPart as any)}
-          </BreadcrumbPage>
-        ) : (
-          <BreadcrumbLink href={isNoLink ? "" : href} asChild>
-            <Link href={isNoLink ? "" : href} locale={locale as "en" | "ar"}>
+      <Fragment key={index}>
+        <BreadcrumbItem className={"rtl:flex rtl:items-center"}>
+          {index == pathParts.length - 1 ? (
+            <BreadcrumbPage>
               {isNumericString(formattedPart)
                 ? formattedPart
                 : t(formattedPart as any)}
-            </Link>
-          </BreadcrumbLink>
-        )}
+            </BreadcrumbPage>
+          ) : (
+            <BreadcrumbLink href={isNoLink ? "" : href} asChild>
+              <Link href={isNoLink ? "" : href} locale={locale as "en" | "ar"}>
+                {isNumericString(formattedPart)
+                  ? formattedPart
+                  : t(formattedPart as any)}
+              </Link>
+            </BreadcrumbLink>
+          )}
+        </BreadcrumbItem>
         {index < pathParts.length - 1 && (
           <BreadcrumbSeparator>
             {locale == "ar" ? <ChevronLeft /> : <ChevronRight />}
           </BreadcrumbSeparator>
         )}
-      </BreadcrumbItem>
+      </Fragment>
     );
   });
 

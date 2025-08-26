@@ -861,6 +861,53 @@
       }
     }
   },
+  "dashboard": {
+    "title": "Admin Dashboard",
+    "balance": {
+      "title": "Total Balance",
+      "description": "Current account balance"
+    },
+    "income": {
+      "title": "Total Income",
+      "description": "Total income this period"
+    },
+    "expenses": {
+      "title": "Total Expenses",
+      "description": "Total expenses this period"
+    },
+    "netProfit": {
+      "title": "Net Profit",
+      "description": "Income minus expenses"
+    },
+    "charts": {
+      "balanceTrend": {
+        "title": "Balance Trend",
+        "description": "Balance changes over time"
+      },
+      "incomeVsExpenses": {
+        "title": "Income vs Expenses - Current Month",
+        "description": "Daily income and expenses comparison for {month}"
+      }
+    },
+    "tooltips": {
+      "day": "Day {day}",
+      "balance": "Balance: ${amount}",
+      "income": "Income: ${amount}",
+      "expenses": "Expenses: ${amount}"
+    },
+    "legend": {
+      "income": "Income",
+      "expenses": "Expenses"
+    },
+    "loading": {
+      "title": "Loading Dashboard",
+      "description": "Please wait while we load your dashboard data"
+    },
+    "error": {
+      "title": "Error Loading Dashboard",
+      "description": "There was an error loading the dashboard data. Please try again later."
+    }
+  },
   "common": {
     "appointment": {
       "calender": {

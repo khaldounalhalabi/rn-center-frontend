@@ -8,7 +8,13 @@ import FilterIcon from "@/components/icons/FilterIcon";
 import LoadingSpin from "@/components/icons/LoadingSpin";
 import { Button } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
-import { Table, TableBody, TableHeader } from "@/components/ui/shadcn/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/shadcn/table";
 import { ApiResponse } from "@/http/Response";
 import { Link } from "@/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -202,7 +208,11 @@ const DataTable = (tableData: DataTableData<any>) => {
           />
           {isPending && !isRefetching && (
             <TableBody className="absolute left-1/2 top-1/2 z-10 m-auto flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center bg-transparent/5 text-center opacity-70">
-              <LoadingSpin className="h-8 w-8" />
+              <TableRow>
+                <TableCell>
+                  <LoadingSpin className="h-8 w-8" />
+                </TableCell>
+              </TableRow>
             </TableBody>
           )}
         </Table>

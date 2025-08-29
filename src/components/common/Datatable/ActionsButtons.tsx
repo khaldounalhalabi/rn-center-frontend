@@ -78,28 +78,32 @@ const ActionsButtons: React.FC<ActionsButtonsProps<any>> = ({
               {isDeleting ? <LoadingSpin /> : <Trash />}
             </Button>
           }
-          onConfirm={() => {
+          onConfirm={async () => {
             if (dataId) {
               setDeleting(true);
-              BaseService<any, any>()
+              const response = await BaseService<any, any>()
                 .make()
                 .setBaseUrl(dUrl)
-                .delete()
-                .then((response: ApiResponse<any>) => {
-                  toast.success(t("deleted"), {
-                    description: response.message as string,
-                  });
+                .delete();
 
-                  if (setHidden) {
-                    setHidden((prevState) => [dataId, ...prevState]);
-                  }
+              if (setHidden) {
+                setHidden((prevState) => [dataId, ...prevState]);
+              }
 
-                  if (deleteHandler) {
-                    deleteHandler(response);
-                  }
-                  setDeleting(false);
-                })
-                .catch(() => toast.error(t("errored")));
+              if (deleteHandler) {
+                await deleteHandler(response);
+              }
+
+              if (response.ok()) {
+                toast.success(t("deleted"), {
+                  description: response.message as string,
+                });
+              } else {
+                toast.error(t("errored"), {
+                  description: response.message as string,
+                });
+              }
+              setDeleting(false);
             } else {
               toast.warning(t("didnt_delete"));
             }

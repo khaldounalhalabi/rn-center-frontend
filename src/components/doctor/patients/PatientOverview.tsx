@@ -1,6 +1,8 @@
 "use client";
+import { Revalidate } from "@/actions/Revalidate";
 import MediaTable from "@/components/common/media/MediaTable";
 import MedicalRecordsTable from "@/components/common/medical-records/MedicalRecordsTable";
+import PatientStudiesTable from "@/components/common/patient-studies/PatientStudiesTable";
 import PrescriptionTable from "@/components/common/prescriptions/PrescriptionTable";
 import PageCard from "@/components/common/ui/PageCard";
 import Tabs from "@/components/common/ui/Tabs";
@@ -13,6 +15,8 @@ import { useTranslations } from "next-intl";
 const PatientOverview = ({ patient }: { patient: Customer }) => {
   const t = useTranslations("common.patient.show");
   const attachmentsT = useTranslations("common.patient.attachments");
+  const studiesT = useTranslations("patient_studies");
+
   return (
     <Tabs
       tabs={[
@@ -42,6 +46,18 @@ const PatientOverview = ({ patient }: { patient: Customer }) => {
         {
           title: attachmentsT("title"),
           render: <MediaTable media={patient.attachments || []} />,
+        },
+        {
+          title: studiesT("patient_studies"),
+          render: (
+            <PatientStudiesTable
+              customerId={patient.id}
+              files={patient?.patient_studies ?? []}
+              onDelete={() => {
+                Revalidate();
+              }}
+            />
+          ),
         },
         {
           title: t("prescriptions"),

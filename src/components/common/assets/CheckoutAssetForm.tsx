@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Form from "../ui/Form";
 import Grid from "../ui/Grid";
+import Tooltip from "../ui/Tooltip";
 import FormInput from "../ui/inputs/FormInput";
 import FormRange from "../ui/inputs/FormRange";
 import { LabelValue } from "../ui/labels-and-values/LabelValue";
@@ -50,16 +51,18 @@ const CheckoutAssetSheet = ({
   };
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button
-          disabled={!asset?.can_checkout}
-          variant={"success"}
-          type="button"
-          size={"icon"}
-        >
-          <Grab />
-        </Button>
-      </SheetTrigger>
+      <Tooltip title={t("checkout", { asset_name: asset.name })}>
+        <SheetTrigger asChild>
+          <Button
+            disabled={!asset?.can_checkout}
+            variant={"success"}
+            type="button"
+            size={"icon"}
+          >
+            <Grab />
+          </Button>
+        </SheetTrigger>
+      </Tooltip>
       <SheetContent sm>
         <SheetHeader>
           <SheetTitle>{t("checkout", { asset_name: asset?.name })}</SheetTitle>

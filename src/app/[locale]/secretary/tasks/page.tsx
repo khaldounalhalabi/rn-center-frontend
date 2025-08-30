@@ -1,6 +1,6 @@
-"use client";
 import TaskTable from "@/components/common/tasks/TaskTable";
 import PermissionEnum from "@/enums/PermissionEnum";
+import { RoleEnum } from "@/enums/RoleEnum";
 import useUser from "@/hooks/UserHook";
 
 const Page = () => {
@@ -12,6 +12,7 @@ const Page = () => {
           ? "all"
           : "mine"
       }
+      role={RoleEnum.SECRETARY}
     />
   );
 };

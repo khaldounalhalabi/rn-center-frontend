@@ -27,8 +27,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { NotificationHandler } from "../helpers/NotificationHandler";
 
-function TaskTable({ type }: { type: "mine" | "all" }) {
-  const { role, user } = useUser();
+function TaskTable({ type , role }: { type: "mine" | "all" , role:RoleEnum }) {
+  const { user } = useUser();
   const t = useTranslations("tasks");
   const schema: DataTableSchema<Task>[] = [
     {

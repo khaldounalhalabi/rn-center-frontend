@@ -1,3 +1,4 @@
+"use client";
 import TaskTable from "@/components/common/tasks/TaskTable";
 import PermissionEnum from "@/enums/PermissionEnum";
 import { RoleEnum } from "@/enums/RoleEnum";

@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Form from "../ui/Form";
 import Grid from "../ui/Grid";
+import Tooltip from "../ui/Tooltip";
 import FormDatepicker from "../ui/date-time-pickers/FormDatepicker";
 import FormInput from "../ui/inputs/FormInput";
 import FormRange from "../ui/inputs/FormRange";
@@ -47,16 +48,18 @@ const CheckinForm = ({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button
-          disabled={!asset?.can_checkin}
-          type="button"
-          variant={"outline"}
-          size={"icon"}
-        >
-          <HandHelping />
-        </Button>
-      </SheetTrigger>
+      <Tooltip title={t("checkin", { asset_name: asset.name })}>
+        <SheetTrigger asChild>
+          <Button
+            disabled={!asset?.can_checkin}
+            type="button"
+            variant={"outline"}
+            size={"icon"}
+          >
+            <HandHelping />
+          </Button>
+        </SheetTrigger>
+      </Tooltip>
       <SheetContent sm>
         <SheetHeader>
           <SheetTitle>{t("checkin", { asset_name: asset?.name })}</SheetTitle>

@@ -12,6 +12,7 @@ import DataTable, {
 import Grid from "@/components/common/ui/Grid";
 import PageCard from "@/components/common/ui/PageCard";
 import Select from "@/components/common/ui/selects/Select";
+import Tooltip from "@/components/common/ui/Tooltip";
 import { Badge } from "@/components/ui/shadcn/badge";
 import { Progress } from "@/components/ui/shadcn/progress";
 import AssetTypeEnum from "@/enums/AssetTypeEnum";
@@ -124,11 +125,11 @@ const Page = () => {
           >
             {fullObject && (
               <>
-                <CheckoutAssetSheet
-                  asset={fullObject}
-                  revalidate={refetch}
-                />
-                <CheckinForm asset={fullObject} revalidate={refetch} />
+                <CheckoutAssetSheet asset={fullObject} revalidate={refetch} />
+
+               
+                  <CheckinForm asset={fullObject} revalidate={refetch} />
+               
               </>
             )}
             <AssetFormSheet

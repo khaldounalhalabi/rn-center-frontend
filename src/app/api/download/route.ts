@@ -3,7 +3,7 @@ import { getServerCookie } from "@/actions/ServerCookies";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest): Promise<Response> {
-  const url = request.nextUrl.searchParams.get("url");
+  let url = request.nextUrl.searchParams.get("url");
   const method = request.nextUrl.searchParams.get("method");
 
   let data;
@@ -41,7 +41,10 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   const formData = data ? JSON.stringify(data) : JSON.stringify({});
-  const baseUrl = process.env.localApi;
+  let baseUrl = process.env.localApi;
+  baseUrl = baseUrl?.endsWith("/") ? baseUrl : baseUrl + "/";
+  url = url.startsWith("/") ? url.replace("/", "") : url;
+
   const searchParams = new URLSearchParams(data?.params);
   const api = `${baseUrl}${url}?${searchParams}`;
   if (method == "POST" || method == "PUT") {
@@ -51,6 +54,7 @@ export async function POST(request: NextRequest): Promise<Response> {
       headers: {
         Authorization: `Bearer ${await getToken()}`,
         "Accept-Language": (await getServerCookie("NEXT_LOCALE")) ?? "en",
+        "Access-Control-Allow-Origin": "*",
       },
     });
   }
@@ -59,6 +63,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     headers: {
       Authorization: `Bearer ${await getToken()}`,
       "Accept-Language": (await getServerCookie("NEXT_LOCALE")) ?? "en",
+      "Access-Control-Allow-Origin": "*",
     },
   });
 }

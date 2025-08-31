@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-import createNextIntlPlugin from "next-intl/plugin";
 import withPWAInit from "@ducanh2912/next-pwa";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 const withPWA = withPWAInit({
@@ -19,7 +19,7 @@ const withPWA = withPWAInit({
 });
 const nextConfig = {
   env: {
-    localApi: "http://localhost/rn-center-backend/public/api/",
+    localApi: "http://localhost:9000/api/",
     // localApi: "https://rn.cubeta.io/api/",
     firebase_key: "",
   },
@@ -27,8 +27,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "localhost",
-        pathname: "/rn-center-backend/public/**",
+        hostname: "localhost:9000",
+        pathname: "/**",
       },
       {
         protocol: "https",

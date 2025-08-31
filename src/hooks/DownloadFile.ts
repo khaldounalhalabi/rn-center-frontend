@@ -76,7 +76,7 @@ const useDownload = () => {
    */
   const download = async (url: string, options: DownloadOptions = {}) => {
     const {
-      method ,
+      method,
       headers = {},
       body,
       customFilename,
@@ -94,9 +94,10 @@ const useDownload = () => {
       try {
         // Normal CORS request
         const requestOptions: RequestInit = {
-          method:method,
+          method: method,
           headers: {
             ...headers,
+            "Access-Control-Allow-Origin": "*",
           },
           mode: "cors",
           credentials: "include",

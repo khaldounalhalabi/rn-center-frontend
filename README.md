@@ -26,8 +26,6 @@ The project is a medical center management system which provides a platform for 
 1. run `npm install`
 2. run `npm run dev`
 
-now you can access the backend at http://localhost:9000
-
 ## Next Steps
 - Clone And Run The Backend Project [Frontend Repository URL](https://github.com/khaldounalhalabi/rn-center-backend)
 - Clone And Run The OHIF Fork [OHIF Fork Repository URL](https://github.com/khaldounalhalabi/OHIF-Fork)

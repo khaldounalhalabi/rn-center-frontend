@@ -28,6 +28,6 @@ The project is a medical center management system which provides a platform for 
 
 ## Next Steps
 - Clone And Run The Backend Project [Frontend Repository URL](https://github.com/khaldounalhalabi/rn-center-backend)
+- Clone And Run The Frontend Project [Frontend Repository URL](https://github.com/khaldounalhalabi/rn-center-frontend)
 - Clone And Run The OHIF Fork [OHIF Fork Repository URL](https://github.com/khaldounalhalabi/OHIF-Fork)
-- Clone And Run The Employee Mobile App [Employee Mobile App Repository URL](https://github.com/khaldounalhalabi/rn-center-employee-mobile-app)
 - Clone And Run The Patient Mobile App [Patient Mobile App Repository URL](https://github.com/khaldounalhalabi/rn-center-patient-mobile-app)

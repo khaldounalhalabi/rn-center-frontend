@@ -55,7 +55,7 @@ const http = async <T>(
   const config = {
     headers: { ...headers, ...h },
     params: params,
-    baseURL: process.env.localApi,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     url: url,
   };
   try {

@@ -41,7 +41,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 
   const formData = data ? JSON.stringify(data) : JSON.stringify({});
-  let baseUrl = process.env.localApi;
+  let baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   baseUrl = baseUrl?.endsWith("/") ? baseUrl : baseUrl + "/";
   url = url.startsWith("/") ? url.replace("/", "") : url;
 

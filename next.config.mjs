@@ -18,9 +18,6 @@ const withPWA = withPWAInit({
     },
 });
 const nextConfig = {
-    env: {
-        localApi: "http://localhost/rn-center-backend/public/api/",
-    },
     images: {
         remotePatterns: [
             {

@@ -51,6 +51,7 @@ scripts.sh
 /public/workbox-*.js.map
 /public/swe-worker-*.js
 /public/swe-worker-development.js
+/public/firebase-messaging-sw.js
 
 
 server.conf

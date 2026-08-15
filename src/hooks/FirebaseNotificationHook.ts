@@ -21,8 +21,7 @@ const useFcmToken = () => {
 
           if (permission === "granted") {
             const currentToken = await getToken(messaging, {
-              vapidKey:
-                "BD2c5K6PVxOSeD9FmGOMVqHPoabzLcufGuxBZ3vA3FwedztLLgQHb-M61iwl11ULTj-xUojLW7OZ3kViqxDxNFg",
+              vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
             });
 
             await POST(`/fcm/store-token`, {

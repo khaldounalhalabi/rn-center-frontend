@@ -2,12 +2,12 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC-HXOnDLprjYVyUWxN3oWMbywkJCNJtqA",
-  authDomain: "astral-host-372216.firebaseapp.com",
-  projectId: "astral-host-372216",
-  storageBucket: "astral-host-372216.firebasestorage.app",
-  messagingSenderId: "55453435164",
-  appId: "1:55453435164:web:80273193168bab8267e6d9"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APP_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

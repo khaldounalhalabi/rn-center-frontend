@@ -1,7 +1,7 @@
-import { build, context } from "esbuild";
 import { config } from "dotenv";
+import { build, context } from "esbuild";
 import { readdirSync } from "node:fs";
-import { join, basename, extname } from "node:path";
+import { basename, extname, join } from "node:path";
 
 // Mimic Next.js's env-file precedence
 config({ path: ".env" });
@@ -13,7 +13,16 @@ if (process.env.NODE_ENV === "production") {
 
 // IMPORTANT: only expose NEXT_PUBLIC_* vars here — this file is public and
 // gets served straight to the browser, same rule as any client bundle.
-const define = {};
+const define = {
+  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV ?? "development"),
+
+  "process.env.NEXT_PUBLIC_APP_URL": JSON.stringify(
+    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+  ),
+
+  "process.env.__FIREBASE_DEFAULTS__": "undefined",
+};
+
 for (const [key, value] of Object.entries(process.env)) {
   if (key.startsWith("NEXT_PUBLIC_")) {
     define[`process.env.${key}`] = JSON.stringify(value);
@@ -36,7 +45,7 @@ const isWatch = process.argv.includes("--watch");
 const options = {
   entryPoints,
   outdir: "public",
-  entryNames: "[name]", // strips the workers/ path, keeps filename, esbuild adds .js
+  entryNames: "[name]",
   bundle: true,
   platform: "browser",
   target: "es2020",
@@ -53,5 +62,7 @@ if (isWatch) {
 } else {
   await build(options);
   console.log(`✅ compiled ${entryPoints.length} worker(s) to public/`);
-  entryPoints.forEach((e) => console.log(`   ${e} → public/${basename(e, ".ts")}.js`));
+  entryPoints.forEach((e) =>
+    console.log(`   ${e} → public/${basename(e, ".ts")}.js`),
+  );
 }

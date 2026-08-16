@@ -1,87 +1,76 @@
 /// <reference lib="webworker" />
-export {}; // ensures this file is treated as a module
 
-declare const self: ServiceWorkerGlobalScope;
-
-import { getNestedPropertyValue } from "@/helpers/ObjectHelpers";
-// You can now import real firebase packages (matches your package.json version)
-// instead of the CDN importScripts calls.
+import { USER_KEY } from "@/components/providers/UserProvider";
+import { NotificationPayload } from "@/models/NotificationPayload";
+import { User } from "@/models/User";
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
 
-const defaultConfig = {
-  apiKey: true,
-  projectId: true,
-  messagingSenderId: true,
-  appId: true,
-};
+declare const self: ServiceWorkerGlobalScope;
 
-self.addEventListener("fetch", () => {
-  try {
-    const urlParams = new URLSearchParams(location.search);
-    (self as any).firebaseConfig = Object.fromEntries(urlParams);
-  } catch (err) {
-    console.error("Failed to add event listener", err);
-  }
-});
-
-firebase.initializeApp((self as any).firebaseConfig ?? defaultConfig);
-
-let messaging: firebase.messaging.Messaging | null = null;
-try {
-  messaging = firebase.messaging.isSupported() ? firebase.messaging() : null;
-} catch (err) {
-  console.error("Failed to initialize Firebase Messaging", err);
-}
-
-function getFromData(data: string | undefined, key: string) {
-  return getNestedPropertyValue(JSON.parse(data ?? "{}"), key);
-}
-
-// This is a build-time constant — see the esbuild `define` step below.
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
-if (messaging) {
-  messaging.onBackgroundMessage((payload) => {
-    const notificationTitle = payload?.data?.title ?? "New Notification";
-    const notificationOptions: NotificationOptions = {
-      body: payload?.data?.message_en ?? "New Notification",
-      icon: "/next.svg",
-    };
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APP_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+};
 
-    if (payload.data?.type?.includes("RealTime")) {
-      return;
+firebase.initializeApp(firebaseConfig);
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage((payload) => {
+  const notification = new NotificationPayload(payload?.data ?? {});
+  const notificationTitle = notification.title;
+
+  const notificationOptions: NotificationOptions = {
+    body: notification.messageEn ?? "New Notification",
+    icon: "/app-icon.png",
+  };
+
+  if (notification.isRealTimeEvent()) {
+    return;
+  }
+
+  let url = `${APP_URL}/en`;
+
+  const userData = window.localStorage.getItem(USER_KEY);
+  if (userData) {
+    let user;
+    try {
+      user = JSON.parse(userData) as User;
+    } catch (error) {
+      console.log(
+        `Failed to parse user data [${userData}] from local storage within firebase service worker`,
+      );
     }
 
-    self.addEventListener("notificationclick", (event) => {
-      let url = `${APP_URL}/en`;
+    if (user) {
+      url = notification.getUrl(user.role, user.permissions ?? []);
+    }
+  }
 
-      if (payload?.data?.type === "Clinic\\NewOnlineAppointmentNotification") {
-        url = `${APP_URL}/en/doctor/appointment/${getFromData(payload?.data?.data, "appointment_id")}`;
-      } else if (
-        payload?.data?.type.includes(
-          "Customer\\AppointmentRemainingTimeNotification",
-        ) ||
-        payload?.data?.type.includes(
-          "Customer\\CustomerAppointmentChangedNotification",
-        )
-      ) {
-        url = `${APP_URL}/en/customer/appointments/${getFromData(payload?.data?.data, "appointment_id")}`;
-      }
+  self.registration.showNotification(notificationTitle, notificationOptions);
 
-      event.waitUntil(
-        self.clients.matchAll({ type: "window" }).then((clientList) => {
+  self.addEventListener("notificationclick", (event) => {
+    event.waitUntil(
+      self.clients
+        .matchAll({ type: "window", includeUncontrolled: true })
+        .then((clientList) => {
           for (const client of clientList) {
-            if (client.url === url && "focus" in client) return client.focus();
+            if ("focus" in client) {
+              return client.focus();
+            }
           }
-          if (self.clients.openWindow) return self.clients.openWindow(url);
-        }),
-      );
-    });
 
-    return self.registration.showNotification(
-      notificationTitle,
-      notificationOptions,
+          if (self.clients.openWindow) {
+            return self.clients.openWindow(url);
+          }
+        }),
     );
   });
-}
+});

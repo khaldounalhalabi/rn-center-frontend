@@ -13,7 +13,7 @@ export const UserContext = createContext<{
   initializeUser: () => Promise<User | undefined> | undefined;
 } | null>(null);
 
-const USER_KEY = "app_user";
+export const USER_KEY = "app_user";
 const USER_TIMESTAMP_KEY = "app_user_timestamp";
 const USER_VALIDITY_MS = 5 * 60 * 1000; // 5 minutes
 
